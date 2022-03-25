@@ -1,9 +1,10 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
+
 import {
   componentAttributes,
   componentNames,
   ElementName,
-} from 'opensource/cord-sdk/packages/components';
+} from '@cord-sdk/components';
 
 // This lets us return custom elements in React tsx code, with typed props
 type CordComponentReactInterface<T extends string> = DetailedHTMLProps<

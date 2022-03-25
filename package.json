@@ -1,0 +1,7 @@
+{
+  "name": "cord-sdk",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}

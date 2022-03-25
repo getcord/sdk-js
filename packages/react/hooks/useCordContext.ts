@@ -1,7 +1,9 @@
 import { useContext, useEffect } from 'react';
 import isEqual from 'lodash/isEqual';
-import { CordContext } from 'opensource/cord-sdk/packages/react/contexts/CordContext';
-import { Context } from 'opensource/cord-sdk/packages/types';
+
+import { Context } from '@cord-sdk/types';
+
+import { CordContext } from '../contexts/CordContext';
 
 export function useCordContext(newContext?: Context) {
   const { context, setContext } = useContext(CordContext);

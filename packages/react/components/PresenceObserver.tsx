@@ -1,15 +1,17 @@
 import React from 'react';
+
 import {
   PresenceObserverWebComponentEvents,
   PresenceObserverReactComponentProps,
   PropsWithStandardHTMLAttributes,
-} from 'opensource/cord-sdk/packages/types';
-import { useCustomEventListeners } from 'opensource/cord-sdk/packages/react/hooks/useCustomEventListener';
-import { useCordContext } from 'opensource/cord-sdk/packages/react/hooks/useCordContext';
+} from '@cord-sdk/types';
 import {
   componentAttributes,
   propsToAttributeConverter,
-} from 'opensource/cord-sdk/packages/components';
+} from '@cord-sdk/components';
+
+import { useCustomEventListeners } from '../hooks/useCustomEventListener';
+import { useCordContext } from '../hooks/useCordContext';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.PresenceObserver,

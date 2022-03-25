@@ -1,14 +1,16 @@
 import React from 'react';
+
 import {
   PropsWithStandardHTMLAttributes,
   CollaborationReactComponentProps,
   CollaborationWebComponentEvents,
-} from 'opensource/cord-sdk/packages/types';
-import { useCustomEventListeners } from 'opensource/cord-sdk/packages/react/hooks/useCustomEventListener';
+} from '@cord-sdk/types';
 import {
   componentAttributes,
   propsToAttributeConverter,
-} from 'opensource/cord-sdk/packages/components';
+} from '@cord-sdk/components';
+
+import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Collaboration,

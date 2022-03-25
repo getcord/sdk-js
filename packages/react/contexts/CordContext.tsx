@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ICordSDK, Context } from 'opensource/cord-sdk/packages/types';
+
+import { ICordSDK, Context } from '@cord-sdk/types';
 
 type CordContextValue = {
   sdk: ICordSDK | null;

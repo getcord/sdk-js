@@ -1,4 +1,4 @@
-import { BadgeStyle, JsonValue } from 'opensource/cord-sdk/packages/types';
+import { BadgeStyle, JsonValue } from '@cord-sdk/types';
 
 export const componentNames = {
   'cord-collaboration': 'Collaboration',
