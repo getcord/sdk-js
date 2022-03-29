@@ -16,12 +16,14 @@ export const CordContext = React.createContext<CordContextValue>({
 
 type Props = {
   sessionToken?: string | undefined | null;
+  clientAuthToken?: string | undefined | null;
   enableTasks?: boolean;
   cordScriptUrl?: string;
 };
 
 export function CordProvider({
   sessionToken,
+  clientAuthToken,
   enableTasks,
   cordScriptUrl,
   children,
@@ -57,9 +59,10 @@ export function CordProvider({
   }, [cordScriptUrl]);
 
   useEffect(() => {
-    if (sdk && sessionToken) {
+    if (sdk && (sessionToken || clientAuthToken)) {
+      const token = clientAuthToken || sessionToken;
       sdk
-        .init({ session_token: sessionToken, enable_tasks: enableTasks })
+        .init({ client_auth_token: token!, enable_tasks: enableTasks })
         .then(() => {
           setSDK(sdk);
         });
@@ -70,7 +73,7 @@ export function CordProvider({
     } else {
       return undefined;
     }
-  }, [sdk, sessionToken, enableTasks]);
+  }, [sdk, sessionToken, clientAuthToken, enableTasks]);
 
   const value = useMemo<CordContextValue>(
     () => ({ sdk, context, setContext }),

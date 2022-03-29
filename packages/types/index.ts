@@ -20,7 +20,8 @@ export type PresenceReducerOptions = ReactPropsWithContext<{
 export type NavigateFn = (url: string) => boolean | Promise<boolean>;
 
 export type CordSDKOptions = {
-  session_token: string;
+  session_token?: string;
+  client_auth_token?: string;
   navigate?: NavigateFn | null;
   enable_tasks?: boolean;
 };
