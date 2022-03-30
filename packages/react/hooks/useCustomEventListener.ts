@@ -19,14 +19,15 @@ export function useCustomEventListeners<T extends Record<string, unknown[]>>(
         }
       };
 
-      element.addEventListener(event, customEventHandler);
+      const eventName = `${element.nodeName.toLowerCase()}:${event}`;
+      element.addEventListener(eventName, customEventHandler);
 
-      return [event, customEventHandler] as const;
+      return [eventName, customEventHandler] as const;
     });
 
     return () => {
-      for (const [event, handler] of handlers) {
-        element.removeEventListener(event, handler);
+      for (const [eventName, handler] of handlers) {
+        element.removeEventListener(eventName, handler);
       }
     };
   }, [element, events]);
