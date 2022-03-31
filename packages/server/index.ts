@@ -23,7 +23,7 @@ export type ClientAuthTokenData = {
   organization_details?: PlatformOrganizationVariables;
 };
 
-export function makeClientAuthToken(
+export function getClientAuthToken(
   app_id: string,
   app_secret: string,
   payload: Omit<ClientAuthTokenData, 'app_id'>,
