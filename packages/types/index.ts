@@ -153,19 +153,14 @@ export type CollaborationReactComponentProps = ReactPropsWithContext<{
 /* cord-thread */
 
 export type ThreadWebComponentEvents = {
-  composercancel: Parameters<
-    NonNullable<ThreadReactComponentProps['onComposerCancel']>
-  >;
-  composersend: Parameters<
-    NonNullable<ThreadReactComponentProps['onComposerSend']>
+  threadcreated: Parameters<
+    NonNullable<ThreadReactComponentProps['onThreadCreated']>
   >;
 };
 
 export type ThreadReactComponentProps = ReactPropsWithContext<{
   threadId?: UUID;
-  annotation?: DocumentAnnotationResult;
-  onComposerCancel?: () => unknown;
-  onComposerSend?: (threadID: UUID) => unknown;
+  onThreadCreated?: (threadId: UUID) => unknown;
 }>;
 
 /* annotation types */

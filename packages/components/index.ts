@@ -61,7 +61,6 @@ export const componentAttributes = {
   Thread: {
     context: 'json',
     'thread-id': 'string',
-    annotation: 'json',
   },
 } as const;
 

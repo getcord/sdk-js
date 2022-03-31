@@ -16,11 +16,8 @@ const propsToAttributes = propsToAttributeConverter(componentAttributes.Thread);
 export function Thread(
   props: PropsWithStandardHTMLAttributes<ThreadReactComponentProps>,
 ) {
-  const { onComposerCancel, onComposerSend } = props;
-
   const setRef = useCustomEventListeners<ThreadWebComponentEvents>({
-    composercancel: onComposerCancel,
-    composersend: onComposerSend,
+    threadcreated: props.onThreadCreated,
   });
 
   return (
