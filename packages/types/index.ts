@@ -65,6 +65,12 @@ export type TextReactComponentProps = {
   onBoop?: (boop: string) => unknown;
 };
 
+/* cord-multiple-cursors */
+
+export type MultipleCursorsWebComponentEvents = {};
+
+export type MultipleCursorsReactComponentProps = ReactPropsWithContext<{}>;
+
 /* cord-page-presence */
 
 export type PagePresenceWebComponentEvents = {

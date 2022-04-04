@@ -1,5 +1,6 @@
 export { Collaboration } from './components/Collaboration';
 export { CordProvider } from './contexts/CordContext';
+export { MultipleCursors } from './components/MultipleCursors';
 export { PagePresence } from './components/PagePresence';
 export { PresenceFacepile } from './components/PresenceFacepile';
 export { PresenceObserver } from './components/PresenceObserver';

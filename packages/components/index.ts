@@ -2,6 +2,7 @@ import { BadgeStyle, JsonValue } from '@cord-sdk/types';
 
 export const componentNames = {
   'cord-collaboration': 'Collaboration',
+  'cord-multiple-cursors': 'MultipleCursors',
   'cord-page-presence': 'PagePresence',
   'cord-presence-facepile': 'PresenceFacepile',
   'cord-sidebar': 'Sidebar',
@@ -19,6 +20,9 @@ export const componentAttributes = {
     context: 'json',
     'show-close-button': 'boolean',
     'show-presence': 'boolean',
+  },
+  MultipleCursors: {
+    context: 'json',
   },
   PagePresence: {
     context: 'json',
