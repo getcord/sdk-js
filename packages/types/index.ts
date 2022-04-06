@@ -38,6 +38,12 @@ export interface ICordSDK {
   // removeReactTree(id: string): void;
 }
 
+declare global {
+  interface Window {
+    CordSDK?: ICordSDK;
+  }
+}
+
 export type CordComponentPropsChangedCallback = (props: object) => unknown;
 
 export interface ICordComponent extends HTMLElement {
