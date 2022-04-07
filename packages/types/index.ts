@@ -24,6 +24,7 @@ export type CordSDKOptions = {
   client_auth_token?: string;
   navigate?: NavigateFn | null;
   enable_tasks?: boolean;
+  enable_annotations?: boolean;
 };
 
 export interface ICordSDK {

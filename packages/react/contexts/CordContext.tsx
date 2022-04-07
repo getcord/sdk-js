@@ -17,12 +17,14 @@ export const CordContext = React.createContext<CordContextValue>({
 type Props = {
   clientAuthToken: string | undefined | null;
   enableTasks?: boolean;
+  enableAnnotations?: boolean;
   cordScriptUrl?: string;
 };
 
 export function CordProvider({
   clientAuthToken,
   enableTasks,
+  enableAnnotations,
   cordScriptUrl,
   children,
 }: React.PropsWithChildren<Props>) {
@@ -62,6 +64,7 @@ export function CordProvider({
         .init({
           client_auth_token: clientAuthToken,
           enable_tasks: enableTasks,
+          enable_annotations: enableAnnotations,
         })
         .then(() => {
           setSDK(sdk);
@@ -73,7 +76,7 @@ export function CordProvider({
     } else {
       return undefined;
     }
-  }, [sdk, clientAuthToken, enableTasks]);
+  }, [sdk, clientAuthToken, enableTasks, enableAnnotations]);
 
   const value = useMemo<CordContextValue>(
     () => ({ sdk, context, setContext }),
