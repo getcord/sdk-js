@@ -20,6 +20,7 @@ export const componentAttributes = {
     context: 'json',
     'show-close-button': 'boolean',
     'show-presence': 'boolean',
+    'show-all-activity': 'boolean',
   },
   MultipleCursors: {
     context: 'json',
@@ -52,6 +53,7 @@ export const componentAttributes = {
     'show-close-button': 'boolean',
     'show-presence': 'boolean',
     'show-launcher': 'boolean',
+    'show-all-activity': 'boolean',
   },
   SidebarLauncher: {
     label: 'string',
