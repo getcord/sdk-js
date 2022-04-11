@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import {
   PropsWithStandardHTMLAttributes,
@@ -14,7 +14,9 @@ import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 const propsToAttributes = propsToAttributeConverter(componentAttributes.Thread);
 
 export function Thread(
-  props: PropsWithStandardHTMLAttributes<ThreadReactComponentProps>,
+  props: PropsWithChildren<
+    PropsWithStandardHTMLAttributes<ThreadReactComponentProps>
+  >,
 ) {
   const setRef = useCustomEventListeners<ThreadWebComponentEvents>({
     threadcreated: props.onThreadCreated,
@@ -26,6 +28,8 @@ export function Thread(
       class={props.className}
       ref={setRef}
       {...propsToAttributes(props)}
-    />
+    >
+      {props.children}
+    </cord-thread>
   );
 }
