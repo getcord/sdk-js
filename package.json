@@ -1,7 +1,18 @@
 {
   "name": "cord-sdk",
+  "version": "0.0.3",
   "private": true,
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "scripts": {
+    "build": "scripts/build.mjs",
+    "dev": "scripts/build.mjs --watch"
+  },
+  "devDependencies": {
+    "glob": "^7.2.0",
+    "prettier": "^2.6.2",
+    "rollup": "^2.70.1",
+    "yargs": "^17.4.0"
+  }
 }

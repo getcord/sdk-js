@@ -1,3 +1,36 @@
 {
-  "name": "@cord-sdk/react"
+  "name": "@cord-sdk/react",
+  "version": "0.0.3",
+  "homepage": "https://docs.cord.com/",
+  "license": "MIT",
+  "files": [
+    "dist/"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getcord/cord-sdk.git",
+    "directory": "packages/react"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
+  },
+  "dependencies": {
+    "@cord-sdk/components": "0.0.3",
+    "lodash": "^4.17.21"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0"
+  },
+  "devDependencies": {
+    "@cord-sdk/jsx": "0.0.3",
+    "@types/lodash-es": "^4.17.6",
+    "@types/react": "^17.0.43",
+    "rollup": "^2.70.1",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "typescript": "^4.6.3"
+  }
 }

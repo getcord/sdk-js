@@ -1,3 +1,29 @@
 {
-  "name": "@cord-sdk/components"
+  "name": "@cord-sdk/components",
+  "version": "0.0.3",
+  "homepage": "https://docs.cord.com/",
+  "license": "MIT",
+  "files": [
+    "dist/"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getcord/cord-sdk.git",
+    "directory": "packages/components"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
+  },
+  "dependencies": {
+    "@cord-sdk/types": "0.0.3"
+  },
+  "devDependencies": {
+    "rollup": "^2.70.1",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "typescript": "^4.6.3"
+  }
 }

@@ -1,3 +1,5 @@
+import type {} from '@cord-sdk/jsx';
+
 export { Collaboration } from './components/Collaboration';
 export { CordProvider } from './contexts/CordContext';
 export { MultipleCursors } from './components/MultipleCursors';
