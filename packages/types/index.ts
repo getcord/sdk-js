@@ -133,6 +133,7 @@ export type SidebarWebComponentEvents = {
 export type SidebarReactComponentProps = ReactPropsWithContext<{
   showCloseButton?: boolean;
   showPresence?: boolean;
+  excludeViewerFromPresence?: boolean;
   showAllActivity?: boolean;
   open?: boolean;
   showLauncher?: boolean;
@@ -162,6 +163,7 @@ export type CollaborationWebComponentEvents = {};
 export type CollaborationReactComponentProps = ReactPropsWithContext<{
   showCloseButton?: boolean;
   showPresence?: boolean;
+  excludeViewerFromPresence?: boolean;
   showAllActivity?: boolean;
 }>;
 

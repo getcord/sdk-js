@@ -21,6 +21,7 @@ export const componentAttributes = {
     'show-close-button': 'boolean',
     'show-presence': 'boolean',
     'show-all-activity': 'boolean',
+    'exclude-viewer-from-presence': 'boolean',
   },
   MultipleCursors: {
     context: 'json',
@@ -54,6 +55,7 @@ export const componentAttributes = {
     'show-presence': 'boolean',
     'show-launcher': 'boolean',
     'show-all-activity': 'boolean',
+    'exclude-viewer-from-presence': 'boolean',
   },
   SidebarLauncher: {
     label: 'string',
