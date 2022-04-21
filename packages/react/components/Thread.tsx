@@ -10,6 +10,7 @@ import {
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
+import { useCordContext } from '../hooks/useCordContext';
 
 const propsToAttributes = propsToAttributeConverter(componentAttributes.Thread);
 
@@ -22,12 +23,14 @@ export function Thread(
     threadcreated: props.onThreadCreated,
   });
 
+  const context = useCordContext();
+
   return (
     <cord-thread
       id={props.id}
       class={props.className}
       ref={setRef}
-      {...propsToAttributes(props)}
+      {...propsToAttributes({ context, ...props })}
     >
       {props.children}
     </cord-thread>

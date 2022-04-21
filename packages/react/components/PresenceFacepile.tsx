@@ -32,10 +32,7 @@ export function PresenceFacepile(
       id={props.id}
       class={props.className}
       ref={setRef}
-      {...propsToAttributes({
-        context,
-        ...props,
-      })}
+      {...propsToAttributes({ context, ...props })}
     />
   );
 }
