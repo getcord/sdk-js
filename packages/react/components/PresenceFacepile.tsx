@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {
+import type {
   PresenceFacepileWebComponentEvents,
   PresenceFacepileReactComponentProps,
   PropsWithStandardHTMLAttributes,

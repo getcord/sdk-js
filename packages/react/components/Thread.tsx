@@ -1,6 +1,7 @@
-import React, { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
+import React from 'react';
 
-import {
+import type {
   PropsWithStandardHTMLAttributes,
   ThreadWebComponentEvents,
   ThreadReactComponentProps,

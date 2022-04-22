@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import isEqual from 'lodash/isEqual';
 
-import { Context } from '@cord-sdk/types';
+import type { Context } from '@cord-sdk/types';
 
 import { CordContext } from '../contexts/CordContext';
 

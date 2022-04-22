@@ -1,6 +1,6 @@
 import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import {
+import type {
   componentAttributes,
   componentNames,
   ElementName,
