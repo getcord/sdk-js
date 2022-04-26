@@ -1,6 +1,6 @@
 {
   "name": "@cord-sdk/jsx",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
   "files": [
@@ -19,7 +19,7 @@
     "dev": "rollup -c -w"
   },
   "dependencies": {
-    "@cord-sdk/components": "0.0.3"
+    "@cord-sdk/components": "0.0.4"
   },
   "devDependencies": {
     "@types/react": "^17.0.43",
