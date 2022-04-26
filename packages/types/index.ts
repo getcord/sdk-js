@@ -33,10 +33,10 @@ export interface ICordSDK {
   destroy(): void;
   registerComponent(component: ICordComponent): void;
   unregisterComponent(component: ICordComponent): void;
-  // addMonacoEditor(id: string, monacoEditor: MonacoEditorInstance): void;
-  // removeMonacoEditor(id: string): void;
-  // addReactTree(id: string, reactTree: ReactTreeInstance): void;
-  // removeReactTree(id: string): void;
+  addMonacoEditor(id: string, monacoEditor: unknown): void;
+  removeMonacoEditor(id: string): void;
+  addReactTree(id: string, reactTree: unknown): void;
+  removeReactTree(id: string): void;
 }
 
 declare global {
