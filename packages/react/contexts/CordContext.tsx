@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-import type { ICordSDK, Context } from '@cord-sdk/types';
+import type { ICordSDK, Context, NavigateFn } from '@cord-sdk/types';
 
 type CordContextValue = {
   sdk: ICordSDK | null;
@@ -19,6 +19,7 @@ type Props = {
   enableTasks?: boolean;
   enableAnnotations?: boolean;
   cordScriptUrl?: string;
+  navigate?: NavigateFn | null;
 };
 
 export function CordProvider({
@@ -26,6 +27,7 @@ export function CordProvider({
   enableTasks,
   enableAnnotations,
   cordScriptUrl,
+  navigate,
   children,
 }: React.PropsWithChildren<Props>) {
   const [sdk, setSDK] = useState<ICordSDK | null>(null);
@@ -65,6 +67,7 @@ export function CordProvider({
           client_auth_token: clientAuthToken,
           enable_tasks: enableTasks,
           enable_annotations: enableAnnotations,
+          navigate,
         })
         .then(() => {
           setSDK(sdk);
@@ -76,7 +79,7 @@ export function CordProvider({
     } else {
       return undefined;
     }
-  }, [sdk, clientAuthToken, enableTasks, enableAnnotations]);
+  }, [sdk, clientAuthToken, enableTasks, enableAnnotations, navigate]);
 
   const value = useMemo<CordContextValue>(
     () => ({ sdk, context, setContext }),
