@@ -1,7 +1,7 @@
 import type {} from '@cord-sdk/jsx';
 
 export { Collaboration } from './components/Collaboration';
-export { CordProvider } from './contexts/CordContext';
+export { CordProvider, CordContext } from './contexts/CordContext';
 export { MultipleCursors } from './components/MultipleCursors';
 export { PagePresence } from './components/PagePresence';
 export { PresenceFacepile } from './components/PresenceFacepile';
