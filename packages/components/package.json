@@ -5,7 +5,8 @@
   "license": "MIT",
   "files": [
     "dist/",
-    "LICENSE"
+    "LICENSE",
+    "README.md"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
