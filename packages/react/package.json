@@ -14,10 +14,6 @@
     "url": "https://github.com/getcord/cord-sdk.git",
     "directory": "packages/react"
   },
-  "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w"
-  },
   "dependencies": {
     "@cord-sdk/components": "0.0.5",
     "lodash": "^4.17.21"

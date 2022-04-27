@@ -6,8 +6,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "scripts/build.mjs",
-    "dev": "scripts/build.mjs --watch"
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
   },
   "devDependencies": {
     "glob": "^7.2.0",

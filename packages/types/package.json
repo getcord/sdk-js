@@ -14,10 +14,6 @@
     "url": "https://github.com/getcord/cord-sdk.git",
     "directory": "packages/types"
   },
-  "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w"
-  },
   "devDependencies": {
     "rollup": "^2.70.1",
     "rollup-plugin-typescript2": "^0.31.2",

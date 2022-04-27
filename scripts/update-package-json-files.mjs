@@ -41,10 +41,7 @@ async function main() {
       url: 'https://github.com/getcord/cord-sdk.git',
       directory: `packages/${packageName}`,
     };
-    pkg['scripts'] = {
-      build: 'rollup -c',
-      dev: 'rollup -c -w',
-    };
+
     for (const field of [
       'dependencies',
       'peerDependencies',
@@ -52,7 +49,6 @@ async function main() {
     ]) {
       pkg[field] = setCordSdkVersion(pkg[field], mainPkg.version);
     }
-
     // This is the order in which we want the fields to appear.
     const fields = uniq([
       'name',
