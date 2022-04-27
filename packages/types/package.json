@@ -4,7 +4,8 @@
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
   "files": [
-    "dist/"
+    "dist/",
+    "LICENSE"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",

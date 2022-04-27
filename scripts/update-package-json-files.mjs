@@ -32,7 +32,7 @@ async function main() {
     pkg['version'] = mainPkg.version;
     pkg['homepage'] = 'https://docs.cord.com/';
     pkg['license'] = 'MIT';
-    pkg['files'] = ['dist/'];
+    pkg['files'] = ['dist/', 'LICENSE'];
     pkg['main'] = 'dist/index.js';
     pkg['module'] = 'dist/index.mjs';
     pkg['types'] = 'dist/index.d.ts';

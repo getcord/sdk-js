@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 import typescript from 'rollup-plugin-typescript2';
+import copy from 'rollup-plugin-copy';
 
 async function packageBuildConfig(packageName, options = {}) {
   const dirname = path.resolve(__dirname, 'packages', packageName);
@@ -24,6 +25,14 @@ async function packageBuildConfig(packageName, options = {}) {
       plugins: [
         typescript({
           tsconfig: path.resolve(dirname, 'tsconfig.json'),
+        }),
+        copy({
+          targets: [
+            {
+              src: path.resolve(dirname, '..', '..', 'LICENSE'),
+              dest: dirname,
+            },
+          ],
         }),
       ],
       output: [
