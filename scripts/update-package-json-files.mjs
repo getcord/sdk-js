@@ -32,10 +32,10 @@ async function main() {
     pkg['version'] = mainPkg.version;
     pkg['homepage'] = 'https://docs.cord.com/';
     pkg['license'] = 'MIT';
-    pkg['files'] = ['dist/', 'LICENSE', 'README.md'];
-    pkg['main'] = 'dist/index.js';
-    pkg['module'] = 'dist/index.mjs';
-    pkg['types'] = 'dist/index.d.ts';
+    pkg['files'] = ['dist/', '!dist/cjs/**/*.d.ts', 'LICENSE', 'README.md'];
+    pkg['main'] = 'dist/cjs/index.js';
+    pkg['module'] = 'dist/mjs/index.js';
+    pkg['types'] = 'dist/mjs/index.d.ts';
     pkg['repository'] = {
       type: 'git',
       url: 'https://github.com/getcord/cord-sdk.git',

@@ -5,12 +5,13 @@
   "license": "MIT",
   "files": [
     "dist/",
+    "!dist/cjs/**/*.d.ts",
     "LICENSE",
     "README.md"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "types": "dist/mjs/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/getcord/cord-sdk.git",

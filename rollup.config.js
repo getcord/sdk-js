@@ -34,6 +34,7 @@ async function packageBuildConfig(packageName, options = {}) {
             },
           ],
         }),
+        declareBundleType(),
       ],
       output: [
         {
@@ -49,6 +50,21 @@ async function packageBuildConfig(packageName, options = {}) {
       ],
     },
   ];
+}
+
+function declareBundleType() {
+  return {
+    generateBundle(options, bundle) {
+      const type = { cjs: 'commonjs', es: 'module' }[options.format];
+      if (type) {
+        bundle['package.json'] = {
+          fileName: 'package.json',
+          type: 'asset',
+          source: JSON.stringify({ type }, undefined, 2) + '\n',
+        };
+      }
+    },
+  };
 }
 
 async function rollupConfig() {
