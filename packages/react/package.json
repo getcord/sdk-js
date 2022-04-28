@@ -1,6 +1,6 @@
 {
   "name": "@cord-sdk/react",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
   "files": [
@@ -18,14 +18,14 @@
     "directory": "packages/react"
   },
   "dependencies": {
-    "@cord-sdk/components": "0.0.5",
+    "@cord-sdk/components": "0.0.6",
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
     "react": ">=17.0.0"
   },
   "devDependencies": {
-    "@cord-sdk/jsx": "0.0.5",
+    "@cord-sdk/jsx": "0.0.6",
     "@types/lodash-es": "^4.17.6",
     "@types/react": "^17.0.43",
     "rollup": "^2.70.1",

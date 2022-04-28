@@ -1,6 +1,6 @@
 {
   "name": "@cord-sdk/jsx",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
   "files": [
@@ -18,7 +18,7 @@
     "directory": "packages/jsx"
   },
   "dependencies": {
-    "@cord-sdk/components": "0.0.5"
+    "@cord-sdk/components": "0.0.6"
   },
   "devDependencies": {
     "@types/react": "^17.0.43",
