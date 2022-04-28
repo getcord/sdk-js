@@ -52,6 +52,7 @@ async function main() {
     // This is the order in which we want the fields to appear.
     const fields = uniq([
       'name',
+      'description',
       'version',
       'homepage',
       'license',

@@ -1,5 +1,6 @@
 {
   "name": "@cord-sdk/jsx",
+  "description": "JSX declarations of the Cord web components",
   "version": "0.0.6",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
