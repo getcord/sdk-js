@@ -169,15 +169,10 @@ export type CollaborationReactComponentProps = ReactPropsWithContext<{
 
 /* cord-thread */
 
-export type ThreadWebComponentEvents = {
-  threadcreated: Parameters<
-    NonNullable<ThreadReactComponentProps['onThreadCreated']>
-  >;
-};
+export type ThreadWebComponentEvents = {};
 
 export type ThreadReactComponentProps = ReactPropsWithContext<{
-  threadId?: UUID;
-  onThreadCreated?: (threadId: UUID) => unknown;
+  threadId: string;
 }>;
 
 /* annotation types */

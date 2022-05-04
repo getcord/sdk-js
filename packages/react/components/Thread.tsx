@@ -20,9 +20,7 @@ export function Thread(
     PropsWithStandardHTMLAttributes<ThreadReactComponentProps>
   >,
 ) {
-  const setRef = useCustomEventListeners<ThreadWebComponentEvents>({
-    threadcreated: props.onThreadCreated,
-  });
+  const setRef = useCustomEventListeners<ThreadWebComponentEvents>({});
 
   const context = useCordContext();
 
