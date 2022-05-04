@@ -1,3 +1,5 @@
+import type React from 'react';
+
 type UUID = string;
 
 export type ComponentCallback = (component: ICordComponent) => unknown;
@@ -313,6 +315,10 @@ export type PropsWithStandardHTMLAttributes<T> = T & {
   id?: string;
   className?: string;
   // TODO: maybe allow style here? what would that even mean?
+};
+
+export type PropsWithRef<T> = T & {
+  forwardRef?: React.MutableRefObject<Element | null>;
 };
 
 // declare global {

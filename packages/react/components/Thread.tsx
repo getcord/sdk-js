@@ -1,10 +1,11 @@
 import type { PropsWithChildren } from 'react';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import type {
   PropsWithStandardHTMLAttributes,
   ThreadWebComponentEvents,
   ThreadReactComponentProps,
+  PropsWithRef,
 } from '@cord-sdk/types';
 import {
   componentAttributes,
@@ -16,11 +17,22 @@ import { useCordContext } from '../hooks/useCordContext';
 const propsToAttributes = propsToAttributeConverter(componentAttributes.Thread);
 
 export function Thread(
-  props: PropsWithChildren<
-    PropsWithStandardHTMLAttributes<ThreadReactComponentProps>
+  props: PropsWithRef<
+    PropsWithChildren<
+      PropsWithStandardHTMLAttributes<ThreadReactComponentProps>
+    >
   >,
 ) {
   const setRef = useCustomEventListeners<ThreadWebComponentEvents>({});
+  const combinedSetRef = useCallback(
+    (element) => {
+      if (props.forwardRef) {
+        props.forwardRef.current = element;
+      }
+      setRef(element);
+    },
+    [props.forwardRef, setRef],
+  );
 
   const context = useCordContext();
 
@@ -28,7 +40,7 @@ export function Thread(
     <cord-thread
       id={props.id}
       class={props.className}
-      ref={setRef}
+      ref={combinedSetRef}
       {...propsToAttributes({ context, ...props })}
     >
       {props.children}
