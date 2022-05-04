@@ -173,6 +173,7 @@ export type ThreadWebComponentEvents = {};
 
 export type ThreadReactComponentProps = ReactPropsWithContext<{
   threadId: string;
+  collapsed?: boolean;
 }>;
 
 /* annotation types */
