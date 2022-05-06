@@ -3,6 +3,7 @@ import * as fs from 'fs';
 
 import typescript from 'rollup-plugin-typescript2';
 import copy from 'rollup-plugin-copy';
+import replace from '@rollup/plugin-replace';
 
 async function packageBuildConfig(packageName, options = {}) {
   const dirname = path.resolve(__dirname, 'packages', packageName);
@@ -35,6 +36,10 @@ async function packageBuildConfig(packageName, options = {}) {
           ],
         }),
         declareBundleType(),
+        replace({
+          CORD_REACT_PACKAGE_VERSION: `"${pkg.version}"`,
+          preventAssignment: true,
+        }),
       ],
       output: [
         {

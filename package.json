@@ -10,6 +10,7 @@
     "dev": "rollup -c -w"
   },
   "devDependencies": {
+    "@rollup/plugin-replace": "^4.0.0",
     "glob": "^7.2.0",
     "prettier": "^2.6.2",
     "rollup": "^2.70.1",

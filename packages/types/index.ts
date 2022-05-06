@@ -27,6 +27,7 @@ export type CordSDKOptions = {
   navigate?: NavigateFn | null;
   enable_tasks?: boolean;
   enable_annotations?: boolean;
+  react_package_version?: string;
 };
 
 export interface ICordSDK {

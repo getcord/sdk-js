@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import type { ICordSDK, Context, NavigateFn } from '@cord-sdk/types';
 
+declare var CORD_REACT_PACKAGE_VERSION: string;
+
 type CordContextValue = {
   sdk: ICordSDK | null;
   context: Context | undefined;
@@ -68,6 +70,7 @@ export function CordProvider({
           enable_tasks: enableTasks,
           enable_annotations: enableAnnotations,
           navigate,
+          react_package_version: CORD_REACT_PACKAGE_VERSION,
         })
         .then(() => {
           setSDK(sdk);
