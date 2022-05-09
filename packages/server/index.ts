@@ -12,7 +12,7 @@ export type PlatformUserVariables = {
 export type PlatformOrganizationVariables = {
   name: string;
   status?: 'active' | 'deleted';
-  members?: Array<string>;
+  members?: Array<string | number>;
 };
 
 export type ClientAuthTokenData = {
