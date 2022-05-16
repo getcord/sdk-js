@@ -12,7 +12,7 @@ import {
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
-import { useCordContext } from '../hooks/useCordContext';
+import { useCordLocation } from '../hooks/useCordLocation';
 
 const propsToAttributes = propsToAttributeConverter(componentAttributes.Thread);
 
@@ -34,14 +34,14 @@ export function Thread(
     [props.forwardRef, setRef],
   );
 
-  const context = useCordContext();
+  const location = useCordLocation();
 
   return (
     <cord-thread
       id={props.id}
       class={props.className}
       ref={combinedSetRef}
-      {...propsToAttributes({ context, ...props })}
+      {...propsToAttributes({ location, ...props })}
     >
       {props.children}
     </cord-thread>

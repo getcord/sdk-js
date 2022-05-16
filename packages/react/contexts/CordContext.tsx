@@ -1,19 +1,19 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-import type { ICordSDK, Context, NavigateFn } from '@cord-sdk/types';
+import type { ICordSDK, Location, NavigateFn } from '@cord-sdk/types';
 
 declare var CORD_REACT_PACKAGE_VERSION: string;
 
 type CordContextValue = {
   sdk: ICordSDK | null;
-  context: Context | undefined;
-  setContext: (context: Context | undefined) => unknown;
+  location: Location | undefined;
+  setLocation: (location: Location | undefined) => unknown;
 };
 
 export const CordContext = React.createContext<CordContextValue>({
   sdk: null,
-  context: undefined,
-  setContext: () => undefined,
+  location: undefined,
+  setLocation: () => undefined,
 });
 
 type Props = {
@@ -33,7 +33,7 @@ export function CordProvider({
   children,
 }: React.PropsWithChildren<Props>) {
   const [sdk, setSDK] = useState<ICordSDK | null>(null);
-  const [context, setContext] = useState<Context>();
+  const [location, setLocation] = useState<Location>();
 
   useEffect(() => {
     if (window.CordSDK) {
@@ -85,8 +85,8 @@ export function CordProvider({
   }, [sdk, clientAuthToken, enableTasks, enableAnnotations, navigate]);
 
   const value = useMemo<CordContextValue>(
-    () => ({ sdk, context, setContext }),
-    [sdk, context, setContext],
+    () => ({ sdk, location, setLocation }),
+    [sdk, location, setLocation],
   );
 
   return <CordContext.Provider value={value}>{children}</CordContext.Provider>;

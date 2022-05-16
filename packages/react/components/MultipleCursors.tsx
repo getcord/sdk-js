@@ -11,7 +11,7 @@ import {
 } from '@cord-sdk/components';
 
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
-import { useCordContext } from '../hooks/useCordContext';
+import { useCordLocation } from '../hooks/useCordLocation';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.MultipleCursors,
@@ -22,14 +22,14 @@ export function MultipleCursors(
 ) {
   const setRef = useCustomEventListeners<MultipleCursorsWebComponentEvents>({});
 
-  const context = useCordContext();
+  const location = useCordLocation();
 
   return (
     <cord-multiple-cursors
       id={props.id}
       class={props.className}
       ref={setRef}
-      {...propsToAttributes({ context, ...props })}
+      {...propsToAttributes({ location, ...props })}
     />
   );
 }

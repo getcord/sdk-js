@@ -11,7 +11,7 @@ import {
 } from '@cord-sdk/components';
 
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
-import { useCordContext } from '../hooks/useCordContext';
+import { useCordLocation } from '../hooks/useCordLocation';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.PagePresence,
@@ -25,14 +25,14 @@ export function PagePresence(
     update: onUpdate,
   });
 
-  const context = useCordContext();
+  const location = useCordLocation();
 
   return (
     <cord-page-presence
       id={props.id}
       class={props.className}
       ref={setRef}
-      {...propsToAttributes({ context, ...props })}
+      {...propsToAttributes({ location, ...props })}
     />
   );
 }

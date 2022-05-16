@@ -10,4 +10,4 @@ export { Sidebar } from './components/Sidebar';
 export { SidebarLauncher } from './components/SidebarLauncher';
 export { Text } from './components/Text';
 export { Thread } from './components/Thread';
-export { useCordContext } from './hooks/useCordContext';
+export { useCordContext, useCordLocation } from './hooks/useCordLocation';

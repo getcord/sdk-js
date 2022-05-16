@@ -10,7 +10,7 @@ import {
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
-import { useCordContext } from '../hooks/useCordContext';
+import { useCordLocation } from '../hooks/useCordLocation';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Sidebar,
@@ -26,14 +26,14 @@ export function Sidebar(
     close: onClose,
   });
 
-  const context = useCordContext();
+  const location = useCordLocation();
 
   return (
     <cord-sidebar
       id={props.id}
       class={props.className}
       ref={setRef}
-      {...propsToAttributes({ context, ...props })}
+      {...propsToAttributes({ location, ...props })}
     />
   );
 }

@@ -10,9 +10,12 @@ export type ShowAnnotationWithComposerCallback = (
   annotation: DocumentAnnotationResult,
 ) => unknown;
 
-export type Context = Record<string, string | number | boolean>;
+export type Location = Record<string, string | number | boolean>;
 
-export type PresenceReducerOptions = ReactPropsWithContext<{
+// For backwards compatibility, will be removed along with the deprecated context prop
+export type Context = Location;
+
+export type PresenceReducerOptions = ReactPropsWithLocation<{
   excludeViewer?: boolean;
   onlyPresentUsers?: boolean;
   exactMatch?: boolean;
@@ -59,8 +62,12 @@ export interface ICordComponent extends HTMLElement {
   onPropsChanged: CordComponentPropsChangedCallback | undefined;
 }
 
-type ReactPropsWithContext<T> = T & {
-  context?: Context;
+type ReactPropsWithLocation<T> = T & {
+  /**
+   * @deprecated The context prop has been renamed to location.
+   */
+  context?: Location;
+  location?: Location;
 };
 
 /* cord-text */
@@ -79,7 +86,7 @@ export type TextReactComponentProps = {
 
 export type MultipleCursorsWebComponentEvents = {};
 
-export type MultipleCursorsReactComponentProps = ReactPropsWithContext<{}>;
+export type MultipleCursorsReactComponentProps = ReactPropsWithLocation<{}>;
 
 /* cord-page-presence */
 
@@ -115,7 +122,7 @@ export type PresenceObserverWebComponentEvents = {
 };
 
 export type PresenceObserverReactComponentProps = React.PropsWithChildren<
-  ReactPropsWithContext<{
+  ReactPropsWithLocation<{
     element?: Element;
     observeDocument?: boolean;
     durable?: boolean;
@@ -133,7 +140,7 @@ export type SidebarWebComponentEvents = {
   close: Parameters<NonNullable<SidebarReactComponentProps['onClose']>>;
 };
 
-export type SidebarReactComponentProps = ReactPropsWithContext<{
+export type SidebarReactComponentProps = ReactPropsWithLocation<{
   showCloseButton?: boolean;
   showPresence?: boolean;
   excludeViewerFromPresence?: boolean;
@@ -163,7 +170,7 @@ export type SidebarLauncherReactComponentProps = {
 
 export type CollaborationWebComponentEvents = {};
 
-export type CollaborationReactComponentProps = ReactPropsWithContext<{
+export type CollaborationReactComponentProps = ReactPropsWithLocation<{
   showCloseButton?: boolean;
   showPresence?: boolean;
   excludeViewerFromPresence?: boolean;
@@ -174,7 +181,7 @@ export type CollaborationReactComponentProps = ReactPropsWithContext<{
 
 export type ThreadWebComponentEvents = {};
 
-export type ThreadReactComponentProps = ReactPropsWithContext<{
+export type ThreadReactComponentProps = ReactPropsWithLocation<{
   threadId: string;
   collapsed?: boolean;
 }>;

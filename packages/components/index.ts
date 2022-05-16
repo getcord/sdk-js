@@ -18,6 +18,7 @@ export type ComponentName = typeof componentNames[ElementName];
 export const componentAttributes = {
   Collaboration: {
     context: 'json',
+    location: 'json',
     'show-close-button': 'boolean',
     'show-presence': 'boolean',
     'show-all-activity': 'boolean',
@@ -25,9 +26,11 @@ export const componentAttributes = {
   },
   MultipleCursors: {
     context: 'json',
+    location: 'json',
   },
   PagePresence: {
     context: 'json',
+    location: 'json',
     durable: 'boolean',
     'max-users': 'number',
     'exclude-viewer': 'boolean',
@@ -35,6 +38,7 @@ export const componentAttributes = {
   },
   PresenceFacepile: {
     context: 'json',
+    location: 'json',
     'max-users': 'number',
     'exclude-viewer': 'boolean',
     'only-present-users': 'boolean',
@@ -42,6 +46,7 @@ export const componentAttributes = {
   },
   PresenceObserver: {
     context: 'json',
+    location: 'json',
     'present-events': 'array',
     'absent-events': 'array',
     'observe-document': 'boolean',
@@ -50,6 +55,7 @@ export const componentAttributes = {
   },
   Sidebar: {
     context: 'json',
+    location: 'json',
     open: 'boolean',
     'show-close-button': 'boolean',
     'show-presence': 'boolean',
@@ -68,6 +74,7 @@ export const componentAttributes = {
   },
   Thread: {
     context: 'json',
+    location: 'json',
     'thread-id': 'string',
     collapsed: 'boolean',
   },
