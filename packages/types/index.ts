@@ -286,6 +286,7 @@ export type Screenshot = null | {
   mimeType: string;
   url: string;
   uploadStatus: FileUploadStatus;
+  size: number;
 };
 
 /* utility types */
