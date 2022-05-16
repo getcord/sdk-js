@@ -179,11 +179,20 @@ export type CollaborationReactComponentProps = ReactPropsWithLocation<{
 
 /* cord-thread */
 
-export type ThreadWebComponentEvents = {};
+export type ThreadWebComponentEvents = {
+  threadinfochange: Parameters<
+    NonNullable<ThreadReactComponentProps['onThreadInfoChange']>
+  >;
+};
+
+export type ThreadInfo = {
+  messageCount: number;
+};
 
 export type ThreadReactComponentProps = ReactPropsWithLocation<{
   threadId: string;
   collapsed?: boolean;
+  onThreadInfoChange?: (arg: ThreadInfo) => unknown;
 }>;
 
 /* annotation types */

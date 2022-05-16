@@ -23,7 +23,9 @@ export function Thread(
     >
   >,
 ) {
-  const setRef = useCustomEventListeners<ThreadWebComponentEvents>({});
+  const setRef = useCustomEventListeners<ThreadWebComponentEvents>({
+    threadinfochange: props.onThreadInfoChange,
+  });
   const combinedSetRef = useCallback(
     (element) => {
       if (props.forwardRef) {
