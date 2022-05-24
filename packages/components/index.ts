@@ -10,6 +10,7 @@ export const componentNames = {
   'cord-presence-observer': 'PresenceObserver',
   'cord-text': 'Text',
   'cord-thread': 'Thread',
+  'cord-thread-list': 'ThreadList',
 } as const;
 
 export type ElementName = keyof typeof componentNames;
@@ -77,6 +78,9 @@ export const componentAttributes = {
     location: 'json',
     'thread-id': 'string',
     collapsed: 'boolean',
+  },
+  ThreadList: {
+    location: 'json',
   },
 } as const;
 

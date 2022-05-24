@@ -198,6 +198,16 @@ export type ThreadReactComponentProps = ReactPropsWithLocation<{
   onThreadInfoChange?: (arg: ThreadInfo) => unknown;
 }>;
 
+/* cord-thread-list */
+export type ThreadListWebComponentEvents = {
+  threadclick: Parameters<
+    NonNullable<ThreadListReactComponentProps['onThreadClick']>
+  >;
+};
+export type ThreadListReactComponentProps = ReactPropsWithLocation<{
+  onThreadClick?: (threadID: string) => unknown;
+}>;
+
 /* annotation types */
 
 export type DocumentAnnotationResult = {
