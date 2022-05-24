@@ -25,6 +25,9 @@ export type PresenceReducerOptions = ReactPropsWithLocation<{
 export type NavigateFn = (url: string) => boolean | Promise<boolean>;
 
 export type CordSDKOptions = {
+  /**
+   * @deprecated The session_token prop has been renamed to client_auth_token.
+   */
   session_token?: string;
   client_auth_token?: string;
   navigate?: NavigateFn | null;
