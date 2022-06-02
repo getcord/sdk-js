@@ -31,6 +31,7 @@ export function PresenceFacepile(
     <cord-presence-facepile
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={setRef}
       {...propsToAttributes({ location, ...props })}
     />

@@ -42,6 +42,7 @@ export function Thread(
     <cord-thread
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={combinedSetRef}
       {...propsToAttributes({ location, ...props })}
     >

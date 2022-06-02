@@ -28,6 +28,7 @@ export function SidebarLauncher(
     <cord-sidebar-launcher
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={setRef}
       {...propsToAttributes(props)}
     />

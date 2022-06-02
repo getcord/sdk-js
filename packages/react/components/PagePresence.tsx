@@ -31,6 +31,7 @@ export function PagePresence(
     <cord-page-presence
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={setRef}
       {...propsToAttributes({ location, ...props })}
     />

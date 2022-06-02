@@ -28,6 +28,7 @@ export function MultipleCursors(
     <cord-multiple-cursors
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={setRef}
       {...propsToAttributes({ location, ...props })}
     />

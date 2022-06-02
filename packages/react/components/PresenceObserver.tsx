@@ -31,6 +31,7 @@ export function PresenceObserver(
     <cord-presence-observer
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={setRef}
       {...propsToAttributes({ location, ...props })}
     >
