@@ -39,7 +39,6 @@ export function ThreadList(
     <cord-thread-list
       id={props.id}
       class={props.className}
-      style={props.style}
       ref={combinedSetRef}
       {...propsToAttributes({ location, ...props })}
     />

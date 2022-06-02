@@ -55,7 +55,6 @@ declare global {
 }
 
 export type CordComponentPropsChangedCallback = (props: object) => unknown;
-export type HostDisplayStyle = 'block' | 'inline-block' | 'inline';
 
 export interface ICordComponent extends HTMLElement {
   render(): JSX.Element;
@@ -63,7 +62,6 @@ export interface ICordComponent extends HTMLElement {
   renderTarget: HTMLElement;
   virtual: boolean;
   props: object;
-  hostDisplayStyle: HostDisplayStyle;
   onPropsChanged: CordComponentPropsChangedCallback | undefined;
 }
 
@@ -347,7 +345,7 @@ export type ComponentAttributeConverter<
 export type PropsWithStandardHTMLAttributes<T> = T & {
   id?: string;
   className?: string;
-  style?: React.CSSProperties;
+  // TODO: maybe allow style here? what would that even mean?
 };
 
 export type PropsWithRef<T> = T & {

@@ -24,7 +24,6 @@ export function Text(
     <cord-text
       id={props.id}
       class={props.className}
-      style={props.style}
       ref={setRef}
       {...propsToAttributes(props)}
     />

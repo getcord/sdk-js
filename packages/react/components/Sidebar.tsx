@@ -32,7 +32,6 @@ export function Sidebar(
     <cord-sidebar
       id={props.id}
       class={props.className}
-      style={props.style}
       ref={setRef}
       {...propsToAttributes({ location, ...props })}
     />
