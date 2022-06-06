@@ -33,6 +33,8 @@ export type CordSDKOptions = {
   navigate?: NavigateFn | null;
   enable_tasks?: boolean;
   enable_annotations?: boolean;
+  blur_screenshots?: boolean;
+  show_blurred_screenshots?: BlurDisplayLocation;
   react_package_version?: string;
 };
 
@@ -351,6 +353,16 @@ export type PropsWithStandardHTMLAttributes<T> = T & {
 export type PropsWithRef<T> = T & {
   forwardRef?: React.MutableRefObject<Element | null>;
 };
+
+const BLUR_DISPLAY_LOCATIONS = ['everywhere', 'outside_page'] as const;
+
+export type BlurDisplayLocation = typeof BLUR_DISPLAY_LOCATIONS[number];
+
+export function isBlurDisplayLocation(
+  behavior: string,
+): behavior is BlurDisplayLocation {
+  return (BLUR_DISPLAY_LOCATIONS as readonly string[]).includes(behavior);
+}
 
 // declare global {
 //   interface Element {

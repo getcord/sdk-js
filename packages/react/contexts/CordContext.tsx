@@ -1,6 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-import type { ICordSDK, Location, NavigateFn } from '@cord-sdk/types';
+import type {
+  BlurDisplayLocation,
+  ICordSDK,
+  Location,
+  NavigateFn,
+} from '@cord-sdk/types';
 
 declare var CORD_REACT_PACKAGE_VERSION: string;
 
@@ -20,6 +25,8 @@ type Props = {
   clientAuthToken: string | undefined | null;
   enableTasks?: boolean;
   enableAnnotations?: boolean;
+  blurScreenshots?: boolean;
+  showBlurredScreenshots?: BlurDisplayLocation;
   cordScriptUrl?: string;
   navigate?: NavigateFn | null;
 };
@@ -28,6 +35,8 @@ export function CordProvider({
   clientAuthToken,
   enableTasks,
   enableAnnotations,
+  blurScreenshots,
+  showBlurredScreenshots,
   cordScriptUrl,
   navigate,
   children,
@@ -69,6 +78,8 @@ export function CordProvider({
           client_auth_token: clientAuthToken,
           enable_tasks: enableTasks,
           enable_annotations: enableAnnotations,
+          blur_screenshots: blurScreenshots,
+          show_blurred_screenshots: showBlurredScreenshots,
           navigate,
           react_package_version: CORD_REACT_PACKAGE_VERSION,
         })
@@ -82,7 +93,15 @@ export function CordProvider({
     } else {
       return undefined;
     }
-  }, [sdk, clientAuthToken, enableTasks, enableAnnotations, navigate]);
+  }, [
+    sdk,
+    clientAuthToken,
+    enableTasks,
+    enableAnnotations,
+    blurScreenshots,
+    showBlurredScreenshots,
+    navigate,
+  ]);
 
   const value = useMemo<CordContextValue>(
     () => ({ sdk, location, setLocation }),
