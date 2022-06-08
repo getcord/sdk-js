@@ -221,6 +221,7 @@ export type DocumentAnnotationResult = {
 export interface MessageAnnotation {
   id: string;
   location: DocumentLocation | null;
+  sourceID: UUID;
   draft?: boolean;
 }
 
