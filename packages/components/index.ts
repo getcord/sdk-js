@@ -24,6 +24,7 @@ export const componentAttributes = {
     'show-presence': 'boolean',
     'show-all-activity': 'boolean',
     'exclude-viewer-from-presence': 'boolean',
+    'show-pins-on-page': 'boolean',
   },
   MultipleCursors: {
     context: 'json',
@@ -63,6 +64,7 @@ export const componentAttributes = {
     'show-launcher': 'boolean',
     'show-all-activity': 'boolean',
     'exclude-viewer-from-presence': 'boolean',
+    'show-pins-on-page': 'boolean',
   },
   SidebarLauncher: {
     label: 'string',

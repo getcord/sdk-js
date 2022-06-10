@@ -148,6 +148,7 @@ export type SidebarWebComponentEvents = {
 export type SidebarReactComponentProps = ReactPropsWithLocation<{
   showCloseButton?: boolean;
   showPresence?: boolean;
+  showPinsOnPage?: boolean;
   excludeViewerFromPresence?: boolean;
   showAllActivity?: boolean;
   open?: boolean;
@@ -180,6 +181,7 @@ export type CollaborationReactComponentProps = ReactPropsWithLocation<{
   showPresence?: boolean;
   excludeViewerFromPresence?: boolean;
   showAllActivity?: boolean;
+  showPinsOnPage?: boolean;
 }>;
 
 /* cord-thread */
