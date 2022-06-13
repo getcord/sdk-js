@@ -2,8 +2,6 @@ import type React from 'react';
 
 type UUID = string;
 
-export type ComponentCallback = (component: ICordComponent) => unknown;
-
 export type StartAnnotationFlowCallback = () => Promise<DocumentAnnotationResult | null>;
 
 export type ShowAnnotationWithComposerCallback = (
@@ -42,8 +40,6 @@ export interface ICordSDK {
   init(options: CordSDKOptions): Promise<void>;
   startAnnotationFlow(): void;
   destroy(): void;
-  registerComponent(component: ICordComponent): void;
-  unregisterComponent(component: ICordComponent): void;
   addMonacoEditor(id: string, monacoEditor: unknown): void;
   removeMonacoEditor(id: string): void;
   addReactTree(id: string, reactTree: unknown): void;
@@ -54,17 +50,6 @@ declare global {
   interface Window {
     CordSDK?: ICordSDK;
   }
-}
-
-export type CordComponentPropsChangedCallback = (props: object) => unknown;
-
-export interface ICordComponent extends HTMLElement {
-  render(): JSX.Element;
-  readonly componentID: string;
-  renderTarget: HTMLElement;
-  virtual: boolean;
-  props: object;
-  onPropsChanged: CordComponentPropsChangedCallback | undefined;
 }
 
 type ReactPropsWithLocation<T> = T & {
