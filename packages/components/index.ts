@@ -95,14 +95,14 @@ export type PropertyTypes = {
   'badge-style': BadgeStyle;
 };
 
-const enumAttributeConverter = <T extends readonly string[]>(
-  possibleValues: T,
-) => (value: string | null): T[number] | undefined =>
-  value === null
-    ? undefined
-    : possibleValues.indexOf(value) !== -1
-    ? value
-    : undefined;
+const enumAttributeConverter =
+  <T extends readonly string[]>(possibleValues: T) =>
+  (value: string | null): T[number] | undefined =>
+    value === null
+      ? undefined
+      : possibleValues.indexOf(value) !== -1
+      ? value
+      : undefined;
 
 export const attributeToPropertyConverters: {
   [T in keyof PropertyTypes]: (
@@ -146,18 +146,18 @@ export type ComponentAttributeTypes<T extends string> = Record<
   keyof PropertyTypes
 >;
 
-export const propsToAttributeConverter = <U extends string>(
-  attributeMetadata: ComponentAttributeTypes<U>,
-) => <T extends string>(props: Partial<Record<T, any>>) => {
-  const result: Partial<Record<U, any>> = {};
-  for (const key of Object.keys(attributeMetadata)) {
-    const attributeName = key as U;
-    const propName = attributeNameToPropName(attributeName) as T;
-    if (propName in props) {
-      result[attributeName] = propertyToAttributeConverters[
-        attributeMetadata[attributeName]
-      ](props[propName]);
+export const propsToAttributeConverter =
+  <U extends string>(attributeMetadata: ComponentAttributeTypes<U>) =>
+  <T extends string>(props: Partial<Record<T, any>>) => {
+    const result: Partial<Record<U, any>> = {};
+    for (const key of Object.keys(attributeMetadata)) {
+      const attributeName = key as U;
+      const propName = attributeNameToPropName(attributeName) as T;
+      if (propName in props) {
+        result[attributeName] = propertyToAttributeConverters[
+          attributeMetadata[attributeName]
+        ](props[propName]);
+      }
     }
-  }
-  return result;
-};
+    return result;
+  };

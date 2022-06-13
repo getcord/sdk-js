@@ -1,6 +1,7 @@
 type UUID = string;
 
-export type StartAnnotationFlowCallback = () => Promise<DocumentAnnotationResult | null>;
+export type StartAnnotationFlowCallback =
+  () => Promise<DocumentAnnotationResult | null>;
 
 export type ShowAnnotationWithComposerCallback = (
   annotation: DocumentAnnotationResult,
@@ -224,14 +225,14 @@ export type JsonObject = { [key: string]: JsonValue | undefined };
 
 export type ComponentPropConverter<
   ReactComponentProps,
-  WebComponentAttributes extends string
+  WebComponentAttributes extends string,
 > = (
   props: ReactComponentProps,
 ) => Record<WebComponentAttributes, string | undefined>;
 
 export type ComponentAttributeConverter<
   WebComponentAttributes extends string,
-  ReactComponentProps
+  ReactComponentProps,
 > = Record<
   WebComponentAttributes,
   {

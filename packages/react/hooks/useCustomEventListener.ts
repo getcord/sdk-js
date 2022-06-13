@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 
-export function useCustomEventListeners<T extends Record<string, unknown[]>>(
-  events: {
-    [P in keyof T]: ((...args: T[P]) => unknown) | undefined;
-  },
-) {
+export function useCustomEventListeners<
+  T extends Record<string, unknown[]>,
+>(events: {
+  [P in keyof T]: ((...args: T[P]) => unknown) | undefined;
+}) {
   const [element, setElement] = useState<Element | null>(null);
 
   useEffect(() => {
