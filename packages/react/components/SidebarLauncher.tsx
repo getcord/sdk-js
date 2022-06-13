@@ -1,8 +1,8 @@
 import React from 'react';
 
 import type {
+  BadgeStyle,
   PropsWithStandardHTMLAttributes,
-  SidebarLauncherReactComponentProps,
   SidebarLauncherWebComponentEvents,
 } from '@cord-sdk/types';
 import {
@@ -14,6 +14,13 @@ import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.SidebarLauncher,
 );
+
+export type SidebarLauncherReactComponentProps = {
+  label?: string | null;
+  iconUrl?: string | null;
+  inboxBadgeStyle?: BadgeStyle;
+  onClick?: (...args: SidebarLauncherWebComponentEvents['click']) => unknown;
+};
 
 export function SidebarLauncher(
   props: PropsWithStandardHTMLAttributes<SidebarLauncherReactComponentProps>,

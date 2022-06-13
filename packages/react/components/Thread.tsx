@@ -4,8 +4,6 @@ import React, { useCallback } from 'react';
 import type {
   PropsWithStandardHTMLAttributes,
   ThreadWebComponentEvents,
-  ThreadReactComponentProps,
-  PropsWithRef,
 } from '@cord-sdk/types';
 import {
   componentAttributes,
@@ -13,8 +11,17 @@ import {
 } from '@cord-sdk/components';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
+import type { PropsWithRef, ReactPropsWithLocation } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(componentAttributes.Thread);
+
+export type ThreadReactComponentProps = ReactPropsWithLocation<{
+  threadId: string;
+  collapsed?: boolean;
+  onThreadInfoChange?: (
+    ...args: ThreadWebComponentEvents['threadinfochange']
+  ) => unknown;
+}>;
 
 export function Thread(
   props: PropsWithRef<

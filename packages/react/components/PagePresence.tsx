@@ -2,7 +2,6 @@ import React from 'react';
 
 import type {
   PagePresenceWebComponentEvents,
-  PagePresenceReactComponentProps,
   PropsWithStandardHTMLAttributes,
 } from '@cord-sdk/types';
 import {
@@ -12,10 +11,17 @@ import {
 
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
+import type { PresenceReducerOptions } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.PagePresence,
 );
+
+export type PagePresenceReactComponentProps = PresenceReducerOptions & {
+  durable?: boolean;
+  maxUsers?: number;
+  onUpdate?: (...args: PagePresenceWebComponentEvents['update']) => unknown;
+};
 
 export function PagePresence(
   props: PropsWithStandardHTMLAttributes<PagePresenceReactComponentProps>,

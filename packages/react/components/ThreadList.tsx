@@ -1,9 +1,7 @@
 import React, { useCallback } from 'react';
 import type {
   PropsWithStandardHTMLAttributes,
-  ThreadListReactComponentProps,
   ThreadListWebComponentEvents,
-  PropsWithRef,
 } from '@cord-sdk/types';
 import {
   componentAttributes,
@@ -11,10 +9,17 @@ import {
 } from '@cord-sdk/components';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
+import type { PropsWithRef, ReactPropsWithLocation } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.ThreadList,
 );
+export type ThreadListReactComponentProps = ReactPropsWithLocation<{
+  onThreadClick?: (
+    ...args: ThreadListWebComponentEvents['threadclick']
+  ) => unknown;
+}>;
+
 export function ThreadList(
   props: PropsWithRef<
     PropsWithStandardHTMLAttributes<ThreadListReactComponentProps>

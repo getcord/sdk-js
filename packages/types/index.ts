@@ -1,5 +1,3 @@
-import type React from 'react';
-
 type UUID = string;
 
 export type StartAnnotationFlowCallback = () => Promise<DocumentAnnotationResult | null>;
@@ -12,12 +10,6 @@ export type Location = Record<string, string | number | boolean>;
 
 // For backwards compatibility, will be removed along with the deprecated context prop
 export type Context = Location;
-
-export type PresenceReducerOptions = ReactPropsWithLocation<{
-  excludeViewer?: boolean;
-  onlyPresentUsers?: boolean;
-  exactMatch?: boolean;
-}>;
 
 // navigate, if present and returning true, overrides our default navigate behaviour
 export type NavigateFn = (url: string) => boolean | Promise<boolean>;
@@ -52,42 +44,20 @@ declare global {
   }
 }
 
-type ReactPropsWithLocation<T> = T & {
-  /**
-   * @deprecated The context prop has been renamed to location.
-   */
-  context?: Location;
-  location?: Location;
-};
-
 /* cord-text */
 
 export type TextWebComponentEvents = {
   boop: [boop: string];
 };
 
-export type TextReactComponentProps = {
-  label?: string;
-  color?: string;
-  onBoop?: (...args: TextWebComponentEvents['boop']) => unknown;
-};
-
 /* cord-multiple-cursors */
 
 export type MultipleCursorsWebComponentEvents = {};
-
-export type MultipleCursorsReactComponentProps = ReactPropsWithLocation<{}>;
 
 /* cord-page-presence */
 
 export type PagePresenceWebComponentEvents = {
   update: [foo: number];
-};
-
-export type PagePresenceReactComponentProps = PresenceReducerOptions & {
-  durable?: boolean;
-  maxUsers?: number;
-  onUpdate?: (...args: PagePresenceWebComponentEvents['update']) => unknown;
 };
 
 /* cord-presence-facepile */
@@ -96,30 +66,11 @@ export type PresenceFacepileWebComponentEvents = {
   update: [foo: number];
 };
 
-export type PresenceFacepileReactComponentProps = PresenceReducerOptions & {
-  maxUsers?: number;
-  onUpdate?: (...args: PresenceFacepileWebComponentEvents['update']) => unknown;
-};
-
 /* cord-presence-observer */
 
 export type PresenceObserverWebComponentEvents = {
   change: [present: boolean];
 };
-
-export type PresenceObserverReactComponentProps = React.PropsWithChildren<
-  ReactPropsWithLocation<{
-    element?: Element;
-    observeDocument?: boolean;
-    durable?: boolean;
-    presentEvents?: string[];
-    absentEvents?: string[];
-    initialState?: boolean;
-    onChange?: (
-      ...args: PresenceObserverWebComponentEvents['change']
-    ) => unknown;
-  }>
->;
 
 /* cord-sidebar */
 
@@ -127,18 +78,6 @@ export type SidebarWebComponentEvents = {
   open: [];
   close: [];
 };
-
-export type SidebarReactComponentProps = ReactPropsWithLocation<{
-  showCloseButton?: boolean;
-  showPresence?: boolean;
-  showPinsOnPage?: boolean;
-  excludeViewerFromPresence?: boolean;
-  showAllActivity?: boolean;
-  open?: boolean;
-  showLauncher?: boolean;
-  onOpen?: (...args: SidebarWebComponentEvents['open']) => unknown;
-  onClose?: (...args: SidebarWebComponentEvents['close']) => unknown;
-}>;
 
 /* cord-sidebar-launcher */
 
@@ -148,24 +87,9 @@ export type SidebarLauncherWebComponentEvents = {
 
 export type BadgeStyle = 'badge' | 'badge_with_count' | 'none';
 
-export type SidebarLauncherReactComponentProps = {
-  label?: string | null;
-  iconUrl?: string | null;
-  inboxBadgeStyle?: BadgeStyle;
-  onClick?: (...args: SidebarLauncherWebComponentEvents['click']) => unknown;
-};
-
 /* cord-collaboration */
 
 export type CollaborationWebComponentEvents = {};
-
-export type CollaborationReactComponentProps = ReactPropsWithLocation<{
-  showCloseButton?: boolean;
-  showPresence?: boolean;
-  excludeViewerFromPresence?: boolean;
-  showAllActivity?: boolean;
-  showPinsOnPage?: boolean;
-}>;
 
 /* cord-thread */
 
@@ -177,24 +101,10 @@ export type ThreadInfo = {
   messageCount: number;
 };
 
-export type ThreadReactComponentProps = ReactPropsWithLocation<{
-  threadId: string;
-  collapsed?: boolean;
-  onThreadInfoChange?: (
-    ...args: ThreadWebComponentEvents['threadinfochange']
-  ) => unknown;
-}>;
-
 /* cord-thread-list */
 export type ThreadListWebComponentEvents = {
   threadclick: [threadID: string];
 };
-export type ThreadListReactComponentProps = ReactPropsWithLocation<{
-  onThreadClick?: (
-    ...args: ThreadListWebComponentEvents['threadclick']
-  ) => unknown;
-}>;
-
 /* annotation types */
 
 export type DocumentAnnotationResult = {
@@ -335,10 +245,6 @@ export type PropsWithStandardHTMLAttributes<T> = T & {
   id?: string;
   className?: string;
   // TODO: maybe allow style here? what would that even mean?
-};
-
-export type PropsWithRef<T> = T & {
-  forwardRef?: React.MutableRefObject<Element | null>;
 };
 
 const BLUR_DISPLAY_LOCATIONS = ['everywhere', 'outside_page'] as const;

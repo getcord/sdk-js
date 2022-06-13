@@ -2,7 +2,6 @@ import React from 'react';
 
 import type {
   PresenceFacepileWebComponentEvents,
-  PresenceFacepileReactComponentProps,
   PropsWithStandardHTMLAttributes,
 } from '@cord-sdk/types';
 import {
@@ -12,10 +11,16 @@ import {
 
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
+import type { PresenceReducerOptions } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.PresenceFacepile,
 );
+
+export type PresenceFacepileReactComponentProps = PresenceReducerOptions & {
+  maxUsers?: number;
+  onUpdate?: (...args: PresenceFacepileWebComponentEvents['update']) => unknown;
+};
 
 export function PresenceFacepile(
   props: PropsWithStandardHTMLAttributes<PresenceFacepileReactComponentProps>,

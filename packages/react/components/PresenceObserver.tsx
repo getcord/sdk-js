@@ -2,7 +2,6 @@ import React from 'react';
 
 import type {
   PresenceObserverWebComponentEvents,
-  PresenceObserverReactComponentProps,
   PropsWithStandardHTMLAttributes,
 } from '@cord-sdk/types';
 import {
@@ -12,10 +11,25 @@ import {
 
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
+import type { ReactPropsWithLocation } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.PresenceObserver,
 );
+
+export type PresenceObserverReactComponentProps = React.PropsWithChildren<
+  ReactPropsWithLocation<{
+    element?: Element;
+    observeDocument?: boolean;
+    durable?: boolean;
+    presentEvents?: string[];
+    absentEvents?: string[];
+    initialState?: boolean;
+    onChange?: (
+      ...args: PresenceObserverWebComponentEvents['change']
+    ) => unknown;
+  }>
+>;
 
 export function PresenceObserver(
   props: PropsWithStandardHTMLAttributes<PresenceObserverReactComponentProps>,

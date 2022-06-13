@@ -2,7 +2,6 @@ import React from 'react';
 
 import type {
   PropsWithStandardHTMLAttributes,
-  CollaborationReactComponentProps,
   CollaborationWebComponentEvents,
 } from '@cord-sdk/types';
 import {
@@ -12,10 +11,19 @@ import {
 
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
+import type { ReactPropsWithLocation } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Collaboration,
 );
+
+export type CollaborationReactComponentProps = ReactPropsWithLocation<{
+  showCloseButton?: boolean;
+  showPresence?: boolean;
+  excludeViewerFromPresence?: boolean;
+  showAllActivity?: boolean;
+  showPinsOnPage?: boolean;
+}>;
 
 export function Collaboration(
   props: PropsWithStandardHTMLAttributes<CollaborationReactComponentProps>,

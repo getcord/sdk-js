@@ -2,7 +2,6 @@ import React from 'react';
 
 import type {
   PropsWithStandardHTMLAttributes,
-  SidebarReactComponentProps,
   SidebarWebComponentEvents,
 } from '@cord-sdk/types';
 import {
@@ -11,10 +10,23 @@ import {
 } from '@cord-sdk/components';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
+import type { ReactPropsWithLocation } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Sidebar,
 );
+
+export type SidebarReactComponentProps = ReactPropsWithLocation<{
+  showCloseButton?: boolean;
+  showPresence?: boolean;
+  showPinsOnPage?: boolean;
+  excludeViewerFromPresence?: boolean;
+  showAllActivity?: boolean;
+  open?: boolean;
+  showLauncher?: boolean;
+  onOpen?: (...args: SidebarWebComponentEvents['open']) => unknown;
+  onClose?: (...args: SidebarWebComponentEvents['close']) => unknown;
+}>;
 
 export function Sidebar(
   props: PropsWithStandardHTMLAttributes<SidebarReactComponentProps>,

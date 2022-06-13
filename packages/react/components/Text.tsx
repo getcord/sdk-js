@@ -2,7 +2,6 @@ import React from 'react';
 
 import type {
   TextWebComponentEvents,
-  TextReactComponentProps,
   PropsWithStandardHTMLAttributes,
 } from '@cord-sdk/types';
 import {
@@ -12,6 +11,12 @@ import {
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 
 const propsToAttributes = propsToAttributeConverter(componentAttributes.Text);
+
+export type TextReactComponentProps = {
+  label?: string;
+  color?: string;
+  onBoop?: (...args: TextWebComponentEvents['boop']) => unknown;
+};
 
 export function Text(
   props: PropsWithStandardHTMLAttributes<TextReactComponentProps>,
