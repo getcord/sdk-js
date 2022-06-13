@@ -63,13 +63,13 @@ type ReactPropsWithLocation<T> = T & {
 /* cord-text */
 
 export type TextWebComponentEvents = {
-  boop: Parameters<NonNullable<TextReactComponentProps['onBoop']>>;
+  boop: [boop: string];
 };
 
 export type TextReactComponentProps = {
   label?: string;
   color?: string;
-  onBoop?: (boop: string) => unknown;
+  onBoop?: (...args: TextWebComponentEvents['boop']) => unknown;
 };
 
 /* cord-multiple-cursors */
@@ -81,34 +81,30 @@ export type MultipleCursorsReactComponentProps = ReactPropsWithLocation<{}>;
 /* cord-page-presence */
 
 export type PagePresenceWebComponentEvents = {
-  update: Parameters<NonNullable<PagePresenceReactComponentProps['onUpdate']>>;
+  update: [foo: number];
 };
 
 export type PagePresenceReactComponentProps = PresenceReducerOptions & {
   durable?: boolean;
   maxUsers?: number;
-  onUpdate?: (foo: number) => unknown;
+  onUpdate?: (...args: PagePresenceWebComponentEvents['update']) => unknown;
 };
 
 /* cord-presence-facepile */
 
 export type PresenceFacepileWebComponentEvents = {
-  update: Parameters<
-    NonNullable<PresenceFacepileReactComponentProps['onUpdate']>
-  >;
+  update: [foo: number];
 };
 
 export type PresenceFacepileReactComponentProps = PresenceReducerOptions & {
   maxUsers?: number;
-  onUpdate?: (foo: number) => unknown;
+  onUpdate?: (...args: PresenceFacepileWebComponentEvents['update']) => unknown;
 };
 
 /* cord-presence-observer */
 
 export type PresenceObserverWebComponentEvents = {
-  change: Parameters<
-    NonNullable<PresenceObserverReactComponentProps['onChange']>
-  >;
+  change: [present: boolean];
 };
 
 export type PresenceObserverReactComponentProps = React.PropsWithChildren<
@@ -119,15 +115,17 @@ export type PresenceObserverReactComponentProps = React.PropsWithChildren<
     presentEvents?: string[];
     absentEvents?: string[];
     initialState?: boolean;
-    onChange?: (present: boolean) => unknown;
+    onChange?: (
+      ...args: PresenceObserverWebComponentEvents['change']
+    ) => unknown;
   }>
 >;
 
 /* cord-sidebar */
 
 export type SidebarWebComponentEvents = {
-  open: Parameters<NonNullable<SidebarReactComponentProps['onOpen']>>;
-  close: Parameters<NonNullable<SidebarReactComponentProps['onClose']>>;
+  open: [];
+  close: [];
 };
 
 export type SidebarReactComponentProps = ReactPropsWithLocation<{
@@ -138,14 +136,14 @@ export type SidebarReactComponentProps = ReactPropsWithLocation<{
   showAllActivity?: boolean;
   open?: boolean;
   showLauncher?: boolean;
-  onOpen?: () => unknown;
-  onClose?: () => unknown;
+  onOpen?: (...args: SidebarWebComponentEvents['open']) => unknown;
+  onClose?: (...args: SidebarWebComponentEvents['close']) => unknown;
 }>;
 
 /* cord-sidebar-launcher */
 
 export type SidebarLauncherWebComponentEvents = {
-  click: Parameters<NonNullable<SidebarLauncherReactComponentProps['onClick']>>;
+  click: [];
 };
 
 export type BadgeStyle = 'badge' | 'badge_with_count' | 'none';
@@ -154,7 +152,7 @@ export type SidebarLauncherReactComponentProps = {
   label?: string | null;
   iconUrl?: string | null;
   inboxBadgeStyle?: BadgeStyle;
-  onClick?: () => unknown;
+  onClick?: (...args: SidebarLauncherWebComponentEvents['click']) => unknown;
 };
 
 /* cord-collaboration */
@@ -172,9 +170,7 @@ export type CollaborationReactComponentProps = ReactPropsWithLocation<{
 /* cord-thread */
 
 export type ThreadWebComponentEvents = {
-  threadinfochange: Parameters<
-    NonNullable<ThreadReactComponentProps['onThreadInfoChange']>
-  >;
+  threadinfochange: [threadInfo: ThreadInfo];
 };
 
 export type ThreadInfo = {
@@ -184,17 +180,19 @@ export type ThreadInfo = {
 export type ThreadReactComponentProps = ReactPropsWithLocation<{
   threadId: string;
   collapsed?: boolean;
-  onThreadInfoChange?: (arg: ThreadInfo) => unknown;
+  onThreadInfoChange?: (
+    ...args: ThreadWebComponentEvents['threadinfochange']
+  ) => unknown;
 }>;
 
 /* cord-thread-list */
 export type ThreadListWebComponentEvents = {
-  threadclick: Parameters<
-    NonNullable<ThreadListReactComponentProps['onThreadClick']>
-  >;
+  threadclick: [threadID: string];
 };
 export type ThreadListReactComponentProps = ReactPropsWithLocation<{
-  onThreadClick?: (threadID: string) => unknown;
+  onThreadClick?: (
+    ...args: ThreadListWebComponentEvents['threadclick']
+  ) => unknown;
 }>;
 
 /* annotation types */
