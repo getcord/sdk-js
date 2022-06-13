@@ -100,7 +100,7 @@ const enumAttributeConverter = <T extends readonly string[]>(
 ) => (value: string | null): T[number] | undefined =>
   value === null
     ? undefined
-    : possibleValues.includes(value)
+    : possibleValues.indexOf(value) !== -1
     ? value
     : undefined;
 

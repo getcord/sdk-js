@@ -12,10 +12,11 @@ export function useCustomEventListeners<T extends Record<string, unknown[]>>(
       return;
     }
 
-    const handlers = Object.entries(events).map(([event, callback]) => {
+    const handlers = Object.keys(events).map((event) => {
+      const callback = events[event];
       const customEventHandler = (e: Event) => {
         if (e instanceof CustomEvent) {
-          callback?.apply(null, e.detail as unknown[]);
+          callback?.apply(null, e.detail);
         }
       };
 

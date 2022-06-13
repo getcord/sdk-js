@@ -365,7 +365,7 @@ export type BlurDisplayLocation = typeof BLUR_DISPLAY_LOCATIONS[number];
 export function isBlurDisplayLocation(
   behavior: string,
 ): behavior is BlurDisplayLocation {
-  return (BLUR_DISPLAY_LOCATIONS as readonly string[]).includes(behavior);
+  return (BLUR_DISPLAY_LOCATIONS as readonly string[]).indexOf(behavior) !== -1;
 }
 
 // declare global {
