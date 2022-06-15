@@ -57,7 +57,7 @@ export type AnnotationHandler<L extends Location = {}> = {
   onAnnotationCapture: (
     capturePosition: AnnotationCapturePosition,
     element: HTMLElement,
-  ) => { extraLocation?: Partial<L> } | undefined | void;
+  ) => { extraLocation?: Partial<L>; label?: string } | undefined | void;
   onAnnotationClick: (annotation: Annotation<L>) => unknown;
 };
 
@@ -159,6 +159,7 @@ export interface MessageAnnotation {
   id: string;
   location: DocumentLocation | null;
   customLocation: Context | null;
+  customLabel: string | null;
   sourceID: UUID;
   draft?: boolean;
 }
