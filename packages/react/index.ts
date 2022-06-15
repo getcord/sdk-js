@@ -34,3 +34,9 @@ export {
 } from './components/ThreadList';
 export { useCordContext, useCordLocation } from './hooks/useCordLocation';
 export { PresenceReducerOptions } from './types';
+export {
+  useCordAnnotationTargetRef,
+  useCordAnnotationCaptureHandler,
+  useCordAnnotationClickHandler,
+  useCordAnnotationRenderer,
+} from './hooks/useCordAnnotationTargetRef';

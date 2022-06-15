@@ -29,6 +29,46 @@ export type CordSDKOptions = {
   react_package_version?: string;
 };
 
+export type AnnotationRenderPosition = {
+  coordinates?: {
+    x: number | string;
+    y: number | string;
+  };
+  element?: HTMLElement;
+};
+
+export type AnnotationCapturePosition = {
+  x: number;
+  y: number;
+  relativeTo: HTMLElement;
+};
+
+export type Annotation<L extends Location = {}> = {
+  id: string;
+  location: L;
+};
+
+export type AnnotationPositionRendererCallback<L extends Location = {}> = (
+  annotation: Annotation<L>,
+) => AnnotationRenderPosition | null | undefined | void;
+
+export type AnnotationHandler<L extends Location = {}> = {
+  getAnnotationPosition: AnnotationPositionRendererCallback<L>;
+  onAnnotationCapture: (
+    capturePosition: AnnotationCapturePosition,
+    element: HTMLElement,
+  ) => { extraLocation?: Partial<L> } | undefined | void;
+  onAnnotationClick: (annotation: Annotation<L>) => unknown;
+};
+
+export interface ICordAnnotationSDK {
+  setAnnotationHandler<T extends keyof AnnotationHandler, L extends Location>(
+    type: T,
+    locationString: string,
+    handler: AnnotationHandler<L>[T] | null,
+  ): void;
+}
+
 export interface ICordSDK {
   init(options: CordSDKOptions): Promise<void>;
   startAnnotationFlow(): void;
@@ -37,6 +77,7 @@ export interface ICordSDK {
   removeMonacoEditor(id: string): void;
   addReactTree(id: string, reactTree: unknown): void;
   removeReactTree(id: string): void;
+  annotations: ICordAnnotationSDK;
 }
 
 declare global {
@@ -274,3 +315,16 @@ export function isBlurDisplayLocation(
 // };
 
 // type TextComponentCustomEvents = CustomEvents<TextComponentEvents>;
+
+export const CORD_ANNOTATION_LOCATION_DATA_ATTRIBUTE =
+  'data-cord-annotation-location';
+
+export function locationJson(c: Partial<Location>): string {
+  return JSON.stringify(
+    Object.fromEntries(
+      Object.entries(c)
+        .filter(([_key, value]) => value !== undefined)
+        .sort(([keyA], [keyB]) => (keyA < keyB ? -1 : 1)),
+    ),
+  );
+}
