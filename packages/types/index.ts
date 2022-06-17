@@ -29,18 +29,23 @@ export type CordSDKOptions = {
   react_package_version?: string;
 };
 
+export type AnnotationCapturePosition = {
+  x: number;
+  y: number;
+  relativeTo: HTMLElement;
+};
+
+export type AnnotationCaptureResult<L extends Location = {}> = {
+  extraLocation?: Partial<L>;
+  label?: string;
+};
+
 export type AnnotationRenderPosition = {
   coordinates?: {
     x: number | string;
     y: number | string;
   };
   element?: HTMLElement;
-};
-
-export type AnnotationCapturePosition = {
-  x: number;
-  y: number;
-  relativeTo: HTMLElement;
 };
 
 export type Annotation<L extends Location = {}> = {
@@ -57,7 +62,7 @@ export type AnnotationHandler<L extends Location = {}> = {
   onAnnotationCapture: (
     capturePosition: AnnotationCapturePosition,
     element: HTMLElement,
-  ) => { extraLocation?: Partial<L>; label?: string } | undefined | void;
+  ) => AnnotationCaptureResult | undefined | void;
   onAnnotationClick: (annotation: Annotation<L>) => unknown;
 };
 
