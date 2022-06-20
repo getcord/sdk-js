@@ -7,7 +7,8 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w"
+    "dev": "rollup -c -w",
+    "tsc-packages": "for package in packages/*/; do echo \"Checking package: ${package}\" && tsc --noEmit -p \"${package}\" || exit 1; done"
   },
   "devDependencies": {
     "@rollup/plugin-replace": "^4.0.0",
