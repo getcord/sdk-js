@@ -32,7 +32,7 @@ export type CordSDKOptions = {
 export type AnnotationCapturePosition = {
   x: number;
   y: number;
-  relativeTo: HTMLElement;
+  element: HTMLElement;
 };
 
 export type AnnotationCaptureResult<L extends Location = {}> = {
