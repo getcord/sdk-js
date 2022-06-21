@@ -40,3 +40,7 @@ export {
   useCordAnnotationClickHandler,
   useCordAnnotationRenderer,
 } from './hooks/useCordAnnotationTargetRef';
+export {
+  InboxLauncher,
+  InboxLauncherReactComponentProps,
+} from './components/InboxLauncher';

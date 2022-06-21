@@ -152,6 +152,10 @@ export type ThreadInfo = {
 export type ThreadListWebComponentEvents = {
   threadclick: [threadID: string];
 };
+
+/* cord-inbox-launcher */
+export type InboxLauncherWebComponentEvents = { click: [] };
+
 /* annotation types */
 
 export type DocumentAnnotationResult = {

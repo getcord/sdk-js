@@ -11,6 +11,7 @@ export const componentNames = {
   'cord-text': 'Text',
   'cord-thread': 'Thread',
   'cord-thread-list': 'ThreadList',
+  'cord-inbox-launcher': 'InboxLauncher',
 } as const;
 
 export type ElementName = keyof typeof componentNames;
@@ -83,6 +84,11 @@ export const componentAttributes = {
   },
   ThreadList: {
     location: 'json',
+  },
+  InboxLauncher: {
+    label: 'string',
+    'icon-url': 'string',
+    'inbox-badge-style': 'badge-style',
   },
 } as const;
 
