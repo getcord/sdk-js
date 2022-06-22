@@ -14,7 +14,15 @@ function useAnnotationHandler<
   locationString: string,
   callback: AnnotationHandler<L>[T] | undefined,
 ) {
-  const { sdk } = useContext(CordContext);
+  const { sdk, hasProvider } = useContext(CordContext);
+
+  useEffect(() => {
+    if (!hasProvider) {
+      console.error(
+        `[Cord SDK] The ${type} handler with location ${locationString} is used in a component that is not a descendant of <CordProvider>.`,
+      );
+    }
+  }, [hasProvider, locationString, type]);
 
   useEffect(() => {
     if (!callback || !sdk) {

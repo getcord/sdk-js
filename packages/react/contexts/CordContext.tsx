@@ -13,12 +13,15 @@ type CordContextValue = {
   sdk: ICordSDK | null;
   location: Location | undefined;
   setLocation: (location: Location | undefined) => unknown;
+  // True only if the `useContext(CordContext)` call is within the context provider.
+  hasProvider: boolean;
 };
 
 export const CordContext = React.createContext<CordContextValue>({
   sdk: null,
   location: undefined,
   setLocation: () => undefined,
+  hasProvider: false,
 });
 
 type Props = {
@@ -104,7 +107,7 @@ export function CordProvider({
   ]);
 
   const value = useMemo<CordContextValue>(
-    () => ({ sdk, location, setLocation }),
+    () => ({ sdk, location, setLocation, hasProvider: true }),
     [sdk, location, setLocation],
   );
 
