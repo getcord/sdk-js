@@ -169,6 +169,7 @@ export interface MessageAnnotation {
   location: DocumentLocation | null;
   customLocation: Context | null;
   customLabel: string | null;
+  coordsRelativeToTarget: { x: number; y: number } | null;
   sourceID: UUID;
   draft?: boolean;
 }
