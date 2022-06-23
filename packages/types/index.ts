@@ -1,12 +1,5 @@
 type UUID = string;
 
-export type StartAnnotationFlowCallback =
-  () => Promise<DocumentAnnotationResult | null>;
-
-export type ShowAnnotationWithComposerCallback = (
-  annotation: DocumentAnnotationResult,
-) => unknown;
-
 export type Location = Record<string, string | number | boolean>;
 
 // For backwards compatibility, will be removed along with the deprecated context prop
@@ -76,7 +69,6 @@ export interface ICordAnnotationSDK {
 
 export interface ICordSDK {
   init(options: CordSDKOptions): Promise<void>;
-  startAnnotationFlow(): void;
   destroy(): void;
   addMonacoEditor(id: string, monacoEditor: unknown): void;
   removeMonacoEditor(id: string): void;
