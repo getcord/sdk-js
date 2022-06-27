@@ -12,6 +12,7 @@ export const componentNames = {
   'cord-thread': 'Thread',
   'cord-thread-list': 'ThreadList',
   'cord-inbox-launcher': 'InboxLauncher',
+  'cord-inbox': 'Inbox',
 } as const;
 
 export type ElementName = keyof typeof componentNames;
@@ -89,6 +90,10 @@ export const componentAttributes = {
     label: 'string',
     'icon-url': 'string',
     'inbox-badge-style': 'badge-style',
+  },
+  Inbox: {
+    'show-close-button': 'boolean', // need to change underlying component to implement this
+    'show-all-activity': 'boolean',
   },
 } as const;
 

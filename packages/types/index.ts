@@ -149,6 +149,9 @@ export type ThreadListWebComponentEvents = {
 /* cord-inbox-launcher */
 export type InboxLauncherWebComponentEvents = { click: [] };
 
+/* cord-inbox */
+export type InboxWebComponentEvents = { closeRequested: [] };
+
 /* annotation types */
 
 export type DocumentAnnotationResult = {
