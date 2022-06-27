@@ -36,15 +36,22 @@ function useAnnotationHandler<
   }, [sdk, type, locationString, callback]);
 }
 
+const doNothing = () => {};
+
 export function useCordAnnotationRenderer<L extends Location = {}>(
   location: Partial<L>,
   handler: AnnotationHandler<L>['getAnnotationPosition'],
-) {
+): { redrawAnnotations: () => void } {
   useAnnotationHandler(
     'getAnnotationPosition',
     locationJson(location),
     handler,
   );
+
+  const { sdk } = useContext(CordContext);
+  return {
+    redrawAnnotations: sdk?.annotations.redrawAnnotations ?? doNothing,
+  };
 }
 
 export function useCordAnnotationCaptureHandler<L extends Location = {}>(

@@ -65,6 +65,7 @@ export interface ICordAnnotationSDK {
     locationString: string,
     handler: AnnotationHandler<L>[T] | null,
   ): void;
+  redrawAnnotations(): void;
 }
 
 export interface ICordSDK {
