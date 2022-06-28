@@ -1,6 +1,6 @@
 <img width="100%" src="https://docs.cord.com/assets/cord-sdk-banner.svg"></img>
 
-# [@cord-sdk/types](https://docs.cord.com/) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/getcord/cord-sdk/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/@cord-sdk/types.svg)](https://www.npmjs.com/package/@cord-sdk/types)
+# [@cord-sdk/types](https://docs.cord.com/) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/getcord/sdk-js/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/@cord-sdk/types.svg)](https://www.npmjs.com/package/@cord-sdk/types)
 
 This package contains common type definitions used by other cord-sdk packages.
 

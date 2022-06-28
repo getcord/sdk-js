@@ -38,7 +38,7 @@ async function main() {
     pkg['types'] = 'dist/mjs/index.d.ts';
     pkg['repository'] = {
       type: 'git',
-      url: 'https://github.com/getcord/cord-sdk.git',
+      url: 'https://github.com/getcord/sdk-js.git',
       directory: `packages/${packageName}`,
     };
 
