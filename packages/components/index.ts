@@ -82,6 +82,7 @@ export const componentAttributes = {
     location: 'json',
     'thread-id': 'string',
     collapsed: 'boolean',
+    'show-header': 'boolean',
   },
   ThreadList: {
     location: 'json',

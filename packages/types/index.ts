@@ -135,6 +135,8 @@ export type CollaborationWebComponentEvents = {};
 
 export type ThreadWebComponentEvents = {
   threadinfochange: [threadInfo: ThreadInfo];
+  close: [];
+  resolved: [];
 };
 
 export type ThreadInfo = {

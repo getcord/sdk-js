@@ -18,9 +18,12 @@ const propsToAttributes = propsToAttributeConverter(componentAttributes.Thread);
 export type ThreadReactComponentProps = ReactPropsWithLocation<{
   threadId: string;
   collapsed?: boolean;
+  showHeader?: boolean;
   onThreadInfoChange?: (
     ...args: ThreadWebComponentEvents['threadinfochange']
   ) => unknown;
+  onClose?: (...args: ThreadWebComponentEvents['close']) => unknown;
+  onResolved?: (...args: ThreadWebComponentEvents['resolved']) => unknown;
 }>;
 
 export function Thread(
@@ -32,6 +35,8 @@ export function Thread(
 ) {
   const setRef = useCustomEventListeners<ThreadWebComponentEvents>({
     threadinfochange: props.onThreadInfoChange,
+    close: props.onClose,
+    resolved: props.onResolved,
   });
   const combinedSetRef = useCallback(
     (element) => {
