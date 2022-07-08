@@ -89,12 +89,6 @@ export function CordProvider({
         .then(() => {
           setSDK(sdk);
         });
-
-      return () => {
-        sdk.destroy();
-      };
-    } else {
-      return undefined;
     }
   }, [
     sdk,
@@ -105,6 +99,12 @@ export function CordProvider({
     showBlurredScreenshots,
     navigate,
   ]);
+
+  useEffect(() => {
+    return () => {
+      sdk?.destroy();
+    };
+  }, [sdk]);
 
   const value = useMemo<CordContextValue>(
     () => ({ sdk, location, setLocation, hasProvider: true }),
