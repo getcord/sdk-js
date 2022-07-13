@@ -106,6 +106,8 @@ export type PresenceFacepileWebComponentEvents = {
   update: [foo: number];
 };
 
+export type Orientation = 'horizontal' | 'vertical';
+
 /* cord-presence-observer */
 
 export type PresenceObserverWebComponentEvents = {

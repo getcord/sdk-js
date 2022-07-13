@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type {
+  Orientation,
   PagePresenceWebComponentEvents,
   PropsWithStandardHTMLAttributes,
 } from '@cord-sdk/types';
@@ -20,6 +21,7 @@ const propsToAttributes = propsToAttributeConverter(
 export type PagePresenceReactComponentProps = PresenceReducerOptions & {
   durable?: boolean;
   maxUsers?: number;
+  orientation?: Orientation;
   onUpdate?: (...args: PagePresenceWebComponentEvents['update']) => unknown;
 };
 

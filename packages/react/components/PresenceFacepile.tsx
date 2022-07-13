@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type {
+  Orientation,
   PresenceFacepileWebComponentEvents,
   PropsWithStandardHTMLAttributes,
 } from '@cord-sdk/types';
@@ -19,6 +20,7 @@ const propsToAttributes = propsToAttributeConverter(
 
 export type PresenceFacepileReactComponentProps = PresenceReducerOptions & {
   maxUsers?: number;
+  orientation?: Orientation;
   onUpdate?: (...args: PresenceFacepileWebComponentEvents['update']) => unknown;
 };
 

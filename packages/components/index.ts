@@ -1,4 +1,4 @@
-import type { BadgeStyle, JsonValue } from '@cord-sdk/types';
+import type { BadgeStyle, JsonValue, Orientation } from '@cord-sdk/types';
 
 export const componentNames = {
   'cord-collaboration': 'Collaboration',
@@ -39,6 +39,7 @@ export const componentAttributes = {
     'max-users': 'number',
     'exclude-viewer': 'boolean',
     'only-present-users': 'boolean',
+    orientation: 'orientation',
   },
   PresenceFacepile: {
     context: 'json',
@@ -47,6 +48,7 @@ export const componentAttributes = {
     'exclude-viewer': 'boolean',
     'only-present-users': 'boolean',
     'exact-match': 'boolean',
+    orientation: 'orientation',
   },
   PresenceObserver: {
     context: 'json',
@@ -105,6 +107,7 @@ export type PropertyTypes = {
   string: string;
   array: any[];
   'badge-style': BadgeStyle;
+  orientation: Orientation;
 };
 
 const enumAttributeConverter =
@@ -131,6 +134,7 @@ export const attributeToPropertyConverters: {
     'badge',
     'badge_with_count',
   ] as const),
+  orientation: enumAttributeConverter(['vertical', 'horizontal'] as const),
 };
 
 export const propertyToAttributeConverters: {
@@ -145,6 +149,7 @@ export const propertyToAttributeConverters: {
   string: (value) => (value === undefined ? undefined : value || ''),
   array: (value) => value?.join(','),
   'badge-style': (value) => (value === undefined ? undefined : value || ''),
+  orientation: (value) => (value === undefined ? undefined : value || ''),
 };
 
 export function attributeNameToPropName(attributeName: string): string {
