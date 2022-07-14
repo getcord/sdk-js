@@ -95,7 +95,7 @@ export const componentAttributes = {
     'inbox-badge-style': 'badge-style',
   },
   Inbox: {
-    'show-close-button': 'boolean', // need to change underlying component to implement this
+    'show-close-button': 'boolean',
     'show-all-activity': 'boolean',
   },
 } as const;
