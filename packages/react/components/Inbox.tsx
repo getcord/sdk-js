@@ -15,7 +15,6 @@ const propsToAttributes = propsToAttributeConverter(componentAttributes.Inbox);
 
 export type InboxReactComponentProps = ReactPropsWithLocation<{
   showCloseButton?: boolean;
-  showAllActivity?: boolean;
   onCloseRequested?: (
     ...args: InboxWebComponentEvents['closeRequested']
   ) => void;

@@ -96,7 +96,6 @@ export const componentAttributes = {
   },
   Inbox: {
     'show-close-button': 'boolean',
-    'show-all-activity': 'boolean',
   },
 } as const;
 
