@@ -126,7 +126,7 @@ export const attributeToPropertyConverters: {
   ) => PropertyTypes[T] | undefined;
 } = {
   json: (value) => (value ? (JSON.parse(value) as JsonValue) : undefined),
-  boolean: (value) => value === 'true',
+  boolean: (value) => (value === null ? undefined : value === 'true'),
   number: (value) => (value ? parseInt(value) : undefined),
   string: (value) => value ?? undefined,
   array: (value) => value?.split(',').filter((x) => x.length > 0),
