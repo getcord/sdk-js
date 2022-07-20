@@ -18,6 +18,7 @@ export type InboxReactComponentProps = ReactPropsWithLocation<{
   onCloseRequested?: (
     ...args: InboxWebComponentEvents['closeRequested']
   ) => void;
+  showSettings?: boolean;
 }>;
 
 export function Inbox(
