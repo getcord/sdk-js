@@ -20,6 +20,7 @@ const propsToAttributes = propsToAttributeConverter(
 export type CollaborationReactComponentProps = ReactPropsWithLocation<{
   showCloseButton?: boolean;
   showPresence?: boolean;
+  showInbox?: boolean;
   excludeViewerFromPresence?: boolean;
   showAllActivity?: boolean;
   showPinsOnPage?: boolean;

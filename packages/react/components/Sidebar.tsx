@@ -18,6 +18,7 @@ const propsToAttributes = propsToAttributeConverter(
 
 export type SidebarReactComponentProps = ReactPropsWithLocation<{
   showCloseButton?: boolean;
+  showInbox?: boolean;
   showPresence?: boolean;
   showPinsOnPage?: boolean;
   excludeViewerFromPresence?: boolean;
