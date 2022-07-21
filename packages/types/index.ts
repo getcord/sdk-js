@@ -68,6 +68,50 @@ export interface ICordAnnotationSDK {
   redrawAnnotations(): void;
 }
 
+export type GetPresentOptions = {
+  exclude_durable?: boolean;
+  exact_match?: boolean;
+};
+
+export type SetPresentOptions = {
+  durable?: boolean;
+  absent?: boolean;
+  exclusive_within?: Location;
+};
+
+export type AddListenerOptions = {
+  exact_match?: boolean;
+};
+
+export type PresenceListener = (update: UserLocationData) => void;
+
+export type UserLocationData = {
+  id: string;
+  ephemeral?: {
+    locations: Location[] | null;
+  };
+  durable?: {
+    location: Location;
+    timestamp: Date;
+  };
+};
+
+export type ListenerRef = number;
+
+export interface ICordPresenceSDK {
+  setPresent(location: Location, options?: SetPresentOptions): void;
+  getPresent(
+    matcher: Location,
+    options?: GetPresentOptions,
+  ): Promise<UserLocationData[]>;
+  addListener(
+    listener: PresenceListener,
+    matcher: Location,
+    options?: AddListenerOptions,
+  ): ListenerRef;
+  removeListener(index: ListenerRef): void;
+}
+
 export interface ICordSDK {
   init(options: CordSDKOptions): Promise<void>;
   destroy(): void;
@@ -76,6 +120,7 @@ export interface ICordSDK {
   addReactTree(id: string, reactTree: unknown): void;
   removeReactTree(id: string): void;
   annotations: ICordAnnotationSDK;
+  presence: ICordPresenceSDK;
 }
 
 declare global {
@@ -167,7 +212,7 @@ export type DocumentAnnotationResult = {
 export interface MessageAnnotation {
   id: string;
   location: DocumentLocation | null;
-  customLocation: Context | null;
+  customLocation: Location | null;
   customLabel: string | null;
   coordsRelativeToTarget: { x: number; y: number } | null;
   sourceID: UUID;
