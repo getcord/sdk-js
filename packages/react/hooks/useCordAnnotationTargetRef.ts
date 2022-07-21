@@ -1,29 +1,20 @@
-import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
-import type { Location, AnnotationHandler } from '@cord-sdk/types';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
+import type { Location, AnnotationHandler, ICordSDK } from '@cord-sdk/types';
 import {
   CORD_ANNOTATION_LOCATION_DATA_ATTRIBUTE,
   locationJson,
 } from '@cord-sdk/types';
-import { CordContext } from '../contexts/CordContext';
+import { useCordContext } from '../contexts/CordContext';
 
 function useAnnotationHandler<
   L extends Location,
   T extends keyof AnnotationHandler,
 >(
+  sdk: ICordSDK | null,
   type: T,
   locationString: string,
   callback: AnnotationHandler<L>[T] | undefined,
 ) {
-  const { sdk, hasProvider } = useContext(CordContext);
-
-  useEffect(() => {
-    if (!hasProvider) {
-      console.error(
-        `[Cord SDK] The ${type} handler with location ${locationString} is used in a component that is not a descendant of <CordProvider>.`,
-      );
-    }
-  }, [hasProvider, locationString, type]);
-
   useEffect(() => {
     if (!callback || !sdk) {
       return;
@@ -42,13 +33,15 @@ export function useCordAnnotationRenderer<L extends Location = {}>(
   location: Partial<L>,
   handler: AnnotationHandler<L>['getAnnotationPosition'],
 ): { redrawAnnotations: () => void } {
+  const { sdk } = useCordContext('useCordAnnotationRenderer');
+
   useAnnotationHandler(
+    sdk,
     'getAnnotationPosition',
     locationJson(location),
     handler,
   );
 
-  const { sdk } = useContext(CordContext);
   return {
     redrawAnnotations: sdk?.annotations.redrawAnnotations ?? doNothing,
   };
@@ -58,14 +51,26 @@ export function useCordAnnotationCaptureHandler<L extends Location = {}>(
   location: Partial<L>,
   handler: AnnotationHandler<L>['onAnnotationCapture'],
 ) {
-  useAnnotationHandler('onAnnotationCapture', locationJson(location), handler);
+  const { sdk } = useCordContext('useCordAnnotationCaptureHandler');
+  useAnnotationHandler(
+    sdk,
+    'onAnnotationCapture',
+    locationJson(location),
+    handler,
+  );
 }
 
 export function useCordAnnotationClickHandler<L extends Location = {}>(
   location: Partial<L>,
   handler: AnnotationHandler<L>['onAnnotationClick'],
 ) {
-  useAnnotationHandler('onAnnotationClick', locationJson(location), handler);
+  const { sdk } = useCordContext('useCordAnnotationClickHandler');
+  useAnnotationHandler(
+    sdk,
+    'onAnnotationClick',
+    locationJson(location),
+    handler,
+  );
 }
 
 function useRefWithUpdateBehaviour<E extends HTMLElement>(

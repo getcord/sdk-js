@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 
 import type {
   BlurDisplayLocation,
@@ -112,4 +112,18 @@ export function CordProvider({
   );
 
   return <CordContext.Provider value={value}>{children}</CordContext.Provider>;
+}
+
+export function useCordContext(hook: string) {
+  const { hasProvider, ...context } = useContext(CordContext);
+
+  useEffect(() => {
+    if (!hasProvider) {
+      console.error(
+        `[Cord SDK] The ${hook} hook is used in a component that is not a descendant of <CordProvider>.`,
+      );
+    }
+  }, [hasProvider, hook]);
+
+  return context;
 }

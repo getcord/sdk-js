@@ -1,12 +1,12 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import isEqual from 'lodash/isEqual.js';
 
 import type { Location } from '@cord-sdk/types';
 
-import { CordContext } from '../contexts/CordContext';
+import { useCordContext as useCordReactContext } from '../contexts/CordContext';
 
 export function useCordLocation(newLocation?: Location) {
-  const { location, setLocation } = useContext(CordContext);
+  const { location, setLocation } = useCordReactContext('useCordLocation');
 
   useEffect(() => {
     if (newLocation && !isEqual(location, newLocation)) {
