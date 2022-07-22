@@ -95,6 +95,7 @@ export const componentAttributes = {
     label: 'string',
     'icon-url': 'string',
     'inbox-badge-style': 'badge-style',
+    'show-inbox-on-click': 'boolean',
   },
   Inbox: {
     'show-close-button': 'boolean',
