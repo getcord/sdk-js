@@ -46,6 +46,7 @@ export function CordProvider({
 }: React.PropsWithChildren<Props>) {
   const [sdk, setSDK] = useState<ICordSDK | null>(null);
   const [location, setLocation] = useState<Location>();
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
     if (window.CordSDK) {
@@ -87,7 +88,7 @@ export function CordProvider({
           react_package_version: CORD_REACT_PACKAGE_VERSION,
         })
         .then(() => {
-          setSDK(sdk);
+          setInitialized(true);
         });
     }
   }, [
@@ -107,8 +108,13 @@ export function CordProvider({
   }, [sdk]);
 
   const value = useMemo<CordContextValue>(
-    () => ({ sdk, location, setLocation, hasProvider: true }),
-    [sdk, location, setLocation],
+    () => ({
+      sdk: initialized ? sdk : null,
+      location,
+      setLocation,
+      hasProvider: true,
+    }),
+    [sdk, initialized, location, setLocation],
   );
 
   return <CordContext.Provider value={value}>{children}</CordContext.Provider>;
