@@ -112,6 +112,14 @@ export interface ICordPresenceSDK {
   removeListener(index: ListenerRef): void;
 }
 
+export type UserUpdateListener = (user: User) => unknown;
+
+export interface ICordUsersSDK {
+  getViewerID(): Promise<string>;
+  addUserListener(id: string, listener: UserUpdateListener): ListenerRef;
+  removeUserListener(ref: ListenerRef): void;
+}
+
 export interface ICordSDK {
   init(options: CordSDKOptions): Promise<void>;
   destroy(): void;
@@ -121,6 +129,7 @@ export interface ICordSDK {
   removeReactTree(id: string): void;
   annotations: ICordAnnotationSDK;
   presence: ICordPresenceSDK;
+  users: ICordUsersSDK;
 }
 
 declare global {
@@ -384,3 +393,11 @@ export function locationJson(c: Partial<Location>): string {
     ),
   );
 }
+
+export type User = {
+  id: string;
+  name: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  profilePictureURL: string | null;
+};
