@@ -18,6 +18,14 @@ export const componentNames = {
 export type ElementName = keyof typeof componentNames;
 export type ComponentName = typeof componentNames[ElementName];
 
+const InboxSharedAttributes = {
+  'show-settings': 'boolean',
+} as const;
+
+const InboxSpecificAttributes = {
+  'show-close-button': 'boolean',
+} as const;
+
 export const componentAttributes = {
   Collaboration: {
     context: 'json',
@@ -96,11 +104,9 @@ export const componentAttributes = {
     'icon-url': 'string',
     'inbox-badge-style': 'badge-style',
     'show-inbox-on-click': 'boolean',
+    ...InboxSharedAttributes,
   },
-  Inbox: {
-    'show-close-button': 'boolean',
-    'show-settings': 'boolean',
-  },
+  Inbox: { ...InboxSharedAttributes, ...InboxSpecificAttributes },
 } as const;
 
 export type PropertyTypes = {

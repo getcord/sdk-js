@@ -10,18 +10,23 @@ import {
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
+import type { InboxSharedReactComponentProps } from './Inbox';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.InboxLauncher,
 );
 
-export type InboxLauncherReactComponentProps = {
+// props that just affect the launcher button
+type InboxLauncherSpecificReactComponentProps = {
   label?: string;
   iconUrl?: string;
   inboxBadgeStyle?: BadgeStyle;
   showInboxOnClick?: boolean;
   onClick?: (...args: InboxLauncherWebComponentEvents['click']) => unknown;
 };
+
+export type InboxLauncherReactComponentProps =
+  InboxLauncherSpecificReactComponentProps & InboxSharedReactComponentProps;
 
 export function InboxLauncher(
   props: PropsWithStandardHTMLAttributes<InboxLauncherReactComponentProps>,

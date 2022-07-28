@@ -9,17 +9,24 @@ import {
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
-import type { ReactPropsWithLocation } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(componentAttributes.Inbox);
 
-export type InboxReactComponentProps = ReactPropsWithLocation<{
+// i.e. those props exposed to both plain Inbox and Inbox via InboxLauncher
+export type InboxSharedReactComponentProps = {
+  showSettings?: boolean;
+};
+
+// but these props are only available for a directly implemented <Inbox/>
+export type InboxSpecificReactComponentProps = {
   showCloseButton?: boolean;
   onCloseRequested?: (
     ...args: InboxWebComponentEvents['closeRequested']
   ) => void;
-  showSettings?: boolean;
-}>;
+};
+
+export type InboxReactComponentProps = InboxSharedReactComponentProps &
+  InboxSpecificReactComponentProps;
 
 export function Inbox(
   props: PropsWithStandardHTMLAttributes<InboxReactComponentProps>,
