@@ -96,6 +96,12 @@ export type UserLocationData = {
   };
 };
 
+export type UserPresenceInformation = {
+  present: boolean;
+  lastPresent: Date;
+  presentLocations: Location[];
+};
+
 export type ListenerRef = number;
 
 export interface ICordPresenceSDK {

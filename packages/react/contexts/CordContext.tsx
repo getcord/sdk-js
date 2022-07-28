@@ -46,7 +46,8 @@ export function CordProvider({
 }: React.PropsWithChildren<Props>) {
   const [sdk, setSDK] = useState<ICordSDK | null>(null);
   const [location, setLocation] = useState<Location>();
-  const [initialized, setInitialized] = useState(false);
+  const [lastInitialized, setLastInitialized] = useState<number>();
+  const initialized = lastInitialized !== undefined;
 
   useEffect(() => {
     if (window.CordSDK) {
@@ -88,7 +89,7 @@ export function CordProvider({
           react_package_version: CORD_REACT_PACKAGE_VERSION,
         })
         .then(() => {
-          setInitialized(true);
+          setLastInitialized(Date.now());
         });
     }
   }, [
@@ -113,8 +114,9 @@ export function CordProvider({
       location,
       setLocation,
       hasProvider: true,
+      lastInitialized,
     }),
-    [sdk, initialized, location, setLocation],
+    [sdk, initialized, location, setLocation, lastInitialized],
   );
 
   return <CordContext.Provider value={value}>{children}</CordContext.Provider>;
