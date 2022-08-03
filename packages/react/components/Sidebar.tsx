@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type {
+  HTMLCordSidebarElement,
   PropsWithStandardHTMLAttributes,
   SidebarWebComponentEvents,
 } from '@cord-sdk/types';
@@ -8,7 +9,7 @@ import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
-import { useCustomEventListeners } from '../hooks/useCustomEventListener';
+import { useCustomElementRef } from '../hooks/useCustomElementRef';
 import { useCordLocation } from '../hooks/useCordLocation';
 import type { ReactPropsWithLocation } from '../types';
 
@@ -29,15 +30,22 @@ export type SidebarReactComponentProps = ReactPropsWithLocation<{
   onClose?: (...args: SidebarWebComponentEvents['close']) => unknown;
 }>;
 
-export function Sidebar(
+function SidebarWithForwardedRef(
   props: PropsWithStandardHTMLAttributes<SidebarReactComponentProps>,
+  forwardedRef: React.ForwardedRef<HTMLCordSidebarElement | null>,
 ) {
   const { onOpen, onClose } = props;
 
-  const setRef = useCustomEventListeners<SidebarWebComponentEvents>({
-    open: onOpen,
-    close: onClose,
-  });
+  const ref = useCustomElementRef<
+    SidebarWebComponentEvents,
+    HTMLCordSidebarElement
+  >(
+    {
+      open: onOpen,
+      close: onClose,
+    },
+    forwardedRef,
+  );
 
   const location = useCordLocation();
 
@@ -45,8 +53,13 @@ export function Sidebar(
     <cord-sidebar
       id={props.id}
       class={props.className}
-      ref={setRef}
+      ref={ref}
       {...propsToAttributes({ location, ...props })}
     />
   );
 }
+
+export const Sidebar = React.forwardRef<
+  HTMLCordSidebarElement | null,
+  SidebarReactComponentProps
+>(SidebarWithForwardedRef);

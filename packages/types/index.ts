@@ -407,3 +407,11 @@ export type User = {
   lastName: string | null;
   profilePictureURL: string | null;
 };
+
+export interface HTMLCordElement extends HTMLElement {
+  initialised?: true;
+}
+
+export interface HTMLCordSidebarElement extends HTMLCordElement {
+  startComposer(): void;
+}
