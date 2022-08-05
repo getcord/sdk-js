@@ -46,3 +46,4 @@ export {
   InboxLauncherReactComponentProps,
 } from './components/InboxLauncher';
 export { Inbox, InboxReactComponentProps } from './components/Inbox';
+export { Settings, SettingsReactComponentProps } from './components/Settings';

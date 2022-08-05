@@ -13,6 +13,7 @@ export const componentNames = {
   'cord-thread-list': 'ThreadList',
   'cord-inbox-launcher': 'InboxLauncher',
   'cord-inbox': 'Inbox',
+  'cord-settings': 'Settings',
 } as const;
 
 export type ElementName = keyof typeof componentNames;
@@ -107,6 +108,7 @@ export const componentAttributes = {
     ...InboxSharedAttributes,
   },
   Inbox: { ...InboxSharedAttributes, ...InboxSpecificAttributes },
+  Settings: {},
 } as const;
 
 export type PropertyTypes = {
