@@ -250,14 +250,6 @@ export type DocumentLocation = {
   // In some cases, we need to record more data to be able
   // to provide some functionality.
   additionalTargetData: AdditionalTargetData | null;
-  // DEPRECATED as of 7/2/22
-  /** @deprecated */
-  scrollParentSelectors: string[] | null;
-  /** @deprecated */
-  iframeScrollParentSelectors: string[] | null;
-  // DEPRECATED as of 22/2/22
-  /** @deprecated */
-  crossDomainIframe: boolean | null;
 };
 
 export type LocationTextConfig = {
