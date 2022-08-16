@@ -271,7 +271,6 @@ export type HighlightedTextConfig = {
   endNodeIndex: number;
   endNodeOffset: number;
   selectedText: string;
-  iframeSelector: string | null;
   // We added textToDisplay while developing this feature, so some annotations
   // won't have it. Later, we should be able to make it required and correct any
   // old annotations (by setting textToDisplay equal to selectedText)
