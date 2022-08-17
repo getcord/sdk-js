@@ -16,7 +16,9 @@ const propsToAttributes = propsToAttributeConverter(
   componentAttributes.AnnotationPins,
 );
 
-export type AnnotationPinsReactComponentProps = ReactPropsWithLocation<{}>;
+export type AnnotationPinsReactComponentProps = ReactPropsWithLocation<{
+  showStartAnnotationButton?: boolean;
+}>;
 
 export function AnnotationPinsWithForwardedRef(
   props: PropsWithStandardHTMLAttributes<AnnotationPinsReactComponentProps>,

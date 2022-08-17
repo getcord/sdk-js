@@ -112,6 +112,7 @@ export const componentAttributes = {
   Settings: {},
   AnnotationPins: {
     location: 'json',
+    'show-start-annotation-button': 'boolean',
   },
 } as const;
 
