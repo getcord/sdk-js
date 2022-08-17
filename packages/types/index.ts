@@ -413,4 +413,5 @@ export interface HTMLCordSidebarElement extends HTMLCordElement {
 
 export interface HTMLCordAnnotationPinsElement extends HTMLCordElement {
   openThread(threadId: string): void;
+  startAnnotating(): void;
 }
