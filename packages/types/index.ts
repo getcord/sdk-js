@@ -410,3 +410,7 @@ export interface HTMLCordElement extends HTMLElement {
 export interface HTMLCordSidebarElement extends HTMLCordElement {
   startComposer(): void;
 }
+
+export interface HTMLCordAnnotationPinsElement extends HTMLCordElement {
+  openThread(threadId: string): void;
+}
