@@ -193,6 +193,10 @@ export type BadgeStyle = 'badge' | 'badge_with_count' | 'none';
 
 export type CollaborationWebComponentEvents = {};
 
+/* cord-annotation-pins */
+
+export type AnnotationPinsWebComponentEvents = {};
+
 /* cord-thread */
 
 export type ThreadWebComponentEvents = {

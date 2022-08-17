@@ -14,6 +14,7 @@ export const componentNames = {
   'cord-inbox-launcher': 'InboxLauncher',
   'cord-inbox': 'Inbox',
   'cord-settings': 'Settings',
+  'cord-annotation-pins': 'AnnotationPins',
 } as const;
 
 export type ElementName = keyof typeof componentNames;
@@ -109,6 +110,9 @@ export const componentAttributes = {
   },
   Inbox: { ...InboxSharedAttributes, ...InboxSpecificAttributes },
   Settings: {},
+  AnnotationPins: {
+    location: 'json',
+  },
 } as const;
 
 export type PropertyTypes = {

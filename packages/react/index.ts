@@ -14,6 +14,10 @@ export {
   PagePresenceReactComponentProps,
 } from './components/PagePresence';
 export {
+  AnnotationPins,
+  AnnotationPinsReactComponentProps,
+} from './components/AnnotationPins';
+export {
   PresenceFacepile,
   PresenceFacepileReactComponentProps,
 } from './components/PresenceFacepile';
