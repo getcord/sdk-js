@@ -14,10 +14,6 @@ export {
   PagePresenceReactComponentProps,
 } from './components/PagePresence';
 export {
-  AnnotationPins,
-  AnnotationPinsReactComponentProps,
-} from './components/AnnotationPins';
-export {
   PresenceFacepile,
   PresenceFacepileReactComponentProps,
 } from './components/PresenceFacepile';
@@ -51,3 +47,5 @@ export {
 } from './components/InboxLauncher';
 export { Inbox, InboxReactComponentProps } from './components/Inbox';
 export { Settings, SettingsReactComponentProps } from './components/Settings';
+
+export * as beta from './beta';
