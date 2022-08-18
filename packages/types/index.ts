@@ -242,7 +242,7 @@ export type DocumentLocation = {
   selector: string;
   x: number;
   y: number;
-  iframeSelector: string | null;
+  iframeSelectors: string[];
   onChart: boolean | null;
   textConfig: LocationTextConfig | null;
   elementIdentifier: {
