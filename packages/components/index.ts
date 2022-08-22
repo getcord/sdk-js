@@ -14,7 +14,7 @@ export const componentNames = {
   'cord-inbox-launcher': 'InboxLauncher',
   'cord-inbox': 'Inbox',
   'cord-settings': 'Settings',
-  'cord-annotation-pins': 'AnnotationPins',
+  'cord-anchored-threads': 'AnchoredThreads',
 } as const;
 
 export type ElementName = keyof typeof componentNames;
@@ -110,9 +110,10 @@ export const componentAttributes = {
   },
   Inbox: { ...InboxSharedAttributes, ...InboxSpecificAttributes },
   Settings: {},
-  AnnotationPins: {
+  AnchoredThreads: {
     location: 'json',
-    'show-start-annotation-button': 'boolean',
+    'show-button': 'boolean',
+    'button-label': 'string',
   },
 } as const;
 

@@ -1,4 +1,4 @@
 export {
-  AnnotationPins,
-  AnnotationPinsReactComponentProps,
-} from './components/AnnotationPins';
+  AnchoredThreads,
+  AnchoredThreadsReactComponentProps,
+} from './components/AnchoredThreads';
