@@ -6,7 +6,10 @@ export type Location = Record<string, string | number | boolean>;
 export type Context = Location;
 
 // navigate, if present and returning true, overrides our default navigate behaviour
-export type NavigateFn = (url: string) => boolean | Promise<boolean>;
+export type NavigateFn = (
+  url: string,
+  location: Location | null,
+) => boolean | Promise<boolean>;
 
 export type CordSDKOptions = {
   /**
