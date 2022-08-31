@@ -19,7 +19,6 @@ const propsToAttributes = propsToAttributeConverter(
 
 export type PresenceObserverReactComponentProps = React.PropsWithChildren<
   ReactPropsWithLocation<{
-    element?: Element;
     observeDocument?: boolean;
     durable?: boolean;
     presentEvents?: string[];
