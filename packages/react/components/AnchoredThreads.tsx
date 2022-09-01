@@ -19,6 +19,7 @@ const propsToAttributes = propsToAttributeConverter(
 export type AnchoredThreadsReactComponentProps = ReactPropsWithLocation<{
   showButton?: boolean;
   buttonLabel?: string;
+  iconUrl?: string;
 }>;
 
 export function AnchoredThreadsWithForwardedRef(
