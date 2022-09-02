@@ -196,9 +196,9 @@ export type BadgeStyle = 'badge' | 'badge_with_count' | 'none';
 
 export type CollaborationWebComponentEvents = {};
 
-/* cord-anchored-threads */
+/* cord-floating-threads */
 
-export type AnchoredThreadsWebComponentEvents = {};
+export type FloatingThreadsWebComponentEvents = {};
 
 /* cord-thread */
 
@@ -414,7 +414,10 @@ export interface HTMLCordSidebarElement extends HTMLCordElement {
   startComposer(): void;
 }
 
-export interface HTMLCordAnchoredThreadsElement extends HTMLCordElement {
+export interface HTMLCordFloatingThreadsElement extends HTMLCordElement {
   openThread(threadId: string): void;
   createThread(): void;
 }
+
+export interface HTMLCordAnchoredThreadsElement
+  extends HTMLCordFloatingThreadsElement {}

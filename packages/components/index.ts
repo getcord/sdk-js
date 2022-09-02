@@ -14,7 +14,7 @@ export const componentNames = {
   'cord-inbox-launcher': 'InboxLauncher',
   'cord-inbox': 'Inbox',
   'cord-settings': 'Settings',
-  'cord-anchored-threads': 'AnchoredThreads',
+  'cord-floating-threads': 'FloatingThreads',
 } as const;
 
 export type ElementName = keyof typeof componentNames;
@@ -110,7 +110,7 @@ export const componentAttributes = {
   },
   Inbox: { ...InboxSharedAttributes, ...InboxSpecificAttributes },
   Settings: {},
-  AnchoredThreads: {
+  FloatingThreads: {
     location: 'json',
     'show-button': 'boolean',
     'button-label': 'string',
