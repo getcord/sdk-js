@@ -51,6 +51,7 @@ export type Annotation<L extends Location = {}> = {
 
 export type AnnotationPositionRendererCallback<L extends Location = {}> = (
   annotation: Annotation<L>,
+  coordsRelativeToTarget: { x: number; y: number },
 ) => AnnotationRenderPosition | null | undefined | void;
 
 export type AnnotationHandler<L extends Location = {}> = {
