@@ -24,6 +24,7 @@ export type CordSDKOptions = {
   show_blurred_screenshots?: BlurDisplayLocation;
   annotation_mode?: AnnotationMode;
   react_package_version?: string;
+  thread_options?: ThreadOptions;
 };
 
 export type AnnotationCapturePosition = {
@@ -431,3 +432,7 @@ export interface HTMLCordFloatingThreadsElement extends HTMLCordElement {
 
 export interface HTMLCordAnchoredThreadsElement
   extends HTMLCordFloatingThreadsElement {}
+
+export type ThreadOptions = {
+  additional_subscribers_on_create: string[];
+};

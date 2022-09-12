@@ -34,6 +34,11 @@ type Props = {
   annotationMode?: AnnotationMode;
   cordScriptUrl?: string;
   navigate?: NavigateFn | null;
+  threadOptions?: ThreadOptions;
+};
+
+type ThreadOptions = {
+  additionalSubscribersOnCreate: string[];
 };
 
 export function CordProvider({
@@ -45,6 +50,7 @@ export function CordProvider({
   annotationMode,
   cordScriptUrl,
   navigate,
+  threadOptions,
   children,
 }: React.PropsWithChildren<Props>) {
   const [sdk, setSDK] = useState<ICordSDK | null>(null);
@@ -91,6 +97,12 @@ export function CordProvider({
           annotation_mode: annotationMode,
           navigate,
           react_package_version: CORD_REACT_PACKAGE_VERSION,
+          thread_options: threadOptions
+            ? {
+                additional_subscribers_on_create:
+                  threadOptions.additionalSubscribersOnCreate,
+              }
+            : undefined,
         })
         .then(() => {
           setLastInitialized(Date.now());
@@ -105,6 +117,7 @@ export function CordProvider({
     showBlurredScreenshots,
     annotationMode,
     navigate,
+    threadOptions,
   ]);
 
   useEffect(() => {
