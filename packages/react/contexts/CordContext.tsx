@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 
 import type {
+  AnnotationMode,
   BlurDisplayLocation,
   ICordSDK,
   Location,
@@ -30,6 +31,7 @@ type Props = {
   enableAnnotations?: boolean;
   blurScreenshots?: boolean;
   showBlurredScreenshots?: BlurDisplayLocation;
+  annotationMode?: AnnotationMode;
   cordScriptUrl?: string;
   navigate?: NavigateFn | null;
 };
@@ -40,6 +42,7 @@ export function CordProvider({
   enableAnnotations,
   blurScreenshots,
   showBlurredScreenshots,
+  annotationMode,
   cordScriptUrl,
   navigate,
   children,
@@ -85,6 +88,7 @@ export function CordProvider({
           enable_annotations: enableAnnotations,
           blur_screenshots: blurScreenshots,
           show_blurred_screenshots: showBlurredScreenshots,
+          annotation_mode: annotationMode,
           navigate,
           react_package_version: CORD_REACT_PACKAGE_VERSION,
         })
@@ -99,6 +103,7 @@ export function CordProvider({
     enableAnnotations,
     blurScreenshots,
     showBlurredScreenshots,
+    annotationMode,
     navigate,
   ]);
 

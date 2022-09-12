@@ -22,6 +22,7 @@ export type CordSDKOptions = {
   enable_annotations?: boolean;
   blur_screenshots?: boolean;
   show_blurred_screenshots?: BlurDisplayLocation;
+  annotation_mode?: AnnotationMode;
   react_package_version?: string;
 };
 
@@ -367,6 +368,14 @@ export function isBlurDisplayLocation(
   behavior: string,
 ): behavior is BlurDisplayLocation {
   return (BLUR_DISPLAY_LOCATIONS as readonly string[]).indexOf(behavior) !== -1;
+}
+
+const ANNOTATION_MODES = ['everywhere', 'custom_targets_only', 'none'] as const;
+
+export type AnnotationMode = typeof ANNOTATION_MODES[number];
+
+export function isAnnotationMode(mode: string): mode is AnnotationMode {
+  return (ANNOTATION_MODES as readonly string[]).indexOf(mode) !== -1;
 }
 
 // declare global {
