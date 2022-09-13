@@ -28,6 +28,10 @@ export const CordContext = React.createContext<CordContextValue>({
 type Props = {
   clientAuthToken: string | undefined | null;
   enableTasks?: boolean;
+  /**
+   * @deprecated The enableAnnotations prop has been superseded by annotationMode
+   * `enableAnnotations: false` should be replaced with `annotationMode: 'none'`
+   */
   enableAnnotations?: boolean;
   blurScreenshots?: boolean;
   showBlurredScreenshots?: BlurDisplayLocation;

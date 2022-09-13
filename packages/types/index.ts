@@ -19,6 +19,9 @@ export type CordSDKOptions = {
   client_auth_token?: string;
   navigate?: NavigateFn | null;
   enable_tasks?: boolean;
+  /**
+   * @deprecated The enable_annotations prop has been superseded by annotation_mode
+   */
   enable_annotations?: boolean;
   blur_screenshots?: boolean;
   show_blurred_screenshots?: BlurDisplayLocation;
