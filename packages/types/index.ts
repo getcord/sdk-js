@@ -9,6 +9,7 @@ export type Context = Location;
 export type NavigateFn = (
   url: string,
   location: Location | null,
+  identity: { orgID: string },
 ) => boolean | Promise<boolean>;
 
 export type CordSDKOptions = {
