@@ -186,8 +186,6 @@ export function useCordPresentUsers(
           ? userDetails[id]
           : {
               name: null,
-              firstName: null,
-              lastName: null,
               profilePictureURL: null,
             }),
         id,

@@ -416,8 +416,6 @@ export function locationJson(c: Partial<Location>): string {
 export type User = {
   id: string;
   name: string | null;
-  firstName: string | null;
-  lastName: string | null;
   profilePictureURL: string | null;
 };
 
