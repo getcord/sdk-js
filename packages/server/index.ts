@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 export type PlatformUserVariables = {
   email: string;
   name?: string;
+  short_name?: string;
   profile_picture_url?: string;
   status?: 'active' | 'deleted';
   first_name?: string;
