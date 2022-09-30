@@ -16,6 +16,7 @@ const propsToAttributes = propsToAttributeConverter(
 );
 
 export type SidebarLauncherReactComponentProps = {
+  disabled?: boolean;
   label?: string | null;
   iconUrl?: string | null;
   inboxBadgeStyle?: BadgeStyle;

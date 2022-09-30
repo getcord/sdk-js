@@ -83,6 +83,7 @@ export const componentAttributes = {
     'show-pins-on-page': 'boolean',
   },
   SidebarLauncher: {
+    disabled: 'boolean',
     label: 'string',
     'icon-url': 'string',
     'inbox-badge-style': 'badge-style',
