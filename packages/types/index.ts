@@ -187,7 +187,7 @@ export type PresenceObserverWebComponentEvents = {
 /* cord-sidebar */
 
 export type SidebarWebComponentEvents = {
-  open: [];
+  open: [{ width?: number }];
   close: [];
 };
 
