@@ -1,33 +1,20 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-import type { Location, AnnotationHandler, ICordSDK } from '@cord-sdk/types';
+import type { Location, AnnotationHandler } from '@cord-sdk/types';
 import {
   CORD_ANNOTATION_LOCATION_DATA_ATTRIBUTE,
   locationJson,
 } from '@cord-sdk/types';
 import { useCordContext } from '../contexts/CordContext';
 
-function useAnnotationHandler<
-  L extends Location,
-  T extends keyof AnnotationHandler,
->(
-  sdk: ICordSDK | null,
-  type: T,
-  locationString: string,
-  callback: AnnotationHandler<L>[T] | undefined,
-) {
-  useEffect(() => {
-    if (!callback || !sdk) {
-      return;
-    }
-
-    sdk.annotations.setAnnotationHandler(type, locationString, callback);
-    return () => {
-      sdk.annotations.setAnnotationHandler(type, locationString, null);
-    };
-  }, [sdk, type, locationString, callback]);
-}
-
 const doNothing = () => {};
+
+function useMemoizedLocation<L extends Location = {}>(location: Partial<L>) {
+  // these two useMemo ensure that if the location argument instance changes,
+  // if it's the same shape (keys and values) then we still return the same
+  // (memoized) instance, so that uses of useEffect won't run again.
+  const locationString = useMemo(() => locationJson(location), [location]);
+  return useMemo<L>(() => JSON.parse(locationString), [locationString]);
+}
 
 export function useCordAnnotationRenderer<L extends Location = {}>(
   location: Partial<L>,
@@ -35,12 +22,19 @@ export function useCordAnnotationRenderer<L extends Location = {}>(
 ): { redrawAnnotations: () => void } {
   const { sdk } = useCordContext('useCordAnnotationRenderer');
 
-  useAnnotationHandler(
-    sdk,
-    'getAnnotationPosition',
-    locationJson(location),
-    handler,
-  );
+  const memoizedLocation = useMemoizedLocation(location);
+
+  useEffect(() => {
+    if (!handler || !sdk) {
+      return;
+    }
+
+    sdk.annotations.setRenderHandler(memoizedLocation, handler);
+
+    return () => {
+      sdk.annotations.clearRenderHandler(memoizedLocation);
+    };
+  }, [sdk, memoizedLocation, handler]);
 
   return {
     redrawAnnotations: sdk?.annotations.redrawAnnotations ?? doNothing,
@@ -52,12 +46,19 @@ export function useCordAnnotationCaptureHandler<L extends Location = {}>(
   handler: AnnotationHandler<L>['onAnnotationCapture'],
 ) {
   const { sdk } = useCordContext('useCordAnnotationCaptureHandler');
-  useAnnotationHandler(
-    sdk,
-    'onAnnotationCapture',
-    locationJson(location),
-    handler,
-  );
+  const memoizedLocation = useMemoizedLocation(location);
+
+  useEffect(() => {
+    if (!handler || !sdk) {
+      return;
+    }
+
+    sdk.annotations.setCaptureHandler(memoizedLocation, handler);
+
+    return () => {
+      sdk.annotations.clearCaptureHandler(memoizedLocation);
+    };
+  }, [sdk, memoizedLocation, handler]);
 }
 
 export function useCordAnnotationClickHandler<L extends Location = {}>(
@@ -65,12 +66,19 @@ export function useCordAnnotationClickHandler<L extends Location = {}>(
   handler: AnnotationHandler<L>['onAnnotationClick'],
 ) {
   const { sdk } = useCordContext('useCordAnnotationClickHandler');
-  useAnnotationHandler(
-    sdk,
-    'onAnnotationClick',
-    locationJson(location),
-    handler,
-  );
+  const memoizedLocation = useMemoizedLocation(location);
+
+  useEffect(() => {
+    if (!handler || !sdk) {
+      return;
+    }
+
+    sdk.annotations.setClickHandler(memoizedLocation, handler);
+
+    return () => {
+      sdk.annotations.clearClickHandler(memoizedLocation);
+    };
+  }, [sdk, memoizedLocation, handler]);
 }
 
 function useRefWithUpdateBehaviour<E extends HTMLElement>(

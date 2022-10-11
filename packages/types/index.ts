@@ -70,11 +70,33 @@ export type AnnotationHandler<L extends Location = {}> = {
 };
 
 export interface ICordAnnotationSDK {
+  /**
+   * @deprecated Use functions specific to the type of handler you are setting.
+   */
   setAnnotationHandler<T extends keyof AnnotationHandler, L extends Location>(
     type: T,
     locationString: string,
     handler: AnnotationHandler<L>[T] | null,
   ): void;
+
+  setRenderHandler<L extends Location>(
+    location: L,
+    handler: AnnotationHandler<L>['getAnnotationPosition'],
+  ): void;
+  clearRenderHandler(location: Location): void;
+
+  setCaptureHandler<L extends Location>(
+    location: L,
+    handler: AnnotationHandler<L>['onAnnotationCapture'],
+  ): void;
+  clearCaptureHandler(location: Location): void;
+
+  setClickHandler<L extends Location>(
+    location: L,
+    handler: AnnotationHandler<L>['onAnnotationClick'],
+  ): void;
+  clearClickHandler(location: Location): void;
+
   redrawAnnotations(): void;
 }
 
