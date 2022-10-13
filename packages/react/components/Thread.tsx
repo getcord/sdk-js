@@ -17,6 +17,7 @@ const propsToAttributes = propsToAttributeConverter(componentAttributes.Thread);
 
 export type ThreadReactComponentProps = ReactPropsWithLocation<{
   threadId: string;
+  threadName?: string;
   collapsed?: boolean;
   showHeader?: boolean;
   onThreadInfoChange?: (

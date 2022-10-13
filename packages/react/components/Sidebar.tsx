@@ -26,6 +26,7 @@ export type SidebarReactComponentProps = ReactPropsWithLocation<{
   showAllActivity?: boolean;
   open?: boolean;
   showLauncher?: boolean;
+  threadName?: string;
   onOpen?: (...args: SidebarWebComponentEvents['open']) => unknown;
   onClose?: (...args: SidebarWebComponentEvents['close']) => unknown;
 }>;

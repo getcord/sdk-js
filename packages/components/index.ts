@@ -81,6 +81,7 @@ export const componentAttributes = {
     'show-all-activity': 'boolean',
     'exclude-viewer-from-presence': 'boolean',
     'show-pins-on-page': 'boolean',
+    'thread-name': 'string',
   },
   SidebarLauncher: {
     disabled: 'boolean',
@@ -96,6 +97,7 @@ export const componentAttributes = {
     context: 'json',
     location: 'json',
     'thread-id': 'string',
+    'thread-name': 'string',
     collapsed: 'boolean',
     'show-header': 'boolean',
   },
@@ -115,6 +117,7 @@ export const componentAttributes = {
     location: 'json',
     'show-button': 'boolean',
     'button-label': 'string',
+    'thread-name': 'string',
   },
 } as const;
 
