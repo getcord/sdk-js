@@ -4,6 +4,7 @@
 
 ## Packages
 
+- [`@cord-sdk/api-types`](https://www.npmjs.com/package/@cord-sdk/api-types)
 - [`@cord-sdk/components`](https://www.npmjs.com/package/@cord-sdk/components)
 - [`@cord-sdk/jsx`](https://www.npmjs.com/package/@cord-sdk/jsx)
 - [`@cord-sdk/react`](https://www.npmjs.com/package/@cord-sdk/react)
