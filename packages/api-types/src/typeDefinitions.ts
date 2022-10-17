@@ -4,13 +4,13 @@ export interface PlatformUserVariables {
    * @format email
    */
   email: string;
-  short_name?: string;
   name?: string;
+  short_name?: string;
+  status?: 'active' | 'deleted';
   /**
    * @format uri
    */
   profile_picture_url?: string;
-  status?: 'active' | 'deleted';
   /**
    * @deprecated
    */
@@ -47,15 +47,15 @@ export interface UpdatePlatformOrganizationMembersVariables {
  */
 export interface BatchAPIVariables {
   /**
+   * @maxItems 10000
+   */
+  users?: Array<(PlatformUserVariables | UpdatePlatformUserVariables) & ID>;
+  /**
    * @maxItems 1000
    */
   organizations?: Array<
     (PlatformOrganizationVariables | UpdatePlatformOrganizationVariables) & ID
   >;
-  /**
-   * @maxItems 10000
-   */
-  users?: Array<(PlatformUserVariables | UpdatePlatformUserVariables) & ID>;
 }
 
 /**

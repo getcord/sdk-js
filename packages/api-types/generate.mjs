@@ -25,9 +25,11 @@ async function main() {
 
   // settings for the typescript-json-schema generator,
   // see docs here -> https://www.npmjs.com/package/typescript-json-schema
+  /** @type {Partial<TJS.Args>} */
   const settings = {
     noExtraProps: true, // Disable additional properties in objects by default
     required: true, // Create required array for non-optional properties in schema
+    propOrder: true,
   };
 
   const tsProgram = ts.createProgram([typeDefinitionsFile], {}, tsCompilerHost);

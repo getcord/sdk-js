@@ -3,14 +3,23 @@
     "type": "object",
     "properties": {
       "email": { "format": "email", "type": "string" },
-      "short_name": { "type": "string" },
       "name": { "type": "string" },
-      "profile_picture_url": { "format": "uri", "type": "string" },
+      "short_name": { "type": "string" },
       "status": { "enum": ["active", "deleted"], "type": "string" },
+      "profile_picture_url": { "format": "uri", "type": "string" },
       "first_name": { "type": "string" },
       "last_name": { "type": "string" }
     },
     "additionalProperties": false,
+    "propertyOrder": [
+      "email",
+      "name",
+      "short_name",
+      "status",
+      "profile_picture_url",
+      "first_name",
+      "last_name"
+    ],
     "required": ["email"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
@@ -22,6 +31,7 @@
       "members": { "type": "array", "items": { "type": ["string", "number"] } }
     },
     "additionalProperties": false,
+    "propertyOrder": ["name", "status", "members"],
     "required": ["name"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
@@ -30,14 +40,23 @@
     "type": "object",
     "properties": {
       "email": { "format": "email", "type": "string" },
-      "short_name": { "type": "string" },
       "name": { "type": "string" },
-      "profile_picture_url": { "format": "uri", "type": "string" },
+      "short_name": { "type": "string" },
       "status": { "enum": ["active", "deleted"], "type": "string" },
+      "profile_picture_url": { "format": "uri", "type": "string" },
       "first_name": { "type": "string" },
       "last_name": { "type": "string" }
     },
     "additionalProperties": false,
+    "propertyOrder": [
+      "email",
+      "name",
+      "short_name",
+      "status",
+      "profile_picture_url",
+      "first_name",
+      "last_name"
+    ],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
   "UpdatePlatformOrganizationVariables": {
@@ -49,6 +68,7 @@
       "members": { "type": "array", "items": { "type": ["string", "number"] } }
     },
     "additionalProperties": false,
+    "propertyOrder": ["name", "status", "members"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
   "UpdatePlatformOrganizationMembersVariables": {
@@ -59,12 +79,59 @@
       "remove": { "type": "array", "items": { "type": ["string", "number"] } }
     },
     "additionalProperties": false,
+    "propertyOrder": ["add", "remove"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
   "BatchAPIVariables": {
     "description": "https://docs.cord.com/reference/rest-api/batch/",
     "type": "object",
     "properties": {
+      "users": {
+        "maxItems": 10000,
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "additionalProperties": false,
+              "type": "object",
+              "properties": {
+                "email": { "format": "email", "type": "string" },
+                "name": { "type": "string" },
+                "short_name": { "type": "string" },
+                "status": { "enum": ["active", "deleted"], "type": "string" },
+                "profile_picture_url": { "format": "uri", "type": "string" },
+                "first_name": { "type": "string" },
+                "last_name": { "type": "string" },
+                "id": {
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "type": ["string", "number"]
+                }
+              },
+              "required": ["email", "id"]
+            },
+            {
+              "additionalProperties": false,
+              "type": "object",
+              "properties": {
+                "email": { "format": "email", "type": "string" },
+                "name": { "type": "string" },
+                "short_name": { "type": "string" },
+                "status": { "enum": ["active", "deleted"], "type": "string" },
+                "profile_picture_url": { "format": "uri", "type": "string" },
+                "first_name": { "type": "string" },
+                "last_name": { "type": "string" },
+                "id": {
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "type": ["string", "number"]
+                }
+              },
+              "required": ["id"]
+            }
+          ]
+        }
+      },
       "organizations": {
         "maxItems": 1000,
         "type": "array",
@@ -108,55 +175,10 @@
             }
           ]
         }
-      },
-      "users": {
-        "maxItems": 10000,
-        "type": "array",
-        "items": {
-          "anyOf": [
-            {
-              "additionalProperties": false,
-              "type": "object",
-              "properties": {
-                "email": { "format": "email", "type": "string" },
-                "short_name": { "type": "string" },
-                "name": { "type": "string" },
-                "profile_picture_url": { "format": "uri", "type": "string" },
-                "status": { "enum": ["active", "deleted"], "type": "string" },
-                "first_name": { "type": "string" },
-                "last_name": { "type": "string" },
-                "id": {
-                  "minLength": 1,
-                  "maxLength": 128,
-                  "type": ["string", "number"]
-                }
-              },
-              "required": ["email", "id"]
-            },
-            {
-              "additionalProperties": false,
-              "type": "object",
-              "properties": {
-                "email": { "format": "email", "type": "string" },
-                "short_name": { "type": "string" },
-                "name": { "type": "string" },
-                "profile_picture_url": { "format": "uri", "type": "string" },
-                "status": { "enum": ["active", "deleted"], "type": "string" },
-                "first_name": { "type": "string" },
-                "last_name": { "type": "string" },
-                "id": {
-                  "minLength": 1,
-                  "maxLength": 128,
-                  "type": ["string", "number"]
-                }
-              },
-              "required": ["id"]
-            }
-          ]
-        }
       }
     },
     "additionalProperties": false,
+    "propertyOrder": ["users", "organizations"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
   "CreatePlatformUserVariables": {
@@ -164,10 +186,10 @@
     "type": "object",
     "properties": {
       "email": { "format": "email", "type": "string" },
-      "short_name": { "type": "string" },
       "name": { "type": "string" },
-      "profile_picture_url": { "format": "uri", "type": "string" },
+      "short_name": { "type": "string" },
       "status": { "enum": ["active", "deleted"], "type": "string" },
+      "profile_picture_url": { "format": "uri", "type": "string" },
       "first_name": { "type": "string" },
       "last_name": { "type": "string" },
       "id": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] }
