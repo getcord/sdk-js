@@ -27,7 +27,6 @@ async function main() {
   // see docs here -> https://www.npmjs.com/package/typescript-json-schema
   const settings = {
     noExtraProps: true, // Disable additional properties in objects by default
-    titles: true, // Creates titles in the output schema
     required: true, // Create required array for non-optional properties in schema
   };
 

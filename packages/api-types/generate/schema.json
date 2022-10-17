@@ -2,21 +2,13 @@
   "PlatformUserVariables": {
     "type": "object",
     "properties": {
-      "email": { "format": "email", "type": "string", "title": "email" },
-      "short_name": { "type": "string", "title": "short_name" },
-      "name": { "type": "string", "title": "name" },
-      "profile_picture_url": {
-        "format": "uri",
-        "type": "string",
-        "title": "profile_picture_url"
-      },
-      "status": {
-        "enum": ["active", "deleted"],
-        "type": "string",
-        "title": "status"
-      },
-      "first_name": { "type": "string", "title": "first_name" },
-      "last_name": { "type": "string", "title": "last_name" }
+      "email": { "format": "email", "type": "string" },
+      "short_name": { "type": "string" },
+      "name": { "type": "string" },
+      "profile_picture_url": { "format": "uri", "type": "string" },
+      "status": { "enum": ["active", "deleted"], "type": "string" },
+      "first_name": { "type": "string" },
+      "last_name": { "type": "string" }
     },
     "additionalProperties": false,
     "required": ["email"],
@@ -25,17 +17,9 @@
   "PlatformOrganizationVariables": {
     "type": "object",
     "properties": {
-      "name": { "type": "string", "title": "name" },
-      "status": {
-        "enum": ["active", "deleted"],
-        "type": "string",
-        "title": "status"
-      },
-      "members": {
-        "type": "array",
-        "items": { "type": ["string", "number"] },
-        "title": "members"
-      }
+      "name": { "type": "string" },
+      "status": { "enum": ["active", "deleted"], "type": "string" },
+      "members": { "type": "array", "items": { "type": ["string", "number"] } }
     },
     "additionalProperties": false,
     "required": ["name"],
@@ -45,21 +29,13 @@
     "description": "https://docs.cord.com/reference/rest-api/users/",
     "type": "object",
     "properties": {
-      "email": { "format": "email", "type": "string", "title": "email" },
-      "short_name": { "type": "string", "title": "short_name" },
-      "name": { "type": "string", "title": "name" },
-      "profile_picture_url": {
-        "format": "uri",
-        "type": "string",
-        "title": "profile_picture_url"
-      },
-      "status": {
-        "enum": ["active", "deleted"],
-        "type": "string",
-        "title": "status"
-      },
-      "first_name": { "type": "string", "title": "first_name" },
-      "last_name": { "type": "string", "title": "last_name" }
+      "email": { "format": "email", "type": "string" },
+      "short_name": { "type": "string" },
+      "name": { "type": "string" },
+      "profile_picture_url": { "format": "uri", "type": "string" },
+      "status": { "enum": ["active", "deleted"], "type": "string" },
+      "first_name": { "type": "string" },
+      "last_name": { "type": "string" }
     },
     "additionalProperties": false,
     "$schema": "http://json-schema.org/draft-07/schema#"
@@ -68,17 +44,9 @@
     "description": "https://docs.cord.com/reference/rest-api/organizations/",
     "type": "object",
     "properties": {
-      "name": { "type": "string", "title": "name" },
-      "status": {
-        "enum": ["active", "deleted"],
-        "type": "string",
-        "title": "status"
-      },
-      "members": {
-        "type": "array",
-        "items": { "type": ["string", "number"] },
-        "title": "members"
-      }
+      "name": { "type": "string" },
+      "status": { "enum": ["active", "deleted"], "type": "string" },
+      "members": { "type": "array", "items": { "type": ["string", "number"] } }
     },
     "additionalProperties": false,
     "$schema": "http://json-schema.org/draft-07/schema#"
@@ -87,16 +55,8 @@
     "description": "https://docs.cord.com/reference/rest-api/organizations/",
     "type": "object",
     "properties": {
-      "add": {
-        "type": "array",
-        "items": { "type": ["string", "number"] },
-        "title": "add"
-      },
-      "remove": {
-        "type": "array",
-        "items": { "type": ["string", "number"] },
-        "title": "remove"
-      }
+      "add": { "type": "array", "items": { "type": ["string", "number"] } },
+      "remove": { "type": "array", "items": { "type": ["string", "number"] } }
     },
     "additionalProperties": false,
     "$schema": "http://json-schema.org/draft-07/schema#"
@@ -114,22 +74,16 @@
               "additionalProperties": false,
               "type": "object",
               "properties": {
-                "name": { "type": "string", "title": "name" },
-                "status": {
-                  "enum": ["active", "deleted"],
-                  "type": "string",
-                  "title": "status"
-                },
+                "name": { "type": "string" },
+                "status": { "enum": ["active", "deleted"], "type": "string" },
                 "members": {
                   "type": "array",
-                  "items": { "type": ["string", "number"] },
-                  "title": "members"
+                  "items": { "type": ["string", "number"] }
                 },
                 "id": {
                   "minLength": 1,
                   "maxLength": 128,
-                  "type": ["string", "number"],
-                  "title": "id"
+                  "type": ["string", "number"]
                 }
               },
               "required": ["id", "name"]
@@ -138,29 +92,22 @@
               "additionalProperties": false,
               "type": "object",
               "properties": {
-                "name": { "type": "string", "title": "name" },
-                "status": {
-                  "enum": ["active", "deleted"],
-                  "type": "string",
-                  "title": "status"
-                },
+                "name": { "type": "string" },
+                "status": { "enum": ["active", "deleted"], "type": "string" },
                 "members": {
                   "type": "array",
-                  "items": { "type": ["string", "number"] },
-                  "title": "members"
+                  "items": { "type": ["string", "number"] }
                 },
                 "id": {
                   "minLength": 1,
                   "maxLength": 128,
-                  "type": ["string", "number"],
-                  "title": "id"
+                  "type": ["string", "number"]
                 }
               },
               "required": ["id"]
             }
           ]
-        },
-        "title": "organizations"
+        }
       },
       "users": {
         "maxItems": 10000,
@@ -171,30 +118,17 @@
               "additionalProperties": false,
               "type": "object",
               "properties": {
-                "email": {
-                  "format": "email",
-                  "type": "string",
-                  "title": "email"
-                },
-                "short_name": { "type": "string", "title": "short_name" },
-                "name": { "type": "string", "title": "name" },
-                "profile_picture_url": {
-                  "format": "uri",
-                  "type": "string",
-                  "title": "profile_picture_url"
-                },
-                "status": {
-                  "enum": ["active", "deleted"],
-                  "type": "string",
-                  "title": "status"
-                },
-                "first_name": { "type": "string", "title": "first_name" },
-                "last_name": { "type": "string", "title": "last_name" },
+                "email": { "format": "email", "type": "string" },
+                "short_name": { "type": "string" },
+                "name": { "type": "string" },
+                "profile_picture_url": { "format": "uri", "type": "string" },
+                "status": { "enum": ["active", "deleted"], "type": "string" },
+                "first_name": { "type": "string" },
+                "last_name": { "type": "string" },
                 "id": {
                   "minLength": 1,
                   "maxLength": 128,
-                  "type": ["string", "number"],
-                  "title": "id"
+                  "type": ["string", "number"]
                 }
               },
               "required": ["email", "id"]
@@ -203,37 +137,23 @@
               "additionalProperties": false,
               "type": "object",
               "properties": {
-                "email": {
-                  "format": "email",
-                  "type": "string",
-                  "title": "email"
-                },
-                "short_name": { "type": "string", "title": "short_name" },
-                "name": { "type": "string", "title": "name" },
-                "profile_picture_url": {
-                  "format": "uri",
-                  "type": "string",
-                  "title": "profile_picture_url"
-                },
-                "status": {
-                  "enum": ["active", "deleted"],
-                  "type": "string",
-                  "title": "status"
-                },
-                "first_name": { "type": "string", "title": "first_name" },
-                "last_name": { "type": "string", "title": "last_name" },
+                "email": { "format": "email", "type": "string" },
+                "short_name": { "type": "string" },
+                "name": { "type": "string" },
+                "profile_picture_url": { "format": "uri", "type": "string" },
+                "status": { "enum": ["active", "deleted"], "type": "string" },
+                "first_name": { "type": "string" },
+                "last_name": { "type": "string" },
                 "id": {
                   "minLength": 1,
                   "maxLength": 128,
-                  "type": ["string", "number"],
-                  "title": "id"
+                  "type": ["string", "number"]
                 }
               },
               "required": ["id"]
             }
           ]
-        },
-        "title": "users"
+        }
       }
     },
     "additionalProperties": false,
@@ -243,27 +163,14 @@
     "additionalProperties": false,
     "type": "object",
     "properties": {
-      "email": { "format": "email", "type": "string", "title": "email" },
-      "short_name": { "type": "string", "title": "short_name" },
-      "name": { "type": "string", "title": "name" },
-      "profile_picture_url": {
-        "format": "uri",
-        "type": "string",
-        "title": "profile_picture_url"
-      },
-      "status": {
-        "enum": ["active", "deleted"],
-        "type": "string",
-        "title": "status"
-      },
-      "first_name": { "type": "string", "title": "first_name" },
-      "last_name": { "type": "string", "title": "last_name" },
-      "id": {
-        "minLength": 1,
-        "maxLength": 128,
-        "type": ["string", "number"],
-        "title": "id"
-      }
+      "email": { "format": "email", "type": "string" },
+      "short_name": { "type": "string" },
+      "name": { "type": "string" },
+      "profile_picture_url": { "format": "uri", "type": "string" },
+      "status": { "enum": ["active", "deleted"], "type": "string" },
+      "first_name": { "type": "string" },
+      "last_name": { "type": "string" },
+      "id": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] }
     },
     "required": ["email", "id"],
     "$schema": "http://json-schema.org/draft-07/schema#"
@@ -272,23 +179,10 @@
     "additionalProperties": false,
     "type": "object",
     "properties": {
-      "name": { "type": "string", "title": "name" },
-      "status": {
-        "enum": ["active", "deleted"],
-        "type": "string",
-        "title": "status"
-      },
-      "members": {
-        "type": "array",
-        "items": { "type": ["string", "number"] },
-        "title": "members"
-      },
-      "id": {
-        "minLength": 1,
-        "maxLength": 128,
-        "type": ["string", "number"],
-        "title": "id"
-      }
+      "name": { "type": "string" },
+      "status": { "enum": ["active", "deleted"], "type": "string" },
+      "members": { "type": "array", "items": { "type": ["string", "number"] } },
+      "id": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] }
     },
     "required": ["id", "name"],
     "$schema": "http://json-schema.org/draft-07/schema#"
