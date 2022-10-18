@@ -1,27 +1,12 @@
 import jwt from 'jsonwebtoken';
-
-export type PlatformUserVariables = {
-  email: string;
-  name?: string;
-  short_name?: string;
-  profile_picture_url?: string;
-  status?: 'active' | 'deleted';
-  first_name?: string;
-  last_name?: string;
-};
-
-export type PlatformOrganizationVariables = {
-  name: string;
-  status?: 'active' | 'deleted';
-  members?: Array<string | number>;
-};
+import type { Types } from '@cord-sdk/api-types';
 
 export type ClientAuthTokenData = {
   app_id: string;
   user_id: string;
   organization_id: string;
-  user_details?: PlatformUserVariables;
-  organization_details?: PlatformOrganizationVariables;
+  user_details?: Types['PlatformUserVariables'];
+  organization_details?: Types['PlatformOrganizationVariables'];
 };
 
 export function getClientAuthToken(

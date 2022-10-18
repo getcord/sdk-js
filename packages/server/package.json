@@ -22,6 +22,7 @@
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
+    "@cord-sdk/api-types": "^0.0.21",
     "@types/jsonwebtoken": "^8.5.8",
     "rollup": "^2.70.1",
     "rollup-plugin-typescript2": "^0.31.2",
