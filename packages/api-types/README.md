@@ -9,3 +9,29 @@ This package contains TypeScript type definitions and JSON schema objects for th
 ```shell
 npm install @cord-sdk/api-types
 ```
+
+## TypeScript Type Definitions
+
+To use proper type definitions for the data structures send to and received from the Cord REST API, import them from this package, e.g.:
+
+```typescript
+import { PlatformUserVariables } from '@cord-sdk/api-types';
+```
+
+## Run-Time Validation
+
+You can use the JSON schema shipped in this package to validate data structures send to or received from the Cord REST API at run-time.
+
+For example, to do run-time validation using the [AJV package](https://www.npmjs.com/package/ajv) in TypeScript:
+
+```
+import Ajv from "ajv";
+import { schema } from '@cord-sdk/api-types';
+import type { PlatformUserVariables } from '@cord-sdk/api-types';
+
+const ajv = new Ajv();
+
+const validatePlatformUserVariables = ajv.compile<PlatformUserVariables>(schema['PlatformUserVariables']);
+```
+
+The `validatePlatformUserVariables` function takes data as an argument and returns a boolean indicating whether the given data conforms to the schema for `PlatformUserVariables`. The function is declared as a type guard, so if you use it as the conditional in an if statement, TypeScript understands that within the true-branch, the data is of type `PlatformUserVariables`.
