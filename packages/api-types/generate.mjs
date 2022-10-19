@@ -9,7 +9,8 @@ import prettier from 'prettier';
  * To re-generate run "node  generate.mjs" in sdk-js/packages/api-types
  */
 async function main() {
-  const schemaFile = path.resolve('generate/schema.json');
+  const schemaTsFile = path.resolve('generate/schema.ts');
+  const schemaJsonFile = path.resolve('generate/schema.json');
   const typesFile = path.resolve('generate/types.ts');
   const typeDefinitionsFile = path.resolve('src/typeDefinitions.ts');
 
@@ -46,17 +47,32 @@ async function main() {
       .map((s) => [s, tjsGenerator.getSchemaForSymbol(s)]),
   );
 
+  // write schema to schema.ts
+  await fs.promises.writeFile(
+    schemaTsFile,
+    prettier.format(
+      `// @generated\nexport default ${JSON.stringify(jsonSchema)} as const;`,
+      {
+        filepath: schemaTsFile,
+        ...(await prettier.resolveConfig(schemaTsFile)),
+      },
+    ),
+  );
+
   // write schema to schema.json
-  const stringifyJsonSchema = prettier.format(JSON.stringify(jsonSchema), {
-    filepath: schemaFile,
-  });
-  await fs.promises.writeFile(schemaFile, stringifyJsonSchema);
+  await fs.promises.writeFile(
+    schemaJsonFile,
+    prettier.format(JSON.stringify(jsonSchema), {
+      filepath: schemaJsonFile,
+      ...(await prettier.resolveConfig(schemaJsonFile)),
+    }),
+  );
 
   // write types to types.js
   const typeNames = tjsGenerator.getUserSymbols();
   const typesFileCode = prettier.format(printTypesFile(typeNames), {
     filepath: typesFile,
-    singleQuote: true, // without this imports file path with double quotes
+    ...(await prettier.resolveConfig(typesFile)),
   });
   await fs.promises.writeFile(typesFile, typesFileCode);
 }

@@ -33,6 +33,7 @@ async function packageBuildConfig(packageName, options = {}) {
               src: path.resolve(dirname, '..', '..', 'LICENSE'),
               dest: dirname,
             },
+            ...(options.extraCopyTargets || []),
           ],
         }),
         declareBundleType(),
@@ -79,7 +80,21 @@ async function rollupConfig() {
     packageBuildConfig('jsx'),
     packageBuildConfig('react', { extraExternal: ['lodash/isEqual.js'] }),
     packageBuildConfig('server'),
-    packageBuildConfig('api-types'),
+    packageBuildConfig('api-types', {
+      extraCopyTargets: [
+        // Copy the generated schema.json into the dist folder
+        {
+          src: path.resolve(
+            __dirname,
+            'packages',
+            'api-types',
+            'generate',
+            'schema.json',
+          ),
+          dest: path.resolve(__dirname, 'packages', 'api-types', 'dist'),
+        },
+      ],
+    }),
   ]);
 
   return configs.flat();
