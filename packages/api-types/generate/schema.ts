@@ -1,14 +1,27 @@
+// @generated
 export default {
   PlatformUserVariables: {
     type: 'object',
     properties: {
-      email: { format: 'email', type: 'string' },
-      name: { type: 'string' },
-      short_name: { type: 'string' },
+      email: { description: 'Email address', format: 'email', type: 'string' },
+      name: { description: 'Full user name', type: 'string' },
+      short_name: {
+        description:
+          'Short user name. In most cases, this will be preferred over name when set.',
+        type: 'string',
+      },
       status: { enum: ['active', 'deleted'], type: 'string' },
       profile_picture_url: { format: 'uri', type: 'string' },
-      first_name: { type: 'string' },
-      last_name: { type: 'string' },
+      first_name: {
+        description:
+          "User's first name. This field is deprecated and has no effect.",
+        type: 'string',
+      },
+      last_name: {
+        description:
+          "User's last name. This field is deprecated and has no effect.",
+        type: 'string',
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -26,9 +39,14 @@ export default {
   PlatformOrganizationVariables: {
     type: 'object',
     properties: {
-      name: { type: 'string' },
+      name: { description: 'Organization name', type: 'string' },
       status: { enum: ['active', 'deleted'], type: 'string' },
-      members: { type: 'array', items: { type: ['string', 'number'] } },
+      members: {
+        description:
+          'List of partner-specific IDs of the users who are members of this organization',
+        type: 'array',
+        items: { type: ['string', 'number'] },
+      },
     },
     additionalProperties: false,
     propertyOrder: ['name', 'status', 'members'],
@@ -39,13 +57,25 @@ export default {
     description: 'https://docs.cord.com/reference/rest-api/users/',
     type: 'object',
     properties: {
-      email: { format: 'email', type: 'string' },
-      name: { type: 'string' },
-      short_name: { type: 'string' },
+      email: { description: 'Email address', format: 'email', type: 'string' },
+      name: { description: 'Full user name', type: 'string' },
+      short_name: {
+        description:
+          'Short user name. In most cases, this will be preferred over name when set.',
+        type: 'string',
+      },
       status: { enum: ['active', 'deleted'], type: 'string' },
       profile_picture_url: { format: 'uri', type: 'string' },
-      first_name: { type: 'string' },
-      last_name: { type: 'string' },
+      first_name: {
+        description:
+          "User's first name. This field is deprecated and has no effect.",
+        type: 'string',
+      },
+      last_name: {
+        description:
+          "User's last name. This field is deprecated and has no effect.",
+        type: 'string',
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -63,9 +93,14 @@ export default {
     description: 'https://docs.cord.com/reference/rest-api/organizations/',
     type: 'object',
     properties: {
-      name: { type: 'string' },
+      name: { description: 'Organization name', type: 'string' },
       status: { enum: ['active', 'deleted'], type: 'string' },
-      members: { type: 'array', items: { type: ['string', 'number'] } },
+      members: {
+        description:
+          'List of partner-specific IDs of the users who are members of this organization',
+        type: 'array',
+        items: { type: ['string', 'number'] },
+      },
     },
     additionalProperties: false,
     propertyOrder: ['name', 'status', 'members'],
@@ -87,93 +122,62 @@ export default {
     type: 'object',
     properties: {
       users: {
+        description:
+          'List of user objects. Every object must include the id field. If the user\nalready exists, all other fields are optional and only updated when\npresent. If the user does not already exist, fields are required as\ndescribed in the [Create or update a\nuser](https://docs.cord.com/reference/rest-api/organizations/#create-or-update-an-organization)\nAPI.',
         maxItems: 10000,
         type: 'array',
         items: {
-          anyOf: [
-            {
-              additionalProperties: false,
-              type: 'object',
-              properties: {
-                email: { format: 'email', type: 'string' },
-                name: { type: 'string' },
-                short_name: { type: 'string' },
-                status: { enum: ['active', 'deleted'], type: 'string' },
-                profile_picture_url: { format: 'uri', type: 'string' },
-                first_name: { type: 'string' },
-                last_name: { type: 'string' },
-                id: {
-                  minLength: 1,
-                  maxLength: 128,
-                  type: ['string', 'number'],
-                },
-              },
-              required: ['email', 'id'],
+          additionalProperties: false,
+          type: 'object',
+          properties: {
+            email: {
+              description: 'Email address',
+              format: 'email',
+              type: 'string',
             },
-            {
-              additionalProperties: false,
-              type: 'object',
-              properties: {
-                email: { format: 'email', type: 'string' },
-                name: { type: 'string' },
-                short_name: { type: 'string' },
-                status: { enum: ['active', 'deleted'], type: 'string' },
-                profile_picture_url: { format: 'uri', type: 'string' },
-                first_name: { type: 'string' },
-                last_name: { type: 'string' },
-                id: {
-                  minLength: 1,
-                  maxLength: 128,
-                  type: ['string', 'number'],
-                },
-              },
-              required: ['id'],
+            name: { description: 'Full user name', type: 'string' },
+            short_name: {
+              description:
+                'Short user name. In most cases, this will be preferred over name when set.',
+              type: 'string',
             },
-          ],
+            status: { enum: ['active', 'deleted'], type: 'string' },
+            profile_picture_url: { format: 'uri', type: 'string' },
+            first_name: {
+              description:
+                "User's first name. This field is deprecated and has no effect.",
+              type: 'string',
+            },
+            last_name: {
+              description:
+                "User's last name. This field is deprecated and has no effect.",
+              type: 'string',
+            },
+            id: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+          },
+          required: ['id'],
         },
       },
       organizations: {
+        description:
+          'List of organization objects. Every object must include the id field. If\nthe organization already exists, all other fields are optional and only\nupdated when present. If the organization does not already exist, fields\nare required as described in the [Create or update an\norganization](https://docs.cord.com/reference/rest-api/organizations/#create-or-update-an-organization)\nAPI.',
         maxItems: 1000,
         type: 'array',
         items: {
-          anyOf: [
-            {
-              additionalProperties: false,
-              type: 'object',
-              properties: {
-                name: { type: 'string' },
-                status: { enum: ['active', 'deleted'], type: 'string' },
-                members: {
-                  type: 'array',
-                  items: { type: ['string', 'number'] },
-                },
-                id: {
-                  minLength: 1,
-                  maxLength: 128,
-                  type: ['string', 'number'],
-                },
-              },
-              required: ['id', 'name'],
+          additionalProperties: false,
+          type: 'object',
+          properties: {
+            name: { description: 'Organization name', type: 'string' },
+            status: { enum: ['active', 'deleted'], type: 'string' },
+            members: {
+              description:
+                'List of partner-specific IDs of the users who are members of this organization',
+              type: 'array',
+              items: { type: ['string', 'number'] },
             },
-            {
-              additionalProperties: false,
-              type: 'object',
-              properties: {
-                name: { type: 'string' },
-                status: { enum: ['active', 'deleted'], type: 'string' },
-                members: {
-                  type: 'array',
-                  items: { type: ['string', 'number'] },
-                },
-                id: {
-                  minLength: 1,
-                  maxLength: 128,
-                  type: ['string', 'number'],
-                },
-              },
-              required: ['id'],
-            },
-          ],
+            id: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+          },
+          required: ['id'],
         },
       },
     },
@@ -185,13 +189,25 @@ export default {
     additionalProperties: false,
     type: 'object',
     properties: {
-      email: { format: 'email', type: 'string' },
-      name: { type: 'string' },
-      short_name: { type: 'string' },
+      email: { description: 'Email address', format: 'email', type: 'string' },
+      name: { description: 'Full user name', type: 'string' },
+      short_name: {
+        description:
+          'Short user name. In most cases, this will be preferred over name when set.',
+        type: 'string',
+      },
       status: { enum: ['active', 'deleted'], type: 'string' },
       profile_picture_url: { format: 'uri', type: 'string' },
-      first_name: { type: 'string' },
-      last_name: { type: 'string' },
+      first_name: {
+        description:
+          "User's first name. This field is deprecated and has no effect.",
+        type: 'string',
+      },
+      last_name: {
+        description:
+          "User's last name. This field is deprecated and has no effect.",
+        type: 'string',
+      },
       id: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
     },
     required: ['email', 'id'],
@@ -201,9 +217,14 @@ export default {
     additionalProperties: false,
     type: 'object',
     properties: {
-      name: { type: 'string' },
+      name: { description: 'Organization name', type: 'string' },
       status: { enum: ['active', 'deleted'], type: 'string' },
-      members: { type: 'array', items: { type: ['string', 'number'] } },
+      members: {
+        description:
+          'List of partner-specific IDs of the users who are members of this organization',
+        type: 'array',
+        items: { type: ['string', 'number'] },
+      },
       id: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
     },
     required: ['id', 'name'],
