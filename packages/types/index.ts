@@ -425,6 +425,9 @@ export function isAnnotationMode(mode: string): mode is AnnotationMode {
 export const CORD_ANNOTATION_LOCATION_DATA_ATTRIBUTE =
   'data-cord-annotation-location';
 
+export const CORD_ANNOTATION_ALLOWED_DATA_ATTRIBUTE =
+  'data-cord-annotation-allowed';
+
 export function locationJson(c: Partial<Location>): string {
   return JSON.stringify(
     Object.fromEntries(
