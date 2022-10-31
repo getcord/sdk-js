@@ -8,7 +8,7 @@ import type {
   NavigateFn,
 } from '@cord-sdk/types';
 
-declare var CORD_REACT_PACKAGE_VERSION: string;
+declare const CORD_REACT_PACKAGE_VERSION: string;
 
 type CordContextValue = {
   sdk: ICordSDK | null;

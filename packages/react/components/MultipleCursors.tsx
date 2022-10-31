@@ -17,7 +17,8 @@ const propsToAttributes = propsToAttributeConverter(
   componentAttributes.MultipleCursors,
 );
 
-export type MultipleCursorsReactComponentProps = ReactPropsWithLocation<{}>;
+export type MultipleCursorsReactComponentProps =
+  ReactPropsWithLocation<unknown>;
 
 export function MultipleCursors(
   props: PropsWithStandardHTMLAttributes<MultipleCursorsReactComponentProps>,

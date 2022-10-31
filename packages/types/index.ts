@@ -37,6 +37,7 @@ export type AnnotationCapturePosition = {
   element: HTMLElement;
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export type AnnotationCaptureResult<L extends Location = {}> = {
   extraLocation?: Partial<L>;
   label?: string;
@@ -50,17 +51,18 @@ export type AnnotationRenderPosition = {
   element?: HTMLElement;
 };
 
-export type Annotation<L extends Location = {}> = {
+export type Annotation<L extends Location = Location> = {
   id: string;
   location: L;
 };
 
-export type AnnotationPositionRendererCallback<L extends Location = {}> = (
-  annotation: Annotation<L>,
-  coordsRelativeToTarget: { x: number; y: number },
-) => AnnotationRenderPosition | null | undefined | void;
+export type AnnotationPositionRendererCallback<L extends Location = Location> =
+  (
+    annotation: Annotation<L>,
+    coordsRelativeToTarget: { x: number; y: number },
+  ) => AnnotationRenderPosition | null | undefined | void;
 
-export type AnnotationHandler<L extends Location = {}> = {
+export type AnnotationHandler<L extends Location = Location> = {
   getAnnotationPosition: AnnotationPositionRendererCallback<L>;
   onAnnotationCapture: (
     capturePosition: AnnotationCapturePosition,
@@ -184,7 +186,7 @@ export type TextWebComponentEvents = {
 
 /* cord-multiple-cursors */
 
-export type MultipleCursorsWebComponentEvents = {};
+export type MultipleCursorsWebComponentEvents = Record<string, never>;
 
 /* cord-page-presence */
 
@@ -223,11 +225,11 @@ export type BadgeStyle = 'badge' | 'badge_with_count' | 'none';
 
 /* cord-collaboration */
 
-export type CollaborationWebComponentEvents = {};
+export type CollaborationWebComponentEvents = Record<string, never>;
 
 /* cord-floating-threads */
 
-export type FloatingThreadsWebComponentEvents = {};
+export type FloatingThreadsWebComponentEvents = Record<string, never>;
 
 /* cord-thread */
 
@@ -457,8 +459,7 @@ export interface HTMLCordFloatingThreadsElement extends HTMLCordElement {
   createThread(): void;
 }
 
-export interface HTMLCordAnchoredThreadsElement
-  extends HTMLCordFloatingThreadsElement {}
+export type HTMLCordAnchoredThreadsElement = HTMLCordFloatingThreadsElement;
 
 export type ThreadOptions = {
   additional_subscribers_on_create: string[];

@@ -21,7 +21,9 @@ type CordElements = {
 };
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface IntrinsicElements extends CordElements {}
   }
 }

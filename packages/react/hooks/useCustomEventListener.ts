@@ -18,7 +18,7 @@ export function useCustomEventListeners<T extends Record<string, unknown[]>>(
       const callback = events[event];
       const customEventHandler = (e: Event) => {
         if (e instanceof CustomEvent) {
-          callback?.apply(null, e.detail);
+          callback?.(...e.detail);
         }
       };
 
