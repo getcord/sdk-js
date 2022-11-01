@@ -266,6 +266,7 @@ export interface MessageAnnotation {
   id: string;
   location: DocumentLocation | null;
   customLocation: Location | null;
+  customHighlightedTextConfig: HighlightedTextConfig | null;
   customLabel: string | null;
   coordsRelativeToTarget: { x: number; y: number } | null;
   sourceID: UUID;
