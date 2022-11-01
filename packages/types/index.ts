@@ -20,12 +20,12 @@ export type CordSDKOptions = {
   client_auth_token?: string;
   navigate?: NavigateFn | null;
   enable_tasks?: boolean;
-  /**
-   * @deprecated The enable_annotations prop has been superseded by annotation_mode
-   */
   enable_annotations?: boolean;
   blur_screenshots?: boolean;
   show_blurred_screenshots?: BlurDisplayLocation;
+  /**
+   * @deprecated The annotation_mode prop has been superseded by enable_annotations
+   */
   annotation_mode?: AnnotationMode;
   react_package_version?: string;
   thread_options?: ThreadOptions;

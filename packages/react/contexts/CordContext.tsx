@@ -28,17 +28,17 @@ export const CordContext = React.createContext<CordContextValue>({
 type Props = {
   clientAuthToken: string | undefined | null;
   enableTasks?: boolean;
-  /**
-   * @deprecated The enableAnnotations prop has been superseded by annotationMode
-   * `enableAnnotations: false` should be replaced with `annotationMode: 'none'`
-   */
   enableAnnotations?: boolean;
   blurScreenshots?: boolean;
   showBlurredScreenshots?: BlurDisplayLocation;
-  annotationMode?: AnnotationMode;
   cordScriptUrl?: string;
   navigate?: NavigateFn | null;
   threadOptions?: ThreadOptions;
+  /**
+   * @deprecated The annotationMode prop has been reverted to enableAnnotations
+   * `annotationMode: 'none'` should be replaced with `enableAnnotations: false`
+   */
+  annotationMode?: AnnotationMode;
 };
 
 type ThreadOptions = {
@@ -95,10 +95,9 @@ export function CordProvider({
         .init({
           client_auth_token: clientAuthToken,
           enable_tasks: enableTasks,
-          enable_annotations: enableAnnotations,
+          enable_annotations: enableAnnotations ?? annotationMode !== 'none',
           blur_screenshots: blurScreenshots,
           show_blurred_screenshots: showBlurredScreenshots,
-          annotation_mode: annotationMode,
           navigate,
           react_package_version: CORD_REACT_PACKAGE_VERSION,
           thread_options: threadOptions
