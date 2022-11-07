@@ -15,6 +15,7 @@ export const componentNames = {
   'cord-inbox': 'Inbox',
   'cord-settings': 'Settings',
   'cord-floating-threads': 'FloatingThreads',
+  'cord-selection-comments': 'SelectionComments',
 } as const;
 
 export type ElementName = keyof typeof componentNames;
@@ -118,6 +119,11 @@ export const componentAttributes = {
     'show-button': 'boolean',
     'button-label': 'string',
     'thread-name': 'string',
+  },
+  SelectionComments: {
+    location: 'json',
+    'button-label': 'string',
+    'icon-url': 'string',
   },
 } as const;
 

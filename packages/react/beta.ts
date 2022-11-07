@@ -5,3 +5,8 @@ export {
   FloatingThreads as AnchoredThreads,
   FloatingThreadsReactComponentProps as AnchoredThreadsReactComponentProps,
 } from './components/FloatingThreads';
+
+export {
+  SelectionComments,
+  SelectionCommentsReactComponentProps,
+} from './components/SelectionComments';
