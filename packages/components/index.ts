@@ -124,6 +124,7 @@ export const componentAttributes = {
     location: 'json',
     'button-label': 'string',
     'icon-url': 'string',
+    'thread-name': 'string',
   },
 } as const;
 

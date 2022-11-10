@@ -15,6 +15,7 @@ export type SelectionCommentsReactComponentProps = React.PropsWithChildren<
   ReactPropsWithLocation<{
     buttonLabel?: string;
     iconUrl?: string;
+    threadName?: string;
   }>
 >;
 
