@@ -431,6 +431,9 @@ export const CORD_ANNOTATION_LOCATION_DATA_ATTRIBUTE =
 export const CORD_ANNOTATION_ALLOWED_DATA_ATTRIBUTE =
   'data-cord-annotation-allowed';
 
+export const CORD_COMPONENT_WRAPS_DOM_DATA_ATTRIBUTE =
+  'data-cord-component-wraps-dom';
+
 export function locationJson(c: Partial<Location>): string {
   return JSON.stringify(
     Object.fromEntries(
