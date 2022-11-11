@@ -6,6 +6,7 @@ import type {
   ICordSDK,
   Location,
   NavigateFn,
+  InitErrorCallback,
 } from '@cord-sdk/types';
 
 declare const CORD_REACT_PACKAGE_VERSION: string;
@@ -39,6 +40,7 @@ type Props = {
    * `annotationMode: 'none'` should be replaced with `enableAnnotations: false`
    */
   annotationMode?: AnnotationMode;
+  onInitError?: InitErrorCallback;
 };
 
 type ThreadOptions = {
@@ -56,6 +58,7 @@ export function CordProvider({
   navigate,
   threadOptions,
   children,
+  onInitError,
 }: React.PropsWithChildren<Props>) {
   const [sdk, setSDK] = useState<ICordSDK | null>(null);
   const [location, setLocation] = useState<Location>();
@@ -106,6 +109,7 @@ export function CordProvider({
                   threadOptions.additionalSubscribersOnCreate,
               }
             : undefined,
+          onInitError,
         })
         .then(() => {
           setLastInitialized(Date.now());
@@ -120,6 +124,7 @@ export function CordProvider({
     showBlurredScreenshots,
     annotationMode,
     navigate,
+    onInitError,
     threadOptions,
   ]);
 

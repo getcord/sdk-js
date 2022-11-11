@@ -29,7 +29,10 @@ export type CordSDKOptions = {
   annotation_mode?: AnnotationMode;
   react_package_version?: string;
   thread_options?: ThreadOptions;
+  onInitError?: InitErrorCallback;
 };
+
+export type InitErrorCallback = (error: { message: string }) => unknown;
 
 export type AnnotationCapturePosition = {
   x: number;
