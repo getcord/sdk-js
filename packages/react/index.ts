@@ -41,6 +41,7 @@ export {
   useCordAnnotationRenderer,
 } from './hooks/useCordAnnotationTargetRef';
 export { useCordPresentUsers } from './hooks/useCordPresentUsers';
+export { useCordThreadsActivitySummary } from './hooks/useCordThreadsActivitySummary';
 export {
   InboxLauncher,
   InboxLauncherReactComponentProps,

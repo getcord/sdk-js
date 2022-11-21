@@ -163,6 +163,24 @@ export interface ICordUsersSDK {
   removeUserListener(ref: ListenerRef): void;
 }
 
+export type ThreadsActivitySummary = {
+  total: number;
+  unread: number;
+  resolved: number;
+};
+
+export type ThreadsActivitySummaryUpdateCallback = (
+  summary: ThreadsActivitySummary,
+) => unknown;
+
+export interface ICordActivitySDK {
+  observeThreadsSummary(
+    location: Location,
+    callback: ThreadsActivitySummaryUpdateCallback,
+  ): ListenerRef;
+  unobserveThreadsSummary(ref: ListenerRef): boolean;
+}
+
 export interface ICordSDK {
   init(options: CordSDKOptions): Promise<void>;
   destroy(): void;
@@ -173,6 +191,7 @@ export interface ICordSDK {
   annotations: ICordAnnotationSDK;
   presence: ICordPresenceSDK;
   users: ICordUsersSDK;
+  activity: ICordActivitySDK;
 }
 
 declare global {
