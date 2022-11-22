@@ -163,22 +163,22 @@ export interface ICordUsersSDK {
   removeUserListener(ref: ListenerRef): void;
 }
 
-export type ThreadsActivitySummary = {
+export type ThreadActivitySummary = {
   total: number;
   unread: number;
   resolved: number;
 };
 
-export type ThreadsActivitySummaryUpdateCallback = (
-  summary: ThreadsActivitySummary,
+export type ThreadActivitySummaryUpdateCallback = (
+  summary: ThreadActivitySummary,
 ) => unknown;
 
 export interface ICordActivitySDK {
-  observeThreadsSummary(
+  observeThreadSummary(
     location: Location,
-    callback: ThreadsActivitySummaryUpdateCallback,
+    callback: ThreadActivitySummaryUpdateCallback,
   ): ListenerRef;
-  unobserveThreadsSummary(ref: ListenerRef): boolean;
+  unobserveThreadSummary(ref: ListenerRef): boolean;
 }
 
 export interface ICordSDK {

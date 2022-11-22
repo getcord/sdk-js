@@ -1,27 +1,27 @@
-import type { ThreadsActivitySummary, Location } from '@cord-sdk/types';
+import type { ThreadActivitySummary, Location } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 import { useMemoizedLocation } from './useMemoizedLocation';
 
-export function useCordThreadsActivitySummary(
+export function useCordThreadActivitySummary(
   location: Location,
-): ThreadsActivitySummary | undefined {
-  const { sdk } = useCordContext('useCordThreadsSummary');
+): ThreadActivitySummary | undefined {
+  const { sdk } = useCordContext('useCordThreadActivitySummary');
   const activitySDK = sdk?.activity;
 
   const memoizedLocation = useMemoizedLocation(location);
 
-  const [summary, setSummary] = useState<ThreadsActivitySummary>();
+  const [summary, setSummary] = useState<ThreadActivitySummary>();
 
   useEffect(() => {
     if (!activitySDK) {
       return;
     }
 
-    const ref = activitySDK.observeThreadsSummary(memoizedLocation, setSummary);
+    const ref = activitySDK.observeThreadSummary(memoizedLocation, setSummary);
 
     return () => {
-      activitySDK.unobserveThreadsSummary(ref);
+      activitySDK.unobserveThreadSummary(ref);
     };
   }, [activitySDK, memoizedLocation]);
 
