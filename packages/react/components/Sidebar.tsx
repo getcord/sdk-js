@@ -29,13 +29,17 @@ export type SidebarReactComponentProps = ReactPropsWithLocation<{
   threadName?: string;
   onOpen?: (...args: SidebarWebComponentEvents['open']) => unknown;
   onClose?: (...args: SidebarWebComponentEvents['close']) => unknown;
+  onThreadOpen?: (...args: SidebarWebComponentEvents['threadopen']) => unknown;
+  onThreadClose?: (
+    ...args: SidebarWebComponentEvents['threadclose']
+  ) => unknown;
 }>;
 
 function SidebarWithForwardedRef(
   props: PropsWithStandardHTMLAttributes<SidebarReactComponentProps>,
   forwardedRef: React.ForwardedRef<HTMLCordSidebarElement | null>,
 ) {
-  const { onOpen, onClose } = props;
+  const { onOpen, onClose, onThreadOpen, onThreadClose } = props;
 
   const ref = useCustomElementRef<
     SidebarWebComponentEvents,
@@ -44,6 +48,8 @@ function SidebarWithForwardedRef(
     {
       open: onOpen,
       close: onClose,
+      threadopen: onThreadOpen,
+      threadclose: onThreadClose,
     },
     forwardedRef,
   );

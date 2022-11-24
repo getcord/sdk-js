@@ -235,6 +235,8 @@ export type PresenceObserverWebComponentEvents = {
 export type SidebarWebComponentEvents = {
   open: [{ width?: number }];
   close: [];
+  threadopen: [threadID: string];
+  threadclose: [threadID: string];
 };
 
 /* cord-sidebar-launcher */
