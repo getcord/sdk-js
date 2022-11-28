@@ -1,7 +1,7 @@
 {
   "name": "@cord-sdk/server",
   "description": "Server-side portion of the Cord SDK",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
   "files": [
@@ -22,7 +22,7 @@
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
-    "@cord-sdk/api-types": "0.0.22",
+    "@cord-sdk/api-types": "0.0.23",
     "@types/jsonwebtoken": "^8.5.8",
     "rollup": "^2.70.1",
     "rollup-plugin-typescript2": "^0.31.2",
