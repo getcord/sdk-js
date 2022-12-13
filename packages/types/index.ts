@@ -458,6 +458,9 @@ export const CORD_ANNOTATION_ALLOWED_DATA_ATTRIBUTE =
 export const CORD_COMPONENT_WRAPS_DOM_DATA_ATTRIBUTE =
   'data-cord-component-wraps-dom';
 
+export const CORD_SCREENSHOT_TARGET_DATA_ATTRIBUTE =
+  'data-cord-screenshot-target';
+
 export function locationJson(c: Partial<Location>): string {
   return JSON.stringify(
     Object.fromEntries(
