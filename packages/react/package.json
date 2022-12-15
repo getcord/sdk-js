@@ -1,7 +1,7 @@
 {
   "name": "@cord-sdk/react",
   "description": "React components for Cord",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
   "files": [
@@ -19,15 +19,15 @@
     "directory": "packages/react"
   },
   "dependencies": {
-    "@cord-sdk/types": "0.0.23",
-    "@cord-sdk/components": "0.0.23",
+    "@cord-sdk/types": "0.0.24",
+    "@cord-sdk/components": "0.0.24",
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
     "react": ">=17.0.0"
   },
   "devDependencies": {
-    "@cord-sdk/jsx": "0.0.23",
+    "@cord-sdk/jsx": "0.0.24",
     "@types/lodash-es": "^4.17.6",
     "@types/react": "^17.0.43",
     "rollup": "^2.70.1",
