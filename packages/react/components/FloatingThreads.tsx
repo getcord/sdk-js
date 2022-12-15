@@ -21,6 +21,7 @@ export type FloatingThreadsReactComponentProps = ReactPropsWithLocation<{
   buttonLabel?: string;
   iconUrl?: string;
   threadName?: string;
+  disabled?: boolean;
 }>;
 
 export function FloatingThreadsWithForwardedRef(

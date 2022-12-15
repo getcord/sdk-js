@@ -107,6 +107,7 @@ export const componentAttributes = {
   },
   InboxLauncher: {
     label: 'string',
+    disabled: 'boolean',
     'icon-url': 'string',
     'inbox-badge-style': 'badge-style',
     'show-inbox-on-click': 'boolean',
@@ -116,6 +117,7 @@ export const componentAttributes = {
   Settings: {},
   FloatingThreads: {
     location: 'json',
+    disabled: 'boolean',
     'show-button': 'boolean',
     'button-label': 'string',
     'thread-name': 'string',

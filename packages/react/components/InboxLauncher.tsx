@@ -22,6 +22,7 @@ type InboxLauncherSpecificReactComponentProps = {
   iconUrl?: string;
   inboxBadgeStyle?: BadgeStyle;
   showInboxOnClick?: boolean;
+  disabled?: boolean;
   onClick?: (...args: InboxLauncherWebComponentEvents['click']) => unknown;
 };
 
