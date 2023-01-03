@@ -19,7 +19,7 @@
     "directory": "packages/server"
   },
   "dependencies": {
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^9.0.0"
   },
   "devDependencies": {
     "@cord-sdk/api-types": "0.0.24",
