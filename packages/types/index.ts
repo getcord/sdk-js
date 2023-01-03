@@ -270,6 +270,8 @@ export type ThreadInfo = {
 /* cord-thread-list */
 export type ThreadListWebComponentEvents = {
   threadclick: [threadID: string];
+  threadresolve: [{ threadID: string }];
+  threadreopen: [{ threadID: string }];
 };
 
 /* cord-inbox-launcher */

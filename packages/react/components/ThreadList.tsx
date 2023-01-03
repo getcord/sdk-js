@@ -18,6 +18,12 @@ export type ThreadListReactComponentProps = ReactPropsWithLocation<{
   onThreadClick?: (
     ...args: ThreadListWebComponentEvents['threadclick']
   ) => unknown;
+  onThreadResolve?: (
+    ...args: ThreadListWebComponentEvents['threadresolve']
+  ) => unknown;
+  onThreadReopen?: (
+    ...args: ThreadListWebComponentEvents['threadreopen']
+  ) => unknown;
 }>;
 
 export function ThreadList(
@@ -27,6 +33,8 @@ export function ThreadList(
 ) {
   const setRef = useCustomEventListeners<ThreadListWebComponentEvents>({
     threadclick: props.onThreadClick,
+    threadresolve: props.onThreadResolve,
+    threadreopen: props.onThreadReopen,
   });
   const combinedSetRef = useCallback(
     (element) => {
