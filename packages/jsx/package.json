@@ -1,7 +1,7 @@
 {
   "name": "@cord-sdk/jsx",
   "description": "JSX declarations of the Cord web components",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
   "files": [
@@ -19,7 +19,7 @@
     "directory": "packages/jsx"
   },
   "dependencies": {
-    "@cord-sdk/components": "0.0.24"
+    "@cord-sdk/components": "0.0.25"
   },
   "devDependencies": {
     "@types/react": "^17.0.43",
