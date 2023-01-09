@@ -100,6 +100,7 @@ export const componentAttributes = {
     'thread-id': 'string',
     'thread-name': 'string',
     collapsed: 'boolean',
+    autofocus: 'boolean',
     'show-header': 'boolean',
   },
   ThreadList: {
