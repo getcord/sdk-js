@@ -13,7 +13,7 @@ type CordComponentReactInterface<T extends string> = DetailedHTMLProps<
 >;
 
 type AttributeNames = {
-  [N in ElementName]: keyof typeof componentAttributes[typeof componentNames[N]];
+  [N in ElementName]: keyof (typeof componentAttributes)[(typeof componentNames)[N]];
 };
 
 type CordElements = {

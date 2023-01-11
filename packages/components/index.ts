@@ -19,7 +19,7 @@ export const componentNames = {
 } as const;
 
 export type ElementName = keyof typeof componentNames;
-export type ComponentName = typeof componentNames[ElementName];
+export type ComponentName = (typeof componentNames)[ElementName];
 
 const InboxSharedAttributes = {
   'show-settings': 'boolean',

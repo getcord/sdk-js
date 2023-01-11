@@ -351,7 +351,7 @@ export const VIRTUALISED_LISTS = [
   'reactTree',
   'konvaCanvas',
 ] as const;
-export type TargetType = typeof VIRTUALISED_LISTS[number];
+export type TargetType = (typeof VIRTUALISED_LISTS)[number];
 
 export type AdditionalTargetData = {
   targetType: TargetType;
@@ -418,7 +418,7 @@ export type PropsWithStandardHTMLAttributes<T> = T & {
 
 const BLUR_DISPLAY_LOCATIONS = ['everywhere', 'outside_page'] as const;
 
-export type BlurDisplayLocation = typeof BLUR_DISPLAY_LOCATIONS[number];
+export type BlurDisplayLocation = (typeof BLUR_DISPLAY_LOCATIONS)[number];
 
 export function isBlurDisplayLocation(
   behavior: string,
@@ -428,7 +428,7 @@ export function isBlurDisplayLocation(
 
 const ANNOTATION_MODES = ['everywhere', 'custom_targets_only', 'none'] as const;
 
-export type AnnotationMode = typeof ANNOTATION_MODES[number];
+export type AnnotationMode = (typeof ANNOTATION_MODES)[number];
 
 export function isAnnotationMode(mode: string): mode is AnnotationMode {
   return (ANNOTATION_MODES as readonly string[]).indexOf(mode) !== -1;
