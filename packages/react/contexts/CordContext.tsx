@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 
 import type {
   AnnotationMode,
@@ -18,6 +18,10 @@ type CordContextValue = {
   // True only if the `useContext(CordContext)` call is within the context provider.
   hasProvider: boolean;
 };
+
+const shouldLogLoadingTime = !!localStorage.getItem(
+  '__cord_log_loading_times__',
+);
 
 export const CordContext = React.createContext<CordContextValue>({
   sdk: null,
@@ -65,6 +69,20 @@ export function CordProvider({
   const [lastInitialized, setLastInitialized] = useState<number>();
   const initialized = lastInitialized !== undefined;
 
+  const scriptInjectedRef = useRef<number>();
+
+  useEffect(() => {
+    if (shouldLogLoadingTime) {
+      console.log('<CordProvider> first render', new Date().toISOString());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (shouldLogLoadingTime && clientAuthToken) {
+      console.log('<CordProvider> token defined', new Date().toISOString());
+    }
+  }, [clientAuthToken]);
+
   useEffect(() => {
     if (window.CordSDK) {
       setSDK(window.CordSDK);
@@ -72,6 +90,17 @@ export function CordProvider({
     }
 
     const onLoad = () => {
+      if (shouldLogLoadingTime) {
+        console.log(`<CordProvider> script loaded`, new Date().toISOString());
+        if (scriptInjectedRef.current) {
+          console.log(
+            `<CordProvider> script load time: ${
+              Date.now() - scriptInjectedRef.current
+            }ms`,
+          );
+        }
+      }
+
       if (!window.CordSDK) {
         console.warn('CordSDK failed to load');
         return;
@@ -85,6 +114,11 @@ export function CordProvider({
       cordScriptUrl ?? `https://app.cord.com/sdk/v1/sdk.latest.js`;
     scriptTag.addEventListener('load', onLoad);
     document.head.appendChild(scriptTag);
+
+    if (shouldLogLoadingTime) {
+      scriptInjectedRef.current = Date.now();
+      console.log('<CordProvider> script injected', new Date().toISOString());
+    }
 
     return () => {
       scriptTag.removeEventListener('load', onLoad);

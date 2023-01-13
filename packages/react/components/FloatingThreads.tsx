@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import type {
   PropsWithStandardHTMLAttributes,
@@ -14,6 +14,10 @@ import { useCustomElementRef } from '../hooks/useCustomElementRef';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.FloatingThreads,
+);
+
+const shouldLogLoadingTime = !!localStorage.getItem(
+  '__cord_log_loading_times__',
 );
 
 export type FloatingThreadsReactComponentProps = ReactPropsWithLocation<{
@@ -32,6 +36,14 @@ export function FloatingThreadsWithForwardedRef(
     FloatingThreadsWebComponentEvents,
     HTMLCordFloatingThreadsElement
   >({}, forwardedRef);
+
+  useEffect(() => {
+    if (shouldLogLoadingTime) {
+      console.log(
+        `<cord-floating-threads> first render: ${new Date().toISOString()}`,
+      );
+    }
+  }, []);
 
   return (
     <cord-floating-threads
