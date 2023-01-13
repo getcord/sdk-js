@@ -281,6 +281,20 @@ export default {
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
+  CreateNotificationVariables: {
+    type: 'object',
+    properties: {
+      actor_id: { type: 'string' },
+      recipient_id: { type: 'string' },
+      template: { type: 'string' },
+      url: { type: 'string' },
+      type: { type: 'string', enum: ['url'] },
+    },
+    additionalProperties: false,
+    propertyOrder: ['actor_id', 'recipient_id', 'template', 'url', 'type'],
+    required: ['actor_id', 'recipient_id', 'template', 'type', 'url'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
   CreatePlatformUserVariables: {
     additionalProperties: false,
     type: 'object',

@@ -9,6 +9,7 @@ import type {
   UpdatePlatformOrganizationMembersVariables,
   BatchAPIVariables,
   ClientAuthTokenData,
+  CreateNotificationVariables,
   CreatePlatformUserVariables,
   CreatePlatformOrganizationVariables,
 } from '../src/typeDefinitions';
@@ -21,6 +22,7 @@ export type Types = {
   UpdatePlatformOrganizationMembersVariables: UpdatePlatformOrganizationMembersVariables;
   BatchAPIVariables: BatchAPIVariables;
   ClientAuthTokenData: ClientAuthTokenData;
+  CreateNotificationVariables: CreateNotificationVariables;
   CreatePlatformUserVariables: CreatePlatformUserVariables;
   CreatePlatformOrganizationVariables: CreatePlatformOrganizationVariables;
 };

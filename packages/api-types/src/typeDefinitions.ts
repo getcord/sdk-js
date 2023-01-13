@@ -99,6 +99,7 @@ export interface BatchAPIVariables {
    */
   organizations?: (UpdatePlatformOrganizationVariables & { id: ID })[];
 }
+
 /**
  * https://docs.cord.com/in-depth/authentication/
  * @additionalProperties true
@@ -131,6 +132,15 @@ export interface ClientAuthTokenData {
    * endpoint](https://docs.cord.com/reference/rest-api/organizations/)
    */
   organization_details?: PlatformOrganizationVariables;
+}
+
+// TODO(notifications E-2678) document this before public release.
+export interface CreateNotificationVariables {
+  actor_id: string;
+  recipient_id: string;
+  template: string;
+  url: string;
+  type: 'url';
 }
 
 /**
