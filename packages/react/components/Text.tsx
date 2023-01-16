@@ -1,14 +1,12 @@
 import React from 'react';
 
-import type {
-  TextWebComponentEvents,
-  PropsWithStandardHTMLAttributes,
-} from '@cord-sdk/types';
+import type { TextWebComponentEvents } from '@cord-sdk/types';
 import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
+import type { ReactPropsWithStandardHTMLAttributes } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(componentAttributes.Text);
 
@@ -19,7 +17,7 @@ export type TextReactComponentProps = {
 };
 
 export function Text(
-  props: PropsWithStandardHTMLAttributes<TextReactComponentProps>,
+  props: ReactPropsWithStandardHTMLAttributes<TextReactComponentProps>,
 ) {
   const { onBoop } = props;
   const setRef = useCustomEventListeners<TextWebComponentEvents>({
@@ -29,6 +27,7 @@ export function Text(
     <cord-text
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={setRef}
       {...propsToAttributes(props)}
     />

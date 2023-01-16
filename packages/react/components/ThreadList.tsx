@@ -1,15 +1,16 @@
 import React, { useCallback } from 'react';
-import type {
-  PropsWithStandardHTMLAttributes,
-  ThreadListWebComponentEvents,
-} from '@cord-sdk/types';
+import type { ThreadListWebComponentEvents } from '@cord-sdk/types';
 import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
-import type { PropsWithRef, ReactPropsWithLocation } from '../types';
+import type {
+  PropsWithRef,
+  ReactPropsWithLocation,
+  ReactPropsWithStandardHTMLAttributes,
+} from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.ThreadList,
@@ -28,7 +29,7 @@ export type ThreadListReactComponentProps = ReactPropsWithLocation<{
 
 export function ThreadList(
   props: PropsWithRef<
-    PropsWithStandardHTMLAttributes<ThreadListReactComponentProps>
+    ReactPropsWithStandardHTMLAttributes<ThreadListReactComponentProps>
   >,
 ) {
   const setRef = useCustomEventListeners<ThreadListWebComponentEvents>({
@@ -52,6 +53,7 @@ export function ThreadList(
     <cord-thread-list
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={combinedSetRef}
       {...propsToAttributes({ location, ...props })}
     />

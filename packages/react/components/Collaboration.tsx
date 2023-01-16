@@ -1,9 +1,6 @@
 import React from 'react';
 
-import type {
-  PropsWithStandardHTMLAttributes,
-  CollaborationWebComponentEvents,
-} from '@cord-sdk/types';
+import type { CollaborationWebComponentEvents } from '@cord-sdk/types';
 import {
   componentAttributes,
   propsToAttributeConverter,
@@ -11,7 +8,10 @@ import {
 
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
-import type { ReactPropsWithLocation } from '../types';
+import type {
+  ReactPropsWithLocation,
+  ReactPropsWithStandardHTMLAttributes,
+} from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Collaboration,
@@ -27,7 +27,7 @@ export type CollaborationReactComponentProps = ReactPropsWithLocation<{
 }>;
 
 export function Collaboration(
-  props: PropsWithStandardHTMLAttributes<CollaborationReactComponentProps>,
+  props: ReactPropsWithStandardHTMLAttributes<CollaborationReactComponentProps>,
 ) {
   const setRef = useCustomEventListeners<CollaborationWebComponentEvents>({});
 
@@ -37,6 +37,7 @@ export function Collaboration(
     <cord-collaboration
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={setRef}
       {...propsToAttributes({ location, ...props })}
     />

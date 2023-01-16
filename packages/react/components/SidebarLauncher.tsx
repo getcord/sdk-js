@@ -2,7 +2,6 @@ import React from 'react';
 
 import type {
   BadgeStyle,
-  PropsWithStandardHTMLAttributes,
   SidebarLauncherWebComponentEvents,
 } from '@cord-sdk/types';
 import {
@@ -10,6 +9,7 @@ import {
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
+import type { ReactPropsWithStandardHTMLAttributes } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.SidebarLauncher,
@@ -24,7 +24,7 @@ export type SidebarLauncherReactComponentProps = {
 };
 
 export function SidebarLauncher(
-  props: PropsWithStandardHTMLAttributes<SidebarLauncherReactComponentProps>,
+  props: ReactPropsWithStandardHTMLAttributes<SidebarLauncherReactComponentProps>,
 ) {
   const { onClick } = props;
 
@@ -36,6 +36,7 @@ export function SidebarLauncher(
     <cord-sidebar-launcher
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={setRef}
       {...propsToAttributes(props)}
     />

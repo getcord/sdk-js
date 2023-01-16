@@ -1,10 +1,10 @@
 import React from 'react';
 
-import type { PropsWithStandardHTMLAttributes } from '@cord-sdk/types';
 import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
+import type { ReactPropsWithStandardHTMLAttributes } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Settings,
@@ -13,12 +13,13 @@ const propsToAttributes = propsToAttributeConverter(
 export type SettingsReactComponentProps = Record<string, never>;
 
 export function Settings(
-  props: PropsWithStandardHTMLAttributes<SettingsReactComponentProps>,
+  props: ReactPropsWithStandardHTMLAttributes<SettingsReactComponentProps>,
 ) {
   return (
     <cord-settings
       id={props.id}
       class={props.className}
+      style={props.style}
       {...propsToAttributes(props)}
     />
   );

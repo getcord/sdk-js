@@ -3,7 +3,6 @@ import React from 'react';
 import type {
   Orientation,
   PresenceFacepileWebComponentEvents,
-  PropsWithStandardHTMLAttributes,
 } from '@cord-sdk/types';
 import {
   componentAttributes,
@@ -12,7 +11,10 @@ import {
 
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
-import type { PresenceReducerOptions } from '../types';
+import type {
+  PresenceReducerOptions,
+  ReactPropsWithStandardHTMLAttributes,
+} from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.PresenceFacepile,
@@ -25,7 +27,7 @@ export type PresenceFacepileReactComponentProps = PresenceReducerOptions & {
 };
 
 export function PresenceFacepile(
-  props: PropsWithStandardHTMLAttributes<PresenceFacepileReactComponentProps>,
+  props: ReactPropsWithStandardHTMLAttributes<PresenceFacepileReactComponentProps>,
 ) {
   const { onUpdate } = props;
   const setRef = useCustomEventListeners<PresenceFacepileWebComponentEvents>({
@@ -38,6 +40,7 @@ export function PresenceFacepile(
     <cord-presence-facepile
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={setRef}
       {...propsToAttributes({ location, ...props })}
     />

@@ -1,9 +1,6 @@
 import React from 'react';
 
-import type {
-  PropsWithStandardHTMLAttributes,
-  MultipleCursorsWebComponentEvents,
-} from '@cord-sdk/types';
+import type { MultipleCursorsWebComponentEvents } from '@cord-sdk/types';
 import {
   componentAttributes,
   propsToAttributeConverter,
@@ -11,7 +8,10 @@ import {
 
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
-import type { ReactPropsWithLocation } from '../types';
+import type {
+  ReactPropsWithLocation,
+  ReactPropsWithStandardHTMLAttributes,
+} from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.MultipleCursors,
@@ -21,7 +21,7 @@ export type MultipleCursorsReactComponentProps =
   ReactPropsWithLocation<unknown>;
 
 export function MultipleCursors(
-  props: PropsWithStandardHTMLAttributes<MultipleCursorsReactComponentProps>,
+  props: ReactPropsWithStandardHTMLAttributes<MultipleCursorsReactComponentProps>,
 ) {
   const setRef = useCustomEventListeners<MultipleCursorsWebComponentEvents>({});
 
@@ -31,6 +31,7 @@ export function MultipleCursors(
     <cord-multiple-cursors
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={setRef}
       {...propsToAttributes({ location, ...props })}
     />

@@ -3,7 +3,6 @@ import React from 'react';
 import type {
   Orientation,
   PagePresenceWebComponentEvents,
-  PropsWithStandardHTMLAttributes,
 } from '@cord-sdk/types';
 import {
   componentAttributes,
@@ -12,7 +11,10 @@ import {
 
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
-import type { PresenceReducerOptions } from '../types';
+import type {
+  PresenceReducerOptions,
+  ReactPropsWithStandardHTMLAttributes,
+} from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.PagePresence,
@@ -26,7 +28,7 @@ export type PagePresenceReactComponentProps = PresenceReducerOptions & {
 };
 
 export function PagePresence(
-  props: PropsWithStandardHTMLAttributes<PagePresenceReactComponentProps>,
+  props: ReactPropsWithStandardHTMLAttributes<PagePresenceReactComponentProps>,
 ) {
   const { onUpdate } = props;
   const setRef = useCustomEventListeners<PagePresenceWebComponentEvents>({
@@ -39,6 +41,7 @@ export function PagePresence(
     <cord-page-presence
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={setRef}
       {...propsToAttributes({ location, ...props })}
     />

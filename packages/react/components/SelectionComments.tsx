@@ -1,11 +1,13 @@
 import React from 'react';
 
-import type { PropsWithStandardHTMLAttributes } from '@cord-sdk/types';
 import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
-import type { ReactPropsWithLocation } from '../types';
+import type {
+  ReactPropsWithLocation,
+  ReactPropsWithStandardHTMLAttributes,
+} from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.SelectionComments,
@@ -20,12 +22,13 @@ export type SelectionCommentsReactComponentProps = React.PropsWithChildren<
 >;
 
 export function SelectionComments(
-  props: PropsWithStandardHTMLAttributes<SelectionCommentsReactComponentProps>,
+  props: ReactPropsWithStandardHTMLAttributes<SelectionCommentsReactComponentProps>,
 ) {
   return (
     <cord-selection-comments
       id={props.id}
       class={props.className}
+      style={props.style}
       {...propsToAttributes({ location, ...props })}
     >
       {props.children}

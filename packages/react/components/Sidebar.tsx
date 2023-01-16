@@ -2,7 +2,6 @@ import React from 'react';
 
 import type {
   HTMLCordSidebarElement,
-  PropsWithStandardHTMLAttributes,
   SidebarWebComponentEvents,
 } from '@cord-sdk/types';
 import {
@@ -11,7 +10,10 @@ import {
 } from '@cord-sdk/components';
 import { useCustomElementRef } from '../hooks/useCustomElementRef';
 import { useCordLocation } from '../hooks/useCordLocation';
-import type { ReactPropsWithLocation } from '../types';
+import type {
+  ReactPropsWithLocation,
+  ReactPropsWithStandardHTMLAttributes,
+} from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Sidebar,
@@ -36,7 +38,7 @@ export type SidebarReactComponentProps = ReactPropsWithLocation<{
 }>;
 
 function SidebarWithForwardedRef(
-  props: PropsWithStandardHTMLAttributes<SidebarReactComponentProps>,
+  props: ReactPropsWithStandardHTMLAttributes<SidebarReactComponentProps>,
   forwardedRef: React.ForwardedRef<HTMLCordSidebarElement | null>,
 ) {
   const { onOpen, onClose, onThreadOpen, onThreadClose } = props;
@@ -60,6 +62,7 @@ function SidebarWithForwardedRef(
     <cord-sidebar
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={ref}
       {...propsToAttributes({ location, ...props })}
     />

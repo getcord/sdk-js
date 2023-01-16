@@ -3,13 +3,13 @@ import React from 'react';
 import type {
   BadgeStyle,
   InboxLauncherWebComponentEvents,
-  PropsWithStandardHTMLAttributes,
 } from '@cord-sdk/types';
 import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
+import type { ReactPropsWithStandardHTMLAttributes } from '../types';
 import type { InboxSharedReactComponentProps } from './Inbox';
 
 const propsToAttributes = propsToAttributeConverter(
@@ -30,7 +30,7 @@ export type InboxLauncherReactComponentProps =
   InboxLauncherSpecificReactComponentProps & InboxSharedReactComponentProps;
 
 export function InboxLauncher(
-  props: PropsWithStandardHTMLAttributes<InboxLauncherReactComponentProps>,
+  props: ReactPropsWithStandardHTMLAttributes<InboxLauncherReactComponentProps>,
 ) {
   const { onClick } = props;
   const setRef = useCustomEventListeners<InboxLauncherWebComponentEvents>({
@@ -40,6 +40,7 @@ export function InboxLauncher(
     <cord-inbox-launcher
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={setRef}
       {...propsToAttributes(props)}
     />

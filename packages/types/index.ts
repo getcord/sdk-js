@@ -391,31 +391,6 @@ export type JsonValue =
 
 export type JsonObject = { [key: string]: JsonValue | undefined };
 
-export type ComponentPropConverter<
-  ReactComponentProps,
-  WebComponentAttributes extends string,
-> = (
-  props: ReactComponentProps,
-) => Record<WebComponentAttributes, string | undefined>;
-
-export type ComponentAttributeConverter<
-  WebComponentAttributes extends string,
-  ReactComponentProps,
-> = Record<
-  WebComponentAttributes,
-  {
-    [P in keyof ReactComponentProps]: (
-      value: string | null,
-    ) => ReactComponentProps[P];
-  }
->;
-
-export type PropsWithStandardHTMLAttributes<T> = T & {
-  id?: string;
-  className?: string;
-  // TODO: maybe allow style here? what would that even mean?
-};
-
 const BLUR_DISPLAY_LOCATIONS = ['everywhere', 'outside_page'] as const;
 
 export type BlurDisplayLocation = (typeof BLUR_DISPLAY_LOCATIONS)[number];

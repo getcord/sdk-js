@@ -1,14 +1,12 @@
 import React from 'react';
 
-import type {
-  PropsWithStandardHTMLAttributes,
-  InboxWebComponentEvents,
-} from '@cord-sdk/types';
+import type { InboxWebComponentEvents } from '@cord-sdk/types';
 import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
+import type { ReactPropsWithStandardHTMLAttributes } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(componentAttributes.Inbox);
 
@@ -29,7 +27,7 @@ export type InboxReactComponentProps = InboxSharedReactComponentProps &
   InboxSpecificReactComponentProps;
 
 export function Inbox(
-  props: PropsWithStandardHTMLAttributes<InboxReactComponentProps>,
+  props: ReactPropsWithStandardHTMLAttributes<InboxReactComponentProps>,
 ) {
   const { onCloseRequested } = props;
 
@@ -41,6 +39,7 @@ export function Inbox(
     <cord-inbox
       id={props.id}
       class={props.className}
+      style={props.style}
       ref={setRef}
       {...propsToAttributes(props)}
     />

@@ -1,5 +1,12 @@
 import type React from 'react';
 import type { Location } from '@cord-sdk/types';
+
+export type ReactPropsWithStandardHTMLAttributes<T> = T & {
+  id?: string;
+  className?: string;
+  style?: React.CSSProperties;
+};
+
 export type ReactPropsWithLocation<T> = T & {
   /**
    * @deprecated The context prop has been renamed to location.

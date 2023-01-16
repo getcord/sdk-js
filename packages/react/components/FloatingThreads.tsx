@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 import type {
-  PropsWithStandardHTMLAttributes,
   FloatingThreadsWebComponentEvents,
   HTMLCordFloatingThreadsElement,
 } from '@cord-sdk/types';
@@ -9,7 +8,10 @@ import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
-import type { ReactPropsWithLocation } from '../types';
+import type {
+  ReactPropsWithLocation,
+  ReactPropsWithStandardHTMLAttributes,
+} from '../types';
 import { useCustomElementRef } from '../hooks/useCustomElementRef';
 
 const propsToAttributes = propsToAttributeConverter(
@@ -29,7 +31,7 @@ export type FloatingThreadsReactComponentProps = ReactPropsWithLocation<{
 }>;
 
 export function FloatingThreadsWithForwardedRef(
-  props: PropsWithStandardHTMLAttributes<FloatingThreadsReactComponentProps>,
+  props: ReactPropsWithStandardHTMLAttributes<FloatingThreadsReactComponentProps>,
   forwardedRef: React.ForwardedRef<HTMLCordFloatingThreadsElement | null>,
 ) {
   const setRef = useCustomElementRef<
@@ -50,6 +52,7 @@ export function FloatingThreadsWithForwardedRef(
       ref={setRef}
       id={props.id}
       class={props.className}
+      style={props.style}
       {...propsToAttributes(props)}
     />
   );
