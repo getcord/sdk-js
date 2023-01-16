@@ -19,9 +19,12 @@ type CordContextValue = {
   hasProvider: boolean;
 };
 
-const shouldLogLoadingTime = !!localStorage.getItem(
-  '__cord_log_loading_times__',
-);
+let shouldLogLoadingTime = false;
+try {
+  shouldLogLoadingTime = !!localStorage.getItem('__cord_log_loading_times__');
+} catch {
+  // localStorage for some reason not available
+}
 
 export const CordContext = React.createContext<CordContextValue>({
   sdk: null,
