@@ -20,8 +20,10 @@ type CordContextValue = {
 };
 
 let shouldLogLoadingTime = false;
+let overrideCordScriptUrl: string | null = null;
 try {
   shouldLogLoadingTime = !!localStorage.getItem('__cord_log_loading_times__');
+  overrideCordScriptUrl = localStorage.getItem('__cord_override_script_url__');
 } catch {
   // localStorage for some reason not available
 }
@@ -114,7 +116,9 @@ export function CordProvider({
 
     const scriptTag = document.createElement('script');
     scriptTag.src =
-      cordScriptUrl ?? `https://app.cord.com/sdk/v1/sdk.latest.js`;
+      overrideCordScriptUrl ??
+      cordScriptUrl ??
+      `https://app.cord.com/sdk/v1/sdk.latest.js`;
     scriptTag.addEventListener('load', onLoad);
     document.head.appendChild(scriptTag);
 
