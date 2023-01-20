@@ -10,3 +10,8 @@ export {
   SelectionComments,
   SelectionCommentsReactComponentProps,
 } from './components/SelectionComments';
+
+export {
+  NotificationList,
+  NotificationListReactComponentProps,
+} from './components/NotificationList';

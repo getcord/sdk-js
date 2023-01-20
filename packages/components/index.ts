@@ -16,6 +16,7 @@ export const componentNames = {
   'cord-settings': 'Settings',
   'cord-floating-threads': 'FloatingThreads',
   'cord-selection-comments': 'SelectionComments',
+  'cord-notification-list': 'NotificationList',
 } as const;
 
 export type ElementName = keyof typeof componentNames;
@@ -128,6 +129,10 @@ export const componentAttributes = {
     'button-label': 'string',
     'icon-url': 'string',
     'thread-name': 'string',
+  },
+  NotificationList: {
+    'max-count': 'number',
+    'fetch-additional-count': 'number',
   },
 } as const;
 
