@@ -274,6 +274,10 @@ export type ThreadListWebComponentEvents = {
   threadreopen: [{ threadID: string }];
 };
 
+/* cord-composer */
+
+export type ComposerWebComponentEvents = Record<string, never>;
+
 /* cord-inbox-launcher */
 export type InboxLauncherWebComponentEvents = { click: [] };
 

@@ -50,3 +50,4 @@ export { Inbox, InboxReactComponentProps } from './components/Inbox';
 export { Settings, SettingsReactComponentProps } from './components/Settings';
 
 export * as beta from './beta';
+export * as experimental from './experimental';

@@ -11,6 +11,7 @@ export const componentNames = {
   'cord-text': 'Text',
   'cord-thread': 'Thread',
   'cord-thread-list': 'ThreadList',
+  'cord-composer': 'Composer',
   'cord-inbox-launcher': 'InboxLauncher',
   'cord-inbox': 'Inbox',
   'cord-settings': 'Settings',
@@ -106,6 +107,12 @@ export const componentAttributes = {
   },
   ThreadList: {
     location: 'json',
+  },
+  Composer: {
+    location: 'json',
+    'thread-id': 'string',
+    'thread-name': 'string',
+    autofocus: 'boolean',
   },
   InboxLauncher: {
     label: 'string',
