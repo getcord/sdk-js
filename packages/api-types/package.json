@@ -1,7 +1,7 @@
 {
   "name": "@cord-sdk/api-types",
   "description": "TypeScript type definitions and JSON schema objects for the data types used by the Cord REST API",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
   "files": [
