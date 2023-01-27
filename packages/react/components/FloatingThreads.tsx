@@ -18,9 +18,12 @@ const propsToAttributes = propsToAttributeConverter(
   componentAttributes.FloatingThreads,
 );
 
-const shouldLogLoadingTime = !!localStorage.getItem(
-  '__cord_log_loading_times__',
-);
+let shouldLogLoadingTime = false;
+try {
+  shouldLogLoadingTime = !!localStorage.getItem('__cord_log_loading_times__');
+} catch {
+  // localStorage for some reason not available
+}
 
 export type FloatingThreadsReactComponentProps = ReactPropsWithLocation<{
   showButton?: boolean;
