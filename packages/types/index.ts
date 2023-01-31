@@ -187,12 +187,27 @@ export type ThreadIDsUpdateCallback = (params: {
   fetchMore: ThreadIDsFetchMoreCallback;
 }) => unknown;
 
+export type ThreadSummary = {
+  id: string;
+  oldestMessageID: string;
+  newestMessageID: string;
+  oldestUnseenMessageID: string | null;
+  totalMessages: number;
+};
+export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
+
 export interface ICordThreadsSDK {
   observeThreadIDs(
     location: Location,
     callback: ThreadIDsUpdateCallback,
   ): ListenerRef;
   unobserveThreadIDs(ref: ListenerRef): boolean;
+
+  observeThreadSummary(
+    id: string,
+    callback: ThreadSummaryUpdateCallback,
+  ): ListenerRef;
+  unobserveThreadSummary(ref: ListenerRef): boolean;
 }
 
 export interface ICordSDK {
