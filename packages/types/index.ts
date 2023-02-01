@@ -34,6 +34,8 @@ export type CordSDKOptions = {
 
 export type InitErrorCallback = (error: { message: string }) => unknown;
 
+export type LoadCallback = (sdk: ICordSDK) => unknown;
+
 export type AnnotationCapturePosition = {
   x: number;
   y: number;

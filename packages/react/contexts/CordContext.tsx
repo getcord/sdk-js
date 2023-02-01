@@ -7,6 +7,7 @@ import type {
   Location,
   NavigateFn,
   InitErrorCallback,
+  LoadCallback,
 } from '@cord-sdk/types';
 
 declare const CORD_REACT_PACKAGE_VERSION: string;
@@ -49,6 +50,7 @@ type Props = {
    * `annotationMode: 'none'` should be replaced with `enableAnnotations: false`
    */
   annotationMode?: AnnotationMode;
+  onLoad?: LoadCallback;
   onInitError?: InitErrorCallback;
 };
 
@@ -67,6 +69,7 @@ export function CordProvider({
   navigate,
   threadOptions,
   children,
+  onLoad,
   onInitError,
 }: React.PropsWithChildren<Props>) {
   const [sdk, setSDK] = useState<ICordSDK | null>(null);
@@ -87,6 +90,18 @@ export function CordProvider({
       console.log('<CordProvider> token defined', new Date().toISOString());
     }
   }, [clientAuthToken]);
+
+  useEffect(() => {
+    if (onLoad) {
+      if (window.CordSDK) {
+        onLoad(window.CordSDK);
+      } else {
+        window.addEventListener('cord:load', () => {
+          onLoad(window.CordSDK!);
+        });
+      }
+    }
+  }, [onLoad]);
 
   useEffect(() => {
     if (window.CordSDK) {
