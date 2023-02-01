@@ -15,3 +15,8 @@ export {
   NotificationList,
   NotificationListReactComponentProps,
 } from './components/NotificationList';
+
+export {
+  NotificationListLauncher,
+  NotificationListLauncherReactComponentProps,
+} from './components/NotificationListLauncher';

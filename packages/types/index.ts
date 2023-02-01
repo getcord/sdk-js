@@ -316,6 +316,9 @@ export type InboxLauncherWebComponentEvents = { click: [] };
 /* cord-inbox */
 export type InboxWebComponentEvents = { closeRequested: [] };
 
+// cord-notification-list-launcher
+export type NotificationListLauncherWebComponentEvents = { click: [] };
+
 /* annotation types */
 
 export type DocumentAnnotationResult = {

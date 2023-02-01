@@ -19,6 +19,7 @@ export const componentNames = {
   'cord-selection-comments': 'SelectionComments',
   'cord-notification-list': 'NotificationList',
   'cord-message': 'Message',
+  'cord-notification-list-launcher': 'NotificationListLauncher',
 } as const;
 
 export type ElementName = keyof typeof componentNames;
@@ -30,6 +31,11 @@ const InboxSharedAttributes = {
 
 const InboxSpecificAttributes = {
   'show-close-button': 'boolean',
+} as const;
+
+const NotificationListAttributes = {
+  'max-count': 'number',
+  'fetch-additional-count': 'number',
 } as const;
 
 export const componentAttributes = {
@@ -139,12 +145,17 @@ export const componentAttributes = {
     'thread-name': 'string',
   },
   NotificationList: {
-    'max-count': 'number',
-    'fetch-additional-count': 'number',
+    ...NotificationListAttributes,
   },
   Message: {
     'thread-id': 'string',
     'message-id': 'string',
+  },
+  NotificationListLauncher: {
+    label: 'string',
+    'icon-url': 'string',
+    disabled: 'boolean',
+    ...NotificationListAttributes,
   },
 } as const;
 
