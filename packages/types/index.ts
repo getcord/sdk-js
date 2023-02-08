@@ -295,6 +295,8 @@ export type ThreadWebComponentEvents = {
   threadinfochange: [threadInfo: ThreadInfo];
   close: [];
   resolved: [];
+  render: [];
+  loading: [];
 };
 
 export type ThreadInfo = {

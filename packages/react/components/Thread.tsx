@@ -27,6 +27,8 @@ export type ThreadReactComponentProps = ReactPropsWithLocation<{
   ) => unknown;
   onClose?: (...args: ThreadWebComponentEvents['close']) => unknown;
   onResolved?: (...args: ThreadWebComponentEvents['resolved']) => unknown;
+  onRender?: (...args: ThreadWebComponentEvents['render']) => unknown;
+  onLoading?: (...args: ThreadWebComponentEvents['loading']) => unknown;
 }>;
 
 export function Thread(
@@ -40,6 +42,8 @@ export function Thread(
     threadinfochange: props.onThreadInfoChange,
     close: props.onClose,
     resolved: props.onResolved,
+    render: props.onRender,
+    loading: props.onLoading,
   });
   const combinedSetRef = useCallback(
     (element) => {
