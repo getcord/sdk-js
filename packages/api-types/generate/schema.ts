@@ -153,7 +153,7 @@ export default {
                 "User's last name. This field is deprecated and has no effect.",
               type: 'string',
             },
-            id: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+            id: { $ref: '#/definitions/ID' },
           },
           required: ['id'],
         },
@@ -175,7 +175,7 @@ export default {
               type: 'array',
               items: { type: ['string', 'number'] },
             },
-            id: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+            id: { $ref: '#/definitions/ID' },
           },
           required: ['id'],
         },
@@ -183,6 +183,9 @@ export default {
     },
     additionalProperties: false,
     propertyOrder: ['users', 'organizations'],
+    definitions: {
+      ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+    },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   ClientAuthTokenData: {
@@ -191,17 +194,10 @@ export default {
     type: 'object',
     properties: {
       app_id: { description: 'Your app ID', format: 'uuid', type: 'string' },
-      user_id: {
-        minLength: 1,
-        maxLength: 128,
-        description: 'The ID for the user',
-        type: ['string', 'number'],
-      },
+      user_id: { $ref: '#/definitions/ID', description: 'The ID for the user' },
       organization_id: {
-        minLength: 1,
-        maxLength: 128,
+        $ref: '#/definitions/ID',
         description: 'The ID for the user’s organization',
-        type: ['string', 'number'],
       },
       user_details: {
         $ref: '#/definitions/PlatformUserVariables',
@@ -223,6 +219,7 @@ export default {
     ],
     required: ['app_id', 'organization_id', 'user_id'],
     definitions: {
+      ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
       PlatformUserVariables: {
         type: 'object',
         properties: {
@@ -318,9 +315,12 @@ export default {
           "User's last name. This field is deprecated and has no effect.",
         type: 'string',
       },
-      id: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+      id: { $ref: '#/definitions/ID' },
     },
     required: ['email', 'id'],
+    definitions: {
+      ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+    },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreatePlatformOrganizationVariables: {
@@ -335,9 +335,12 @@ export default {
         type: 'array',
         items: { type: ['string', 'number'] },
       },
-      id: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+      id: { $ref: '#/definitions/ID' },
     },
     required: ['id', 'name'],
+    definitions: {
+      ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+    },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
 } as const;

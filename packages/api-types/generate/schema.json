@@ -148,11 +148,7 @@
               "description": "User's last name. This field is deprecated and has no effect.",
               "type": "string"
             },
-            "id": {
-              "minLength": 1,
-              "maxLength": 128,
-              "type": ["string", "number"]
-            }
+            "id": { "$ref": "#/definitions/ID" }
           },
           "required": ["id"]
         }
@@ -172,11 +168,7 @@
               "type": "array",
               "items": { "type": ["string", "number"] }
             },
-            "id": {
-              "minLength": 1,
-              "maxLength": 128,
-              "type": ["string", "number"]
-            }
+            "id": { "$ref": "#/definitions/ID" }
           },
           "required": ["id"]
         }
@@ -184,6 +176,9 @@
     },
     "additionalProperties": false,
     "propertyOrder": ["users", "organizations"],
+    "definitions": {
+      "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] }
+    },
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
   "ClientAuthTokenData": {
@@ -197,16 +192,12 @@
         "type": "string"
       },
       "user_id": {
-        "minLength": 1,
-        "maxLength": 128,
-        "description": "The ID for the user",
-        "type": ["string", "number"]
+        "$ref": "#/definitions/ID",
+        "description": "The ID for the user"
       },
       "organization_id": {
-        "minLength": 1,
-        "maxLength": 128,
-        "description": "The ID for the user’s organization",
-        "type": ["string", "number"]
+        "$ref": "#/definitions/ID",
+        "description": "The ID for the user’s organization"
       },
       "user_details": {
         "$ref": "#/definitions/PlatformUserVariables",
@@ -226,6 +217,7 @@
     ],
     "required": ["app_id", "organization_id", "user_id"],
     "definitions": {
+      "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] },
       "PlatformUserVariables": {
         "type": "object",
         "properties": {
@@ -318,9 +310,12 @@
         "description": "User's last name. This field is deprecated and has no effect.",
         "type": "string"
       },
-      "id": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] }
+      "id": { "$ref": "#/definitions/ID" }
     },
     "required": ["email", "id"],
+    "definitions": {
+      "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] }
+    },
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
   "CreatePlatformOrganizationVariables": {
@@ -334,9 +329,12 @@
         "type": "array",
         "items": { "type": ["string", "number"] }
       },
-      "id": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] }
+      "id": { "$ref": "#/definitions/ID" }
     },
     "required": ["id", "name"],
+    "definitions": {
+      "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] }
+    },
     "$schema": "http://json-schema.org/draft-07/schema#"
   }
 }
