@@ -1,14 +1,12 @@
 import type { BadgeStyle, JsonValue, Orientation } from '@cord-sdk/types';
 
 export const componentNames = {
-  'cord-collaboration': 'Collaboration',
   'cord-multiple-cursors': 'MultipleCursors',
   'cord-page-presence': 'PagePresence',
   'cord-presence-facepile': 'PresenceFacepile',
   'cord-sidebar': 'Sidebar',
   'cord-sidebar-launcher': 'SidebarLauncher',
   'cord-presence-observer': 'PresenceObserver',
-  'cord-text': 'Text',
   'cord-thread': 'Thread',
   'cord-thread-list': 'ThreadList',
   'cord-composer': 'Composer',
@@ -39,16 +37,6 @@ const NotificationListAttributes = {
 } as const;
 
 export const componentAttributes = {
-  Collaboration: {
-    context: 'json',
-    location: 'json',
-    'show-close-button': 'boolean',
-    'show-inbox': 'boolean',
-    'show-presence': 'boolean',
-    'show-all-activity': 'boolean',
-    'exclude-viewer-from-presence': 'boolean',
-    'show-pins-on-page': 'boolean',
-  },
   MultipleCursors: {
     context: 'json',
     location: 'json',
@@ -98,10 +86,6 @@ export const componentAttributes = {
     label: 'string',
     'icon-url': 'string',
     'inbox-badge-style': 'badge-style',
-  },
-  Text: {
-    label: 'string',
-    color: 'string',
   },
   Thread: {
     context: 'json',

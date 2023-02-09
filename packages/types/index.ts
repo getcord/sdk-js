@@ -234,12 +234,6 @@ declare global {
   }
 }
 
-/* cord-text */
-
-export type TextWebComponentEvents = {
-  boop: [boop: string];
-};
-
 /* cord-multiple-cursors */
 
 export type MultipleCursorsWebComponentEvents = Record<string, never>;
@@ -280,10 +274,6 @@ export type SidebarLauncherWebComponentEvents = {
 };
 
 export type BadgeStyle = 'badge' | 'badge_with_count' | 'none';
-
-/* cord-collaboration */
-
-export type CollaborationWebComponentEvents = Record<string, never>;
 
 /* cord-floating-threads */
 

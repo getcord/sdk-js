@@ -1,9 +1,5 @@
 import type {} from '@cord-sdk/jsx';
 
-export {
-  Collaboration,
-  CollaborationReactComponentProps,
-} from './components/Collaboration';
 export { CordProvider, CordContext } from './contexts/CordContext';
 export {
   MultipleCursors,
@@ -26,7 +22,6 @@ export {
   SidebarLauncher,
   SidebarLauncherReactComponentProps,
 } from './components/SidebarLauncher';
-export { Text, TextReactComponentProps } from './components/Text';
 export { Thread, ThreadReactComponentProps } from './components/Thread';
 export {
   ThreadList,
