@@ -72,6 +72,11 @@ export function CordProvider({
   onLoad,
   onInitError,
 }: React.PropsWithChildren<Props>) {
+  if (clientAuthToken?.length === 0) {
+    console.warn(
+      `CordProvider was given an empty string as token. Cord components will not be rendered.`,
+    );
+  }
   const [sdk, setSDK] = useState<ICordSDK | null>(null);
   const [location, setLocation] = useState<Location>();
   const [lastInitialized, setLastInitialized] = useState<number>();
