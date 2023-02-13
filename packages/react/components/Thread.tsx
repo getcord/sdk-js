@@ -22,6 +22,7 @@ export type ThreadReactComponentProps = ReactPropsWithLocation<{
   collapsed?: boolean;
   autofocus?: boolean;
   showHeader?: boolean;
+  composerExpanded?: boolean;
   onThreadInfoChange?: (
     ...args: ThreadWebComponentEvents['threadinfochange']
   ) => unknown;
