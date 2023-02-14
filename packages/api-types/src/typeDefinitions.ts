@@ -20,9 +20,10 @@ export interface PlatformUserVariables {
   status?: 'active' | 'deleted';
 
   /**
+   * @nullable
    * @format uri
    */
-  profile_picture_url?: string;
+  profile_picture_url?: string | null;
 
   /**
    * User's first name. This field is deprecated and has no effect.

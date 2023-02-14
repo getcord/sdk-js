@@ -11,7 +11,9 @@ export default {
         type: 'string',
       },
       status: { enum: ['active', 'deleted'], type: 'string' },
-      profile_picture_url: { format: 'uri', type: 'string' },
+      profile_picture_url: {
+        anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
+      },
       first_name: {
         description:
           "User's first name. This field is deprecated and has no effect.",
@@ -65,7 +67,9 @@ export default {
         type: 'string',
       },
       status: { enum: ['active', 'deleted'], type: 'string' },
-      profile_picture_url: { format: 'uri', type: 'string' },
+      profile_picture_url: {
+        anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
+      },
       first_name: {
         description:
           "User's first name. This field is deprecated and has no effect.",
@@ -142,7 +146,9 @@ export default {
               type: 'string',
             },
             status: { enum: ['active', 'deleted'], type: 'string' },
-            profile_picture_url: { format: 'uri', type: 'string' },
+            profile_picture_url: {
+              anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
+            },
             first_name: {
               description:
                 "User's first name. This field is deprecated and has no effect.",
@@ -235,7 +241,9 @@ export default {
             type: 'string',
           },
           status: { enum: ['active', 'deleted'], type: 'string' },
-          profile_picture_url: { format: 'uri', type: 'string' },
+          profile_picture_url: {
+            anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
+          },
           first_name: {
             description:
               "User's first name. This field is deprecated and has no effect.",
@@ -304,7 +312,9 @@ export default {
         type: 'string',
       },
       status: { enum: ['active', 'deleted'], type: 'string' },
-      profile_picture_url: { format: 'uri', type: 'string' },
+      profile_picture_url: {
+        anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
+      },
       first_name: {
         description:
           "User's first name. This field is deprecated and has no effect.",
