@@ -18,7 +18,11 @@ export type ReactPropsWithLocation<T> = T & {
 export type PresenceReducerOptions = ReactPropsWithLocation<{
   excludeViewer?: boolean;
   onlyPresentUsers?: boolean;
+  /**
+   * @deprecated The exactMatch prop has been replaced by partialMatch.
+   */
   exactMatch?: boolean;
+  partialMatch?: boolean;
 }>;
 
 export type PropsWithRef<T> = T & {

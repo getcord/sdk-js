@@ -109,7 +109,7 @@ export interface ICordAnnotationSDK {
 
 export type GetPresentOptions = {
   exclude_durable?: boolean;
-  exact_match?: boolean;
+  partial_match?: boolean;
 };
 
 export type SetPresentOptions = {
@@ -119,7 +119,7 @@ export type SetPresentOptions = {
 };
 
 export type AddListenerOptions = {
-  exact_match?: boolean;
+  partial_match?: boolean;
 };
 
 export type PresenceListener = (update: UserLocationData) => void;

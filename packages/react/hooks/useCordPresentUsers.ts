@@ -12,7 +12,7 @@ import { useCordContext } from '../contexts/CordContext';
 type Options = {
   excludeViewer?: boolean;
   onlyPresentUsers?: boolean;
-  exactMatch?: boolean;
+  partialMatch?: boolean;
   includeUserDetails?: boolean;
 };
 
@@ -24,7 +24,7 @@ export function useCordPresentUsers(
     excludeViewer = false,
     includeUserDetails = false,
     onlyPresentUsers = false,
-    exactMatch = false,
+    partialMatch = false,
   } = options;
 
   const { sdk } = useCordContext('useCordPresentUsers');
@@ -67,12 +67,12 @@ export function useCordPresentUsers(
         }));
       },
       location,
-      { exact_match: exactMatch },
+      { partial_match: partialMatch },
     );
 
     presenceSDK
       .getPresent(location, {
-        exact_match: exactMatch,
+        partial_match: partialMatch,
         exclude_durable: onlyPresentUsers,
       })
       .then((userLocationDataList) => {
@@ -89,7 +89,7 @@ export function useCordPresentUsers(
       current = false;
       presenceSDK.removeListener(listenerRef);
     };
-  }, [presenceSDK, locationString, exactMatch, onlyPresentUsers]);
+  }, [presenceSDK, locationString, partialMatch, onlyPresentUsers]);
 
   const userDetailsListenersRef = useRef(new Map<string, ListenerRef>());
   const mountedRef = useRef(true);
