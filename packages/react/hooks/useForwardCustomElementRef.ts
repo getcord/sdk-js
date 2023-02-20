@@ -14,6 +14,7 @@ export function useForwardCustomElementRef<T extends HTMLCordElement>(
         return;
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
       const updateForwardedRef = (element: T | null) => {
         if (typeof forwardedRef === 'function') {
           forwardedRef(element);

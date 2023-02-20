@@ -47,6 +47,7 @@ export function useCordPresentUsers(
       return;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
     const location = JSON.parse(locationString);
     let current = true;
 
@@ -56,6 +57,7 @@ export function useCordPresentUsers(
           return;
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
         setUserLocations((userLocations) => ({
           ...userLocations,
           [userLocationUpdate.id]: {
@@ -109,6 +111,7 @@ export function useCordPresentUsers(
       if (!userDetailsListenersRef.current.has(id)) {
         const listenerRef = usersSDK.addUserListener(id, (user) => {
           if (mountedRef.current) {
+            // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
             setUserDetails((userDetails) => ({
               ...userDetails,
               [user.id]: user,

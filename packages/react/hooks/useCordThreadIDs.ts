@@ -9,6 +9,7 @@ export function useCordThreadIDs(location: Location): {
 } {
   const [ids, setIds] = useState<string[]>([]);
   const [fetchMore, setFetchMore] = useState<ThreadIDsFetchMoreCallback>(
+    // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
     (_: unknown) => (_: number) => {},
   );
   const { sdk } = useCordContext('useCordThreadIDs');
@@ -23,8 +24,10 @@ export function useCordThreadIDs(location: Location): {
       return;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
     const location = JSON.parse(locationString);
 
+    // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
     const key = threadsSDK.observeThreadIDs(location, ({ ids, fetchMore }) => {
       setIds(ids);
       setFetchMore((_: unknown) => fetchMore);

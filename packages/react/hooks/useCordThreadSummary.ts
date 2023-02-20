@@ -13,6 +13,7 @@ export function useCordThreadSummary(id: string): ThreadSummary | null {
       return;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
     const key = threadsSDK.observeThreadSummary(id, (summary) =>
       setSummary(summary),
     );

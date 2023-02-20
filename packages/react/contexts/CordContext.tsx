@@ -114,6 +114,7 @@ export function CordProvider({
       return;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
     const onLoad = () => {
       if (shouldLogLoadingTime) {
         console.log(`<CordProvider> script loaded`, new Date().toISOString());
