@@ -20,6 +20,11 @@ export interface PlatformUserVariables {
   status?: 'active' | 'deleted';
 
   /**
+   * This must be a valid URL, which means it needs to follow the usual URL
+   * formatting and encoding rules. For example, any space character will need
+   * to be encoded as `%20`. We recommend using your programming language's
+   * standard URL encoding function, such as `encodeURI` in Javascript.
+   *
    * @nullable
    * @format uri
    */

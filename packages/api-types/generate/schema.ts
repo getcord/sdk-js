@@ -12,7 +12,15 @@ export default {
       },
       status: { enum: ['active', 'deleted'], type: 'string' },
       profile_picture_url: {
-        anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
+        anyOf: [
+          {
+            description:
+              "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
+            format: 'uri',
+            type: 'string',
+          },
+          { type: 'null' },
+        ],
       },
       first_name: {
         description:
@@ -68,7 +76,15 @@ export default {
       },
       status: { enum: ['active', 'deleted'], type: 'string' },
       profile_picture_url: {
-        anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
+        anyOf: [
+          {
+            description:
+              "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
+            format: 'uri',
+            type: 'string',
+          },
+          { type: 'null' },
+        ],
       },
       first_name: {
         description:
@@ -147,7 +163,15 @@ export default {
             },
             status: { enum: ['active', 'deleted'], type: 'string' },
             profile_picture_url: {
-              anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
+              anyOf: [
+                {
+                  description:
+                    "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
+                  format: 'uri',
+                  type: 'string',
+                },
+                { type: 'null' },
+              ],
             },
             first_name: {
               description:
@@ -242,7 +266,15 @@ export default {
           },
           status: { enum: ['active', 'deleted'], type: 'string' },
           profile_picture_url: {
-            anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
+            anyOf: [
+              {
+                description:
+                  "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
+                format: 'uri',
+                type: 'string',
+              },
+              { type: 'null' },
+            ],
           },
           first_name: {
             description:
@@ -313,7 +345,15 @@ export default {
       },
       status: { enum: ['active', 'deleted'], type: 'string' },
       profile_picture_url: {
-        anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
+        anyOf: [
+          {
+            description:
+              "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
+            format: 'uri',
+            type: 'string',
+          },
+          { type: 'null' },
+        ],
       },
       first_name: {
         description:
