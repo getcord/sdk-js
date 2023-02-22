@@ -10,7 +10,7 @@ const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Settings,
 );
 
-export type SettingsReactComponentProps = Record<string, never>;
+export type SettingsReactComponentProps = Record<string, unknown>;
 
 export function Settings(
   props: ReactPropsWithStandardHTMLAttributes<SettingsReactComponentProps>,
