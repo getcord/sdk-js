@@ -1,14 +1,14 @@
-import type { Location, ThreadIDsFetchMoreCallback } from '@cord-sdk/types';
+import type { Location, FetchMoreCallback } from '@cord-sdk/types';
 import { locationJson } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 
 export function useCordThreadIDs(location: Location): {
   ids: string[];
-  fetchMore: ThreadIDsFetchMoreCallback;
+  fetchMore: FetchMoreCallback;
 } {
   const [ids, setIds] = useState<string[]>([]);
-  const [fetchMore, setFetchMore] = useState<ThreadIDsFetchMoreCallback>(
+  const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
     // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
     (_: unknown) => (_: number) => {},
   );

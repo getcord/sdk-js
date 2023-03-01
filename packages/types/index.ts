@@ -183,10 +183,10 @@ export interface ICordActivitySDK {
   unobserveThreadSummary(ref: ListenerRef): boolean;
 }
 
-export type ThreadIDsFetchMoreCallback = (howMany: number) => void;
-export type ThreadIDsUpdateCallback = (params: {
+export type FetchMoreCallback = (howMany: number) => void;
+export type IDsUpdateCallback = (params: {
   ids: string[];
-  fetchMore: ThreadIDsFetchMoreCallback;
+  fetchMore: FetchMoreCallback;
 }) => unknown;
 
 export type ThreadSummary = {
@@ -201,7 +201,7 @@ export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
 export interface ICordThreadsSDK {
   observeThreadIDs(
     location: Location,
-    callback: ThreadIDsUpdateCallback,
+    callback: IDsUpdateCallback,
   ): ListenerRef;
   unobserveThreadIDs(ref: ListenerRef): boolean;
 
@@ -210,6 +210,11 @@ export interface ICordThreadsSDK {
     callback: ThreadSummaryUpdateCallback,
   ): ListenerRef;
   unobserveThreadSummary(ref: ListenerRef): boolean;
+}
+
+export interface ICordMessagesSDK {
+  observeMessageIDs(threadId: string, callback: IDsUpdateCallback): ListenerRef;
+  unobserveMessageIDs(ref: ListenerRef): boolean;
 }
 
 export interface ICordSDK {
@@ -225,6 +230,7 @@ export interface ICordSDK {
   activity: ICordActivitySDK;
   experimental: {
     threads: ICordThreadsSDK;
+    messages: ICordMessagesSDK;
   };
 }
 
