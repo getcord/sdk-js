@@ -1,4 +1,5 @@
 type UUID = string;
+type UserID = string;
 
 export type Location = Record<string, string | number | boolean>;
 
@@ -189,12 +190,19 @@ export type IDsUpdateCallback = (params: {
   fetchMore: FetchMoreCallback;
 }) => unknown;
 
+export type ThreadParticipant = {
+  lastSeenTimestamp: string | null;
+  userID: UserID | null;
+};
+
 export type ThreadSummary = {
   id: string;
-  oldestMessageID: string;
-  newestMessageID: string;
-  oldestUnseenMessageID: string | null;
-  totalMessages: number;
+  total: number;
+  unread: number;
+  resolved: boolean;
+  participants: ThreadParticipant[];
+  typing: UserID[];
+  viewerIsThreadParticipant: boolean;
 };
 export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
 
