@@ -217,6 +217,21 @@ export interface ICordMessagesSDK {
   unobserveMessageIDs(ref: ListenerRef): boolean;
 }
 
+export type NotificationSummary = {
+  unread: number;
+};
+
+export type NotificationSummaryUpdateCallback = (
+  summary: NotificationSummary,
+) => unknown;
+
+export interface ICordNotificationsSDK {
+  observeNotificationSummary(
+    callback: NotificationSummaryUpdateCallback,
+  ): ListenerRef;
+  unobserveNotificationSummary(ref: ListenerRef): boolean;
+}
+
 export interface ICordSDK {
   init(options: CordSDKOptions): Promise<void>;
   destroy(): void;
@@ -231,6 +246,7 @@ export interface ICordSDK {
   experimental: {
     threads: ICordThreadsSDK;
     messages: ICordMessagesSDK;
+    notifications: ICordNotificationsSDK;
   };
 }
 
