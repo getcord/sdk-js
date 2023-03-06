@@ -19,6 +19,12 @@ export type ThreadListReactComponentProps = ReactPropsWithLocation<{
   onThreadClick?: (
     ...args: ThreadListWebComponentEvents['threadclick']
   ) => unknown;
+  onThreadMouseEnter?: (
+    ...args: ThreadListWebComponentEvents['threadmouseenter']
+  ) => unknown;
+  onThreadMouseLeave?: (
+    ...args: ThreadListWebComponentEvents['threadmouseleave']
+  ) => unknown;
   onThreadResolve?: (
     ...args: ThreadListWebComponentEvents['threadresolve']
   ) => unknown;
@@ -34,6 +40,8 @@ export function ThreadList(
 ) {
   const setRef = useCustomEventListeners<ThreadListWebComponentEvents>({
     threadclick: props.onThreadClick,
+    threadmouseenter: props.onThreadMouseEnter,
+    threadmouseleave: props.onThreadMouseLeave,
     threadresolve: props.onThreadResolve,
     threadreopen: props.onThreadReopen,
   });
