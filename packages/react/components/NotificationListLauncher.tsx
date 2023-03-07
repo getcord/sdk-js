@@ -2,7 +2,10 @@ import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
-import type { NotificationListLauncherWebComponentEvents } from '@cord-sdk/types';
+import type {
+  BadgeStyle,
+  NotificationListLauncherWebComponentEvents,
+} from '@cord-sdk/types';
 import React from 'react';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import type { ReactPropsWithStandardHTMLAttributes } from '../types';
@@ -15,6 +18,7 @@ const propsToAttributes = propsToAttributeConverter(
 type NotificationListLauncherSpecificReactComponentProps = {
   label?: string;
   iconUrl?: string;
+  badgeStyle?: BadgeStyle;
   disabled?: boolean;
   onClick?: (
     ...args: NotificationListLauncherWebComponentEvents['click']

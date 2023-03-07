@@ -139,6 +139,7 @@ export const componentAttributes = {
   NotificationListLauncher: {
     label: 'string',
     'icon-url': 'string',
+    'badge-style': 'badge-style',
     disabled: 'boolean',
     ...NotificationListAttributes,
   },
