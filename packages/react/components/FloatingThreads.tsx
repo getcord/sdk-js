@@ -31,6 +31,7 @@ export type FloatingThreadsReactComponentProps = ReactPropsWithLocation<{
   iconUrl?: string;
   threadName?: string;
   disabled?: boolean;
+  showScreenshotPreview?: boolean;
   onStart?: (...args: FloatingThreadsWebComponentEvents['start']) => unknown;
   onFinish?: (...args: FloatingThreadsWebComponentEvents['finish']) => unknown;
   onCancel?: (...args: FloatingThreadsWebComponentEvents['cancel']) => unknown;

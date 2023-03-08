@@ -123,6 +123,7 @@ export const componentAttributes = {
     'show-button': 'boolean',
     'button-label': 'string',
     'thread-name': 'string',
+    'show-screenshot-preview': 'boolean',
   },
   SelectionComments: {
     location: 'json',
