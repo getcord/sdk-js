@@ -16,6 +16,7 @@ const propsToAttributes = propsToAttributeConverter(
   componentAttributes.ThreadList,
 );
 export type ThreadListReactComponentProps = ReactPropsWithLocation<{
+  showScreenshotPreviewInMessage?: boolean;
   onThreadClick?: (
     ...args: ThreadListWebComponentEvents['threadclick']
   ) => unknown;

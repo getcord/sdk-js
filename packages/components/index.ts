@@ -99,6 +99,7 @@ export const componentAttributes = {
   },
   ThreadList: {
     location: 'json',
+    'show-screenshot-preview-in-message': 'boolean',
   },
   Composer: {
     location: 'json',
