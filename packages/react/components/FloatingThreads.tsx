@@ -31,6 +31,9 @@ export type FloatingThreadsReactComponentProps = ReactPropsWithLocation<{
   iconUrl?: string;
   threadName?: string;
   disabled?: boolean;
+  onStart?: (...args: FloatingThreadsWebComponentEvents['start']) => unknown;
+  onFinish?: (...args: FloatingThreadsWebComponentEvents['finish']) => unknown;
+  onCancel?: (...args: FloatingThreadsWebComponentEvents['cancel']) => unknown;
 }>;
 
 export function FloatingThreadsWithForwardedRef(
@@ -40,7 +43,14 @@ export function FloatingThreadsWithForwardedRef(
   const setRef = useCustomElementRef<
     FloatingThreadsWebComponentEvents,
     HTMLCordFloatingThreadsElement
-  >({}, forwardedRef);
+  >(
+    {
+      start: props.onStart,
+      finish: props.onFinish,
+      cancel: props.onCancel,
+    },
+    forwardedRef,
+  );
 
   useEffect(() => {
     if (shouldLogLoadingTime) {

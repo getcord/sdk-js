@@ -307,7 +307,11 @@ export type BadgeStyle = 'badge' | 'badge_with_count' | 'none';
 
 /* cord-floating-threads */
 
-export type FloatingThreadsWebComponentEvents = Record<string, never>;
+export type FloatingThreadsWebComponentEvents = {
+  start: [];
+  finish: [];
+  cancel: [];
+};
 
 /* cord-thread */
 
