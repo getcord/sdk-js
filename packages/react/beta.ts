@@ -20,3 +20,5 @@ export {
   NotificationListLauncher,
   NotificationListLauncherReactComponentProps,
 } from './components/NotificationListLauncher';
+
+export { useCordThreadSummary } from './hooks/useCordThreadSummary';
