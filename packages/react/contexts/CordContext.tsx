@@ -9,6 +9,7 @@ import type {
   InitErrorCallback,
   LoadCallback,
 } from '@cord-sdk/types';
+import useUnpackClientAuthTokenPayload from '@cord-sdk/react/hooks/useUnpackClientAuthTokenPayload';
 
 declare const CORD_REACT_PACKAGE_VERSION: string;
 
@@ -18,6 +19,9 @@ type CordContextValue = {
   setLocation: (location: Location | undefined) => unknown;
   // True only if the `useContext(CordContext)` call is within the context provider.
   hasProvider: boolean;
+  clientAuthToken: string | undefined;
+  userID: string | undefined;
+  organizationID: string | undefined;
 };
 
 let shouldLogLoadingTime = false;
@@ -34,6 +38,9 @@ export const CordContext = React.createContext<CordContextValue>({
   location: undefined,
   setLocation: () => undefined,
   hasProvider: false,
+  clientAuthToken: undefined,
+  userID: undefined,
+  organizationID: undefined,
 });
 
 type Props = {
@@ -196,6 +203,9 @@ export function CordProvider({
     };
   }, [sdk]);
 
+  const { userID, organizationID } =
+    useUnpackClientAuthTokenPayload(clientAuthToken);
+
   const value = useMemo<CordContextValue>(
     () => ({
       sdk: initialized ? sdk : null,
@@ -203,8 +213,20 @@ export function CordProvider({
       setLocation,
       hasProvider: true,
       lastInitialized,
+      clientAuthToken: clientAuthToken === null ? undefined : clientAuthToken,
+      userID,
+      organizationID,
     }),
-    [sdk, initialized, location, setLocation, lastInitialized],
+    [
+      sdk,
+      initialized,
+      location,
+      setLocation,
+      lastInitialized,
+      clientAuthToken,
+      userID,
+      organizationID,
+    ],
   );
 
   return <CordContext.Provider value={value}>{children}</CordContext.Provider>;
