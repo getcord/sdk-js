@@ -536,6 +536,7 @@ export interface HTMLCordSidebarElement extends HTMLCordElement {
 export interface HTMLCordFloatingThreadsElement extends HTMLCordElement {
   openThread(threadId: string): void;
   createThread(): void;
+  cancelThread(): void;
 }
 
 export type HTMLCordAnchoredThreadsElement = HTMLCordFloatingThreadsElement;
