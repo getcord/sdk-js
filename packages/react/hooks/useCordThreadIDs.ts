@@ -9,8 +9,7 @@ export function useCordThreadIDs(location: Location): {
 } {
   const [ids, setIds] = useState<string[]>([]);
   const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
-    // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
-    (_: unknown) => (_: number) => {},
+    () => async (_n: number) => {},
   );
   const { sdk } = useCordContext('useCordThreadIDs');
   const threadsSDK = sdk?.experimental.threads;

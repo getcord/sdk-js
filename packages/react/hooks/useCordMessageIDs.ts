@@ -5,11 +5,16 @@ import { useCordContext } from '../contexts/CordContext';
 export function useCordMessageIDs(threadId: string): {
   ids: string[];
   fetchMore: FetchMoreCallback;
+  loading: boolean;
+  hasMore: boolean;
 } {
   const [ids, setIds] = useState<string[]>([]);
   const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
-    (_: unknown) => (_n: number) => {},
+    () => async (_n: number) => {},
   );
+  const [loading, setLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
+
   const { sdk } = useCordContext('useCordMessageIDs');
   const messagesSDK = sdk?.experimental.messages;
 
@@ -21,9 +26,11 @@ export function useCordMessageIDs(threadId: string): {
     const key = messagesSDK.observeMessageIDs(
       threadId,
       // eslint-disable-next-line @typescript-eslint/no-shadow
-      ({ ids, fetchMore }) => {
+      ({ ids, fetchMore, loading, hasMore }) => {
         setIds(ids);
-        setFetchMore((_: unknown) => fetchMore);
+        setFetchMore(() => fetchMore);
+        setLoading(loading);
+        setHasMore(hasMore);
       },
     );
     return () => {
@@ -31,5 +38,5 @@ export function useCordMessageIDs(threadId: string): {
     };
   }, [messagesSDK, threadId]);
 
-  return { ids, fetchMore };
+  return { ids, fetchMore, loading, hasMore };
 }

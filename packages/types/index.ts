@@ -184,10 +184,12 @@ export interface ICordActivitySDK {
   unobserveThreadSummary(ref: ListenerRef): boolean;
 }
 
-export type FetchMoreCallback = (howMany: number) => void;
+export type FetchMoreCallback = (howMany: number) => Promise<void>;
 export type IDsUpdateCallback = (params: {
   ids: string[];
+  loading: boolean;
   fetchMore: FetchMoreCallback;
+  hasMore: boolean;
 }) => unknown;
 
 export type ThreadParticipant = {
