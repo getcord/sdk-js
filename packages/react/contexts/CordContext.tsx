@@ -48,6 +48,7 @@ type Props = {
   enableTasks?: boolean;
   enableAnnotations?: boolean;
   blurScreenshots?: boolean;
+  enableScreenshotCapture?: boolean;
   showBlurredScreenshots?: BlurDisplayLocation;
   cordScriptUrl?: string;
   navigate?: NavigateFn | null;
@@ -70,6 +71,7 @@ export function CordProvider({
   enableTasks,
   enableAnnotations,
   blurScreenshots,
+  enableScreenshotCapture,
   showBlurredScreenshots,
   annotationMode,
   cordScriptUrl,
@@ -169,6 +171,7 @@ export function CordProvider({
           enable_tasks: enableTasks,
           enable_annotations: enableAnnotations ?? annotationMode !== 'none',
           blur_screenshots: blurScreenshots,
+          enable_screenshot_capture: enableScreenshotCapture,
           show_blurred_screenshots: showBlurredScreenshots,
           navigate,
           react_package_version: CORD_REACT_PACKAGE_VERSION,
@@ -195,6 +198,7 @@ export function CordProvider({
     navigate,
     onInitError,
     threadOptions,
+    enableScreenshotCapture,
   ]);
 
   useEffect(() => {

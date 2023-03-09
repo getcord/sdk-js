@@ -23,6 +23,7 @@ export type CordSDKOptions = {
   enable_tasks?: boolean;
   enable_annotations?: boolean;
   blur_screenshots?: boolean;
+  enable_screenshot_capture?: boolean;
   show_blurred_screenshots?: BlurDisplayLocation;
   /**
    * @deprecated The annotation_mode prop has been superseded by enable_annotations
