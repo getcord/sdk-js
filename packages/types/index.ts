@@ -210,17 +210,19 @@ export type ThreadSummary = {
 export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
 
 export interface ICordThreadsSDK {
-  observeThreadIDs(
-    location: Location,
-    callback: IDsUpdateCallback,
-  ): ListenerRef;
-  unobserveThreadIDs(ref: ListenerRef): boolean;
-
   observeThreadSummary(
     id: string,
     callback: ThreadSummaryUpdateCallback,
   ): ListenerRef;
   unobserveThreadSummary(ref: ListenerRef): boolean;
+}
+
+export interface ICordDumpingGroundSDK {
+  observeThreadIDs(
+    location: Location,
+    callback: IDsUpdateCallback,
+  ): ListenerRef;
+  unobserveThreadIDs(ref: ListenerRef): boolean;
 }
 
 export interface ICordMessagesSDK {
@@ -254,10 +256,11 @@ export interface ICordSDK {
   presence: ICordPresenceSDK;
   users: ICordUsersSDK;
   activity: ICordActivitySDK;
+  threads: ICordThreadsSDK;
+  notifications: ICordNotificationsSDK;
   experimental: {
-    threads: ICordThreadsSDK;
+    dumpingGround: ICordDumpingGroundSDK;
     messages: ICordMessagesSDK;
-    notifications: ICordNotificationsSDK;
   };
 }
 

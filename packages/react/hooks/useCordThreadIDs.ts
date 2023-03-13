@@ -12,14 +12,14 @@ export function useCordThreadIDs(location: Location): {
     () => async (_n: number) => {},
   );
   const { sdk } = useCordContext('useCordThreadIDs');
-  const threadsSDK = sdk?.experimental.threads;
+  const dumpingGroundSDK = sdk?.experimental.dumpingGround;
 
   // Turn location into a string, which won't change even if location isn't
   // memoized, to avoid rerenders / infinite loop.
   const locationString = locationJson(location);
 
   useEffect(() => {
-    if (!threadsSDK) {
+    if (!dumpingGroundSDK) {
       return;
     }
 
@@ -27,14 +27,18 @@ export function useCordThreadIDs(location: Location): {
     const location = JSON.parse(locationString);
 
     // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
-    const key = threadsSDK.observeThreadIDs(location, ({ ids, fetchMore }) => {
-      setIds(ids);
-      setFetchMore((_: unknown) => fetchMore);
-    });
+    const key = dumpingGroundSDK.observeThreadIDs(
+      location,
+      // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
+      ({ ids, fetchMore }) => {
+        setIds(ids);
+        setFetchMore((_: unknown) => fetchMore);
+      },
+    );
     return () => {
-      threadsSDK.unobserveThreadIDs(key);
+      dumpingGroundSDK.unobserveThreadIDs(key);
     };
-  }, [threadsSDK, locationString]);
+  }, [dumpingGroundSDK, locationString]);
 
   return { ids, fetchMore };
 }

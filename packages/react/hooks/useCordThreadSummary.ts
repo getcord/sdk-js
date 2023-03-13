@@ -6,7 +6,7 @@ export function useCordThreadSummary(id: string): ThreadSummary | null {
   const [summary, setSummary] = useState<ThreadSummary | null>(null);
 
   const { sdk } = useCordContext('useCordThreadSummary');
-  const threadsSDK = sdk?.experimental.threads;
+  const threadsSDK = sdk?.threads;
 
   useEffect(() => {
     if (!threadsSDK) {
