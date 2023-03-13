@@ -22,3 +22,5 @@ export {
 } from './components/NotificationListLauncher';
 
 export { useCordThreadSummary } from './hooks/useCordThreadSummary';
+
+export { Pin, PinReactComponentProps } from './components/Pin';

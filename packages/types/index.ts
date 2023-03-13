@@ -355,6 +355,14 @@ export type InboxWebComponentEvents = { closeRequested: [] };
 // cord-notification-list-launcher
 export type NotificationListLauncherWebComponentEvents = { click: [] };
 
+// cord-pin
+export type PinWebComponentEvents = {
+  resolve: [];
+  click: [];
+  mouseEnter: [];
+  mouseLeave: [];
+};
+
 /* annotation types */
 
 export type DocumentAnnotationResult = {

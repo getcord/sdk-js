@@ -18,6 +18,7 @@ export const componentNames = {
   'cord-notification-list': 'NotificationList',
   'cord-message': 'Message',
   'cord-notification-list-launcher': 'NotificationListLauncher',
+  'cord-pin': 'Pin',
 } as const;
 
 export type ElementName = keyof typeof componentNames;
@@ -144,6 +145,11 @@ export const componentAttributes = {
     'badge-style': 'badge-style',
     disabled: 'boolean',
     ...NotificationListAttributes,
+  },
+  Pin: {
+    location: 'json',
+    'thread-id': 'string',
+    'thread-name': 'string',
   },
 } as const;
 
