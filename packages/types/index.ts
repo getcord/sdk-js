@@ -213,7 +213,7 @@ export type ThreadIDs = PaginationParams & {
 };
 export type ThreadIDsCallback = (ids: ThreadIDs) => unknown;
 
-export interface ICordThreadsSDK {
+export interface ICordThreadSDK {
   observeThreadSummary(
     id: string,
     callback: ThreadSummaryUpdateCallback,
@@ -277,7 +277,7 @@ export interface ICordSDK {
   users: ICordUsersSDK;
   activity: ICordActivitySDK;
   beta: {
-    threads: ICordThreadsSDK;
+    thread: ICordThreadSDK;
     notifications: ICordNotificationsSDK;
   };
   experimental: {
