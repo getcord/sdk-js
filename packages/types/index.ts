@@ -193,7 +193,7 @@ export type PaginationParams = {
 };
 
 export type ThreadParticipant = {
-  lastSeenTimestamp: string | null;
+  lastSeenTimestamp: Date | null;
   userID: UserID | null;
 };
 
