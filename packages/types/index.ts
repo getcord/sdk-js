@@ -276,8 +276,10 @@ export interface ICordSDK {
   presence: ICordPresenceSDK;
   users: ICordUsersSDK;
   activity: ICordActivitySDK;
-  threads: ICordThreadsSDK;
-  notifications: ICordNotificationsSDK;
+  beta: {
+    threads: ICordThreadsSDK;
+    notifications: ICordNotificationsSDK;
+  };
   experimental: {
     dumpingGround: ICordDumpingGroundSDK;
     messages: ICordMessagesSDK;

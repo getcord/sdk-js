@@ -24,3 +24,5 @@ export {
 export { useCordThreadSummary } from './hooks/useCordThreadSummary';
 
 export { Pin, PinReactComponentProps } from './components/Pin';
+
+export { useCordNotificationSummary } from './hooks/useCordNotificationSummary';

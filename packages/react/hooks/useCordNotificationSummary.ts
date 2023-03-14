@@ -4,7 +4,7 @@ import { useNotificationSummary } from './useNotificationSummary';
 
 export function useCordNotificationSummary(): NotificationSummary | null {
   const { sdk } = useCordContext('useCordNotificationSummary');
-  const notificationsSDK = sdk?.notifications;
+  const notificationsSDK = sdk?.beta.notifications;
 
   return useNotificationSummary(notificationsSDK, false);
 }
