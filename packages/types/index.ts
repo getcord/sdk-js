@@ -241,6 +241,7 @@ export type NotificationSummaryUpdateCallback = (
 export interface ICordNotificationsSDK {
   observeNotificationSummary(
     callback: NotificationSummaryUpdateCallback,
+    options?: Record<never, string>,
   ): ListenerRef;
   unobserveNotificationSummary(ref: ListenerRef): boolean;
 }
