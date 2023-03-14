@@ -32,6 +32,8 @@ export type ThreadListReactComponentProps = ReactPropsWithLocation<{
   onThreadReopen?: (
     ...args: ThreadListWebComponentEvents['threadreopen']
   ) => unknown;
+  onRender?: (...args: ThreadListWebComponentEvents['render']) => unknown;
+  onLoading?: (...args: ThreadListWebComponentEvents['loading']) => unknown;
 }>;
 
 export function ThreadList(
@@ -45,6 +47,8 @@ export function ThreadList(
     threadmouseleave: props.onThreadMouseLeave,
     threadresolve: props.onThreadResolve,
     threadreopen: props.onThreadReopen,
+    loading: props.onLoading,
+    render: props.onRender,
   });
   const combinedSetRef = useCallback(
     (element) => {

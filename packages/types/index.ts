@@ -362,6 +362,8 @@ export type ThreadListWebComponentEvents = {
   threadmouseleave: [threadID: string];
   threadresolve: [{ threadID: string }];
   threadreopen: [{ threadID: string }];
+  render: [];
+  loading: [];
 };
 
 /* cord-composer */
