@@ -186,12 +186,11 @@ export interface ICordActivitySDK {
 }
 
 export type FetchMoreCallback = (howMany: number) => Promise<void>;
-export type IDsUpdateCallback = (params: {
-  ids: string[];
+export type PaginationParams = {
   loading: boolean;
   fetchMore: FetchMoreCallback;
   hasMore: boolean;
-}) => unknown;
+};
 
 export type ThreadParticipant = {
   lastSeenTimestamp: string | null;
@@ -209,6 +208,11 @@ export type ThreadSummary = {
 };
 export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
 
+export type ThreadIDs = PaginationParams & {
+  ids: string[];
+};
+export type ThreadIDsCallback = (ids: ThreadIDs) => unknown;
+
 export interface ICordThreadsSDK {
   observeThreadSummary(
     id: string,
@@ -220,14 +224,22 @@ export interface ICordThreadsSDK {
 export interface ICordDumpingGroundSDK {
   observeThreadIDs(
     location: Location,
-    callback: IDsUpdateCallback,
+    callback: ThreadIDsCallback,
   ): ListenerRef;
   unobserveThreadIDs(ref: ListenerRef): boolean;
 }
 
+export type ThreadData = PaginationParams & {
+  ids: string[];
+};
+export type ThreadDataCallback = (data: ThreadData) => unknown;
+
 export interface ICordMessagesSDK {
-  observeMessageIDs(threadId: string, callback: IDsUpdateCallback): ListenerRef;
-  unobserveMessageIDs(ref: ListenerRef): boolean;
+  observeThreadData(
+    threadId: string,
+    callback: ThreadDataCallback,
+  ): ListenerRef;
+  unobserveThreadData(ref: ListenerRef): boolean;
 }
 
 export type NotificationSummary = {

@@ -2,7 +2,7 @@ import type { FetchMoreCallback } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 
-export function useCordMessageIDs(threadId: string): {
+export function useCordThreadData(threadId: string): {
   ids: string[];
   fetchMore: FetchMoreCallback;
   loading: boolean;
@@ -15,7 +15,7 @@ export function useCordMessageIDs(threadId: string): {
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(false);
 
-  const { sdk } = useCordContext('useCordMessageIDs');
+  const { sdk } = useCordContext('useCordThreadData');
   const messagesSDK = sdk?.experimental.messages;
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export function useCordMessageIDs(threadId: string): {
       return;
     }
 
-    const key = messagesSDK.observeMessageIDs(
+    const key = messagesSDK.observeThreadData(
       threadId,
       // eslint-disable-next-line @typescript-eslint/no-shadow
       ({ ids, fetchMore, loading, hasMore }) => {
@@ -34,7 +34,7 @@ export function useCordMessageIDs(threadId: string): {
       },
     );
     return () => {
-      messagesSDK.unobserveMessageIDs(key);
+      messagesSDK.unobserveThreadData(key);
     };
   }, [messagesSDK, threadId]);
 
