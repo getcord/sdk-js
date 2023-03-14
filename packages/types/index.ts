@@ -170,6 +170,7 @@ export interface ICordUsersSDK {
 export type ThreadActivitySummary = {
   total: number;
   unread: number;
+  unreadSubscribed: number;
   resolved: number;
 };
 
