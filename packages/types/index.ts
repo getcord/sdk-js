@@ -229,8 +229,15 @@ export interface ICordDumpingGroundSDK {
   unobserveThreadIDs(ref: ListenerRef): boolean;
 }
 
+export type MessageSummary = {
+  id: string;
+  timestamp: Date;
+  seen: boolean;
+};
+
 export type ThreadData = PaginationParams & {
-  ids: string[];
+  oldestMessage: MessageSummary | undefined;
+  messages: MessageSummary[];
 };
 export type ThreadDataCallback = (data: ThreadData) => unknown;
 

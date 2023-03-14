@@ -1,14 +1,16 @@
-import type { FetchMoreCallback } from '@cord-sdk/types';
+import type {
+  FetchMoreCallback,
+  MessageSummary,
+  ThreadData,
+} from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 
-export function useCordThreadData(threadId: string): {
-  ids: string[];
-  fetchMore: FetchMoreCallback;
-  loading: boolean;
-  hasMore: boolean;
-} {
-  const [ids, setIds] = useState<string[]>([]);
+export function useCordThreadData(threadId: string): ThreadData {
+  const [messages, setMessages] = useState<MessageSummary[]>([]);
+  const [oldestMessage, setOldestMessage] = useState<
+    MessageSummary | undefined
+  >(undefined);
   const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
     () => async (_n: number) => {},
   );
@@ -26,8 +28,9 @@ export function useCordThreadData(threadId: string): {
     const key = messagesSDK.observeThreadData(
       threadId,
       // eslint-disable-next-line @typescript-eslint/no-shadow
-      ({ ids, fetchMore, loading, hasMore }) => {
-        setIds(ids);
+      ({ messages, oldestMessage, fetchMore, loading, hasMore }) => {
+        setMessages(messages);
+        setOldestMessage(oldestMessage);
         setFetchMore(() => fetchMore);
         setLoading(loading);
         setHasMore(hasMore);
@@ -38,5 +41,5 @@ export function useCordThreadData(threadId: string): {
     };
   }, [messagesSDK, threadId]);
 
-  return { ids, fetchMore, loading, hasMore };
+  return { messages, oldestMessage, fetchMore, loading, hasMore };
 }
