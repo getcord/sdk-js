@@ -258,7 +258,7 @@ export type NotificationSummaryUpdateCallback = (
   summary: NotificationSummary,
 ) => unknown;
 
-export interface ICordNotificationsSDK {
+export interface ICordNotificationSDK {
   observeNotificationSummary(
     callback: NotificationSummaryUpdateCallback,
     options?: Record<never, string>,
@@ -279,7 +279,7 @@ export interface ICordSDK {
   activity: ICordActivitySDK;
   beta: {
     thread: ICordThreadSDK;
-    notifications: ICordNotificationsSDK;
+    notification: ICordNotificationSDK;
   };
   experimental: {
     dumpingGround: ICordDumpingGroundSDK;
