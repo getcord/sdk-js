@@ -343,7 +343,6 @@ export type FloatingThreadsWebComponentEvents = {
 };
 
 /* cord-thread */
-
 export type ThreadWebComponentEvents = {
   threadinfochange: [threadInfo: ThreadInfo];
   close: [];
@@ -368,8 +367,10 @@ export type ThreadListWebComponentEvents = {
 };
 
 /* cord-composer */
-
-export type ComposerWebComponentEvents = Record<string, never>;
+export type ComposerWebComponentEvents = {
+  focus: [{ threadId: string }];
+  blur: [{ threadId: string }];
+};
 
 /* cord-inbox-launcher */
 export type InboxLauncherWebComponentEvents = { click: [] };

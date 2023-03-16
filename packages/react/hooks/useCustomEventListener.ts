@@ -6,6 +6,10 @@ export type CustomEventsDefinition<T extends Record<string, unknown[]>> = {
 
 export function useCustomEventListeners<T extends Record<string, unknown[]>>(
   events: CustomEventsDefinition<T>,
+  // By default, a cord component will listen to events prefixed with `cord-<component>`.
+  // However, we sometimes want to listen to events fired by other components.
+  // An example of this is the `Thread` component listening for `cord-composer:focus` events.
+  sourceComponentName?: string,
 ) {
   const [element, setElement] = useState<Element | null>(null);
 
@@ -22,7 +26,9 @@ export function useCustomEventListeners<T extends Record<string, unknown[]>>(
         }
       };
 
-      const eventName = `${element.nodeName.toLowerCase()}:${event}`;
+      const eventName = `${
+        sourceComponentName ?? element.nodeName.toLowerCase()
+      }:${event}`;
       element.addEventListener(eventName, customEventHandler);
 
       return [eventName, customEventHandler] as const;
@@ -33,7 +39,7 @@ export function useCustomEventListeners<T extends Record<string, unknown[]>>(
         element.removeEventListener(eventName, handler);
       }
     };
-  }, [element, events]);
+  }, [element, events, sourceComponentName]);
 
   return setElement;
 }

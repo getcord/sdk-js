@@ -1,7 +1,10 @@
 import type { PropsWithChildren } from 'react';
 import React, { useCallback } from 'react';
 
-import type { ThreadWebComponentEvents } from '@cord-sdk/types';
+import type {
+  ComposerWebComponentEvents,
+  ThreadWebComponentEvents,
+} from '@cord-sdk/types';
 import {
   componentAttributes,
   propsToAttributeConverter,
@@ -30,6 +33,8 @@ export type ThreadReactComponentProps = ReactPropsWithLocation<{
   onResolved?: (...args: ThreadWebComponentEvents['resolved']) => unknown;
   onRender?: (...args: ThreadWebComponentEvents['render']) => unknown;
   onLoading?: (...args: ThreadWebComponentEvents['loading']) => unknown;
+  onFocusComposer?: (...args: ComposerWebComponentEvents['focus']) => unknown;
+  onBlurComposer?: (...args: ComposerWebComponentEvents['blur']) => unknown;
 }>;
 
 export function Thread(
@@ -39,13 +44,21 @@ export function Thread(
     >
   >,
 ) {
-  const setRef = useCustomEventListeners<ThreadWebComponentEvents>({
+  let setRef = useCustomEventListeners<ThreadWebComponentEvents>({
     threadinfochange: props.onThreadInfoChange,
     close: props.onClose,
     resolved: props.onResolved,
     render: props.onRender,
     loading: props.onLoading,
   });
+
+  setRef = useCustomEventListeners<ComposerWebComponentEvents>(
+    {
+      focus: props.onFocusComposer,
+      blur: props.onBlurComposer,
+    },
+    'cord-composer',
+  );
   const combinedSetRef = useCallback(
     (element) => {
       if (props.forwardRef) {

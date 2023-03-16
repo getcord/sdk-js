@@ -21,12 +21,17 @@ export type ComposerReactComponentProps = ReactPropsWithLocation<{
   threadId?: string;
   threadName?: string;
   autofocus?: boolean;
+  onFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
+  onBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
 }>;
 
 export function Composer(
   props: ReactPropsWithStandardHTMLAttributes<ComposerReactComponentProps>,
 ) {
-  const setRef = useCustomEventListeners<ComposerWebComponentEvents>({});
+  const setRef = useCustomEventListeners<ComposerWebComponentEvents>({
+    focus: props.onFocus,
+    blur: props.onBlur,
+  });
 
   const location = useCordLocation();
 
