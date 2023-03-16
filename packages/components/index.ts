@@ -107,6 +107,7 @@ export const componentAttributes = {
     'thread-id': 'string',
     'thread-name': 'string',
     autofocus: 'boolean',
+    'show-expanded': 'boolean',
   },
   InboxLauncher: {
     label: 'string',

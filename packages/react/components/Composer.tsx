@@ -21,6 +21,7 @@ export type ComposerReactComponentProps = ReactPropsWithLocation<{
   threadId?: string;
   threadName?: string;
   autofocus?: boolean;
+  showExpanded?: boolean;
   onFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
   onBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
 }>;
