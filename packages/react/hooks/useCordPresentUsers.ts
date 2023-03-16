@@ -29,7 +29,7 @@ export function useCordPresentUsers(
 
   const { sdk } = useCordContext('useCordPresentUsers');
   const presenceSDK = sdk?.presence;
-  const usersSDK = sdk?.users;
+  const userSDK = sdk?.user;
 
   const locationString = locationJson(location);
 
@@ -100,7 +100,7 @@ export function useCordPresentUsers(
   );
 
   useEffect(() => {
-    if (!usersSDK || !includeUserDetails) {
+    if (!userSDK || !includeUserDetails) {
       return;
     }
 
@@ -109,7 +109,7 @@ export function useCordPresentUsers(
     // make sure all current user IDs are being observed
     for (const id of currentUserIDs) {
       if (!userDetailsListenersRef.current.has(id)) {
-        const listenerRef = usersSDK.addUserListener(id, (user) => {
+        const listenerRef = userSDK.addUserListener(id, (user) => {
           if (mountedRef.current) {
             // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
             setUserDetails((userDetails) => ({
@@ -125,21 +125,21 @@ export function useCordPresentUsers(
 
     for (const [id, ref] of userDetailsListenersRef.current.entries()) {
       if (!currentUserIDs.has(id)) {
-        usersSDK.removeUserListener(ref);
+        userSDK.removeUserListener(ref);
         userDetailsListenersRef.current.delete(id);
       }
     }
-  }, [usersSDK, currentUserIDs, includeUserDetails]);
+  }, [userSDK, currentUserIDs, includeUserDetails]);
 
   useEffect(() => {
-    if (!usersSDK) {
+    if (!userSDK) {
       return;
     }
 
     mountedRef.current = true;
 
     // fetch viewer details on mount
-    usersSDK.getViewerID().then((id) => {
+    userSDK.getViewerID().then((id) => {
       if (mountedRef.current) {
         setViewerID(id);
       }
@@ -150,10 +150,10 @@ export function useCordPresentUsers(
     return () => {
       mountedRef.current = false;
       for (const ref of listeners.values()) {
-        usersSDK.removeUserListener(ref);
+        userSDK.removeUserListener(ref);
       }
     };
-  }, [usersSDK]);
+  }, [userSDK]);
 
   return useMemo<Array<User & UserPresenceInformation>>(() => {
     if (excludeViewer && viewerID === undefined) {

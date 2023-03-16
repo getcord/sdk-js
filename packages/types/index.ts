@@ -161,7 +161,7 @@ export interface ICordPresenceSDK {
 
 export type UserUpdateListener = (user: User) => unknown;
 
-export interface ICordUsersSDK {
+export interface ICordUserSDK {
   getViewerID(): Promise<string>;
   addUserListener(id: string, listener: UserUpdateListener): ListenerRef;
   removeUserListener(ref: ListenerRef): void;
@@ -273,9 +273,11 @@ export interface ICordSDK {
   removeMonacoEditor(id: string): void;
   addReactTree(id: string, reactTree: unknown): void;
   removeReactTree(id: string): void;
+  annotation: ICordAnnotationSDK;
+  /** @deprecated Renamed to sdk.annotation. */
   annotations: ICordAnnotationSDK;
   presence: ICordPresenceSDK;
-  users: ICordUsersSDK;
+  user: ICordUserSDK;
   activity: ICordActivitySDK;
   beta: {
     thread: ICordThreadSDK;

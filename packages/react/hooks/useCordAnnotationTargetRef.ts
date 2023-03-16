@@ -22,15 +22,15 @@ export function useCordAnnotationRenderer<L extends Location = Location>(
       return;
     }
 
-    sdk.annotations.setRenderHandler(memoizedLocation, handler);
+    sdk.annotation.setRenderHandler(memoizedLocation, handler);
 
     return () => {
-      sdk.annotations.clearRenderHandler(memoizedLocation);
+      sdk.annotation.clearRenderHandler(memoizedLocation);
     };
   }, [sdk, memoizedLocation, handler]);
 
   return {
-    redrawAnnotations: sdk?.annotations.redrawAnnotations ?? doNothing,
+    redrawAnnotations: sdk?.annotation.redrawAnnotations ?? doNothing,
   };
 }
 
@@ -46,10 +46,10 @@ export function useCordAnnotationCaptureHandler<L extends Location = Location>(
       return;
     }
 
-    sdk.annotations.setCaptureHandler(memoizedLocation, handler);
+    sdk.annotation.setCaptureHandler(memoizedLocation, handler);
 
     return () => {
-      sdk.annotations.clearCaptureHandler(memoizedLocation);
+      sdk.annotation.clearCaptureHandler(memoizedLocation);
     };
   }, [sdk, memoizedLocation, handler]);
 }
@@ -66,10 +66,10 @@ export function useCordAnnotationClickHandler<L extends Location = Location>(
       return;
     }
 
-    sdk.annotations.setClickHandler(memoizedLocation, handler);
+    sdk.annotation.setClickHandler(memoizedLocation, handler);
 
     return () => {
-      sdk.annotations.clearClickHandler(memoizedLocation);
+      sdk.annotation.clearClickHandler(memoizedLocation);
     };
   }, [sdk, memoizedLocation, handler]);
 }
