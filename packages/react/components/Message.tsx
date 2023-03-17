@@ -2,7 +2,7 @@ import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
-import React from 'react';
+import * as React from 'react';
 import type { ReactPropsWithStandardHTMLAttributes } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(

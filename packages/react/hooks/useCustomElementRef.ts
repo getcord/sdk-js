@@ -1,4 +1,4 @@
-import type React from 'react';
+import type * as React from 'react';
 import { useCallback } from 'react';
 import type { HTMLCordElement } from '@cord-sdk/types';
 import type { CustomEventsDefinition } from './useCustomEventListener';

@@ -1,4 +1,4 @@
-import type React from 'react';
+import type * as React from 'react';
 import type { Location } from '@cord-sdk/types';
 
 export type ReactPropsWithStandardHTMLAttributes<T> = T & {
