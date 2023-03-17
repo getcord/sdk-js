@@ -569,15 +569,23 @@ export interface HTMLCordElement extends HTMLElement {
   initialised?: true;
 }
 
-export interface HTMLCordSidebarElement extends HTMLCordElement {
+export interface HTMLCordSidebarFunctions {
   startComposer(): void;
 }
 
-export interface HTMLCordFloatingThreadsElement extends HTMLCordElement {
+export interface HTMLCordSidebarElement
+  extends HTMLCordElement,
+    HTMLCordSidebarFunctions {}
+
+export interface HTMLCordFloatingThreadsFunctions {
   openThread(threadId: string): void;
   createThread(): void;
   cancelThread(): void;
 }
+
+export interface HTMLCordFloatingThreadsElement
+  extends HTMLCordElement,
+    HTMLCordFloatingThreadsFunctions {}
 
 export type HTMLCordAnchoredThreadsElement = HTMLCordFloatingThreadsElement;
 
