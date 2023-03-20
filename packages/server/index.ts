@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 import type { ClientAuthTokenData } from '@cord-sdk/api-types';
 
 export type { ClientAuthTokenData };
