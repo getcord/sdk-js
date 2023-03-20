@@ -78,7 +78,7 @@ async function rollupConfig() {
     packageBuildConfig('types'),
     packageBuildConfig('components'),
     packageBuildConfig('jsx'),
-    packageBuildConfig('react', { extraExternal: ['lodash/isEqual.js'] }),
+    packageBuildConfig('react'),
     packageBuildConfig('server'),
     packageBuildConfig('api-types', {
       extraCopyTargets: [

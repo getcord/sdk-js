@@ -8,7 +8,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "tsc-packages": "for package in packages/*/; do echo \"Checking package: ${package}\" && tsc --noEmit -p \"${package}\" || exit 1; done"
+    "tsc-packages": "for package in packages/*/; do echo \"Checking package: ${package}\" && tsc --noEmit -p \"${package}\" || exit 1; done",
+    "test": "cd packages/types && npm run test"
   },
   "devDependencies": {
     "@rollup/plugin-replace": "^4.0.0",

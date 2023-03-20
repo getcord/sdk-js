@@ -6,6 +6,37 @@ export type Location = Record<string, string | number | boolean>;
 // For backwards compatibility, will be removed along with the deprecated context prop
 export type Context = Location;
 
+// Fast comparison of two Locations
+export function isEqualLocation(
+  a: Location | undefined,
+  b: Location | undefined,
+) {
+  // If `a` and `b` are the same object (or both are undefined) -> true
+  if (a === b) {
+    return true;
+  }
+  // If either `a` or `b` is undefined -> false
+  // (If they are both undefined, we returned true above.)
+  if (!a || !b) {
+    return false;
+  }
+
+  // Get all keys of `a` and check that `b` has the same number of keys.
+  const aKeys = Object.keys(a);
+  if (aKeys.length !== Object.keys(b).length) {
+    return false;
+  }
+
+  // If `b` does not have all the keys of `a` -> false
+  if (!aKeys.every((aKey) => Object.prototype.hasOwnProperty.call(b, aKey))) {
+    return false;
+  }
+
+  // We know that `a` and `b` have identical keys. Return whether the values are
+  // identical, too.
+  return aKeys.every((key) => a[key] === b[key]);
+}
+
 // navigate, if present and returning true, overrides our default navigate behaviour
 export type NavigateFn = (
   url: string,
