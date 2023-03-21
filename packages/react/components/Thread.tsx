@@ -4,6 +4,7 @@ import { useCallback } from 'react';
 
 import type {
   ComposerWebComponentEvents,
+  ScreenshotConfig,
   ThreadWebComponentEvents,
 } from '@cord-sdk/types';
 import {
@@ -36,7 +37,7 @@ export type ThreadReactComponentProps = ReactPropsWithLocation<{
   onLoading?: (...args: ThreadWebComponentEvents['loading']) => unknown;
   onFocusComposer?: (...args: ComposerWebComponentEvents['focus']) => unknown;
   onBlurComposer?: (...args: ComposerWebComponentEvents['blur']) => unknown;
-}>;
+}> & { screenshotConfig?: ScreenshotConfig };
 
 export function Thread(
   props: PropsWithRef<
@@ -65,9 +66,14 @@ export function Thread(
       if (props.forwardRef) {
         props.forwardRef.current = element;
       }
+
+      if (element) {
+        element.screenshotConfig = props.screenshotConfig;
+      }
+
       setRef(element);
     },
-    [props.forwardRef, setRef],
+    [props.forwardRef, setRef, props.screenshotConfig],
   );
 
   const location = useCordLocation();

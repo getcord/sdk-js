@@ -1,7 +1,8 @@
-import * as React from 'react';
+import React, { useCallback } from 'react';
 
 import type {
   HTMLCordSidebarElement,
+  ScreenshotConfig,
   SidebarWebComponentEvents,
 } from '@cord-sdk/types';
 import {
@@ -29,6 +30,7 @@ export type SidebarReactComponentProps = ReactPropsWithLocation<{
   open?: boolean;
   showLauncher?: boolean;
   threadName?: string;
+  screenshotConfig?: ScreenshotConfig;
   onOpen?: (...args: SidebarWebComponentEvents['open']) => unknown;
   onClose?: (...args: SidebarWebComponentEvents['close']) => unknown;
   onThreadOpen?: (...args: SidebarWebComponentEvents['threadopen']) => unknown;
@@ -55,6 +57,16 @@ function SidebarWithForwardedRef(
     },
     forwardedRef,
   );
+  const combinedSetRef = useCallback(
+    (element) => {
+      if (element) {
+        element.screenshotConfig = props.screenshotConfig;
+      }
+
+      ref(element);
+    },
+    [props.screenshotConfig, ref],
+  );
 
   const location = useCordLocation();
 
@@ -63,7 +75,7 @@ function SidebarWithForwardedRef(
       id={props.id}
       class={props.className}
       style={props.style}
-      ref={ref}
+      ref={combinedSetRef}
       {...propsToAttributes({ location, ...props })}
     />
   );

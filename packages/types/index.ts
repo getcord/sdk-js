@@ -617,7 +617,8 @@ export interface HTMLCordSidebarFunctions {
 
 export interface HTMLCordSidebarElement
   extends HTMLCordElement,
-    HTMLCordSidebarFunctions {}
+    HTMLCordSidebarFunctions,
+    WithScreenshotConfig {}
 
 export interface HTMLCordFloatingThreadsFunctions {
   openThread(threadId: string): void;
@@ -634,3 +635,15 @@ export type HTMLCordAnchoredThreadsElement = HTMLCordFloatingThreadsElement;
 export type ThreadOptions = {
   additional_subscribers_on_create: string[];
 };
+
+export type HTMLCordThreadElement = WithScreenshotConfig;
+
+export type ScreenshotConfig =
+  | {
+      targetElement: HTMLElement | null;
+    }
+  | undefined;
+
+export interface WithScreenshotConfig extends HTMLCordElement {
+  screenshotConfig: ScreenshotConfig;
+}
