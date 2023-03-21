@@ -157,6 +157,11 @@ export type AddListenerOptions = {
 
 export type PresenceListener = (update: UserLocationData) => void;
 
+export type ObservePresenceOptions = {
+  exclude_durable?: boolean;
+  partial_match?: boolean;
+};
+
 export type UserLocationData = {
   id: string;
   ephemeral?: {
@@ -176,6 +181,8 @@ export type UserPresenceInformation = {
 
 export type ListenerRef = number;
 
+export type PresenceUpdateCallback = (present: UserLocationData[]) => unknown;
+
 export interface ICordPresenceSDK {
   setPresent(location: Location, options?: SetPresentOptions): void;
   getPresent(
@@ -187,7 +194,13 @@ export interface ICordPresenceSDK {
     matcher: Location,
     options?: AddListenerOptions,
   ): ListenerRef;
-  removeListener(index: ListenerRef): void;
+  removeListener(index: ListenerRef): boolean;
+  observePresence(
+    matcher: Location,
+    callback: PresenceUpdateCallback,
+    options?: ObservePresenceOptions,
+  ): ListenerRef;
+  unobservePresence(ref: ListenerRef): boolean;
 }
 
 export type UserUpdateListener = (user: User) => unknown;
