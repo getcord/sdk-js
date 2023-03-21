@@ -18,6 +18,7 @@ const propsToAttributes = propsToAttributeConverter(
 );
 export type ThreadListReactComponentProps = ReactPropsWithLocation<{
   showScreenshotPreviewInMessage?: boolean;
+  highlightOpenFloatingThread?: boolean;
   onThreadClick?: (
     ...args: ThreadListWebComponentEvents['threadclick']
   ) => unknown;

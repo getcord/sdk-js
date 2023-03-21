@@ -101,6 +101,7 @@ export const componentAttributes = {
   ThreadList: {
     location: 'json',
     'show-screenshot-preview-in-message': 'boolean',
+    'highlight-open-floating-thread': 'boolean',
   },
   Composer: {
     location: 'json',
