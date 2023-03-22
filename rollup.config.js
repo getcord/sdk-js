@@ -78,7 +78,7 @@ async function rollupConfig() {
     packageBuildConfig('types'),
     packageBuildConfig('components'),
     packageBuildConfig('jsx'),
-    packageBuildConfig('react'),
+    packageBuildConfig('react', { extraExternal: ['react/jsx-runtime'] }),
     packageBuildConfig('server'),
     packageBuildConfig('api-types', {
       extraCopyTargets: [

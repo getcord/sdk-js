@@ -6,7 +6,6 @@ import type {
   BadgeStyle,
   NotificationListLauncherWebComponentEvents,
 } from '@cord-sdk/types';
-import * as React from 'react';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import type { ReactPropsWithStandardHTMLAttributes } from '../types';
 import type { NotificationListReactComponentProps } from './NotificationList';

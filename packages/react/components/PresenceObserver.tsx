@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import type { PresenceObserverWebComponentEvents } from '@cord-sdk/types';
 import {
   componentAttributes,

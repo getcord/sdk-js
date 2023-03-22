@@ -6,7 +6,7 @@
     "strict": true,
     "esModuleInterop": true,
     "declaration": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "inlineSourceMap": true
   }
 }
