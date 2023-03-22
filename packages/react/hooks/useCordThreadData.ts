@@ -2,11 +2,16 @@ import type {
   FetchMoreCallback,
   MessageSummary,
   ThreadData,
+  ObserveThreadDataOptions,
 } from '@cord-sdk/types';
-import { useEffect, useState } from 'react';
+import { locationJson } from '@cord-sdk/types';
+import { useEffect, useMemo, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 
-export function useCordThreadData(threadId: string): ThreadData {
+export function useCordThreadData(
+  threadId: string,
+  options?: ObserveThreadDataOptions,
+): ThreadData {
   const [messages, setMessages] = useState<MessageSummary[]>([]);
   const [oldestMessage, setOldestMessage] = useState<
     MessageSummary | undefined
@@ -19,6 +24,17 @@ export function useCordThreadData(threadId: string): ThreadData {
 
   const { sdk } = useCordContext('useCordThreadData');
   const messagesSDK = sdk?.experimental.messages;
+
+  const locationString = options?.location
+    ? locationJson(options.location)
+    : undefined;
+  const optionsMemo = useMemo(
+    () => ({
+      location: locationString ? JSON.parse(locationString) : undefined,
+      threadName: options?.threadName,
+    }),
+    [locationString, options?.threadName],
+  );
 
   useEffect(() => {
     if (!messagesSDK) {
@@ -35,11 +51,12 @@ export function useCordThreadData(threadId: string): ThreadData {
         setLoading(loading);
         setHasMore(hasMore);
       },
+      optionsMemo,
     );
     return () => {
       messagesSDK.unobserveThreadData(key);
     };
-  }, [messagesSDK, threadId]);
+  }, [messagesSDK, optionsMemo, threadId]);
 
   return { messages, oldestMessage, fetchMore, loading, hasMore };
 }

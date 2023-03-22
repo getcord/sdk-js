@@ -1,26 +1,45 @@
-import type { ThreadSummary } from '@cord-sdk/types';
-import { useEffect, useState } from 'react';
+import type {
+  ObserveThreadSummaryOptions,
+  ThreadSummary,
+} from '@cord-sdk/types';
+import { locationJson } from '@cord-sdk/types';
+import { useEffect, useMemo, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 
-export function useCordThreadSummary(id: string): ThreadSummary | null {
+export function useCordThreadSummary(
+  id: string,
+  options?: ObserveThreadSummaryOptions,
+): ThreadSummary | null {
   const [summary, setSummary] = useState<ThreadSummary | null>(null);
 
   const { sdk } = useCordContext('useCordThreadSummary');
   const threadSDK = sdk?.thread;
+
+  const locationString = options?.location
+    ? locationJson(options.location)
+    : undefined;
+  const optionsMemo = useMemo(
+    () => ({
+      location: locationString ? JSON.parse(locationString) : undefined,
+      threadName: options?.threadName,
+    }),
+    [locationString, options?.threadName],
+  );
 
   useEffect(() => {
     if (!threadSDK) {
       return;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
-    const key = threadSDK.observeThreadSummary(id, (summary) =>
-      setSummary(summary),
+    const key = threadSDK.observeThreadSummary(
+      id,
+      (newSummary) => setSummary(newSummary),
+      optionsMemo,
     );
     return () => {
       threadSDK.unobserveThreadSummary(key);
     };
-  }, [id, threadSDK]);
+  }, [id, optionsMemo, threadSDK]);
 
   return summary;
 }

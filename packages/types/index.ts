@@ -253,6 +253,14 @@ export type ThreadSummary = {
 };
 export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
 
+type ThreadObserverOptions = {
+  threadName?: string;
+  location?: Location;
+};
+
+export type ObserveThreadSummaryOptions = ThreadObserverOptions;
+export type ObserveThreadDataOptions = ThreadObserverOptions;
+
 export type ThreadIDs = PaginationParams & {
   ids: string[];
 };
@@ -260,8 +268,9 @@ export type ThreadIDsCallback = (ids: ThreadIDs) => unknown;
 
 export interface ICordThreadSDK {
   observeThreadSummary(
-    id: string,
+    threadId: string,
     callback: ThreadSummaryUpdateCallback,
+    options?: ObserveThreadSummaryOptions,
   ): ListenerRef;
   unobserveThreadSummary(ref: ListenerRef): boolean;
 }
@@ -290,6 +299,7 @@ export interface ICordMessagesSDK {
   observeThreadData(
     threadId: string,
     callback: ThreadDataCallback,
+    options?: ObserveThreadDataOptions,
   ): ListenerRef;
   unobserveThreadData(ref: ListenerRef): boolean;
 }
