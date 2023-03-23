@@ -59,7 +59,7 @@ function SidebarWithForwardedRef(
     forwardedRef,
   );
   const combinedSetRef = useCallback(
-    (element) => {
+    (element: any) => {
       if (element) {
         element.screenshotConfig = props.screenshotConfig;
       }

@@ -61,7 +61,7 @@ export function Thread(
     'cord-composer',
   );
   const combinedSetRef = useCallback(
-    (element) => {
+    (element: any) => {
       if (props.forwardRef) {
         props.forwardRef.current = element;
       }

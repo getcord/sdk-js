@@ -52,7 +52,7 @@ export function ThreadList(
     render: props.onRender,
   });
   const combinedSetRef = useCallback(
-    (element) => {
+    (element: any) => {
       if (props.forwardRef) {
         props.forwardRef.current = element;
       }

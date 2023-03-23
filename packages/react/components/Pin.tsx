@@ -39,7 +39,7 @@ export function Pin(
     mouseLeave: props.onMouseLeave,
   });
   const combinedSetRef = useCallback(
-    (element) => {
+    (element: any) => {
       if (props.forwardRef) {
         props.forwardRef.current = element;
       }
