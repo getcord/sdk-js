@@ -15,9 +15,13 @@ import type {
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.ThreadList,
 );
+
+export type ThreadListMode = 'default' | 'experimentalComments';
+
 export type ThreadListReactComponentProps = ReactPropsWithLocation<{
   showScreenshotPreviewInMessage?: boolean;
   highlightOpenFloatingThread?: boolean;
+  mode?: ThreadListMode;
   onThreadClick?: (
     ...args: ThreadListWebComponentEvents['threadclick']
   ) => unknown;

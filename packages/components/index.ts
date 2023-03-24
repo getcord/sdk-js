@@ -102,6 +102,7 @@ export const componentAttributes = {
     location: 'json',
     'show-screenshot-preview-in-message': 'boolean',
     'highlight-open-floating-thread': 'boolean',
+    mode: 'string',
   },
   Composer: {
     location: 'json',
