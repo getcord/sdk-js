@@ -97,6 +97,7 @@ export const componentAttributes = {
     autofocus: 'boolean',
     'show-header': 'boolean',
     'composer-expanded': 'boolean',
+    'thread-options': 'json',
   },
   ThreadList: {
     location: 'json',

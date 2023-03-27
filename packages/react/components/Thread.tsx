@@ -4,6 +4,7 @@ import { useCallback } from 'react';
 import type {
   ComposerWebComponentEvents,
   ScreenshotConfig,
+  ThreadOptions,
   ThreadWebComponentEvents,
 } from '@cord-sdk/types';
 import {
@@ -27,6 +28,7 @@ export type ThreadReactComponentProps = ReactPropsWithLocation<{
   autofocus?: boolean;
   showHeader?: boolean;
   composerExpanded?: boolean;
+  threadOptions?: ThreadOptions;
   onThreadInfoChange?: (
     ...args: ThreadWebComponentEvents['threadinfochange']
   ) => unknown;
