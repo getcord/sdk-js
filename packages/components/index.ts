@@ -93,6 +93,7 @@ export const componentAttributes = {
     location: 'json',
     'thread-id': 'string',
     'thread-name': 'string',
+    metadata: 'json',
     collapsed: 'boolean',
     autofocus: 'boolean',
     'show-header': 'boolean',

@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 
 import type {
   ComposerWebComponentEvents,
+  Metadata,
   ScreenshotConfig,
   ThreadOptions,
   ThreadWebComponentEvents,
@@ -24,6 +25,7 @@ const propsToAttributes = propsToAttributeConverter(componentAttributes.Thread);
 export type ThreadReactComponentProps = ReactPropsWithLocation<{
   threadId: string;
   threadName?: string;
+  metadata?: Metadata;
   collapsed?: boolean;
   autofocus?: boolean;
   showHeader?: boolean;

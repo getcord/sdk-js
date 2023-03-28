@@ -681,3 +681,5 @@ export type ScreenshotConfig =
 export interface WithScreenshotConfig extends HTMLCordElement {
   screenshotConfig: ScreenshotConfig;
 }
+
+export type Metadata = { [key: string]: string };
