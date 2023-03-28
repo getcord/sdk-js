@@ -683,3 +683,4 @@ export interface WithScreenshotConfig extends HTMLCordElement {
 }
 
 export type Metadata = { [key: string]: string };
+export type ThreadListFilter = { metadata: Metadata };

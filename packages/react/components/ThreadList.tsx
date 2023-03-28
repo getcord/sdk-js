@@ -1,5 +1,8 @@
 import { useCallback } from 'react';
-import type { ThreadListWebComponentEvents } from '@cord-sdk/types';
+import type {
+  ThreadListFilter,
+  ThreadListWebComponentEvents,
+} from '@cord-sdk/types';
 import {
   componentAttributes,
   propsToAttributeConverter,
@@ -22,6 +25,7 @@ export type ThreadListReactComponentProps = ReactPropsWithLocation<{
   showScreenshotPreviewInMessage?: boolean;
   highlightOpenFloatingThread?: boolean;
   mode?: ThreadListMode;
+  filter?: ThreadListFilter;
   onThreadClick?: (
     ...args: ThreadListWebComponentEvents['threadclick']
   ) => unknown;
