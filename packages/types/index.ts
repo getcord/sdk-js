@@ -648,9 +648,33 @@ export type ThreadOptions = {
 
 export type HTMLCordThreadElement = WithScreenshotConfig;
 
+/**
+ * Specify what DOM element to screenshot. This overrides Cord's
+ * default screenshot behaviour, which is to take a screenshot of
+ * the current vieport.
+ *
+ * You can set this to `undefined` to enable Cord's default behaviour again.
+ */
 export type ScreenshotConfig =
   | {
-      targetElement: HTMLElement | null;
+      /**
+       * The screenshot will only include this DOM
+       * element and all of its children.
+       */
+      targetElement: HTMLElement;
+      /**
+       * Crop the screenshot to a specific rectangle within the target element. All values must be specified in pixels.
+       */
+      cropRectangle?: Partial<{
+        /** X coordinate of the top left corner of the rectangle. By default, this matches the top left corner of the `targetElement` */
+        x: number;
+        /** Y coordinate of the top left corner of the rectangle. By default, this matches the top left corner of the `targetElement` */
+        y: number;
+        /** By default, this is the width of the `targetElement` */
+        width: number;
+        /** By default, this is the height of the `targetElement` */
+        height: number;
+      }>;
     }
   | undefined;
 

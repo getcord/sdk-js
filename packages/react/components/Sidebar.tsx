@@ -21,24 +21,27 @@ const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Sidebar,
 );
 
-export type SidebarReactComponentProps = ReactPropsWithLocation<{
-  showCloseButton?: boolean;
-  showInbox?: boolean;
-  showPresence?: boolean;
-  showPinsOnPage?: boolean;
-  excludeViewerFromPresence?: boolean;
-  showAllActivity?: boolean;
-  open?: boolean;
-  showLauncher?: boolean;
-  threadName?: string;
-  screenshotConfig?: ScreenshotConfig;
-  onOpen?: (...args: SidebarWebComponentEvents['open']) => unknown;
-  onClose?: (...args: SidebarWebComponentEvents['close']) => unknown;
-  onThreadOpen?: (...args: SidebarWebComponentEvents['threadopen']) => unknown;
-  onThreadClose?: (
-    ...args: SidebarWebComponentEvents['threadclose']
-  ) => unknown;
-}>;
+export type SidebarReactComponentProps = ReactPropsWithLocation<
+  {
+    showCloseButton?: boolean;
+    showInbox?: boolean;
+    showPresence?: boolean;
+    showPinsOnPage?: boolean;
+    excludeViewerFromPresence?: boolean;
+    showAllActivity?: boolean;
+    open?: boolean;
+    showLauncher?: boolean;
+    threadName?: string;
+    onOpen?: (...args: SidebarWebComponentEvents['open']) => unknown;
+    onClose?: (...args: SidebarWebComponentEvents['close']) => unknown;
+    onThreadOpen?: (
+      ...args: SidebarWebComponentEvents['threadopen']
+    ) => unknown;
+    onThreadClose?: (
+      ...args: SidebarWebComponentEvents['threadclose']
+    ) => unknown;
+  } & { screenshotConfig?: ScreenshotConfig }
+>;
 
 function SidebarWithForwardedRef(
   props: ReactPropsWithStandardHTMLAttributes<SidebarReactComponentProps>,
