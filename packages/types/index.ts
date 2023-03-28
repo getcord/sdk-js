@@ -1,7 +1,13 @@
 type UUID = string;
 type UserID = string;
 
-export type Location = Record<string, string | number | boolean>;
+/**
+ * `FlatJsonObject` is an object where all values are simple, scalar types
+ * (string, number or boolean).
+ */
+export type FlatJsonObject = Record<string, string | number | boolean>;
+export type Metadata = FlatJsonObject;
+export type Location = FlatJsonObject;
 
 // For backwards compatibility, will be removed along with the deprecated context prop
 export type Context = Location;
@@ -682,5 +688,4 @@ export interface WithScreenshotConfig extends HTMLCordElement {
   screenshotConfig: ScreenshotConfig;
 }
 
-export type Metadata = { [key: string]: string };
 export type ThreadListFilter = { metadata: Metadata };
