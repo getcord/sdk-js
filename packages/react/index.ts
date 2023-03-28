@@ -43,6 +43,23 @@ export {
 } from './components/InboxLauncher';
 export { Inbox, InboxReactComponentProps } from './components/Inbox';
 export { Settings, SettingsReactComponentProps } from './components/Settings';
-
+export {
+  FloatingThreads,
+  FloatingThreadsReactComponentProps,
+  // TODO(flooey): Renamed on 2022-08-31; clean up when all usages are gone
+  FloatingThreads as AnchoredThreads,
+  FloatingThreadsReactComponentProps as AnchoredThreadsReactComponentProps,
+} from './components/FloatingThreads';
+export {
+  NotificationList,
+  NotificationListReactComponentProps,
+} from './components/NotificationList';
+export {
+  NotificationListLauncher,
+  NotificationListLauncherReactComponentProps,
+} from './components/NotificationListLauncher';
+export { useCordThreadSummary } from './hooks/useCordThreadSummary';
+export { useCordNotificationSummary } from './hooks/useCordNotificationSummary';
+// beta is only kept for backwards compatibility, please do not add new things to it!
 export * as beta from './beta';
 export * as experimental from './experimental';

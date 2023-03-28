@@ -1,3 +1,5 @@
+// This file is kept purely for backwards compatibility reasons.
+// Everything here should either be available directly or can be found under experimental.
 export {
   FloatingThreads,
   FloatingThreadsReactComponentProps,
@@ -24,5 +26,4 @@ export {
 export { useCordThreadSummary } from './hooks/useCordThreadSummary';
 
 export { Pin, PinReactComponentProps } from './components/Pin';
-
-export { useCordNotificationSummary } from './hooks/useCordNotificationSummary';
+// Please DO NOT add anything new here!
