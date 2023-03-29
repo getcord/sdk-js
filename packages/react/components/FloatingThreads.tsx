@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 
 import type {
   FloatingThreadsWebComponentEvents,
   HTMLCordFloatingThreadsElement,
+  ScreenshotConfig,
 } from '@cord-sdk/types';
 import {
   componentAttributes,
@@ -26,17 +27,23 @@ try {
   // localStorage for some reason not available
 }
 
-export type FloatingThreadsReactComponentProps = ReactPropsWithLocation<{
-  showButton?: boolean;
-  buttonLabel?: string;
-  iconUrl?: string;
-  threadName?: string;
-  disabled?: boolean;
-  showScreenshotPreview?: boolean;
-  onStart?: (...args: FloatingThreadsWebComponentEvents['start']) => unknown;
-  onFinish?: (...args: FloatingThreadsWebComponentEvents['finish']) => unknown;
-  onCancel?: (...args: FloatingThreadsWebComponentEvents['cancel']) => unknown;
-}>;
+export type FloatingThreadsReactComponentProps = ReactPropsWithLocation<
+  {
+    showButton?: boolean;
+    buttonLabel?: string;
+    iconUrl?: string;
+    threadName?: string;
+    disabled?: boolean;
+    showScreenshotPreview?: boolean;
+    onStart?: (...args: FloatingThreadsWebComponentEvents['start']) => unknown;
+    onFinish?: (
+      ...args: FloatingThreadsWebComponentEvents['finish']
+    ) => unknown;
+    onCancel?: (
+      ...args: FloatingThreadsWebComponentEvents['cancel']
+    ) => unknown;
+  } & { screenshotConfig?: ScreenshotConfig }
+>;
 
 export function FloatingThreadsWithForwardedRef(
   props: ReactPropsWithStandardHTMLAttributes<FloatingThreadsReactComponentProps>,
@@ -54,6 +61,17 @@ export function FloatingThreadsWithForwardedRef(
     forwardedRef,
   );
 
+  const combinedSetRef = useCallback(
+    (element: any) => {
+      if (element) {
+        element.screenshotConfig = props.screenshotConfig;
+      }
+
+      setRef(element);
+    },
+    [props.screenshotConfig, setRef],
+  );
+
   useEffect(() => {
     if (shouldLogLoadingTime) {
       console.log(
@@ -64,7 +82,7 @@ export function FloatingThreadsWithForwardedRef(
 
   return (
     <cord-floating-threads
-      ref={setRef}
+      ref={combinedSetRef}
       id={props.id}
       class={props.className}
       style={props.style}
