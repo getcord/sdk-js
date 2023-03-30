@@ -6,7 +6,7 @@ type UserID = string;
  * (string, number or boolean).
  */
 export type FlatJsonObject = Record<string, string | number | boolean>;
-export type Metadata = FlatJsonObject;
+export type EntityMetadata = FlatJsonObject;
 export type Location = FlatJsonObject;
 
 // For backwards compatibility, will be removed along with the deprecated context prop
@@ -688,4 +688,4 @@ export interface WithScreenshotConfig extends HTMLCordElement {
   screenshotConfig: ScreenshotConfig;
 }
 
-export type ThreadListFilter = { metadata: Metadata };
+export type ThreadListFilter = { metadata: EntityMetadata };
