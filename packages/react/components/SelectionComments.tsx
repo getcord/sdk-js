@@ -27,7 +27,7 @@ export function SelectionComments(
       id={props.id}
       class={props.className}
       style={props.style}
-      {...propsToAttributes({ location, ...props })}
+      {...propsToAttributes({ ...props })}
     >
       {props.children}
     </cord-selection-comments>
