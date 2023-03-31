@@ -147,6 +147,7 @@ export interface CreateNotificationVariables {
   template: string;
   url: string;
   type: 'url';
+  metadata?: { [key: string]: string | number | boolean };
 }
 
 /**

@@ -315,10 +315,22 @@
       "recipient_id": { "type": "string" },
       "template": { "type": "string" },
       "url": { "type": "string" },
-      "type": { "type": "string", "enum": ["url"] }
+      "type": { "type": "string", "enum": ["url"] },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": { "type": ["string", "number", "boolean"] },
+        "propertyOrder": []
+      }
     },
     "additionalProperties": false,
-    "propertyOrder": ["actor_id", "recipient_id", "template", "url", "type"],
+    "propertyOrder": [
+      "actor_id",
+      "recipient_id",
+      "template",
+      "url",
+      "type",
+      "metadata"
+    ],
     "required": ["actor_id", "recipient_id", "template", "type", "url"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
