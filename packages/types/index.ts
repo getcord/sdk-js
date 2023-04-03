@@ -426,7 +426,7 @@ export type ThreadInfo = {
 
 /* cord-thread-list */
 export type ThreadListWebComponentEvents = {
-  threadclick: [threadID: string];
+  threadclick: [threadID: string, threadSummary: ThreadSummary];
   threadmouseenter: [threadID: string];
   threadmouseleave: [threadID: string];
   threadresolve: [{ threadID: string }];
