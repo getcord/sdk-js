@@ -217,6 +217,14 @@ export interface ICordUserSDK {
   removeUserListener(ref: ListenerRef): void;
 }
 
+export type ObserveThreadActivitySummaryOptions = {
+  partialMatch?: boolean;
+};
+
+export type ObserveThreadActivitySummaryHookOptions = {
+  partialMatch?: boolean;
+};
+
 export type ThreadActivitySummary = {
   total: number;
   unread: number;
@@ -232,6 +240,7 @@ export interface ICordActivitySDK {
   observeThreadSummary(
     location: Location,
     callback: ThreadActivitySummaryUpdateCallback,
+    options?: ObserveThreadActivitySummaryOptions,
   ): ListenerRef;
   unobserveThreadSummary(ref: ListenerRef): boolean;
 }
