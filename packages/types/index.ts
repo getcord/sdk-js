@@ -265,6 +265,7 @@ export type ThreadSummary = {
   participants: ThreadParticipant[];
   typing: UserID[];
   viewerIsThreadParticipant: boolean;
+  location: Location;
 };
 export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
 
