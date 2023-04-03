@@ -657,7 +657,7 @@ export type HTMLCordThreadElement = WithScreenshotConfig;
 /**
  * Specify what DOM element to screenshot. This overrides Cord's
  * default screenshot behaviour, which is to take a screenshot of
- * the current vieport.
+ * the current viewport.
  *
  * You can set this to `undefined` to enable Cord's default behaviour again.
  */
