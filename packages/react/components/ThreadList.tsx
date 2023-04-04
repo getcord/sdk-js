@@ -27,6 +27,7 @@ export type ThreadListReactComponentProps = ReactPropsWithLocation<{
   mode?: ThreadListMode;
   filter?: ThreadListFilter;
   showPlaceholder?: boolean;
+  partialMatch?: boolean;
   onThreadClick?: (
     ...args: ThreadListWebComponentEvents['threadclick']
   ) => unknown;

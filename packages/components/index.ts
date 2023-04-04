@@ -107,6 +107,7 @@ export const componentAttributes = {
   ThreadList: {
     location: 'json',
     filter: 'json',
+    'partial-match': 'boolean',
     'show-screenshot-preview-in-message': 'boolean',
     'highlight-open-floating-thread': 'boolean',
     mode: 'string',
