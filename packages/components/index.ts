@@ -27,6 +27,7 @@ export type ComponentName = (typeof componentNames)[ElementName];
 
 const InboxSharedAttributes = {
   'show-settings': 'boolean',
+  'show-placeholder': 'boolean',
 } as const;
 
 const InboxSpecificAttributes = {
