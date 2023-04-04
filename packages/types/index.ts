@@ -195,18 +195,20 @@ export interface ICordPresenceSDK {
     matcher: Location,
     options?: GetPresentOptions,
   ): Promise<UserLocationData[]>;
+
   addListener(
     listener: PresenceListener,
     matcher: Location,
     options?: AddListenerOptions,
   ): ListenerRef;
   removeListener(index: ListenerRef): boolean;
-  observePresence(
+
+  observeLocationData(
     matcher: Location,
     callback: PresenceUpdateCallback,
     options?: ObservePresenceOptions,
   ): ListenerRef;
-  unobservePresence(ref: ListenerRef): boolean;
+  unobserveLocationData(ref: ListenerRef): boolean;
 }
 
 export type UserUpdateListener = (user: User) => unknown;

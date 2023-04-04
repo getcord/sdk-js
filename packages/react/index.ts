@@ -35,7 +35,6 @@ export {
   useCordAnnotationClickHandler,
   useCordAnnotationRenderer,
 } from './hooks/useCordAnnotationTargetRef';
-export { useCordPresentUsers } from './hooks/useCordPresentUsers';
 export { useCordThreadActivitySummary } from './hooks/useCordThreadActivitySummary';
 export {
   InboxLauncher,
@@ -60,6 +59,11 @@ export {
 } from './components/NotificationListLauncher';
 export { useCordThreadSummary } from './hooks/useCordThreadSummary';
 export { useCordNotificationSummary } from './hooks/useCordNotificationSummary';
-// beta is only kept for backwards compatibility, please do not add new things to it!
-export * as beta from './beta';
+
+export * as presence from './hooks/presence';
 export * as experimental from './experimental';
+
+// --- Exports kept for backwards-compat only:
+
+export * as beta from './beta';
+export { useLocationData as useCordPresentUsers } from './hooks/presence';

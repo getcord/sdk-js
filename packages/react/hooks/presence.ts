@@ -16,7 +16,7 @@ type Options = {
   includeUserDetails?: boolean;
 };
 
-export function useCordPresentUsers(
+export function useLocationData(
   location: Location,
   options: Options = {},
 ): Array<User & UserPresenceInformation> {
@@ -27,7 +27,7 @@ export function useCordPresentUsers(
     partialMatch = false,
   } = options;
 
-  const { sdk } = useCordContext('useCordPresentUsers');
+  const { sdk } = useCordContext('presence.useLocationSummary');
   const presenceSDK = sdk?.presence;
   const userSDK = sdk?.user;
 
