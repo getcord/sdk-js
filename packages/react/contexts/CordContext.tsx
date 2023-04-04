@@ -151,6 +151,10 @@ export function CordProvider({
       cordScriptUrl ??
       `https://app.cord.com/sdk/v1/sdk.latest.js`;
     scriptTag.addEventListener('load', onLoad);
+    const stylesheetTag = document.createElement('link');
+    stylesheetTag.rel = 'stylesheet';
+    stylesheetTag.href = `${scriptTag.src}`.replace(/\.js$/, '.css');
+    document.head.appendChild(stylesheetTag);
     document.head.appendChild(scriptTag);
 
     if (shouldLogLoadingTime) {
