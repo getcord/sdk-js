@@ -98,6 +98,7 @@ export const componentAttributes = {
     collapsed: 'boolean',
     autofocus: 'boolean',
     'show-header': 'boolean',
+    'show-placeholder': 'boolean',
     'composer-expanded': 'boolean',
     'thread-options': 'json',
   },
