@@ -26,6 +26,7 @@ export type ThreadListReactComponentProps = ReactPropsWithLocation<{
   highlightOpenFloatingThread?: boolean;
   mode?: ThreadListMode;
   filter?: ThreadListFilter;
+  showPlaceholder?: boolean;
   onThreadClick?: (
     ...args: ThreadListWebComponentEvents['threadclick']
   ) => unknown;
