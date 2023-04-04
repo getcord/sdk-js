@@ -11,6 +11,7 @@ const propsToAttributes = propsToAttributeConverter(
 export type NotificationListReactComponentProps = {
   maxCount?: number;
   fetchAdditionalCount?: number;
+  showPlaceholder?: boolean;
 };
 
 export function NotificationList(

@@ -37,6 +37,7 @@ const InboxSpecificAttributes = {
 const NotificationListAttributes = {
   'max-count': 'number',
   'fetch-additional-count': 'number',
+  'show-placeholder': 'boolean',
 } as const;
 
 export const componentAttributes = {
