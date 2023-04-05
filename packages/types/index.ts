@@ -50,6 +50,12 @@ export type NavigateFn = (
   identity: { orgID: string },
 ) => boolean | Promise<boolean>;
 
+export type ScreenshotOptions = Partial<{
+  blur: boolean;
+  show_blurred: BlurDisplayLocation;
+  capture: boolean;
+}>;
+
 export type CordSDKOptions = {
   /**
    * @deprecated The session_token prop has been renamed to client_auth_token.
@@ -59,8 +65,11 @@ export type CordSDKOptions = {
   navigate?: NavigateFn | null;
   enable_tasks?: boolean;
   enable_annotations?: boolean;
+  /** @deprecated use `screenshot_options.blur` instead */
   blur_screenshots?: boolean;
+  /** @deprecated use `screenshot_options.capture` instead */
   enable_screenshot_capture?: boolean;
+  /** @deprecated use `screenshot_options.showBlurred` instead */
   show_blurred_screenshots?: BlurDisplayLocation;
   /**
    * @deprecated The annotation_mode prop has been superseded by enable_annotations
@@ -68,6 +77,7 @@ export type CordSDKOptions = {
   annotation_mode?: AnnotationMode;
   react_package_version?: string;
   thread_options?: ThreadOptions;
+  screenshot_options?: ScreenshotOptions;
   onInitError?: InitErrorCallback;
 };
 

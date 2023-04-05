@@ -9,6 +9,7 @@ import type {
   NavigateFn,
   InitErrorCallback,
   LoadCallback,
+  ScreenshotOptions,
 } from '@cord-sdk/types';
 import useUnpackClientAuthTokenPayload from '@cord-sdk/react/hooks/useUnpackClientAuthTokenPayload';
 
@@ -48,12 +49,10 @@ type Props = {
   clientAuthToken: string | undefined | null;
   enableTasks?: boolean;
   enableAnnotations?: boolean;
-  blurScreenshots?: boolean;
-  enableScreenshotCapture?: boolean;
-  showBlurredScreenshots?: BlurDisplayLocation;
   cordScriptUrl?: string;
   navigate?: NavigateFn | null;
   threadOptions?: ThreadOptions;
+  screenshotOptions?: ScreenshotOptions;
   /**
    * @deprecated The annotationMode prop has been reverted to enableAnnotations
    * `annotationMode: 'none'` should be replaced with `enableAnnotations: false`
@@ -61,6 +60,13 @@ type Props = {
   annotationMode?: AnnotationMode;
   onLoad?: LoadCallback;
   onInitError?: InitErrorCallback;
+
+  /** @deprecated use `screenshotOptions.blur` instead */
+  blurScreenshots?: boolean;
+  /** @deprecated use `screenshotOptions.showBlurred` instead */
+  showBlurredScreenshots?: BlurDisplayLocation;
+  /** @deprecated use `screenshotOptions.capture` instead */
+  enableScreenshotCapture?: boolean;
 };
 
 type ThreadOptions = {
@@ -74,6 +80,7 @@ export function CordProvider({
   blurScreenshots,
   enableScreenshotCapture,
   showBlurredScreenshots,
+  screenshotOptions,
   annotationMode,
   cordScriptUrl,
   navigate,
@@ -170,14 +177,17 @@ export function CordProvider({
 
   useEffect(() => {
     if (sdk && clientAuthToken) {
+      const backwardsCompatibleScreenshotOptions: ScreenshotOptions = {
+        blur: blurScreenshots,
+        capture: enableScreenshotCapture,
+        show_blurred: showBlurredScreenshots,
+        ...screenshotOptions,
+      };
       sdk
         .init({
           client_auth_token: clientAuthToken,
           enable_tasks: enableTasks,
           enable_annotations: enableAnnotations ?? annotationMode !== 'none',
-          blur_screenshots: blurScreenshots,
-          enable_screenshot_capture: enableScreenshotCapture,
-          show_blurred_screenshots: showBlurredScreenshots,
           navigate,
           react_package_version: CORD_REACT_PACKAGE_VERSION,
           thread_options: threadOptions
@@ -186,6 +196,7 @@ export function CordProvider({
                   threadOptions.additionalSubscribersOnCreate,
               }
             : undefined,
+          screenshot_options: backwardsCompatibleScreenshotOptions,
           onInitError,
         })
         .then(() => {
@@ -204,6 +215,7 @@ export function CordProvider({
     onInitError,
     threadOptions,
     enableScreenshotCapture,
+    screenshotOptions,
   ]);
 
   useEffect(() => {
