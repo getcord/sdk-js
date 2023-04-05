@@ -14,4 +14,4 @@ npm install @cord-sdk/react
 
 ## Documentation
 
-You can find the documentation [on the Cord Developer Documentation web site](https://docs.cord.com/reference/client-js/react-api/).
+You can find the documentation [on the Cord Developer Documentation web site](https://docs.cord.com/).
