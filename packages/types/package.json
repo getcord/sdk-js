@@ -1,7 +1,7 @@
 {
   "name": "@cord-sdk/types",
   "description": "Common type declarations for the cord-sdk packages",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
   "files": [
@@ -18,6 +18,9 @@
     "url": "https://github.com/getcord/sdk-js.git",
     "directory": "packages/types"
   },
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
     "eslint": "^8.13.0",
@@ -26,9 +29,6 @@
     "rollup-plugin-typescript2": "^0.31.2",
     "ts-jest": "^29.0.5",
     "typescript": "^4.6.3"
-  },
-  "scripts": {
-    "test": "jest"
   },
   "eslintConfig": {
     "rules": {
