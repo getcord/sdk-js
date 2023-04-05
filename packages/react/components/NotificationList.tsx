@@ -2,6 +2,7 @@ import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
+import type { NotificationListFilter } from '@cord-sdk/types';
 import type { ReactPropsWithStandardHTMLAttributes } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
@@ -12,6 +13,7 @@ export type NotificationListReactComponentProps = {
   maxCount?: number;
   fetchAdditionalCount?: number;
   showPlaceholder?: boolean;
+  filter?: NotificationListFilter;
 };
 
 export function NotificationList(

@@ -701,3 +701,4 @@ export interface WithScreenshotConfig extends HTMLCordElement {
 }
 
 export type ThreadListFilter = { metadata: EntityMetadata };
+export type NotificationListFilter = { metadata: EntityMetadata };
