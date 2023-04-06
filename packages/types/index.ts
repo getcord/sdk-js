@@ -341,11 +341,25 @@ export type NotificationSummaryUpdateCallback = (
 ) => unknown;
 
 export interface ICordNotificationSDK {
-  observeNotificationSummary(
+  observeSummary(
     callback: NotificationSummaryUpdateCallback,
     options?: Record<never, string>,
   ): ListenerRef;
-  unobserveNotificationSummary(ref: ListenerRef): boolean;
+  unobserveSummary(ref: ListenerRef): boolean;
+
+  /**
+   * @deprecated Renamed to observeSummary.
+   */
+  observeNotificationSummary(
+    ...args: Parameters<ICordNotificationSDK['observeSummary']>
+  ): ReturnType<ICordNotificationSDK['observeSummary']>;
+
+  /**
+   * @deprecated Renamed to unobserveSummary.
+   */
+  unobserveNotificationSummary(
+    ...args: Parameters<ICordNotificationSDK['unobserveSummary']>
+  ): ReturnType<ICordNotificationSDK['unobserveSummary']>;
 }
 
 export interface ICordSDK {

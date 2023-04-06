@@ -4,7 +4,7 @@ import type {
   NotificationSummary,
 } from '@cord-sdk/types';
 
-export function useNotificationSummary(
+export function useNotificationSummaryInternal(
   notificationSDK: ICordNotificationSDK | undefined,
   isCordInternalCall: boolean,
 ): NotificationSummary | null {
@@ -15,12 +15,12 @@ export function useNotificationSummary(
       return;
     }
 
-    const listenerRef = notificationSDK.observeNotificationSummary(setSummary, {
+    const listenerRef = notificationSDK.observeSummary(setSummary, {
       __cordInternal: isCordInternalCall,
     });
 
     return () => {
-      notificationSDK.unobserveNotificationSummary(listenerRef);
+      notificationSDK.unobserveSummary(listenerRef);
     };
   }, [notificationSDK, isCordInternalCall]);
 

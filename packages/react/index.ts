@@ -58,12 +58,13 @@ export {
   NotificationListLauncherReactComponentProps,
 } from './components/NotificationListLauncher';
 export { useCordThreadSummary } from './hooks/useCordThreadSummary';
-export { useCordNotificationSummary } from './hooks/useCordNotificationSummary';
 
+export * as notification from './hooks/notification';
 export * as presence from './hooks/presence';
 export * as experimental from './experimental';
 
 // --- Exports kept for backwards-compat only:
 
 export * as beta from './beta';
+export { useSummary as useCordNotificationSummary } from './hooks/notification';
 export { useLocationData as useCordPresentUsers } from './hooks/presence';
