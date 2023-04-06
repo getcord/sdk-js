@@ -23,7 +23,7 @@ export {
   NotificationListLauncherReactComponentProps,
 } from './components/NotificationListLauncher';
 
-export { useCordThreadSummary } from './hooks/useCordThreadSummary';
+export { useThreadSummary as useCordThreadSummary } from './hooks/thread';
 
 export { Pin, PinReactComponentProps } from './components/Pin';
 // Please DO NOT add anything new here!

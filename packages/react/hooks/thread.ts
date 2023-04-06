@@ -6,7 +6,7 @@ import { locationJson } from '@cord-sdk/types';
 import { useEffect, useMemo, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 
-export function useCordThreadSummary(
+export function useThreadSummary(
   id: string,
   options?: ObserveThreadSummaryOptions,
 ): ThreadSummary | null {
