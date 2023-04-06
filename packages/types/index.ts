@@ -50,11 +50,11 @@ export type NavigateFn = (
   identity: { orgID: string },
 ) => boolean | Promise<boolean>;
 
-export type ScreenshotOptions = Partial<{
-  blur: boolean;
-  show_blurred: BlurDisplayLocation;
-  capture: boolean;
-}>;
+export type ScreenshotOptions = {
+  blur?: boolean;
+  show_blurred?: BlurDisplayLocation;
+  capture_when?: CaptureScreenshotEvent[];
+};
 
 export type CordSDKOptions = {
   /**
@@ -583,8 +583,22 @@ export type JsonValue =
 export type JsonObject = { [key: string]: JsonValue | undefined };
 
 const BLUR_DISPLAY_LOCATIONS = ['everywhere', 'outside_page'] as const;
-
 export type BlurDisplayLocation = (typeof BLUR_DISPLAY_LOCATIONS)[number];
+
+const CAPTURE_SCREENSHOT_EVENT = [
+  'new-annotation',
+  'share-via-email',
+  'new-thread',
+  'new-message',
+] as const;
+export type CaptureScreenshotEvent = (typeof CAPTURE_SCREENSHOT_EVENT)[number];
+export function isCaptureScreenshotEvent(
+  captureEvent: string,
+): captureEvent is CaptureScreenshotEvent {
+  return (
+    (CAPTURE_SCREENSHOT_EVENT as readonly string[]).indexOf(captureEvent) !== -1
+  );
+}
 
 export function isBlurDisplayLocation(
   behavior: string,

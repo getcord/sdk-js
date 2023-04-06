@@ -179,7 +179,7 @@ export function CordProvider({
     if (sdk && clientAuthToken) {
       const backwardsCompatibleScreenshotOptions: ScreenshotOptions = {
         blur: blurScreenshots,
-        capture: enableScreenshotCapture,
+        capture_when: enableScreenshotCapture === false ? [] : undefined,
         show_blurred: showBlurredScreenshots,
         ...screenshotOptions,
       };
