@@ -248,13 +248,23 @@ export type ThreadActivitySummaryUpdateCallback = (
   summary: ThreadActivitySummary,
 ) => unknown;
 
+/**
+ * @deprecated All functions in this interface have been renamed.
+ */
 export interface ICordActivitySDK {
+  /**
+   * @deprecated Renamed to sdk.thread.observeLocationSummary.
+   */
   observeThreadSummary(
-    location: Location,
-    callback: ThreadActivitySummaryUpdateCallback,
-    options?: ObserveThreadActivitySummaryOptions,
-  ): ListenerRef;
-  unobserveThreadSummary(ref: ListenerRef): boolean;
+    ...args: Parameters<ICordThreadSDK['observeLocationSummary']>
+  ): ReturnType<ICordThreadSDK['observeLocationSummary']>;
+
+  /**
+   * @deprecated Renamed to sdk.thread.unobserveLocationSummary.
+   */
+  unobserveThreadSummary(
+    ...args: Parameters<ICordThreadSDK['unobserveLocationSummary']>
+  ): ReturnType<ICordThreadSDK['unobserveLocationSummary']>;
 }
 
 export type FetchMoreCallback = (howMany: number) => Promise<void>;
@@ -295,6 +305,13 @@ export type ThreadIDs = PaginationParams & {
 export type ThreadIDsCallback = (ids: ThreadIDs) => unknown;
 
 export interface ICordThreadSDK {
+  observeLocationSummary(
+    location: Location,
+    callback: ThreadActivitySummaryUpdateCallback,
+    options?: ObserveThreadActivitySummaryOptions,
+  ): ListenerRef;
+  unobserveLocationSummary(ref: ListenerRef): boolean;
+
   observeThreadSummary(
     threadId: string,
     callback: ThreadSummaryUpdateCallback,
@@ -374,6 +391,7 @@ export interface ICordSDK {
   annotations: ICordAnnotationSDK;
   presence: ICordPresenceSDK;
   user: ICordUserSDK;
+  /** @deprecated All functions under sdk.activity have been renamed. */
   activity: ICordActivitySDK;
   thread: ICordThreadSDK;
   notification: ICordNotificationSDK;

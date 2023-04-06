@@ -35,7 +35,6 @@ export {
   useCordAnnotationClickHandler,
   useCordAnnotationRenderer,
 } from './hooks/useCordAnnotationTargetRef';
-export { useCordThreadActivitySummary } from './hooks/useCordThreadActivitySummary';
 export {
   InboxLauncher,
   InboxLauncherReactComponentProps,
@@ -69,4 +68,7 @@ export * as experimental from './experimental';
 export * as beta from './beta';
 export { useSummary as useCordNotificationSummary } from './hooks/notification';
 export { useLocationData as useCordPresentUsers } from './hooks/presence';
-export { useThreadSummary as useCordThreadSummary } from './hooks/thread';
+export {
+  useLocationSummary as useCordThreadActivitySummary,
+  useThreadSummary as useCordThreadSummary,
+} from './hooks/thread';
