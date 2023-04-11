@@ -107,7 +107,7 @@ export interface BatchAPIVariables {
 }
 
 /**
- * https://docs.cord.com/in-depth/authentication/
+ * https://docs.cord.com/reference/authentication/
  * @additionalProperties true
  */
 export interface ClientAuthTokenData {

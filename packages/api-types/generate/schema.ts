@@ -219,7 +219,7 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   ClientAuthTokenData: {
-    description: 'https://docs.cord.com/in-depth/authentication/',
+    description: 'https://docs.cord.com/reference/authentication/',
     additionalProperties: true,
     type: 'object',
     properties: {
