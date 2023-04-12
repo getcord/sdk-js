@@ -20,6 +20,7 @@ export const componentNames = {
   'cord-thread-facepile': 'ThreadFacepile',
   'cord-notification-list-launcher': 'NotificationListLauncher',
   'cord-pin': 'Pin',
+  'cord-avatar': 'Avatar',
 } as const;
 
 export type ElementName = keyof typeof componentNames;
@@ -169,6 +170,9 @@ export const componentAttributes = {
     location: 'json',
     'thread-id': 'string',
     'thread-name': 'string',
+  },
+  Avatar: {
+    'user-id': 'string',
   },
 } as const;
 
