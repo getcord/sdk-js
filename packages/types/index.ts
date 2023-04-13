@@ -337,12 +337,13 @@ export interface ICordDumpingGroundSDK {
 
 export type MessageSummary = {
   id: string;
-  timestamp: Date;
+  createdTimestamp: Date;
+  deletedTimestamp: Date | null;
   seen: boolean;
 };
 
 export type ThreadData = PaginationParams & {
-  firstMessage: MessageSummary | undefined;
+  firstMessage: MessageSummary | null;
   messages: MessageSummary[];
 };
 export type ThreadDataCallback = (data: ThreadData) => unknown;

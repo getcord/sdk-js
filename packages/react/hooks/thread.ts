@@ -96,9 +96,7 @@ export function useThreadData(
   options?: ObserveThreadDataOptions,
 ): ThreadData {
   const [messages, setMessages] = useState<MessageSummary[]>([]);
-  const [firstMessage, setFirstMessage] = useState<MessageSummary | undefined>(
-    undefined,
-  );
+  const [firstMessage, setFirstMessage] = useState<MessageSummary | null>(null);
   const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
     () => async (_n: number) => {},
   );
