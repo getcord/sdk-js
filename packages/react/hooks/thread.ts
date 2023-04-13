@@ -3,6 +3,10 @@ import type {
   ThreadActivitySummary,
   ThreadSummary,
   Location,
+  ObserveThreadDataOptions,
+  ThreadData,
+  MessageSummary,
+  FetchMoreCallback,
 } from '@cord-sdk/types';
 import { locationJson } from '@cord-sdk/types';
 import { useEffect, useMemo, useState } from 'react';
@@ -85,4 +89,57 @@ export function useThreadSummary(
   }, [id, optionsMemo, threadSDK]);
 
   return summary;
+}
+
+export function useThreadData(
+  threadId: string,
+  options?: ObserveThreadDataOptions,
+): ThreadData {
+  const [messages, setMessages] = useState<MessageSummary[]>([]);
+  const [firstMessage, setFirstMessage] = useState<MessageSummary | undefined>(
+    undefined,
+  );
+  const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
+    () => async (_n: number) => {},
+  );
+  const [loading, setLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
+
+  const { sdk } = useCordContext('useCordThreadData');
+  const threadSDK = sdk?.thread;
+
+  const locationString = options?.location
+    ? locationJson(options.location)
+    : undefined;
+  const optionsMemo = useMemo(
+    () => ({
+      location: locationString ? JSON.parse(locationString) : undefined,
+      threadName: options?.threadName,
+    }),
+    [locationString, options?.threadName],
+  );
+
+  useEffect(() => {
+    if (!threadSDK) {
+      return;
+    }
+
+    const key = threadSDK.observeThreadData(
+      threadId,
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      ({ messages, firstMessage, fetchMore, loading, hasMore }) => {
+        setMessages(messages);
+        setFirstMessage(firstMessage);
+        setFetchMore(() => fetchMore);
+        setLoading(loading);
+        setHasMore(hasMore);
+      },
+      optionsMemo,
+    );
+    return () => {
+      threadSDK.unobserveThreadData(key);
+    };
+  }, [threadSDK, optionsMemo, threadId]);
+
+  return { messages, firstMessage, fetchMore, loading, hasMore };
 }

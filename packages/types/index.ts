@@ -318,6 +318,13 @@ export interface ICordThreadSDK {
     options?: ObserveThreadSummaryOptions,
   ): ListenerRef;
   unobserveThreadSummary(ref: ListenerRef): boolean;
+
+  observeThreadData(
+    threadId: string,
+    callback: ThreadDataCallback,
+    options?: ObserveThreadDataOptions,
+  ): ListenerRef;
+  unobserveThreadData(ref: ListenerRef): boolean;
 }
 
 export interface ICordDumpingGroundSDK {
@@ -335,19 +342,10 @@ export type MessageSummary = {
 };
 
 export type ThreadData = PaginationParams & {
-  oldestMessage: MessageSummary | undefined;
+  firstMessage: MessageSummary | undefined;
   messages: MessageSummary[];
 };
 export type ThreadDataCallback = (data: ThreadData) => unknown;
-
-export interface ICordMessagesSDK {
-  observeThreadData(
-    threadId: string,
-    callback: ThreadDataCallback,
-    options?: ObserveThreadDataOptions,
-  ): ListenerRef;
-  unobserveThreadData(ref: ListenerRef): boolean;
-}
 
 export type NotificationSummary = {
   unread: number;
@@ -397,7 +395,6 @@ export interface ICordSDK {
   notification: ICordNotificationSDK;
   experimental: {
     dumpingGround: ICordDumpingGroundSDK;
-    messages: ICordMessagesSDK;
   };
 }
 
