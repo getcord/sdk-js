@@ -47,6 +47,12 @@ async function main() {
       .map((s) => [s, tjsGenerator.getSchemaForSymbol(s)]),
   );
 
+  if (Object.keys(jsonSchema).length === 0) {
+    throw new Error(
+      'JSON schema is empty. This is very unlikely to be correct.\nDid you run `npm install` in the "api-types" directory?',
+    );
+  }
+
   // write schema to schema.ts
   await fs.promises.writeFile(
     schemaTsFile,
