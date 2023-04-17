@@ -301,10 +301,10 @@ type ThreadObserverOptions = {
 export type ObserveThreadSummaryOptions = ThreadObserverOptions;
 export type ObserveThreadDataOptions = ThreadObserverOptions;
 
-export type ThreadIDs = PaginationParams & {
-  ids: string[];
+export type ThreadSummaries = PaginationParams & {
+  threads: ThreadSummary[];
 };
-export type ThreadIDsCallback = (ids: ThreadIDs) => unknown;
+export type ThreadIDsCallback = (data: ThreadSummaries) => unknown;
 
 export interface ICordThreadSDK {
   observeLocationSummary(

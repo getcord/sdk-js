@@ -1,16 +1,21 @@
-import type { Location, FetchMoreCallback } from '@cord-sdk/types';
+import type {
+  Location,
+  FetchMoreCallback,
+  ThreadSummaries,
+  ThreadSummary,
+} from '@cord-sdk/types';
 import { locationJson } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 
-export function useCordThreadIDs(location: Location): {
-  ids: string[];
-  fetchMore: FetchMoreCallback;
-} {
-  const [ids, setIds] = useState<string[]>([]);
+export function useCordThreadIDs(location: Location): ThreadSummaries {
+  const [threads, setThreads] = useState<ThreadSummary[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [hasMore, setHasMore] = useState<boolean>(false);
   const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
     () => async (_n: number) => {},
   );
+
   const { sdk } = useCordContext('useCordThreadIDs');
   const dumpingGroundSDK = sdk?.experimental.dumpingGround;
 
@@ -23,15 +28,16 @@ export function useCordThreadIDs(location: Location): {
       return;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
+    // eslint-disable-next-line @typescript-eslint/no-shadow -- use normalised location.
     const location = JSON.parse(locationString);
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
     const key = dumpingGroundSDK.observeThreadIDs(
       location,
-      // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
-      ({ ids, fetchMore }) => {
-        setIds(ids);
+      // eslint-disable-next-line @typescript-eslint/no-shadow -- using to set shadowed vars.
+      ({ threads, loading, hasMore, fetchMore }) => {
+        setThreads(threads);
+        setLoading(loading);
+        setHasMore(hasMore);
         setFetchMore((_: unknown) => fetchMore);
       },
     );
@@ -40,5 +46,5 @@ export function useCordThreadIDs(location: Location): {
     };
   }, [dumpingGroundSDK, locationString]);
 
-  return { ids, fetchMore };
+  return { threads, loading, hasMore, fetchMore };
 }
