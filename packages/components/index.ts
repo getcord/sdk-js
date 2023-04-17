@@ -117,6 +117,7 @@ export const componentAttributes = {
     'partial-match': 'boolean',
     'show-screenshot-preview-in-message': 'boolean',
     'highlight-open-floating-thread': 'boolean',
+    'highlight-thread-id': 'string',
     mode: 'string',
     'show-placeholder': 'boolean',
   },

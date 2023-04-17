@@ -24,6 +24,7 @@ export type ThreadListMode = 'default' | 'experimentalComments';
 export type ThreadListReactComponentProps = ReactPropsWithLocation<{
   showScreenshotPreviewInMessage?: boolean;
   highlightOpenFloatingThread?: boolean;
+  highlightThreadId?: string;
   mode?: ThreadListMode;
   filter?: ThreadListFilter;
   showPlaceholder?: boolean;
