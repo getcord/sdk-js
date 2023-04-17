@@ -1,5 +1,6 @@
 type UUID = string;
 type UserID = string;
+type MessageID = string;
 
 /**
  * `FlatJsonObject` is an object where all values are simple, scalar types
@@ -288,6 +289,7 @@ export type ThreadSummary = {
   typing: UserID[];
   viewerIsThreadParticipant: boolean;
   location: Location;
+  firstMessage: MessageSummary;
 };
 export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
 
@@ -336,7 +338,7 @@ export interface ICordDumpingGroundSDK {
 }
 
 export type MessageSummary = {
-  id: string;
+  id: MessageID;
   createdTimestamp: Date;
   deletedTimestamp: Date | null;
   seen: boolean;
