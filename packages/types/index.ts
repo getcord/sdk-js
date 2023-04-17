@@ -490,6 +490,7 @@ export type ThreadListWebComponentEvents = {
 export type ComposerWebComponentEvents = {
   focus: [{ threadId: string }];
   blur: [{ threadId: string }];
+  close: [{ threadId: string }];
 };
 
 /* cord-inbox-launcher */

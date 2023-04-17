@@ -20,8 +20,10 @@ export type ComposerReactComponentProps = ReactPropsWithLocation<{
   threadName?: string;
   autofocus?: boolean;
   showExpanded?: boolean;
+  showCloseButton?: boolean;
   onFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
   onBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
+  onClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
 }>;
 
 export function Composer(
@@ -30,6 +32,7 @@ export function Composer(
   const setRef = useCustomEventListeners<ComposerWebComponentEvents>({
     focus: props.onFocus,
     blur: props.onBlur,
+    close: props.onClose,
   });
 
   const location = useCordLocation();

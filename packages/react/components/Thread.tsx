@@ -62,6 +62,9 @@ export function Thread(
     {
       focus: props.onFocusComposer,
       blur: props.onBlurComposer,
+      // Decision to not surface to Threads in favour of devs building their own threads if using
+      // the composer component.
+      close: undefined,
     },
     'cord-composer',
   );
