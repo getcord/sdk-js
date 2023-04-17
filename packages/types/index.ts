@@ -172,14 +172,14 @@ export type AddListenerOptions = {
   partial_match?: boolean;
 };
 
-export type PresenceListener = (update: UserLocationData) => void;
+export type PresenceListener = (update: PartialUserLocationData) => void;
 
 export type ObservePresenceOptions = {
   exclude_durable?: boolean;
   partial_match?: boolean;
 };
 
-export type UserLocationData = {
+export type PartialUserLocationData = {
   id: string;
   ephemeral?: {
     locations: Location[] | null;
@@ -187,6 +187,12 @@ export type UserLocationData = {
   durable?: {
     location: Location;
     timestamp: Date;
+  };
+};
+
+export type UserLocationData = PartialUserLocationData & {
+  ephemeral: {
+    locations: Location[];
   };
 };
 
@@ -205,7 +211,7 @@ export interface ICordPresenceSDK {
   getPresent(
     matcher: Location,
     options?: GetPresentOptions,
-  ): Promise<UserLocationData[]>;
+  ): Promise<PartialUserLocationData[]>;
 
   addListener(
     listener: PresenceListener,

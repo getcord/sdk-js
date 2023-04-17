@@ -1,10 +1,10 @@
 import { locationJson } from '@cord-sdk/types';
 import type {
   User,
-  UserLocationData,
   Location,
   ListenerRef,
   UserPresenceInformation,
+  PartialUserLocationData,
 } from '@cord-sdk/types';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
@@ -27,14 +27,14 @@ export function useLocationData(
     partialMatch = false,
   } = options;
 
-  const { sdk } = useCordContext('presence.useLocationSummary');
+  const { sdk } = useCordContext('presence.useLocationData');
   const presenceSDK = sdk?.presence;
   const userSDK = sdk?.user;
 
   const locationString = locationJson(location);
 
   const [userLocations, setUserLocations] = useState<
-    Record<string, UserLocationData>
+    Record<string, PartialUserLocationData>
   >({});
   const [userDetails, setUserDetails] = useState<Record<string, User>>({});
   const userDetailsRef = useRef<Record<string, User>>({});
