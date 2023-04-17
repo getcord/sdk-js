@@ -1,4 +1,9 @@
-import type { BadgeStyle, JsonValue, Orientation } from '@cord-sdk/types';
+import type {
+  BadgeStyle,
+  ComposerSize,
+  JsonValue,
+  Orientation,
+} from '@cord-sdk/types';
 
 export const componentNames = {
   'cord-multiple-cursors': 'MultipleCursors',
@@ -122,6 +127,7 @@ export const componentAttributes = {
     autofocus: 'boolean',
     'show-expanded': 'boolean',
     'show-close-button': 'boolean',
+    size: 'composer-size',
   },
   InboxLauncher: {
     label: 'string',
@@ -182,6 +188,7 @@ export type PropertyTypes = {
   array: any[];
   'badge-style': BadgeStyle;
   orientation: Orientation;
+  'composer-size': ComposerSize;
 };
 
 const enumAttributeConverter =
@@ -209,6 +216,11 @@ export const attributeToPropertyConverters: {
     'badge_with_count',
   ] as const),
   orientation: enumAttributeConverter(['vertical', 'horizontal'] as const),
+  'composer-size': enumAttributeConverter([
+    'small',
+    'medium',
+    'large',
+  ] as const),
 };
 
 export const propertyToAttributeConverters: {
@@ -224,6 +236,7 @@ export const propertyToAttributeConverters: {
   array: (value) => value?.join(','),
   'badge-style': (value) => (value === undefined ? undefined : value || ''),
   orientation: (value) => (value === undefined ? undefined : value || ''),
+  'composer-size': (value) => (value === undefined ? undefined : value || ''),
 };
 
 export function attributeNameToPropName(attributeName: string): string {

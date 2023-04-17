@@ -493,6 +493,9 @@ export type ComposerWebComponentEvents = {
   close: [{ threadId: string }];
 };
 
+export const COMPOSER_SIZE = ['small', 'medium', 'large'] as const;
+export type ComposerSize = (typeof COMPOSER_SIZE)[number];
+
 /* cord-inbox-launcher */
 export type InboxLauncherWebComponentEvents = { click: [] };
 

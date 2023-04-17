@@ -3,7 +3,7 @@ import {
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 
-import type { ComposerWebComponentEvents } from '@cord-sdk/types';
+import type { ComposerSize, ComposerWebComponentEvents } from '@cord-sdk/types';
 import { useCordLocation } from '../hooks/useCordLocation';
 import type {
   ReactPropsWithLocation,
@@ -21,6 +21,7 @@ export type ComposerReactComponentProps = ReactPropsWithLocation<{
   autofocus?: boolean;
   showExpanded?: boolean;
   showCloseButton?: boolean;
+  size?: ComposerSize;
   onFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
   onBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
   onClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
