@@ -311,16 +311,16 @@ export type SortDirection = 'ascending' | 'descending';
 export type SortBy =
   | 'first_message_timestamp'
   | 'most_recent_message_timestamp';
-export type ObserveThreadIDsOptions = {
+export type ObserveLocationDataOptions = {
   sortBy?: SortBy;
   sortDirection?: SortDirection;
   includeResolved?: boolean;
 };
 
-export type ThreadSummaries = PaginationParams & {
+export type LocationData = PaginationParams & {
   threads: ThreadSummary[];
 };
-export type ThreadIDsCallback = (data: ThreadSummaries) => unknown;
+export type LocationDataCallback = (data: LocationData) => unknown;
 
 export interface ICordThreadSDK {
   observeLocationSummary(
@@ -329,6 +329,13 @@ export interface ICordThreadSDK {
     options?: ObserveThreadActivitySummaryOptions,
   ): ListenerRef;
   unobserveLocationSummary(ref: ListenerRef): boolean;
+
+  observeLocationData(
+    location: Location,
+    callback: LocationDataCallback,
+    options?: ObserveLocationDataOptions,
+  ): ListenerRef;
+  unobserveLocationData(ref: ListenerRef): boolean;
 
   observeThreadSummary(
     threadId: string,
@@ -343,15 +350,6 @@ export interface ICordThreadSDK {
     options?: ObserveThreadDataOptions,
   ): ListenerRef;
   unobserveThreadData(ref: ListenerRef): boolean;
-}
-
-export interface ICordDumpingGroundSDK {
-  observeThreadIDs(
-    location: Location,
-    callback: ThreadIDsCallback,
-    options?: ObserveThreadIDsOptions,
-  ): ListenerRef;
-  unobserveThreadIDs(ref: ListenerRef): boolean;
 }
 
 export type MessageSummary = {
@@ -413,9 +411,7 @@ export interface ICordSDK {
   activity: ICordActivitySDK;
   thread: ICordThreadSDK;
   notification: ICordNotificationSDK;
-  experimental: {
-    dumpingGround: ICordDumpingGroundSDK;
-  };
+  experimental: Record<string, never>;
 }
 
 declare global {

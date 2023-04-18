@@ -6,6 +6,8 @@ import type {
   ObserveThreadDataOptions,
   ThreadData,
   MessageSummary,
+  ObserveLocationDataOptions,
+  LocationData,
   FetchMoreCallback,
 } from '@cord-sdk/types';
 import { locationJson } from '@cord-sdk/types';
@@ -89,6 +91,57 @@ export function useThreadSummary(
   }, [id, optionsMemo, threadSDK]);
 
   return summary;
+}
+
+export function useLocationData(
+  location: Location,
+  options?: ObserveLocationDataOptions,
+): LocationData {
+  const [threads, setThreads] = useState<ThreadSummary[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [hasMore, setHasMore] = useState<boolean>(false);
+  const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
+    () => async (_n: number) => {},
+  );
+
+  const { sdk } = useCordContext('useLocationData');
+  const threadSDK = sdk?.thread;
+
+  const locationString = locationJson(location);
+  const optionsMemo = useMemo(
+    () => ({
+      sortBy: options?.sortBy,
+      sortDirection: options?.sortDirection,
+      includeResolved: options?.includeResolved,
+    }),
+    [options?.sortBy, options?.sortDirection, options?.includeResolved],
+  );
+
+  useEffect(() => {
+    if (!threadSDK) {
+      return;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-shadow -- use normalised location.
+    const location = JSON.parse(locationString);
+
+    const key = threadSDK.observeLocationData(
+      location,
+      // eslint-disable-next-line @typescript-eslint/no-shadow -- using to set shadowed vars.
+      ({ threads, loading, hasMore, fetchMore }) => {
+        setThreads(threads);
+        setLoading(loading);
+        setHasMore(hasMore);
+        setFetchMore((_: unknown) => fetchMore);
+      },
+      optionsMemo,
+    );
+    return () => {
+      threadSDK.unobserveLocationData(key);
+    };
+  }, [threadSDK, locationString, optionsMemo]);
+
+  return { threads, loading, hasMore, fetchMore };
 }
 
 export function useThreadData(
