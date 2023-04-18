@@ -735,6 +735,23 @@ export interface HTMLCordFloatingThreadsElement
   extends HTMLCordElement,
     HTMLCordFloatingThreadsFunctions {}
 
+export interface HTMLCordMultipleCursorsFunctions {
+  setTranslations(
+    eventToLocation: (e: MouseEvent) => Location,
+    locationToDocument: (location: Location) =>
+      | {
+          documentX: number;
+          documentY: number;
+        }
+      | null
+      | undefined,
+  ): void;
+}
+
+export interface HTMLCordMultipleCursorsElement
+  extends HTMLCordElement,
+    HTMLCordMultipleCursorsFunctions {}
+
 export type HTMLCordAnchoredThreadsElement = HTMLCordFloatingThreadsElement;
 
 export type ThreadOptions = {

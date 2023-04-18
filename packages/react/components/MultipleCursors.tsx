@@ -1,15 +1,19 @@
-import type { MultipleCursorsWebComponentEvents } from '@cord-sdk/types';
+import * as React from 'react';
+import type {
+  HTMLCordMultipleCursorsElement,
+  MultipleCursorsWebComponentEvents,
+} from '@cord-sdk/types';
 import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 
-import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
 import type {
   ReactPropsWithLocation,
   ReactPropsWithStandardHTMLAttributes,
 } from '../types';
+import { useCustomElementRef } from '../hooks/useCustomElementRef';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.MultipleCursors,
@@ -18,10 +22,14 @@ const propsToAttributes = propsToAttributeConverter(
 export type MultipleCursorsReactComponentProps =
   ReactPropsWithLocation<unknown>;
 
-export function MultipleCursors(
+export function MultipleCursorsWithForwardedRef(
   props: ReactPropsWithStandardHTMLAttributes<MultipleCursorsReactComponentProps>,
+  forwardedRef: React.ForwardedRef<HTMLCordMultipleCursorsElement | null>,
 ) {
-  const setRef = useCustomEventListeners<MultipleCursorsWebComponentEvents>({});
+  const ref = useCustomElementRef<
+    MultipleCursorsWebComponentEvents,
+    HTMLCordMultipleCursorsElement
+  >({}, forwardedRef);
 
   const location = useCordLocation();
 
@@ -30,8 +38,13 @@ export function MultipleCursors(
       id={props.id}
       class={props.className}
       style={props.style}
-      ref={setRef}
+      ref={ref}
       {...propsToAttributes({ location, ...props })}
     />
   );
 }
+
+export const MultipleCursors = React.forwardRef<
+  HTMLCordMultipleCursorsElement | null,
+  MultipleCursorsReactComponentProps
+>(MultipleCursorsWithForwardedRef);
