@@ -307,6 +307,16 @@ type ThreadObserverOptions = {
 export type ObserveThreadSummaryOptions = ThreadObserverOptions;
 export type ObserveThreadDataOptions = ThreadObserverOptions;
 
+export type SortDirection = 'ascending' | 'descending';
+export type SortBy =
+  | 'first_message_timestamp'
+  | 'most_recent_message_timestamp';
+export type ObserveThreadIDsOptions = {
+  sortBy?: SortBy;
+  sortDirection?: SortDirection;
+  includeResolved?: boolean;
+};
+
 export type ThreadSummaries = PaginationParams & {
   threads: ThreadSummary[];
 };
@@ -339,6 +349,7 @@ export interface ICordDumpingGroundSDK {
   observeThreadIDs(
     location: Location,
     callback: ThreadIDsCallback,
+    options?: ObserveThreadIDsOptions,
   ): ListenerRef;
   unobserveThreadIDs(ref: ListenerRef): boolean;
 }

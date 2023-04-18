@@ -3,12 +3,16 @@ import type {
   FetchMoreCallback,
   ThreadSummaries,
   ThreadSummary,
+  ObserveThreadIDsOptions,
 } from '@cord-sdk/types';
 import { locationJson } from '@cord-sdk/types';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 
-export function useCordThreadIDs(location: Location): ThreadSummaries {
+export function useCordThreadIDs(
+  location: Location,
+  options?: ObserveThreadIDsOptions,
+): ThreadSummaries {
   const [threads, setThreads] = useState<ThreadSummary[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState<boolean>(false);
@@ -22,6 +26,14 @@ export function useCordThreadIDs(location: Location): ThreadSummaries {
   // Turn location into a string, which won't change even if location isn't
   // memoized, to avoid rerenders / infinite loop.
   const locationString = locationJson(location);
+  const optionsMemo = useMemo(
+    () => ({
+      sortBy: options?.sortBy,
+      sortDirection: options?.sortDirection,
+      includeResolved: options?.includeResolved,
+    }),
+    [options?.sortBy, options?.sortDirection, options?.includeResolved],
+  );
 
   useEffect(() => {
     if (!dumpingGroundSDK) {
@@ -40,11 +52,12 @@ export function useCordThreadIDs(location: Location): ThreadSummaries {
         setHasMore(hasMore);
         setFetchMore((_: unknown) => fetchMore);
       },
+      optionsMemo,
     );
     return () => {
       dumpingGroundSDK.unobserveThreadIDs(key);
     };
-  }, [dumpingGroundSDK, locationString]);
+  }, [dumpingGroundSDK, locationString, optionsMemo]);
 
   return { threads, loading, hasMore, fetchMore };
 }
