@@ -57,6 +57,7 @@ export {
   NotificationListLauncherReactComponentProps,
 } from './components/NotificationListLauncher';
 export { Avatar, AvatarReactComponentProps } from './components/Avatar';
+export { ComposerReactComponentProps, Composer } from './components/Composer';
 
 export * as notification from './hooks/notification';
 export * as presence from './hooks/presence';
