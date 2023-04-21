@@ -50,24 +50,27 @@ export function Thread(
     >
   >,
 ) {
-  let setRef = useCustomEventListeners<ThreadWebComponentEvents>({
-    threadinfochange: props.onThreadInfoChange,
-    close: props.onClose,
-    resolved: props.onResolved,
-    render: props.onRender,
-    loading: props.onLoading,
-  });
+  const threadEventsListenerSetRef =
+    useCustomEventListeners<ThreadWebComponentEvents>({
+      threadinfochange: props.onThreadInfoChange,
+      close: props.onClose,
+      resolved: props.onResolved,
+      render: props.onRender,
+      loading: props.onLoading,
+    });
 
-  setRef = useCustomEventListeners<ComposerWebComponentEvents>(
-    {
-      focus: props.onFocusComposer,
-      blur: props.onBlurComposer,
-      // Decision to not surface to Threads in favour of devs building their own threads if using
-      // the composer component.
-      close: undefined,
-    },
-    'cord-composer',
-  );
+  const composerEventsListenerSetRef =
+    useCustomEventListeners<ComposerWebComponentEvents>(
+      {
+        focus: props.onFocusComposer,
+        blur: props.onBlurComposer,
+        // Decision to not surface to Threads in favour of devs building their own threads if using
+        // the composer component.
+        close: undefined,
+      },
+      'cord-composer',
+    );
+
   const combinedSetRef = useCallback(
     (element: any) => {
       if (props.forwardRef) {
@@ -78,9 +81,15 @@ export function Thread(
         element.screenshotConfig = props.screenshotConfig;
       }
 
-      setRef(element);
+      threadEventsListenerSetRef(element);
+      composerEventsListenerSetRef(element);
     },
-    [props.forwardRef, setRef, props.screenshotConfig],
+    [
+      props.forwardRef,
+      props.screenshotConfig,
+      composerEventsListenerSetRef,
+      threadEventsListenerSetRef,
+    ],
   );
 
   const location = useCordLocation();
