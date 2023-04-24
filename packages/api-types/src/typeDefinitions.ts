@@ -43,6 +43,11 @@ export interface PlatformUserVariables {
    * @deprecated
    */
   last_name?: string;
+
+  /**
+   * Arbitrary key-value pairs that can be used to store additional information.
+   */
+  metadata?: { [key: string]: string | number | boolean };
 }
 
 export interface PlatformOrganizationVariables {

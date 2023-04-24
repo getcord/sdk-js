@@ -30,6 +30,12 @@
       "last_name": {
         "description": "User's last name. This field is deprecated and has no effect.",
         "type": "string"
+      },
+      "metadata": {
+        "description": "Arbitrary key-value pairs that can be used to store additional information.",
+        "type": "object",
+        "additionalProperties": { "type": ["string", "number", "boolean"] },
+        "propertyOrder": []
       }
     },
     "additionalProperties": false,
@@ -40,7 +46,8 @@
       "status",
       "profile_picture_url",
       "first_name",
-      "last_name"
+      "last_name",
+      "metadata"
     ],
     "required": ["email"],
     "$schema": "http://json-schema.org/draft-07/schema#"
@@ -93,6 +100,12 @@
       "last_name": {
         "description": "User's last name. This field is deprecated and has no effect.",
         "type": "string"
+      },
+      "metadata": {
+        "description": "Arbitrary key-value pairs that can be used to store additional information.",
+        "type": "object",
+        "additionalProperties": { "type": ["string", "number", "boolean"] },
+        "propertyOrder": []
       }
     },
     "additionalProperties": false,
@@ -103,7 +116,8 @@
       "status",
       "profile_picture_url",
       "first_name",
-      "last_name"
+      "last_name",
+      "metadata"
     ],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
@@ -174,6 +188,14 @@
             "last_name": {
               "description": "User's last name. This field is deprecated and has no effect.",
               "type": "string"
+            },
+            "metadata": {
+              "description": "Arbitrary key-value pairs that can be used to store additional information.",
+              "type": "object",
+              "additionalProperties": {
+                "type": ["string", "number", "boolean"]
+              },
+              "propertyOrder": []
             },
             "id": { "$ref": "#/definitions/ID" }
           },
@@ -276,6 +298,12 @@
           "last_name": {
             "description": "User's last name. This field is deprecated and has no effect.",
             "type": "string"
+          },
+          "metadata": {
+            "description": "Arbitrary key-value pairs that can be used to store additional information.",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "number", "boolean"] },
+            "propertyOrder": []
           }
         },
         "additionalProperties": false,
@@ -286,7 +314,8 @@
           "status",
           "profile_picture_url",
           "first_name",
-          "last_name"
+          "last_name",
+          "metadata"
         ],
         "required": ["email"]
       },
@@ -366,6 +395,12 @@
       "last_name": {
         "description": "User's last name. This field is deprecated and has no effect.",
         "type": "string"
+      },
+      "metadata": {
+        "description": "Arbitrary key-value pairs that can be used to store additional information.",
+        "type": "object",
+        "additionalProperties": { "type": ["string", "number", "boolean"] },
+        "propertyOrder": []
       },
       "id": { "$ref": "#/definitions/ID" }
     },
