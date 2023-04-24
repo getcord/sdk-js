@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 
 import type {
   FloatingThreadsWebComponentEvents,
@@ -15,6 +15,7 @@ import type {
   ReactPropsWithStandardHTMLAttributes,
 } from '../types';
 import { useCustomElementRef } from '../hooks/useCustomElementRef';
+import { useCustomPropsRef } from '../hooks/useCustomPropsRef';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.FloatingThreads,
@@ -44,6 +45,10 @@ export type FloatingThreadsReactComponentProps = ReactPropsWithLocation<
     ) => unknown;
   } & { screenshotConfig?: ScreenshotConfig }
 >;
+type PrivateFloatingThreadsReactComponentProps =
+  FloatingThreadsReactComponentProps & {
+    newComponentSwitchConfig?: { [key: string]: boolean };
+  };
 
 export function FloatingThreadsWithForwardedRef(
   props: ReactPropsWithStandardHTMLAttributes<FloatingThreadsReactComponentProps>,
@@ -61,15 +66,14 @@ export function FloatingThreadsWithForwardedRef(
     forwardedRef,
   );
 
-  const combinedSetRef = useCallback(
-    (element: any) => {
-      if (element) {
-        element.screenshotConfig = props.screenshotConfig;
-      }
-
-      setRef(element);
+  const combinedSetRef = useCustomPropsRef(
+    {
+      newComponentSwitchConfig: (
+        props as PrivateFloatingThreadsReactComponentProps
+      ).newComponentSwitchConfig,
+      screenshotConfig: props.screenshotConfig,
     },
-    [props.screenshotConfig, setRef],
+    setRef,
   );
 
   useEffect(() => {

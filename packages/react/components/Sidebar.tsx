@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useCallback } from 'react';
 
 import type {
   HTMLCordSidebarElement,
@@ -16,6 +15,7 @@ import type {
   ReactPropsWithLocation,
   ReactPropsWithStandardHTMLAttributes,
 } from '../types';
+import { useCustomPropsRef } from '../hooks/useCustomPropsRef';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Sidebar,
@@ -43,6 +43,10 @@ export type SidebarReactComponentProps = ReactPropsWithLocation<
   } & { screenshotConfig?: ScreenshotConfig }
 >;
 
+type PrivateSidebarReactComponentProps = SidebarReactComponentProps & {
+  newComponentSwitchConfig?: { [key: string]: boolean };
+};
+
 function SidebarWithForwardedRef(
   props: ReactPropsWithStandardHTMLAttributes<SidebarReactComponentProps>,
   forwardedRef: React.ForwardedRef<HTMLCordSidebarElement | null>,
@@ -61,15 +65,13 @@ function SidebarWithForwardedRef(
     },
     forwardedRef,
   );
-  const combinedSetRef = useCallback(
-    (element: any) => {
-      if (element) {
-        element.screenshotConfig = props.screenshotConfig;
-      }
-
-      ref(element);
+  const combinedSetRef = useCustomPropsRef(
+    {
+      newComponentSwitchConfig: (props as PrivateSidebarReactComponentProps)
+        .newComponentSwitchConfig,
+      screenshotConfig: props.screenshotConfig,
     },
-    [props.screenshotConfig, ref],
+    ref,
   );
 
   const location = useCordLocation();
