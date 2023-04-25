@@ -295,7 +295,7 @@ export type ThreadSummary = {
   typing: UserID[];
   viewerIsThreadParticipant: boolean;
   location: Location;
-  firstMessage: MessageSummary;
+  firstMessage: MessageSummary | null;
 };
 export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
 
