@@ -760,16 +760,20 @@ export type HTMLCordThreadElement = WithScreenshotConfig;
  * Specify what DOM element to screenshot. This overrides Cord's
  * default screenshot behaviour, which is to take a screenshot of
  * the current viewport.
+ * Alternatively, you can provide Cord with your own screenshot,
+ * using `screenshotUrlOverride`.
  *
- * You can set this to `undefined` to enable Cord's default behaviour again.
+ * You can set the `ScreenshotConfig` to `undefined` to re-enable Cord's
+ * default behaviour.
  */
 export type ScreenshotConfig =
   | {
       /**
        * The screenshot will only include this DOM
-       * element and all of its children.
+       * element and all of its children. Unless a screenshotUrlOverride is provided,
+       * in which case the screenshot will be the image available at that URL.
        */
-      targetElement: HTMLElement;
+      targetElement?: HTMLElement;
       /**
        * Crop the screenshot to a specific rectangle within the target element. All values must be specified in pixels.
        */
@@ -783,6 +787,10 @@ export type ScreenshotConfig =
         /** By default, this is the height of the `targetElement` */
         height: number;
       }>;
+      /**
+       * If specified, Cord will NOT take a screenshot and use the image at this URL instead.
+       */
+      screenshotUrlOverride?: string;
     }
   | undefined;
 
