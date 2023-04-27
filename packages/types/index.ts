@@ -55,6 +55,7 @@ export type ScreenshotOptions = {
   blur?: boolean;
   show_blurred?: BlurDisplayLocation;
   capture_when?: CaptureScreenshotEvent[];
+  show_screenshot?: boolean;
 };
 
 export type CordSDKOptions = {
