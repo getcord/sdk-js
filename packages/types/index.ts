@@ -729,7 +729,8 @@ export interface HTMLCordFloatingThreadsFunctions {
 
 export interface HTMLCordFloatingThreadsElement
   extends HTMLCordElement,
-    HTMLCordFloatingThreadsFunctions {}
+    HTMLCordFloatingThreadsFunctions,
+    WithScreenshotConfig {}
 
 export interface HTMLCordMultipleCursorsFunctions {
   setTranslations(
