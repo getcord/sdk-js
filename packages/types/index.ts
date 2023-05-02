@@ -112,6 +112,12 @@ export type Annotation<L extends Location = Location> = {
   location: L;
 };
 
+export type AnnotationWithThreadID<L extends Location = Location> = {
+  id: string;
+  location: L;
+  threadID: string;
+};
+
 export type AnnotationPositionRendererCallback<L extends Location = Location> =
   (
     annotation: Annotation<L>,
@@ -124,7 +130,7 @@ export type AnnotationHandler<L extends Location = Location> = {
     capturePosition: AnnotationCapturePosition,
     element: HTMLElement,
   ) => AnnotationCaptureResult | undefined | void;
-  onAnnotationClick: (annotation: Annotation<L>) => unknown;
+  onAnnotationClick: (annotation: AnnotationWithThreadID<L>) => unknown;
 };
 
 export interface ICordAnnotationSDK {
