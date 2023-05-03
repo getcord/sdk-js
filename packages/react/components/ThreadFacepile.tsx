@@ -1,4 +1,4 @@
-import { experimental, thread } from '@cord-sdk/react';
+import { Facepile, thread } from '@cord-sdk/react';
 
 export function ThreadFacepile({ threadId }: { threadId: string }) {
   const threadSummary = thread.useThreadSummary(threadId);
@@ -8,7 +8,7 @@ export function ThreadFacepile({ threadId }: { threadId: string }) {
   const userIDs = (threadSummary?.participants ?? [])
     .map((u) => u.userID)
     .filter(isDefined);
-  return <experimental.Facepile users={userIDs} />;
+  return <Facepile users={userIDs} />;
 }
 
 function isDefined<T>(value: T | null | undefined): value is T {
