@@ -20,3 +20,13 @@ export function getServerAuthToken(app_id: string, app_secret: string): string {
     expiresIn: '1 min',
   });
 }
+
+export function getApplicationManagementAuthToken(
+  customer_id: string,
+  customer_secret: string,
+): string {
+  return jwt.sign({ customer_id }, customer_secret, {
+    algorithm: 'HS512',
+    expiresIn: '1 min',
+  });
+}
