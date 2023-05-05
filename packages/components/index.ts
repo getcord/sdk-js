@@ -178,6 +178,7 @@ export const componentAttributes = {
   },
   Avatar: {
     'user-id': 'string',
+    'enable-tooltip': 'boolean',
   },
 } as const;
 

@@ -8,6 +8,7 @@ const propsToAttributes = propsToAttributeConverter(componentAttributes.Avatar);
 
 export type AvatarReactComponentProps = {
   userId: string;
+  enableTooltip?: boolean;
 };
 
 export function Avatar(
