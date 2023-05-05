@@ -10,6 +10,7 @@ const propsToAttributes = propsToAttributeConverter(
 
 export type FacepileReactComponentProps = {
   users: string[];
+  enableTooltip?: boolean;
 };
 
 export function Facepile(

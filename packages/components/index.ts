@@ -163,6 +163,7 @@ export const componentAttributes = {
   },
   Facepile: {
     users: 'array',
+    'enable-tooltip': 'boolean',
   },
   NotificationListLauncher: {
     label: 'string',
