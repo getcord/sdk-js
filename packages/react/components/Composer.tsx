@@ -10,6 +10,7 @@ import type {
   ReactPropsWithStandardHTMLAttributes,
 } from '../types';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
+import { useCustomPropsRef } from '../hooks/useCustomPropsRef';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Composer,
@@ -27,6 +28,10 @@ export type ComposerReactComponentProps = ReactPropsWithLocation<{
   onClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
 }>;
 
+type PrivateComposerReactComponentProps = ComposerReactComponentProps & {
+  newComponentSwitchConfig?: { [key: string]: boolean };
+};
+
 export function Composer(
   props: ReactPropsWithStandardHTMLAttributes<ComposerReactComponentProps>,
 ) {
@@ -36,6 +41,14 @@ export function Composer(
     close: props.onClose,
   });
 
+  const combinedSetRef = useCustomPropsRef(
+    {
+      newComponentSwitchConfig: (props as PrivateComposerReactComponentProps)
+        .newComponentSwitchConfig,
+    },
+    setRef,
+  );
+
   const location = useCordLocation();
 
   return (
@@ -43,7 +56,7 @@ export function Composer(
       id={props.id}
       class={props.className}
       style={props.style}
-      ref={setRef}
+      ref={combinedSetRef}
       {...propsToAttributes({ location, ...props })}
     />
   );
