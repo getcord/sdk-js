@@ -1,10 +1,10 @@
 import { locationJson } from '@cord-sdk/types';
 import type {
-  User,
   Location,
   ListenerRef,
   UserPresenceInformation,
   PartialUserLocationData,
+  UserData,
 } from '@cord-sdk/types';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
@@ -19,7 +19,7 @@ type Options = {
 export function useLocationData(
   location: Location,
   options: Options = {},
-): Array<User & UserPresenceInformation> {
+): Array<UserData & UserPresenceInformation> {
   const {
     excludeViewer = false,
     includeUserDetails = false,
@@ -36,8 +36,8 @@ export function useLocationData(
   const [userLocations, setUserLocations] = useState<
     Record<string, PartialUserLocationData>
   >({});
-  const [userDetails, setUserDetails] = useState<Record<string, User>>({});
-  const userDetailsRef = useRef<Record<string, User>>({});
+  const [userDetails, setUserDetails] = useState<Record<string, UserData>>({});
+  const userDetailsRef = useRef<Record<string, UserData>>({});
   userDetailsRef.current = userDetails;
 
   const [viewerID, setViewerID] = useState<string>();
@@ -109,8 +109,8 @@ export function useLocationData(
     // make sure all current user IDs are being observed
     for (const id of currentUserIDs) {
       if (!userDetailsListenersRef.current.has(id)) {
-        const listenerRef = userSDK.addUserListener(id, (user) => {
-          if (mountedRef.current) {
+        const listenerRef = userSDK.observeUserData(id, (user) => {
+          if (mountedRef.current && user) {
             // eslint-disable-next-line @typescript-eslint/no-shadow -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
             setUserDetails((userDetails) => ({
               ...userDetails,
@@ -125,7 +125,7 @@ export function useLocationData(
 
     for (const [id, ref] of userDetailsListenersRef.current.entries()) {
       if (!currentUserIDs.has(id)) {
-        userSDK.removeUserListener(ref);
+        userSDK.unobserveUserData(ref);
         userDetailsListenersRef.current.delete(id);
       }
     }
@@ -139,9 +139,9 @@ export function useLocationData(
     mountedRef.current = true;
 
     // fetch viewer details on mount
-    userSDK.getViewerID().then((id) => {
+    const viewerRef = userSDK.observeViewerData((viewer) => {
       if (mountedRef.current) {
-        setViewerID(id);
+        setViewerID(viewer.id);
       }
     });
 
@@ -150,12 +150,13 @@ export function useLocationData(
     return () => {
       mountedRef.current = false;
       for (const ref of listeners.values()) {
-        userSDK.removeUserListener(ref);
+        userSDK.unobserveUserData(ref);
       }
+      userSDK.unobserveViewerData(viewerRef);
     };
   }, [userSDK]);
 
-  return useMemo<Array<User & UserPresenceInformation>>(() => {
+  return useMemo<Array<UserData & UserPresenceInformation>>(() => {
     if (excludeViewer && viewerID === undefined) {
       // if we're supposed to exclude the viewer, don't return anything
       // until we know who that is
@@ -188,8 +189,10 @@ export function useLocationData(
         ...(includeUserDetails
           ? userDetails[id]
           : {
-              name: null,
+              name: '',
+              shortName: null,
               profilePictureURL: null,
+              metadata: {},
             }),
         id,
         present: Boolean(locationData.ephemeral?.locations?.length),

@@ -235,12 +235,25 @@ export interface ICordPresenceSDK {
   unobserveLocationData(ref: ListenerRef): boolean;
 }
 
-export type UserUpdateListener = (user: User) => unknown;
+export type SingleUserUpdateCallback = (user: UserData | null) => unknown;
+export type MultipleUserUpdateCallback = (
+  users: Record<string, UserData | null>,
+) => unknown;
+export type ViewerUserUpdateCallback = (user: ViewerUserData) => unknown;
 
 export interface ICordUserSDK {
-  getViewerID(): Promise<string>;
-  addUserListener(id: string, listener: UserUpdateListener): ListenerRef;
-  removeUserListener(ref: ListenerRef): void;
+  observeUserData(
+    userID: string,
+    callback: SingleUserUpdateCallback,
+  ): ListenerRef;
+  observeUserData(
+    userIDs: Array<string>,
+    callback: MultipleUserUpdateCallback,
+  ): ListenerRef;
+  unobserveUserData(ref: ListenerRef): boolean;
+
+  observeViewerData(callback: ViewerUserUpdateCallback): ListenerRef;
+  unobserveViewerData(ref: ListenerRef): boolean;
 }
 
 export type ObserveThreadActivitySummaryOptions = {
@@ -709,10 +722,16 @@ export function locationJson(c: Partial<Location>): string {
   );
 }
 
-export type User = {
+export type UserData = {
   id: string;
-  name: string | null;
+  name: string;
+  shortName: string | null;
   profilePictureURL: string | null;
+  metadata: EntityMetadata;
+};
+
+export type ViewerUserData = UserData & {
+  organizationID: string;
 };
 
 export interface HTMLCordElement extends HTMLElement {
