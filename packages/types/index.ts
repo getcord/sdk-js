@@ -306,15 +306,22 @@ export type ThreadParticipant = {
   userID: UserID | null;
 };
 
-export type ThreadSummary = {
+// This is split out for the benefit of api-types.
+export type ThreadVariables = {
   id: string;
+  organizationID: string;
   total: number;
-  unread: number;
   resolved: boolean;
+  resolvedTimestamp: Date | null;
   participants: ThreadParticipant[];
+  name: string;
+  location: Location;
+};
+
+export type ThreadSummary = Omit<ThreadVariables, 'resolvedTimestamp'> & {
+  unread: number;
   typing: UserID[];
   viewerIsThreadParticipant: boolean;
-  location: Location;
   firstMessage: MessageSummary | null;
 };
 export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
