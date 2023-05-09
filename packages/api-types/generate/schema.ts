@@ -375,6 +375,20 @@ export default {
     required: ['actor_id', 'recipient_id', 'template', 'type', 'url'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
+  CreateApplicationVariables: {
+    type: 'object',
+    properties: {
+      name: {
+        description: 'Name of the application',
+        minLength: 1,
+        type: 'string',
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['name'],
+    required: ['name'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
   CreatePlatformUserVariables: {
     additionalProperties: false,
     type: 'object',

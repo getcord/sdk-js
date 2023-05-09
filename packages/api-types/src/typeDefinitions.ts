@@ -155,6 +155,14 @@ export interface CreateNotificationVariables {
   metadata?: { [key: string]: string | number | boolean };
 }
 
+export interface CreateApplicationVariables {
+  /**
+   * Name of the application
+   * @minLength 1
+   */
+  name: string;
+}
+
 /**
  * @deprecated type for deprecated api route
  */

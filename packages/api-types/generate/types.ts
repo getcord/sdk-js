@@ -10,6 +10,7 @@ import type {
   BatchAPIVariables,
   ClientAuthTokenData,
   CreateNotificationVariables,
+  CreateApplicationVariables,
   CreatePlatformUserVariables,
   CreatePlatformOrganizationVariables,
 } from '../src/typeDefinitions';
@@ -23,6 +24,7 @@ export type Types = {
   BatchAPIVariables: BatchAPIVariables;
   ClientAuthTokenData: ClientAuthTokenData;
   CreateNotificationVariables: CreateNotificationVariables;
+  CreateApplicationVariables: CreateApplicationVariables;
   CreatePlatformUserVariables: CreatePlatformUserVariables;
   CreatePlatformOrganizationVariables: CreatePlatformOrganizationVariables;
 };
