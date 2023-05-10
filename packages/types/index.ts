@@ -731,7 +731,7 @@ export function locationJson(c: Partial<Location>): string {
 
 export type UserData = {
   id: string;
-  name: string;
+  name: string | null;
   shortName: string | null;
   profilePictureURL: string | null;
   metadata: EntityMetadata;
