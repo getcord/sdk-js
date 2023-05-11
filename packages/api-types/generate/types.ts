@@ -7,6 +7,7 @@ import type {
   UpdatePlatformUserVariables,
   UpdatePlatformOrganizationVariables,
   UpdatePlatformOrganizationMembersVariables,
+  UpdateThreadVariables,
   BatchAPIVariables,
   ClientAuthTokenData,
   CreateNotificationVariables,
@@ -21,6 +22,7 @@ export type Types = {
   UpdatePlatformUserVariables: UpdatePlatformUserVariables;
   UpdatePlatformOrganizationVariables: UpdatePlatformOrganizationVariables;
   UpdatePlatformOrganizationMembersVariables: UpdatePlatformOrganizationMembersVariables;
+  UpdateThreadVariables: UpdateThreadVariables;
   BatchAPIVariables: BatchAPIVariables;
   ClientAuthTokenData: ClientAuthTokenData;
   CreateNotificationVariables: CreateNotificationVariables;

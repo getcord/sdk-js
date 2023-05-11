@@ -19,6 +19,7 @@
     "directory": "packages/api-types"
   },
   "devDependencies": {
+    "@cord-sdk/types": "0.0.39",
     "prettier": "^2.8.2",
     "rollup": "^2.70.1",
     "rollup-plugin-typescript2": "^0.31.2",

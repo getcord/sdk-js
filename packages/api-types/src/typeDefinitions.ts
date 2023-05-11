@@ -1,4 +1,6 @@
+import type { EntityMetadata, ThreadVariables } from '@cord-sdk/types';
 import type { ID } from './coreTypes';
+
 export interface PlatformUserVariables {
   /**
    * Email address
@@ -47,7 +49,7 @@ export interface PlatformUserVariables {
   /**
    * Arbitrary key-value pairs that can be used to store additional information.
    */
-  metadata?: { [key: string]: string | number | boolean };
+  metadata?: EntityMetadata;
 }
 
 export interface PlatformOrganizationVariables {
@@ -82,6 +84,13 @@ export interface UpdatePlatformOrganizationMembersVariables {
   add?: (string | number)[];
   remove?: (string | number)[];
 }
+
+/**
+ * https://docs.cord.com/reference/rest-api/threads/
+ */
+export type UpdateThreadVariables = Partial<
+  Omit<ThreadVariables, 'total' | 'participants'>
+>;
 
 /**
  * https://docs.cord.com/reference/rest-api/batch/
@@ -152,7 +161,7 @@ export interface CreateNotificationVariables {
   template: string;
   url: string;
   type: 'url';
-  metadata?: { [key: string]: string | number | boolean };
+  metadata?: EntityMetadata;
 }
 
 export interface CreateApplicationVariables {

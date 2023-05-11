@@ -33,7 +33,14 @@ async function main() {
     propOrder: true,
   };
 
-  const tsProgram = ts.createProgram([typeDefinitionsFile], {}, tsCompilerHost);
+  const tsProgram = ts.createProgram(
+    [typeDefinitionsFile],
+    {
+      target: ts.ScriptTarget.ES2019,
+      moduleResolution: ts.ModuleResolutionKind.NodeJs,
+    },
+    tsCompilerHost,
+  );
 
   const tjsGenerator = TJS.buildGenerator(
     tsProgram,

@@ -6,7 +6,7 @@ type MessageID = string;
  * `FlatJsonObject` is an object where all values are simple, scalar types
  * (string, number or boolean).
  */
-export type FlatJsonObject = Record<string, string | number | boolean>;
+export type FlatJsonObject = { [key: string]: string | number | boolean };
 export type EntityMetadata = FlatJsonObject;
 export type Location = FlatJsonObject;
 

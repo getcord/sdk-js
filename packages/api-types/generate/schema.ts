@@ -153,6 +153,34 @@ export default {
     propertyOrder: ['add', 'remove'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
+  UpdateThreadVariables: {
+    description: 'https://docs.cord.com/reference/rest-api/threads/',
+    type: 'object',
+    properties: {
+      location: {
+        description:
+          '`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).',
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
+      },
+      id: { type: 'string' },
+      name: { type: 'string' },
+      resolvedTimestamp: { type: 'string', format: 'date-time' },
+      organizationID: { type: 'string' },
+      resolved: { type: 'boolean' },
+    },
+    additionalProperties: false,
+    propertyOrder: [
+      'location',
+      'id',
+      'name',
+      'resolvedTimestamp',
+      'organizationID',
+      'resolved',
+    ],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
   BatchAPIVariables: {
     description: 'https://docs.cord.com/reference/rest-api/batch/',
     type: 'object',
@@ -358,6 +386,8 @@ export default {
       url: { type: 'string' },
       type: { type: 'string', enum: ['url'] },
       metadata: {
+        description:
+          '`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).',
         type: 'object',
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
