@@ -470,5 +470,43 @@
       "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] }
     },
     "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "CreateMessageVariables": {
+    "type": "object",
+    "properties": {
+      "id": { "type": "string" },
+      "author_id": { "type": "string" },
+      "content": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        }
+      },
+      "url": { "type": "string" },
+      "created_timestamp": { "type": "string", "format": "date-time" },
+      "deleted_timestamp": { "type": "string", "format": "date-time" },
+      "updated_timestamp": { "type": "string", "format": "date-time" },
+      "location": { "type": "string" },
+      "type": {
+        "enum": ["thread_resolved", "thread_unresolved", "user_message"],
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "propertyOrder": [
+      "id",
+      "author_id",
+      "content",
+      "url",
+      "created_timestamp",
+      "deleted_timestamp",
+      "updated_timestamp",
+      "location",
+      "type"
+    ],
+    "required": ["author_id", "content", "id"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
   }
 }

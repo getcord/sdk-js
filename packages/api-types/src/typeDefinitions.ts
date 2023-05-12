@@ -182,3 +182,15 @@ export type CreatePlatformUserVariables = PlatformUserVariables & { id: ID };
  */
 export type CreatePlatformOrganizationVariables =
   PlatformOrganizationVariables & { id: ID };
+
+export interface CreateMessageVariables {
+  id: string;
+  author_id: string;
+  content: object[];
+  url?: string;
+  created_timestamp?: Date | undefined;
+  deleted_timestamp?: Date | undefined;
+  updated_timestamp?: Date | undefined;
+  location?: string;
+  type?: 'user_message' | 'thread_resolved' | 'thread_unresolved';
+}
