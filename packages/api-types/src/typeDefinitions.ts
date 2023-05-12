@@ -173,6 +173,22 @@ export interface CreateApplicationVariables {
 }
 
 /**
+ * https://docs.cord.com/reference/rest-api/applications/
+ */
+export interface UpdateApplicationVariables {
+  /**
+   * Name of the application
+   * @minLength 1
+   */
+  name?: string;
+  /**
+   * URL for the application icon. It should be a square image of 256x256
+   * @format uri
+   */
+  icon?: string;
+}
+
+/**
  * @deprecated type for deprecated api route
  */
 export type CreatePlatformUserVariables = PlatformUserVariables & { id: ID };

@@ -12,6 +12,7 @@ import type {
   ClientAuthTokenData,
   CreateNotificationVariables,
   CreateApplicationVariables,
+  UpdateApplicationVariables,
   CreatePlatformUserVariables,
   CreatePlatformOrganizationVariables,
   CreateMessageVariables,
@@ -28,6 +29,7 @@ export type Types = {
   ClientAuthTokenData: ClientAuthTokenData;
   CreateNotificationVariables: CreateNotificationVariables;
   CreateApplicationVariables: CreateApplicationVariables;
+  UpdateApplicationVariables: UpdateApplicationVariables;
   CreatePlatformUserVariables: CreatePlatformUserVariables;
   CreatePlatformOrganizationVariables: CreatePlatformOrganizationVariables;
   CreateMessageVariables: CreateMessageVariables;

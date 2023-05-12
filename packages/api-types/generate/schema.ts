@@ -419,6 +419,26 @@ export default {
     required: ['name'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
+  UpdateApplicationVariables: {
+    description: 'https://docs.cord.com/reference/rest-api/applications/',
+    type: 'object',
+    properties: {
+      name: {
+        description: 'Name of the application',
+        minLength: 1,
+        type: 'string',
+      },
+      icon: {
+        description:
+          'URL for the application icon. It should be a square image of 256x256',
+        format: 'uri',
+        type: 'string',
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['name', 'icon'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
   CreatePlatformUserVariables: {
     additionalProperties: false,
     type: 'object',
