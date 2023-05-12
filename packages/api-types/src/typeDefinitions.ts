@@ -170,6 +170,11 @@ export interface CreateApplicationVariables {
    * @minLength 1
    */
   name: string;
+  /**
+   * URL for the application icon. It should be a square image of 256x256
+   * @format uri
+   */
+  icon_url?: string;
 }
 
 /**

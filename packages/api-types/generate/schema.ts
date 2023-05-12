@@ -413,9 +413,15 @@ export default {
         minLength: 1,
         type: 'string',
       },
+      icon_url: {
+        description:
+          'URL for the application icon. It should be a square image of 256x256',
+        format: 'uri',
+        type: 'string',
+      },
     },
     additionalProperties: false,
-    propertyOrder: ['name'],
+    propertyOrder: ['name', 'icon_url'],
     required: ['name'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
