@@ -190,7 +190,7 @@ export interface UpdateApplicationVariables {
    * URL for the application icon. It should be a square image of 256x256
    * @format uri
    */
-  icon?: string;
+  icon_url?: string;
 }
 
 /**

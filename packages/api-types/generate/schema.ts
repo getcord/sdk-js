@@ -434,7 +434,7 @@ export default {
         minLength: 1,
         type: 'string',
       },
-      icon: {
+      icon_url: {
         description:
           'URL for the application icon. It should be a square image of 256x256',
         format: 'uri',
@@ -442,7 +442,7 @@ export default {
       },
     },
     additionalProperties: false,
-    propertyOrder: ['name', 'icon'],
+    propertyOrder: ['name', 'icon_url'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreatePlatformUserVariables: {
