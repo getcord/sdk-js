@@ -1,6 +1,6 @@
-type UUID = string;
-type UserID = string;
-type MessageID = string;
+export type UUID = string;
+export type UserID = string;
+export type MessageID = string;
 
 /**
  * `FlatJsonObject` is an object where all values are simple, scalar types
@@ -175,9 +175,9 @@ export type SetPresentOptions = {
   exclusive_within?: Location;
 };
 
-export type AddListenerOptions = {
+export interface AddListenerOptions {
   partial_match?: boolean;
-};
+}
 
 export type PresenceListener = (update: PartialUserLocationData) => void;
 
@@ -256,20 +256,58 @@ export interface ICordUserSDK {
   unobserveViewerData(ref: ListenerRef): boolean;
 }
 
-export type ObserveThreadActivitySummaryOptions = {
+/**
+ * Options for the `observeLocationSummary` function in the Thread API.
+ */
+export interface ObserveThreadActivitySummaryOptions {
+  /**
+   * If `true`, perform [partial
+   * matching](https://docs.cord.com/reference/location#Partial-Matching) on the
+   * specified location. If `false`, fetch information for only exactly the
+   * location specified.
+   *
+   * If unset, defaults to `false`.
+   */
   partialMatch?: boolean;
-};
+}
 
 export type ObserveThreadActivitySummaryHookOptions = {
   partialMatch?: boolean;
 };
 
-export type ThreadActivitySummary = {
+/**
+ * A summary of the activity within a single thread.
+ */
+export interface ThreadActivitySummary {
+  /**
+   * The total number of threads at the
+   * [location](https://docs.cord.com/reference/location), both resolved and
+   * unresolved.
+   */
   total: number;
+  /**
+   * The total number of threads that have messages the current user hasn't seen
+   * yet.
+   *
+   * This will count all threads with unread messages at the location, whether
+   * the current user is subscribed to the thread or not.
+   */
   unread: number;
+  /**
+   * The number of threads that have messages the current user hasn't seen yet
+   * and is subscribed to.
+   *
+   * A user is automatically subscribed to threads relevant to them, for example
+   * because they have sent a message or have been \@-mentioned in them.
+   * `unreadSubscribed` is always less than or equal to `unread`.
+   */
   unreadSubscribed: number;
+  /**
+   * The number of resolved threads. This refers to threads that users have
+   * manually marked as resolved within Cord's UI components.
+   */
   resolved: number;
-};
+}
 
 export type ThreadActivitySummaryUpdateCallback = (
   summary: ThreadActivitySummary,
@@ -326,7 +364,7 @@ export type ThreadSummary = Omit<ThreadVariables, 'resolvedTimestamp'> & {
 };
 export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
 
-type ThreadObserverOptions = {
+export type ThreadObserverOptions = {
   threadName?: string;
   location?: Location;
 };
@@ -350,6 +388,39 @@ export type LocationData = PaginationParams & {
 export type LocationDataCallback = (data: LocationData) => unknown;
 
 export interface ICordThreadSDK {
+  /**
+   * This method allows you to observe summary information about a
+   * [location](https://docs.cord.com/reference/location), including live
+   * updates.
+   * @example Overview
+   * ```javascript
+   * const ref = window.CordSDK.thread.observeLocationSummary(location, callback, options);
+   * window.CordSDK.thread.unobserveLocationSummary(ref);
+   * ```
+   * @example Usage
+   * ```javascript
+   * const ref = window.CordSDK.thread.observeLocationSummary(
+   *   {page: 'document_details'},
+   *   (summary) => {
+   *      // Received an update!
+   *      console.log("Total threads", summary.total);
+   *      console.log("Unread threads", summary.unread);
+   *      console.log("Unread subscribed threads", summary.unreadSubscribed);
+   *      console.log("Resolved threads", summary.resolved);
+   *   },
+   *   {partialMatch: true}
+   * );
+   * // ... Later, when updates are no longer needed ...
+   * window.CordSDK.thread.unobserveLocationSummary(ref);
+   * ```
+   * @param location - The [location](https://docs.cord.com/reference/location) to
+   * fetch summary information for.
+   * @param callback - This callback will be called once with the current location
+   * summary, and then again every time the data changes. The argument passed to
+   * the callback is an object which will contain the fields described under
+   * "Available Data" above.
+   * @param options - Miscellaneous options. See below.
+   */
   observeLocationSummary(
     location: Location,
     callback: ThreadActivitySummaryUpdateCallback,
@@ -609,7 +680,7 @@ export type HighlightedTextConfig = {
   textToDisplay: string | null;
 };
 
-type MultimediaConfig = {
+export type MultimediaConfig = {
   currentTime: number;
 };
 
@@ -636,7 +707,11 @@ export type AdditionalTargetData = {
   } | null;
 };
 
-type FileUploadStatus = 'uploaded' | 'uploading' | 'failed' | 'cancelled';
+export type FileUploadStatus =
+  | 'uploaded'
+  | 'uploading'
+  | 'failed'
+  | 'cancelled';
 export type Screenshot = null | {
   id: UUID;
   name: string;
@@ -658,10 +733,10 @@ export type JsonValue =
 
 export type JsonObject = { [key: string]: JsonValue | undefined };
 
-const BLUR_DISPLAY_LOCATIONS = ['everywhere', 'outside_page'] as const;
+export const BLUR_DISPLAY_LOCATIONS = ['everywhere', 'outside_page'] as const;
 export type BlurDisplayLocation = (typeof BLUR_DISPLAY_LOCATIONS)[number];
 
-const CAPTURE_SCREENSHOT_EVENT = [
+export const CAPTURE_SCREENSHOT_EVENT = [
   'new-annotation',
   'share-via-email',
   'new-thread',
@@ -682,7 +757,11 @@ export function isBlurDisplayLocation(
   return (BLUR_DISPLAY_LOCATIONS as readonly string[]).indexOf(behavior) !== -1;
 }
 
-const ANNOTATION_MODES = ['everywhere', 'custom_targets_only', 'none'] as const;
+export const ANNOTATION_MODES = [
+  'everywhere',
+  'custom_targets_only',
+  'none',
+] as const;
 
 export type AnnotationMode = (typeof ANNOTATION_MODES)[number];
 

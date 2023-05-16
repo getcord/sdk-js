@@ -60,18 +60,20 @@ export { Avatar, AvatarReactComponentProps } from './components/Avatar';
 export { ComposerReactComponentProps, Composer } from './components/Composer';
 export { FacepileReactComponentProps, Facepile } from './components/Facepile';
 
-export * as notification from './hooks/notification';
-export * as presence from './hooks/presence';
-export * as thread from './hooks/thread';
+import * as notification from './hooks/notification';
+import * as presence from './hooks/presence';
+import * as thread from './hooks/thread';
 
-export * as experimental from './experimental';
+import * as experimental from './experimental';
 
 // --- Exports kept for backwards-compat only:
 
-export * as beta from './beta';
+import * as beta from './beta';
 export { useSummary as useCordNotificationSummary } from './hooks/notification';
 export { useLocationData as useCordPresentUsers } from './hooks/presence';
 export {
   useLocationSummary as useCordThreadActivitySummary,
   useThreadSummary as useCordThreadSummary,
 } from './hooks/thread';
+
+export { notification, presence, thread, experimental, beta };
