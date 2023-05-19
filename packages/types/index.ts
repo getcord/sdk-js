@@ -48,7 +48,7 @@ export function isEqualLocation(
 export type NavigateFn = (
   url: string,
   location: Location | null,
-  identity: { orgID: string },
+  info: { orgID: string; threadID: string },
 ) => boolean | Promise<boolean>;
 
 export type ScreenshotOptions = {
