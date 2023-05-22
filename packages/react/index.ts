@@ -63,6 +63,7 @@ export { FacepileReactComponentProps, Facepile } from './components/Facepile';
 import * as notification from './hooks/notification';
 import * as presence from './hooks/presence';
 import * as thread from './hooks/thread';
+import * as user from './hooks/user';
 
 import * as experimental from './experimental';
 
@@ -76,4 +77,4 @@ export {
   useThreadSummary as useCordThreadSummary,
 } from './hooks/thread';
 
-export { notification, presence, thread, experimental, beta };
+export { notification, presence, thread, user, experimental, beta };
