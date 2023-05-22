@@ -89,7 +89,7 @@ export interface UpdatePlatformOrganizationMembersVariables {
  * https://docs.cord.com/reference/rest-api/threads/
  */
 export type UpdateThreadVariables = Partial<
-  Omit<ThreadVariables, 'total' | 'participants'>
+  Omit<ThreadVariables, 'total' | 'participants'> & { userID: string }
 >;
 
 /**

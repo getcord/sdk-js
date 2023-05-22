@@ -169,6 +169,7 @@ export default {
       resolvedTimestamp: { type: 'string', format: 'date-time' },
       organizationID: { type: 'string' },
       resolved: { type: 'boolean' },
+      userID: { type: 'string' },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -178,6 +179,7 @@ export default {
       'resolvedTimestamp',
       'organizationID',
       'resolved',
+      'userID',
     ],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
