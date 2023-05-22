@@ -512,11 +512,7 @@
       "created_timestamp": { "type": "string", "format": "date-time" },
       "deleted_timestamp": { "type": "string", "format": "date-time" },
       "updated_timestamp": { "type": "string", "format": "date-time" },
-      "location": { "type": "string" },
-      "type": {
-        "enum": ["thread_resolved", "thread_unresolved", "user_message"],
-        "type": "string"
-      }
+      "location": { "type": "string" }
     },
     "additionalProperties": false,
     "propertyOrder": [
@@ -527,8 +523,7 @@
       "created_timestamp",
       "deleted_timestamp",
       "updated_timestamp",
-      "location",
-      "type"
+      "location"
     ],
     "required": ["author_id", "content", "id"],
     "$schema": "http://json-schema.org/draft-07/schema#"

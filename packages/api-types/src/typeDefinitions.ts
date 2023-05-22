@@ -214,5 +214,4 @@ export interface CreateMessageVariables {
   deleted_timestamp?: Date | undefined;
   updated_timestamp?: Date | undefined;
   location?: string;
-  type?: 'user_message' | 'thread_resolved' | 'thread_unresolved';
 }

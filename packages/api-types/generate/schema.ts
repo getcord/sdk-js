@@ -527,10 +527,6 @@ export default {
       deleted_timestamp: { type: 'string', format: 'date-time' },
       updated_timestamp: { type: 'string', format: 'date-time' },
       location: { type: 'string' },
-      type: {
-        enum: ['thread_resolved', 'thread_unresolved', 'user_message'],
-        type: 'string',
-      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -542,7 +538,6 @@ export default {
       'deleted_timestamp',
       'updated_timestamp',
       'location',
-      'type',
     ],
     required: ['author_id', 'content', 'id'],
     $schema: 'http://json-schema.org/draft-07/schema#',
