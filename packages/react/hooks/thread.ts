@@ -9,19 +9,49 @@ import type {
   ObserveLocationDataOptions,
   LocationData,
   FetchMoreCallback,
+  ObserveThreadActivitySummaryOptions,
 } from '@cord-sdk/types';
 import { locationJson } from '@cord-sdk/types';
 import { useEffect, useMemo, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 import { useMemoizedLocation } from './useMemoizedLocation';
 
-type Options = {
-  partialMatch?: boolean;
-};
-
+/**
+ * This method allows you to observe summary information about a
+ * [location](https://docs.cord.com/reference/location), including live updates.
+ * @example Overview
+ * ```javascript
+ * import { thread } from '@cord-sdk/react';
+ * const summary = thread.useLocationSummary(location, options);
+ * ```
+ * @example Usage
+ * ```javascript
+ * import { thread } from '@cord-sdk/react';
+ * const summary = thread.useLocationSummary({page: 'document_details'}, {partialMatch: true});
+ * return (
+ *   <div>
+ *     {!summary && "Loading..."}
+ *     {summary && (
+ *       <p>Total threads: {summary.total}</p>
+ *       <p>Unread threads: {summary.unread}</p>
+ *       <p>Unread subscribed threads: {summary.unreadSubscribed}</p>
+ *       <p>Resolved threads: {summary.resolved}</p>
+ *     )}
+ *   </div>
+ * );
+ * ```
+ * @param location - The [location](https://docs.cord.com/reference/location) to
+ * fetch summary information for.
+ * @param options - Miscellaneous options. See below.
+ * @returns The hook will initially return `undefined` while the data loads from
+ * our API. Once it has loaded, your component will re-render and the hook will
+ * return an object containing the fields described under "Available Data"
+ * above. The component will automatically re-render if any of the data changes,
+ * i.e., this data is always "live".
+ */
 export function useLocationSummary(
   location: Location,
-  options?: Options,
+  options?: ObserveThreadActivitySummaryOptions,
 ): ThreadActivitySummary | undefined {
   const { sdk } = useCordContext('thread.useLocationSummary');
   const threadSDK = sdk?.thread;

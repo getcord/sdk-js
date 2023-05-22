@@ -413,13 +413,15 @@ export interface ICordThreadSDK {
    * // ... Later, when updates are no longer needed ...
    * window.CordSDK.thread.unobserveLocationSummary(ref);
    * ```
-   * @param location - The [location](https://docs.cord.com/reference/location) to
-   * fetch summary information for.
-   * @param callback - This callback will be called once with the current location
-   * summary, and then again every time the data changes. The argument passed to
-   * the callback is an object which will contain the fields described under
-   * "Available Data" above.
+   * @param location - The [location](https://docs.cord.com/reference/location)
+   * to fetch summary information for.
+   * @param callback - This callback will be called once with the current
+   * location summary, and then again every time the data changes. The argument
+   * passed to the callback is an object which will contain the fields described
+   * under "Available Data" above.
    * @param options - Miscellaneous options. See below.
+   * @returns A reference number which can be passed to
+   * `unobserveLocationSummary` to stop observing location summary information.
    */
   observeLocationSummary(
     location: Location,
