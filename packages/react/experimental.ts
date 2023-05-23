@@ -1,4 +1,3 @@
-export { MessageReactComponentProps, Message } from './components/Message';
 export { Pin, PinReactComponentProps } from './components/Pin';
 export {
   SelectionComments,

@@ -63,6 +63,7 @@ export {
   AddReaction,
   AddReactionReactComponentProps,
 } from './components/AddReaction';
+export { MessageReactComponentProps, Message } from './components/Message';
 
 import * as notification from './hooks/notification';
 import * as presence from './hooks/presence';
