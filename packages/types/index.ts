@@ -361,6 +361,7 @@ export type ThreadSummary = Omit<ThreadVariables, 'resolvedTimestamp'> & {
   typing: UserID[];
   viewerIsThreadParticipant: boolean;
   firstMessage: MessageSummary | null;
+  metadata: EntityMetadata;
 };
 export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
 
