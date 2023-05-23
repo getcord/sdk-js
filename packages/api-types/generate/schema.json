@@ -431,6 +431,20 @@
     "propertyOrder": ["name", "icon_url"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
+  "DeleteApplicationVariables": {
+    "type": "object",
+    "properties": {
+      "secret": {
+        "description": "Secret key of the application that you want to delete. This can be found\nwithin the Cord Console.",
+        "minLength": 1,
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "propertyOrder": ["secret"],
+    "required": ["secret"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
   "CreatePlatformUserVariables": {
     "additionalProperties": false,
     "type": "object",

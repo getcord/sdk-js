@@ -13,6 +13,7 @@ import type {
   CreateNotificationVariables,
   CreateApplicationVariables,
   UpdateApplicationVariables,
+  DeleteApplicationVariables,
   CreatePlatformUserVariables,
   CreatePlatformOrganizationVariables,
   CreateMessageVariables,
@@ -30,6 +31,7 @@ export type Types = {
   CreateNotificationVariables: CreateNotificationVariables;
   CreateApplicationVariables: CreateApplicationVariables;
   UpdateApplicationVariables: UpdateApplicationVariables;
+  DeleteApplicationVariables: DeleteApplicationVariables;
   CreatePlatformUserVariables: CreatePlatformUserVariables;
   CreatePlatformOrganizationVariables: CreatePlatformOrganizationVariables;
   CreateMessageVariables: CreateMessageVariables;

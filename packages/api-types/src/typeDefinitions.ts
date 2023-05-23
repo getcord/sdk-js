@@ -195,6 +195,15 @@ export interface UpdateApplicationVariables {
   icon_url?: string;
 }
 
+export interface DeleteApplicationVariables {
+  /**
+   * Secret key of the application that you want to delete. This can be found
+   * within the Cord Console.
+   * @minLength 1
+   */
+  secret: string;
+}
+
 /**
  * @deprecated type for deprecated api route
  */
