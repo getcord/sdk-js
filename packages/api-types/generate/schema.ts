@@ -417,7 +417,7 @@ export default {
       },
       icon_url: {
         description:
-          'URL for the application icon. It should be a square image of 256x256',
+          'URL for the application icon. It should be a square image of 256x256.\nThis will be used as the avatar for messages and emails coming from your application.',
         format: 'uri',
         type: 'string',
       },

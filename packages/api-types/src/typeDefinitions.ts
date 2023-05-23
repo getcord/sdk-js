@@ -171,7 +171,8 @@ export interface CreateApplicationVariables {
    */
   name: string;
   /**
-   * URL for the application icon. It should be a square image of 256x256
+   * URL for the application icon. It should be a square image of 256x256.
+   * This will be used as the avatar for messages and emails coming from your application.
    * @format uri
    */
   icon_url?: string;
