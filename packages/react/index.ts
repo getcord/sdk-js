@@ -59,6 +59,10 @@ export {
 export { Avatar, AvatarReactComponentProps } from './components/Avatar';
 export { ComposerReactComponentProps, Composer } from './components/Composer';
 export { FacepileReactComponentProps, Facepile } from './components/Facepile';
+export {
+  AddReaction,
+  AddReactionReactComponentProps,
+} from './components/AddReaction';
 
 import * as notification from './hooks/notification';
 import * as presence from './hooks/presence';
