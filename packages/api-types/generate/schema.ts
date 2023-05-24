@@ -5,13 +5,14 @@ export default {
     properties: {
       email: { description: 'Email address', format: 'email', type: 'string' },
       name: { description: 'Full user name', type: 'string' },
-      short_name: {
+      shortName: {
         description:
           'Short user name. In most cases, this will be preferred over name when set.',
         type: 'string',
       },
+      short_name: { type: 'string' },
       status: { enum: ['active', 'deleted'], type: 'string' },
-      profile_picture_url: {
+      profilePictureURL: {
         anyOf: [
           {
             description:
@@ -21,6 +22,9 @@ export default {
           },
           { type: 'null' },
         ],
+      },
+      profile_picture_url: {
+        anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
       },
       first_name: {
         description:
@@ -44,8 +48,10 @@ export default {
     propertyOrder: [
       'email',
       'name',
+      'shortName',
       'short_name',
       'status',
+      'profilePictureURL',
       'profile_picture_url',
       'first_name',
       'last_name',
@@ -77,13 +83,14 @@ export default {
     properties: {
       email: { description: 'Email address', format: 'email', type: 'string' },
       name: { description: 'Full user name', type: 'string' },
-      short_name: {
+      shortName: {
         description:
           'Short user name. In most cases, this will be preferred over name when set.',
         type: 'string',
       },
+      short_name: { type: 'string' },
       status: { enum: ['active', 'deleted'], type: 'string' },
-      profile_picture_url: {
+      profilePictureURL: {
         anyOf: [
           {
             description:
@@ -93,6 +100,9 @@ export default {
           },
           { type: 'null' },
         ],
+      },
+      profile_picture_url: {
+        anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
       },
       first_name: {
         description:
@@ -116,8 +126,10 @@ export default {
     propertyOrder: [
       'email',
       'name',
+      'shortName',
       'short_name',
       'status',
+      'profilePictureURL',
       'profile_picture_url',
       'first_name',
       'last_name',
@@ -202,13 +214,14 @@ export default {
               type: 'string',
             },
             name: { description: 'Full user name', type: 'string' },
-            short_name: {
+            shortName: {
               description:
                 'Short user name. In most cases, this will be preferred over name when set.',
               type: 'string',
             },
+            short_name: { type: 'string' },
             status: { enum: ['active', 'deleted'], type: 'string' },
-            profile_picture_url: {
+            profilePictureURL: {
               anyOf: [
                 {
                   description:
@@ -218,6 +231,9 @@ export default {
                 },
                 { type: 'null' },
               ],
+            },
+            profile_picture_url: {
+              anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
             },
             first_name: {
               description:
@@ -312,13 +328,14 @@ export default {
             type: 'string',
           },
           name: { description: 'Full user name', type: 'string' },
-          short_name: {
+          shortName: {
             description:
               'Short user name. In most cases, this will be preferred over name when set.',
             type: 'string',
           },
+          short_name: { type: 'string' },
           status: { enum: ['active', 'deleted'], type: 'string' },
-          profile_picture_url: {
+          profilePictureURL: {
             anyOf: [
               {
                 description:
@@ -328,6 +345,9 @@ export default {
               },
               { type: 'null' },
             ],
+          },
+          profile_picture_url: {
+            anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
           },
           first_name: {
             description:
@@ -351,8 +371,10 @@ export default {
         propertyOrder: [
           'email',
           'name',
+          'shortName',
           'short_name',
           'status',
+          'profilePictureURL',
           'profile_picture_url',
           'first_name',
           'last_name',
@@ -380,16 +402,36 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreateNotificationVariables: {
+    description:
+      'https://docs.staging.cord.com/reference/rest-api/notifications',
     type: 'object',
     properties: {
+      actorID: {
+        description: 'The user sending the notification.',
+        type: 'string',
+      },
       actor_id: { type: 'string' },
+      recipientID: {
+        description: 'The user recieving the notification.',
+        type: 'string',
+      },
       recipient_id: { type: 'string' },
-      template: { type: 'string' },
-      url: { type: 'string' },
-      type: { type: 'string', enum: ['url'] },
-      metadata: {
+      template: {
         description:
-          '`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).',
+          'Template string for the body of the notification. See\nhttps://docs.staging.cord.com/reference/rest-api/notifications',
+        type: 'string',
+      },
+      url: {
+        description: 'URL linked to when the notification is clicked.',
+        type: 'string',
+      },
+      type: {
+        description: 'Must be set to "url".',
+        type: 'string',
+        enum: ['url'],
+      },
+      metadata: {
+        description: 'Metadata for the notification.',
         type: 'object',
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
@@ -397,14 +439,16 @@ export default {
     },
     additionalProperties: false,
     propertyOrder: [
+      'actorID',
       'actor_id',
+      'recipientID',
       'recipient_id',
       'template',
       'url',
       'type',
       'metadata',
     ],
-    required: ['actor_id', 'recipient_id', 'template', 'type', 'url'],
+    required: ['template', 'type', 'url'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreateApplicationVariables: {
@@ -468,13 +512,14 @@ export default {
     properties: {
       email: { description: 'Email address', format: 'email', type: 'string' },
       name: { description: 'Full user name', type: 'string' },
-      short_name: {
+      shortName: {
         description:
           'Short user name. In most cases, this will be preferred over name when set.',
         type: 'string',
       },
+      short_name: { type: 'string' },
       status: { enum: ['active', 'deleted'], type: 'string' },
-      profile_picture_url: {
+      profilePictureURL: {
         anyOf: [
           {
             description:
@@ -484,6 +529,9 @@ export default {
           },
           { type: 'null' },
         ],
+      },
+      profile_picture_url: {
+        anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
       },
       first_name: {
         description:

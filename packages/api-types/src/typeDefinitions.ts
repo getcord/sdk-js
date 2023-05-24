@@ -17,6 +17,11 @@ export interface PlatformUserVariables {
   /**
    * Short user name. In most cases, this will be preferred over name when set.
    */
+  shortName?: string;
+
+  /**
+   * @deprecated alias for shortName.
+   */
   short_name?: string;
 
   status?: 'active' | 'deleted';
@@ -27,6 +32,13 @@ export interface PlatformUserVariables {
    * to be encoded as `%20`. We recommend using your programming language's
    * standard URL encoding function, such as `encodeURI` in Javascript.
    *
+   * @nullable
+   * @format uri
+   */
+  profilePictureURL?: string | null;
+
+  /**
+   * @deprecated alias for profilePictureURL.
    * @nullable
    * @format uri
    */
@@ -154,13 +166,49 @@ export interface ClientAuthTokenData {
   organization_details?: PlatformOrganizationVariables;
 }
 
-// TODO(notifications E-2678) document this before public release.
+/**
+ * https://docs.staging.cord.com/reference/rest-api/notifications
+ */
 export interface CreateNotificationVariables {
-  actor_id: string;
-  recipient_id: string;
+  /**
+   * The user sending the notification.
+   */
+  actorID?: string;
+
+  /**
+   * @deprecated alias for actorID.
+   */
+  actor_id?: string;
+
+  /**
+   * The user recieving the notification.
+   */
+  recipientID?: string;
+
+  /**
+   * @deprecated alias for recipientID.
+   */
+  recipient_id?: string;
+
+  /**
+   * Template string for the body of the notification. See
+   * https://docs.staging.cord.com/reference/rest-api/notifications
+   */
   template: string;
+
+  /**
+   * URL linked to when the notification is clicked.
+   */
   url: string;
+
+  /**
+   * Must be set to "url".
+   */
   type: 'url';
+
+  /**
+   * Metadata for the notification.
+   */
   metadata?: EntityMetadata;
 }
 
