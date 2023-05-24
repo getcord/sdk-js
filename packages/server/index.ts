@@ -8,6 +8,17 @@ export function getClientAuthToken(
   app_secret: string,
   payload: Omit<ClientAuthTokenData, 'app_id'>,
 ): string {
+  if (!payload || !payload.user_id || !payload.organization_id) {
+    // You can't get here in TS -- it's a TS type error -- but not everyone uses
+    // TS.
+    throw new Error(
+      'Missing user_id or organization_id. ' +
+        'A token without a user_id and organization_id is an administrative server auth token ' +
+        '(which should never be given to clients). ' +
+        'If you intended to generate a server auth token, call getServerAuthToken instead.',
+    );
+  }
+
   return jwt.sign({ ...payload, app_id }, app_secret, {
     algorithm: 'HS512',
     expiresIn: '1 min',
