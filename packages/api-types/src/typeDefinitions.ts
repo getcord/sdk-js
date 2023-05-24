@@ -175,7 +175,7 @@ export interface CreateApplicationVariables {
    * This will be used as the avatar for messages and emails coming from your application.
    * @format uri
    */
-  icon_url?: string;
+  iconURL?: string;
 }
 
 /**
@@ -192,7 +192,7 @@ export interface UpdateApplicationVariables {
    * This will be used as the avatar for messages and emails coming from your application.
    * @format uri
    */
-  icon_url?: string;
+  iconURL?: string;
 }
 
 export interface DeleteApplicationVariables {
@@ -217,11 +217,11 @@ export type CreatePlatformOrganizationVariables =
 
 export interface CreateMessageVariables {
   id: string;
-  author_id: string;
+  authorID: string;
   content: object[];
   url?: string;
-  created_timestamp?: Date | undefined;
-  deleted_timestamp?: Date | undefined;
-  updated_timestamp?: Date | undefined;
+  createdTimestamp?: Date | undefined;
+  deletedTimestamp?: Date | undefined;
+  updatedTimestamp?: Date | undefined;
   location?: string;
 }

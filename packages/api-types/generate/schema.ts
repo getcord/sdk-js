@@ -415,7 +415,7 @@ export default {
         minLength: 1,
         type: 'string',
       },
-      icon_url: {
+      iconURL: {
         description:
           'URL for the application icon. It should be a square image of 256x256.\nThis will be used as the avatar for messages and emails coming from your application.',
         format: 'uri',
@@ -423,7 +423,7 @@ export default {
       },
     },
     additionalProperties: false,
-    propertyOrder: ['name', 'icon_url'],
+    propertyOrder: ['name', 'iconURL'],
     required: ['name'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
@@ -436,7 +436,7 @@ export default {
         minLength: 1,
         type: 'string',
       },
-      icon_url: {
+      iconURL: {
         description:
           'URL for the application icon. It should be a square image of 256x256.\nThis will be used as the avatar for messages and emails coming from your application.',
         format: 'uri',
@@ -444,7 +444,7 @@ export default {
       },
     },
     additionalProperties: false,
-    propertyOrder: ['name', 'icon_url'],
+    propertyOrder: ['name', 'iconURL'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   DeleteApplicationVariables: {
@@ -534,29 +534,29 @@ export default {
     type: 'object',
     properties: {
       id: { type: 'string' },
-      author_id: { type: 'string' },
+      authorID: { type: 'string' },
       content: {
         type: 'array',
         items: { type: 'object', properties: {}, additionalProperties: true },
       },
       url: { type: 'string' },
-      created_timestamp: { type: 'string', format: 'date-time' },
-      deleted_timestamp: { type: 'string', format: 'date-time' },
-      updated_timestamp: { type: 'string', format: 'date-time' },
+      createdTimestamp: { type: 'string', format: 'date-time' },
+      deletedTimestamp: { type: 'string', format: 'date-time' },
+      updatedTimestamp: { type: 'string', format: 'date-time' },
       location: { type: 'string' },
     },
     additionalProperties: false,
     propertyOrder: [
       'id',
-      'author_id',
+      'authorID',
       'content',
       'url',
-      'created_timestamp',
-      'deleted_timestamp',
-      'updated_timestamp',
+      'createdTimestamp',
+      'deletedTimestamp',
+      'updatedTimestamp',
       'location',
     ],
-    required: ['author_id', 'content', 'id'],
+    required: ['authorID', 'content', 'id'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
 } as const;
