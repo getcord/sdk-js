@@ -426,19 +426,66 @@ export type PaginationParams = {
 };
 
 export type ThreadParticipant = {
+  /**
+   * The timestamp of the most recent message or reaction that this user has
+   * seen in this thread. Is `null` if this participant has never viewed this
+   * thread.
+   */
   lastSeenTimestamp: Date | null;
+
+  /**
+   * The user ID of the participant. Can be null if the current viewer no longer
+   * shares an [organization](/reference/rest-api/organizations) with this
+   * participant (and therefore can no longer access that participant's
+   * information).
+   */
   userID: UserID | null;
 };
 
 // This is split out for the benefit of api-types.
 export type ThreadVariables = {
+  /**
+   * The ID for this thread.
+   */
   id: string;
+
+  /**
+   * The organization ID this thread is in.
+   */
   organizationID: string;
+
+  /**
+   * The total number of messages in this thread.
+   */
   total: number;
+
+  /**
+   * Whether this thread is resolved. In a GET request, this is equivalent to
+   * `!!resolvedTimestamp`. In a PUT request, setting this to `true` is
+   * equivalent to setting `resolvedTimestamp` to the current time, and setting
+   * this to `false` is equivalent to setting `resolvedTimestamp` to `null`.
+   */
   resolved: boolean;
+
+  /**
+   * The timestamp when this thread was resolved. Set to `null` if this thread
+   * is not resolved.
+   */
   resolvedTimestamp: Date | null;
+
+  /**
+   * All of the users who are subscribed to this thread.
+   */
   participants: ThreadParticipant[];
+
+  /**
+   * The name of this thread.
+   */
   name: string;
+
+  /**
+   * The [location](/reference/location) of this thread.
+   */
   location: Location;
 };
 

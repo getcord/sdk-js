@@ -160,22 +160,122 @@
     "propertyOrder": ["add", "remove"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
+  "ThreadVariables": {
+    "type": "object",
+    "properties": {
+      "id": { "description": "The ID for this thread.", "type": "string" },
+      "organizationID": {
+        "description": "The organization ID this thread is in.",
+        "type": "string"
+      },
+      "total": {
+        "description": "The total number of messages in this thread.",
+        "type": "number"
+      },
+      "resolved": {
+        "description": "Whether this thread is resolved. In a GET request, this is equivalent to\n`!!resolvedTimestamp`. In a PUT request, setting this to `true` is\nequivalent to setting `resolvedTimestamp` to the current time, and setting\nthis to `false` is equivalent to setting `resolvedTimestamp` to `null`.",
+        "type": "boolean"
+      },
+      "resolvedTimestamp": {
+        "description": "The timestamp when this thread was resolved. Set to `null` if this thread\nis not resolved.",
+        "type": "string",
+        "format": "date-time"
+      },
+      "participants": {
+        "description": "All of the users who are subscribed to this thread.",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "lastSeenTimestamp": {
+              "description": "The timestamp of the most recent message or reaction that this user has\nseen in this thread. Is `null` if this participant has never viewed this\nthread.",
+              "type": "string",
+              "format": "date-time"
+            },
+            "userID": {
+              "description": "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/reference/rest-api/organizations) with this\nparticipant (and therefore can no longer access that participant's\ninformation).",
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "propertyOrder": ["lastSeenTimestamp", "userID"],
+          "required": ["lastSeenTimestamp", "userID"]
+        }
+      },
+      "name": { "description": "The name of this thread.", "type": "string" },
+      "location": {
+        "description": "The [location](/reference/location) of this thread.",
+        "type": "object",
+        "additionalProperties": { "type": ["string", "number", "boolean"] },
+        "propertyOrder": []
+      }
+    },
+    "additionalProperties": false,
+    "propertyOrder": [
+      "id",
+      "organizationID",
+      "total",
+      "resolved",
+      "resolvedTimestamp",
+      "participants",
+      "name",
+      "location"
+    ],
+    "required": [
+      "id",
+      "location",
+      "name",
+      "organizationID",
+      "participants",
+      "resolved",
+      "resolvedTimestamp",
+      "total"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "ThreadParticipant": {
+    "type": "object",
+    "properties": {
+      "lastSeenTimestamp": {
+        "description": "The timestamp of the most recent message or reaction that this user has\nseen in this thread. Is `null` if this participant has never viewed this\nthread.",
+        "type": "string",
+        "format": "date-time"
+      },
+      "userID": {
+        "description": "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/reference/rest-api/organizations) with this\nparticipant (and therefore can no longer access that participant's\ninformation).",
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "propertyOrder": ["lastSeenTimestamp", "userID"],
+    "required": ["lastSeenTimestamp", "userID"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
   "UpdateThreadVariables": {
     "description": "https://docs.cord.com/reference/rest-api/threads/",
     "type": "object",
     "properties": {
       "location": {
-        "description": "`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).",
+        "description": "The [location](/reference/location) of this thread.",
         "type": "object",
         "additionalProperties": { "type": ["string", "number", "boolean"] },
         "propertyOrder": []
       },
-      "id": { "type": "string" },
-      "name": { "type": "string" },
-      "resolvedTimestamp": { "type": "string", "format": "date-time" },
-      "organizationID": { "type": "string" },
-      "resolved": { "type": "boolean" },
-      "userID": { "type": "string" }
+      "id": { "description": "The ID for this thread.", "type": "string" },
+      "name": { "description": "The name of this thread.", "type": "string" },
+      "resolvedTimestamp": {
+        "description": "The timestamp when this thread was resolved. Set to `null` if this thread\nis not resolved.",
+        "type": "string",
+        "format": "date-time"
+      },
+      "resolved": {
+        "description": "Whether this thread is resolved. In a GET request, this is equivalent to\n`!!resolvedTimestamp`. In a PUT request, setting this to `true` is\nequivalent to setting `resolvedTimestamp` to the current time, and setting\nthis to `false` is equivalent to setting `resolvedTimestamp` to `null`.",
+        "type": "boolean"
+      },
+      "userID": {
+        "description": "Certain changes to the thread may post a message into the thread -- in\nparticular, resolving or unresolving a thread posts a message into the\nthread saying \"User un/resolved this thread\". This paramter is the ID of\nthe User who will be listed as the author of that message. It's optional\n-- if no user is specified, then those messasges won't get posted.",
+        "type": "string"
+      }
     },
     "additionalProperties": false,
     "propertyOrder": [
@@ -183,7 +283,6 @@
       "id",
       "name",
       "resolvedTimestamp",
-      "organizationID",
       "resolved",
       "userID"
     ],

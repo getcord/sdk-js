@@ -1,4 +1,14 @@
-import type { EntityMetadata, ThreadVariables } from '@cord-sdk/types';
+import type {
+  EntityMetadata,
+
+  // These awkward imports and renames are for the benefit of generate.mjs which
+  // doesn't spit out anything which wasn't actually defiend in this file --
+  // this lets us "define" these types with their proper names in this file (via
+  // importing them to these weird names and then re-defining them with their
+  // actual names).
+  ThreadVariables as ThreadVariables_,
+  ThreadParticipant as ThreadParticipant_,
+} from '@cord-sdk/types';
 import type { ID } from './coreTypes';
 
 export interface PlatformUserVariables {
@@ -97,11 +107,23 @@ export interface UpdatePlatformOrganizationMembersVariables {
   remove?: (string | number)[];
 }
 
+export type ThreadVariables = ThreadVariables_;
+export type ThreadParticipant = ThreadParticipant_;
+
 /**
  * https://docs.cord.com/reference/rest-api/threads/
  */
 export type UpdateThreadVariables = Partial<
-  Omit<ThreadVariables, 'total' | 'participants'> & { userID: string }
+  Omit<ThreadVariables, 'total' | 'participants' | 'organizationID'> & {
+    /**
+     * Certain changes to the thread may post a message into the thread -- in
+     * particular, resolving or unresolving a thread posts a message into the
+     * thread saying "User un/resolved this thread". This paramter is the ID of
+     * the User who will be listed as the author of that message. It's optional
+     * -- if no user is specified, then those messasges won't get posted.
+     */
+    userID: string;
+  }
 >;
 
 /**
