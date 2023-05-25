@@ -218,6 +218,13 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
+      metadata: {
+        description:
+          '`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).',
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -229,10 +236,12 @@ export default {
       'participants',
       'name',
       'location',
+      'metadata',
     ],
     required: [
       'id',
       'location',
+      'metadata',
       'name',
       'organizationID',
       'participants',
@@ -274,6 +283,13 @@ export default {
       },
       id: { description: 'The ID for this thread.', type: 'string' },
       name: { description: 'The name of this thread.', type: 'string' },
+      metadata: {
+        description:
+          '`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).',
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
+      },
       resolvedTimestamp: {
         description:
           'The timestamp when this thread was resolved. Set to `null` if this thread\nis not resolved.',
@@ -296,6 +312,7 @@ export default {
       'location',
       'id',
       'name',
+      'metadata',
       'resolvedTimestamp',
       'resolved',
       'userID',

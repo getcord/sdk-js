@@ -487,6 +487,7 @@ export type ThreadVariables = {
    * The [location](/reference/location) of this thread.
    */
   location: Location;
+  metadata: EntityMetadata;
 };
 
 export type ThreadSummary = Omit<ThreadVariables, 'resolvedTimestamp'> & {
@@ -494,7 +495,6 @@ export type ThreadSummary = Omit<ThreadVariables, 'resolvedTimestamp'> & {
   typing: UserID[];
   viewerIsThreadParticipant: boolean;
   firstMessage: MessageSummary | null;
-  metadata: EntityMetadata;
 };
 export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
 
