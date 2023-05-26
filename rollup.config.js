@@ -5,6 +5,8 @@ import typescript from 'rollup-plugin-typescript2';
 import copy from 'rollup-plugin-copy';
 import replace from '@rollup/plugin-replace';
 
+import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
+
 async function packageBuildConfig(packageName, options = {}) {
   const dirname = path.resolve(__dirname, 'packages', packageName);
 
@@ -41,17 +43,24 @@ async function packageBuildConfig(packageName, options = {}) {
           CORD_REACT_PACKAGE_VERSION: `"${pkg.version}"`,
           preventAssignment: true,
         }),
+        vanillaExtractPlugin(),
       ],
       output: [
         {
           file: path.resolve(dirname, pkg.main),
           format: 'cjs',
           sourcemap: true,
+          assetFileNames({ name }) {
+            return name?.replace(/^packages\/react\//, '') ?? '';
+          },
         },
         {
           file: path.resolve(dirname, pkg.module),
           format: 'es',
           sourcemap: true,
+          assetFileNames({ name }) {
+            return name?.replace(/^packages\/react\//, '') ?? '';
+          },
         },
       ],
     },

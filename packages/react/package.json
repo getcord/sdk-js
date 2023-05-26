@@ -30,6 +30,8 @@
     "@types/react": "^17.0.43",
     "rollup": "^2.70.1",
     "rollup-plugin-typescript2": "^0.31.2",
-    "typescript": "^4.6.3"
+    "typescript": "^4.9.4",
+    "@vanilla-extract/css": "^1.10.0",
+    "@vanilla-extract/rollup-plugin": "^1.2.2"
   }
 }
