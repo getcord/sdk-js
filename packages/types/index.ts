@@ -60,7 +60,7 @@ export type ScreenshotOptions = {
 
 export type CordSDKOptions = {
   /**
-   * @deprecated The session_token prop has been renamed to client_auth_token.
+   * @deprecated The session_token prop has been renamed to client_auth_token
    */
   session_token?: string;
   client_auth_token?: string;
@@ -750,8 +750,8 @@ export type NotificationListLauncherWebComponentEvents = { click: [] };
 export type PinWebComponentEvents = {
   resolve: [];
   click: [];
-  mouseEnter: [];
-  mouseLeave: [];
+  mouseenter: [];
+  mouseleave: [];
 };
 
 /* annotation types */

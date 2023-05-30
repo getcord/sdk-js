@@ -22,8 +22,8 @@ export type PinReactComponentProps = React.PropsWithChildren<
     threadName?: string;
     onResolve?: (...args: PinWebComponentEvents['resolve']) => unknown;
     onClick?: (...args: PinWebComponentEvents['click']) => unknown;
-    onMouseEnter?: (...args: PinWebComponentEvents['mouseEnter']) => unknown;
-    onMouseLeave?: (...args: PinWebComponentEvents['mouseLeave']) => unknown;
+    onMouseEnter?: (...args: PinWebComponentEvents['mouseenter']) => unknown;
+    onMouseLeave?: (...args: PinWebComponentEvents['mouseleave']) => unknown;
   }>
 >;
 
@@ -38,8 +38,8 @@ export function Pin(
     useCustomEventListeners<PinWebComponentEvents>({
       resolve: props.onResolve,
       click: props.onClick,
-      mouseEnter: props.onMouseEnter,
-      mouseLeave: props.onMouseLeave,
+      mouseenter: props.onMouseEnter,
+      mouseleave: props.onMouseLeave,
     });
   const combinedSetRef = useCallback(
     (element: any) => {
