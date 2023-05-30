@@ -19,7 +19,6 @@ const propsToAttributes = propsToAttributeConverter(componentAttributes.Pin);
 export type PinReactComponentProps = React.PropsWithChildren<
   ReactPropsWithLocation<{
     threadId: string;
-    threadName?: string;
     onResolve?: (...args: PinWebComponentEvents['resolve']) => unknown;
     onClick?: (...args: PinWebComponentEvents['click']) => unknown;
     onMouseEnter?: (...args: PinWebComponentEvents['mouseenter']) => unknown;

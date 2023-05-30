@@ -176,7 +176,6 @@ export const componentAttributes = {
   Pin: {
     location: 'json',
     'thread-id': 'string',
-    'thread-name': 'string',
   },
   Avatar: {
     'user-id': 'string',
