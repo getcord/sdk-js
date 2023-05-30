@@ -294,4 +294,9 @@ export interface CreateMessageVariables {
   deletedTimestamp?: Date | undefined;
   updatedTimestamp?: Date | undefined;
   location?: string;
+  /**
+   * @format uri
+   */
+  iconURL?: string;
+  type?: 'action_message' | 'user_message';
 }

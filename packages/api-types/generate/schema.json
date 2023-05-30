@@ -692,7 +692,9 @@
       "createdTimestamp": { "type": "string", "format": "date-time" },
       "deletedTimestamp": { "type": "string", "format": "date-time" },
       "updatedTimestamp": { "type": "string", "format": "date-time" },
-      "location": { "type": "string" }
+      "location": { "type": "string" },
+      "iconURL": { "format": "uri", "type": "string" },
+      "type": { "enum": ["action_message", "user_message"], "type": "string" }
     },
     "additionalProperties": false,
     "propertyOrder": [
@@ -703,7 +705,9 @@
       "createdTimestamp",
       "deletedTimestamp",
       "updatedTimestamp",
-      "location"
+      "location",
+      "iconURL",
+      "type"
     ],
     "required": ["authorID", "content", "id"],
     "$schema": "http://json-schema.org/draft-07/schema#"

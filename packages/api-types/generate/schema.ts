@@ -716,6 +716,8 @@ export default {
       deletedTimestamp: { type: 'string', format: 'date-time' },
       updatedTimestamp: { type: 'string', format: 'date-time' },
       location: { type: 'string' },
+      iconURL: { format: 'uri', type: 'string' },
+      type: { enum: ['action_message', 'user_message'], type: 'string' },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -727,6 +729,8 @@ export default {
       'deletedTimestamp',
       'updatedTimestamp',
       'location',
+      'iconURL',
+      'type',
     ],
     required: ['authorID', 'content', 'id'],
     $schema: 'http://json-schema.org/draft-07/schema#',
