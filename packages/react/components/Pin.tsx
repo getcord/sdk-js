@@ -16,14 +16,16 @@ import type {
 
 const propsToAttributes = propsToAttributeConverter(componentAttributes.Pin);
 
-export type PinReactComponentProps = ReactPropsWithLocation<{
-  threadId: string;
-  threadName?: string;
-  onResolve?: (...args: PinWebComponentEvents['resolve']) => unknown;
-  onClick?: (...args: PinWebComponentEvents['click']) => unknown;
-  onMouseEnter?: (...args: PinWebComponentEvents['mouseEnter']) => unknown;
-  onMouseLeave?: (...args: PinWebComponentEvents['mouseLeave']) => unknown;
-}>;
+export type PinReactComponentProps = React.PropsWithChildren<
+  ReactPropsWithLocation<{
+    threadId: string;
+    threadName?: string;
+    onResolve?: (...args: PinWebComponentEvents['resolve']) => unknown;
+    onClick?: (...args: PinWebComponentEvents['click']) => unknown;
+    onMouseEnter?: (...args: PinWebComponentEvents['mouseEnter']) => unknown;
+    onMouseLeave?: (...args: PinWebComponentEvents['mouseLeave']) => unknown;
+  }>
+>;
 
 export function Pin(
   props: PropsWithRef<
