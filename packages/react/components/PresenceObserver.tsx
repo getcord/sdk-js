@@ -32,9 +32,10 @@ export function PresenceObserver(
   props: ReactPropsWithStandardHTMLAttributes<PresenceObserverReactComponentProps>,
 ) {
   const { onChange } = props;
-  const setRef = useCustomEventListeners<PresenceObserverWebComponentEvents>({
-    change: onChange,
-  });
+  const [setRef, listenersAttached] =
+    useCustomEventListeners<PresenceObserverWebComponentEvents>({
+      change: onChange,
+    });
 
   const location = useCordLocation();
 
@@ -44,6 +45,7 @@ export function PresenceObserver(
       class={props.className}
       style={props.style}
       ref={setRef}
+      buffer-events={!listenersAttached}
       {...propsToAttributes({ location, ...props })}
     >
       {props.children}

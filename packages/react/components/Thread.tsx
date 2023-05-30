@@ -50,16 +50,19 @@ export function Thread(
     >
   >,
 ) {
-  const threadEventsListenerSetRef =
-    useCustomEventListeners<ThreadWebComponentEvents>({
-      threadinfochange: props.onThreadInfoChange,
-      close: props.onClose,
-      resolved: props.onResolved,
-      render: props.onRender,
-      loading: props.onLoading,
-    });
+  const [threadEventsListenerSetRef, threadListenersAttached] =
+    useCustomEventListeners<ThreadWebComponentEvents>(
+      {
+        threadinfochange: props.onThreadInfoChange,
+        close: props.onClose,
+        resolved: props.onResolved,
+        render: props.onRender,
+        loading: props.onLoading,
+      },
+      'cord-thread',
+    );
 
-  const composerEventsListenerSetRef =
+  const [composerEventsListenerSetRef, composerListenersAttached] =
     useCustomEventListeners<ComposerWebComponentEvents>(
       {
         focus: props.onFocusComposer,
@@ -97,6 +100,7 @@ export function Thread(
   return (
     <cord-thread
       id={props.id}
+      buffer-events={!threadListenersAttached || !composerListenersAttached}
       class={props.className}
       style={props.style}
       ref={combinedSetRef}

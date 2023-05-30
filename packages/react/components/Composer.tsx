@@ -35,11 +35,12 @@ type PrivateComposerReactComponentProps = ComposerReactComponentProps & {
 export function Composer(
   props: ReactPropsWithStandardHTMLAttributes<ComposerReactComponentProps>,
 ) {
-  const setRef = useCustomEventListeners<ComposerWebComponentEvents>({
-    focus: props.onFocus,
-    blur: props.onBlur,
-    close: props.onClose,
-  });
+  const [setRef, listenersAttached] =
+    useCustomEventListeners<ComposerWebComponentEvents>({
+      focus: props.onFocus,
+      blur: props.onBlur,
+      close: props.onClose,
+    });
 
   const combinedSetRef = useCustomPropsRef(
     {
@@ -57,6 +58,7 @@ export function Composer(
       class={props.className}
       style={props.style}
       ref={combinedSetRef}
+      buffer-events={!listenersAttached}
       {...propsToAttributes({ location, ...props })}
     />
   );

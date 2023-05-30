@@ -983,6 +983,7 @@ export interface ViewerUserData extends UserData {
 
 export interface HTMLCordElement extends HTMLElement {
   initialised?: true;
+  dispatchCordEvent(e: Event): void;
 }
 
 export interface HTMLCordSidebarFunctions {

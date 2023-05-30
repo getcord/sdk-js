@@ -31,15 +31,17 @@ export function InboxLauncher(
   props: ReactPropsWithStandardHTMLAttributes<InboxLauncherReactComponentProps>,
 ) {
   const { onClick } = props;
-  const setRef = useCustomEventListeners<InboxLauncherWebComponentEvents>({
-    click: onClick,
-  });
+  const [setRef, listenersAttached] =
+    useCustomEventListeners<InboxLauncherWebComponentEvents>({
+      click: onClick,
+    });
   return (
     <cord-inbox-launcher
       id={props.id}
       class={props.className}
       style={props.style}
       ref={setRef}
+      buffer-events={!listenersAttached}
       {...propsToAttributes(props)}
     />
   );

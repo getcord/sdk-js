@@ -32,12 +32,13 @@ export function Pin(
     >
   >,
 ) {
-  const setRef = useCustomEventListeners<PinWebComponentEvents>({
-    resolve: props.onResolve,
-    click: props.onClick,
-    mouseEnter: props.onMouseEnter,
-    mouseLeave: props.onMouseLeave,
-  });
+  const [setRef, listenersAttached] =
+    useCustomEventListeners<PinWebComponentEvents>({
+      resolve: props.onResolve,
+      click: props.onClick,
+      mouseEnter: props.onMouseEnter,
+      mouseLeave: props.onMouseLeave,
+    });
   const combinedSetRef = useCallback(
     (element: any) => {
       if (props.forwardRef) {
@@ -54,6 +55,7 @@ export function Pin(
     <cord-pin
       id={props.id}
       class={props.className}
+      buffer-events={!listenersAttached}
       style={props.style}
       ref={combinedSetRef}
       {...propsToAttributes({ location, ...props })}

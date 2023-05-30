@@ -29,9 +29,10 @@ export function PagePresence(
   props: ReactPropsWithStandardHTMLAttributes<PagePresenceReactComponentProps>,
 ) {
   const { onUpdate } = props;
-  const setRef = useCustomEventListeners<PagePresenceWebComponentEvents>({
-    update: onUpdate,
-  });
+  const [setRef, listenersAttached] =
+    useCustomEventListeners<PagePresenceWebComponentEvents>({
+      update: onUpdate,
+    });
 
   const location = useCordLocation();
 
@@ -41,6 +42,7 @@ export function PagePresence(
       class={props.className}
       style={props.style}
       ref={setRef}
+      buffer-events={!listenersAttached}
       {...propsToAttributes({ location, ...props })}
     />
   );

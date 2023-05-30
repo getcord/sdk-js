@@ -26,7 +26,7 @@ export function MultipleCursorsWithForwardedRef(
   props: ReactPropsWithStandardHTMLAttributes<MultipleCursorsReactComponentProps>,
   forwardedRef: React.ForwardedRef<HTMLCordMultipleCursorsElement | null>,
 ) {
-  const ref = useCustomElementRef<
+  const [ref, listenersAttached] = useCustomElementRef<
     MultipleCursorsWebComponentEvents,
     HTMLCordMultipleCursorsElement
   >({}, forwardedRef);
@@ -39,6 +39,7 @@ export function MultipleCursorsWithForwardedRef(
       class={props.className}
       style={props.style}
       ref={ref}
+      buffer-events={!listenersAttached}
       {...propsToAttributes({ location, ...props })}
     />
   );

@@ -30,9 +30,10 @@ export function Inbox(
 ) {
   const { onCloseRequested } = props;
 
-  const setRef = useCustomEventListeners<InboxWebComponentEvents>({
-    closeRequested: onCloseRequested,
-  });
+  const [setRef, listenersAttached] =
+    useCustomEventListeners<InboxWebComponentEvents>({
+      closeRequested: onCloseRequested,
+    });
 
   return (
     <cord-inbox
@@ -40,6 +41,7 @@ export function Inbox(
       class={props.className}
       style={props.style}
       ref={setRef}
+      buffer-events={!listenersAttached}
       {...propsToAttributes(props)}
     />
   );

@@ -28,9 +28,10 @@ export function PresenceFacepile(
   props: ReactPropsWithStandardHTMLAttributes<PresenceFacepileReactComponentProps>,
 ) {
   const { onUpdate } = props;
-  const setRef = useCustomEventListeners<PresenceFacepileWebComponentEvents>({
-    update: onUpdate,
-  });
+  const [setRef, listenersAttached] =
+    useCustomEventListeners<PresenceFacepileWebComponentEvents>({
+      update: onUpdate,
+    });
 
   const location = useCordLocation();
 
@@ -40,6 +41,7 @@ export function PresenceFacepile(
       class={props.className}
       style={props.style}
       ref={setRef}
+      buffer-events={!listenersAttached}
       {...propsToAttributes({ location, ...props })}
     />
   );

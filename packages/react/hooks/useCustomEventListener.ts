@@ -12,6 +12,7 @@ export function useCustomEventListeners<T extends Record<string, unknown[]>>(
   sourceComponentName?: string,
 ) {
   const [element, setElement] = useState<Element | null>(null);
+  const [listenersAttached, setListenersAttached] = useState(false);
 
   useEffect(() => {
     if (!element) {
@@ -33,13 +34,15 @@ export function useCustomEventListeners<T extends Record<string, unknown[]>>(
 
       return [eventName, customEventHandler] as const;
     });
+    setListenersAttached(true);
 
     return () => {
       for (const [eventName, handler] of handlers) {
         element.removeEventListener(eventName, handler);
       }
+      setListenersAttached(false);
     };
   }, [element, events, sourceComponentName]);
 
-  return setElement;
+  return [setElement, listenersAttached] as const;
 }

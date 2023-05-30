@@ -53,15 +53,16 @@ export function ThreadList(
     ReactPropsWithStandardHTMLAttributes<ThreadListReactComponentProps>
   >,
 ) {
-  const setRef = useCustomEventListeners<ThreadListWebComponentEvents>({
-    threadclick: props.onThreadClick,
-    threadmouseenter: props.onThreadMouseEnter,
-    threadmouseleave: props.onThreadMouseLeave,
-    threadresolve: props.onThreadResolve,
-    threadreopen: props.onThreadReopen,
-    loading: props.onLoading,
-    render: props.onRender,
-  });
+  const [setRef, listenersAttached] =
+    useCustomEventListeners<ThreadListWebComponentEvents>({
+      threadclick: props.onThreadClick,
+      threadmouseenter: props.onThreadMouseEnter,
+      threadmouseleave: props.onThreadMouseLeave,
+      threadresolve: props.onThreadResolve,
+      threadreopen: props.onThreadReopen,
+      loading: props.onLoading,
+      render: props.onRender,
+    });
   const combinedSetRef = useCallback(
     (element: any) => {
       if (props.forwardRef) {
@@ -80,6 +81,7 @@ export function ThreadList(
       class={props.className}
       style={props.style}
       ref={combinedSetRef}
+      buffer-events={!listenersAttached}
       {...propsToAttributes({ location, ...props })}
     />
   );

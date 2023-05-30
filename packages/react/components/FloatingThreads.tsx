@@ -54,7 +54,7 @@ export function FloatingThreadsWithForwardedRef(
   props: ReactPropsWithStandardHTMLAttributes<FloatingThreadsReactComponentProps>,
   forwardedRef: React.ForwardedRef<HTMLCordFloatingThreadsElement | null>,
 ) {
-  const setRef = useCustomElementRef<
+  const [setRef, listenersAttached] = useCustomElementRef<
     FloatingThreadsWebComponentEvents,
     HTMLCordFloatingThreadsElement
   >(
@@ -88,6 +88,7 @@ export function FloatingThreadsWithForwardedRef(
     <cord-floating-threads
       ref={combinedSetRef}
       id={props.id}
+      buffer-events={!listenersAttached}
       class={props.className}
       style={props.style}
       {...propsToAttributes(props)}

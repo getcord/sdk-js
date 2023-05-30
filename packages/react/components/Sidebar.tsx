@@ -53,7 +53,7 @@ function SidebarWithForwardedRef(
 ) {
   const { onOpen, onClose, onThreadOpen, onThreadClose } = props;
 
-  const ref = useCustomElementRef<
+  const [ref, listenersAttached] = useCustomElementRef<
     SidebarWebComponentEvents,
     HTMLCordSidebarElement
   >(
@@ -82,6 +82,7 @@ function SidebarWithForwardedRef(
       class={props.className}
       style={props.style}
       ref={combinedSetRef}
+      buffer-events={!listenersAttached}
       {...propsToAttributes({ location, ...props })}
     />
   );

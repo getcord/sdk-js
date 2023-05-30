@@ -12,14 +12,18 @@ export function useCustomElementRef<
   events: CustomEventsDefinition<Events>,
   forwardedRef: React.ForwardedRef<HTMLElementInterface>,
 ) {
-  const updateCustomEventListeners = useCustomEventListeners(events);
+  const [updateCustomEventListeners, listenersAttached] =
+    useCustomEventListeners(events);
   const updateForwardedRef = useForwardCustomElementRef(forwardedRef);
 
-  return useCallback(
-    (e: HTMLElementInterface | null) => {
-      updateForwardedRef(e);
-      updateCustomEventListeners(e);
-    },
-    [updateCustomEventListeners, updateForwardedRef],
-  );
+  return [
+    useCallback(
+      (e: HTMLElementInterface | null) => {
+        updateForwardedRef(e);
+        updateCustomEventListeners(e);
+      },
+      [updateCustomEventListeners, updateForwardedRef],
+    ),
+    listenersAttached,
+  ] as const;
 }

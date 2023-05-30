@@ -26,9 +26,10 @@ export function SidebarLauncher(
 ) {
   const { onClick } = props;
 
-  const setRef = useCustomEventListeners<SidebarLauncherWebComponentEvents>({
-    click: onClick,
-  });
+  const [setRef, listenersAttached] =
+    useCustomEventListeners<SidebarLauncherWebComponentEvents>({
+      click: onClick,
+    });
 
   return (
     <cord-sidebar-launcher
@@ -36,6 +37,7 @@ export function SidebarLauncher(
       class={props.className}
       style={props.style}
       ref={setRef}
+      buffer-events={!listenersAttached}
       {...propsToAttributes(props)}
     />
   );

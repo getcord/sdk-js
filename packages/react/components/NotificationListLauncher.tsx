@@ -32,7 +32,7 @@ export function NotificationListLauncher(
   props: ReactPropsWithStandardHTMLAttributes<NotificationListLauncherReactComponentProps>,
 ) {
   const { onClick } = props;
-  const setRef =
+  const [setRef, listenersAttached] =
     useCustomEventListeners<NotificationListLauncherWebComponentEvents>({
       click: onClick,
     });
@@ -43,6 +43,7 @@ export function NotificationListLauncher(
       class={props.className}
       style={props.style}
       ref={setRef}
+      buffer-events={!listenersAttached}
       {...propsToAttributes(props)}
     />
   );
