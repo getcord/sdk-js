@@ -64,6 +64,7 @@ export {
   AddReactionReactComponentProps,
 } from './components/AddReaction';
 export { MessageReactComponentProps, Message } from './components/Message';
+export { Pin, PinReactComponentProps } from './components/Pin';
 
 import * as notification from './hooks/notification';
 import * as presence from './hooks/presence';

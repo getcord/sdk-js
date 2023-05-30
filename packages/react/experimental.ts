@@ -1,4 +1,3 @@
-export { Pin, PinReactComponentProps } from './components/Pin';
 export {
   SelectionComments,
   SelectionCommentsReactComponentProps,
