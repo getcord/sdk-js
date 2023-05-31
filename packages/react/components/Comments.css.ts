@@ -48,23 +48,6 @@ globalStyle(`.${threadActionButtonWithReplies}`, {
 globalStyle(`.${threadActionButtonWithReplies}:hover`, {
   background: cssVar('color-base-strong'),
 });
-globalStyle(`.${hr}`, {
-  padding: cssVar('space-2xs'),
-});
-globalStyle(`.${hr}::before`, {
-  display: 'block',
-  content: '',
-  // We need to hardcode the width of the horizontal line to make
-  // sure that the "Show more" text correctly aligns
-  width: '10px',
-  borderTop: `1px solid ${cssVar('color-base-x-strong')}`,
-});
-globalStyle(`.${hr}::after`, {
-  display: 'block',
-  content: '',
-  flexGrow: 1,
-  borderTop: `1px solid ${cssVar('color-base-x-strong')}`,
-});
 
 export const unread = cordifyClassname('unread');
 globalStyle(`.${unread}`, {
@@ -89,3 +72,51 @@ globalStyle(`.${unread} .${threadSummaryFacepile}::before`, {
 });
 
 export const firstThreadMessage = cordifyClassname('first-thread-message');
+
+export const replyMessages = cordifyClassname('reply-messages');
+globalStyle(`.${replyMessages}`, {
+  marginLeft: cssVar('space-l'),
+  padding: cssVar('space-2xs'),
+  display: 'flex',
+  flexDirection: 'column',
+  gap: cssVar('space-2xs'),
+});
+
+export const messageActionButton = cordifyClassname('message-action-button');
+globalStyle(`.${messageActionButton}`, {
+  color: cssVar('color-content-primary'),
+  padding: cssVar('space-2xs'),
+  paddingLeft: `calc(${cssVar('space-l')} + ${cssVar('space-m')})`,
+  display: 'flex',
+  alignItems: 'center',
+  gap: cssVar('space-2xs'),
+  borderRadius: cssVar('space-3xs'),
+  border: 'none',
+  background: 'none',
+  textAlign: 'left',
+  cursor: 'pointer',
+});
+globalStyle(`.${messageActionButton}:hover`, {
+  background: cssVar('color-base-strong'),
+});
+globalStyle(`.${messageActionButton}.${hr}::before`, {
+  width: '18px',
+});
+
+globalStyle(`.${hr}`, {
+  padding: cssVar('space-2xs'),
+});
+globalStyle(`.${hr}::before`, {
+  display: 'block',
+  content: '',
+  // We need to hardcode the width of the horizontal line to make
+  // sure that the "Show more" text correctly aligns
+  width: '10px',
+  borderTop: `1px solid ${cssVar('color-base-x-strong')}`,
+});
+globalStyle(`.${hr}::after`, {
+  display: 'block',
+  content: '',
+  flexGrow: 1,
+  borderTop: `1px solid ${cssVar('color-base-x-strong')}`,
+});
