@@ -3,7 +3,7 @@ import { cssVar } from '../cssVariables';
 import { cordifyClassname } from '../../util';
 
 export const fontBody = cordifyClassname('font-body');
-globalStyle('font-body', {
+globalStyle(`.${fontBody}`, {
   fontFamily: cssVar('font-family'),
   fontSize: cssVar('font-size-body'),
   fontWeight: cssVar('font-weight-regular'),
@@ -12,7 +12,7 @@ globalStyle('font-body', {
 });
 
 export const fontBodyEmphasis = cordifyClassname('font-body-emphasis');
-globalStyle('font-body-emphasis', {
+globalStyle(`.${fontBodyEmphasis}`, {
   fontFamily: cssVar('font-family'),
   fontSize: cssVar('font-size-body'),
   fontWeight: cssVar('font-weight-bold'),
@@ -21,7 +21,7 @@ globalStyle('font-body-emphasis', {
 });
 
 export const fontSmallLight = cordifyClassname('font-small-light');
-globalStyle('font-small-light', {
+globalStyle(`.${fontSmallLight}`, {
   fontFamily: cssVar('font-family'),
   fontSize: cssVar('font-size-small'),
   fontWeight: cssVar('font-weight-regular'),
@@ -30,7 +30,7 @@ globalStyle('font-small-light', {
 });
 
 export const fontSmall = cordifyClassname('font-small');
-globalStyle('font-small', {
+globalStyle(`.${fontSmall}`, {
   fontFamily: cssVar('font-family'),
   fontSize: cssVar('font-size-small'),
   fontWeight: cssVar('font-weight-medium'),
@@ -39,7 +39,7 @@ globalStyle('font-small', {
 });
 
 export const fontSmallEmphasis = cordifyClassname('font-small-emphasis');
-globalStyle('font-small-emphasis', {
+globalStyle(`.${fontSmallEmphasis}`, {
   fontFamily: cssVar('font-family'),
   fontSize: cssVar('font-size-small'),
   fontWeight: cssVar('font-weight-bold'),
