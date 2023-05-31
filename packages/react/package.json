@@ -21,7 +21,7 @@
   "dependencies": {
     "@cord-sdk/components": "0.0.42",
     "@cord-sdk/types": "0.0.42",
-    "classnames": "^2.3.2"
+    "classnames": "^2.3.1"
   },
   "peerDependencies": {
     "react": ">=17.0.0"
