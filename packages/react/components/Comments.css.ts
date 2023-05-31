@@ -1,3 +1,4 @@
+import type { CSSProperties } from '@vanilla-extract/css';
 import { globalStyle } from '@vanilla-extract/css';
 import { cordifyClassname } from '../common/util';
 import { cssVar } from '../common/ui/cssVariables';
@@ -20,12 +21,16 @@ globalStyle(`.${threadList}`, {
 });
 
 export const commentsThread = cordifyClassname('comments-thread');
-
-export const firstMessage = cordifyClassname('first-message');
+globalStyle(`.${commentsThread}`, {
+  display: 'flex',
+  flexDirection: 'column',
+});
 
 export const hr = cordifyClassname('hr');
-export const threadActionButton = cordifyClassname('thread-action-button');
-globalStyle(`.${threadActionButton}`, {
+export const threadActionButtonWithReplies = cordifyClassname(
+  'thread-action-button-with-replies',
+);
+globalStyle(`.${threadActionButtonWithReplies}`, {
   padding: `${cssVar('space-2xs')} calc(${cssVar('space-l')} + ${cssVar(
     'space-2xs',
   )})`,
@@ -38,8 +43,9 @@ globalStyle(`.${threadActionButton}`, {
   display: 'flex',
   alignItems: 'center',
   gap: cssVar('space-2xs'),
-});
-globalStyle(`.${threadActionButton}:hover`, {
+  '--cord-facepile-avatar-size': cssVar('space-m'),
+} as CSSProperties);
+globalStyle(`.${threadActionButtonWithReplies}:hover`, {
   background: cssVar('color-base-strong'),
 });
 globalStyle(`.${hr}`, {
@@ -59,3 +65,27 @@ globalStyle(`.${hr}::after`, {
   flexGrow: 1,
   borderTop: `1px solid ${cssVar('color-base-x-strong')}`,
 });
+
+export const unread = cordifyClassname('unread');
+globalStyle(`.${unread}`, {
+  color: cssVar('color-notification'),
+});
+globalStyle(`.${unread}:hover`, {
+  backgroundColor: cssVar('color-notification-background'),
+});
+
+export const threadSummaryFacepile = cordifyClassname(
+  'thread-summary-facepile',
+);
+globalStyle(`.${threadSummaryFacepile}`, {
+  display: 'contents',
+  lineHeight: cssVar('line-height-body'),
+});
+globalStyle(`.${unread} .${threadSummaryFacepile}::before`, {
+  color: cssVar('color-notification'),
+  content: '\\2022',
+  fontSize: '40px',
+  marginLeft: '-20px',
+});
+
+export const firstThreadMessage = cordifyClassname('first-thread-message');

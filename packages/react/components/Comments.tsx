@@ -1,5 +1,7 @@
 import cx from 'classnames';
-import type { Location } from '@cord-sdk/types';
+import type { Location, ThreadSummary } from '@cord-sdk/types';
+import { Facepile } from '..';
+import { pluralize } from '../common/util';
 import * as fonts from '../common/ui/atomicClasses/fonts.css';
 import * as classes from './Comments.css';
 import { Composer } from './Composer';
@@ -25,7 +27,7 @@ export function Comments({ location }: { location: Location }) {
         {hasMore && (
           <button
             className={cx(
-              classes.threadActionButton,
+              classes.threadActionButtonWithReplies,
               classes.hr,
               fonts.fontSmall,
             )}
@@ -50,10 +52,50 @@ function CommentsThread({ threadId }: { threadId: string }) {
   return (
     <div className={classes.commentsThread}>
       <Message
-        className={classes.firstMessage}
+        className={classes.firstThreadMessage}
         messageId={threadSummary.firstMessage?.id}
         threadId={threadId}
       />
+
+      <CollapsedReplies threadSummary={threadSummary} />
     </div>
+  );
+}
+
+function CollapsedReplies({ threadSummary }: { threadSummary: ThreadSummary }) {
+  const hasUnread = threadSummary.unread > 0;
+  const hasReplies = threadSummary.total > 1;
+  const replyNumber = threadSummary.total - 1;
+  const unreadNumber = threadSummary.unread;
+
+  return (
+    <>
+      {hasReplies ? (
+        <button
+          className={cx(
+            classes.threadActionButtonWithReplies,
+            fonts.fontSmall,
+            {
+              [classes.unread]: hasUnread,
+            },
+          )}
+        >
+          <Facepile
+            users={threadSummary.participants.map((p) => p.userID ?? '')}
+            className={classes.threadSummaryFacepile}
+            enableTooltip={false}
+          />
+          {hasUnread
+            ? pluralize(unreadNumber, 'new reply', 'new replies')
+            : pluralize(replyNumber, 'reply', 'replies')}
+        </button>
+      ) : (
+        <button
+          className={cx(classes.threadActionButtonWithReplies, fonts.fontSmall)}
+        >
+          {'Reply'}
+        </button>
+      )}
+    </>
   );
 }

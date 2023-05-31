@@ -15,6 +15,7 @@ export const cssVariableFallbacks = {
   'color-content-emphasis': { value: '#121314' },
   'color-brand-primary': { value: '#121314' },
   'color-notification': { value: '#0079FF' },
+  'color-notification-background': { value: '#0079ff1a' },
   'color-alert': { value: '#EB5757' },
   'color-success': { value: '#71BC8F' },
   'color-focus': { value: '#CAE3F1' },
