@@ -181,27 +181,68 @@ export interface AddListenerOptions {
 
 export type PresenceListener = (update: PartialUserLocationData) => void;
 
-export type ObservePresenceOptions = {
+/**
+ * Options for the `observeLocationData` function in the Presence API.
+ */
+export interface ObservePresenceOptions {
+  /**
+   * When `true`, only return [ephemeral
+   * presence](https://docs.cord.com/js-apis-and-hooks/presence-api) records.
+   *
+   * This value defaults to `false`.
+   */
   exclude_durable?: boolean;
+  /**
+   * When `true`, returns users in any [partially matching
+   * location](https://docs.cord.com/reference/location), rather than in only
+   * the specific location given.
+   *
+   * This value defaults to `false`.
+   */
   partial_match?: boolean;
-};
+}
 
-export type PartialUserLocationData = {
+export interface PartialUserLocationData {
+  /**
+   * The user ID of the user this presence information is for.
+   */
   id: string;
+  /**
+   * Contains information about the user's [ephemeral
+   * presence](https://docs.cord.com/js-apis-and-hooks/presence-api).
+   */
   ephemeral?: {
     locations: Location[] | null;
   };
+  /**
+   * Contains information about the user's [durable
+   * presence](https://docs.cord.com/js-apis-and-hooks/presence-api).  Undefined
+   * if the user does not have a durable presence
+   * [set](https://docs.cord.com/js-apis-and-hooks/presence-api/setPresent). The
+   * location and timestamp will be for the user's most recently-set matching
+   * durable presence record (which may not be for the requested location if
+   * using the `partial_match` option).
+   */
   durable?: {
     location: Location;
     timestamp: Date;
   };
-};
+}
 
-export type UserLocationData = PartialUserLocationData & {
+/**
+ * The presence data for a single user.
+ */
+export interface UserLocationData extends PartialUserLocationData {
+  /**
+   * Contains information about the user's [ephemeral
+   * presence](https://docs.cord.com/js-apis-and-hooks/presence-api).  The
+   * location array can be empty if the user is not currently present at the
+   * requested location.
+   */
   ephemeral: {
     locations: Location[];
   };
-};
+}
 
 export type UserPresenceInformation = {
   present: boolean;
@@ -227,8 +268,40 @@ export interface ICordPresenceSDK {
   ): ListenerRef;
   removeListener(index: ListenerRef): boolean;
 
+  /**
+   * This method allows you to observe users who are
+   * [present](https://docs.cord.com/js-apis-and-hooks/presence-api) at a
+   * particular [location](https://docs.cord.com/reference/location), including
+   * live updates.
+   * @example Overview
+   * ```javascript
+   * const ref = window.CordSDK.presence.observeLocationData(location, callback, options);
+   * window.CordSDK.presence.unobserveLocationData(ref);
+   * ```
+   * @example Usage
+   * ```javascript
+   * const ref = window.CordSDK.presence.observeLocationData(
+   *   { page: "https://cord.com", block: "id123" },
+   *   (present) => present.forEach(
+   *     (d) => console.log(`${d.id} is present!`)
+   *   ),
+   *   { exclude_durable: true },
+   * );
+   * // ... Later, when updates are no longer needed ...
+   * window.CordSDK.presence.unobserveLocationData(ref);
+   * ```
+   * @param location - The [location](https://docs.cord.com/reference/location)
+   * to fetch presence information for.
+   * @param callback - This callback will be called once with the current
+   * presence data, and then again every time the data changes. The argument
+   * passed to the callback is an array of objects. Each object will contain the
+   * fields described under "Available Data" above.
+   * @param options - Miscellaneous options. See below.
+   * @returns A reference number which can be passed to `unobserveLocationData`
+   * to stop observing location data.
+   */
   observeLocationData(
-    matcher: Location,
+    location: Location,
     callback: PresenceUpdateCallback,
     options?: ObservePresenceOptions,
   ): ListenerRef;
