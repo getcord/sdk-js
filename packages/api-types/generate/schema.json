@@ -289,6 +289,11 @@
       "userID": {
         "description": "Certain changes to the thread may post a message into the thread -- in\nparticular, resolving or unresolving a thread posts a message into the\nthread saying \"User un/resolved this thread\". This paramter is the ID of\nthe User who will be listed as the author of that message. It's optional\n-- if no user is specified, then those messasges won't get posted.",
         "type": "string"
+      },
+      "typing": {
+        "description": "Triggers the typing indicator, or adds an additional user to the existing\ntyping indicator in the thread and lasts for 3 seconds.\nPass an empty array to clear all users typing. Automatically triggers\nwhen a user is writing something in a Cord component.",
+        "type": "array",
+        "items": { "type": ["string", "number"] }
       }
     },
     "additionalProperties": false,
@@ -299,7 +304,8 @@
       "metadata",
       "resolvedTimestamp",
       "resolved",
-      "userID"
+      "userID",
+      "typing"
     ],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },

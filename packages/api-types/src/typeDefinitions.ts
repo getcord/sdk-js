@@ -123,6 +123,12 @@ export type UpdateThreadVariables = Partial<
      * -- if no user is specified, then those messasges won't get posted.
      */
     userID: string;
+    /** Triggers the typing indicator, or adds an additional user to the existing
+     * typing indicator in the thread and lasts for 3 seconds.
+     * Pass an empty array to clear all users typing. Automatically triggers
+     * when a user is writing something in a Cord component.
+     */
+    typing: (string | number)[];
   }
 >;
 
