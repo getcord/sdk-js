@@ -821,10 +821,10 @@ export type NotificationListLauncherWebComponentEvents = { click: [] };
 
 // cord-pin
 export type PinWebComponentEvents = {
-  resolve: [];
-  click: [];
-  mouseenter: [];
-  mouseleave: [];
+  resolve: [ThreadSummary | null];
+  click: [ThreadSummary | null];
+  mouseenter: [ThreadSummary | null];
+  mouseleave: [ThreadSummary | null];
 };
 
 /* annotation types */
