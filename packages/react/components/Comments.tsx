@@ -2,9 +2,10 @@ import cx from 'classnames';
 import type { Location, ThreadSummary } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
-import { Facepile } from '..';
+import { Avatar, Facepile } from '..';
 import { pluralize } from '../common/util';
 import * as fonts from '../common/ui/atomicClasses/fonts.css';
+import { useViewerData } from '../hooks/user';
 import * as classes from './Comments.css';
 import { Composer } from './Composer';
 import { Message } from './Message';
@@ -30,9 +31,9 @@ export function Comments({ location }: { location: Location }) {
         {hasMore && (
           <button
             className={cx(
-              classes.threadActionButtonWithReplies,
-              classes.hr,
+              classes.messageActionButton,
               fonts.fontSmall,
+              classes.hr,
             )}
             onClick={() => fetchMore(5)}
           >
@@ -111,12 +112,7 @@ function CollapsedReplies({
             : pluralize(replyNumber, 'reply', 'replies')}
         </button>
       ) : (
-        <button
-          className={cx(classes.threadActionButtonWithReplies, fonts.fontSmall)}
-          onClick={() => setShowingReplies(true)}
-        >
-          {'Reply'}
-        </button>
+        <ReplyButton onClick={() => setShowingReplies(true)} />
       )}
     </>
   );
@@ -130,6 +126,8 @@ function ThreadReplies({
   setShowingReplies: Dispatch<SetStateAction<boolean>>;
 }) {
   const { messages, hasMore, fetchMore } = useThreadData(threadId);
+  const [showingReplyComposer, setShowingReplyComposer] =
+    useState<boolean>(true);
 
   // The useThreadData hook will also return the first message, but
   // since we are already rendering it, we need to remove it when
@@ -141,36 +139,82 @@ function ThreadReplies({
   return (
     <>
       {hasReplies && (
-        <button
-          className={cx(classes.messageActionButton, fonts.fontSmall)}
-          onClick={() => setShowingReplies(false)}
-        >
-          {'Hide replies'}
-        </button>
-      )}
-      {hasMore && (
-        <button
-          className={cx(
-            classes.messageActionButton,
-            fonts.fontSmall,
-            classes.hr,
+        <>
+          <button
+            className={cx(classes.messageActionButton, fonts.fontSmall)}
+            onClick={() => setShowingReplies(false)}
+          >
+            {'Hide replies'}
+          </button>
+
+          {hasMore && (
+            <button
+              className={cx(
+                classes.messageActionButton,
+                fonts.fontSmall,
+                classes.hr,
+              )}
+              onClick={() => fetchMore(5)}
+            >
+              {'Show more'}
+            </button>
           )}
-          onClick={() => fetchMore(5)}
-        >
-          {'Show more'}
-        </button>
+          <div className={classes.replyMessages}>
+            {restOfMessages.map((message) => {
+              return (
+                <Message
+                  key={message.id}
+                  threadId={threadId}
+                  messageId={message.id}
+                />
+              );
+            })}
+          </div>
+        </>
       )}
-      <div className={classes.replyMessages}>
-        {restOfMessages.map((message) => {
-          return (
-            <Message
-              key={message.id}
-              threadId={threadId}
-              messageId={message.id}
-            />
-          );
-        })}
-      </div>
+      {showingReplyComposer ? (
+        <ViewerAvatarWithComposer
+          threadId={threadId}
+          setShowingReplyComposer={setShowingReplyComposer}
+        />
+      ) : (
+        <ReplyButton onClick={() => setShowingReplyComposer(true)} />
+      )}
     </>
+  );
+}
+
+function ViewerAvatarWithComposer({
+  threadId,
+  setShowingReplyComposer,
+}: {
+  threadId: string;
+  setShowingReplyComposer: Dispatch<SetStateAction<boolean>>;
+}) {
+  const viewerData = useViewerData();
+  const userId = viewerData?.id;
+
+  return (
+    <div className={classes.viewerAvatarWithComposer}>
+      {userId && <Avatar userId={userId} className={classes.avatar} />}
+      <Composer
+        threadId={threadId}
+        className={classes.composer}
+        showCloseButton
+        onClose={() => setShowingReplyComposer(false)}
+        size={'small'}
+      />
+    </div>
+  );
+}
+
+function ReplyButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      className={cx(classes.threadActionButtonWithReplies, fonts.fontSmall)}
+      onClick={onClick}
+    >
+      {'Reply'}
+    </button>
   );
 }

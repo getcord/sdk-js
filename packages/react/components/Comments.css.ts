@@ -120,3 +120,24 @@ globalStyle(`.${hr}::after`, {
   flexGrow: 1,
   borderTop: `1px solid ${cssVar('color-base-x-strong')}`,
 });
+
+export const composer = cordifyClassname('composer');
+globalStyle(`.${composer}`, {
+  flexGrow: '1',
+});
+
+export const viewerAvatarWithComposer = cordifyClassname(
+  'viewer-avatar-with-composer',
+);
+globalStyle(`.${viewerAvatarWithComposer}`, {
+  display: 'flex',
+  gap: cssVar('space-2xs'),
+  padding: cssVar('space-2xs'),
+  marginLeft: `calc(${cssVar('space-l')} + ${cssVar('space-2xs')})`,
+});
+
+export const avatar = cordifyClassname('avatar');
+globalStyle(`.${avatar}`, {
+  marginTop: '10px',
+  '--cord-facepile-avatar-size': cssVar('space-l'),
+} as CSSProperties);
