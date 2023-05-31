@@ -525,8 +525,12 @@ export function cssVarWithOverride(
   varName: CSSVariable | undefined,
   override: CSSVariable | undefined,
 ) {
-  if (override) return cssVar(override);
-  if (varName) return cssVar(varName);
+  if (override) {
+    return cssVar(override);
+  }
+  if (varName) {
+    return cssVar(varName);
+  }
   return undefined;
 }
 
