@@ -185,6 +185,7 @@ export const componentAttributes = {
     'thread-id': 'string',
     'message-id': 'string',
     'enable-tooltip': 'boolean',
+    disabled: 'boolean',
   },
 } as const;
 

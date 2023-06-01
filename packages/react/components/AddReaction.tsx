@@ -9,9 +9,10 @@ const propsToAttributes = propsToAttributeConverter(
 );
 
 export type AddReactionReactComponentProps = {
-  threadId: string;
-  messageId: string;
+  threadId?: string;
+  messageId?: string;
   enableTooltip?: boolean;
+  disabled?: boolean;
 };
 
 export function AddReaction(
