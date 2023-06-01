@@ -114,7 +114,7 @@ export type ThreadParticipant = ThreadParticipant_;
  * https://docs.cord.com/reference/rest-api/threads/
  */
 export type UpdateThreadVariables = Partial<
-  Omit<ThreadVariables, 'total' | 'participants' | 'organizationID'> & {
+  Omit<ThreadVariables, 'total' | 'participants'> & {
     /**
      * Certain changes to the thread may post a message into the thread -- in
      * particular, resolving or unresolving a thread posts a message into the

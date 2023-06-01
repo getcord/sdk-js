@@ -296,6 +296,10 @@ export default {
         type: 'string',
         format: 'date-time',
       },
+      organizationID: {
+        description: 'The organization ID this thread is in.',
+        type: 'string',
+      },
       resolved: {
         description:
           'Whether this thread is resolved. In a GET request, this is equivalent to\n`!!resolvedTimestamp`. In a PUT request, setting this to `true` is\nequivalent to setting `resolvedTimestamp` to the current time, and setting\nthis to `false` is equivalent to setting `resolvedTimestamp` to `null`.',
@@ -320,6 +324,7 @@ export default {
       'name',
       'metadata',
       'resolvedTimestamp',
+      'organizationID',
       'resolved',
       'userID',
       'typing',
