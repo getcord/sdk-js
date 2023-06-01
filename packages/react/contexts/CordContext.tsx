@@ -53,6 +53,7 @@ type Props = {
   navigate?: NavigateFn | null;
   threadOptions?: ThreadOptions;
   screenshotOptions?: ScreenshotOptions;
+  customRenderers?: Record<string, (m: Record<string, unknown>) => HTMLElement>;
   /**
    * @deprecated The annotationMode prop has been reverted to enableAnnotations
    * `annotationMode: 'none'` should be replaced with `enableAnnotations: false`
@@ -81,6 +82,7 @@ export function CordProvider({
   enableScreenshotCapture,
   showBlurredScreenshots,
   screenshotOptions,
+  customRenderers,
   annotationMode,
   cordScriptUrl,
   navigate,
@@ -194,6 +196,7 @@ export function CordProvider({
             : undefined,
           screenshot_options: backwardsCompatibleScreenshotOptions,
           onInitError,
+          custom_renderers: customRenderers,
         })
         .then(() => {
           setLastInitialized(Date.now());
@@ -212,6 +215,7 @@ export function CordProvider({
     threadOptions,
     enableScreenshotCapture,
     screenshotOptions,
+    customRenderers,
   ]);
 
   useEffect(() => {

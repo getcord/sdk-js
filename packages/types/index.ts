@@ -60,6 +60,11 @@ export type ScreenshotOptions = {
   show_screenshot?: boolean;
 };
 
+export type CustomRenderers = Record<
+  string,
+  (m: Record<string, unknown>) => HTMLElement
+>;
+
 export type CordSDKOptions = {
   /**
    * @deprecated The session_token prop has been renamed to client_auth_token
@@ -82,6 +87,7 @@ export type CordSDKOptions = {
   react_package_version?: string;
   thread_options?: ThreadOptions;
   screenshot_options?: ScreenshotOptions;
+  custom_renderers?: CustomRenderers;
   onInitError?: InitErrorCallback;
 };
 
