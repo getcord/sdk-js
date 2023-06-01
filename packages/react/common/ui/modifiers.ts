@@ -2,6 +2,7 @@ import { cordifyClassname } from '@cord-sdk/react/common/util';
 
 export const MODIFIERS = {
   loading: cordifyClassname('loading'),
+  disabled: cordifyClassname('disabled'),
   notPresent: cordifyClassname('not-present'),
   present: cordifyClassname('present'),
   noReactions: cordifyClassname('no-reactions'),
