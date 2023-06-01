@@ -1,5 +1,7 @@
 export type UUID = string;
 export type UserID = string;
+export type OrganizationID = string;
+export type ThreadID = string;
 export type MessageID = string;
 
 /**
@@ -48,7 +50,7 @@ export function isEqualLocation(
 export type NavigateFn = (
   url: string,
   location: Location | null,
-  info: { orgID: string; threadID: string },
+  info: { orgID: OrganizationID; threadID: ThreadID },
 ) => boolean | Promise<boolean>;
 
 export type ScreenshotOptions = {
@@ -115,7 +117,7 @@ export type Annotation<L extends Location = Location> = {
 export type AnnotationWithThreadID<L extends Location = Location> = {
   id: string;
   location: L;
-  threadID: string;
+  threadID: ThreadID;
 };
 
 export type AnnotationPositionRendererCallback<L extends Location = Location> =
@@ -206,7 +208,7 @@ export interface PartialUserLocationData {
   /**
    * The user ID of the user this presence information is for.
    */
-  id: string;
+  id: UserID;
   /**
    * Contains information about the user's [ephemeral
    * presence](https://docs.cord.com/js-apis-and-hooks/presence-api).
@@ -345,7 +347,7 @@ export interface ICordUserSDK {
    * stop observing user data.
    */
   observeUserData(
-    userID: string,
+    userID: UserID,
     callback: SingleUserUpdateCallback,
   ): ListenerRef;
   /**
@@ -379,7 +381,7 @@ export interface ICordUserSDK {
    * stop observing user data.
    */
   observeUserData(
-    userIDs: Array<string>,
+    userIDs: Array<UserID>,
     callback: MultipleUserUpdateCallback,
   ): ListenerRef;
   unobserveUserData(ref: ListenerRef): boolean;
@@ -520,12 +522,12 @@ export type ThreadVariables = {
   /**
    * The ID for this thread.
    */
-  id: string;
+  id: ThreadID;
 
   /**
    * The organization ID this thread is in.
    */
-  organizationID: string;
+  organizationID: OrganizationID;
 
   /**
    * The total number of messages in this thread.
@@ -645,14 +647,14 @@ export interface ICordThreadSDK {
   unobserveLocationData(ref: ListenerRef): boolean;
 
   observeThreadSummary(
-    threadId: string,
+    threadId: ThreadID,
     callback: ThreadSummaryUpdateCallback,
     options?: ObserveThreadSummaryOptions,
   ): ListenerRef;
   unobserveThreadSummary(ref: ListenerRef): boolean;
 
   observeThreadData(
-    threadId: string,
+    threadId: ThreadID,
     callback: ThreadDataCallback,
     options?: ObserveThreadDataOptions,
   ): ListenerRef;
@@ -756,8 +758,8 @@ export type PresenceObserverWebComponentEvents = {
 export type SidebarWebComponentEvents = {
   open: [{ width?: number }];
   close: [];
-  threadopen: [threadID: string];
-  threadclose: [threadID: string];
+  threadopen: [threadID: ThreadID];
+  threadclose: [threadID: ThreadID];
 };
 
 /* cord-sidebar-launcher */
@@ -791,20 +793,20 @@ export type ThreadInfo = {
 
 /* cord-thread-list */
 export type ThreadListWebComponentEvents = {
-  threadclick: [threadID: string, threadSummary: ThreadSummary];
-  threadmouseenter: [threadID: string];
-  threadmouseleave: [threadID: string];
-  threadresolve: [{ threadID: string }];
-  threadreopen: [{ threadID: string }];
+  threadclick: [threadID: ThreadID, threadSummary: ThreadSummary];
+  threadmouseenter: [threadID: ThreadID];
+  threadmouseleave: [threadID: ThreadID];
+  threadresolve: [{ threadID: ThreadID }];
+  threadreopen: [{ threadID: ThreadID }];
   render: [];
   loading: [];
 };
 
 /* cord-composer */
 export type ComposerWebComponentEvents = {
-  focus: [{ threadId: string }];
-  blur: [{ threadId: string }];
-  close: [{ threadId: string }];
+  focus: [{ threadId: ThreadID }];
+  blur: [{ threadId: ThreadID }];
+  close: [{ threadId: ThreadID }];
 };
 
 export const COMPOSER_SIZE = ['small', 'medium', 'large'] as const;
@@ -1024,7 +1026,7 @@ export interface UserData {
   /**
    * The user's ID.  This is unique within an application.
    */
-  id: string;
+  id: UserID;
   /**
    * The user's name.
    */
@@ -1051,7 +1053,7 @@ export interface ViewerUserData extends UserData {
   /**
    * The identifier for the organization that the current user is using.
    */
-  organizationID: string;
+  organizationID: OrganizationID;
 }
 
 export interface HTMLCordElement extends HTMLElement {
@@ -1069,7 +1071,7 @@ export interface HTMLCordSidebarElement
     WithScreenshotConfig {}
 
 export interface HTMLCordFloatingThreadsFunctions {
-  openThread(threadId: string): void;
+  openThread(threadId: ThreadID): void;
   createThread(): void;
   cancelThread(): void;
 }
