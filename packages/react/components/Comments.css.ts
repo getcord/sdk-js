@@ -9,6 +9,9 @@ globalStyle(`.${comments}`, {
   border: `1px solid ${cssVar('color-base-x-strong')}`,
   padding: cssVar('space-2xs'),
   borderRadius: cssVar('space-3xs'),
+  display: 'flex',
+  flexDirection: 'column',
+  gap: cssVar('space-2xs'),
 });
 
 export const threadList = cordifyClassname('thread-list');
@@ -18,6 +21,11 @@ globalStyle(`.${threadList}`, {
   flexDirection: 'column',
   gap: cssVar('space-xs'),
   height: 'auto',
+});
+
+export const reverseOrder = cordifyClassname('reverse-order');
+globalStyle(`.${reverseOrder}`, {
+  flexDirection: 'column-reverse',
 });
 
 export const commentsThread = cordifyClassname('comments-thread');

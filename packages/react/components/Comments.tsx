@@ -15,7 +15,20 @@ import {
   useThreadSummary,
 } from '@cord-sdk/react/hooks/thread';
 
-export function Comments({ location }: { location: Location }) {
+type MessageOrder = 'newest_on_top' | 'newest_on_bottom';
+type ComposerPosition = 'top' | 'bottom';
+
+export function Comments({
+  location,
+  messageOrder = 'newest_on_top',
+  composerPosition = 'top',
+  composerExpanded = false,
+}: {
+  location: Location;
+  messageOrder?: MessageOrder;
+  composerPosition?: ComposerPosition;
+  composerExpanded?: boolean;
+}) {
   const { threads, hasMore, fetchMore } = useLocationData(location, {
     sortBy: 'first_message_timestamp',
     sortDirection: 'descending',
@@ -23,8 +36,17 @@ export function Comments({ location }: { location: Location }) {
   });
 
   return (
-    <div className={classes.comments}>
-      <div className={classes.threadList}>
+    <div
+      className={cx(classes.comments, {
+        [classes.reverseOrder]: composerPosition === 'bottom',
+      })}
+    >
+      <Composer location={location} showExpanded={composerExpanded} />
+      <div
+        className={cx(classes.threadList, {
+          [classes.reverseOrder]: messageOrder === 'newest_on_bottom',
+        })}
+      >
         {threads.map((thread) => (
           <CommentsThread key={thread.id} threadId={thread.id} />
         ))}
@@ -41,7 +63,6 @@ export function Comments({ location }: { location: Location }) {
           </button>
         )}
       </div>
-      <Composer location={location} />
     </div>
   );
 }
