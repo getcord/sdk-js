@@ -89,6 +89,7 @@ export type CordSDKOptions = {
   screenshot_options?: ScreenshotOptions;
   custom_renderers?: CustomRenderers;
   onInitError?: InitErrorCallback;
+  custom_event_metadata?: JsonObject;
 };
 
 export type InitErrorCallback = (error: { message: string }) => unknown;

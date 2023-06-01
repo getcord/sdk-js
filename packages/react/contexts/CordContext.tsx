@@ -10,6 +10,7 @@ import type {
   InitErrorCallback,
   LoadCallback,
   ScreenshotOptions,
+  JsonObject,
 } from '@cord-sdk/types';
 import useUnpackClientAuthTokenPayload from '@cord-sdk/react/hooks/useUnpackClientAuthTokenPayload';
 
@@ -68,6 +69,7 @@ type Props = {
   showBlurredScreenshots?: BlurDisplayLocation;
   /** @deprecated use `screenshotOptions.capture` instead */
   enableScreenshotCapture?: boolean;
+  customEventMetadata?: JsonObject;
 };
 
 type ThreadOptions = {
@@ -90,6 +92,7 @@ export function CordProvider({
   children,
   onLoad,
   onInitError,
+  customEventMetadata,
 }: React.PropsWithChildren<Props>) {
   if (clientAuthToken?.length === 0) {
     console.warn(
@@ -195,6 +198,7 @@ export function CordProvider({
               }
             : undefined,
           screenshot_options: backwardsCompatibleScreenshotOptions,
+          custom_event_metadata: customEventMetadata,
           onInitError,
           custom_renderers: customRenderers,
         })
@@ -216,6 +220,7 @@ export function CordProvider({
     enableScreenshotCapture,
     screenshotOptions,
     customRenderers,
+    customEventMetadata,
   ]);
 
   useEffect(() => {
