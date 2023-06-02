@@ -152,7 +152,7 @@ export function useLocationData(
       return;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow -- use normalised location.
+    // eslint-disable-next-line @typescript-eslint/no-shadow -- use normalized location.
     const location = JSON.parse(locationString);
 
     const key = threadSDK.observeLocationData(

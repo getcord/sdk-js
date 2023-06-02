@@ -90,10 +90,10 @@ const Sizes = {
   // Distance between kebab menu and kebab menu icon
   KEBAB_MENU_OFFSET: SMALL,
 
-  // Bullets / numbered / todos lists
+  // Bullets / numbered / todo lists
   BULLET_PADDING_LEFT: CHECKBOX_DEFAULT_SIZE_PX + MEDIUM,
 
-  // Todo - feed this into the menu itself (prob via more dynamic svgs)
+  // Todo - feed this into the menu itself (prob via more dynamic svg)
   MESSAGE_MENU_HEIGHT: 32,
 
   // Tooltip

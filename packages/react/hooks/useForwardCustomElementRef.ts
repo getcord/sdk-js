@@ -30,13 +30,13 @@ export function useForwardCustomElementRef<T extends HTMLCordElement>(
       }
 
       if (element.initialised) {
-        // the element is in the DOM and its associated custom element class is initialised
+        // the element is in the DOM and its associated custom element class is initialized
         updateForwardedRef(element);
         return;
       }
 
-      // the element is in the DOM but the custom element class has not yet initialised,
-      // so it's just an empy shell. set up a listener for an event which will be fired in
+      // the element is in the DOM but the custom element class has not yet initialized,
+      // so it's just an empty shell. set up a listener for an event which will be fired in
       // the CordComponent constructor. only once that event has been received is the
       // element instance correctly backed by the associated class instance that implements
       // the specific HTMLCordElement interface.
@@ -49,6 +49,7 @@ export function useForwardCustomElementRef<T extends HTMLCordElement>(
         }
       };
 
+      // eslint-disable-next-line @cspell/spellchecker -- event emitted uses British spelling, should fix.
       const eventName = `${element.nodeName.toLowerCase()}:initialised`;
       element.addEventListener(eventName, onInitialised);
 

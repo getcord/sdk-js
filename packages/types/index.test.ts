@@ -2,7 +2,7 @@ import { describe, expect, test } from '@jest/globals';
 import { isEqualLocation } from './index';
 
 describe('isEqualLocation', () => {
-  test('undefined behaviour', () => {
+  test('undefined behavior', () => {
     expect(isEqualLocation(undefined, undefined)).toBeTruthy();
     expect(isEqualLocation(undefined, {})).toBeFalsy();
     expect(isEqualLocation(undefined, { foo: 'bar' })).toBeFalsy();

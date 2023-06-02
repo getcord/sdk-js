@@ -307,7 +307,7 @@ export default {
       },
       userID: {
         description:
-          'Certain changes to the thread may post a message into the thread -- in\nparticular, resolving or unresolving a thread posts a message into the\nthread saying "User un/resolved this thread". This paramter is the ID of\nthe User who will be listed as the author of that message. It\'s optional\n-- if no user is specified, then those messasges won\'t get posted.',
+          'Certain changes to the thread may post a message into the thread -- in\nparticular, resolving or unresolving a thread posts a message into the\nthread saying "User un/resolved this thread". This parameter is the ID of\nthe User who will be listed as the author of that message. It\'s optional\n-- if no user is specified, then those messages won\'t get posted.',
         type: 'string',
       },
       typing: {
@@ -548,7 +548,7 @@ export default {
       },
       actor_id: { type: 'string' },
       recipientID: {
-        description: 'The user recieving the notification.',
+        description: 'The user receiving the notification.',
         type: 'string',
       },
       recipient_id: { type: 'string' },

@@ -3,7 +3,7 @@ import type {
   Location,
 
   // These awkward imports and renames are for the benefit of generate.mjs which
-  // doesn't spit out anything which wasn't actually defiend in this file --
+  // doesn't spit out anything which wasn't actually defined in this file --
   // this lets us "define" these types with their proper names in this file (via
   // importing them to these weird names and then re-defining them with their
   // actual names).
@@ -119,9 +119,9 @@ export type UpdateThreadVariables = Partial<
     /**
      * Certain changes to the thread may post a message into the thread -- in
      * particular, resolving or unresolving a thread posts a message into the
-     * thread saying "User un/resolved this thread". This paramter is the ID of
+     * thread saying "User un/resolved this thread". This parameter is the ID of
      * the User who will be listed as the author of that message. It's optional
-     * -- if no user is specified, then those messasges won't get posted.
+     * -- if no user is specified, then those messages won't get posted.
      */
     userID: string;
     /** Triggers the typing indicator, or adds an additional user to the existing
@@ -210,7 +210,7 @@ export interface CreateNotificationVariables {
   actor_id?: string;
 
   /**
-   * The user recieving the notification.
+   * The user receiving the notification.
    */
   recipientID?: string;
 

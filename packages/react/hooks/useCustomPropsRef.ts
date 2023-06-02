@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import type { HTMLCordElement } from '@cord-sdk/types';
 
 /**
- * This hooks helps asssigning non scalar props into our public web-components
+ * This hooks helps assigning non scalar props into our public web-components
  *
  * Web components cannot get complex attributes,
  * instead we need to grab ref to the element and write a property on that element.

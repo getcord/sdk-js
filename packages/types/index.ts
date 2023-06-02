@@ -46,7 +46,7 @@ export function isEqualLocation(
   return aKeys.every((key) => a[key] === b[key]);
 }
 
-// navigate, if present and returning true, overrides our default navigate behaviour
+// navigate, if present and returning true, overrides our default navigate behavior
 export type NavigateFn = (
   url: string,
   location: Location | null,
@@ -1115,13 +1115,13 @@ export type HTMLCordThreadElement = WithScreenshotConfig;
 
 /**
  * Specify what DOM element to screenshot. This overrides Cord's
- * default screenshot behaviour, which is to take a screenshot of
+ * default screenshot behavior, which is to take a screenshot of
  * the current viewport.
  * Alternatively, you can provide Cord with your own screenshot,
  * using `screenshotUrlOverride`.
  *
  * You can set the `ScreenshotConfig` to `undefined` to re-enable Cord's
- * default behaviour.
+ * default behavior.
  */
 export type ScreenshotConfig =
   | {
