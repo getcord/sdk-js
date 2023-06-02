@@ -19,6 +19,7 @@ import type {
   CreatePlatformUserVariables,
   CreatePlatformOrganizationVariables,
   CreateMessageVariables,
+  CreateThreadVariables,
 } from '../src/typeDefinitions';
 
 export type Types = {
@@ -39,4 +40,5 @@ export type Types = {
   CreatePlatformUserVariables: CreatePlatformUserVariables;
   CreatePlatformOrganizationVariables: CreatePlatformOrganizationVariables;
   CreateMessageVariables: CreateMessageVariables;
+  CreateThreadVariables: CreateThreadVariables;
 };

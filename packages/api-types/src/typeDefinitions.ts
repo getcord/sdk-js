@@ -1,5 +1,6 @@
 import type {
   EntityMetadata,
+  Location,
 
   // These awkward imports and renames are for the benefit of generate.mjs which
   // doesn't spit out anything which wasn't actually defiend in this file --
@@ -299,10 +300,18 @@ export interface CreateMessageVariables {
   createdTimestamp?: Date | undefined;
   deletedTimestamp?: Date | undefined;
   updatedTimestamp?: Date | undefined;
-  location?: string;
+  createThread?: CreateThreadVariables;
   /**
    * @format uri
    */
   iconURL?: string;
   type?: 'action_message' | 'user_message';
+}
+
+export interface CreateThreadVariables {
+  location: Location;
+  url: string;
+  name: string;
+  organizationID: string;
+  metadata?: EntityMetadata;
 }

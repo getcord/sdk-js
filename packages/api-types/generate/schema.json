@@ -703,7 +703,7 @@
       "createdTimestamp": { "type": "string", "format": "date-time" },
       "deletedTimestamp": { "type": "string", "format": "date-time" },
       "updatedTimestamp": { "type": "string", "format": "date-time" },
-      "location": { "type": "string" },
+      "createThread": { "$ref": "#/definitions/CreateThreadVariables" },
       "iconURL": { "format": "uri", "type": "string" },
       "type": { "enum": ["action_message", "user_message"], "type": "string" }
     },
@@ -716,11 +716,66 @@
       "createdTimestamp",
       "deletedTimestamp",
       "updatedTimestamp",
-      "location",
+      "createThread",
       "iconURL",
       "type"
     ],
     "required": ["authorID", "content", "id"],
+    "definitions": {
+      "CreateThreadVariables": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "description": "`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "number", "boolean"] },
+            "propertyOrder": []
+          },
+          "url": { "type": "string" },
+          "name": { "type": "string" },
+          "organizationID": { "type": "string" },
+          "metadata": {
+            "description": "`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "number", "boolean"] },
+            "propertyOrder": []
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": [
+          "location",
+          "url",
+          "name",
+          "organizationID",
+          "metadata"
+        ],
+        "required": ["location", "name", "organizationID", "url"]
+      }
+    },
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "CreateThreadVariables": {
+    "type": "object",
+    "properties": {
+      "location": {
+        "description": "`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).",
+        "type": "object",
+        "additionalProperties": { "type": ["string", "number", "boolean"] },
+        "propertyOrder": []
+      },
+      "url": { "type": "string" },
+      "name": { "type": "string" },
+      "organizationID": { "type": "string" },
+      "metadata": {
+        "description": "`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).",
+        "type": "object",
+        "additionalProperties": { "type": ["string", "number", "boolean"] },
+        "propertyOrder": []
+      }
+    },
+    "additionalProperties": false,
+    "propertyOrder": ["location", "url", "name", "organizationID", "metadata"],
+    "required": ["location", "name", "organizationID", "url"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   }
 }
