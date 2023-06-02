@@ -689,9 +689,13 @@
   "CreateMessageVariables": {
     "type": "object",
     "properties": {
-      "id": { "type": "string" },
-      "authorID": { "type": "string" },
+      "id": { "description": "The ID for the message.", "type": "string" },
+      "authorID": {
+        "description": "The ID for the user that sent the message.",
+        "type": "string"
+      },
       "content": {
+        "description": "The content of the message.",
         "type": "array",
         "items": {
           "type": "object",
@@ -699,13 +703,39 @@
           "additionalProperties": true
         }
       },
-      "url": { "type": "string" },
-      "createdTimestamp": { "type": "string", "format": "date-time" },
-      "deletedTimestamp": { "type": "string", "format": "date-time" },
-      "updatedTimestamp": { "type": "string", "format": "date-time" },
-      "createThread": { "$ref": "#/definitions/CreateThreadVariables" },
-      "iconURL": { "format": "uri", "type": "string" },
-      "type": { "enum": ["action_message", "user_message"], "type": "string" }
+      "url": {
+        "description": "A URL where the message can be seen.  This determines where a user is sent\nwhen they click on a reference to this message, such as in a notification.\nIf unset, it defaults to the thread's URL.",
+        "type": "string"
+      },
+      "createdTimestamp": {
+        "description": "The timestamp when this message was created.  The default value is the\ncurrent time.",
+        "type": "string",
+        "format": "date-time"
+      },
+      "deletedTimestamp": {
+        "description": "The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.",
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedTimestamp": {
+        "description": "The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.",
+        "type": "string",
+        "format": "date-time"
+      },
+      "createThread": {
+        "$ref": "#/definitions/CreateThreadVariables",
+        "description": "The parameters for creating a thread if the supplied thread doesn't exist\nyet.  If the thread doesn't exist but `createThread` isn't provided, the\ncall will generate an error.  This value is ignored if the thread already\nexists."
+      },
+      "iconURL": {
+        "description": "The URL of the icon to show next to the message.  This is only used for\n`action_message` messages; other messages show the avatar of the author.\nIf an `action_message` does not have an icon set, no icon is shown.",
+        "format": "uri",
+        "type": "string"
+      },
+      "type": {
+        "description": "The type of message this is.  A `user_message` is a message that the author\nsent.  An `action_message` is a message about something that happened, such\nas the thread being resolved.  The default value is `user_message`.",
+        "enum": ["action_message", "user_message"],
+        "type": "string"
+      }
     },
     "additionalProperties": false,
     "propertyOrder": [
@@ -726,16 +756,25 @@
         "type": "object",
         "properties": {
           "location": {
-            "description": "`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).",
+            "description": "The [location](https://docs.cord.com/reference/location) of the thread.",
             "type": "object",
             "additionalProperties": { "type": ["string", "number", "boolean"] },
             "propertyOrder": []
           },
-          "url": { "type": "string" },
-          "name": { "type": "string" },
-          "organizationID": { "type": "string" },
+          "url": {
+            "description": "A URL where the thread can be seen.  This determines where a user is sent\nwhen they click on a reference to this thread, such as in a notification,\nor if they click on a reference to a message in the thread and the message\ndoesn't have its own URL.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  You should use something like the\npage title here.",
+            "type": "string"
+          },
+          "organizationID": {
+            "description": "The organization that the thread belongs to.",
+            "type": "string"
+          },
           "metadata": {
-            "description": "`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).",
+            "description": "Arbitrary key-value pairs that can be used to store additional information.",
             "type": "object",
             "additionalProperties": { "type": ["string", "number", "boolean"] },
             "propertyOrder": []
@@ -758,16 +797,25 @@
     "type": "object",
     "properties": {
       "location": {
-        "description": "`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).",
+        "description": "The [location](https://docs.cord.com/reference/location) of the thread.",
         "type": "object",
         "additionalProperties": { "type": ["string", "number", "boolean"] },
         "propertyOrder": []
       },
-      "url": { "type": "string" },
-      "name": { "type": "string" },
-      "organizationID": { "type": "string" },
+      "url": {
+        "description": "A URL where the thread can be seen.  This determines where a user is sent\nwhen they click on a reference to this thread, such as in a notification,\nor if they click on a reference to a message in the thread and the message\ndoesn't have its own URL.",
+        "type": "string"
+      },
+      "name": {
+        "description": "The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  You should use something like the\npage title here.",
+        "type": "string"
+      },
+      "organizationID": {
+        "description": "The organization that the thread belongs to.",
+        "type": "string"
+      },
       "metadata": {
-        "description": "`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).",
+        "description": "Arbitrary key-value pairs that can be used to store additional information.",
         "type": "object",
         "additionalProperties": { "type": ["string", "number", "boolean"] },
         "propertyOrder": []

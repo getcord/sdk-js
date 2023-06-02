@@ -293,25 +293,85 @@ export type CreatePlatformOrganizationVariables =
   PlatformOrganizationVariables & { id: ID };
 
 export interface CreateMessageVariables {
+  /**
+   * The ID for the message.
+   */
   id: string;
+  /**
+   * The ID for the user that sent the message.
+   */
   authorID: string;
+  /**
+   * The content of the message.
+   */
   content: object[];
+  /**
+   * A URL where the message can be seen.  This determines where a user is sent
+   * when they click on a reference to this message, such as in a notification.
+   * If unset, it defaults to the thread's URL.
+   */
   url?: string;
+  /**
+   * The timestamp when this message was created.  The default value is the
+   * current time.
+   */
   createdTimestamp?: Date | undefined;
+  /**
+   * The timestamp when this message was deleted, if it was.  If unset, the
+   * message is not deleted.
+   */
   deletedTimestamp?: Date | undefined;
+  /**
+   * The timestamp when this message was last edited, if it ever was.  If unset,
+   * the message does not show as edited.
+   */
   updatedTimestamp?: Date | undefined;
+  /**
+   * The parameters for creating a thread if the supplied thread doesn't exist
+   * yet.  If the thread doesn't exist but `createThread` isn't provided, the
+   * call will generate an error.  This value is ignored if the thread already
+   * exists.
+   */
   createThread?: CreateThreadVariables;
   /**
+   * The URL of the icon to show next to the message.  This is only used for
+   * `action_message` messages; other messages show the avatar of the author.
+   * If an `action_message` does not have an icon set, no icon is shown.
    * @format uri
    */
   iconURL?: string;
+  /**
+   * The type of message this is.  A `user_message` is a message that the author
+   * sent.  An `action_message` is a message about something that happened, such
+   * as the thread being resolved.  The default value is `user_message`.
+   */
   type?: 'action_message' | 'user_message';
 }
 
 export interface CreateThreadVariables {
+  /**
+   * The [location](https://docs.cord.com/reference/location) of the thread.
+   */
   location: Location;
+  /**
+   * A URL where the thread can be seen.  This determines where a user is sent
+   * when they click on a reference to this thread, such as in a notification,
+   * or if they click on a reference to a message in the thread and the message
+   * doesn't have its own URL.
+   */
   url: string;
+  /**
+   * The name of the thread.  This is shown to users when the thread is
+   * referenced, such as in notifications.  You should use something like the
+   * page title here.
+   */
   name: string;
+  /**
+   * The organization that the thread belongs to.
+   */
   organizationID: string;
+  /**
+   * Arbitrary key-value pairs that can be used to store additional information.
+   */
   metadata?: EntityMetadata;
 }
