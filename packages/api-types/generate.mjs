@@ -60,6 +60,8 @@ async function main() {
     );
   }
 
+  Object.values(jsonSchema).forEach(makeAbsoluteURLsRelative);
+
   // write schema to schema.ts
   await fs.promises.writeFile(
     schemaTsFile,
@@ -88,6 +90,24 @@ async function main() {
     ...(await prettier.resolveConfig(typesFile)),
   });
   await fs.promises.writeFile(typesFile, typesFileCode);
+}
+
+function makeAbsoluteURLsRelative(item) {
+  if (item.description && typeof item.description === 'string') {
+    item.description = item.description.replaceAll(
+      '(https://docs.cord.com/',
+      '(/',
+    );
+  }
+  if (item.properties && typeof item.properties === 'object') {
+    Object.values(item.properties).forEach(makeAbsoluteURLsRelative);
+  }
+  if (item.definitions && typeof item.definitions === 'object') {
+    Object.values(item.definitions).forEach(makeAbsoluteURLsRelative);
+  }
+  if (item.anyOf && typeof Array.isArray(item.anyOf)) {
+    item.anyOf.forEach(makeAbsoluteURLsRelative);
+  }
 }
 
 function printTypesFile(typeNames) {

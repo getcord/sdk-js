@@ -337,7 +337,7 @@ export default {
     properties: {
       users: {
         description:
-          'List of user objects. Every object must include the id field. If the user\nalready exists, all other fields are optional and only updated when\npresent. If the user does not already exist, fields are required as\ndescribed in the [Create or update a\nuser](https://docs.cord.com/reference/rest-api/organizations/#create-or-update-an-organization)\nAPI.',
+          'List of user objects. Every object must include the id field. If the user\nalready exists, all other fields are optional and only updated when\npresent. If the user does not already exist, fields are required as\ndescribed in the [Create or update a\nuser](/reference/rest-api/organizations/#create-or-update-an-organization)\nAPI.',
         maxItems: 10000,
         type: 'array',
         items: {
@@ -395,7 +395,7 @@ export default {
       },
       organizations: {
         description:
-          'List of organization objects. Every object must include the id field. If\nthe organization already exists, all other fields are optional and only\nupdated when present. If the organization does not already exist, fields\nare required as described in the [Create or update an\norganization](https://docs.cord.com/reference/rest-api/organizations/#create-or-update-an-organization)\nAPI.',
+          'List of organization objects. Every object must include the id field. If\nthe organization already exists, all other fields are optional and only\nupdated when present. If the organization does not already exist, fields\nare required as described in the [Create or update an\norganization](/reference/rest-api/organizations/#create-or-update-an-organization)\nAPI.',
         maxItems: 1000,
         type: 'array',
         items: {
@@ -437,12 +437,12 @@ export default {
       user_details: {
         $ref: '#/definitions/PlatformUserVariables',
         description:
-          'If present, update’s the user’s details, or creates a user with those\ndetails if the user_id is new to Cord. This is an object that contains the\nsame fields as the [user management REST\nendpoint](https://docs.cord.com/reference/rest-api/users/)',
+          'If present, update’s the user’s details, or creates a user with those\ndetails if the user_id is new to Cord. This is an object that contains the\nsame fields as the [user management REST\nendpoint](/reference/rest-api/users/)',
       },
       organization_details: {
         $ref: '#/definitions/PlatformOrganizationVariables',
         description:
-          'If present, update’s the organization’s details, or creates an organization\nwith those details if the organization_id is new to Cord. This is an object\nthat contains the same fields as the [organization management REST\nendpoint](https://docs.cord.com/reference/rest-api/organizations/)',
+          'If present, update’s the organization’s details, or creates an organization\nwith those details if the organization_id is new to Cord. This is an object\nthat contains the same fields as the [organization management REST\nendpoint](/reference/rest-api/organizations/)',
       },
     },
     propertyOrder: [
@@ -787,8 +787,7 @@ export default {
         type: 'object',
         properties: {
           location: {
-            description:
-              'The [location](https://docs.cord.com/reference/location) of the thread.',
+            description: 'The [location](/reference/location) of the thread.',
             type: 'object',
             additionalProperties: { type: ['string', 'number', 'boolean'] },
             propertyOrder: [],
@@ -832,8 +831,7 @@ export default {
     type: 'object',
     properties: {
       location: {
-        description:
-          'The [location](https://docs.cord.com/reference/location) of the thread.',
+        description: 'The [location](/reference/location) of the thread.',
         type: 'object',
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
