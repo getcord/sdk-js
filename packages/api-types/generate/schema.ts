@@ -722,7 +722,7 @@ export default {
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
-  CreateMessageVariables: {
+  CommonMessageVariables: {
     type: 'object',
     properties: {
       id: { description: 'The ID for the message.', type: 'string' },
@@ -758,11 +758,6 @@ export default {
         type: 'string',
         format: 'date-time',
       },
-      createThread: {
-        $ref: '#/definitions/CreateThreadVariables',
-        description:
-          "The parameters for creating a thread if the supplied thread doesn't exist\nyet.  If the thread doesn't exist but `createThread` isn't provided, the\ncall will generate an error.  This value is ignored if the thread already\nexists.",
-      },
       iconURL: {
         description:
           'The URL of the icon to show next to the message.  This is only used for\n`action_message` messages; other messages show the avatar of the author.\nIf an `action_message` does not have an icon set, no icon is shown.',
@@ -785,10 +780,67 @@ export default {
       'createdTimestamp',
       'deletedTimestamp',
       'updatedTimestamp',
-      'createThread',
       'iconURL',
       'type',
     ],
+    required: ['authorID', 'content', 'id'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  CreateMessageVariables: {
+    additionalProperties: false,
+    type: 'object',
+    properties: {
+      id: { description: 'The ID for the message.', type: 'string' },
+      authorID: {
+        description: 'The ID for the user that sent the message.',
+        type: 'string',
+      },
+      content: {
+        description: 'The content of the message.',
+        type: 'array',
+        items: { type: 'object', properties: {}, additionalProperties: true },
+      },
+      url: {
+        description:
+          "A URL where the message can be seen.  This determines where a user is sent\nwhen they click on a reference to this message, such as in a notification.\nIf unset, it defaults to the thread's URL.",
+        type: 'string',
+      },
+      createdTimestamp: {
+        description:
+          'The timestamp when this message was created.  The default value is the\ncurrent time.',
+        type: 'string',
+        format: 'date-time',
+      },
+      deletedTimestamp: {
+        description:
+          'The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.',
+        type: 'string',
+        format: 'date-time',
+      },
+      updatedTimestamp: {
+        description:
+          'The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.',
+        type: 'string',
+        format: 'date-time',
+      },
+      iconURL: {
+        description:
+          'The URL of the icon to show next to the message.  This is only used for\n`action_message` messages; other messages show the avatar of the author.\nIf an `action_message` does not have an icon set, no icon is shown.',
+        format: 'uri',
+        type: 'string',
+      },
+      type: {
+        description:
+          'The type of message this is.  A `user_message` is a message that the author\nsent.  An `action_message` is a message about something that happened, such\nas the thread being resolved.  The default value is `user_message`.',
+        enum: ['action_message', 'user_message'],
+        type: 'string',
+      },
+      createThread: {
+        $ref: '#/definitions/CreateThreadVariables',
+        description:
+          "The parameters for creating a thread if the supplied thread doesn't exist\nyet.  If the thread doesn't exist but `createThread` isn't provided, the\ncall will generate an error.  This value is ignored if the thread already\nexists.",
+      },
+    },
     required: ['authorID', 'content', 'id'],
     definitions: {
       CreateThreadVariables: {
@@ -833,6 +885,54 @@ export default {
         required: ['location', 'name', 'organizationID', 'url'],
       },
     },
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  UpdateMessageVariables: {
+    type: 'object',
+    properties: {
+      id: { description: 'The ID for the message.', type: 'string' },
+      url: {
+        description:
+          "A URL where the message can be seen.  This determines where a user is sent\nwhen they click on a reference to this message, such as in a notification.\nIf unset, it defaults to the thread's URL.",
+        type: 'string',
+      },
+      content: {
+        description: 'The content of the message.',
+        type: 'array',
+        items: { type: 'object', properties: {}, additionalProperties: true },
+      },
+      deletedTimestamp: {
+        anyOf: [
+          {
+            description:
+              'The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.',
+            type: 'string',
+            format: 'date-time',
+          },
+          { type: 'null' },
+        ],
+      },
+      updatedTimestamp: {
+        description:
+          'The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.',
+        type: 'string',
+        format: 'date-time',
+      },
+      deleted: {
+        description:
+          'Whether we want to mark this message as deleted. Setting this to `true` without\nproviding a value for `deletedTimestamp` is equivalent to setting `deletedTimestamp` to current\ntime and setting this to `false` is equivalent to setting `deletedTimestamp` to `null`',
+        type: 'boolean',
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: [
+      'id',
+      'url',
+      'content',
+      'deletedTimestamp',
+      'updatedTimestamp',
+      'deleted',
+    ],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreateThreadVariables: {

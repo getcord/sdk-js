@@ -309,7 +309,7 @@ export type CreatePlatformUserVariables = PlatformUserVariables & { id: ID };
 export type CreatePlatformOrganizationVariables =
   PlatformOrganizationVariables & { id: ID };
 
-export interface CreateMessageVariables {
+export interface CommonMessageVariables {
   /**
    * The ID for the message.
    */
@@ -344,13 +344,6 @@ export interface CreateMessageVariables {
    */
   updatedTimestamp?: Date | undefined;
   /**
-   * The parameters for creating a thread if the supplied thread doesn't exist
-   * yet.  If the thread doesn't exist but `createThread` isn't provided, the
-   * call will generate an error.  This value is ignored if the thread already
-   * exists.
-   */
-  createThread?: CreateThreadVariables;
-  /**
    * The URL of the icon to show next to the message.  This is only used for
    * `action_message` messages; other messages show the avatar of the author.
    * If an `action_message` does not have an icon set, no icon is shown.
@@ -364,6 +357,34 @@ export interface CreateMessageVariables {
    */
   type?: 'action_message' | 'user_message';
 }
+
+export type CreateMessageVariables = CommonMessageVariables & {
+  /**
+   * The parameters for creating a thread if the supplied thread doesn't exist
+   * yet.  If the thread doesn't exist but `createThread` isn't provided, the
+   * call will generate an error.  This value is ignored if the thread already
+   * exists.
+   */
+  createThread?: CreateThreadVariables;
+};
+
+export type UpdateMessageVariables = Partial<
+  Omit<
+    CommonMessageVariables,
+    'authorID' | 'createdTimestamp' | 'iconURL' | 'type'
+  > & {
+    /**
+     * Whether we want to mark this message as deleted. Setting this to `true` without
+     * providing a value for `deletedTimestamp` is equivalent to setting `deletedTimestamp` to current
+     * time and setting this to `false` is equivalent to setting `deletedTimestamp` to `null`
+     */
+    deleted?: boolean;
+    /**
+     * @nullable
+     */
+    deletedTimestamp?: Date | undefined;
+  }
+>;
 
 export interface CreateThreadVariables {
   /**
