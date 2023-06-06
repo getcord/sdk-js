@@ -3,6 +3,11 @@
 
 import type {
   CreateNotificationVariables,
+  NotificationURLAttachment,
+  NotificationMessageAttachment,
+  NotificationTextHeader,
+  NotificationUserHeader,
+  NotificationVariables,
   PlatformUserVariables,
   PlatformOrganizationVariables,
   UpdatePlatformUserVariables,
@@ -26,6 +31,11 @@ import type {
 
 export type Types = {
   CreateNotificationVariables: CreateNotificationVariables;
+  NotificationURLAttachment: NotificationURLAttachment;
+  NotificationMessageAttachment: NotificationMessageAttachment;
+  NotificationTextHeader: NotificationTextHeader;
+  NotificationUserHeader: NotificationUserHeader;
+  NotificationVariables: NotificationVariables;
   PlatformUserVariables: PlatformUserVariables;
   PlatformOrganizationVariables: PlatformOrganizationVariables;
   UpdatePlatformUserVariables: UpdatePlatformUserVariables;

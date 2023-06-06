@@ -37,7 +37,7 @@ export default {
       },
       metadata: {
         description:
-          'An arbitrary JSON object that can be used to set additional metadata on the\nnotification. When displaying a [list of\nnotifications](/components/cord-notification-list), you can filter the list\nby metadata value.\n\nKeys are strings, and values can be strings, numbers or booleans.',
+          'An arbitrary JSON object that can be used to set additional metadata on the\nnotification. When displaying a [list of\nnotifications](/components/cord-notification-list),\nyou can filter the list by metadata value.\n\nKeys are strings, and values can be strings, numbers or booleans.',
         type: 'object',
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
@@ -56,6 +56,160 @@ export default {
       'metadata',
     ],
     required: ['template', 'type', 'url'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  NotificationURLAttachment: {
+    description:
+      'An attachment representing a URL. Contains one field, a string `url`.',
+    type: 'object',
+    properties: { url: { type: 'string' } },
+    additionalProperties: false,
+    propertyOrder: ['url'],
+    required: ['url'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  NotificationMessageAttachment: {
+    description:
+      'An attachment representing a message. Contains one field, a string `messageID`.',
+    type: 'object',
+    properties: { messageID: { type: 'string' } },
+    additionalProperties: false,
+    propertyOrder: ['messageID'],
+    required: ['messageID'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  NotificationTextHeader: {
+    description:
+      'A header node representing a basic string. Contains two fields: a string\n`text` to display, and a boolean `bold`.',
+    type: 'object',
+    properties: { text: { type: 'string' }, bold: { type: 'boolean' } },
+    additionalProperties: false,
+    propertyOrder: ['text', 'bold'],
+    required: ['bold', 'text'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  NotificationUserHeader: {
+    description:
+      'A header node representing a reference to a specific user. Contains one\nfield, a string `userID`.',
+    type: 'object',
+    properties: { userID: { type: 'string' } },
+    additionalProperties: false,
+    propertyOrder: ['userID'],
+    required: ['userID'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  NotificationVariables: {
+    type: 'object',
+    properties: {
+      id: {
+        description: 'The [ID](/reference/identifiers) for this notification.',
+        type: 'string',
+      },
+      senderUserIDs: {
+        description:
+          'The [IDs](/reference/identifiers) of the user(s) who\nsent this notification. The Cord backend will sometimes aggregate multiple\nnotifications together, causing them to have multiple senders. For example,\nif multiple people react to the same message, that will generate only one\nnotification (but with multiple senders, one for each person who reacted).',
+        type: 'array',
+        items: { type: 'string' },
+      },
+      iconUrl: {
+        description:
+          "The URL of an icon image for this notification, if one was specified when\nit was created. This will always be `null` for Cord's internally-generated\nnotifications (i.e., it can only be non-null for notifications you create\nvia the REST API).",
+        type: 'string',
+      },
+      header: {
+        description:
+          'The "header" or "text" of the notification. This will represent text like\n"Alice replied to your thread." or similar. For notifications you create\nvia the REST API, this will be based upon the `template` parameter, see\nbelow.',
+        type: 'array',
+        items: {
+          anyOf: [
+            {
+              description:
+                'A header node representing a basic string. Contains two fields: a string\n`text` to display, and a boolean `bold`.',
+              type: 'object',
+              properties: {
+                text: { type: 'string' },
+                bold: { type: 'boolean' },
+              },
+              additionalProperties: false,
+              propertyOrder: ['text', 'bold'],
+              required: ['bold', 'text'],
+            },
+            {
+              description:
+                'A header node representing a reference to a specific user. Contains one\nfield, a string `userID`.',
+              type: 'object',
+              properties: { userID: { type: 'string' } },
+              additionalProperties: false,
+              propertyOrder: ['userID'],
+              required: ['userID'],
+            },
+          ],
+        },
+      },
+      attachment: {
+        description:
+          'Additional context attached to the notification. For example, if this\nnotification is about a new reaction on a message, the attachment will\nspecify what message received that new reaction.',
+        anyOf: [
+          {
+            description:
+              'An attachment representing a URL. Contains one field, a string `url`.',
+            type: 'object',
+            properties: { url: { type: 'string' } },
+            additionalProperties: false,
+            propertyOrder: ['url'],
+            required: ['url'],
+          },
+          {
+            description:
+              'An attachment representing a message. Contains one field, a string `messageID`.',
+            type: 'object',
+            properties: { messageID: { type: 'string' } },
+            additionalProperties: false,
+            propertyOrder: ['messageID'],
+            required: ['messageID'],
+          },
+        ],
+      },
+      readStatus: {
+        description:
+          'Whether this notification has been read by the recipient yet.',
+        enum: ['read', 'unread'],
+        type: 'string',
+      },
+      timestamp: {
+        description: 'The time this notification was sent.',
+        type: 'string',
+        format: 'date-time',
+      },
+      metadata: {
+        description:
+          "An arbitrary JSON object specified when the notification was created. This\nwill always be an empty object for Cord's internally-generated\nnotifications (i.e., it can only be non-null for notifications you create\nvia the REST API).",
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: [
+      'id',
+      'senderUserIDs',
+      'iconUrl',
+      'header',
+      'attachment',
+      'readStatus',
+      'timestamp',
+      'metadata',
+    ],
+    required: [
+      'attachment',
+      'header',
+      'iconUrl',
+      'id',
+      'metadata',
+      'readStatus',
+      'senderUserIDs',
+      'timestamp',
+    ],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   PlatformUserVariables: {

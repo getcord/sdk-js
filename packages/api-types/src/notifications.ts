@@ -3,7 +3,7 @@ import type { EntityMetadata } from '@cord-sdk/types';
 /**
  * https://docs.cord.com/reference/rest-api/notifications
  */
-export interface CreateNotificationVariables {
+export type CreateNotificationVariables = {
   /**
    * ID of user who is the "actor" sending the notification, i.e., the user
    * taking the action the notification is about.
@@ -55,10 +55,89 @@ export interface CreateNotificationVariables {
   /**
    * An arbitrary JSON object that can be used to set additional metadata on the
    * notification. When displaying a [list of
-   * notifications](/components/cord-notification-list), you can filter the list
-   * by metadata value.
+   * notifications](https://docs.cord.com/components/cord-notification-list),
+   * you can filter the list by metadata value.
    *
    * Keys are strings, and values can be strings, numbers or booleans.
    */
   metadata?: EntityMetadata;
-}
+};
+
+/**
+ * An attachment representing a URL. Contains one field, a string `url`.
+ */
+export type NotificationURLAttachment = { url: string };
+
+/**
+ * An attachment representing a message. Contains one field, a string `messageID`.
+ */
+export type NotificationMessageAttachment = { messageID: string };
+
+/**
+ * A header node representing a basic string. Contains two fields: a string
+ * `text` to display, and a boolean `bold`.
+ */
+export type NotificationTextHeader = { text: string; bold: boolean };
+
+/**
+ * A header node representing a reference to a specific user. Contains one
+ * field, a string `userID`.
+ */
+export type NotificationUserHeader = { userID: string };
+
+export type NotificationVariables = {
+  /**
+   * The [ID](https://docs.cord.com/reference/identifiers) for this notification.
+   */
+  id: string;
+
+  /**
+   * The [IDs](https://docs.cord.com/reference/identifiers) of the user(s) who
+   * sent this notification. The Cord backend will sometimes aggregate multiple
+   * notifications together, causing them to have multiple senders. For example,
+   * if multiple people react to the same message, that will generate only one
+   * notification (but with multiple senders, one for each person who reacted).
+   */
+  senderUserIDs: string[];
+
+  /**
+   * The URL of an icon image for this notification, if one was specified when
+   * it was created. This will always be `null` for Cord's internally-generated
+   * notifications (i.e., it can only be non-null for notifications you create
+   * via the REST API).
+   */
+  iconUrl: string | null;
+
+  /**
+   * The "header" or "text" of the notification. This will represent text like
+   * "Alice replied to your thread." or similar. For notifications you create
+   * via the REST API, this will be based upon the `template` parameter, see
+   * below.
+   */
+  header: (NotificationTextHeader | NotificationUserHeader)[];
+
+  /**
+   * Additional context attached to the notification. For example, if this
+   * notification is about a new reaction on a message, the attachment will
+   * specify what message received that new reaction.
+   */
+  attachment: NotificationURLAttachment | NotificationMessageAttachment | null;
+
+  /**
+   * Whether this notification has been read by the recipient yet.
+   */
+  readStatus: 'unread' | 'read';
+
+  /**
+   * The time this notification was sent.
+   */
+  timestamp: Date;
+
+  /**
+   * An arbitrary JSON object specified when the notification was created. This
+   * will always be an empty object for Cord's internally-generated
+   * notifications (i.e., it can only be non-null for notifications you create
+   * via the REST API).
+   */
+  metadata: EntityMetadata;
+};
