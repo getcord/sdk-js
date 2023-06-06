@@ -295,6 +295,10 @@ export interface CommonMessageVariables {
    * as the thread being resolved.  The default value is `user_message`.
    */
   type?: 'action_message' | 'user_message';
+  /**
+   * Arbitrary key-value pairs that can be used to store additional information.
+   */
+  metadata?: EntityMetadata;
 }
 
 export type CreateMessageVariables = CommonMessageVariables & {

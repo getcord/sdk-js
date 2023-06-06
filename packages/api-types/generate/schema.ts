@@ -924,6 +924,13 @@ export default {
         enum: ['action_message', 'user_message'],
         type: 'string',
       },
+      metadata: {
+        description:
+          'Arbitrary key-value pairs that can be used to store additional information.',
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -936,6 +943,7 @@ export default {
       'updatedTimestamp',
       'iconURL',
       'type',
+      'metadata',
     ],
     required: ['authorID', 'content', 'id'],
     $schema: 'http://json-schema.org/draft-07/schema#',
@@ -988,6 +996,13 @@ export default {
           'The type of message this is.  A `user_message` is a message that the author\nsent.  An `action_message` is a message about something that happened, such\nas the thread being resolved.  The default value is `user_message`.',
         enum: ['action_message', 'user_message'],
         type: 'string',
+      },
+      metadata: {
+        description:
+          'Arbitrary key-value pairs that can be used to store additional information.',
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
       },
       createThread: {
         $ref: '#/definitions/CreateThreadVariables',
@@ -1055,6 +1070,13 @@ export default {
         type: 'array',
         items: { type: 'object', properties: {}, additionalProperties: true },
       },
+      metadata: {
+        description:
+          'Arbitrary key-value pairs that can be used to store additional information.',
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
+      },
       deletedTimestamp: {
         anyOf: [
           {
@@ -1083,6 +1105,7 @@ export default {
       'id',
       'url',
       'content',
+      'metadata',
       'deletedTimestamp',
       'updatedTimestamp',
       'deleted',
