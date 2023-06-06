@@ -12,7 +12,10 @@ async function main() {
   const schemaTsFile = path.resolve('generate/schema.ts');
   const schemaJsonFile = path.resolve('generate/schema.json');
   const typesFile = path.resolve('generate/types.ts');
-  const typeDefinitionsFile = path.resolve('src/typeDefinitions.ts');
+  const typeDefinitionsFiles = [
+    path.resolve('src/typeDefinitions.ts'),
+    path.resolve('src/notifications.ts'),
+  ];
 
   const tsCompilerHost = {
     ...ts.createCompilerHost({}),
@@ -34,7 +37,7 @@ async function main() {
   };
 
   const tsProgram = ts.createProgram(
-    [typeDefinitionsFile],
+    typeDefinitionsFiles,
     {
       target: ts.ScriptTarget.ES2019,
       moduleResolution: ts.ModuleResolutionKind.NodeJs,
@@ -45,7 +48,7 @@ async function main() {
   const tjsGenerator = TJS.buildGenerator(
     tsProgram,
     settings,
-    typeDefinitionsFile,
+    typeDefinitionsFiles,
   );
 
   const jsonSchema = Object.fromEntries(

@@ -1,5 +1,63 @@
 // @generated
 export default {
+  CreateNotificationVariables: {
+    description: 'https://docs.cord.com/reference/rest-api/notifications',
+    type: 'object',
+    properties: {
+      actorID: {
+        description:
+          'ID of user who is the "actor" sending the notification, i.e., the user\ntaking the action the notification is about.\n\nRequired if `template` includes `{{actor}}`.',
+        type: 'string',
+      },
+      actor_id: { type: 'string' },
+      recipientID: {
+        description: 'ID of user receiving the notification.',
+        type: 'string',
+      },
+      recipient_id: { type: 'string' },
+      template: {
+        description:
+          "Template for the header of the notification. The expressions `{{actor}}`\nand `{{recipient}}` will be replaced respectively with the notification's\nactor and recipient. (See below for an example.)",
+        type: 'string',
+      },
+      url: {
+        description: 'URL of page to go to when the notification is clicked.',
+        type: 'string',
+      },
+      iconUrl: {
+        description:
+          "URL of an icon image if a specific one is desired. For notifications with\nan `actor_id` this will default to the sender's profile picture, otherwise\nit will default to a bell icon.",
+        type: 'string',
+      },
+      type: {
+        description:
+          'Currently must be set to `url`. In the future this may specify different\ntypes of notifications, but for now only `url` is defined.',
+        type: 'string',
+        enum: ['url'],
+      },
+      metadata: {
+        description:
+          'An arbitrary JSON object that can be used to set additional metadata on the\nnotification. When displaying a [list of\nnotifications](/components/cord-notification-list), you can filter the list\nby metadata value.\n\nKeys are strings, and values can be strings, numbers or booleans.',
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: [
+      'actorID',
+      'actor_id',
+      'recipientID',
+      'recipient_id',
+      'template',
+      'url',
+      'iconUrl',
+      'type',
+      'metadata',
+    ],
+    required: ['template', 'type', 'url'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
   PlatformUserVariables: {
     type: 'object',
     properties: {
@@ -535,64 +593,6 @@ export default {
         required: ['name'],
       },
     },
-    $schema: 'http://json-schema.org/draft-07/schema#',
-  },
-  CreateNotificationVariables: {
-    description: 'https://docs.cord.com/reference/rest-api/notifications',
-    type: 'object',
-    properties: {
-      actorID: {
-        description:
-          'ID of user who is the "actor" sending the notification, i.e., the user\ntaking the action the notification is about.\n\nRequired if `template` includes `{{actor}}`.',
-        type: 'string',
-      },
-      actor_id: { type: 'string' },
-      recipientID: {
-        description: 'ID of user receiving the notification.',
-        type: 'string',
-      },
-      recipient_id: { type: 'string' },
-      template: {
-        description:
-          "Template for the header of the notification. The expressions `{{actor}}`\nand `{{recipient}}` will be replaced respectively with the notification's\nactor and recipient. (See below for an example.)",
-        type: 'string',
-      },
-      url: {
-        description: 'URL of page to go to when the notification is clicked.',
-        type: 'string',
-      },
-      iconUrl: {
-        description:
-          "URL of an icon image if a specific one is desired. For notifications with\nan `actor_id` this will default to the sender's profile picture, otherwise\nit will default to a bell icon.",
-        type: 'string',
-      },
-      type: {
-        description:
-          'Currently must be set to `url`. In the future this may specify different\ntypes of notifications, but for now only `url` is defined.',
-        type: 'string',
-        enum: ['url'],
-      },
-      metadata: {
-        description:
-          'An arbitrary JSON object that can be used to set additional metadata on the\nnotification. When displaying a [list of\nnotifications](/components/cord-notification-list), you can filter the list\nby metadata value.\n\nKeys are strings, and values can be strings, numbers or booleans.',
-        type: 'object',
-        additionalProperties: { type: ['string', 'number', 'boolean'] },
-        propertyOrder: [],
-      },
-    },
-    additionalProperties: false,
-    propertyOrder: [
-      'actorID',
-      'actor_id',
-      'recipientID',
-      'recipient_id',
-      'template',
-      'url',
-      'iconUrl',
-      'type',
-      'metadata',
-    ],
-    required: ['template', 'type', 'url'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreateApplicationVariables: {

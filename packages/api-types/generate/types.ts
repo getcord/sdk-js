@@ -2,6 +2,7 @@
 // update typeDefinitions.ts and to re-generate run "node  generate.mjs" in sdk-js/packages/api-types
 
 import type {
+  CreateNotificationVariables,
   PlatformUserVariables,
   PlatformOrganizationVariables,
   UpdatePlatformUserVariables,
@@ -12,7 +13,6 @@ import type {
   UpdateThreadVariables,
   BatchAPIVariables,
   ClientAuthTokenData,
-  CreateNotificationVariables,
   CreateApplicationVariables,
   UpdateApplicationVariables,
   DeleteApplicationVariables,
@@ -25,6 +25,7 @@ import type {
 } from '../src/typeDefinitions';
 
 export type Types = {
+  CreateNotificationVariables: CreateNotificationVariables;
   PlatformUserVariables: PlatformUserVariables;
   PlatformOrganizationVariables: PlatformOrganizationVariables;
   UpdatePlatformUserVariables: UpdatePlatformUserVariables;
@@ -35,7 +36,6 @@ export type Types = {
   UpdateThreadVariables: UpdateThreadVariables;
   BatchAPIVariables: BatchAPIVariables;
   ClientAuthTokenData: ClientAuthTokenData;
-  CreateNotificationVariables: CreateNotificationVariables;
   CreateApplicationVariables: CreateApplicationVariables;
   UpdateApplicationVariables: UpdateApplicationVariables;
   DeleteApplicationVariables: DeleteApplicationVariables;
