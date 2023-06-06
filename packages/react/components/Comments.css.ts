@@ -8,15 +8,16 @@ globalStyle(`.${comments}`, {
   width: '320px',
   border: `1px solid ${cssVar('color-base-x-strong')}`,
   padding: cssVar('space-2xs'),
-  borderRadius: cssVar('space-3xs'),
+  borderRadius: cssVar('border-radius-medium'),
   display: 'flex',
   flexDirection: 'column',
   gap: cssVar('space-2xs'),
+  backgroundColor: cssVar('color-base'),
 });
 
 export const threadList = cordifyClassname('thread-list');
 globalStyle(`.${threadList}`, {
-  overflow: 'scroll',
+  overflow: 'auto',
   display: 'flex',
   flexDirection: 'column',
   gap: cssVar('space-xs'),
