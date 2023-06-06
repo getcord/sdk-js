@@ -10,6 +10,7 @@ export const MODIFIERS = {
   unseen: cordifyClassname('unseen'),
   editing: cordifyClassname('editing'),
   selected: cordifyClassname('selected'),
+  highlighted: cordifyClassname('highlighted'),
 };
 
 /**
