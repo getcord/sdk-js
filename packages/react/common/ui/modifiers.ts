@@ -9,6 +9,7 @@ export const MODIFIERS = {
   deleted: cordifyClassname('deleted'),
   unseen: cordifyClassname('unseen'),
   editing: cordifyClassname('editing'),
+  selected: cordifyClassname('selected'),
 };
 
 /**
