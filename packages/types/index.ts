@@ -1061,6 +1061,7 @@ export interface ViewerUserData extends UserData {
    * The identifier for the organization that the current user is using.
    */
   organizationID: OrganizationID;
+  notificationPreferences: { sendViaSlack: boolean; sendViaEmail: boolean };
 }
 
 export interface HTMLCordElement extends HTMLElement {
