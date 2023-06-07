@@ -23,7 +23,7 @@ import type {
   DeleteApplicationVariables,
   CreatePlatformUserVariables,
   CreatePlatformOrganizationVariables,
-  CommonMessageVariables,
+  MessageVariables,
   CreateMessageVariables,
   UpdateMessageVariables,
   CreateThreadVariables,
@@ -51,7 +51,7 @@ export type Types = {
   DeleteApplicationVariables: DeleteApplicationVariables;
   CreatePlatformUserVariables: CreatePlatformUserVariables;
   CreatePlatformOrganizationVariables: CreatePlatformOrganizationVariables;
-  CommonMessageVariables: CommonMessageVariables;
+  MessageVariables: MessageVariables;
   CreateMessageVariables: CreateMessageVariables;
   UpdateMessageVariables: UpdateMessageVariables;
   CreateThreadVariables: CreateThreadVariables;

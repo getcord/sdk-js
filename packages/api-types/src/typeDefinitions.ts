@@ -248,7 +248,7 @@ export type CreatePlatformUserVariables = PlatformUserVariables & { id: ID };
 export type CreatePlatformOrganizationVariables =
   PlatformOrganizationVariables & { id: ID };
 
-export interface CommonMessageVariables {
+export interface MessageVariables {
   /**
    * The ID for the message.
    */
@@ -258,6 +258,14 @@ export interface CommonMessageVariables {
    */
   authorID: string;
   /**
+   * The ID for the organization this message belongs to.
+   */
+  organizationID: string;
+  /**
+   * The ID for the thread this message is part of.
+   */
+  threadID: string;
+  /**
    * The content of the message.
    */
   content: object[];
@@ -266,29 +274,29 @@ export interface CommonMessageVariables {
    * when they click on a reference to this message, such as in a notification.
    * If unset, it defaults to the thread's URL.
    */
-  url?: string;
+  url?: string | null;
   /**
    * The timestamp when this message was created.  The default value is the
    * current time.
    */
-  createdTimestamp?: Date | undefined;
+  createdTimestamp?: Date | null;
   /**
    * The timestamp when this message was deleted, if it was.  If unset, the
    * message is not deleted.
    */
-  deletedTimestamp?: Date | undefined;
+  deletedTimestamp?: Date | null;
   /**
    * The timestamp when this message was last edited, if it ever was.  If unset,
    * the message does not show as edited.
    */
-  updatedTimestamp?: Date | undefined;
+  updatedTimestamp?: Date | null;
   /**
    * The URL of the icon to show next to the message.  This is only used for
    * `action_message` messages; other messages show the avatar of the author.
    * If an `action_message` does not have an icon set, no icon is shown.
    * @format uri
    */
-  iconURL?: string;
+  iconURL?: string | null;
   /**
    * The type of message this is.  A `user_message` is a message that the author
    * sent.  An `action_message` is a message about something that happened, such
@@ -301,7 +309,8 @@ export interface CommonMessageVariables {
   metadata?: EntityMetadata;
 }
 
-export type CreateMessageVariables = CommonMessageVariables & {
+export interface CreateMessageVariables
+  extends Omit<MessageVariables, 'organizationID' | 'threadID'> {
   /**
    * The parameters for creating a thread if the supplied thread doesn't exist
    * yet.  If the thread doesn't exist but `createThread` isn't provided, the
@@ -309,25 +318,27 @@ export type CreateMessageVariables = CommonMessageVariables & {
    * exists.
    */
   createThread?: CreateThreadVariables;
-};
+}
 
-export type UpdateMessageVariables = Partial<
-  Omit<
-    CommonMessageVariables,
-    'authorID' | 'createdTimestamp' | 'iconURL' | 'type'
-  > & {
-    /**
-     * Whether we want to mark this message as deleted. Setting this to `true` without
-     * providing a value for `deletedTimestamp` is equivalent to setting `deletedTimestamp` to current
-     * time and setting this to `false` is equivalent to setting `deletedTimestamp` to `null`
-     */
-    deleted?: boolean;
-    /**
-     * @nullable
-     */
-    deletedTimestamp?: Date | undefined;
-  }
->;
+export interface UpdateMessageVariables
+  extends Partial<
+    Omit<
+      MessageVariables,
+      | 'authorID'
+      | 'organizationID'
+      | 'threadID'
+      | 'createdTimestamp'
+      | 'iconURL'
+      | 'type'
+    >
+  > {
+  /**
+   * Whether we want to mark this message as deleted. Setting this to `true` without
+   * providing a value for `deletedTimestamp` is equivalent to setting `deletedTimestamp` to current
+   * time and setting this to `false` is equivalent to setting `deletedTimestamp` to `null`
+   */
+  deleted?: boolean;
+}
 
 export interface CreateThreadVariables {
   /**
