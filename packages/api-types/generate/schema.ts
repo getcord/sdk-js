@@ -955,7 +955,20 @@ export default {
       'type',
       'metadata',
     ],
-    required: ['authorID', 'content', 'id', 'organizationID', 'threadID'],
+    required: [
+      'authorID',
+      'content',
+      'createdTimestamp',
+      'deletedTimestamp',
+      'iconURL',
+      'id',
+      'metadata',
+      'organizationID',
+      'threadID',
+      'type',
+      'updatedTimestamp',
+      'url',
+    ],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreateMessageVariables: {
@@ -966,22 +979,26 @@ export default {
         description:
           "The parameters for creating a thread if the supplied thread doesn't exist\nyet.  If the thread doesn't exist but `createThread` isn't provided, the\ncall will generate an error.  This value is ignored if the thread already\nexists.",
       },
+      id: { description: 'The ID for the message.', type: 'string' },
+      content: {
+        description: 'The content of the message.',
+        type: 'array',
+        items: { type: 'object', properties: {}, additionalProperties: true },
+      },
+      authorID: {
+        description: 'The ID for the user that sent the message.',
+        type: 'string',
+      },
       type: {
         description:
           'The type of message this is.  A `user_message` is a message that the author\nsent.  An `action_message` is a message about something that happened, such\nas the thread being resolved.  The default value is `user_message`.',
         enum: ['action_message', 'user_message'],
         type: 'string',
       },
-      id: { description: 'The ID for the message.', type: 'string' },
       url: {
         description:
           "A URL where the message can be seen.  This determines where a user is sent\nwhen they click on a reference to this message, such as in a notification.\nIf unset, it defaults to the thread's URL.",
         type: 'string',
-      },
-      content: {
-        description: 'The content of the message.',
-        type: 'array',
-        items: { type: 'object', properties: {}, additionalProperties: true },
       },
       metadata: {
         description:
@@ -989,10 +1006,6 @@ export default {
         type: 'object',
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
-      },
-      authorID: {
-        description: 'The ID for the user that sent the message.',
-        type: 'string',
       },
       createdTimestamp: {
         description:
@@ -1022,12 +1035,12 @@ export default {
     additionalProperties: false,
     propertyOrder: [
       'createThread',
-      'type',
       'id',
-      'url',
       'content',
-      'metadata',
       'authorID',
+      'type',
+      'url',
+      'metadata',
       'createdTimestamp',
       'deletedTimestamp',
       'updatedTimestamp',
@@ -1084,7 +1097,7 @@ export default {
     properties: {
       deleted: {
         description:
-          'Whether we want to mark this message as deleted. Setting this to `true` without\nproviding a value for `deletedTimestamp` is equivalent to setting `deletedTimestamp` to current\ntime and setting this to `false` is equivalent to setting `deletedTimestamp` to `null`',
+          'Whether we want to mark this message as deleted. Setting this to `true` without\nproviding a value for `deletedTimestamp` is equivalent to setting `deletedTimestamp` to current\ntime and setting this to `false` is equivalent to setting `deletedTimestamp` to `null`.',
         type: 'boolean',
       },
       id: { description: 'The ID for the message.', type: 'string' },
