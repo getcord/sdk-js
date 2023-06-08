@@ -3,7 +3,7 @@ import { globalStyle } from '@vanilla-extract/css';
 import { cordifyClassname } from '../common/util';
 import { cssVar } from '../common/ui/cssVariables';
 
-export const comments = cordifyClassname('comments');
+export const comments = cordifyClassname('threaded-comments');
 globalStyle(`.${comments}`, {
   width: '320px',
   border: `1px solid ${cssVar('color-base-x-strong')}`,
@@ -29,7 +29,7 @@ globalStyle(`.${reverseOrder}`, {
   flexDirection: 'column-reverse',
 });
 
-export const commentsThread = cordifyClassname('comments-thread');
+export const commentsThread = cordifyClassname('threaded-comments-thread');
 globalStyle(`.${commentsThread}`, {
   display: 'flex',
   flexDirection: 'column',

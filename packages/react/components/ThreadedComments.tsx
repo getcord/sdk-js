@@ -6,7 +6,7 @@ import { Avatar, Facepile } from '..';
 import { pluralize } from '../common/util';
 import * as fonts from '../common/ui/atomicClasses/fonts.css';
 import { useViewerData } from '../hooks/user';
-import * as classes from './Comments.css';
+import * as classes from './ThreadedComments.css';
 import { Composer } from './Composer';
 import { Message } from './Message';
 import {
@@ -18,7 +18,7 @@ import {
 type MessageOrder = 'newest_on_top' | 'newest_on_bottom';
 type ComposerPosition = 'top' | 'bottom';
 
-export function Comments({
+export function ThreadedComments({
   location,
   messageOrder = 'newest_on_top',
   composerPosition = 'top',

@@ -1,1 +1,1 @@
-import './Comments.css';
+import './ThreadedComments.css';
