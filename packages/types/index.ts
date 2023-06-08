@@ -781,7 +781,7 @@ export type BadgeStyle = 'badge' | 'badge_with_count' | 'none';
 
 export type FloatingThreadsWebComponentEvents = {
   start: [];
-  finish: [];
+  finish: [threadID: ThreadID];
   cancel: [];
 };
 
