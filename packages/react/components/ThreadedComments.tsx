@@ -2,18 +2,15 @@ import cx from 'classnames';
 import type { Location, ThreadSummary } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
+
 import { Avatar, Facepile } from '..';
 import { pluralize } from '../common/util';
+import * as user from '../hooks/user';
+import * as thread from '../hooks/thread';
 import * as fonts from '../common/ui/atomicClasses/fonts.css';
-import { useViewerData } from '../hooks/user';
 import * as classes from './ThreadedComments.css';
 import { Composer } from './Composer';
 import { Message } from './Message';
-import {
-  useLocationData,
-  useThreadData,
-  useThreadSummary,
-} from '@cord-sdk/react/hooks/thread';
 
 type MessageOrder = 'newest_on_top' | 'newest_on_bottom';
 type ComposerPosition = 'top' | 'bottom';
@@ -29,7 +26,7 @@ export function ThreadedComments({
   composerPosition?: ComposerPosition;
   composerExpanded?: boolean;
 }) {
-  const { threads, hasMore, fetchMore } = useLocationData(location, {
+  const { threads, hasMore, fetchMore } = thread.useLocationData(location, {
     sortBy: 'first_message_timestamp',
     sortDirection: 'descending',
     includeResolved: false,
@@ -47,8 +44,8 @@ export function ThreadedComments({
           [classes.reverseOrder]: messageOrder === 'newest_on_bottom',
         })}
       >
-        {threads.map((thread) => (
-          <CommentsThread key={thread.id} threadId={thread.id} />
+        {threads.map((oneThread) => (
+          <CommentsThread key={oneThread.id} threadId={oneThread.id} />
         ))}
         {hasMore && (
           <button
@@ -68,7 +65,7 @@ export function ThreadedComments({
 }
 
 function CommentsThread({ threadId }: { threadId: string }) {
-  const threadSummary = useThreadSummary(threadId);
+  const threadSummary = thread.useThreadSummary(threadId);
   const [showingReplies, setShowingReplies] = useState<boolean>(false);
 
   if (!threadSummary || !threadSummary.firstMessage?.id) {
@@ -146,7 +143,7 @@ function ThreadReplies({
   threadId: string;
   setShowingReplies: Dispatch<SetStateAction<boolean>>;
 }) {
-  const { messages, hasMore, fetchMore } = useThreadData(threadId);
+  const { messages, hasMore, fetchMore } = thread.useThreadData(threadId);
   const [showingReplyComposer, setShowingReplyComposer] =
     useState<boolean>(true);
 
@@ -212,7 +209,7 @@ function ViewerAvatarWithComposer({
   threadId: string;
   setShowingReplyComposer: Dispatch<SetStateAction<boolean>>;
 }) {
-  const viewerData = useViewerData();
+  const viewerData = user.useViewerData();
   const userId = viewerData?.id;
 
   return (
