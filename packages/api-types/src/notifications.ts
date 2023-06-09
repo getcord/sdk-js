@@ -64,26 +64,58 @@ export type CreateNotificationVariables = {
 };
 
 /**
- * An attachment representing a URL. Contains one field, a string `url`.
+ * An attachment representing a URL.
  */
-export type NotificationURLAttachment = { url: string };
+export type NotificationURLAttachment = {
+  /**
+   * The URL this attachment points to. This would typically be the URL to send
+   * the browser to if this notification is clicked.
+   */
+  url: string;
+};
 
 /**
- * An attachment representing a message. Contains one field, a string `messageID`.
+ * An attachment representing a message.
  */
-export type NotificationMessageAttachment = { messageID: string };
+export type NotificationMessageAttachment = {
+  /**
+   * The ID of the message attached to this notification. For example, if this
+   * is a notification about being @-mentioned, this is the ID of the message
+   * containing that @-mention.
+   */
+  messageID: string;
+};
 
 /**
- * A header node representing a basic string. Contains two fields: a string
- * `text` to display, and a boolean `bold`.
+ * A header node representing a basic string.
  */
-export type NotificationTextHeader = { text: string; bold: boolean };
+export type NotificationTextHeader = {
+  /**
+   * The text to display. This text may start and/or end with whitespace, which
+   * should typically *not* be trimmed. For example, in order to display the
+   * notification `"Alice replied to your thread."`, this would typically be
+   * composed of two nodes -- a user node for Alice, and then a text node
+   * containing `" replied to your thread."`, with a meaningful space at the
+   * front, to separate this node from Alice's name.
+   */
+  text: string;
+
+  /**
+   * Whether the text should be formatted in bold.
+   */
+  bold: boolean;
+};
 
 /**
- * A header node representing a reference to a specific user. Contains one
- * field, a string `userID`.
+ * A header node representing a reference to a specific user.
  */
-export type NotificationUserHeader = { userID: string };
+export type NotificationUserHeader = {
+  /**
+   * The user referenced. This node would typically be rendered by displaying
+   * this user's name.
+   */
+  userID: string;
+};
 
 export type NotificationVariables = {
   /**

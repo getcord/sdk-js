@@ -59,40 +59,64 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   NotificationURLAttachment: {
-    description:
-      'An attachment representing a URL. Contains one field, a string `url`.',
+    description: 'An attachment representing a URL.',
     type: 'object',
-    properties: { url: { type: 'string' } },
+    properties: {
+      url: {
+        description:
+          'The URL this attachment points to. This would typically be the URL to send\nthe browser to if this notification is clicked.',
+        type: 'string',
+      },
+    },
     additionalProperties: false,
     propertyOrder: ['url'],
     required: ['url'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   NotificationMessageAttachment: {
-    description:
-      'An attachment representing a message. Contains one field, a string `messageID`.',
+    description: 'An attachment representing a message.',
     type: 'object',
-    properties: { messageID: { type: 'string' } },
+    properties: {
+      messageID: {
+        description:
+          'The ID of the message attached to this notification. For example, if this\nis a notification about being @-mentioned, this is the ID of the message\ncontaining that @-mention.',
+        type: 'string',
+      },
+    },
     additionalProperties: false,
     propertyOrder: ['messageID'],
     required: ['messageID'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   NotificationTextHeader: {
-    description:
-      'A header node representing a basic string. Contains two fields: a string\n`text` to display, and a boolean `bold`.',
+    description: 'A header node representing a basic string.',
     type: 'object',
-    properties: { text: { type: 'string' }, bold: { type: 'boolean' } },
+    properties: {
+      text: {
+        description:
+          'The text to display. This text may start and/or end with whitespace, which\nshould typically *not* be trimmed. For example, in order to display the\nnotification `"Alice replied to your thread."`, this would typically be\ncomposed of two nodes -- a user node for Alice, and then a text node\ncontaining `" replied to your thread."`, with a meaningful space at the\nfront, to separate this node from Alice\'s name.',
+        type: 'string',
+      },
+      bold: {
+        description: 'Whether the text should be formatted in bold.',
+        type: 'boolean',
+      },
+    },
     additionalProperties: false,
     propertyOrder: ['text', 'bold'],
     required: ['bold', 'text'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   NotificationUserHeader: {
-    description:
-      'A header node representing a reference to a specific user. Contains one\nfield, a string `userID`.',
+    description: 'A header node representing a reference to a specific user.',
     type: 'object',
-    properties: { userID: { type: 'string' } },
+    properties: {
+      userID: {
+        description:
+          "The user referenced. This node would typically be rendered by displaying\nthis user's name.",
+        type: 'string',
+      },
+    },
     additionalProperties: false,
     propertyOrder: ['userID'],
     required: ['userID'],
@@ -123,12 +147,18 @@ export default {
         items: {
           anyOf: [
             {
-              description:
-                'A header node representing a basic string. Contains two fields: a string\n`text` to display, and a boolean `bold`.',
+              description: 'A header node representing a basic string.',
               type: 'object',
               properties: {
-                text: { type: 'string' },
-                bold: { type: 'boolean' },
+                text: {
+                  description:
+                    'The text to display. This text may start and/or end with whitespace, which\nshould typically *not* be trimmed. For example, in order to display the\nnotification `"Alice replied to your thread."`, this would typically be\ncomposed of two nodes -- a user node for Alice, and then a text node\ncontaining `" replied to your thread."`, with a meaningful space at the\nfront, to separate this node from Alice\'s name.',
+                  type: 'string',
+                },
+                bold: {
+                  description: 'Whether the text should be formatted in bold.',
+                  type: 'boolean',
+                },
               },
               additionalProperties: false,
               propertyOrder: ['text', 'bold'],
@@ -136,9 +166,15 @@ export default {
             },
             {
               description:
-                'A header node representing a reference to a specific user. Contains one\nfield, a string `userID`.',
+                'A header node representing a reference to a specific user.',
               type: 'object',
-              properties: { userID: { type: 'string' } },
+              properties: {
+                userID: {
+                  description:
+                    "The user referenced. This node would typically be rendered by displaying\nthis user's name.",
+                  type: 'string',
+                },
+              },
               additionalProperties: false,
               propertyOrder: ['userID'],
               required: ['userID'],
@@ -151,19 +187,29 @@ export default {
           'Additional context attached to the notification. For example, if this\nnotification is about a new reaction on a message, the attachment will\nspecify what message received that new reaction.',
         anyOf: [
           {
-            description:
-              'An attachment representing a URL. Contains one field, a string `url`.',
+            description: 'An attachment representing a URL.',
             type: 'object',
-            properties: { url: { type: 'string' } },
+            properties: {
+              url: {
+                description:
+                  'The URL this attachment points to. This would typically be the URL to send\nthe browser to if this notification is clicked.',
+                type: 'string',
+              },
+            },
             additionalProperties: false,
             propertyOrder: ['url'],
             required: ['url'],
           },
           {
-            description:
-              'An attachment representing a message. Contains one field, a string `messageID`.',
+            description: 'An attachment representing a message.',
             type: 'object',
-            properties: { messageID: { type: 'string' } },
+            properties: {
+              messageID: {
+                description:
+                  'The ID of the message attached to this notification. For example, if this\nis a notification about being @-mentioned, this is the ID of the message\ncontaining that @-mention.',
+                type: 'string',
+              },
+            },
             additionalProperties: false,
             propertyOrder: ['messageID'],
             required: ['messageID'],
