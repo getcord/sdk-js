@@ -11,6 +11,10 @@ export const MODIFIERS = {
   editing: cordifyClassname('editing'),
   selected: cordifyClassname('selected'),
   highlighted: cordifyClassname('highlighted'),
+
+  extraLarge: cordifyClassname('extra-large'),
+  large: cordifyClassname('large'),
+  medium: cordifyClassname('medium'),
 };
 
 /**
