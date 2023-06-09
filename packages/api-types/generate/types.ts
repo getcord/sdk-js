@@ -27,6 +27,7 @@ import type {
   CreateMessageVariables,
   UpdateMessageVariables,
   CreateThreadVariables,
+  UpdateUserPresenceVariables,
 } from '../src/typeDefinitions';
 
 export type Types = {
@@ -55,4 +56,5 @@ export type Types = {
   CreateMessageVariables: CreateMessageVariables;
   UpdateMessageVariables: UpdateMessageVariables;
   CreateThreadVariables: CreateThreadVariables;
+  UpdateUserPresenceVariables: UpdateUserPresenceVariables;
 };

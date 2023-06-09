@@ -6,7 +6,21 @@ export type GetPresentOptions = {
 };
 
 export type SetPresentOptions = {
+  /**
+   * When `true`, this is a [durable presence](https://docs.cord.com/js-apis-and-hooks/presence-api)
+   * update, when `false`, or is not used, it is an [ephemeral presence](https://docs.cord.com/js-apis-and-hooks/presence-api) update.
+   *
+   * This value defaults to `false.`
+   */
   durable?: boolean;
+  /**
+   * When `true`, this is an *absence* update, meaning that the user has just left
+   * this [location](https://docs.cord.com/reference/location).
+   * If the user is currently present at that location, it is cleared.
+   * This cannot be used with a [durable presence](https://docs.cord.com/js-apis-and-hooks/presence-api) update.
+   *
+   * This value defaults to `false.` The user will be set as present at the location.
+   */
   absent?: boolean;
   exclusive_within?: Location;
 };
