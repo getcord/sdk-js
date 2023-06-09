@@ -28,3 +28,8 @@ export type PresenceReducerOptions = ReactPropsWithLocation<{
 export type PropsWithRef<T> = T & {
   forwardRef?: React.MutableRefObject<Element | null>;
 };
+
+export type PropsWithFlags<T> = T &
+  Partial<{
+    useShadowRoot: boolean;
+  }>;

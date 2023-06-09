@@ -12,6 +12,7 @@ import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
 import type {
   PresenceReducerOptions,
+  PropsWithFlags,
   ReactPropsWithStandardHTMLAttributes,
 } from '../types';
 
@@ -19,12 +20,14 @@ const propsToAttributes = propsToAttributeConverter(
   componentAttributes.PagePresence,
 );
 
-export type PagePresenceReactComponentProps = PresenceReducerOptions & {
-  durable?: boolean;
-  maxUsers?: number;
-  orientation?: Orientation;
-  onUpdate?: (...args: PagePresenceWebComponentEvents['update']) => unknown;
-};
+export type PagePresenceReactComponentProps = PropsWithFlags<
+  PresenceReducerOptions & {
+    durable?: boolean;
+    maxUsers?: number;
+    orientation?: Orientation;
+    onUpdate?: (...args: PagePresenceWebComponentEvents['update']) => unknown;
+  }
+>;
 
 export function PagePresence(
   props: ReactPropsWithStandardHTMLAttributes<PagePresenceReactComponentProps>,
@@ -44,6 +47,7 @@ export function PagePresence(
       style={props.style}
       ref={setRef}
       buffer-events={!listenersAttached}
+      use-shadow-root={props.useShadowRoot ?? false}
       {...propsToAttributes({ location, ...props })}
     />
   );
