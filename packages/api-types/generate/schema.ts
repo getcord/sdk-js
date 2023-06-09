@@ -1142,6 +1142,12 @@ export default {
           'Whether we want to mark this message as deleted. Setting this to `true` without\nproviding a value for `deletedTimestamp` is equivalent to setting `deletedTimestamp` to current\ntime and setting this to `false` is equivalent to setting `deletedTimestamp` to `null`.',
         type: 'boolean',
       },
+      type: {
+        description:
+          'The type of message this is.  A `user_message` is a message that the author\nsent.  An `action_message` is a message about something that happened, such\nas the thread being resolved.  The default value is `user_message`.',
+        enum: ['action_message', 'user_message'],
+        type: 'string',
+      },
       id: { description: 'The ID for the message.', type: 'string' },
       url: {
         description:
@@ -1160,6 +1166,11 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
+      createdTimestamp: {
+        description:
+          'The timestamp when this message was created.  The default value is the\ncurrent time.',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
+      },
       deletedTimestamp: {
         description:
           'The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.',
@@ -1170,16 +1181,25 @@ export default {
           'The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.',
         anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
+      iconURL: {
+        description:
+          'The URL of the icon to show next to the message.  This is only used for\n`action_message` messages; other messages show the avatar of the author.\nIf an `action_message` does not have an icon set, no icon is shown.',
+        format: 'uri',
+        type: ['null', 'string'],
+      },
     },
     additionalProperties: false,
     propertyOrder: [
       'deleted',
+      'type',
       'id',
       'url',
       'content',
       'metadata',
+      'createdTimestamp',
       'deletedTimestamp',
       'updatedTimestamp',
+      'iconURL',
     ],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },

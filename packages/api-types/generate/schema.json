@@ -1120,6 +1120,11 @@
         "description": "Whether we want to mark this message as deleted. Setting this to `true` without\nproviding a value for `deletedTimestamp` is equivalent to setting `deletedTimestamp` to current\ntime and setting this to `false` is equivalent to setting `deletedTimestamp` to `null`.",
         "type": "boolean"
       },
+      "type": {
+        "description": "The type of message this is.  A `user_message` is a message that the author\nsent.  An `action_message` is a message about something that happened, such\nas the thread being resolved.  The default value is `user_message`.",
+        "enum": ["action_message", "user_message"],
+        "type": "string"
+      },
       "id": { "description": "The ID for the message.", "type": "string" },
       "url": {
         "description": "A URL where the message can be seen.  This determines where a user is sent\nwhen they click on a reference to this message, such as in a notification.\nIf unset, it defaults to the thread's URL.",
@@ -1140,6 +1145,13 @@
         "additionalProperties": { "type": ["string", "number", "boolean"] },
         "propertyOrder": []
       },
+      "createdTimestamp": {
+        "description": "The timestamp when this message was created.  The default value is the\ncurrent time.",
+        "anyOf": [
+          { "type": "string", "format": "date-time" },
+          { "type": "null" }
+        ]
+      },
       "deletedTimestamp": {
         "description": "The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.",
         "anyOf": [
@@ -1153,17 +1165,25 @@
           { "type": "string", "format": "date-time" },
           { "type": "null" }
         ]
+      },
+      "iconURL": {
+        "description": "The URL of the icon to show next to the message.  This is only used for\n`action_message` messages; other messages show the avatar of the author.\nIf an `action_message` does not have an icon set, no icon is shown.",
+        "format": "uri",
+        "type": ["null", "string"]
       }
     },
     "additionalProperties": false,
     "propertyOrder": [
       "deleted",
+      "type",
       "id",
       "url",
       "content",
       "metadata",
+      "createdTimestamp",
       "deletedTimestamp",
-      "updatedTimestamp"
+      "updatedTimestamp",
+      "iconURL"
     ],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },

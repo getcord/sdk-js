@@ -329,12 +329,7 @@ export interface CreateMessageVariables
 }
 
 export interface UpdateMessageVariables
-  extends Partial<
-    Omit<
-      CreateMessageVariables,
-      'authorID' | 'createdTimestamp' | 'iconURL' | 'type' | 'createThread'
-    >
-  > {
+  extends Partial<Omit<CreateMessageVariables, 'authorID' | 'createThread'>> {
   /**
    * Whether we want to mark this message as deleted. Setting this to `true` without
    * providing a value for `deletedTimestamp` is equivalent to setting `deletedTimestamp` to current
