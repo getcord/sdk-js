@@ -2,14 +2,14 @@ import cx from 'classnames';
 import type { Location, ThreadSummary } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
-
-import { Avatar, Facepile } from '..';
 import { pluralize } from '../common/util';
 import * as user from '../hooks/user';
 import * as thread from '../hooks/thread';
 import * as fonts from '../common/ui/atomicClasses/fonts.css';
 import * as classes from './ThreadedComments.css';
 import { Composer } from './Composer';
+import { Avatar } from './Avatar';
+import { Facepile } from './Facepile';
 import { Message } from './Message';
 
 type MessageOrder = 'newest_on_top' | 'newest_on_bottom';
