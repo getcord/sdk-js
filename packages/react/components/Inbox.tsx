@@ -1,3 +1,4 @@
+import * as React from 'react';
 import type { InboxWebComponentEvents } from '@cord-sdk/types';
 import {
   componentAttributes,

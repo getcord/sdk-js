@@ -1,3 +1,5 @@
+// @ts-ignore TS wants us to `import type` this, but we need it for JSX
+import * as React from 'react';
 import type { PresenceObserverWebComponentEvents } from '@cord-sdk/types';
 import {
   componentAttributes,

@@ -1,3 +1,4 @@
+import * as React from 'react';
 import cx from 'classnames';
 import type { Location, ThreadSummary } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';

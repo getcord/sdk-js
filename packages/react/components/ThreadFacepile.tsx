@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Facepile, thread } from '@cord-sdk/react';
 
 export function ThreadFacepile({ threadId }: { threadId: string }) {
