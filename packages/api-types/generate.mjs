@@ -41,6 +41,7 @@ async function main() {
     {
       target: ts.ScriptTarget.ES2019,
       moduleResolution: ts.ModuleResolutionKind.NodeJs,
+      strictNullChecks: true,
     },
     tsCompilerHost,
   );

@@ -114,7 +114,7 @@ export default {
       iconUrl: {
         description:
           "The URL of an icon image for this notification, if one was specified when\nit was created. This will always be `null` for Cord's internally-generated\nnotifications (i.e., it can only be non-null for notifications you create\nvia the REST API).",
-        type: 'string',
+        type: ['null', 'string'],
       },
       header: {
         description:
@@ -168,6 +168,7 @@ export default {
             propertyOrder: ['messageID'],
             required: ['messageID'],
           },
+          { type: 'null' },
         ],
       },
       readStatus: {
@@ -230,13 +231,13 @@ export default {
             description:
               "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
             format: 'uri',
-            type: 'string',
+            type: ['null', 'string'],
           },
           { type: 'null' },
         ],
       },
       profile_picture_url: {
-        anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
+        anyOf: [{ format: 'uri', type: ['null', 'string'] }, { type: 'null' }],
       },
       first_name: {
         description:
@@ -308,13 +309,13 @@ export default {
             description:
               "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
             format: 'uri',
-            type: 'string',
+            type: ['null', 'string'],
           },
           { type: 'null' },
         ],
       },
       profile_picture_url: {
-        anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
+        anyOf: [{ format: 'uri', type: ['null', 'string'] }, { type: 'null' }],
       },
       first_name: {
         description:
@@ -397,8 +398,7 @@ export default {
       resolvedTimestamp: {
         description:
           'The timestamp when this thread was resolved. Set to `null` if this thread\nis not resolved.',
-        type: 'string',
-        format: 'date-time',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
       participants: {
         description: 'All of the users who are subscribed to this thread.',
@@ -409,13 +409,15 @@ export default {
             lastSeenTimestamp: {
               description:
                 'The timestamp of the most recent message or reaction that this user has\nseen in this thread. Is `null` if this participant has never viewed this\nthread.',
-              type: 'string',
-              format: 'date-time',
+              anyOf: [
+                { type: 'string', format: 'date-time' },
+                { type: 'null' },
+              ],
             },
             userID: {
               description:
                 "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/reference/rest-api/organizations) with this\nparticipant (and therefore can no longer access that participant's\ninformation).",
-              type: 'string',
+              type: ['null', 'string'],
             },
           },
           additionalProperties: false,
@@ -431,8 +433,6 @@ export default {
         propertyOrder: [],
       },
       metadata: {
-        description:
-          '`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).',
         type: 'object',
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
@@ -469,13 +469,12 @@ export default {
       lastSeenTimestamp: {
         description:
           'The timestamp of the most recent message or reaction that this user has\nseen in this thread. Is `null` if this participant has never viewed this\nthread.',
-        type: 'string',
-        format: 'date-time',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
       userID: {
         description:
           "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/reference/rest-api/organizations) with this\nparticipant (and therefore can no longer access that participant's\ninformation).",
-        type: 'string',
+        type: ['null', 'string'],
       },
     },
     additionalProperties: false,
@@ -496,8 +495,6 @@ export default {
       id: { description: 'The ID for this thread.', type: 'string' },
       name: { description: 'The name of this thread.', type: 'string' },
       metadata: {
-        description:
-          '`FlatJsonObject` is an object where all values are simple, scalar types\n(string, number or boolean).',
         type: 'object',
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
@@ -505,8 +502,7 @@ export default {
       resolvedTimestamp: {
         description:
           'The timestamp when this thread was resolved. Set to `null` if this thread\nis not resolved.',
-        type: 'string',
-        format: 'date-time',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
       organizationID: {
         description: 'The organization ID this thread is in.',
@@ -575,13 +571,16 @@ export default {
                   description:
                     "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
                   format: 'uri',
-                  type: 'string',
+                  type: ['null', 'string'],
                 },
                 { type: 'null' },
               ],
             },
             profile_picture_url: {
-              anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
+              anyOf: [
+                { format: 'uri', type: ['null', 'string'] },
+                { type: 'null' },
+              ],
             },
             first_name: {
               description:
@@ -647,14 +646,14 @@ export default {
         description: 'The ID for the user’s organization',
       },
       user_details: {
-        $ref: '#/definitions/PlatformUserVariables',
         description:
           'If present, update’s the user’s details, or creates a user with those\ndetails if the user_id is new to Cord. This is an object that contains the\nsame fields as the [user management REST\nendpoint](/reference/rest-api/users/)',
+        $ref: '#/definitions/PlatformUserVariables',
       },
       organization_details: {
-        $ref: '#/definitions/PlatformOrganizationVariables',
         description:
           'If present, update’s the organization’s details, or creates an organization\nwith those details if the organization_id is new to Cord. This is an object\nthat contains the same fields as the [organization management REST\nendpoint](/reference/rest-api/organizations/)',
+        $ref: '#/definitions/PlatformOrganizationVariables',
       },
     },
     propertyOrder: [
@@ -689,13 +688,16 @@ export default {
                 description:
                   "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
                 format: 'uri',
-                type: 'string',
+                type: ['null', 'string'],
               },
               { type: 'null' },
             ],
           },
           profile_picture_url: {
-            anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
+            anyOf: [
+              { format: 'uri', type: ['null', 'string'] },
+              { type: 'null' },
+            ],
           },
           first_name: {
             description:
@@ -823,13 +825,13 @@ export default {
             description:
               "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
             format: 'uri',
-            type: 'string',
+            type: ['null', 'string'],
           },
           { type: 'null' },
         ],
       },
       profile_picture_url: {
-        anyOf: [{ format: 'uri', type: 'string' }, { type: 'null' }],
+        anyOf: [{ format: 'uri', type: ['null', 'string'] }, { type: 'null' }],
       },
       first_name: {
         description:
@@ -900,31 +902,28 @@ export default {
       url: {
         description:
           "A URL where the message can be seen.  This determines where a user is sent\nwhen they click on a reference to this message, such as in a notification.\nIf unset, it defaults to the thread's URL.",
-        type: 'string',
+        type: ['null', 'string'],
       },
       createdTimestamp: {
         description:
           'The timestamp when this message was created.  The default value is the\ncurrent time.',
-        type: 'string',
-        format: 'date-time',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
       deletedTimestamp: {
         description:
           'The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.',
-        type: 'string',
-        format: 'date-time',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
       updatedTimestamp: {
         description:
           'The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.',
-        type: 'string',
-        format: 'date-time',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
       iconURL: {
         description:
           'The URL of the icon to show next to the message.  This is only used for\n`action_message` messages; other messages show the avatar of the author.\nIf an `action_message` does not have an icon set, no icon is shown.',
         format: 'uri',
-        type: 'string',
+        type: ['null', 'string'],
       },
       type: {
         description:
@@ -975,9 +974,9 @@ export default {
     type: 'object',
     properties: {
       createThread: {
-        $ref: '#/definitions/CreateThreadVariables',
         description:
           "The parameters for creating a thread if the supplied thread doesn't exist\nyet.  If the thread doesn't exist but `createThread` isn't provided, the\ncall will generate an error.  This value is ignored if the thread already\nexists.",
+        $ref: '#/definitions/CreateThreadVariables',
       },
       id: { description: 'The ID for the message.', type: 'string' },
       content: {
@@ -998,7 +997,7 @@ export default {
       url: {
         description:
           "A URL where the message can be seen.  This determines where a user is sent\nwhen they click on a reference to this message, such as in a notification.\nIf unset, it defaults to the thread's URL.",
-        type: 'string',
+        type: ['null', 'string'],
       },
       metadata: {
         description:
@@ -1010,26 +1009,23 @@ export default {
       createdTimestamp: {
         description:
           'The timestamp when this message was created.  The default value is the\ncurrent time.',
-        type: 'string',
-        format: 'date-time',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
       deletedTimestamp: {
         description:
           'The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.',
-        type: 'string',
-        format: 'date-time',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
       updatedTimestamp: {
         description:
           'The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.',
-        type: 'string',
-        format: 'date-time',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
       iconURL: {
         description:
           'The URL of the icon to show next to the message.  This is only used for\n`action_message` messages; other messages show the avatar of the author.\nIf an `action_message` does not have an icon set, no icon is shown.',
         format: 'uri',
-        type: 'string',
+        type: ['null', 'string'],
       },
     },
     additionalProperties: false,
@@ -1104,7 +1100,7 @@ export default {
       url: {
         description:
           "A URL where the message can be seen.  This determines where a user is sent\nwhen they click on a reference to this message, such as in a notification.\nIf unset, it defaults to the thread's URL.",
-        type: 'string',
+        type: ['null', 'string'],
       },
       content: {
         description: 'The content of the message.',
@@ -1121,14 +1117,12 @@ export default {
       deletedTimestamp: {
         description:
           'The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.',
-        type: 'string',
-        format: 'date-time',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
       updatedTimestamp: {
         description:
           'The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.',
-        type: 'string',
-        format: 'date-time',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
     },
     additionalProperties: false,
