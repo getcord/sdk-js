@@ -24,11 +24,6 @@ globalStyle(`.${threadList}`, {
   height: 'auto',
 });
 
-export const reverseOrder = cordifyClassname('reverse-order');
-globalStyle(`.${reverseOrder}`, {
-  flexDirection: 'column-reverse',
-});
-
 export const commentsThread = cordifyClassname('threaded-comments-thread');
 globalStyle(`.${commentsThread}`, {
   display: 'flex',

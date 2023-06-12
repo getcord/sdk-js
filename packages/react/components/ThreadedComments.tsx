@@ -33,34 +33,38 @@ export function ThreadedComments({
     includeResolved: false,
   });
 
-  return (
-    <div
-      className={cx(classes.comments, {
-        [classes.reverseOrder]: composerPosition === 'bottom',
-      })}
+  const renderedThreads = threads.map((oneThread) => (
+    <CommentsThread key={oneThread.id} threadId={oneThread.id} />
+  ));
+
+  const newestOnTop = messageOrder === 'newest_on_top';
+  if (!newestOnTop) {
+    renderedThreads.reverse();
+  }
+
+  const fetchMoreButton = hasMore && (
+    <button
+      className={cx(classes.messageActionButton, fonts.fontSmall, classes.hr)}
+      onClick={() => fetchMore(5)}
     >
-      <Composer location={location} showExpanded={composerExpanded} />
-      <div
-        className={cx(classes.threadList, {
-          [classes.reverseOrder]: messageOrder === 'newest_on_bottom',
-        })}
-      >
-        {threads.map((oneThread) => (
-          <CommentsThread key={oneThread.id} threadId={oneThread.id} />
-        ))}
-        {hasMore && (
-          <button
-            className={cx(
-              classes.messageActionButton,
-              fonts.fontSmall,
-              classes.hr,
-            )}
-            onClick={() => fetchMore(5)}
-          >
-            {'Fetch more'}
-          </button>
-        )}
+      {'Fetch more'}
+    </button>
+  );
+
+  const composerOnTop = composerPosition === 'top';
+  const composer = (
+    <Composer location={location} showExpanded={composerExpanded} />
+  );
+
+  return (
+    <div className={classes.comments}>
+      {composerOnTop && composer}
+      <div className={classes.threadList}>
+        {!newestOnTop && fetchMoreButton}
+        {renderedThreads}
+        {newestOnTop && fetchMoreButton}
       </div>
+      {!composerOnTop && composer}
     </div>
   );
 }
