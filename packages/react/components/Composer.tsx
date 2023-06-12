@@ -7,6 +7,7 @@ import {
 import type { ComposerSize, ComposerWebComponentEvents } from '@cord-sdk/types';
 import { useCordLocation } from '../hooks/useCordLocation';
 import type {
+  PropsWithFlags,
   ReactPropsWithLocation,
   ReactPropsWithStandardHTMLAttributes,
 } from '../types';
@@ -17,17 +18,19 @@ const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Composer,
 );
 
-export type ComposerReactComponentProps = ReactPropsWithLocation<{
-  threadId?: string;
-  threadName?: string;
-  autofocus?: boolean;
-  showExpanded?: boolean;
-  showCloseButton?: boolean;
-  size?: ComposerSize;
-  onFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
-  onBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
-  onClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
-}>;
+export type ComposerReactComponentProps = PropsWithFlags<
+  ReactPropsWithLocation<{
+    threadId?: string;
+    threadName?: string;
+    autofocus?: boolean;
+    showExpanded?: boolean;
+    showCloseButton?: boolean;
+    size?: ComposerSize;
+    onFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
+    onBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
+    onClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
+  }>
+>;
 
 type PrivateComposerReactComponentProps = ComposerReactComponentProps & {
   newComponentSwitchConfig?: { [key: string]: boolean };
@@ -60,6 +63,7 @@ export function Composer(
       style={props.style}
       ref={combinedSetRef}
       buffer-events={!listenersAttached}
+      use-shadow-root={props.useShadowRoot ?? false}
       {...propsToAttributes({ location, ...props })}
     />
   );
