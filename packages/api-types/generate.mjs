@@ -4,6 +4,18 @@ import * as TJS from 'typescript-json-schema';
 import ts from 'typescript';
 import prettier from 'prettier';
 
+const TYPE_DEFINITION_FILES = [
+  'application',
+  'batch',
+  'message',
+  'notifications',
+  'org',
+  'presence',
+  'thread',
+  'typeDefinitions',
+  'user',
+];
+
 /**
  * Used to generate schema.json and types.ts from typeDefinitions.ts.
  * To re-generate run "node  generate.mjs" in sdk-js/packages/api-types
@@ -12,10 +24,9 @@ async function main() {
   const schemaTsFile = path.resolve('generate/schema.ts');
   const schemaJsonFile = path.resolve('generate/schema.json');
   const typesFile = path.resolve('generate/types.ts');
-  const typeDefinitionsFiles = [
-    path.resolve('src/typeDefinitions.ts'),
-    path.resolve('src/notifications.ts'),
-  ];
+  const typeDefinitionsFiles = TYPE_DEFINITION_FILES.map((f) =>
+    path.resolve(`src/${f}.ts`),
+  );
 
   const tsCompilerHost = {
     ...ts.createCompilerHost({}),
