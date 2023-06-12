@@ -7,7 +7,6 @@ import replace from '@rollup/plugin-replace';
 import replaceRE from 'rollup-plugin-re'
 
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
-import ignoreImport from 'rollup-plugin-ignore-import';
 
 async function packageBuildConfig(packageName, options = {}) {
   const dirname = path.resolve(__dirname, 'packages', packageName);
