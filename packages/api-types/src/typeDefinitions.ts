@@ -46,14 +46,12 @@ export interface PlatformUserVariables {
    * to be encoded as `%20`. We recommend using your programming language's
    * standard URL encoding function, such as `encodeURI` in Javascript.
    *
-   * @nullable
    * @format uri
    */
   profilePictureURL?: string | null;
 
   /**
    * @deprecated alias for profilePictureURL.
-   * @nullable
    * @format uri
    */
   profile_picture_url?: string | null;
