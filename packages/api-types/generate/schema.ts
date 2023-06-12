@@ -1101,6 +1101,11 @@ export default {
           'Whether we want to mark this message as deleted. Setting this to `true` without\nproviding a value for `deletedTimestamp` is equivalent to setting `deletedTimestamp` to current\ntime and setting this to `false` is equivalent to setting `deletedTimestamp` to `null`.',
         type: 'boolean',
       },
+      deletedTimestamp: {
+        description:
+          "The timestamp when this message was deleted, if it was. If set to null, the message is not deleted.\nDeleting a message this way will only soft delete it, replacing the content of the message with a\nrecord of the deletion on the frontend. If you'd like to permanently delete it instead, use the\n[delete message endpoint](/reference/rest-api/messages#Delete-a-message).",
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
+      },
       type: {
         description:
           'The type of message this is.  A `user_message` is a message that the author\nsent.  An `action_message` is a message about something that happened, such\nas the thread being resolved.  The default value is `user_message`.',
@@ -1130,11 +1135,6 @@ export default {
           'The timestamp when this message was created.  The default value is the\ncurrent time.',
         anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
-      deletedTimestamp: {
-        description:
-          'The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.',
-        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
-      },
       updatedTimestamp: {
         description:
           'The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.',
@@ -1150,13 +1150,13 @@ export default {
     additionalProperties: false,
     propertyOrder: [
       'deleted',
+      'deletedTimestamp',
       'type',
       'id',
       'url',
       'content',
       'metadata',
       'createdTimestamp',
-      'deletedTimestamp',
       'updatedTimestamp',
       'iconURL',
     ],

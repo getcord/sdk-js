@@ -335,6 +335,13 @@ export interface UpdateMessageVariables
    * time and setting this to `false` is equivalent to setting `deletedTimestamp` to `null`.
    */
   deleted?: boolean;
+  /**
+   * The timestamp when this message was deleted, if it was. If set to null, the message is not deleted.
+   * Deleting a message this way will only soft delete it, replacing the content of the message with a
+   * record of the deletion on the frontend. If you'd like to permanently delete it instead, use the
+   * [delete message endpoint](https://docs.cord.com/reference/rest-api/messages#Delete-a-message).
+   */
+  deletedTimestamp?: Date | null;
 }
 
 export interface CreateThreadVariables {
