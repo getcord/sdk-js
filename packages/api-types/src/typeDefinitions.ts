@@ -367,10 +367,8 @@ export interface CreateThreadVariables {
   metadata?: EntityMetadata;
 }
 
-export type UpdateUserPresenceVariables = Omit<
-  SetPresentOptions_,
-  'exclusive_within'
-> & {
+export interface UpdateUserPresenceVariables
+  extends Omit<SetPresentOptions_, 'exclusive_within'> {
   /**
    * The organization that the user belongs to.
    */
@@ -384,14 +382,15 @@ export type UpdateUserPresenceVariables = Omit<
    * This is useful to more easily track presence as a user moves among sub-locations.
    * For example, suppose we'd like to track which specific paragraph on a page
    * a user is present. We could make those updates like this:
-   * ```js
-   * window.CordSDK.presence.setPresent({
-   *   page: pageID,
-   *   paragraph: paragraphID,
-   * }, {
-   *   exclusive_within: {page: pageID}
-   * });
+   *
+   * ```json
+   * {
+   *    "organizationID": "<orgID>",
+   *    "location": { "page": "<pageID>", "paragraph": "<paragraphID>" },
+   *    "exclusiveWithin": { "page": "<pageID>" }
+   * }
    * ```
+   *
    * As a user moves around a page, their paragraphID will change, while their
    * pageID will remain the same. The above call to setPresent will mark them
    * present at their specific paragraph. However, since every update uses the
@@ -403,4 +402,4 @@ export type UpdateUserPresenceVariables = Omit<
    * The [location](https://docs.cord.com/reference/location) you want the user to be in.
    */
   location: Location;
-};
+}
