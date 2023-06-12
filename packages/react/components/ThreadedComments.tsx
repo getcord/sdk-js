@@ -218,7 +218,6 @@ function ViewerAvatarWithComposer({
       {userId && <Avatar userId={userId} className={classes.avatar} />}
       <Composer
         threadId={threadId}
-        className={classes.composer}
         showCloseButton
         onClose={() => setShowingReplyComposer(false)}
         size={'small'}

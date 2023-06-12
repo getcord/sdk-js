@@ -130,8 +130,7 @@ globalStyle(`.${hr}::after`, {
   borderTop: `1px solid ${cssVar('color-base-x-strong')}`,
 });
 
-export const composer = cordifyClassname('composer');
-globalStyle(`.${composer}`, {
+globalStyle(`.${comments} :where(cord-composer)`, {
   flexGrow: '1',
 });
 
