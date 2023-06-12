@@ -4,8 +4,10 @@ import * as fs from 'fs';
 import typescript from 'rollup-plugin-typescript2';
 import copy from 'rollup-plugin-copy';
 import replace from '@rollup/plugin-replace';
+import replaceRE from 'rollup-plugin-re'
 
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
+import ignoreImport from 'rollup-plugin-ignore-import';
 
 async function packageBuildConfig(packageName, options = {}) {
   const dirname = path.resolve(__dirname, 'packages', packageName);
@@ -44,6 +46,15 @@ async function packageBuildConfig(packageName, options = {}) {
           preventAssignment: true,
         }),
         vanillaExtractPlugin(),
+        // The CSS is inserted by sdk.latest.js, no need for it here
+        replaceRE({
+          patterns: [
+            {
+              test: /import.*vanilla.*;/,
+              replace: '// Removed css;'
+            }
+          ]
+        }),
       ],
       output: [
         {
