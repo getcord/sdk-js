@@ -102,8 +102,7 @@ export type ThreadParticipant = {
   userID: UserID | null;
 };
 
-// This is split out for the benefit of api-types.
-export type ThreadVariables = {
+export type RestApiThreadData = {
   /**
    * The ID for this thread.
    */
@@ -139,18 +138,32 @@ export type ThreadVariables = {
   participants: ThreadParticipant[];
 
   /**
-   * The name of this thread.
+   * The name of the thread.  This is shown to users when the thread is
+   * referenced, such as in notifications.  This should generally be something
+   * like the page title.
    */
   name: string;
+
+  /**
+   * A URL where the thread can be seen.  This determines where a user is sent
+   * when they click on a reference to this thread, such as in a notification,
+   * or if they click on a reference to a message in the thread and the message
+   * doesn't have its own URL.
+   */
+  url: string;
 
   /**
    * The [location](/reference/location) of this thread.
    */
   location: Location;
+
+  /**
+   * Arbitrary key-value pairs that can be used to store additional information.
+   */
   metadata: EntityMetadata;
 };
 
-export type ThreadSummary = Omit<ThreadVariables, 'resolvedTimestamp'> & {
+export type ThreadSummary = Omit<RestApiThreadData, 'resolvedTimestamp'> & {
   unread: number;
   typing: UserID[];
   viewerIsThreadParticipant: boolean;

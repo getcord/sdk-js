@@ -78,7 +78,7 @@ export interface CreateMessageVariables
    * call will generate an error.  This value is ignored if the thread already
    * exists.
    */
-  createThread?: CreateThreadVariables;
+  createThread?: Omit<CreateThreadVariables, 'id'>;
 }
 
 export interface UpdateMessageVariables

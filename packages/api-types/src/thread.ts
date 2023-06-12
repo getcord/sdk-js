@@ -4,20 +4,18 @@ import type {
   // this lets us "define" these types with their proper names in this file (via
   // importing them to these weird names and then re-defining them with their
   // actual names).
-  ThreadVariables as ThreadVariables_,
+  RestApiThreadData,
   ThreadParticipant as ThreadParticipant_,
-  EntityMetadata,
-  Location,
 } from '@cord-sdk/types';
 
-export type ThreadVariables = ThreadVariables_;
+export type ThreadData = RestApiThreadData;
 export type ThreadParticipant = ThreadParticipant_;
 
 /**
  * https://docs.cord.com/reference/rest-api/threads/
  */
 export type UpdateThreadVariables = Partial<
-  Omit<ThreadVariables, 'total' | 'participants'> & {
+  Omit<ThreadData, 'total' | 'participants'> & {
     /**
      * Certain changes to the thread may post a message into the thread -- in
      * particular, resolving or unresolving a thread posts a message into the
@@ -35,30 +33,24 @@ export type UpdateThreadVariables = Partial<
   }
 >;
 
-export interface CreateThreadVariables {
-  /**
-   * The [location](https://docs.cord.com/reference/location) of the thread.
-   */
-  location: Location;
-  /**
-   * A URL where the thread can be seen.  This determines where a user is sent
-   * when they click on a reference to this thread, such as in a notification,
-   * or if they click on a reference to a message in the thread and the message
-   * doesn't have its own URL.
-   */
-  url: string;
-  /**
-   * The name of the thread.  This is shown to users when the thread is
-   * referenced, such as in notifications.  You should use something like the
-   * page title here.
-   */
-  name: string;
-  /**
-   * The organization that the thread belongs to.
-   */
-  organizationID: string;
-  /**
-   * Arbitrary key-value pairs that can be used to store additional information.
-   */
-  metadata?: EntityMetadata;
-}
+export interface CreateThreadVariables
+  extends Pick<
+      ThreadData,
+      'id' | 'location' | 'url' | 'name' | 'organizationID'
+    >,
+    Partial<
+      Omit<
+        ThreadData,
+        // Required fields
+        | 'location'
+        | 'url'
+        | 'name'
+        | 'organizationID'
+        | 'id'
+        // Non-create fields
+        | 'total'
+        | 'resolved'
+        | 'resolvedTimestamp'
+        | 'participants'
+      >
+    > {}

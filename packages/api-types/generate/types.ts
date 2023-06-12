@@ -13,7 +13,7 @@ import type {
   UpdatePlatformUserVariables,
   CreatePlatformUserVariables,
   BatchAPIVariables,
-  ThreadVariables,
+  ThreadData,
   ThreadParticipant,
   UpdateThreadVariables,
   CreateThreadVariables,
@@ -42,7 +42,7 @@ export type Types = {
   UpdatePlatformUserVariables: UpdatePlatformUserVariables;
   CreatePlatformUserVariables: CreatePlatformUserVariables;
   BatchAPIVariables: BatchAPIVariables;
-  ThreadVariables: ThreadVariables;
+  ThreadData: ThreadData;
   ThreadParticipant: ThreadParticipant;
   UpdateThreadVariables: UpdateThreadVariables;
   CreateThreadVariables: CreateThreadVariables;

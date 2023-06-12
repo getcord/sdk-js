@@ -356,7 +356,7 @@ export default {
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
-  ThreadVariables: {
+  ThreadData: {
     type: 'object',
     properties: {
       id: { description: 'The ID for this thread.', type: 'string' },
@@ -403,7 +403,16 @@ export default {
           required: ['lastSeenTimestamp', 'userID'],
         },
       },
-      name: { description: 'The name of this thread.', type: 'string' },
+      name: {
+        description:
+          'The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  This should generally be something\nlike the page title.',
+        type: 'string',
+      },
+      url: {
+        description:
+          "A URL where the thread can be seen.  This determines where a user is sent\nwhen they click on a reference to this thread, such as in a notification,\nor if they click on a reference to a message in the thread and the message\ndoesn't have its own URL.",
+        type: 'string',
+      },
       location: {
         description: 'The [location](/reference/location) of this thread.',
         type: 'object',
@@ -411,6 +420,8 @@ export default {
         propertyOrder: [],
       },
       metadata: {
+        description:
+          'Arbitrary key-value pairs that can be used to store additional information.',
         type: 'object',
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
@@ -425,6 +436,7 @@ export default {
       'resolvedTimestamp',
       'participants',
       'name',
+      'url',
       'location',
       'metadata',
     ],
@@ -438,6 +450,7 @@ export default {
       'resolved',
       'resolvedTimestamp',
       'total',
+      'url',
     ],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
@@ -471,8 +484,19 @@ export default {
         propertyOrder: [],
       },
       id: { description: 'The ID for this thread.', type: 'string' },
-      name: { description: 'The name of this thread.', type: 'string' },
+      url: {
+        description:
+          "A URL where the thread can be seen.  This determines where a user is sent\nwhen they click on a reference to this thread, such as in a notification,\nor if they click on a reference to a message in the thread and the message\ndoesn't have its own URL.",
+        type: 'string',
+      },
+      name: {
+        description:
+          'The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  This should generally be something\nlike the page title.',
+        type: 'string',
+      },
       metadata: {
+        description:
+          'Arbitrary key-value pairs that can be used to store additional information.',
         type: 'object',
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
@@ -507,6 +531,7 @@ export default {
     propertyOrder: [
       'location',
       'id',
+      'url',
       'name',
       'metadata',
       'resolvedTimestamp',
@@ -521,11 +546,12 @@ export default {
     type: 'object',
     properties: {
       location: {
-        description: 'The [location](/reference/location) of the thread.',
+        description: 'The [location](/reference/location) of this thread.',
         type: 'object',
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
+      id: { description: 'The ID for this thread.', type: 'string' },
       url: {
         description:
           "A URL where the thread can be seen.  This determines where a user is sent\nwhen they click on a reference to this thread, such as in a notification,\nor if they click on a reference to a message in the thread and the message\ndoesn't have its own URL.",
@@ -533,11 +559,11 @@ export default {
       },
       name: {
         description:
-          'The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  You should use something like the\npage title here.',
+          'The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  This should generally be something\nlike the page title.',
         type: 'string',
       },
       organizationID: {
-        description: 'The organization that the thread belongs to.',
+        description: 'The organization ID this thread is in.',
         type: 'string',
       },
       metadata: {
@@ -549,8 +575,15 @@ export default {
       },
     },
     additionalProperties: false,
-    propertyOrder: ['location', 'url', 'name', 'organizationID', 'metadata'],
-    required: ['location', 'name', 'organizationID', 'url'],
+    propertyOrder: [
+      'location',
+      'id',
+      'url',
+      'name',
+      'organizationID',
+      'metadata',
+    ],
+    required: ['id', 'location', 'name', 'organizationID', 'url'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   MessageVariables: {
@@ -651,7 +684,7 @@ export default {
       createThread: {
         description:
           "The parameters for creating a thread if the supplied thread doesn't exist\nyet.  If the thread doesn't exist but `createThread` isn't provided, the\ncall will generate an error.  This value is ignored if the thread already\nexists.",
-        $ref: '#/definitions/CreateThreadVariables',
+        $ref: '#/definitions/Omit<CreateThreadVariables,"id">',
       },
       id: { description: 'The ID for the message.', type: 'string' },
       content: {
@@ -719,11 +752,11 @@ export default {
     ],
     required: ['authorID', 'content', 'id'],
     definitions: {
-      CreateThreadVariables: {
+      'Omit<CreateThreadVariables,"id">': {
         type: 'object',
         properties: {
           location: {
-            description: 'The [location](/reference/location) of the thread.',
+            description: 'The [location](/reference/location) of this thread.',
             type: 'object',
             additionalProperties: { type: ['string', 'number', 'boolean'] },
             propertyOrder: [],
@@ -735,11 +768,7 @@ export default {
           },
           name: {
             description:
-              'The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  You should use something like the\npage title here.',
-            type: 'string',
-          },
-          organizationID: {
-            description: 'The organization that the thread belongs to.',
+              'The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  This should generally be something\nlike the page title.',
             type: 'string',
           },
           metadata: {
@@ -749,14 +778,18 @@ export default {
             additionalProperties: { type: ['string', 'number', 'boolean'] },
             propertyOrder: [],
           },
+          organizationID: {
+            description: 'The organization ID this thread is in.',
+            type: 'string',
+          },
         },
         additionalProperties: false,
         propertyOrder: [
           'location',
           'url',
           'name',
-          'organizationID',
           'metadata',
+          'organizationID',
         ],
         required: ['location', 'name', 'organizationID', 'url'],
       },
