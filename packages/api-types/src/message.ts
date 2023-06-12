@@ -97,3 +97,10 @@ export interface UpdateMessageVariables
    */
   deletedTimestamp?: Date | null;
 }
+
+export interface ListMessageParameters {
+  /**
+   * Return messages in ascending or descending order of creation timestamp.  DESC is the default.
+   */
+  sort?: 'ASC' | 'DESC';
+}

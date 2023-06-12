@@ -20,6 +20,7 @@ import type {
   MessageVariables,
   CreateMessageVariables,
   UpdateMessageVariables,
+  ListMessageParameters,
   CreateNotificationVariables,
   NotificationURLAttachment,
   NotificationMessageAttachment,
@@ -49,6 +50,7 @@ export type Types = {
   MessageVariables: MessageVariables;
   CreateMessageVariables: CreateMessageVariables;
   UpdateMessageVariables: UpdateMessageVariables;
+  ListMessageParameters: ListMessageParameters;
   CreateNotificationVariables: CreateNotificationVariables;
   NotificationURLAttachment: NotificationURLAttachment;
   NotificationMessageAttachment: NotificationMessageAttachment;

@@ -865,6 +865,20 @@ export default {
     ],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
+  ListMessageParameters: {
+    type: 'object',
+    properties: {
+      sort: {
+        description:
+          'Return messages in ascending or descending order of creation timestamp.  DESC is the default.',
+        enum: ['ASC', 'DESC'],
+        type: 'string',
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['sort'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
   CreateNotificationVariables: {
     description: 'https://docs.cord.com/reference/rest-api/notifications',
     type: 'object',
