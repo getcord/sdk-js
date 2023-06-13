@@ -30,28 +30,32 @@ globalStyle(`.${thread}`, {
   flexDirection: 'column',
 });
 
-export const hr = cordifyClassname('hr');
-export const threadActionButtonWithReplies = cordifyClassname(
-  'thread-action-button-with-replies',
-);
-globalStyle(`.${threadActionButtonWithReplies}`, {
+const threadOrThreadListButton = [
+  `.${comments} :where(.${threadList} > button)`,
+  `.${comments} :where(.${thread} > button)`,
+];
+globalStyle(threadOrThreadListButton.join(', '), {
+  alignItems: 'center',
+  background: 'none',
+  border: 'none',
+  borderRadius: cssVar('space-3xs'),
+  cursor: 'pointer',
+  display: 'flex',
+  gap: cssVar('space-2xs'),
+  textAlign: 'left',
+});
+globalStyle(threadOrThreadListButton.map((s) => s + ':hover').join(', '), {
+  background: cssVar('color-base-strong'),
+});
+
+export const expandReplies = cordifyClassname('expand-replies');
+globalStyle(`.${comments} :where(button.${expandReplies})`, {
   padding: `${cssVar('space-2xs')} calc(${cssVar('space-l')} + ${cssVar(
     'space-2xs',
   )})`,
   margin: `0 ${cssVar('space-3xs')} 0 ${cssVar('space-2xs')}`,
-  borderRadius: cssVar('space-3xs'),
-  border: 'none',
-  background: 'none',
-  textAlign: 'left',
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  gap: cssVar('space-2xs'),
   '--cord-facepile-avatar-size': cssVar('space-m'),
 } as CSSProperties);
-globalStyle(`.${threadActionButtonWithReplies}:hover`, {
-  background: cssVar('color-base-strong'),
-});
 
 export const unread = cordifyClassname('unread');
 globalStyle(`.${unread}`, {
@@ -86,39 +90,27 @@ globalStyle(`.${replyMessages}`, {
   gap: cssVar('space-2xs'),
 });
 
-export const messageActionButton = cordifyClassname('message-action-button');
-globalStyle(`.${messageActionButton}`, {
+export const hideReplies = cordifyClassname('hide-replies');
+globalStyle(`.${comments} :where(button.${hideReplies})`, {
   color: cssVar('color-content-primary'),
   padding: cssVar('space-2xs'),
   paddingLeft: `calc(${cssVar('space-l')} + ${cssVar('space-m')})`,
-  display: 'flex',
-  alignItems: 'center',
-  gap: cssVar('space-2xs'),
-  borderRadius: cssVar('space-3xs'),
-  border: 'none',
-  background: 'none',
-  textAlign: 'left',
-  cursor: 'pointer',
-});
-globalStyle(`.${messageActionButton}:hover`, {
-  background: cssVar('color-base-strong'),
-});
-globalStyle(`.${messageActionButton}.${hr}::before`, {
-  width: '18px',
 });
 
-globalStyle(`.${hr}`, {
+export const showMore = cordifyClassname('show-more');
+globalStyle(`.${comments} :where(button.${showMore})`, {
+  color: cssVar('color-content-primary'),
   padding: cssVar('space-2xs'),
 });
-globalStyle(`.${hr}::before`, {
+globalStyle(`.${comments} :where(button.${showMore})::before`, {
   display: 'block',
   content: '',
   // We need to hardcode the width of the horizontal line to make
   // sure that the "Show more" text correctly aligns
-  width: '10px',
+  width: '18px',
   borderTop: `1px solid ${cssVar('color-base-x-strong')}`,
 });
-globalStyle(`.${hr}::after`, {
+globalStyle(`.${comments} :where(button.${showMore})::after`, {
   display: 'block',
   content: '',
   flexGrow: 1,

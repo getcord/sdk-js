@@ -44,7 +44,7 @@ export function ThreadedComments({
 
   const fetchMoreButton = hasMore && (
     <button
-      className={cx(classes.messageActionButton, fonts.fontSmall, classes.hr)}
+      className={cx(classes.showMore, fonts.fontSmall)}
       onClick={() => fetchMore(5)}
     >
       {'Fetch more'}
@@ -116,13 +116,9 @@ function CollapsedReplies({
     <>
       {hasReplies ? (
         <button
-          className={cx(
-            classes.threadActionButtonWithReplies,
-            fonts.fontSmall,
-            {
-              [classes.unread]: hasUnread,
-            },
-          )}
+          className={cx(classes.expandReplies, fonts.fontSmall, {
+            [classes.unread]: hasUnread,
+          })}
           onClick={() => setShowingReplies(true)}
         >
           <Facepile
@@ -164,7 +160,7 @@ function ThreadReplies({
       {hasReplies && (
         <>
           <button
-            className={cx(classes.messageActionButton, fonts.fontSmall)}
+            className={cx(classes.hideReplies, fonts.fontSmall)}
             onClick={() => setShowingReplies(false)}
           >
             {'Hide replies'}
@@ -172,11 +168,7 @@ function ThreadReplies({
 
           {hasMore && (
             <button
-              className={cx(
-                classes.messageActionButton,
-                fonts.fontSmall,
-                classes.hr,
-              )}
+              className={cx(classes.showMore, fonts.fontSmall)}
               onClick={() => fetchMore(5)}
             >
               {'Show more'}
@@ -233,7 +225,7 @@ function ViewerAvatarWithComposer({
 function ReplyButton({ onClick }: { onClick: () => void }) {
   return (
     <button
-      className={cx(classes.threadActionButtonWithReplies, fonts.fontSmall)}
+      className={cx(classes.expandReplies, fonts.fontSmall)}
       onClick={onClick}
     >
       {'Reply'}
