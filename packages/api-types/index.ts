@@ -1,3 +1,5 @@
+export * from './src/coreTypes';
+
 export * from './src/typeDefinitions';
 
 export { default as schema } from './generate/schema';
