@@ -7,6 +7,7 @@ import { pluralize } from '../common/util';
 import * as user from '../hooks/user';
 import * as thread from '../hooks/thread';
 import * as fonts from '../common/ui/atomicClasses/fonts.css';
+import { MODIFIERS } from '../common/ui/modifiers';
 import * as classes from './ThreadedComments.css';
 import { Composer } from './Composer';
 import { Avatar } from './Avatar';
@@ -117,13 +118,12 @@ function CollapsedReplies({
       {hasReplies ? (
         <button
           className={cx(classes.expandReplies, fonts.fontSmall, {
-            [classes.unread]: hasUnread,
+            [MODIFIERS.unseen]: hasUnread,
           })}
           onClick={() => setShowingReplies(true)}
         >
           <Facepile
             users={threadSummary.participants.map((p) => p.userID ?? '')}
-            className={classes.threadSummaryFacepile}
             enableTooltip={false}
           />
           {hasUnread

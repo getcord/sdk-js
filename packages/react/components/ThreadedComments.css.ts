@@ -2,6 +2,7 @@ import type { CSSProperties } from '@vanilla-extract/css';
 import { globalStyle } from '@vanilla-extract/css';
 import { cordifyClassname } from '../common/util';
 import { cssVar } from '../common/ui/cssVariables';
+import { MODIFIERS } from '../common/ui/modifiers';
 
 export const comments = cordifyClassname('threaded-comments');
 globalStyle(`.${comments}`, {
@@ -57,22 +58,18 @@ globalStyle(`.${comments} :where(button.${expandReplies})`, {
   '--cord-facepile-avatar-size': cssVar('space-m'),
 } as CSSProperties);
 
-export const unread = cordifyClassname('unread');
-globalStyle(`.${unread}`, {
+globalStyle(`.${comments} :where(.${MODIFIERS.unseen})`, {
   color: cssVar('color-notification'),
 });
-globalStyle(`.${unread}:hover`, {
+globalStyle(`.${comments} :where(.${MODIFIERS.unseen}):hover`, {
   backgroundColor: cssVar('color-notification-background'),
 });
 
-export const threadSummaryFacepile = cordifyClassname(
-  'thread-summary-facepile',
-);
-globalStyle(`.${threadSummaryFacepile}`, {
+globalStyle(`.${comments} :where(cord-facepile)`, {
   display: 'contents',
   lineHeight: cssVar('line-height-body'),
 });
-globalStyle(`.${unread} .${threadSummaryFacepile}::before`, {
+globalStyle(`.${comments} :where(.${MODIFIERS.unseen} cord-facepile)::before`, {
   color: cssVar('color-notification'),
   content: '\\2022',
   fontSize: '40px',
