@@ -868,15 +868,15 @@ export default {
   ListMessageParameters: {
     type: 'object',
     properties: {
-      sort: {
+      sortDirection: {
         description:
-          'Return messages in ascending or descending order of creation timestamp.  DESC is the default.',
-        enum: ['ASC', 'DESC'],
+          "Return messages in ascending or descending order of creation timestamp.  'descending' is the default.",
+        enum: ['ascending', 'descending'],
         type: 'string',
       },
     },
     additionalProperties: false,
-    propertyOrder: ['sort'],
+    propertyOrder: ['sortDirection'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreateNotificationVariables: {

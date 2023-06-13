@@ -100,7 +100,7 @@ export interface UpdateMessageVariables
 
 export interface ListMessageParameters {
   /**
-   * Return messages in ascending or descending order of creation timestamp.  DESC is the default.
+   * Return messages in ascending or descending order of creation timestamp.  'descending' is the default.
    */
-  sort?: 'ASC' | 'DESC';
+  sortDirection?: 'ascending' | 'descending';
 }
