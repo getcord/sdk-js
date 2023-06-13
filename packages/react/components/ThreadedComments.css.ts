@@ -15,7 +15,7 @@ globalStyle(`.${comments}`, {
   backgroundColor: cssVar('color-base'),
 });
 
-export const threadList = cordifyClassname('thread-list');
+export const threadList = cordifyClassname('threaded-comments-thread-list');
 globalStyle(`.${threadList}`, {
   overflow: 'auto',
   display: 'flex',
@@ -24,8 +24,8 @@ globalStyle(`.${threadList}`, {
   height: 'auto',
 });
 
-export const commentsThread = cordifyClassname('threaded-comments-thread');
-globalStyle(`.${commentsThread}`, {
+export const thread = cordifyClassname('threaded-comments-thread');
+globalStyle(`.${thread}`, {
   display: 'flex',
   flexDirection: 'column',
 });

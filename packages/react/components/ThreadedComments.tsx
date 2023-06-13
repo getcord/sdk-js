@@ -78,7 +78,7 @@ function CommentsThread({ threadId }: { threadId: string }) {
   }
 
   return (
-    <div className={classes.commentsThread}>
+    <div className={classes.thread}>
       <Message
         className={classes.firstThreadMessage}
         messageId={threadSummary.firstMessage?.id}
