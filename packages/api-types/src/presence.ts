@@ -18,9 +18,9 @@ export interface UpdateUserPresenceVariables
    *
    * ```json
    * {
-   *    "organizationID": "<orgID>",
-   *    "location": { "page": "<pageID>", "paragraph": "<paragraphID>" },
-   *    "exclusiveWithin": { "page": "<pageID>" }
+   *    "organizationID": "<ORG_ID>",
+   *    "location": { "page": "<PAGE_ID>", "paragraph": "<PARAGRAPH_ID>" },
+   *    "exclusiveWithin": { "page": "<PAGE_ID>" }
    * }
    * ```
    *
