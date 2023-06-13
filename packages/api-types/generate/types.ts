@@ -22,10 +22,6 @@ import type {
   UpdateMessageVariables,
   ListMessageParameters,
   CreateNotificationVariables,
-  NotificationURLAttachment,
-  NotificationMessageAttachment,
-  NotificationTextHeader,
-  NotificationUserHeader,
   NotificationVariables,
   UpdateUserPresenceVariables,
   ClientAuthTokenData,
@@ -52,10 +48,6 @@ export type Types = {
   UpdateMessageVariables: UpdateMessageVariables;
   ListMessageParameters: ListMessageParameters;
   CreateNotificationVariables: CreateNotificationVariables;
-  NotificationURLAttachment: NotificationURLAttachment;
-  NotificationMessageAttachment: NotificationMessageAttachment;
-  NotificationTextHeader: NotificationTextHeader;
-  NotificationUserHeader: NotificationUserHeader;
   NotificationVariables: NotificationVariables;
   UpdateUserPresenceVariables: UpdateUserPresenceVariables;
   ClientAuthTokenData: ClientAuthTokenData;
