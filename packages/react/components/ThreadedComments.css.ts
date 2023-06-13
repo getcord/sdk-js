@@ -76,10 +76,8 @@ globalStyle(`.${comments} :where(.${MODIFIERS.unseen} cord-facepile)::before`, {
   marginLeft: '-20px',
 });
 
-export const firstThreadMessage = cordifyClassname('first-thread-message');
-
-export const replyMessages = cordifyClassname('reply-messages');
-globalStyle(`.${replyMessages}`, {
+export const repliesContainer = cordifyClassname('replies-container');
+globalStyle(`.${repliesContainer}`, {
   marginLeft: cssVar('space-l'),
   padding: cssVar('space-2xs'),
   display: 'flex',

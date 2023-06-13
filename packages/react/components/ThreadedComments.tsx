@@ -80,11 +80,7 @@ function CommentsThread({ threadId }: { threadId: string }) {
 
   return (
     <div className={classes.thread}>
-      <Message
-        className={classes.firstThreadMessage}
-        messageId={threadSummary.firstMessage?.id}
-        threadId={threadId}
-      />
+      <Message messageId={threadSummary.firstMessage?.id} threadId={threadId} />
 
       {showingReplies ? (
         <ThreadReplies
@@ -174,7 +170,7 @@ function ThreadReplies({
               {'Show more'}
             </button>
           )}
-          <div className={classes.replyMessages}>
+          <div className={classes.repliesContainer}>
             {restOfMessages.map((message) => {
               return (
                 <Message
