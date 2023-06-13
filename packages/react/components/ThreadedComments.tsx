@@ -207,7 +207,7 @@ function ViewerAvatarWithComposer({
 
   return (
     <div className={classes.viewerAvatarWithComposer}>
-      {userId && <Avatar userId={userId} className={classes.avatar} />}
+      {userId && <Avatar userId={userId} />}
       <Composer
         threadId={threadId}
         showCloseButton

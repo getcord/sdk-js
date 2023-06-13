@@ -119,15 +119,14 @@ globalStyle(`.${comments} :where(cord-composer)`, {
 export const viewerAvatarWithComposer = cordifyClassname(
   'viewer-avatar-with-composer',
 );
-globalStyle(`.${viewerAvatarWithComposer}`, {
+globalStyle(`.${comments} :where(.${viewerAvatarWithComposer})`, {
   display: 'flex',
   gap: cssVar('space-2xs'),
   padding: cssVar('space-2xs'),
   marginLeft: `calc(${cssVar('space-l')} + ${cssVar('space-2xs')})`,
 });
 
-export const avatar = cordifyClassname('avatar');
-globalStyle(`.${avatar}`, {
+globalStyle(`.${comments} :where(.${viewerAvatarWithComposer} > cord-avatar)`, {
   marginTop: '10px',
   '--cord-facepile-avatar-size': cssVar('space-l'),
 } as CSSProperties);
