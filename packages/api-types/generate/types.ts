@@ -2,6 +2,7 @@
 // update typeDefinitions.ts and to re-generate run "node  generate.mjs" in sdk-js/packages/api-types
 
 import type {
+  ApplicationData,
   CreateApplicationVariables,
   UpdateApplicationVariables,
   DeleteApplicationVariables,
@@ -29,6 +30,7 @@ import type {
 } from '../src/typeDefinitions';
 
 export type Types = {
+  ApplicationData: ApplicationData;
   CreateApplicationVariables: CreateApplicationVariables;
   UpdateApplicationVariables: UpdateApplicationVariables;
   DeleteApplicationVariables: DeleteApplicationVariables;

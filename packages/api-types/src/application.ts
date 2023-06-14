@@ -1,33 +1,33 @@
-export interface CreateApplicationVariables {
+export interface ApplicationData {
+  /**
+   * The ID for the application.
+   */
+  id: string;
   /**
    * Name of the application
    * @minLength 1
    */
   name: string;
   /**
-   * URL for the application icon. It should be a square image of 256x256.
-   * This will be used as the avatar for messages and emails coming from your application.
+   * URL for the application icon. It should be a square image of 256x256. This
+   * will be used as the avatar for messages and emails coming from your
+   * application.  If not specified, the Cord logo will be used.
    * @format uri
    */
-  iconURL?: string;
+  iconURL: string | null;
 }
 
 /**
  * https://docs.cord.com/reference/rest-api/applications/
  */
-export interface UpdateApplicationVariables {
-  /**
-   * Name of the application
-   * @minLength 1
-   */
-  name?: string;
-  /**
-   * URL for the application icon. It should be a square image of 256x256.
-   * This will be used as the avatar for messages and emails coming from your application.
-   * @format uri
-   */
-  iconURL?: string;
-}
+export interface CreateApplicationVariables
+  extends Pick<ApplicationData, 'name'>,
+    Partial<Omit<ApplicationData, 'id' | 'name'>> {}
+
+/**
+ * https://docs.cord.com/reference/rest-api/applications/
+ */
+export type UpdateApplicationVariables = Partial<CreateApplicationVariables>;
 
 export interface DeleteApplicationVariables {
   /**

@@ -1,6 +1,28 @@
 // @generated
 export default {
+  ApplicationData: {
+    type: 'object',
+    properties: {
+      id: { description: 'The ID for the application.', type: 'string' },
+      name: {
+        description: 'Name of the application',
+        minLength: 1,
+        type: 'string',
+      },
+      iconURL: {
+        description:
+          'URL for the application icon. It should be a square image of 256x256. This\nwill be used as the avatar for messages and emails coming from your\napplication.  If not specified, the Cord logo will be used.',
+        format: 'uri',
+        type: ['null', 'string'],
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['id', 'name', 'iconURL'],
+    required: ['iconURL', 'id', 'name'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
   CreateApplicationVariables: {
+    description: 'https://docs.cord.com/reference/rest-api/applications/',
     type: 'object',
     properties: {
       name: {
@@ -10,9 +32,9 @@ export default {
       },
       iconURL: {
         description:
-          'URL for the application icon. It should be a square image of 256x256.\nThis will be used as the avatar for messages and emails coming from your application.',
+          'URL for the application icon. It should be a square image of 256x256. This\nwill be used as the avatar for messages and emails coming from your\napplication.  If not specified, the Cord logo will be used.',
         format: 'uri',
-        type: 'string',
+        type: ['null', 'string'],
       },
     },
     additionalProperties: false,
@@ -31,9 +53,9 @@ export default {
       },
       iconURL: {
         description:
-          'URL for the application icon. It should be a square image of 256x256.\nThis will be used as the avatar for messages and emails coming from your application.',
+          'URL for the application icon. It should be a square image of 256x256. This\nwill be used as the avatar for messages and emails coming from your\napplication.  If not specified, the Cord logo will be used.',
         format: 'uri',
-        type: 'string',
+        type: ['null', 'string'],
       },
     },
     additionalProperties: false,
@@ -745,6 +767,12 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
+      iconURL: {
+        description:
+          'The URL of the icon to show next to the message.  This is only used for\n`action_message` messages; other messages show the avatar of the author.\nIf an `action_message` does not have an icon set, no icon is shown.',
+        format: 'uri',
+        type: ['null', 'string'],
+      },
       createdTimestamp: {
         description:
           'The timestamp when this message was created.  The default value is the\ncurrent time.',
@@ -760,12 +788,6 @@ export default {
           'The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.',
         anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
-      iconURL: {
-        description:
-          'The URL of the icon to show next to the message.  This is only used for\n`action_message` messages; other messages show the avatar of the author.\nIf an `action_message` does not have an icon set, no icon is shown.',
-        format: 'uri',
-        type: ['null', 'string'],
-      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -776,10 +798,10 @@ export default {
       'type',
       'url',
       'metadata',
+      'iconURL',
       'createdTimestamp',
       'deletedTimestamp',
       'updatedTimestamp',
-      'iconURL',
     ],
     required: ['authorID', 'content', 'id'],
     definitions: {
@@ -864,6 +886,12 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
+      iconURL: {
+        description:
+          'The URL of the icon to show next to the message.  This is only used for\n`action_message` messages; other messages show the avatar of the author.\nIf an `action_message` does not have an icon set, no icon is shown.',
+        format: 'uri',
+        type: ['null', 'string'],
+      },
       createdTimestamp: {
         description:
           'The timestamp when this message was created.  The default value is the\ncurrent time.',
@@ -873,12 +901,6 @@ export default {
         description:
           'The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.',
         anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
-      },
-      iconURL: {
-        description:
-          'The URL of the icon to show next to the message.  This is only used for\n`action_message` messages; other messages show the avatar of the author.\nIf an `action_message` does not have an icon set, no icon is shown.',
-        format: 'uri',
-        type: ['null', 'string'],
       },
     },
     additionalProperties: false,
@@ -890,9 +912,9 @@ export default {
       'url',
       'content',
       'metadata',
+      'iconURL',
       'createdTimestamp',
       'updatedTimestamp',
-      'iconURL',
     ],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
