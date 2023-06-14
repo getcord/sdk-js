@@ -892,6 +892,10 @@ export default {
         format: 'uri',
         type: ['null', 'string'],
       },
+      authorID: {
+        description: 'The ID for the user that sent the message.',
+        type: 'string',
+      },
       createdTimestamp: {
         description:
           'The timestamp when this message was created.  The default value is the\ncurrent time.',
@@ -913,6 +917,7 @@ export default {
       'content',
       'metadata',
       'iconURL',
+      'authorID',
       'createdTimestamp',
       'updatedTimestamp',
     ],
