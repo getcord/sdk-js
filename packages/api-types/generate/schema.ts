@@ -293,6 +293,35 @@ export default {
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
+  ListUserQueryParameters: {
+    type: 'object',
+    properties: {
+      filter: {
+        description:
+          'This is a JSON object with one optional entry.  Users will be matched\nagainst the filter specified. This is a partial match, which means any keys\nother than the ones you specify are ignored when checking for a match.\nPlease note that because this is a query parameter in a REST API, this JSON\nobject must be URI encoded before being sent.',
+        $ref: '#/definitions/Pick<FilterParameters,"metadata">',
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['filter'],
+    definitions: {
+      'Pick<FilterParameters,"metadata">': {
+        type: 'object',
+        properties: {
+          metadata: {
+            description:
+              'Arbitrary key-value pairs of data associated with the object.',
+            type: 'object',
+            additionalProperties: { type: ['string', 'number', 'boolean'] },
+            propertyOrder: [],
+          },
+        },
+        additionalProperties: false,
+        propertyOrder: ['metadata'],
+      },
+    },
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
   BatchAPIVariables: {
     description: 'https://docs.cord.com/reference/rest-api/batch/',
     type: 'object',
@@ -636,7 +665,6 @@ export default {
     },
     additionalProperties: false,
     propertyOrder: ['filter'],
-    required: ['filter'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   MessageVariables: {

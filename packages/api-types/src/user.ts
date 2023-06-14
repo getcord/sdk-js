@@ -1,5 +1,5 @@
 import type { EntityMetadata } from '@cord-sdk/types';
-import type { ID } from './coreTypes';
+import type { FilterParameters, ID } from './coreTypes';
 
 export interface PlatformUserVariables {
   /**
@@ -71,3 +71,14 @@ export type UpdatePlatformUserVariables = Partial<PlatformUserVariables>;
  * @deprecated type for deprecated api route
  */
 export type CreatePlatformUserVariables = PlatformUserVariables & { id: ID };
+
+export type ListUserQueryParameters = {
+  /**
+   * This is a JSON object with one optional entry.  Users will be matched
+   * against the filter specified. This is a partial match, which means any keys
+   * other than the ones you specify are ignored when checking for a match.
+   * Please note that because this is a query parameter in a REST API, this JSON
+   * object must be URI encoded before being sent.
+   */
+  filter?: Pick<FilterParameters, 'metadata'>;
+};

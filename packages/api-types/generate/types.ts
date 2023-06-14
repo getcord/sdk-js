@@ -13,6 +13,7 @@ import type {
   PlatformUserVariables,
   UpdatePlatformUserVariables,
   CreatePlatformUserVariables,
+  ListUserQueryParameters,
   BatchAPIVariables,
   ThreadData,
   ThreadParticipant,
@@ -41,6 +42,7 @@ export type Types = {
   PlatformUserVariables: PlatformUserVariables;
   UpdatePlatformUserVariables: UpdatePlatformUserVariables;
   CreatePlatformUserVariables: CreatePlatformUserVariables;
+  ListUserQueryParameters: ListUserQueryParameters;
   BatchAPIVariables: BatchAPIVariables;
   ThreadData: ThreadData;
   ThreadParticipant: ThreadParticipant;
