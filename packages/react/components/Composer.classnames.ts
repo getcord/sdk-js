@@ -23,3 +23,16 @@ export const placeholder = cordifyClassname('placeholder');
 export const userReferenceSuggestionsMenu = cordifyClassname('mention-menu');
 
 export const attachmentsContainer = cordifyClassname('attachments');
+
+export const composerClassnamesDocs = {
+  [composerContainer]:
+    'Applied to the container div. This class is always present.',
+  [expanded]:
+    'Applied to the container div when the composer is expanded, usually on focus, or when some text is already there.',
+  [editorContainer]: 'Applied to the div containing the editor.',
+  [composerButtonsContainer]:
+    'Applied to the div containing the primary and secondary buttons.',
+  [placeholder]: 'Applied to the typing placeholder.',
+  [attachmentsContainer]:
+    'Applied to the div containing the attachments (files and images).',
+};
