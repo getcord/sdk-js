@@ -49,7 +49,38 @@ export type MultipleUserUpdateCallback = (
 ) => unknown;
 export type ViewerUserUpdateCallback = (user: ViewerUserData) => unknown;
 
+/**
+ * The notification preferences for a user.
+ */
+export type NotificationPreferences = {
+  /**
+   * Whether notifications should be sent via slack.
+   */
+  sendViaSlack: boolean;
+  /**
+   * Whether notifications should be sent via email.
+   */
+  sendViaEmail: boolean;
+};
+
 export interface ICordUserSDK {
+  /**
+   * This method allows you to set notification preferences for the current viewer.
+   * @example Overview
+   * ```javascript
+   * window.CordSDK.user.setNotificationPreferences(NotificationPreferences);
+   * ```
+   * @example Usage
+   * ```javascript
+   * window.CordSDK.user.setNotificationPreferences({ sendViaSlack: true, sendViaEmail: true});
+   * ```
+   * @param preferences - An object with two optional properties, `sendViaSlack` and `sendViaEmail`,
+   * to specify the new notification preferences for the viewer.
+   * @returns A promise that can be used to check the status of the request.
+   */
+  setNotificationPreferences(
+    preferences: Partial<NotificationPreferences>,
+  ): Promise<void>;
   /**
    * This method allows you to observe data about a user, including live
    * updates.
