@@ -1,4 +1,4 @@
-import type { EntityMetadata, ListenerRef } from './core';
+import type { EntityMetadata, ListenerRef, PaginationParams } from './core';
 
 export type NotificationSummary = {
   unread: number;
@@ -119,12 +119,23 @@ export type NotificationVariables = {
   metadata: EntityMetadata;
 };
 
+export type NotificationData = PaginationParams & {
+  notifications: NotificationVariables[];
+};
+
+export type NotificationDataUpdateCallback = (
+  data: NotificationData,
+) => unknown;
+
 export interface ICordNotificationSDK {
   observeSummary(
     callback: NotificationSummaryUpdateCallback,
     options?: Record<never, string>,
   ): ListenerRef;
   unobserveSummary(ref: ListenerRef): boolean;
+
+  observeData(callback: NotificationDataUpdateCallback): ListenerRef;
+  unobserveData(ref: ListenerRef): boolean;
 
   /**
    * @deprecated Renamed to observeSummary.
