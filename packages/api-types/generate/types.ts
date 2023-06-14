@@ -17,6 +17,7 @@ import type {
   ThreadParticipant,
   UpdateThreadVariables,
   CreateThreadVariables,
+  ListThreadQueryParameters,
   MessageVariables,
   CreateMessageVariables,
   UpdateMessageVariables,
@@ -43,6 +44,7 @@ export type Types = {
   ThreadParticipant: ThreadParticipant;
   UpdateThreadVariables: UpdateThreadVariables;
   CreateThreadVariables: CreateThreadVariables;
+  ListThreadQueryParameters: ListThreadQueryParameters;
   MessageVariables: MessageVariables;
   CreateMessageVariables: CreateMessageVariables;
   UpdateMessageVariables: UpdateMessageVariables;

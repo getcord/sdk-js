@@ -7,6 +7,7 @@ import type {
   RestApiThreadData,
   ThreadParticipant as ThreadParticipant_,
 } from '@cord-sdk/types';
+import type { FilterParameters } from './coreTypes';
 
 export type ThreadData = RestApiThreadData;
 export type ThreadParticipant = ThreadParticipant_;
@@ -54,3 +55,14 @@ export interface CreateThreadVariables
         | 'participants'
       >
     > {}
+
+export type ListThreadQueryParameters = {
+  /**
+   * This is a JSON object with two optional entries.
+   * You may specify both or either. Threads will be matched against the filters specified.
+   * This is a partial match, which means any keys other than the ones you specify are ignored
+   * when checking for a match. Please note that because this is a query parameter in a REST API,
+   * this JSON object must be URI encoded before being sent.
+   */
+  filter: FilterParameters;
+};

@@ -563,6 +563,35 @@
     "required": ["id", "location", "name", "organizationID", "url"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
+  "ListThreadQueryParameters": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "description": "This is a JSON object with two optional entries.\nYou may specify both or either. Threads will be matched against the filters specified.\nThis is a partial match, which means any keys other than the ones you specify are ignored\nwhen checking for a match. Please note that because this is a query parameter in a REST API,\nthis JSON object must be URI encoded before being sent.",
+        "type": "object",
+        "properties": {
+          "location": {
+            "description": "The location for the thread.",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "number", "boolean"] },
+            "propertyOrder": []
+          },
+          "metadata": {
+            "description": "Arbitrary key-value pairs of data associated with the object.",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "number", "boolean"] },
+            "propertyOrder": []
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": ["location", "metadata"]
+      }
+    },
+    "additionalProperties": false,
+    "propertyOrder": ["filter"],
+    "required": ["filter"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
   "MessageVariables": {
     "type": "object",
     "properties": {
