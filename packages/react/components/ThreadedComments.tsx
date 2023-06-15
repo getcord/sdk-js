@@ -79,7 +79,7 @@ function CommentsThread({ threadId }: { threadId: string }) {
   }
 
   return (
-    <div className={classes.thread}>
+    <div className={classes.thread} data-cord-thread-id={threadId}>
       <Message messageId={threadSummary.firstMessage?.id} threadId={threadId} />
 
       {showingReplies ? (
