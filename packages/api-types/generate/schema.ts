@@ -454,6 +454,12 @@ export default {
           required: ['lastSeenTimestamp', 'userID'],
         },
       },
+      typing: {
+        description:
+          'The users that are currently typing in this thread.  Typing status is\ntransient in nature, so the value is the set of users typing at a\nparticular instant, but may change rapidly.',
+        type: 'array',
+        items: { type: 'string' },
+      },
       name: {
         description:
           'The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  This should generally be something\nlike the page title.',
@@ -486,6 +492,7 @@ export default {
       'resolved',
       'resolvedTimestamp',
       'participants',
+      'typing',
       'name',
       'url',
       'location',
@@ -501,6 +508,7 @@ export default {
       'resolved',
       'resolvedTimestamp',
       'total',
+      'typing',
       'url',
     ],
     $schema: 'http://json-schema.org/draft-07/schema#',
@@ -573,9 +581,9 @@ export default {
       },
       typing: {
         description:
-          'Triggers the typing indicator, or adds an additional user to the existing\ntyping indicator in the thread and lasts for 3 seconds.\nPass an empty array to clear all users typing. Automatically triggers\nwhen a user is writing something in a Cord component.',
+          "Marks the specified users as typing in this thread.  The typing indicator\nexpires after 3 seconds, so to continually show the indicator it needs to\nbe called on an interval.  Pass an empty array to clear all users' typing indicators.",
         type: 'array',
-        items: { type: ['string', 'number'] },
+        items: { type: 'string' },
       },
     },
     additionalProperties: false,
@@ -624,6 +632,12 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
+      typing: {
+        description:
+          'The users that are currently typing in this thread.  Typing status is\ntransient in nature, so the value is the set of users typing at a\nparticular instant, but may change rapidly.',
+        type: 'array',
+        items: { type: 'string' },
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -633,6 +647,7 @@ export default {
       'name',
       'organizationID',
       'metadata',
+      'typing',
     ],
     required: ['id', 'location', 'name', 'organizationID', 'url'],
     $schema: 'http://json-schema.org/draft-07/schema#',
@@ -863,6 +878,12 @@ export default {
             description: 'The organization ID this thread is in.',
             type: 'string',
           },
+          typing: {
+            description:
+              'The users that are currently typing in this thread.  Typing status is\ntransient in nature, so the value is the set of users typing at a\nparticular instant, but may change rapidly.',
+            type: 'array',
+            items: { type: 'string' },
+          },
         },
         additionalProperties: false,
         propertyOrder: [
@@ -871,6 +892,7 @@ export default {
           'name',
           'metadata',
           'organizationID',
+          'typing',
         ],
         required: ['location', 'name', 'organizationID', 'url'],
       },

@@ -138,6 +138,13 @@ export type RestApiThreadData = {
   participants: ThreadParticipant[];
 
   /**
+   * The users that are currently typing in this thread.  Typing status is
+   * transient in nature, so the value is the set of users typing at a
+   * particular instant, but may change rapidly.
+   */
+  typing: UserID[];
+
+  /**
    * The name of the thread.  This is shown to users when the thread is
    * referenced, such as in notifications.  This should generally be something
    * like the page title.
@@ -165,7 +172,6 @@ export type RestApiThreadData = {
 
 export type ThreadSummary = Omit<RestApiThreadData, 'resolvedTimestamp'> & {
   unread: number;
-  typing: UserID[];
   viewerIsThreadParticipant: boolean;
   firstMessage: MessageSummary | null;
 };

@@ -16,7 +16,7 @@ export type ThreadParticipant = ThreadParticipant_;
  * https://docs.cord.com/reference/rest-api/threads/
  */
 export type UpdateThreadVariables = Partial<
-  Omit<ThreadData, 'total' | 'participants'> & {
+  Omit<ThreadData, 'total' | 'participants' | 'typing'> & {
     /**
      * Certain changes to the thread may post a message into the thread -- in
      * particular, resolving or unresolving a thread posts a message into the
@@ -25,12 +25,12 @@ export type UpdateThreadVariables = Partial<
      * -- if no user is specified, then those messages won't get posted.
      */
     userID: string;
-    /** Triggers the typing indicator, or adds an additional user to the existing
-     * typing indicator in the thread and lasts for 3 seconds.
-     * Pass an empty array to clear all users typing. Automatically triggers
-     * when a user is writing something in a Cord component.
+    /**
+     * Marks the specified users as typing in this thread.  The typing indicator
+     * expires after 3 seconds, so to continually show the indicator it needs to
+     * be called on an interval.  Pass an empty array to clear all users' typing indicators.
      */
-    typing: (string | number)[];
+    typing: string[];
   }
 >;
 
