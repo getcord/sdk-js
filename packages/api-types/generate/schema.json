@@ -1147,6 +1147,17 @@
     ],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
+  "NotificationReplyAction": {
+    "enum": [
+      "assign-task",
+      "attach-file",
+      "create-thread",
+      "mention",
+      "unassign-task"
+    ],
+    "type": "string",
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
   "UpdateUserPresenceVariables": {
     "type": "object",
     "properties": {
@@ -1184,6 +1195,260 @@
       "absent"
     ],
     "required": ["location", "organizationID"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "ThreadMessageAddedPayload": {
+    "type": "object",
+    "properties": {
+      "type": { "type": "string", "enum": ["thread-message-added"] },
+      "threadID": { "type": "string" },
+      "messageID": { "type": "string" },
+      "orgID": { "type": "string" },
+      "organizationID": { "type": "string" },
+      "applicationID": { "type": "string" },
+      "author": { "$ref": "#/definitions/UserData" },
+      "content": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        }
+      },
+      "text": { "type": "string" },
+      "url": { "type": "string" },
+      "usersToNotify": {
+        "type": "array",
+        "items": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {
+            "id": {
+              "description": "The user's ID.  This is unique within an application.",
+              "type": "string"
+            },
+            "name": {
+              "description": "The user's name.",
+              "type": ["null", "string"]
+            },
+            "shortName": {
+              "description": "The user's short name.  In most cases, Cord components will prefer using\nthis name over `name` when set.",
+              "type": ["null", "string"]
+            },
+            "profilePictureURL": {
+              "description": "A URL to the user's profile picture.",
+              "type": ["null", "string"]
+            },
+            "metadata": {
+              "description": "Any metadata that has been set for the user.",
+              "type": "object",
+              "additionalProperties": {
+                "type": ["string", "number", "boolean"]
+              },
+              "propertyOrder": []
+            },
+            "replyActions": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": { "$ref": "#/definitions/NotificationReplyAction" }
+                },
+                { "type": "null" }
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "metadata",
+            "name",
+            "profilePictureURL",
+            "replyActions",
+            "shortName"
+          ]
+        }
+      },
+      "messageType": {
+        "enum": ["action_message", "user_message"],
+        "type": "string"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": { "type": ["string", "number", "boolean"] },
+        "propertyOrder": []
+      },
+      "thread": {
+        "$ref": "#/definitions/Omit<RestApiThreadData,\"organizationID\">"
+      }
+    },
+    "additionalProperties": false,
+    "propertyOrder": [
+      "type",
+      "threadID",
+      "messageID",
+      "orgID",
+      "organizationID",
+      "applicationID",
+      "author",
+      "content",
+      "text",
+      "url",
+      "usersToNotify",
+      "messageType",
+      "metadata",
+      "thread"
+    ],
+    "required": [
+      "applicationID",
+      "author",
+      "content",
+      "messageID",
+      "messageType",
+      "metadata",
+      "orgID",
+      "organizationID",
+      "text",
+      "thread",
+      "threadID",
+      "type",
+      "url",
+      "usersToNotify"
+    ],
+    "definitions": {
+      "UserData": {
+        "description": "The data associated with a Cord user.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The user's ID.  This is unique within an application.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The user's name.",
+            "type": ["null", "string"]
+          },
+          "shortName": {
+            "description": "The user's short name.  In most cases, Cord components will prefer using\nthis name over `name` when set.",
+            "type": ["null", "string"]
+          },
+          "profilePictureURL": {
+            "description": "A URL to the user's profile picture.",
+            "type": ["null", "string"]
+          },
+          "metadata": {
+            "description": "Any metadata that has been set for the user.",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "number", "boolean"] },
+            "propertyOrder": []
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": [
+          "id",
+          "name",
+          "shortName",
+          "profilePictureURL",
+          "metadata"
+        ],
+        "required": ["id", "metadata", "name", "profilePictureURL", "shortName"]
+      },
+      "NotificationReplyAction": {
+        "enum": [
+          "assign-task",
+          "attach-file",
+          "create-thread",
+          "mention",
+          "unassign-task"
+        ],
+        "type": "string"
+      },
+      "Omit<RestApiThreadData,\"organizationID\">": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "description": "The [location](/reference/location) of this thread.",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "number", "boolean"] },
+            "propertyOrder": []
+          },
+          "id": { "description": "The ID for this thread.", "type": "string" },
+          "total": {
+            "description": "The total number of messages in this thread.",
+            "type": "number"
+          },
+          "url": {
+            "description": "A URL where the thread can be seen.  This determines where a user is sent\nwhen they click on a reference to this thread, such as in a notification,\nor if they click on a reference to a message in the thread and the message\ndoesn't have its own URL.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  This should generally be something\nlike the page title.",
+            "type": "string"
+          },
+          "metadata": {
+            "description": "Arbitrary key-value pairs that can be used to store additional information.",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "number", "boolean"] },
+            "propertyOrder": []
+          },
+          "resolvedTimestamp": {
+            "description": "The timestamp when this thread was resolved. Set to `null` if this thread\nis not resolved.",
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ]
+          },
+          "resolved": {
+            "description": "Whether this thread is resolved. In a GET request, this is equivalent to\n`!!resolvedTimestamp`. In a PUT request, setting this to `true` is\nequivalent to setting `resolvedTimestamp` to the current time, and setting\nthis to `false` is equivalent to setting `resolvedTimestamp` to `null`.",
+            "type": "boolean"
+          },
+          "participants": {
+            "description": "All of the users who are subscribed to this thread.",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "lastSeenTimestamp": {
+                  "description": "The timestamp of the most recent message or reaction that this user has\nseen in this thread. Is `null` if this participant has never viewed this\nthread.",
+                  "anyOf": [
+                    { "type": "string", "format": "date-time" },
+                    { "type": "null" }
+                  ]
+                },
+                "userID": {
+                  "description": "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/reference/rest-api/organizations) with this\nparticipant (and therefore can no longer access that participant's\ninformation).",
+                  "type": ["null", "string"]
+                }
+              },
+              "additionalProperties": false,
+              "propertyOrder": ["lastSeenTimestamp", "userID"],
+              "required": ["lastSeenTimestamp", "userID"]
+            }
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": [
+          "location",
+          "id",
+          "total",
+          "url",
+          "name",
+          "metadata",
+          "resolvedTimestamp",
+          "resolved",
+          "participants"
+        ],
+        "required": [
+          "id",
+          "location",
+          "metadata",
+          "name",
+          "participants",
+          "resolved",
+          "resolvedTimestamp",
+          "total",
+          "url"
+        ]
+      }
+    },
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
   "ClientAuthTokenData": {

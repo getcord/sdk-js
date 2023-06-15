@@ -67,3 +67,12 @@ export type CreateNotificationVariables = {
 };
 
 export type NotificationVariables = NotificationVariables_;
+
+// NB: these strings are written into the DB, so changes need to be
+// backwards-compatible or involve a migration.
+export type NotificationReplyAction =
+  | 'create-thread'
+  | 'mention'
+  | 'assign-task'
+  | 'unassign-task'
+  | 'attach-file';

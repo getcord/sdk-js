@@ -26,7 +26,9 @@ import type {
   ListMessageParameters,
   CreateNotificationVariables,
   NotificationVariables,
+  NotificationReplyAction,
   UpdateUserPresenceVariables,
+  ThreadMessageAddedPayload,
   ClientAuthTokenData,
 } from '../src/typeDefinitions';
 
@@ -55,6 +57,8 @@ export type Types = {
   ListMessageParameters: ListMessageParameters;
   CreateNotificationVariables: CreateNotificationVariables;
   NotificationVariables: NotificationVariables;
+  NotificationReplyAction: NotificationReplyAction;
   UpdateUserPresenceVariables: UpdateUserPresenceVariables;
+  ThreadMessageAddedPayload: ThreadMessageAddedPayload;
   ClientAuthTokenData: ClientAuthTokenData;
 };
