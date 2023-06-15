@@ -21,7 +21,7 @@ globalStyle(`.${threadList}`, {
   overflow: 'auto',
   display: 'flex',
   flexDirection: 'column',
-  gap: cssVar('space-xs'),
+  gap: cssVar('space-2xs'),
   height: 'auto',
 });
 
@@ -79,10 +79,9 @@ globalStyle(`.${comments} :where(.${MODIFIERS.unseen} cord-facepile)::before`, {
 export const repliesContainer = cordifyClassname('replies-container');
 globalStyle(`.${repliesContainer}`, {
   marginLeft: cssVar('space-l'),
-  padding: cssVar('space-2xs'),
+  paddingLeft: cssVar('space-2xs'),
   display: 'flex',
   flexDirection: 'column',
-  gap: cssVar('space-2xs'),
 });
 
 export const hideReplies = cordifyClassname('hide-replies');
@@ -122,7 +121,9 @@ export const viewerAvatarWithComposer = cordifyClassname(
 globalStyle(`.${comments} :where(.${viewerAvatarWithComposer})`, {
   display: 'flex',
   gap: cssVar('space-2xs'),
-  padding: cssVar('space-2xs'),
+  padding: `${cssVar('space-2xs')} 0px ${cssVar('space-2xs')} ${cssVar(
+    'space-2xs',
+  )}`,
   marginLeft: `calc(${cssVar('space-l')} + ${cssVar('space-2xs')})`,
 });
 
