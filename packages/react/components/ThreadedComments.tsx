@@ -19,8 +19,8 @@ type ComposerPosition = 'top' | 'bottom';
 
 export function ThreadedComments({
   location,
-  messageOrder = 'newest_on_top',
-  composerPosition = 'top',
+  messageOrder = 'newest_on_bottom',
+  composerPosition = 'bottom',
   composerExpanded = false,
 }: {
   location: Location;
