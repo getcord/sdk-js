@@ -1455,6 +1455,12 @@ export default {
               required: ['lastSeenTimestamp', 'userID'],
             },
           },
+          typing: {
+            description:
+              'The users that are currently typing in this thread.  Typing status is\ntransient in nature, so the value is the set of users typing at a\nparticular instant, but may change rapidly.',
+            type: 'array',
+            items: { type: 'string' },
+          },
         },
         additionalProperties: false,
         propertyOrder: [
@@ -1467,6 +1473,7 @@ export default {
           'resolvedTimestamp',
           'resolved',
           'participants',
+          'typing',
         ],
         required: [
           'id',
@@ -1477,6 +1484,7 @@ export default {
           'resolved',
           'resolvedTimestamp',
           'total',
+          'typing',
           'url',
         ],
       },
