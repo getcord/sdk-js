@@ -108,10 +108,20 @@ function CollapsedReplies({
   threadSummary: ThreadSummary;
   setShowingReplies: Dispatch<SetStateAction<boolean>>;
 }) {
-  const hasUnread = threadSummary.unread > 0;
+  // The thread summary has an unread count covering the entire thread. The UI we
+  // render below looks like we are talking about the number of unread *replies*,
+  // so if the first message itself is unread, subtract that from the number.
+  // This prevents, for example, rendering "2 new replies" and then you click and
+  // only one message appears (because the first message, already displayed, was
+  // included in that count).
+  let unreadNumber = threadSummary.unread;
+  if (threadSummary.firstMessage && !threadSummary.firstMessage.seen) {
+    unreadNumber--;
+  }
+
+  const hasUnread = unreadNumber > 0;
   const hasReplies = threadSummary.total > 1;
   const replyNumber = threadSummary.total - 1;
-  const unreadNumber = threadSummary.unread;
 
   return (
     <>
