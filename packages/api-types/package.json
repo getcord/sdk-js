@@ -1,7 +1,7 @@
 {
   "name": "@cord-sdk/api-types",
   "description": "TypeScript type definitions and JSON schema objects for the data types used by the Cord REST API",
-  "version": "0.0.48",
+  "version": "0.0.49",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
   "files": [
@@ -19,7 +19,7 @@
     "directory": "packages/api-types"
   },
   "devDependencies": {
-    "@cord-sdk/types": "0.0.48",
+    "@cord-sdk/types": "0.0.49",
     "prettier": "^2.8.2",
     "rollup": "^2.70.1",
     "rollup-plugin-typescript2": "^0.31.2",
