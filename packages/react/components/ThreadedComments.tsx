@@ -1,6 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
-import type { Location, ThreadSummary } from '@cord-sdk/types';
+import type { Location, ThreadData, ThreadSummary } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 import { pluralize } from '../common/util';
@@ -72,6 +72,7 @@ export function ThreadedComments({
 
 function CommentsThread({ threadId }: { threadId: string }) {
   const threadSummary = thread.useThreadSummary(threadId);
+  const threadData = thread.useThreadData(threadId);
   const [showingReplies, setShowingReplies] = useState<boolean>(false);
 
   if (!threadSummary || !threadSummary.firstMessage?.id) {
@@ -86,9 +87,14 @@ function CommentsThread({ threadId }: { threadId: string }) {
         markAsSeen={false}
       />
 
-      {showingReplies ? (
+      {showingReplies &&
+      // Don't show the expanded version until we actually have the thread data,
+      // to prevent replacing the collapsed version with an empty div while the
+      // thread data loads.
+      (threadData.messages.length > 0 || !threadData.loading) ? (
         <ThreadReplies
           threadId={threadId}
+          threadData={threadData}
           setShowingReplies={setShowingReplies}
         />
       ) : (
@@ -149,12 +155,14 @@ function CollapsedReplies({
 
 function ThreadReplies({
   threadId,
+  threadData,
   setShowingReplies,
 }: {
   threadId: string;
+  threadData: ThreadData;
   setShowingReplies: Dispatch<SetStateAction<boolean>>;
 }) {
-  const { messages, hasMore, fetchMore } = thread.useThreadData(threadId);
+  const { messages, hasMore, fetchMore } = threadData;
   const [showingReplyComposer, setShowingReplyComposer] =
     useState<boolean>(true);
 
