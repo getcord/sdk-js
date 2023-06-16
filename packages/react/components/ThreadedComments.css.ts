@@ -70,10 +70,12 @@ globalStyle(`.${comments} :where(cord-facepile)`, {
   lineHeight: cssVar('line-height-body'),
 });
 globalStyle(`.${comments} :where(.${MODIFIERS.unseen} cord-facepile)::before`, {
-  color: cssVar('color-notification'),
-  content: '\\2022',
-  fontSize: '40px',
-  marginLeft: '-20px',
+  background: cssVar('color-notification'),
+  borderRadius: '50%',
+  content: '',
+  height: '8px',
+  marginLeft: '-18px',
+  width: '8px',
 });
 
 export const repliesContainer = cordifyClassname('replies-container');
