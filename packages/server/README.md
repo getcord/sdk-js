@@ -1,4 +1,4 @@
-<img width="100%" src="https://docs.cord.com/assets/cord-sdk-banner.svg"></img>
+<img width="100%" src="https://docs.cord.com/static/images/cord-sdk-banner.svg"></img>
 
 # [@cord-sdk/server](https://docs.cord.com/) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/getcord/sdk-js/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/@cord-sdk/server.svg)](https://www.npmjs.com/package/@cord-sdk/server)
 
