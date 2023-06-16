@@ -15,6 +15,7 @@ const propsToAttributes = propsToAttributeConverter(
 export type MessageReactComponentProps = PropsWithFlags<{
   threadId: string;
   messageId?: string;
+  markAsSeen?: boolean;
 }>;
 
 export function Message(
