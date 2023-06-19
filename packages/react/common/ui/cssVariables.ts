@@ -115,7 +115,7 @@ export const cssVariableFallbacks = {
 
   // This is a one off - we should label it <component>-max-height
   // Refer to thread-max-height
-  'composer-height-max': { value: '40vh' },
+  'composer-height-max': { value: 'min(40vh, 10em)' },
   // TODO Rename tall to large to match new size naming or create new CSS variable
   'composer-height-tall': { value: '200px' },
   get 'composer-height-min'() {
