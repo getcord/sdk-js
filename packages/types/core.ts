@@ -49,8 +49,34 @@ export function isEqualLocation(
 export type ListenerRef = number;
 
 export type FetchMoreCallback = (howMany: number) => Promise<void>;
-export type PaginationParams = {
+export interface PaginationParams {
+  /**
+   * When this is `true`, Cord is in the process of fetching additional data
+   * from its backend. Once the fetch is complete, the additional items will be
+   * appended to the result list, and `loading` will become `false`.
+   *
+   * Both the initial data load and a call to `fetchMore` will start a fetch and
+   * cause `loading` to become `true`.
+   */
   loading: boolean;
+
+  /**
+   * Call this function to fetch additional data from Cord's backend. It takes a
+   * single argument, the number of additional items to fetch.
+   *
+   * Once called, `loading` will become `true` while the data is fetched. Once
+   * the fetch is complete, the additional items will be appended to the result
+   * list, and `loading` will return to `false`.
+   *
+   * This function returns a promise that is resolved once the fetch is complete.
+   */
   fetchMore: FetchMoreCallback;
+
+  /**
+   * If this is `true`, then the list of results is incomplete, and you need to
+   * call `fetchMore` to continue paginating through them. Once this becomes
+   * `false`, all results are available, and calls to `fetchMore` won't do
+   * anything.
+   */
   hasMore: boolean;
-};
+}
