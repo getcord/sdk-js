@@ -133,3 +133,19 @@ globalStyle(`.${comments} :where(.${viewerAvatarWithComposer} > cord-avatar)`, {
   marginTop: '10px',
   '--cord-facepile-avatar-size': cssVar('space-l'),
 } as CSSProperties);
+
+export const threadedCommentsClassnameDocs = {
+  [threadList]:
+    'Applied to the high-level list of threads. Although it is a list of threads, it is not actually a `ThreadList` component, hence the long name.',
+  [thread]:
+    'Applied to an individual thread. Although it represents a thread, it is not actually a `Thread` component, hence the long name.',
+  [expandReplies]:
+    'Applied to the button below the first message of each thread, to expand the replies to that thread.',
+  [repliesContainer]:
+    'Applied to the container holding the `Message` components which are the replies to a thread. This may appear below the initial message of a thread.',
+  [hideReplies]: 'Applied to the "hide replies" button.',
+  [showMore]:
+    'Applied to the button to load more threads, as well as the button to load more messages in a thread.',
+  [viewerAvatarWithComposer]:
+    'Applied to the container containing the combined viewer avatar and composer, which can appear inside each thread as the "reply" composer.',
+};
