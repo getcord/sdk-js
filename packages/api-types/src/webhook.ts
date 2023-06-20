@@ -13,7 +13,7 @@ export interface ThreadMessageAddedPayload {
   applicationID: string;
   author: UserData;
   content: object[];
-  text: string;
+  plaintext: string;
   url: string;
   usersToNotify: (UserData & {
     replyActions: NotificationReplyAction[] | null;

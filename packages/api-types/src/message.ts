@@ -23,6 +23,10 @@ export interface MessageVariables {
    */
   content: object[];
   /**
+   * A plaintext version of the structured message content.
+   */
+  plaintext: string;
+  /**
    * A URL where the message can be seen.  This determines where a user is sent
    * when they click on a reference to this message, such as in a notification.
    * If unset, it defaults to the thread's URL.

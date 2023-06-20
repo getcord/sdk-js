@@ -703,6 +703,10 @@ export default {
         type: 'array',
         items: { type: 'object', properties: {}, additionalProperties: true },
       },
+      plaintext: {
+        description: 'A plaintext version of the structured message content.',
+        type: 'string',
+      },
       url: {
         description:
           "A URL where the message can be seen.  This determines where a user is sent\nwhen they click on a reference to this message, such as in a notification.\nIf unset, it defaults to the thread's URL.",
@@ -750,6 +754,7 @@ export default {
       'organizationID',
       'threadID',
       'content',
+      'plaintext',
       'url',
       'createdTimestamp',
       'deletedTimestamp',
@@ -767,6 +772,7 @@ export default {
       'id',
       'metadata',
       'organizationID',
+      'plaintext',
       'threadID',
       'type',
       'updatedTimestamp',
@@ -802,6 +808,10 @@ export default {
         description:
           "A URL where the message can be seen.  This determines where a user is sent\nwhen they click on a reference to this message, such as in a notification.\nIf unset, it defaults to the thread's URL.",
         type: ['null', 'string'],
+      },
+      plaintext: {
+        description: 'A plaintext version of the structured message content.',
+        type: 'string',
       },
       metadata: {
         description:
@@ -840,6 +850,7 @@ export default {
       'authorID',
       'type',
       'url',
+      'plaintext',
       'metadata',
       'iconURL',
       'createdTimestamp',
@@ -929,6 +940,10 @@ export default {
         type: 'array',
         items: { type: 'object', properties: {}, additionalProperties: true },
       },
+      plaintext: {
+        description: 'A plaintext version of the structured message content.',
+        type: 'string',
+      },
       metadata: {
         description:
           'Arbitrary key-value pairs that can be used to store additional information.',
@@ -965,6 +980,7 @@ export default {
       'id',
       'url',
       'content',
+      'plaintext',
       'metadata',
       'iconURL',
       'authorID',
@@ -1250,7 +1266,7 @@ export default {
         type: 'array',
         items: { type: 'object', properties: {}, additionalProperties: true },
       },
-      text: { type: 'string' },
+      plaintext: { type: 'string' },
       url: { type: 'string' },
       usersToNotify: {
         type: 'array',
@@ -1319,7 +1335,7 @@ export default {
       'applicationID',
       'author',
       'content',
-      'text',
+      'plaintext',
       'url',
       'usersToNotify',
       'messageType',
@@ -1335,7 +1351,7 @@ export default {
       'metadata',
       'orgID',
       'organizationID',
-      'text',
+      'plaintext',
       'thread',
       'threadID',
       'type',
