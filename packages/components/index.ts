@@ -27,6 +27,7 @@ export const componentNames = {
   'cord-pin': 'Pin',
   'cord-avatar': 'Avatar',
   'cord-add-reaction': 'AddReaction',
+  'cord-reaction-list': 'ReactionList',
 } as const;
 
 export type ElementName = keyof typeof componentNames;
@@ -187,6 +188,11 @@ export const componentAttributes = {
     'message-id': 'string',
     'enable-tooltip': 'boolean',
     disabled: 'boolean',
+  },
+  ReactionList: {
+    'thread-id': 'string',
+    'message-id': 'string',
+    'show-add-reaction-button': 'boolean',
   },
 } as const;
 
