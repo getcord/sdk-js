@@ -11,6 +11,7 @@ import {
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
 import type {
+  PropsWithFlags,
   PropsWithRef,
   ReactPropsWithLocation,
   ReactPropsWithStandardHTMLAttributes,
@@ -22,32 +23,34 @@ const propsToAttributes = propsToAttributeConverter(
 
 export type ThreadListMode = 'default' | 'experimentalComments';
 
-export type ThreadListReactComponentProps = ReactPropsWithLocation<{
-  showScreenshotPreviewInMessage?: boolean;
-  highlightOpenFloatingThread?: boolean;
-  highlightThreadId?: string;
-  mode?: ThreadListMode;
-  filter?: ThreadListFilter;
-  showPlaceholder?: boolean;
-  partialMatch?: boolean;
-  onThreadClick?: (
-    ...args: ThreadListWebComponentEvents['threadclick']
-  ) => unknown;
-  onThreadMouseEnter?: (
-    ...args: ThreadListWebComponentEvents['threadmouseenter']
-  ) => unknown;
-  onThreadMouseLeave?: (
-    ...args: ThreadListWebComponentEvents['threadmouseleave']
-  ) => unknown;
-  onThreadResolve?: (
-    ...args: ThreadListWebComponentEvents['threadresolve']
-  ) => unknown;
-  onThreadReopen?: (
-    ...args: ThreadListWebComponentEvents['threadreopen']
-  ) => unknown;
-  onRender?: (...args: ThreadListWebComponentEvents['render']) => unknown;
-  onLoading?: (...args: ThreadListWebComponentEvents['loading']) => unknown;
-}>;
+export type ThreadListReactComponentProps = PropsWithFlags<
+  ReactPropsWithLocation<{
+    showScreenshotPreviewInMessage?: boolean;
+    highlightOpenFloatingThread?: boolean;
+    highlightThreadId?: string;
+    mode?: ThreadListMode;
+    filter?: ThreadListFilter;
+    showPlaceholder?: boolean;
+    partialMatch?: boolean;
+    onThreadClick?: (
+      ...args: ThreadListWebComponentEvents['threadclick']
+    ) => unknown;
+    onThreadMouseEnter?: (
+      ...args: ThreadListWebComponentEvents['threadmouseenter']
+    ) => unknown;
+    onThreadMouseLeave?: (
+      ...args: ThreadListWebComponentEvents['threadmouseleave']
+    ) => unknown;
+    onThreadResolve?: (
+      ...args: ThreadListWebComponentEvents['threadresolve']
+    ) => unknown;
+    onThreadReopen?: (
+      ...args: ThreadListWebComponentEvents['threadreopen']
+    ) => unknown;
+    onRender?: (...args: ThreadListWebComponentEvents['render']) => unknown;
+    onLoading?: (...args: ThreadListWebComponentEvents['loading']) => unknown;
+  }>
+>;
 
 export function ThreadList(
   props: PropsWithRef<
@@ -82,6 +85,7 @@ export function ThreadList(
       class={props.className}
       style={props.style}
       ref={combinedSetRef}
+      use-shadow-root={props.useShadowRoot ?? false}
       buffer-events={!listenersAttached}
       {...propsToAttributes({ location, ...props })}
     />
