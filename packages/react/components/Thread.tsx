@@ -16,6 +16,7 @@ import {
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
 import type {
+  PropsWithFlags,
   PropsWithRef,
   ReactPropsWithLocation,
   ReactPropsWithStandardHTMLAttributes,
@@ -23,26 +24,28 @@ import type {
 
 const propsToAttributes = propsToAttributeConverter(componentAttributes.Thread);
 
-export type ThreadReactComponentProps = ReactPropsWithLocation<{
-  threadId: string;
-  threadName?: string;
-  metadata?: EntityMetadata;
-  collapsed?: boolean;
-  autofocus?: boolean;
-  showHeader?: boolean;
-  showPlaceholder?: boolean;
-  composerExpanded?: boolean;
-  threadOptions?: ThreadOptions;
-  onThreadInfoChange?: (
-    ...args: ThreadWebComponentEvents['threadinfochange']
-  ) => unknown;
-  onClose?: (...args: ThreadWebComponentEvents['close']) => unknown;
-  onResolved?: (...args: ThreadWebComponentEvents['resolved']) => unknown;
-  onRender?: (...args: ThreadWebComponentEvents['render']) => unknown;
-  onLoading?: (...args: ThreadWebComponentEvents['loading']) => unknown;
-  onFocusComposer?: (...args: ComposerWebComponentEvents['focus']) => unknown;
-  onBlurComposer?: (...args: ComposerWebComponentEvents['blur']) => unknown;
-}> & { screenshotConfig?: ScreenshotConfig };
+export type ThreadReactComponentProps = PropsWithFlags<
+  ReactPropsWithLocation<{
+    threadId: string;
+    threadName?: string;
+    metadata?: EntityMetadata;
+    collapsed?: boolean;
+    autofocus?: boolean;
+    showHeader?: boolean;
+    showPlaceholder?: boolean;
+    composerExpanded?: boolean;
+    threadOptions?: ThreadOptions;
+    onThreadInfoChange?: (
+      ...args: ThreadWebComponentEvents['threadinfochange']
+    ) => unknown;
+    onClose?: (...args: ThreadWebComponentEvents['close']) => unknown;
+    onResolved?: (...args: ThreadWebComponentEvents['resolved']) => unknown;
+    onRender?: (...args: ThreadWebComponentEvents['render']) => unknown;
+    onLoading?: (...args: ThreadWebComponentEvents['loading']) => unknown;
+    onFocusComposer?: (...args: ComposerWebComponentEvents['focus']) => unknown;
+    onBlurComposer?: (...args: ComposerWebComponentEvents['blur']) => unknown;
+  }>
+> & { screenshotConfig?: ScreenshotConfig };
 
 export function Thread(
   props: PropsWithRef<
@@ -105,6 +108,7 @@ export function Thread(
       class={props.className}
       style={props.style}
       ref={combinedSetRef}
+      use-shadow-root={props.useShadowRoot ?? false}
       {...propsToAttributes({ location, ...props })}
     >
       {props.children}
