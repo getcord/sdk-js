@@ -22,7 +22,7 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreateApplicationVariables: {
-    description: 'https://docs.cord.com/reference/rest-api/applications/',
+    description: 'https://docs.cord.com/rest-apis/applications/',
     type: 'object',
     properties: {
       name: {
@@ -43,7 +43,7 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   UpdateApplicationVariables: {
-    description: 'https://docs.cord.com/reference/rest-api/applications/',
+    description: 'https://docs.cord.com/rest-apis/applications/',
     type: 'object',
     properties: {
       name: {
@@ -95,7 +95,7 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   UpdatePlatformOrganizationVariables: {
-    description: 'https://docs.cord.com/reference/rest-api/organizations/',
+    description: 'https://docs.cord.com/rest-apis/organizations/',
     type: 'object',
     properties: {
       name: { description: 'Organization name', type: 'string' },
@@ -112,7 +112,7 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   UpdatePlatformOrganizationMembersVariables: {
-    description: 'https://docs.cord.com/reference/rest-api/organizations/',
+    description: 'https://docs.cord.com/rest-apis/organizations/',
     type: 'object',
     properties: {
       add: { type: 'array', items: { type: ['string', 'number'] } },
@@ -196,7 +196,7 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   UpdatePlatformUserVariables: {
-    description: 'https://docs.cord.com/reference/rest-api/users/',
+    description: 'https://docs.cord.com/rest-apis/users/',
     type: 'object',
     properties: {
       email: { description: 'Email address', format: 'email', type: 'string' },
@@ -323,12 +323,12 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   BatchAPIVariables: {
-    description: 'https://docs.cord.com/reference/rest-api/batch/',
+    description: 'https://docs.cord.com/rest-apis/batch/',
     type: 'object',
     properties: {
       users: {
         description:
-          'List of user objects. Every object must include the id field. If the user\nalready exists, all other fields are optional and only updated when\npresent. If the user does not already exist, fields are required as\ndescribed in the [Create or update a\nuser](/reference/rest-api/organizations/#create-or-update-an-organization)\nAPI.',
+          'List of user objects. Every object must include the id field. If the user\nalready exists, all other fields are optional and only updated when\npresent. If the user does not already exist, fields are required as\ndescribed in the [Create or update a\nuser](/rest-apis/organizations/#create-or-update-an-organization)\nAPI.',
         maxItems: 10000,
         type: 'array',
         items: {
@@ -379,7 +379,7 @@ export default {
       },
       organizations: {
         description:
-          'List of organization objects. Every object must include the id field. If\nthe organization already exists, all other fields are optional and only\nupdated when present. If the organization does not already exist, fields\nare required as described in the [Create or update an\norganization](/reference/rest-api/organizations/#create-or-update-an-organization)\nAPI.',
+          'List of organization objects. Every object must include the id field. If\nthe organization already exists, all other fields are optional and only\nupdated when present. If the organization does not already exist, fields\nare required as described in the [Create or update an\norganization](/rest-apis/organizations/#create-or-update-an-organization)\nAPI.',
         maxItems: 1000,
         type: 'array',
         items: {
@@ -445,7 +445,7 @@ export default {
             },
             userID: {
               description:
-                "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/reference/rest-api/organizations) with this\nparticipant (and therefore can no longer access that participant's\ninformation).",
+                "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/rest-apis/organizations) with this\nparticipant (and therefore can no longer access that participant's\ninformation).",
               type: ['null', 'string'],
             },
           },
@@ -523,7 +523,7 @@ export default {
       },
       userID: {
         description:
-          "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/reference/rest-api/organizations) with this\nparticipant (and therefore can no longer access that participant's\ninformation).",
+          "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/rest-apis/organizations) with this\nparticipant (and therefore can no longer access that participant's\ninformation).",
         type: ['null', 'string'],
       },
     },
@@ -533,7 +533,7 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   UpdateThreadVariables: {
-    description: 'https://docs.cord.com/reference/rest-api/threads/',
+    description: 'https://docs.cord.com/rest-apis/threads/',
     type: 'object',
     properties: {
       location: {
@@ -920,7 +920,7 @@ export default {
       },
       deletedTimestamp: {
         description:
-          "The timestamp when this message was deleted, if it was. If set to null, the message is not deleted.\nDeleting a message this way will only soft delete it, replacing the content of the message with a\nrecord of the deletion on the frontend. If you'd like to permanently delete it instead, use the\n[delete message endpoint](/reference/rest-api/messages#Delete-a-message).",
+          "The timestamp when this message was deleted, if it was. If set to null, the message is not deleted.\nDeleting a message this way will only soft delete it, replacing the content of the message with a\nrecord of the deletion on the frontend. If you'd like to permanently delete it instead, use the\n[delete message endpoint](/rest-apis/messages#Delete-a-message).",
         anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
       type: {
@@ -1004,7 +1004,7 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreateNotificationVariables: {
-    description: 'https://docs.cord.com/reference/rest-api/notifications',
+    description: 'https://docs.cord.com/rest-apis/notifications',
     type: 'object',
     properties: {
       actorID: {
@@ -1462,7 +1462,7 @@ export default {
                 },
                 userID: {
                   description:
-                    "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/reference/rest-api/organizations) with this\nparticipant (and therefore can no longer access that participant's\ninformation).",
+                    "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/rest-apis/organizations) with this\nparticipant (and therefore can no longer access that participant's\ninformation).",
                   type: ['null', 'string'],
                 },
               },
@@ -1520,12 +1520,12 @@ export default {
       },
       user_details: {
         description:
-          'If present, update’s the user’s details, or creates a user with those\ndetails if the user_id is new to Cord. This is an object that contains the\nsame fields as the [user management REST\nendpoint](/reference/rest-api/users/)',
+          'If present, update’s the user’s details, or creates a user with those\ndetails if the user_id is new to Cord. This is an object that contains the\nsame fields as the [user management REST\nendpoint](/rest-apis/users/)',
         $ref: '#/definitions/PlatformUserVariables',
       },
       organization_details: {
         description:
-          'If present, update’s the organization’s details, or creates an organization\nwith those details if the organization_id is new to Cord. This is an object\nthat contains the same fields as the [organization management REST\nendpoint](/reference/rest-api/organizations/)',
+          'If present, update’s the organization’s details, or creates an organization\nwith those details if the organization_id is new to Cord. This is an object\nthat contains the same fields as the [organization management REST\nendpoint](/rest-apis/organizations/)',
         $ref: '#/definitions/PlatformOrganizationVariables',
       },
     },

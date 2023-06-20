@@ -63,7 +63,7 @@ export interface PlatformUserVariables {
 }
 
 /**
- * https://docs.cord.com/reference/rest-api/users/
+ * https://docs.cord.com/rest-apis/users/
  */
 export type UpdatePlatformUserVariables = Partial<PlatformUserVariables>;
 

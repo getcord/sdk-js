@@ -4,7 +4,7 @@ import type {
 } from '@cord-sdk/types';
 
 /**
- * https://docs.cord.com/reference/rest-api/notifications
+ * https://docs.cord.com/rest-apis/notifications
  */
 export type CreateNotificationVariables = {
   /**

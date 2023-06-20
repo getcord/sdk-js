@@ -15,13 +15,13 @@ export interface PlatformOrganizationVariables {
 }
 
 /**
- * https://docs.cord.com/reference/rest-api/organizations/
+ * https://docs.cord.com/rest-apis/organizations/
  */
 export type UpdatePlatformOrganizationVariables =
   Partial<PlatformOrganizationVariables>;
 
 /**
- * https://docs.cord.com/reference/rest-api/organizations/
+ * https://docs.cord.com/rest-apis/organizations/
  */
 export interface UpdatePlatformOrganizationMembersVariables {
   add?: (string | number)[];

@@ -3,7 +3,7 @@ import type { UpdatePlatformOrganizationVariables } from './org';
 import type { UpdatePlatformUserVariables } from './user';
 
 /**
- * https://docs.cord.com/reference/rest-api/batch/
+ * https://docs.cord.com/rest-apis/batch/
  */
 export interface BatchAPIVariables {
   /**
@@ -11,7 +11,7 @@ export interface BatchAPIVariables {
    * already exists, all other fields are optional and only updated when
    * present. If the user does not already exist, fields are required as
    * described in the [Create or update a
-   * user](https://docs.cord.com/reference/rest-api/organizations/#create-or-update-an-organization)
+   * user](https://docs.cord.com/rest-apis/organizations/#create-or-update-an-organization)
    * API.
    *
    * @maxItems 10000
@@ -22,7 +22,7 @@ export interface BatchAPIVariables {
    * the organization already exists, all other fields are optional and only
    * updated when present. If the organization does not already exist, fields
    * are required as described in the [Create or update an
-   * organization](https://docs.cord.com/reference/rest-api/organizations/#create-or-update-an-organization)
+   * organization](https://docs.cord.com/rest-apis/organizations/#create-or-update-an-organization)
    * API.
    *
    * @maxItems 1000

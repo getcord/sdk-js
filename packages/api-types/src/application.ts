@@ -18,14 +18,14 @@ export interface ApplicationData {
 }
 
 /**
- * https://docs.cord.com/reference/rest-api/applications/
+ * https://docs.cord.com/rest-apis/applications/
  */
 export interface CreateApplicationVariables
   extends Pick<ApplicationData, 'name'>,
     Partial<Omit<ApplicationData, 'id' | 'name'>> {}
 
 /**
- * https://docs.cord.com/reference/rest-api/applications/
+ * https://docs.cord.com/rest-apis/applications/
  */
 export type UpdateApplicationVariables = Partial<CreateApplicationVariables>;
 

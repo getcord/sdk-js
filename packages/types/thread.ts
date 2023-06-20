@@ -95,7 +95,7 @@ export type ThreadParticipant = {
 
   /**
    * The user ID of the participant. Can be null if the current viewer no longer
-   * shares an [organization](/reference/rest-api/organizations) with this
+   * shares an [organization](/rest-apis/organizations) with this
    * participant (and therefore can no longer access that participant's
    * information).
    */

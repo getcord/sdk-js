@@ -13,7 +13,7 @@ export type ThreadData = RestApiThreadData;
 export type ThreadParticipant = ThreadParticipant_;
 
 /**
- * https://docs.cord.com/reference/rest-api/threads/
+ * https://docs.cord.com/rest-apis/threads/
  */
 export type UpdateThreadVariables = Partial<
   Omit<ThreadData, 'total' | 'participants' | 'typing'> & {
