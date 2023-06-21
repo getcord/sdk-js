@@ -8,14 +8,17 @@ import type {
   NotificationListLauncherWebComponentEvents,
 } from '@cord-sdk/types';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
-import type { ReactPropsWithStandardHTMLAttributes } from '../types';
+import type {
+  PropsWithFlags,
+  ReactPropsWithStandardHTMLAttributes,
+} from '../types';
 import type { NotificationListReactComponentProps } from './NotificationList';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.NotificationListLauncher,
 );
 
-type NotificationListLauncherSpecificReactComponentProps = {
+type NotificationListLauncherSpecificReactComponentProps = PropsWithFlags<{
   label?: string;
   iconUrl?: string;
   badgeStyle?: BadgeStyle;
@@ -23,7 +26,7 @@ type NotificationListLauncherSpecificReactComponentProps = {
   onClick?: (
     ...args: NotificationListLauncherWebComponentEvents['click']
   ) => unknown;
-};
+}>;
 
 export type NotificationListLauncherReactComponentProps =
   NotificationListReactComponentProps &

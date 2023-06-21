@@ -12,7 +12,6 @@ import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import { useCordLocation } from '../hooks/useCordLocation';
 import type {
   PresenceReducerOptions,
-  PropsWithFlags,
   ReactPropsWithStandardHTMLAttributes,
 } from '../types';
 
@@ -20,15 +19,11 @@ const propsToAttributes = propsToAttributeConverter(
   componentAttributes.PresenceFacepile,
 );
 
-export type PresenceFacepileReactComponentProps = PropsWithFlags<
-  PresenceReducerOptions & {
-    maxUsers?: number;
-    orientation?: Orientation;
-    onUpdate?: (
-      ...args: PresenceFacepileWebComponentEvents['update']
-    ) => unknown;
-  }
->;
+export type PresenceFacepileReactComponentProps = PresenceReducerOptions & {
+  maxUsers?: number;
+  orientation?: Orientation;
+  onUpdate?: (...args: PresenceFacepileWebComponentEvents['update']) => unknown;
+};
 
 export function PresenceFacepile(
   props: ReactPropsWithStandardHTMLAttributes<PresenceFacepileReactComponentProps>,
@@ -48,7 +43,6 @@ export function PresenceFacepile(
       style={props.style}
       ref={setRef}
       buffer-events={!listenersAttached}
-      use-shadow-root={props.useShadowRoot ?? false}
       {...propsToAttributes({ location, ...props })}
     />
   );
