@@ -15,7 +15,6 @@ export const secondaryButtonsGroup = cordifyClassname(
 export const active = cordifyClassname('active');
 
 export const editorContainer = cordifyClassname('editor-container');
-export const editorSubContainer = cordifyClassname('editor-sub-container');
 export const editor = cordifyClassname('editor');
 export const editorSlot = cordifyClassname('editor-slot');
 export const placeholder = cordifyClassname('placeholder');
