@@ -5,15 +5,18 @@ import {
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
-import type { ReactPropsWithStandardHTMLAttributes } from '../types';
+import type {
+  PropsWithFlags,
+  ReactPropsWithStandardHTMLAttributes,
+} from '../types';
 
 const propsToAttributes = propsToAttributeConverter(componentAttributes.Inbox);
 
 // i.e. those props exposed to both plain Inbox and Inbox via InboxLauncher
-export type InboxSharedReactComponentProps = {
+export type InboxSharedReactComponentProps = PropsWithFlags<{
   showSettings?: boolean;
   showPlaceholder?: boolean;
-};
+}>;
 
 // but these props are only available for a directly implemented <Inbox/>
 export type InboxSpecificReactComponentProps = {
