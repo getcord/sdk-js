@@ -44,6 +44,7 @@ export type CordSDKOptions = {
   navigate?: NavigateFn | null;
   enable_tasks?: boolean;
   enable_annotations?: boolean;
+  enable_slack?: boolean;
   /** @deprecated use `screenshot_options.blur` instead */
   blur_screenshots?: boolean;
   /** @deprecated use `screenshot_options.capture` instead */

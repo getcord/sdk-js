@@ -50,6 +50,7 @@ type Props = {
   clientAuthToken: string | undefined | null;
   enableTasks?: boolean;
   enableAnnotations?: boolean;
+  enableSlack?: boolean;
   cordScriptUrl?: string;
   navigate?: NavigateFn | null;
   threadOptions?: ThreadOptions;
@@ -80,6 +81,7 @@ export function CordProvider({
   clientAuthToken,
   enableTasks,
   enableAnnotations,
+  enableSlack,
   blurScreenshots,
   enableScreenshotCapture,
   showBlurredScreenshots,
@@ -189,6 +191,7 @@ export function CordProvider({
           client_auth_token: clientAuthToken,
           enable_tasks: enableTasks,
           enable_annotations: enableAnnotations ?? annotationMode !== 'none',
+          enable_slack: enableSlack,
           navigate,
           react_package_version: CORD_REACT_PACKAGE_VERSION,
           thread_options: threadOptions
@@ -211,6 +214,7 @@ export function CordProvider({
     clientAuthToken,
     enableTasks,
     enableAnnotations,
+    enableSlack,
     blurScreenshots,
     showBlurredScreenshots,
     annotationMode,
