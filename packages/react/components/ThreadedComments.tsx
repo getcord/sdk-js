@@ -47,6 +47,7 @@ export function ThreadedComments({
     <button
       className={cx(classes.showMore, fonts.fontSmall)}
       onClick={() => fetchMore(5)}
+      type="button"
     >
       {'Fetch more'}
     </button>
@@ -137,6 +138,7 @@ function CollapsedReplies({
             [MODIFIERS.unseen]: hasUnread,
           })}
           onClick={() => setShowingReplies(true)}
+          type="button"
         >
           <Facepile
             users={threadSummary.participants.map((p) => p.userID ?? '')}
@@ -180,6 +182,7 @@ function ThreadReplies({
           <button
             className={cx(classes.hideReplies, fonts.fontSmall)}
             onClick={() => setShowingReplies(false)}
+            type="button"
           >
             {'Hide replies'}
           </button>
@@ -188,6 +191,7 @@ function ThreadReplies({
             <button
               className={cx(classes.showMore, fonts.fontSmall)}
               onClick={() => fetchMore(5)}
+              type="button"
             >
               {'Show more'}
             </button>
@@ -245,6 +249,7 @@ function ReplyButton({ onClick }: { onClick: () => void }) {
     <button
       className={cx(classes.expandReplies, fonts.fontSmall)}
       onClick={onClick}
+      type="button"
     >
       {'Reply'}
     </button>
