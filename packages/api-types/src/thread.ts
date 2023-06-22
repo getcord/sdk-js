@@ -9,14 +9,14 @@ import type {
 } from '@cord-sdk/types';
 import type { FilterParameters } from './coreTypes';
 
-export type ThreadData = RestApiThreadData;
+export type ThreadVariables = RestApiThreadData;
 export type ThreadParticipant = ThreadParticipant_;
 
 /**
  * https://docs.cord.com/rest-apis/threads/
  */
 export type UpdateThreadVariables = Partial<
-  Omit<ThreadData, 'total' | 'participants' | 'typing'> & {
+  Omit<ThreadVariables, 'total' | 'participants' | 'typing'> & {
     /**
      * Certain changes to the thread may post a message into the thread -- in
      * particular, resolving or unresolving a thread posts a message into the
@@ -36,12 +36,12 @@ export type UpdateThreadVariables = Partial<
 
 export interface CreateThreadVariables
   extends Pick<
-      ThreadData,
+      ThreadVariables,
       'id' | 'location' | 'url' | 'name' | 'organizationID'
     >,
     Partial<
       Omit<
-        ThreadData,
+        ThreadVariables,
         // Required fields
         | 'location'
         | 'url'

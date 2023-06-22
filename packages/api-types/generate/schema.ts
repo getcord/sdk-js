@@ -407,7 +407,7 @@ export default {
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
-  ThreadData: {
+  ThreadVariables: {
     type: 'object',
     properties: {
       id: { description: 'The ID for this thread.', type: 'string' },

@@ -1,6 +1,6 @@
 import type { EntityMetadata, UserData } from '@cord-sdk/types';
 import type { NotificationReplyAction } from './notifications';
-import type { ThreadData } from './thread';
+import type { ThreadVariables } from './thread';
 
 export interface ThreadMessageAddedPayload {
   type: 'thread-message-added';
@@ -20,5 +20,5 @@ export interface ThreadMessageAddedPayload {
   })[];
   messageType: 'action_message' | 'user_message';
   metadata: EntityMetadata;
-  thread: Omit<ThreadData, 'organizationID'>;
+  thread: Omit<ThreadVariables, 'organizationID'>;
 }
