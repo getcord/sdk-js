@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import * as React from 'react';
 import {
   componentAttributes,
@@ -15,6 +16,7 @@ export type NotificationListReactComponentProps = {
   fetchAdditionalCount?: number;
   showPlaceholder?: boolean;
   filter?: NotificationListFilter;
+  style?: CSSProperties;
 };
 
 export function NotificationList(
