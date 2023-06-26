@@ -29,6 +29,11 @@ type NotificationMessageAttachment = {
    * containing that @-mention.
    */
   messageID: string;
+
+  /**
+   * The ID of the thread that the above message is in.
+   */
+  threadID: string;
 };
 
 /**

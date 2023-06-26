@@ -1148,10 +1148,15 @@ export default {
                   'The ID of the message attached to this notification. For example, if this\nis a notification about being @-mentioned, this is the ID of the message\ncontaining that @-mention.',
                 type: 'string',
               },
+              threadID: {
+                description:
+                  'The ID of the thread that the above message is in.',
+                type: 'string',
+              },
             },
             additionalProperties: false,
-            propertyOrder: ['messageID'],
-            required: ['messageID'],
+            propertyOrder: ['messageID', 'threadID'],
+            required: ['messageID', 'threadID'],
           },
           { type: 'null' },
         ],
