@@ -62,7 +62,7 @@ type NotificationUserHeader = {
   userID: string;
 };
 
-export type NotificationVariables = {
+export interface NotificationVariables {
   /**
    * The [ID](https://docs.cord.com/reference/identifiers) for this notification.
    */
@@ -117,11 +117,17 @@ export type NotificationVariables = {
    * via the REST API).
    */
   metadata: EntityMetadata;
-};
+}
 
-export type NotificationData = PaginationParams & {
+export interface NotificationData extends PaginationParams {
+  /**
+   * The current user's notifications, in reverse-chronological order (i.e.,
+   * newest first). Calling `fetchMore` will load a batch of older notifications
+   * and append them to this list. Any new notifications that are sent to the
+   * current viewer will automatically be prepended to this list.
+   */
   notifications: NotificationVariables[];
-};
+}
 
 export type NotificationDataUpdateCallback = (
   data: NotificationData,
@@ -134,6 +140,43 @@ export interface ICordNotificationSDK {
   ): ListenerRef;
   unobserveSummary(ref: ListenerRef): boolean;
 
+  /**
+   * This method allows you to observe the full notification data for the current
+   * user, including live updates.
+   *
+   * @example Overview
+   * ```javascript
+   * const ref = window.CordSDK.notification.observeData(callback);
+   * window.CordSDK.notification.unobserveData(ref);
+   * ```
+   *
+   * @example Usage
+   * ```javascript
+   * const ref = window.CordSDK.notification.observeData(
+   *   ({ notifications, loading, hasMore, fetchMore }) => {
+   *     console.log('Got a notifications data update:');
+   *     if (loading) {
+   *       console.log('Loading...');
+   *     }
+   *     threads.forEach((notification) =>
+   *       console.log(\`Got notification \${notification.id}!\`),
+   *     );
+   *     if (!loading && hasMore && notifications.length < 25) {
+   *       // Get the first 25 notifications, 10 at a time.
+   *       fetchMore(10);
+   *     }
+   *   }
+   * );
+   * ```
+   *
+   * @param callback - This callback will be called once with the current
+   * notification data, and then again every time the data changes. The argument
+   * passed to the callback is an object which will contain the fields described
+   * under "Available Data" above.
+   *
+   * @returns A reference number which can be passed to `unobserveData` to stop
+   * observing notification data information.
+   */
   observeData(callback: NotificationDataUpdateCallback): ListenerRef;
   unobserveData(ref: ListenerRef): boolean;
 
