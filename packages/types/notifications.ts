@@ -13,6 +13,11 @@ export type NotificationSummaryUpdateCallback = (
  */
 type NotificationURLAttachment = {
   /**
+   * Indicator that this is a URL attachment.
+   */
+  type: 'url';
+
+  /**
    * The URL this attachment points to. This would typically be the URL to send
    * the browser to if this notification is clicked.
    */
@@ -23,6 +28,11 @@ type NotificationURLAttachment = {
  * An attachment representing a message.
  */
 type NotificationMessageAttachment = {
+  /**
+   * Indicator that this is a message attachment.
+   */
+  type: 'message';
+
   /**
    * The ID of the message attached to this notification. For example, if this
    * is a notification about being @-mentioned, this is the ID of the message
@@ -102,6 +112,9 @@ export interface NotificationVariables {
    * Additional context attached to the notification. For example, if this
    * notification is about a new reaction on a message, the attachment will
    * specify what message received that new reaction.
+   *
+   * A renderer will typically check the `type` field of the attachment and
+   * render that attachment type below the `header`.
    */
   attachment: NotificationURLAttachment | NotificationMessageAttachment | null;
 

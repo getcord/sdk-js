@@ -1123,12 +1123,17 @@ export default {
       },
       attachment: {
         description:
-          'Additional context attached to the notification. For example, if this\nnotification is about a new reaction on a message, the attachment will\nspecify what message received that new reaction.',
+          'Additional context attached to the notification. For example, if this\nnotification is about a new reaction on a message, the attachment will\nspecify what message received that new reaction.\n\nA renderer will typically check the `type` field of the attachment and\nrender that attachment type below the `header`.',
         anyOf: [
           {
             description: 'An attachment representing a URL.',
             type: 'object',
             properties: {
+              type: {
+                description: 'Indicator that this is a URL attachment.',
+                type: 'string',
+                enum: ['url'],
+              },
               url: {
                 description:
                   'The URL this attachment points to. This would typically be the URL to send\nthe browser to if this notification is clicked.',
@@ -1136,13 +1141,18 @@ export default {
               },
             },
             additionalProperties: false,
-            propertyOrder: ['url'],
-            required: ['url'],
+            propertyOrder: ['type', 'url'],
+            required: ['type', 'url'],
           },
           {
             description: 'An attachment representing a message.',
             type: 'object',
             properties: {
+              type: {
+                description: 'Indicator that this is a message attachment.',
+                type: 'string',
+                enum: ['message'],
+              },
               messageID: {
                 description:
                   'The ID of the message attached to this notification. For example, if this\nis a notification about being @-mentioned, this is the ID of the message\ncontaining that @-mention.',
@@ -1155,8 +1165,8 @@ export default {
               },
             },
             additionalProperties: false,
-            propertyOrder: ['messageID', 'threadID'],
-            required: ['messageID', 'threadID'],
+            propertyOrder: ['type', 'messageID', 'threadID'],
+            required: ['messageID', 'threadID', 'type'],
           },
           { type: 'null' },
         ],
