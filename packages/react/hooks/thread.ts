@@ -143,8 +143,14 @@ export function useLocationData(
       sortBy: options?.sortBy,
       sortDirection: options?.sortDirection,
       includeResolved: options?.includeResolved,
+      partialMatch: options?.partialMatch,
     }),
-    [options?.sortBy, options?.sortDirection, options?.includeResolved],
+    [
+      options?.sortBy,
+      options?.sortDirection,
+      options?.includeResolved,
+      options?.partialMatch,
+    ],
   );
 
   useEffect(() => {

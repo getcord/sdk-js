@@ -193,6 +193,7 @@ export type ObserveLocationDataOptions = {
   sortBy?: SortBy;
   sortDirection?: SortDirection;
   includeResolved?: boolean;
+  partialMatch?: boolean;
 };
 
 export type LocationData = PaginationParams & {
