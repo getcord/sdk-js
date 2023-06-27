@@ -17,7 +17,6 @@ export const componentNames = {
   'cord-composer': 'Composer',
   'cord-inbox-launcher': 'InboxLauncher',
   'cord-inbox': 'Inbox',
-  'cord-settings': 'Settings',
   'cord-floating-threads': 'FloatingThreads',
   'cord-selection-comments': 'SelectionComments',
   'cord-notification-list': 'NotificationList',
@@ -141,7 +140,6 @@ export const componentAttributes = {
     ...InboxSharedAttributes,
   },
   Inbox: { ...InboxSharedAttributes, ...InboxSpecificAttributes },
-  Settings: {},
   FloatingThreads: {
     location: 'json',
     disabled: 'boolean',
