@@ -128,7 +128,7 @@ export function useLocationData(
   options?: ObserveLocationDataOptions,
 ): LocationData {
   const [threads, setThreads] = useState<ThreadSummary[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [hasMore, setHasMore] = useState<boolean>(false);
   const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
     () => async (_n: number) => {},
