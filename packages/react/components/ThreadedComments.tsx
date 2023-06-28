@@ -46,7 +46,7 @@ export function ThreadedComments({
   const fetchMoreButton = hasMore && (
     <button
       className={cx(classes.showMore, fonts.fontSmall)}
-      onClick={() => fetchMore(5)}
+      onClick={() => void fetchMore(5)}
       type="button"
     >
       {'Fetch more'}
@@ -190,7 +190,7 @@ function ThreadReplies({
           {hasMore && (
             <button
               className={cx(classes.showMore, fonts.fontSmall)}
-              onClick={() => fetchMore(5)}
+              onClick={() => void fetchMore(5)}
               type="button"
             >
               {'Show more'}
