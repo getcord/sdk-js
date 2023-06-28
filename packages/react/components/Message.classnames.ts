@@ -1,7 +1,6 @@
 import { cordifyClassname } from '../common/util';
 
 export const message = cordifyClassname('message');
-export const authorNameContainer = cordifyClassname('author-name-container');
 export const authorName = cordifyClassname('author-name');
 export const sentViaIcon = cordifyClassname('sent-via-icon');
 export const optionsMenuTrigger = cordifyClassname('options-menu-trigger');
