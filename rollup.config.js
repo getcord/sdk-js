@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import typescript from 'rollup-plugin-typescript2';
 import copy from 'rollup-plugin-copy';
 import replace from '@rollup/plugin-replace';
-import replaceRE from 'rollup-plugin-re'
+import replaceRE from 'rollup-plugin-re';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
 
@@ -50,9 +50,9 @@ async function packageBuildConfig(packageName, options = {}) {
           patterns: [
             {
               test: /import.*vanilla.*;/,
-              replace: '// Removed css;'
-            }
-          ]
+              replace: '// Removed css;',
+            },
+          ],
         }),
       ],
       output: [
