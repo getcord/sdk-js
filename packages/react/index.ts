@@ -52,6 +52,10 @@ export {
   NotificationListReactComponentProps,
 } from './components/NotificationList';
 export {
+  Notification,
+  NotificationReactComponentProps,
+} from './components/Notification';
+export {
   NotificationListLauncher,
   NotificationListLauncherReactComponentProps,
 } from './components/NotificationListLauncher';
