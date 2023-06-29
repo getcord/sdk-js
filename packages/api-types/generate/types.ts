@@ -28,7 +28,7 @@ import type {
   NotificationVariables,
   NotificationReplyAction,
   UpdateUserPresenceVariables,
-  ThreadMessageAddedPayload,
+  WebhookPayloads,
   ClientAuthTokenData,
 } from '../src/typeDefinitions';
 
@@ -59,6 +59,6 @@ export type Types = {
   NotificationVariables: NotificationVariables;
   NotificationReplyAction: NotificationReplyAction;
   UpdateUserPresenceVariables: UpdateUserPresenceVariables;
-  ThreadMessageAddedPayload: ThreadMessageAddedPayload;
+  WebhookPayloads: WebhookPayloads;
   ClientAuthTokenData: ClientAuthTokenData;
 };
