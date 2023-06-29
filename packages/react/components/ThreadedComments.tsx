@@ -2,12 +2,13 @@ import * as React from 'react';
 import cx from 'classnames';
 import type { Location, ThreadData, ThreadSummary } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { pluralize } from '../common/util';
 import * as user from '../hooks/user';
 import * as thread from '../hooks/thread';
 import * as fonts from '../common/ui/atomicClasses/fonts.css';
 import { MODIFIERS } from '../common/ui/modifiers';
+import { useCallFunctionOnce } from '../common/effects/useCallFunctionOnce';
 import * as classes from './ThreadedComments.css';
 import { Composer } from './Composer';
 import { Avatar } from './Avatar';
@@ -16,26 +17,56 @@ import { Message } from './Message';
 
 type MessageOrder = 'newest_on_top' | 'newest_on_bottom';
 type ComposerPosition = 'top' | 'bottom';
+export type ThreadedCommentsReactComponentProps = {
+  location: Location;
+  messageOrder?: MessageOrder;
+  composerPosition?: ComposerPosition;
+  composerExpanded?: boolean;
+  onThreadClick?: (threadSummary: ThreadSummary) => unknown;
+  onThreadMouseEnter?: (threadSummary: ThreadSummary) => unknown;
+  onThreadMouseLeave?: (threadSummary: ThreadSummary) => unknown;
+  onRender?: () => unknown;
+  onLoading?: () => unknown;
+};
 
 export function ThreadedComments({
   location,
   messageOrder = 'newest_on_bottom',
   composerPosition = 'bottom',
   composerExpanded = false,
-}: {
-  location: Location;
-  messageOrder?: MessageOrder;
-  composerPosition?: ComposerPosition;
-  composerExpanded?: boolean;
-}) {
-  const { threads, hasMore, fetchMore } = thread.useLocationData(location, {
-    sortBy: 'first_message_timestamp',
-    sortDirection: 'descending',
-    includeResolved: false,
-  });
+  onThreadClick,
+  onThreadMouseEnter,
+  onThreadMouseLeave,
+  onRender,
+  onLoading,
+}: ThreadedCommentsReactComponentProps) {
+  const { threads, hasMore, loading, fetchMore } = thread.useLocationData(
+    location,
+    {
+      sortBy: 'first_message_timestamp',
+      sortDirection: 'descending',
+      includeResolved: false,
+    },
+  );
+
+  const dispatchLoadingEvent = useCallFunctionOnce(onLoading);
+  const dispatchRenderEvent = useCallFunctionOnce(onRender);
+  useEffect(() => {
+    if (loading) {
+      dispatchLoadingEvent();
+    } else {
+      dispatchRenderEvent();
+    }
+  }, [dispatchLoadingEvent, dispatchRenderEvent, loading]);
 
   const renderedThreads = threads.map((oneThread) => (
-    <CommentsThread key={oneThread.id} threadId={oneThread.id} />
+    <CommentsThread
+      key={oneThread.id}
+      threadId={oneThread.id}
+      onThreadClick={onThreadClick}
+      onThreadMouseEnter={onThreadMouseEnter}
+      onThreadMouseLeave={onThreadMouseLeave}
+    />
   ));
 
   const newestOnTop = messageOrder === 'newest_on_top';
@@ -71,7 +102,17 @@ export function ThreadedComments({
   );
 }
 
-function CommentsThread({ threadId }: { threadId: string }) {
+function CommentsThread({
+  threadId,
+  onThreadClick,
+  onThreadMouseEnter,
+  onThreadMouseLeave,
+}: {
+  threadId: string;
+  onThreadClick?: (threadSummary: ThreadSummary) => unknown;
+  onThreadMouseEnter?: (threadSummary: ThreadSummary) => unknown;
+  onThreadMouseLeave?: (threadSummary: ThreadSummary) => unknown;
+}) {
   const threadSummary = thread.useThreadSummary(threadId);
   const threadData = thread.useThreadData(threadId);
   const [showingReplies, setShowingReplies] = useState<boolean>(false);
@@ -81,7 +122,13 @@ function CommentsThread({ threadId }: { threadId: string }) {
   }
 
   return (
-    <div className={classes.thread} data-cord-thread-id={threadId}>
+    <div
+      className={classes.thread}
+      data-cord-thread-id={threadId}
+      onClick={() => onThreadClick?.(threadSummary)}
+      onMouseEnter={() => onThreadMouseEnter?.(threadSummary)}
+      onMouseLeave={() => onThreadMouseLeave?.(threadSummary)}
+    >
       <Message
         messageId={threadSummary.firstMessage?.id}
         threadId={threadId}
