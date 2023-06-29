@@ -2,12 +2,12 @@ import type {
   EntityMetadata,
   ListenerRef,
   Location,
-  MessageID,
   OrganizationID,
   PaginationParams,
   ThreadID,
   UserID,
 } from './core';
+import type { MessageData } from './message';
 
 /**
  * Options for the `observeLocationSummary` function in the Thread API.
@@ -173,7 +173,7 @@ export type RestApiThreadData = {
 export type ThreadSummary = Omit<RestApiThreadData, 'resolvedTimestamp'> & {
   unread: number;
   viewerIsThreadParticipant: boolean;
-  firstMessage: MessageSummary | null;
+  firstMessage: MessageData | null;
 };
 export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
 
@@ -266,15 +266,8 @@ export interface ICordThreadSDK {
   unobserveThreadData(ref: ListenerRef): boolean;
 }
 
-export type MessageSummary = {
-  id: MessageID;
-  createdTimestamp: Date;
-  deletedTimestamp: Date | null;
-  seen: boolean;
-};
-
 export type ThreadData = PaginationParams & {
-  firstMessage: MessageSummary | null;
-  messages: MessageSummary[];
+  firstMessage: MessageData | null;
+  messages: MessageData[];
 };
 export type ThreadDataCallback = (data: ThreadData) => unknown;

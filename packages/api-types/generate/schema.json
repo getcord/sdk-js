@@ -687,10 +687,8 @@
       },
       "createdTimestamp": {
         "description": "The timestamp when this message was created.  The default value is the\ncurrent time.",
-        "anyOf": [
-          { "type": "string", "format": "date-time" },
-          { "type": "null" }
-        ]
+        "type": "string",
+        "format": "date-time"
       },
       "deletedTimestamp": {
         "description": "The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.",
@@ -803,10 +801,8 @@
       },
       "createdTimestamp": {
         "description": "The timestamp when this message was created.  The default value is the\ncurrent time.",
-        "anyOf": [
-          { "type": "string", "format": "date-time" },
-          { "type": "null" }
-        ]
+        "type": "string",
+        "format": "date-time"
       },
       "deletedTimestamp": {
         "description": "The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.",
@@ -941,10 +937,8 @@
       },
       "createdTimestamp": {
         "description": "The timestamp when this message was created.  The default value is the\ncurrent time.",
-        "anyOf": [
-          { "type": "string", "format": "date-time" },
-          { "type": "null" }
-        ]
+        "type": "string",
+        "format": "date-time"
       },
       "updatedTimestamp": {
         "description": "The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.",

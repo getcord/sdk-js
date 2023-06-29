@@ -11,6 +11,7 @@ import type { ICordActivitySDK, ICordThreadSDK, ThreadSummary } from './thread';
 import type { ICordUserSDK } from './user';
 
 export * from './core';
+export * from './message';
 export * from './notifications';
 export * from './presence';
 export * from './thread';

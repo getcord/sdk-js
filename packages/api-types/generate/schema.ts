@@ -715,7 +715,8 @@ export default {
       createdTimestamp: {
         description:
           'The timestamp when this message was created.  The default value is the\ncurrent time.',
-        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
+        type: 'string',
+        format: 'date-time',
       },
       deletedTimestamp: {
         description:
@@ -829,7 +830,8 @@ export default {
       createdTimestamp: {
         description:
           'The timestamp when this message was created.  The default value is the\ncurrent time.',
-        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
+        type: 'string',
+        format: 'date-time',
       },
       deletedTimestamp: {
         description:
@@ -964,7 +966,8 @@ export default {
       createdTimestamp: {
         description:
           'The timestamp when this message was created.  The default value is the\ncurrent time.',
-        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
+        type: 'string',
+        format: 'date-time',
       },
       updatedTimestamp: {
         description:
