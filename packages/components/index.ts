@@ -21,6 +21,7 @@ export const componentNames = {
   'cord-selection-comments': 'SelectionComments',
   'cord-notification-list': 'NotificationList',
   'cord-message': 'Message',
+  'cord-message-content': 'MessageContent',
   'cord-facepile': 'Facepile',
   'cord-notification-list-launcher': 'NotificationListLauncher',
   'cord-pin': 'Pin',
@@ -162,6 +163,10 @@ export const componentAttributes = {
     'thread-id': 'string',
     'message-id': 'string',
     'mark-as-seen': 'boolean',
+  },
+  MessageContent: {
+    'thread-id': 'string',
+    'message-id': 'string',
   },
   Facepile: {
     users: 'array',
