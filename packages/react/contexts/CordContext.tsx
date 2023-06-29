@@ -186,7 +186,7 @@ export function CordProvider({
         show_blurred: showBlurredScreenshots,
         ...screenshotOptions,
       };
-      sdk
+      void sdk
         .init({
           client_auth_token: clientAuthToken,
           enable_tasks: enableTasks,
