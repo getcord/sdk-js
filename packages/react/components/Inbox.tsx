@@ -46,6 +46,7 @@ export function Inbox(
       style={props.style}
       ref={setRef}
       buffer-events={!listenersAttached}
+      use-shadow-root={props.useShadowRoot ?? false}
       {...propsToAttributes(props)}
     />
   );

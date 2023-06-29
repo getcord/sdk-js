@@ -10,6 +10,7 @@ import {
 
 import { useCordLocation } from '../hooks/useCordLocation';
 import type {
+  PropsWithFlags,
   ReactPropsWithLocation,
   ReactPropsWithStandardHTMLAttributes,
 } from '../types';
@@ -19,8 +20,9 @@ const propsToAttributes = propsToAttributeConverter(
   componentAttributes.MultipleCursors,
 );
 
-export type MultipleCursorsReactComponentProps =
-  ReactPropsWithLocation<unknown>;
+export type MultipleCursorsReactComponentProps = PropsWithFlags<
+  ReactPropsWithLocation<unknown>
+>;
 
 export function MultipleCursorsWithForwardedRef(
   props: ReactPropsWithStandardHTMLAttributes<MultipleCursorsReactComponentProps>,
@@ -40,6 +42,7 @@ export function MultipleCursorsWithForwardedRef(
       style={props.style}
       ref={ref}
       buffer-events={!listenersAttached}
+      use-shadow-root={props.useShadowRoot ?? false}
       {...propsToAttributes({ location, ...props })}
     />
   );

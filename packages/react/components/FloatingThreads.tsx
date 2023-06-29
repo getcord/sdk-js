@@ -11,6 +11,7 @@ import {
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 import type {
+  PropsWithFlags,
   ReactPropsWithLocation,
   ReactPropsWithStandardHTMLAttributes,
 } from '../types';
@@ -28,22 +29,26 @@ try {
   // localStorage for some reason not available
 }
 
-export type FloatingThreadsReactComponentProps = ReactPropsWithLocation<
-  {
-    showButton?: boolean;
-    buttonLabel?: string;
-    iconUrl?: string;
-    threadName?: string;
-    disabled?: boolean;
-    showScreenshotPreview?: boolean;
-    onStart?: (...args: FloatingThreadsWebComponentEvents['start']) => unknown;
-    onFinish?: (
-      ...args: FloatingThreadsWebComponentEvents['finish']
-    ) => unknown;
-    onCancel?: (
-      ...args: FloatingThreadsWebComponentEvents['cancel']
-    ) => unknown;
-  } & { screenshotConfig?: ScreenshotConfig }
+export type FloatingThreadsReactComponentProps = PropsWithFlags<
+  ReactPropsWithLocation<
+    {
+      showButton?: boolean;
+      buttonLabel?: string;
+      iconUrl?: string;
+      threadName?: string;
+      disabled?: boolean;
+      showScreenshotPreview?: boolean;
+      onStart?: (
+        ...args: FloatingThreadsWebComponentEvents['start']
+      ) => unknown;
+      onFinish?: (
+        ...args: FloatingThreadsWebComponentEvents['finish']
+      ) => unknown;
+      onCancel?: (
+        ...args: FloatingThreadsWebComponentEvents['cancel']
+      ) => unknown;
+    } & { screenshotConfig?: ScreenshotConfig }
+  >
 >;
 type PrivateFloatingThreadsReactComponentProps =
   FloatingThreadsReactComponentProps & {
@@ -91,6 +96,7 @@ export function FloatingThreadsWithForwardedRef(
       buffer-events={!listenersAttached}
       class={props.className}
       style={props.style}
+      use-shadow-root={props.useShadowRoot ?? false}
       {...propsToAttributes(props)}
     />
   );
