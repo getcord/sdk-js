@@ -29,6 +29,7 @@ export const componentNames = {
   'cord-add-reaction': 'AddReaction',
   'cord-reaction-list': 'ReactionList',
   'cord-notification': 'Notification',
+  'cord-timestamp': 'Timestamp',
 } as const;
 
 export type ElementName = keyof typeof componentNames;
@@ -200,6 +201,11 @@ export const componentAttributes = {
   },
   Notification: {
     'notification-id': 'string',
+  },
+  Timestamp: {
+    value: 'string',
+    relative: 'boolean',
+    verbose: 'boolean',
   },
 } as const;
 

@@ -73,6 +73,10 @@ export {
   ReactionList,
   ReactionListReactComponentProps,
 } from './components/ReactionList';
+export {
+  Timestamp,
+  TimestampReactComponentProps,
+} from './components/Timestamp';
 
 import * as notification from './hooks/notification';
 import * as presence from './hooks/presence';
