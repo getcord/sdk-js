@@ -70,13 +70,13 @@ export { MessageReactComponentProps, Message } from './components/Message';
 export { Pin, PinReactComponentProps } from './components/Pin';
 export { ThreadedComments } from './components/ThreadedComments';
 export {
-  ReactionList,
-  ReactionListReactComponentProps,
-} from './components/ReactionList';
-export {
   Timestamp,
   TimestampReactComponentProps,
 } from './components/Timestamp';
+export {
+  Reactions,
+  ReactionsReactComponentProps,
+} from './components/Reactions';
 
 import * as notification from './hooks/notification';
 import * as presence from './hooks/presence';

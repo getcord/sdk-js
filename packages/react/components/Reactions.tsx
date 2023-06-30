@@ -7,24 +7,25 @@ import {
 import type { ReactPropsWithStandardHTMLAttributes } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
-  componentAttributes.ReactionList,
+  componentAttributes.Reactions,
 );
 
-export type ReactionListReactComponentProps = {
+export type ReactionsReactComponentProps = {
   threadId?: string;
   messageId?: string;
   showAddReactionButton?: boolean;
+  showReactionList?: boolean;
 };
 
-export function ReactionList(
-  props: ReactPropsWithStandardHTMLAttributes<ReactionListReactComponentProps>,
+export function Reactions(
+  props: ReactPropsWithStandardHTMLAttributes<ReactionsReactComponentProps>,
 ) {
   return (
-    <cord-reaction-list
+    <cord-reactions
       id={props.id}
       class={props.className}
       style={props.style}
       {...propsToAttributes(props)}
-    ></cord-reaction-list>
+    ></cord-reactions>
   );
 }

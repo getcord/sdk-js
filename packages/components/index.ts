@@ -27,7 +27,7 @@ export const componentNames = {
   'cord-pin': 'Pin',
   'cord-avatar': 'Avatar',
   'cord-add-reaction': 'AddReaction',
-  'cord-reaction-list': 'ReactionList',
+  'cord-reactions': 'Reactions',
   'cord-notification': 'Notification',
   'cord-timestamp': 'Timestamp',
 } as const;
@@ -194,10 +194,11 @@ export const componentAttributes = {
     'enable-tooltip': 'boolean',
     disabled: 'boolean',
   },
-  ReactionList: {
+  Reactions: {
     'thread-id': 'string',
     'message-id': 'string',
     'show-add-reaction-button': 'boolean',
+    'show-reaction-list': 'boolean',
   },
   Notification: {
     'notification-id': 'string',
