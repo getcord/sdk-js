@@ -35,8 +35,8 @@ type NotificationMessageAttachment = {
 
   /**
    * The ID of the message attached to this notification. For example, if this
-   * is a notification about being @-mentioned, this is the ID of the message
-   * containing that @-mention.
+   * is a notification about being \@-mentioned, this is the ID of the message
+   * containing that \@-mention.
    */
   messageID: string;
 

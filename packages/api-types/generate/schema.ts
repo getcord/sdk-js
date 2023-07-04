@@ -1158,7 +1158,7 @@ export default {
               },
               messageID: {
                 description:
-                  'The ID of the message attached to this notification. For example, if this\nis a notification about being @-mentioned, this is the ID of the message\ncontaining that @-mention.',
+                  'The ID of the message attached to this notification. For example, if this\nis a notification about being \\@-mentioned, this is the ID of the message\ncontaining that \\@-mention.',
                 type: 'string',
               },
               threadID: {

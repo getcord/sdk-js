@@ -9,8 +9,10 @@ export type MessageID = string;
  * (string, number or boolean).
  */
 export type FlatJsonObject = { [key: string]: string | number | boolean };
-export type EntityMetadata = FlatJsonObject;
-export type Location = FlatJsonObject;
+// These objects are structurally the same, but if we use a type alias then
+// TypeScript will unify them in the type checker, so separate them.
+export type EntityMetadata = { [key: string]: string | number | boolean };
+export type Location = { [key: string]: string | number | boolean };
 
 // For backwards compatibility, will be removed along with the deprecated context prop
 export type Context = Location;
