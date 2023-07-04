@@ -21,6 +21,7 @@ const propsToAttributes = propsToAttributeConverter(
 type NotificationListLauncherSpecificReactComponentProps = PropsWithFlags<{
   label?: string;
   iconUrl?: string;
+  /** @deprecated Use plain CSS instead, targeting `cord-badge`. */
   badgeStyle?: BadgeStyle;
   disabled?: boolean;
   onClick?: (
