@@ -16,6 +16,8 @@ export const MODIFIERS = {
   extraLarge: cordifyClassname('extra-large'),
   large: cordifyClassname('large'),
   medium: cordifyClassname('medium'),
+
+  fromViewer: cordifyClassname('from-viewer'),
 };
 
 /**
