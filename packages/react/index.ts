@@ -62,10 +62,6 @@ export {
 export { Avatar, AvatarReactComponentProps } from './components/Avatar';
 export { ComposerReactComponentProps, Composer } from './components/Composer';
 export { FacepileReactComponentProps, Facepile } from './components/Facepile';
-export {
-  AddReaction,
-  AddReactionReactComponentProps,
-} from './components/AddReaction';
 export { MessageReactComponentProps, Message } from './components/Message';
 export { Pin, PinReactComponentProps } from './components/Pin';
 export { ThreadedComments } from './components/ThreadedComments';

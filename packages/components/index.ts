@@ -26,7 +26,6 @@ export const componentNames = {
   'cord-notification-list-launcher': 'NotificationListLauncher',
   'cord-pin': 'Pin',
   'cord-avatar': 'Avatar',
-  'cord-add-reaction': 'AddReaction',
   'cord-reactions': 'Reactions',
   'cord-notification': 'Notification',
   'cord-timestamp': 'Timestamp',
@@ -187,12 +186,6 @@ export const componentAttributes = {
   Avatar: {
     'user-id': 'string',
     'enable-tooltip': 'boolean',
-  },
-  AddReaction: {
-    'thread-id': 'string',
-    'message-id': 'string',
-    'enable-tooltip': 'boolean',
-    disabled: 'boolean',
   },
   Reactions: {
     'thread-id': 'string',
