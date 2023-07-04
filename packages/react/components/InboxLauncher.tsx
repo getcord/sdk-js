@@ -19,6 +19,7 @@ const propsToAttributes = propsToAttributeConverter(
 type InboxLauncherSpecificReactComponentProps = {
   label?: string;
   iconUrl?: string;
+  /** @deprecated Use plain CSS instead */
   inboxBadgeStyle?: BadgeStyle;
   showInboxOnClick?: boolean;
   disabled?: boolean;

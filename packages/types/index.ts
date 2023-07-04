@@ -209,6 +209,10 @@ export type SidebarLauncherWebComponentEvents = {
   click: [];
 };
 
+/**
+ * @deprecated Use CSS instead: target `.cord-badge` class
+ * and apply any styles.
+ */
 export type BadgeStyle = 'badge' | 'badge_with_count' | 'none';
 
 /* cord-floating-threads */
