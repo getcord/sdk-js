@@ -16,7 +16,7 @@ import { Facepile } from './Facepile';
 import { Message } from './Message';
 
 type MessageOrder = 'newest_on_top' | 'newest_on_bottom';
-type ComposerPosition = 'top' | 'bottom';
+type ComposerPosition = 'top' | 'bottom' | 'none';
 export type ThreadedCommentsReactComponentProps = {
   location: Location;
   messageOrder?: MessageOrder;
@@ -85,19 +85,20 @@ export function ThreadedComments({
   );
 
   const composerOnTop = composerPosition === 'top';
+  const showComposer = composerPosition !== 'none';
   const composer = (
     <Composer location={location} showExpanded={composerExpanded} />
   );
 
   return (
     <div className={classes.comments}>
-      {composerOnTop && composer}
+      {composerOnTop && showComposer && composer}
       <div className={classes.threadList}>
         {!newestOnTop && fetchMoreButton}
         {renderedThreads}
         {newestOnTop && fetchMoreButton}
       </div>
-      {!composerOnTop && composer}
+      {!composerOnTop && showComposer && composer}
     </div>
   );
 }
