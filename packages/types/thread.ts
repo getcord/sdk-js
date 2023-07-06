@@ -264,6 +264,8 @@ export interface ICordThreadSDK {
     options?: ObserveThreadDataOptions,
   ): ListenerRef;
   unobserveThreadData(ref: ListenerRef): boolean;
+
+  setSubscribed(threadID: ThreadID, subscribed: boolean): Promise<boolean>;
 }
 
 export type ThreadData = PaginationParams & {
