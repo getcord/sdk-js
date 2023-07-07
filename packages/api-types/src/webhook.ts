@@ -1,4 +1,9 @@
-import type { EntityMetadata, UUID, UserData } from '@cord-sdk/types';
+import type {
+  EntityMetadata,
+  NotificationVariables,
+  UUID,
+  UserData,
+} from '@cord-sdk/types';
 import type { NotificationReplyAction } from './notifications';
 import type { ThreadVariables } from './thread';
 
@@ -23,7 +28,7 @@ export interface WebhookPayloads {
     metadata: EntityMetadata;
     thread: Omit<ThreadVariables, 'organizationID'>;
   };
-  'notification-created': {
-    notificationID: string;
+  'notification-created': NotificationVariables & {
+    recipientUserID: string;
   };
 }

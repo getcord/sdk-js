@@ -1437,11 +1437,149 @@ export default {
         ],
       },
       'notification-created': {
-        type: 'object',
-        properties: { notificationID: { type: 'string' } },
         additionalProperties: false,
-        propertyOrder: ['notificationID'],
-        required: ['notificationID'],
+        type: 'object',
+        properties: {
+          id: {
+            description:
+              'The [ID](/reference/identifiers) for this notification.',
+            type: 'string',
+          },
+          senderUserIDs: {
+            description:
+              'The [IDs](/reference/identifiers) of the user(s) who\nsent this notification. The Cord backend will sometimes aggregate multiple\nnotifications together, causing them to have multiple senders. For example,\nif multiple people react to the same message, that will generate only one\nnotification (but with multiple senders, one for each person who reacted).',
+            type: 'array',
+            items: { type: 'string' },
+          },
+          iconUrl: {
+            description:
+              "The URL of an icon image for this notification, if one was specified when\nit was created. This will always be `null` for Cord's internally-generated\nnotifications (i.e., it can only be non-null for notifications you create\nvia the REST API).",
+            type: ['null', 'string'],
+          },
+          header: {
+            description:
+              'The "header" or "text" of the notification. This will represent text like\n"Alice replied to your thread." or similar. For notifications you create\nvia the REST API, this will be based upon the `template` parameter, see\nbelow.',
+            type: 'array',
+            items: {
+              anyOf: [
+                {
+                  description: 'A header node representing a basic string.',
+                  type: 'object',
+                  properties: {
+                    text: {
+                      description:
+                        'The text to display. This text may start and/or end with whitespace, which\nshould typically *not* be trimmed. For example, in order to display the\nnotification `"Alice replied to your thread."`, this would typically be\ncomposed of two nodes -- a user node for Alice, and then a text node\ncontaining `" replied to your thread."`, with a meaningful space at the\nfront, to separate this node from Alice\'s name.',
+                      type: 'string',
+                    },
+                    bold: {
+                      description:
+                        'Whether the text should be formatted in bold.',
+                      type: 'boolean',
+                    },
+                  },
+                  additionalProperties: false,
+                  propertyOrder: ['text', 'bold'],
+                  required: ['bold', 'text'],
+                },
+                {
+                  description:
+                    'A header node representing a reference to a specific user.',
+                  type: 'object',
+                  properties: {
+                    userID: {
+                      description:
+                        "The user referenced. This node would typically be rendered by displaying\nthis user's name.",
+                      type: 'string',
+                    },
+                  },
+                  additionalProperties: false,
+                  propertyOrder: ['userID'],
+                  required: ['userID'],
+                },
+              ],
+            },
+          },
+          attachment: {
+            description:
+              'Additional context attached to the notification. For example, if this\nnotification is about a new reaction on a message, the attachment will\nspecify what message received that new reaction.\n\nA renderer will typically check the `type` field of the attachment and\nrender that attachment type below the `header`.',
+            anyOf: [
+              {
+                description: 'An attachment representing a URL.',
+                type: 'object',
+                properties: {
+                  type: {
+                    description: 'Indicator that this is a URL attachment.',
+                    type: 'string',
+                    enum: ['url'],
+                  },
+                  url: {
+                    description:
+                      'The URL this attachment points to. This would typically be the URL to send\nthe browser to if this notification is clicked.',
+                    type: 'string',
+                  },
+                },
+                additionalProperties: false,
+                propertyOrder: ['type', 'url'],
+                required: ['type', 'url'],
+              },
+              {
+                description: 'An attachment representing a message.',
+                type: 'object',
+                properties: {
+                  type: {
+                    description: 'Indicator that this is a message attachment.',
+                    type: 'string',
+                    enum: ['message'],
+                  },
+                  messageID: {
+                    description:
+                      'The ID of the message attached to this notification. For example, if this\nis a notification about being @-mentioned, this is the ID of the message\ncontaining that @-mention.',
+                    type: 'string',
+                  },
+                  threadID: {
+                    description:
+                      'The ID of the thread that the above message is in.',
+                    type: 'string',
+                  },
+                },
+                additionalProperties: false,
+                propertyOrder: ['type', 'messageID', 'threadID'],
+                required: ['messageID', 'threadID', 'type'],
+              },
+              { type: 'null' },
+            ],
+          },
+          readStatus: {
+            description:
+              'Whether this notification has been read by the recipient yet.',
+            enum: ['read', 'unread'],
+            type: 'string',
+          },
+          timestamp: {
+            description: 'The time this notification was sent.',
+            type: 'string',
+            format: 'date-time',
+          },
+          metadata: {
+            description:
+              "An arbitrary JSON object specified when the notification was created. This\nwill always be an empty object for Cord's internally-generated\nnotifications (i.e., it can only be non-null for notifications you create\nvia the REST API).",
+            type: 'object',
+            additionalProperties: { type: ['string', 'number', 'boolean'] },
+            propertyOrder: [],
+          },
+          recipientUserID: { type: 'string' },
+        },
+        required: [
+          'attachment',
+          'header',
+          'iconUrl',
+          'id',
+          'metadata',
+          'readStatus',
+          'recipientUserID',
+          'senderUserIDs',
+          'timestamp',
+        ],
       },
     },
     additionalProperties: false,
