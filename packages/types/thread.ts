@@ -102,7 +102,7 @@ export type ThreadParticipant = {
   userID: UserID | null;
 };
 
-export type RestApiThreadData = {
+export interface RestApiThreadData {
   /**
    * The ID for this thread.
    */
@@ -168,19 +168,53 @@ export type RestApiThreadData = {
    * Arbitrary key-value pairs that can be used to store additional information.
    */
   metadata: EntityMetadata;
-};
+}
 
-export type ThreadSummary = Omit<RestApiThreadData, 'resolvedTimestamp'> & {
+/**
+ * A summary of a single thread.
+ */
+export interface ThreadSummary
+  extends Omit<RestApiThreadData, 'resolvedTimestamp'> {
+  /**
+   * The number of messages that the current user hasn't seen yet.
+   */
   unread: number;
+  /**
+   * Whether the current viewer has either left a message or reacted to this thread.
+   */
   viewerIsThreadParticipant: boolean;
+  /**
+   * Contains information about the first (i.e., oldest) message in the thread.
+   * `null` if the thread is empty.
+   */
   firstMessage: MessageData | null;
-};
+}
+
 export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
 
-export type ThreadObserverOptions = {
+/**
+ * Options for the `observeThreadSummary` and `observeThreadData` functions in
+ * the Thread API.
+ */
+export interface ThreadObserverOptions {
+  /**
+   * Loading information for a thread ID which does not exist will create that
+   * thread. If that happens, this will be the name of the new thread.
+   *
+   * If unset, this will default to the current page's title.
+   */
   threadName?: string;
+  /**
+   * Loading information for a thread ID which does not exist will create that
+   * thread. If that happens, this will be the
+   * [location](https://docs.cord.com/reference/location) of the new thread.
+   *
+   * If unset, this will default to the location provided to the
+   * [`useCordLocation`](https://docs.cord.com/js-apis-and-hooks/initialization#useCordLocation)
+   * hook if that was used. Otherwise, will default to the current page's URL.
+   */
   location?: Location;
-};
+}
 
 export type ObserveThreadSummaryOptions = ThreadObserverOptions;
 export type ObserveThreadDataOptions = ThreadObserverOptions;
@@ -251,6 +285,37 @@ export interface ICordThreadSDK {
   ): ListenerRef;
   unobserveLocationData(ref: ListenerRef): boolean;
 
+  /**
+   * This method allows you to observe summary information about a thread, such
+   * as its location and number of unread messages, including live updates.
+   * @example Overview
+   * ```javascript
+   * const ref = window.CordSDK.thread.observeThreadSummary(threadId, callback, options);
+   * window.CordSDK.thread.unobserveThreadSummary(ref);
+   * ```
+   * @example Usage
+   * ```javascript
+   * const ref = window.CordSDK.thread.observeThreadSummary(
+   *   'my-awesome-thread-id',
+   *   (summary) => {
+   *     // Received an update!
+   *     console.log("Total messages", summary.total);
+   *     console.log("Unread messages", summary.unread);
+   *   },
+   * );
+   * // ... Later, when updates are no longer needed ...
+   * window.CordSDK.thread.unobserveThreadSummary(ref);
+   * ```
+   * @param threadId - The thread ID to fetch summary information for. If a
+   * thread with this ID does not exist, it will be created.
+   * @param callback - This callback will be called once with the current thread
+   * summary, and then again every time the data changes. The argument passed to
+   * the callback is an object which will contain the fields described under
+   * "Available Data" above.
+   * @param options - Options for creating new threads.
+   * @returns A reference which can be passed to `unobserveThreadSummary` to
+   * stop observing thread summary information.
+   */
   observeThreadSummary(
     threadId: ThreadID,
     callback: ThreadSummaryUpdateCallback,
@@ -258,6 +323,45 @@ export interface ICordThreadSDK {
   ): ListenerRef;
   unobserveThreadSummary(ref: ListenerRef): boolean;
 
+  /**
+   * This method allows you to observe detailed data about a thread, including
+   * data about all the messages inside it, including live updates.
+   * @example Overview
+   * ```javascript
+   * const ref = window.CordSDK.thread.observeThreadData(threadId, callback, options);
+   * window.CordSDK.thread.unobserveThreadData(ref);
+   * ```
+   * @example Usage
+   * ```javascript
+   * const ref = window.CordSDK.thread.observeThreadData(
+   *   'my-awesome-thread-id',
+   *   ({ messages, loading, hasMore, fetchMore }) => {
+   *     console.log('Got a thread data update:');
+   *     if (loading) {
+   *       console.log('Loading...');
+   *     }
+   *     messages.forEach((messageSummary) =>
+   *       console.log(`Message ${messageSummary.id} was created at ${messageSummary.createdTimestamp}!`),
+   *     );
+   *     if (!loading && hasMore && messages.length < 25) {
+   *       // Get the first 25 threads, 10 at a time.
+   *       fetchMore(10);
+   *     }
+   *   },
+   * );
+   * // ... Later, when updates are no longer needed ...
+   * window.CordSDK.thread.unobserveThreadData(ref);
+   * ```
+   * @param threadId - The thread ID to fetch data for. If a thread with this ID
+   * does not exist, it will be created.
+   * @param callback - This callback will be called once with the current thread
+   * data, and then again every time it changes. The argument passed to the
+   * callback is an object which will contain the fields described under
+   * "Available Data" above.
+   * @param options - Options for creating new threads.
+   * @returns A reference number which can be passed to `unobserveThreadData` to
+   * stop observing thread data.
+   */
   observeThreadData(
     threadId: ThreadID,
     callback: ThreadDataCallback,
@@ -268,8 +372,22 @@ export interface ICordThreadSDK {
   setSubscribed(threadID: ThreadID, subscribed: boolean): Promise<boolean>;
 }
 
-export type ThreadData = PaginationParams & {
+/**
+ * Detailed data about a single thread.
+ */
+export interface ThreadData extends PaginationParams {
+  /**
+   * Contains information about the first (i.e., oldest) message in the thread.
+   * `null` if the thread is empty.
+   */
   firstMessage: MessageData | null;
+  /**
+   * An array of objects, one for each message in the specified thread.
+   *
+   * This array is paginated. At first, it will contain summaries of only the
+   * latest (newest) few messages. Calling `fetchMore` will cause further
+   * message summaries to be appended to the array.
+   */
   messages: MessageData[];
-};
+}
 export type ThreadDataCallback = (data: ThreadData) => unknown;
