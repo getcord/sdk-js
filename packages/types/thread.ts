@@ -235,9 +235,13 @@ export type LocationData = PaginationParams & {
 };
 export type LocationDataCallback = (data: LocationData) => unknown;
 
-export type UpdateThreadVariables = Partial<
-  Pick<RestApiThreadData, 'name' | 'location' | 'url' | 'metadata' | 'resolved'>
->;
+export interface UpdateThreadVariables
+  extends Partial<
+    Pick<
+      RestApiThreadData,
+      'name' | 'location' | 'url' | 'metadata' | 'resolved'
+    >
+  > {}
 
 export interface ICordThreadSDK {
   /**
@@ -377,6 +381,13 @@ export interface ICordThreadSDK {
 
   /**
    * Update an existing thread with new data.
+   * @example Overview
+   * ```javascript
+   * await window.CordSDK.thread.updateThread('my-awesome-thread-id', {
+   *   location: { page: 'document_details' },
+   *   name: 'A more awesome name',
+   * });
+   * ```
    * @param threadID - The ID of the thread to update.
    * @param data - The data values that should be updated.
    * @returns A promise resolving to a boolean representing whether the update
