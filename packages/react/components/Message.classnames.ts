@@ -2,7 +2,6 @@ import { cordifyClassname } from '../common/util';
 
 export const message = cordifyClassname('message');
 export const authorName = cordifyClassname('author-name');
-export const messageTimestamp = cordifyClassname('message-timestamp');
 export const messageContent = cordifyClassname('message-content');
 export const sentViaIcon = cordifyClassname('sent-via-icon');
 export const optionsMenuTrigger = cordifyClassname('options-menu-trigger');
@@ -15,8 +14,6 @@ export const messageClassnamesDocs = {
     'Applied to the container div. You can use `grid-template-areas` to modify the layout of the message.',
   [authorName]:
     'Applied to the div containing the name of the author of the message.',
-  [messageTimestamp]:
-    'Applied to the div containing the timestamp of the message.',
   [messageContent]:
     'Applied to the div containing the text of the message and any attachments.',
   [optionsMenuTrigger]:
