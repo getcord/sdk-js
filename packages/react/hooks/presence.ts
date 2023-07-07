@@ -32,7 +32,7 @@ import { useCordContext } from '../contexts/CordContext';
  * ```
  * @param location - The [location](https://docs.cord.com/reference/location) to
  * fetch presence information for.
- * @param options - Miscellaneous options. See below.
+ * @param options - Options that control which presence records are returned.
  * @returns An array of objects, one for each user present at the
  * [location](https://docs.cord.com/reference/location) which was passed to this
  * hook. Each object will contain the fields described under "Available Data"

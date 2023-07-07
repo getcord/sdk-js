@@ -144,7 +144,7 @@ export interface ICordPresenceSDK {
    * presence data, and then again every time the data changes. The argument
    * passed to the callback is an array of objects. Each object will contain the
    * fields described under "Available Data" above.
-   * @param options - Miscellaneous options. See below.
+   * @param options - Options that control which presence records are returned.
    * @returns A reference number which can be passed to `unobserveLocationData`
    * to stop observing location data.
    */

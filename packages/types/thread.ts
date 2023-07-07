@@ -267,7 +267,7 @@ export interface ICordThreadSDK {
    * location summary, and then again every time the data changes. The argument
    * passed to the callback is an object which will contain the fields described
    * under "Available Data" above.
-   * @param options - Miscellaneous options. See below.
+   * @param options - Options that control which threads are returned.
    * @returns A reference number which can be passed to
    * `unobserveLocationSummary` to stop observing location summary information.
    */

@@ -42,7 +42,7 @@ import { useMemoizedLocation } from './useMemoizedLocation';
  * ```
  * @param location - The [location](https://docs.cord.com/reference/location) to
  * fetch summary information for.
- * @param options - Miscellaneous options. See below.
+ * @param options - Options that control which threads are returned.
  * @returns The hook will initially return `undefined` while the data loads from
  * our API. Once it has loaded, your component will re-render and the hook will
  * return an object containing the fields described under "Available Data"
