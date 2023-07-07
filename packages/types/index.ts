@@ -274,6 +274,21 @@ export type PinWebComponentEvents = {
   mouseleave: [ThreadSummary | null];
 };
 
+// cord-message
+
+export type MessageInfo = {
+  threadId: string;
+  messageId: string;
+};
+
+export type MessageWebComponentEvents = {
+  click: [messageInfo: MessageInfo];
+  mouseenter: [messageInfo: MessageInfo];
+  mouseleave: [messageInfo: MessageInfo];
+  render: [];
+  loading: [];
+};
+
 /* annotation types */
 
 export type DocumentAnnotationResult = {

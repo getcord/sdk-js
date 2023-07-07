@@ -3,7 +3,13 @@ import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
-import type { ReactPropsWithStandardHTMLAttributes } from '../types';
+import type { MessageWebComponentEvents } from '@cord-sdk/types';
+import type {
+  PropsWithRef,
+  ReactPropsWithStandardHTMLAttributes,
+} from '../types';
+import { useCustomEventListeners } from '../hooks/useCustomEventListener';
+import { useComposedRefs } from '../common/lib/composeRefs';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Message,
@@ -13,16 +19,38 @@ export type MessageReactComponentProps = {
   threadId: string;
   messageId?: string;
   markAsSeen?: boolean;
+  onClick?: (...args: MessageWebComponentEvents['click']) => unknown;
+  onMouseEnter?: (...args: MessageWebComponentEvents['mouseenter']) => unknown;
+  onMouseLeave?: (...args: MessageWebComponentEvents['mouseleave']) => unknown;
+  onRender?: (...args: MessageWebComponentEvents['render']) => unknown;
+  onLoading?: (...args: MessageWebComponentEvents['loading']) => unknown;
 };
 
 export function Message(
-  props: ReactPropsWithStandardHTMLAttributes<MessageReactComponentProps>,
+  props: PropsWithRef<
+    ReactPropsWithStandardHTMLAttributes<MessageReactComponentProps>
+  >,
 ) {
+  const [setRef, listenersAttached] =
+    useCustomEventListeners<MessageWebComponentEvents>({
+      click: props.onClick,
+      mouseenter: props.onMouseEnter,
+      mouseleave: props.onMouseLeave,
+      loading: props.onLoading,
+      render: props.onRender,
+    });
+  const combinedSetRef = useComposedRefs<Element | null>(
+    props.forwardRef,
+    setRef,
+  );
+
   return (
     <cord-message
       id={props.id}
       class={props.className}
       style={props.style}
+      ref={combinedSetRef}
+      buffer-events={!listenersAttached}
       {...propsToAttributes(props)}
     ></cord-message>
   );
