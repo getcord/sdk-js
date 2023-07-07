@@ -7,6 +7,7 @@ export const MODIFIERS = {
   present: cordifyClassname('present'),
   noReactions: cordifyClassname('no-reactions'),
   deleted: cordifyClassname('deleted'),
+  action: cordifyClassname('action'),
   unseen: cordifyClassname('unseen'),
   editing: cordifyClassname('editing'),
   selected: cordifyClassname('selected'),
