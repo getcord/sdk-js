@@ -374,6 +374,18 @@ export interface ICordThreadSDK {
   unobserveThreadData(ref: ListenerRef): boolean;
 
   setSubscribed(threadID: ThreadID, subscribed: boolean): Promise<boolean>;
+
+  /**
+   * Update an existing thread with new data.
+   * @param threadID - The ID of the thread to update.
+   * @param data - The data values that should be updated.
+   * @returns A promise resolving to a boolean representing whether the update
+   * succeeded.
+   */
+  updateThread(
+    threadID: ThreadID,
+    data: UpdateThreadVariables,
+  ): Promise<boolean>;
 }
 
 /**
