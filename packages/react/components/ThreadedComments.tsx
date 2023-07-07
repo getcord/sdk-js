@@ -1,6 +1,11 @@
 import * as React from 'react';
 import cx from 'classnames';
-import type { Location, ThreadData, ThreadSummary } from '@cord-sdk/types';
+import type {
+  Location,
+  MessageInfo,
+  ThreadData,
+  ThreadSummary,
+} from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 import { pluralize } from '../common/util';
@@ -22,9 +27,9 @@ export type ThreadedCommentsReactComponentProps = {
   messageOrder?: MessageOrder;
   composerPosition?: ComposerPosition;
   composerExpanded?: boolean;
-  onThreadClick?: (threadSummary: ThreadSummary) => unknown;
-  onThreadMouseEnter?: (threadSummary: ThreadSummary) => unknown;
-  onThreadMouseLeave?: (threadSummary: ThreadSummary) => unknown;
+  onMessageClick?: (messageInfo: MessageInfo) => unknown;
+  onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
+  onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
   onRender?: () => unknown;
   onLoading?: () => unknown;
 };
@@ -34,9 +39,9 @@ export function ThreadedComments({
   messageOrder = 'newest_on_bottom',
   composerPosition = 'bottom',
   composerExpanded = false,
-  onThreadClick,
-  onThreadMouseEnter,
-  onThreadMouseLeave,
+  onMessageClick,
+  onMessageMouseEnter,
+  onMessageMouseLeave,
   onRender,
   onLoading,
 }: ThreadedCommentsReactComponentProps) {
@@ -63,9 +68,9 @@ export function ThreadedComments({
     <CommentsThread
       key={oneThread.id}
       threadId={oneThread.id}
-      onThreadClick={onThreadClick}
-      onThreadMouseEnter={onThreadMouseEnter}
-      onThreadMouseLeave={onThreadMouseLeave}
+      onMessageClick={onMessageClick}
+      onMessageMouseEnter={onMessageMouseEnter}
+      onMessageMouseLeave={onMessageMouseLeave}
     />
   ));
 
@@ -105,14 +110,14 @@ export function ThreadedComments({
 
 function CommentsThread({
   threadId,
-  onThreadClick,
-  onThreadMouseEnter,
-  onThreadMouseLeave,
+  onMessageClick,
+  onMessageMouseEnter,
+  onMessageMouseLeave,
 }: {
   threadId: string;
-  onThreadClick?: (threadSummary: ThreadSummary) => unknown;
-  onThreadMouseEnter?: (threadSummary: ThreadSummary) => unknown;
-  onThreadMouseLeave?: (threadSummary: ThreadSummary) => unknown;
+  onMessageClick?: (messageInfo: MessageInfo) => unknown;
+  onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
+  onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
 }) {
   const threadSummary = thread.useThreadSummary(threadId);
   const threadData = thread.useThreadData(threadId);
@@ -123,17 +128,29 @@ function CommentsThread({
   }
 
   return (
-    <div
-      className={classes.thread}
-      data-cord-thread-id={threadId}
-      onClick={() => onThreadClick?.(threadSummary)}
-      onMouseEnter={() => onThreadMouseEnter?.(threadSummary)}
-      onMouseLeave={() => onThreadMouseLeave?.(threadSummary)}
-    >
+    <div className={classes.thread} data-cord-thread-id={threadId}>
       <Message
         messageId={threadSummary.firstMessage?.id}
         threadId={threadId}
         markAsSeen={false}
+        onClick={() =>
+          onMessageClick?.({
+            threadId,
+            messageId: threadSummary.firstMessage?.id ?? '',
+          })
+        }
+        onMouseEnter={() =>
+          onMessageMouseEnter?.({
+            threadId,
+            messageId: threadSummary.firstMessage?.id ?? '',
+          })
+        }
+        onMouseLeave={() =>
+          onMessageMouseLeave?.({
+            threadId,
+            messageId: threadSummary.firstMessage?.id ?? '',
+          })
+        }
       />
 
       {showingReplies &&
@@ -145,6 +162,9 @@ function CommentsThread({
           threadId={threadId}
           threadData={threadData}
           setShowingReplies={setShowingReplies}
+          onMessageClick={onMessageClick}
+          onMessageMouseEnter={onMessageMouseEnter}
+          onMessageMouseLeave={onMessageMouseLeave}
         />
       ) : (
         <CollapsedReplies
@@ -207,10 +227,16 @@ function ThreadReplies({
   threadId,
   threadData,
   setShowingReplies,
+  onMessageClick,
+  onMessageMouseEnter,
+  onMessageMouseLeave,
 }: {
   threadId: string;
   threadData: ThreadData;
   setShowingReplies: Dispatch<SetStateAction<boolean>>;
+  onMessageClick?: (messageInfo: MessageInfo) => unknown;
+  onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
+  onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
 }) {
   const { messages, hasMore, fetchMore } = threadData;
   const [showingReplyComposer, setShowingReplyComposer] =
@@ -251,6 +277,24 @@ function ThreadReplies({
                   key={message.id}
                   threadId={threadId}
                   messageId={message.id}
+                  onClick={() =>
+                    onMessageClick?.({
+                      threadId,
+                      messageId: message.id,
+                    })
+                  }
+                  onMouseEnter={() =>
+                    onMessageMouseEnter?.({
+                      threadId,
+                      messageId: message.id,
+                    })
+                  }
+                  onMouseLeave={() =>
+                    onMessageMouseLeave?.({
+                      threadId,
+                      messageId: message.id,
+                    })
+                  }
                 />
               );
             })}
