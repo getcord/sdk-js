@@ -642,10 +642,51 @@
             "type": "object",
             "additionalProperties": { "type": ["string", "number", "boolean"] },
             "propertyOrder": []
+          },
+          "firstMessageTimestamp": {
+            "description": "Timestamp when the first message in a thread was created.",
+            "type": "object",
+            "properties": {
+              "from": {
+                "description": "Timestamp from where to start the interval. If not present, the interval will have no start date and any data will include everything up to the provided `to` timestamp.",
+                "type": "string",
+                "format": "date-time"
+              },
+              "to": {
+                "description": "Timestamp where to end the interval. If not present, the interval will have no end date and any data will include everything from the provided `from` timestamp.",
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "additionalProperties": false,
+            "propertyOrder": ["from", "to"]
+          },
+          "mostRecentMessageTimestamp": {
+            "description": "Timestamp when a message in a thread was last created or updated.",
+            "type": "object",
+            "properties": {
+              "from": {
+                "description": "Timestamp from where to start the interval. If not present, the interval will have no start date and any data will include everything up to the provided `to` timestamp.",
+                "type": "string",
+                "format": "date-time"
+              },
+              "to": {
+                "description": "Timestamp where to end the interval. If not present, the interval will have no end date and any data will include everything from the provided `from` timestamp.",
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "additionalProperties": false,
+            "propertyOrder": ["from", "to"]
           }
         },
         "additionalProperties": false,
-        "propertyOrder": ["location", "metadata"]
+        "propertyOrder": [
+          "location",
+          "metadata",
+          "firstMessageTimestamp",
+          "mostRecentMessageTimestamp"
+        ]
       }
     },
     "additionalProperties": false,
