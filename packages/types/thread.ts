@@ -235,6 +235,10 @@ export type LocationData = PaginationParams & {
 };
 export type LocationDataCallback = (data: LocationData) => unknown;
 
+export type UpdateThreadVariables = Partial<
+  Pick<RestApiThreadData, 'name' | 'location' | 'url' | 'metadata' | 'resolved'>
+>;
+
 export interface ICordThreadSDK {
   /**
    * This method allows you to observe summary information about a
