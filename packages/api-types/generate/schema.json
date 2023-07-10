@@ -12,11 +12,15 @@
         "description": "URL for the application icon. It should be a square image of 256x256. This\nwill be used as the avatar for messages and emails coming from your\napplication.  If not specified, the Cord logo will be used.",
         "format": "uri",
         "type": ["null", "string"]
+      },
+      "eventWebhookURL": {
+        "description": "The URL that the events webhook is sent to",
+        "type": ["null", "string"]
       }
     },
     "additionalProperties": false,
-    "propertyOrder": ["id", "name", "iconURL"],
-    "required": ["iconURL", "id", "name"],
+    "propertyOrder": ["id", "name", "iconURL", "eventWebhookURL"],
+    "required": ["eventWebhookURL", "iconURL", "id", "name"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
   "CreateApplicationVariables": {
@@ -32,10 +36,14 @@
         "description": "URL for the application icon. It should be a square image of 256x256. This\nwill be used as the avatar for messages and emails coming from your\napplication.  If not specified, the Cord logo will be used.",
         "format": "uri",
         "type": ["null", "string"]
+      },
+      "eventWebhookURL": {
+        "description": "The URL that the events webhook is sent to",
+        "type": ["null", "string"]
       }
     },
     "additionalProperties": false,
-    "propertyOrder": ["name", "iconURL"],
+    "propertyOrder": ["name", "iconURL", "eventWebhookURL"],
     "required": ["name"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
@@ -52,10 +60,14 @@
         "description": "URL for the application icon. It should be a square image of 256x256. This\nwill be used as the avatar for messages and emails coming from your\napplication.  If not specified, the Cord logo will be used.",
         "format": "uri",
         "type": ["null", "string"]
+      },
+      "eventWebhookURL": {
+        "description": "The URL that the events webhook is sent to",
+        "type": ["null", "string"]
       }
     },
     "additionalProperties": false,
-    "propertyOrder": ["name", "iconURL"],
+    "propertyOrder": ["name", "iconURL", "eventWebhookURL"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
   "DeleteApplicationVariables": {
