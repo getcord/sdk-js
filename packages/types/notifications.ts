@@ -199,13 +199,6 @@ export interface ICordNotificationSDK {
   unobserveData(ref: ListenerRef): boolean;
 
   /**
-   * @deprecated Renamed to observeSummary.
-   */
-  observeNotificationSummary(
-    ...args: Parameters<ICordNotificationSDK['observeSummary']>
-  ): ReturnType<ICordNotificationSDK['observeSummary']>;
-
-  /**
    * @deprecated Renamed to unobserveSummary.
    */
   unobserveNotificationSummary(
