@@ -425,6 +425,17 @@ export interface ICordThreadSDK {
   ): ListenerRef;
   unobserveThreadData(ref: ListenerRef): boolean;
 
+  /**
+   * Set the subscribed status for an existing thread for the current user. A subscribed user will be notified of any new thread activity.
+   * @example Overview
+   * ```
+   * await window.CordSDK.thread.setSubscribed('my-awesome-thread-id', false);
+   * ```
+   * @param threadID - The ID of the thread.
+   *
+   * @param subscribed - Whether the user should be subscribed to the thread.
+   * @returns A promise resolving to a boolean representing whether the set succeeded.
+   */
   setSubscribed(threadID: ThreadID, subscribed: boolean): Promise<boolean>;
 
   /**
