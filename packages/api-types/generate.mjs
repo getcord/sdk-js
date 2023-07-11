@@ -14,7 +14,6 @@ const TYPE_DEFINITION_FILES = [
   'thread',
   'typeDefinitions',
   'user',
-  'webhook',
 ];
 
 /**

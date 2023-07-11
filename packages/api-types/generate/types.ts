@@ -6,15 +6,6 @@ import type {
   CreateApplicationVariables,
   UpdateApplicationVariables,
   DeleteApplicationVariables,
-  PlatformOrganizationVariables,
-  UpdatePlatformOrganizationVariables,
-  UpdatePlatformOrganizationMembersVariables,
-  CreatePlatformOrganizationVariables,
-  PlatformUserVariables,
-  UpdatePlatformUserVariables,
-  CreatePlatformUserVariables,
-  ListUserQueryParameters,
-  BatchAPIVariables,
   ThreadVariables,
   ThreadParticipant,
   UpdateThreadVariables,
@@ -27,9 +18,17 @@ import type {
   CreateNotificationVariables,
   NotificationVariables,
   NotificationReplyAction,
+  PlatformOrganizationVariables,
+  UpdatePlatformOrganizationVariables,
+  UpdatePlatformOrganizationMembersVariables,
+  CreatePlatformOrganizationVariables,
   UpdateUserPresenceVariables,
-  WebhookPayloads,
+  PlatformUserVariables,
+  UpdatePlatformUserVariables,
+  CreatePlatformUserVariables,
+  ListUserQueryParameters,
   ClientAuthTokenData,
+  BatchAPIVariables,
 } from '../src/typeDefinitions';
 
 export type Types = {
@@ -37,15 +36,6 @@ export type Types = {
   CreateApplicationVariables: CreateApplicationVariables;
   UpdateApplicationVariables: UpdateApplicationVariables;
   DeleteApplicationVariables: DeleteApplicationVariables;
-  PlatformOrganizationVariables: PlatformOrganizationVariables;
-  UpdatePlatformOrganizationVariables: UpdatePlatformOrganizationVariables;
-  UpdatePlatformOrganizationMembersVariables: UpdatePlatformOrganizationMembersVariables;
-  CreatePlatformOrganizationVariables: CreatePlatformOrganizationVariables;
-  PlatformUserVariables: PlatformUserVariables;
-  UpdatePlatformUserVariables: UpdatePlatformUserVariables;
-  CreatePlatformUserVariables: CreatePlatformUserVariables;
-  ListUserQueryParameters: ListUserQueryParameters;
-  BatchAPIVariables: BatchAPIVariables;
   ThreadVariables: ThreadVariables;
   ThreadParticipant: ThreadParticipant;
   UpdateThreadVariables: UpdateThreadVariables;
@@ -58,7 +48,15 @@ export type Types = {
   CreateNotificationVariables: CreateNotificationVariables;
   NotificationVariables: NotificationVariables;
   NotificationReplyAction: NotificationReplyAction;
+  PlatformOrganizationVariables: PlatformOrganizationVariables;
+  UpdatePlatformOrganizationVariables: UpdatePlatformOrganizationVariables;
+  UpdatePlatformOrganizationMembersVariables: UpdatePlatformOrganizationMembersVariables;
+  CreatePlatformOrganizationVariables: CreatePlatformOrganizationVariables;
   UpdateUserPresenceVariables: UpdateUserPresenceVariables;
-  WebhookPayloads: WebhookPayloads;
+  PlatformUserVariables: PlatformUserVariables;
+  UpdatePlatformUserVariables: UpdatePlatformUserVariables;
+  CreatePlatformUserVariables: CreatePlatformUserVariables;
+  ListUserQueryParameters: ListUserQueryParameters;
   ClientAuthTokenData: ClientAuthTokenData;
+  BatchAPIVariables: BatchAPIVariables;
 };

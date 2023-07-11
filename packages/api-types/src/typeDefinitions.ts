@@ -6,7 +6,6 @@ export * from './org';
 export * from './presence';
 export * from './thread';
 export * from './user';
-export * from './webhook';
 
 import type { ID } from './coreTypes';
 import type { PlatformUserVariables } from './user';

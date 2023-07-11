@@ -89,336 +89,6 @@ export default {
     required: ['secret'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
-  PlatformOrganizationVariables: {
-    type: 'object',
-    properties: {
-      name: { description: 'Organization name', type: 'string' },
-      status: { enum: ['active', 'deleted'], type: 'string' },
-      members: {
-        description:
-          'List of partner-specific IDs of the users who are members of this organization',
-        type: 'array',
-        items: { type: ['string', 'number'] },
-      },
-    },
-    additionalProperties: false,
-    propertyOrder: ['name', 'status', 'members'],
-    required: ['name'],
-    $schema: 'http://json-schema.org/draft-07/schema#',
-  },
-  UpdatePlatformOrganizationVariables: {
-    description: 'https://docs.cord.com/rest-apis/organizations/',
-    type: 'object',
-    properties: {
-      name: { description: 'Organization name', type: 'string' },
-      status: { enum: ['active', 'deleted'], type: 'string' },
-      members: {
-        description:
-          'List of partner-specific IDs of the users who are members of this organization',
-        type: 'array',
-        items: { type: ['string', 'number'] },
-      },
-    },
-    additionalProperties: false,
-    propertyOrder: ['name', 'status', 'members'],
-    $schema: 'http://json-schema.org/draft-07/schema#',
-  },
-  UpdatePlatformOrganizationMembersVariables: {
-    description: 'https://docs.cord.com/rest-apis/organizations/',
-    type: 'object',
-    properties: {
-      add: { type: 'array', items: { type: ['string', 'number'] } },
-      remove: { type: 'array', items: { type: ['string', 'number'] } },
-    },
-    additionalProperties: false,
-    propertyOrder: ['add', 'remove'],
-    $schema: 'http://json-schema.org/draft-07/schema#',
-  },
-  CreatePlatformOrganizationVariables: {
-    additionalProperties: false,
-    type: 'object',
-    properties: {
-      name: { description: 'Organization name', type: 'string' },
-      status: { enum: ['active', 'deleted'], type: 'string' },
-      members: {
-        description:
-          'List of partner-specific IDs of the users who are members of this organization',
-        type: 'array',
-        items: { type: ['string', 'number'] },
-      },
-      id: { $ref: '#/definitions/ID' },
-    },
-    required: ['id', 'name'],
-    definitions: {
-      ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
-    },
-    $schema: 'http://json-schema.org/draft-07/schema#',
-  },
-  PlatformUserVariables: {
-    type: 'object',
-    properties: {
-      email: { description: 'Email address', format: 'email', type: 'string' },
-      name: { description: 'Full user name', type: 'string' },
-      shortName: {
-        description:
-          'Short user name. In most cases, this will be preferred over name when set.',
-        type: 'string',
-      },
-      short_name: { type: 'string' },
-      status: { enum: ['active', 'deleted'], type: 'string' },
-      profilePictureURL: {
-        description:
-          "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
-        format: 'uri',
-        type: ['null', 'string'],
-      },
-      profile_picture_url: { format: 'uri', type: ['null', 'string'] },
-      first_name: {
-        description:
-          "User's first name. This field is deprecated and has no effect.",
-        type: 'string',
-      },
-      last_name: {
-        description:
-          "User's last name. This field is deprecated and has no effect.",
-        type: 'string',
-      },
-      metadata: {
-        description:
-          'Arbitrary key-value pairs that can be used to store additional information.',
-        type: 'object',
-        additionalProperties: { type: ['string', 'number', 'boolean'] },
-        propertyOrder: [],
-      },
-    },
-    additionalProperties: false,
-    propertyOrder: [
-      'email',
-      'name',
-      'shortName',
-      'short_name',
-      'status',
-      'profilePictureURL',
-      'profile_picture_url',
-      'first_name',
-      'last_name',
-      'metadata',
-    ],
-    required: ['email'],
-    $schema: 'http://json-schema.org/draft-07/schema#',
-  },
-  UpdatePlatformUserVariables: {
-    description: 'https://docs.cord.com/rest-apis/users/',
-    type: 'object',
-    properties: {
-      email: { description: 'Email address', format: 'email', type: 'string' },
-      name: { description: 'Full user name', type: 'string' },
-      shortName: {
-        description:
-          'Short user name. In most cases, this will be preferred over name when set.',
-        type: 'string',
-      },
-      short_name: { type: 'string' },
-      status: { enum: ['active', 'deleted'], type: 'string' },
-      profilePictureURL: {
-        description:
-          "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
-        format: 'uri',
-        type: ['null', 'string'],
-      },
-      profile_picture_url: { format: 'uri', type: ['null', 'string'] },
-      first_name: {
-        description:
-          "User's first name. This field is deprecated and has no effect.",
-        type: 'string',
-      },
-      last_name: {
-        description:
-          "User's last name. This field is deprecated and has no effect.",
-        type: 'string',
-      },
-      metadata: {
-        description:
-          'Arbitrary key-value pairs that can be used to store additional information.',
-        type: 'object',
-        additionalProperties: { type: ['string', 'number', 'boolean'] },
-        propertyOrder: [],
-      },
-    },
-    additionalProperties: false,
-    propertyOrder: [
-      'email',
-      'name',
-      'shortName',
-      'short_name',
-      'status',
-      'profilePictureURL',
-      'profile_picture_url',
-      'first_name',
-      'last_name',
-      'metadata',
-    ],
-    $schema: 'http://json-schema.org/draft-07/schema#',
-  },
-  CreatePlatformUserVariables: {
-    additionalProperties: false,
-    type: 'object',
-    properties: {
-      email: { description: 'Email address', format: 'email', type: 'string' },
-      name: { description: 'Full user name', type: 'string' },
-      shortName: {
-        description:
-          'Short user name. In most cases, this will be preferred over name when set.',
-        type: 'string',
-      },
-      short_name: { type: 'string' },
-      status: { enum: ['active', 'deleted'], type: 'string' },
-      profilePictureURL: {
-        description:
-          "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
-        format: 'uri',
-        type: ['null', 'string'],
-      },
-      profile_picture_url: { format: 'uri', type: ['null', 'string'] },
-      first_name: {
-        description:
-          "User's first name. This field is deprecated and has no effect.",
-        type: 'string',
-      },
-      last_name: {
-        description:
-          "User's last name. This field is deprecated and has no effect.",
-        type: 'string',
-      },
-      metadata: {
-        description:
-          'Arbitrary key-value pairs that can be used to store additional information.',
-        type: 'object',
-        additionalProperties: { type: ['string', 'number', 'boolean'] },
-        propertyOrder: [],
-      },
-      id: { $ref: '#/definitions/ID' },
-    },
-    required: ['email', 'id'],
-    definitions: {
-      ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
-    },
-    $schema: 'http://json-schema.org/draft-07/schema#',
-  },
-  ListUserQueryParameters: {
-    type: 'object',
-    properties: {
-      filter: {
-        description:
-          'This is a JSON object with one optional entry.  Users will be matched\nagainst the filter specified. This is a partial match, which means any keys\nother than the ones you specify are ignored when checking for a match.\nPlease note that because this is a query parameter in a REST API, this JSON\nobject must be URI encoded before being sent.',
-        $ref: '#/definitions/Pick<FilterParameters,"metadata">',
-      },
-    },
-    additionalProperties: false,
-    propertyOrder: ['filter'],
-    definitions: {
-      'Pick<FilterParameters,"metadata">': {
-        type: 'object',
-        properties: {
-          metadata: {
-            description:
-              'Arbitrary key-value pairs of data associated with the object.',
-            type: 'object',
-            additionalProperties: { type: ['string', 'number', 'boolean'] },
-            propertyOrder: [],
-          },
-        },
-        additionalProperties: false,
-        propertyOrder: ['metadata'],
-      },
-    },
-    $schema: 'http://json-schema.org/draft-07/schema#',
-  },
-  BatchAPIVariables: {
-    description: 'https://docs.cord.com/rest-apis/batch/',
-    type: 'object',
-    properties: {
-      users: {
-        description:
-          'List of user objects. Every object must include the id field. If the user\nalready exists, all other fields are optional and only updated when\npresent. If the user does not already exist, fields are required as\ndescribed in the [Create or update a\nuser](/rest-apis/organizations/#create-or-update-an-organization)\nAPI.',
-        maxItems: 10000,
-        type: 'array',
-        items: {
-          additionalProperties: false,
-          type: 'object',
-          properties: {
-            email: {
-              description: 'Email address',
-              format: 'email',
-              type: 'string',
-            },
-            name: { description: 'Full user name', type: 'string' },
-            shortName: {
-              description:
-                'Short user name. In most cases, this will be preferred over name when set.',
-              type: 'string',
-            },
-            short_name: { type: 'string' },
-            status: { enum: ['active', 'deleted'], type: 'string' },
-            profilePictureURL: {
-              description:
-                "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
-              format: 'uri',
-              type: ['null', 'string'],
-            },
-            profile_picture_url: { format: 'uri', type: ['null', 'string'] },
-            first_name: {
-              description:
-                "User's first name. This field is deprecated and has no effect.",
-              type: 'string',
-            },
-            last_name: {
-              description:
-                "User's last name. This field is deprecated and has no effect.",
-              type: 'string',
-            },
-            metadata: {
-              description:
-                'Arbitrary key-value pairs that can be used to store additional information.',
-              type: 'object',
-              additionalProperties: { type: ['string', 'number', 'boolean'] },
-              propertyOrder: [],
-            },
-            id: { $ref: '#/definitions/ID' },
-          },
-          required: ['id'],
-        },
-      },
-      organizations: {
-        description:
-          'List of organization objects. Every object must include the id field. If\nthe organization already exists, all other fields are optional and only\nupdated when present. If the organization does not already exist, fields\nare required as described in the [Create or update an\norganization](/rest-apis/organizations/#create-or-update-an-organization)\nAPI.',
-        maxItems: 1000,
-        type: 'array',
-        items: {
-          additionalProperties: false,
-          type: 'object',
-          properties: {
-            name: { description: 'Organization name', type: 'string' },
-            status: { enum: ['active', 'deleted'], type: 'string' },
-            members: {
-              description:
-                'List of partner-specific IDs of the users who are members of this organization',
-              type: 'array',
-              items: { type: ['string', 'number'] },
-            },
-            id: { $ref: '#/definitions/ID' },
-          },
-          required: ['id'],
-        },
-      },
-    },
-    additionalProperties: false,
-    propertyOrder: ['users', 'organizations'],
-    definitions: {
-      ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
-    },
-    $schema: 'http://json-schema.org/draft-07/schema#',
-  },
   ThreadVariables: {
     type: 'object',
     properties: {
@@ -1286,6 +956,71 @@ export default {
     type: 'string',
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
+  PlatformOrganizationVariables: {
+    type: 'object',
+    properties: {
+      name: { description: 'Organization name', type: 'string' },
+      status: { enum: ['active', 'deleted'], type: 'string' },
+      members: {
+        description:
+          'List of partner-specific IDs of the users who are members of this organization',
+        type: 'array',
+        items: { type: ['string', 'number'] },
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['name', 'status', 'members'],
+    required: ['name'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  UpdatePlatformOrganizationVariables: {
+    description: 'https://docs.cord.com/rest-apis/organizations/',
+    type: 'object',
+    properties: {
+      name: { description: 'Organization name', type: 'string' },
+      status: { enum: ['active', 'deleted'], type: 'string' },
+      members: {
+        description:
+          'List of partner-specific IDs of the users who are members of this organization',
+        type: 'array',
+        items: { type: ['string', 'number'] },
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['name', 'status', 'members'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  UpdatePlatformOrganizationMembersVariables: {
+    description: 'https://docs.cord.com/rest-apis/organizations/',
+    type: 'object',
+    properties: {
+      add: { type: 'array', items: { type: ['string', 'number'] } },
+      remove: { type: 'array', items: { type: ['string', 'number'] } },
+    },
+    additionalProperties: false,
+    propertyOrder: ['add', 'remove'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  CreatePlatformOrganizationVariables: {
+    additionalProperties: false,
+    type: 'object',
+    properties: {
+      name: { description: 'Organization name', type: 'string' },
+      status: { enum: ['active', 'deleted'], type: 'string' },
+      members: {
+        description:
+          'List of partner-specific IDs of the users who are members of this organization',
+        type: 'array',
+        items: { type: ['string', 'number'] },
+      },
+      id: { $ref: '#/definitions/ID' },
+    },
+    required: ['id', 'name'],
+    definitions: {
+      ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+    },
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
   UpdateUserPresenceVariables: {
     type: 'object',
     properties: {
@@ -1329,419 +1064,182 @@ export default {
     required: ['location', 'organizationID'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
-  WebhookPayloads: {
+  PlatformUserVariables: {
     type: 'object',
     properties: {
-      'thread-message-added': {
-        type: 'object',
-        properties: {
-          threadID: { type: 'string' },
-          messageID: { type: 'string' },
-          orgID: { type: 'string' },
-          organizationID: { type: 'string' },
-          applicationID: { type: 'string' },
-          author: { $ref: '#/definitions/UserData' },
-          content: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {},
-              additionalProperties: true,
-            },
-          },
-          plaintext: { type: 'string' },
-          url: { type: 'string' },
-          usersToNotify: {
-            type: 'array',
-            items: {
-              additionalProperties: false,
-              type: 'object',
-              properties: {
-                id: {
-                  description:
-                    "The user's ID.  This is unique within an application.",
-                  type: 'string',
-                },
-                name: {
-                  description: "The user's name.",
-                  type: ['null', 'string'],
-                },
-                shortName: {
-                  description:
-                    "The user's short name.  In most cases, Cord components will prefer using\nthis name over `name` when set.",
-                  type: ['null', 'string'],
-                },
-                profilePictureURL: {
-                  description: "A URL to the user's profile picture.",
-                  type: ['null', 'string'],
-                },
-                metadata: {
-                  description: 'Any metadata that has been set for the user.',
-                  type: 'object',
-                  additionalProperties: {
-                    type: ['string', 'number', 'boolean'],
-                  },
-                  propertyOrder: [],
-                },
-                replyActions: {
-                  anyOf: [
-                    {
-                      type: 'array',
-                      items: { $ref: '#/definitions/NotificationReplyAction' },
-                    },
-                    { type: 'null' },
-                  ],
-                },
-              },
-              required: [
-                'id',
-                'metadata',
-                'name',
-                'profilePictureURL',
-                'replyActions',
-                'shortName',
-              ],
-            },
-          },
-          messageType: {
-            enum: ['action_message', 'user_message'],
-            type: 'string',
-          },
-          metadata: {
-            type: 'object',
-            additionalProperties: { type: ['string', 'number', 'boolean'] },
-            propertyOrder: [],
-          },
-          thread: {
-            $ref: '#/definitions/Omit<RestApiThreadData,"organizationID">',
-          },
-        },
-        additionalProperties: false,
-        propertyOrder: [
-          'threadID',
-          'messageID',
-          'orgID',
-          'organizationID',
-          'applicationID',
-          'author',
-          'content',
-          'plaintext',
-          'url',
-          'usersToNotify',
-          'messageType',
-          'metadata',
-          'thread',
-        ],
-        required: [
-          'applicationID',
-          'author',
-          'content',
-          'messageID',
-          'messageType',
-          'metadata',
-          'orgID',
-          'organizationID',
-          'plaintext',
-          'thread',
-          'threadID',
-          'url',
-          'usersToNotify',
-        ],
+      email: { description: 'Email address', format: 'email', type: 'string' },
+      name: { description: 'Full user name', type: 'string' },
+      shortName: {
+        description:
+          'Short user name. In most cases, this will be preferred over name when set.',
+        type: 'string',
       },
-      'notification-created': {
-        additionalProperties: false,
+      short_name: { type: 'string' },
+      status: { enum: ['active', 'deleted'], type: 'string' },
+      profilePictureURL: {
+        description:
+          "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
+        format: 'uri',
+        type: ['null', 'string'],
+      },
+      profile_picture_url: { format: 'uri', type: ['null', 'string'] },
+      first_name: {
+        description:
+          "User's first name. This field is deprecated and has no effect.",
+        type: 'string',
+      },
+      last_name: {
+        description:
+          "User's last name. This field is deprecated and has no effect.",
+        type: 'string',
+      },
+      metadata: {
+        description:
+          'Arbitrary key-value pairs that can be used to store additional information.',
         type: 'object',
-        properties: {
-          id: {
-            description:
-              'The [ID](/reference/identifiers) for this notification.',
-            type: 'string',
-          },
-          senderUserIDs: {
-            description:
-              'The [IDs](/reference/identifiers) of the user(s) who\nsent this notification. The Cord backend will sometimes aggregate multiple\nnotifications together, causing them to have multiple senders. For example,\nif multiple people react to the same message, that will generate only one\nnotification (but with multiple senders, one for each person who reacted).',
-            type: 'array',
-            items: { type: 'string' },
-          },
-          iconUrl: {
-            description:
-              "The URL of an icon image for this notification, if one was specified when\nit was created. This will always be `null` for Cord's internally-generated\nnotifications (i.e., it can only be non-null for notifications you create\nvia the REST API).",
-            type: ['null', 'string'],
-          },
-          header: {
-            description:
-              'The "header" or "text" of the notification. This will represent text like\n"Alice replied to your thread." or similar. For notifications you create\nvia the REST API, this will be based upon the `template` parameter, see\nbelow.',
-            type: 'array',
-            items: {
-              anyOf: [
-                {
-                  description: 'A header node representing a basic string.',
-                  type: 'object',
-                  properties: {
-                    text: {
-                      description:
-                        'The text to display. This text may start and/or end with whitespace, which\nshould typically *not* be trimmed. For example, in order to display the\nnotification `"Alice replied to your thread."`, this would typically be\ncomposed of two nodes -- a user node for Alice, and then a text node\ncontaining `" replied to your thread."`, with a meaningful space at the\nfront, to separate this node from Alice\'s name.',
-                      type: 'string',
-                    },
-                    bold: {
-                      description:
-                        'Whether the text should be formatted in bold.',
-                      type: 'boolean',
-                    },
-                  },
-                  additionalProperties: false,
-                  propertyOrder: ['text', 'bold'],
-                  required: ['bold', 'text'],
-                },
-                {
-                  description:
-                    'A header node representing a reference to a specific user.',
-                  type: 'object',
-                  properties: {
-                    userID: {
-                      description:
-                        "The user referenced. This node would typically be rendered by displaying\nthis user's name.",
-                      type: 'string',
-                    },
-                  },
-                  additionalProperties: false,
-                  propertyOrder: ['userID'],
-                  required: ['userID'],
-                },
-              ],
-            },
-          },
-          attachment: {
-            description:
-              'Additional context attached to the notification. For example, if this\nnotification is about a new reaction on a message, the attachment will\nspecify what message received that new reaction.\n\nA renderer will typically check the `type` field of the attachment and\nrender that attachment type below the `header`.',
-            anyOf: [
-              {
-                description: 'An attachment representing a URL.',
-                type: 'object',
-                properties: {
-                  type: {
-                    description: 'Indicator that this is a URL attachment.',
-                    type: 'string',
-                    enum: ['url'],
-                  },
-                  url: {
-                    description:
-                      'The URL this attachment points to. This would typically be the URL to send\nthe browser to if this notification is clicked.',
-                    type: 'string',
-                  },
-                },
-                additionalProperties: false,
-                propertyOrder: ['type', 'url'],
-                required: ['type', 'url'],
-              },
-              {
-                description: 'An attachment representing a message.',
-                type: 'object',
-                properties: {
-                  type: {
-                    description: 'Indicator that this is a message attachment.',
-                    type: 'string',
-                    enum: ['message'],
-                  },
-                  messageID: {
-                    description:
-                      'The ID of the message attached to this notification. For example, if this\nis a notification about being \\@-mentioned, this is the ID of the message\ncontaining that \\@-mention.',
-                    type: 'string',
-                  },
-                  threadID: {
-                    description:
-                      'The ID of the thread that the above message is in.',
-                    type: 'string',
-                  },
-                },
-                additionalProperties: false,
-                propertyOrder: ['type', 'messageID', 'threadID'],
-                required: ['messageID', 'threadID', 'type'],
-              },
-              { type: 'null' },
-            ],
-          },
-          readStatus: {
-            description:
-              'Whether this notification has been read by the recipient yet.',
-            enum: ['read', 'unread'],
-            type: 'string',
-          },
-          timestamp: {
-            description: 'The time this notification was sent.',
-            type: 'string',
-            format: 'date-time',
-          },
-          metadata: {
-            description:
-              "An arbitrary JSON object specified when the notification was created. This\nwill always be an empty object for Cord's internally-generated\nnotifications (i.e., it can only be non-null for notifications you create\nvia the REST API).",
-            type: 'object',
-            additionalProperties: { type: ['string', 'number', 'boolean'] },
-            propertyOrder: [],
-          },
-          recipientUserID: { type: 'string' },
-        },
-        required: [
-          'attachment',
-          'header',
-          'iconUrl',
-          'id',
-          'metadata',
-          'readStatus',
-          'recipientUserID',
-          'senderUserIDs',
-          'timestamp',
-        ],
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
       },
     },
     additionalProperties: false,
-    propertyOrder: ['thread-message-added', 'notification-created'],
-    required: ['notification-created', 'thread-message-added'],
-    definitions: {
-      UserData: {
-        description: 'The data associated with a Cord user.',
-        type: 'object',
-        properties: {
-          id: {
-            description:
-              "The user's ID.  This is unique within an application.",
-            type: 'string',
-          },
-          name: { description: "The user's name.", type: ['null', 'string'] },
-          shortName: {
-            description:
-              "The user's short name.  In most cases, Cord components will prefer using\nthis name over `name` when set.",
-            type: ['null', 'string'],
-          },
-          profilePictureURL: {
-            description: "A URL to the user's profile picture.",
-            type: ['null', 'string'],
-          },
-          metadata: {
-            description: 'Any metadata that has been set for the user.',
-            type: 'object',
-            additionalProperties: { type: ['string', 'number', 'boolean'] },
-            propertyOrder: [],
-          },
-        },
-        additionalProperties: false,
-        propertyOrder: [
-          'id',
-          'name',
-          'shortName',
-          'profilePictureURL',
-          'metadata',
-        ],
-        required: ['id', 'metadata', 'name', 'profilePictureURL', 'shortName'],
-      },
-      NotificationReplyAction: {
-        enum: [
-          'assign-task',
-          'attach-file',
-          'create-thread',
-          'mention',
-          'unassign-task',
-        ],
+    propertyOrder: [
+      'email',
+      'name',
+      'shortName',
+      'short_name',
+      'status',
+      'profilePictureURL',
+      'profile_picture_url',
+      'first_name',
+      'last_name',
+      'metadata',
+    ],
+    required: ['email'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  UpdatePlatformUserVariables: {
+    description: 'https://docs.cord.com/rest-apis/users/',
+    type: 'object',
+    properties: {
+      email: { description: 'Email address', format: 'email', type: 'string' },
+      name: { description: 'Full user name', type: 'string' },
+      shortName: {
+        description:
+          'Short user name. In most cases, this will be preferred over name when set.',
         type: 'string',
       },
-      'Omit<RestApiThreadData,"organizationID">': {
+      short_name: { type: 'string' },
+      status: { enum: ['active', 'deleted'], type: 'string' },
+      profilePictureURL: {
+        description:
+          "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
+        format: 'uri',
+        type: ['null', 'string'],
+      },
+      profile_picture_url: { format: 'uri', type: ['null', 'string'] },
+      first_name: {
+        description:
+          "User's first name. This field is deprecated and has no effect.",
+        type: 'string',
+      },
+      last_name: {
+        description:
+          "User's last name. This field is deprecated and has no effect.",
+        type: 'string',
+      },
+      metadata: {
+        description:
+          'Arbitrary key-value pairs that can be used to store additional information.',
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: [
+      'email',
+      'name',
+      'shortName',
+      'short_name',
+      'status',
+      'profilePictureURL',
+      'profile_picture_url',
+      'first_name',
+      'last_name',
+      'metadata',
+    ],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  CreatePlatformUserVariables: {
+    additionalProperties: false,
+    type: 'object',
+    properties: {
+      email: { description: 'Email address', format: 'email', type: 'string' },
+      name: { description: 'Full user name', type: 'string' },
+      shortName: {
+        description:
+          'Short user name. In most cases, this will be preferred over name when set.',
+        type: 'string',
+      },
+      short_name: { type: 'string' },
+      status: { enum: ['active', 'deleted'], type: 'string' },
+      profilePictureURL: {
+        description:
+          "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
+        format: 'uri',
+        type: ['null', 'string'],
+      },
+      profile_picture_url: { format: 'uri', type: ['null', 'string'] },
+      first_name: {
+        description:
+          "User's first name. This field is deprecated and has no effect.",
+        type: 'string',
+      },
+      last_name: {
+        description:
+          "User's last name. This field is deprecated and has no effect.",
+        type: 'string',
+      },
+      metadata: {
+        description:
+          'Arbitrary key-value pairs that can be used to store additional information.',
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
+      },
+      id: { $ref: '#/definitions/ID' },
+    },
+    required: ['email', 'id'],
+    definitions: {
+      ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+    },
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  ListUserQueryParameters: {
+    type: 'object',
+    properties: {
+      filter: {
+        description:
+          'This is a JSON object with one optional entry.  Users will be matched\nagainst the filter specified. This is a partial match, which means any keys\nother than the ones you specify are ignored when checking for a match.\nPlease note that because this is a query parameter in a REST API, this JSON\nobject must be URI encoded before being sent.',
+        $ref: '#/definitions/Pick<FilterParameters,"metadata">',
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['filter'],
+    definitions: {
+      'Pick<FilterParameters,"metadata">': {
         type: 'object',
         properties: {
-          location: {
-            description: 'The [location](/reference/location) of this thread.',
-            type: 'object',
-            additionalProperties: { type: ['string', 'number', 'boolean'] },
-            propertyOrder: [],
-          },
-          id: { description: 'The ID for this thread.', type: 'string' },
-          total: {
-            description: 'The total number of messages in this thread.',
-            type: 'number',
-          },
-          url: {
-            description:
-              "A URL where the thread can be seen.  This determines where a user is sent\nwhen they click on a reference to this thread, such as in a notification,\nor if they click on a reference to a message in the thread and the message\ndoesn't have its own URL.",
-            type: 'string',
-          },
-          name: {
-            description:
-              'The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  This should generally be something\nlike the page title.',
-            type: 'string',
-          },
           metadata: {
             description:
-              'Arbitrary key-value pairs that can be used to store additional information.',
+              'Arbitrary key-value pairs of data associated with the object.',
             type: 'object',
             additionalProperties: { type: ['string', 'number', 'boolean'] },
             propertyOrder: [],
-          },
-          resolvedTimestamp: {
-            description:
-              'The timestamp when this thread was resolved. Set to `null` if this thread\nis not resolved.',
-            anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
-          },
-          resolved: {
-            description:
-              'Whether this thread is resolved. In a GET request, this is equivalent to\n`!!resolvedTimestamp`. In a PUT request, setting this to `true` is\nequivalent to setting `resolvedTimestamp` to the current time, and setting\nthis to `false` is equivalent to setting `resolvedTimestamp` to `null`.',
-            type: 'boolean',
-          },
-          participants: {
-            description: 'All of the users who are subscribed to this thread.',
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                lastSeenTimestamp: {
-                  description:
-                    'The timestamp of the most recent message or reaction that this user has\nseen in this thread. Is `null` if this participant has never viewed this\nthread.',
-                  anyOf: [
-                    { type: 'string', format: 'date-time' },
-                    { type: 'null' },
-                  ],
-                },
-                userID: {
-                  description:
-                    "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/rest-apis/organizations) with this\nparticipant (and therefore can no longer access that participant's\ninformation).",
-                  type: ['null', 'string'],
-                },
-              },
-              additionalProperties: false,
-              propertyOrder: ['lastSeenTimestamp', 'userID'],
-              required: ['lastSeenTimestamp', 'userID'],
-            },
-          },
-          typing: {
-            description:
-              'The users that are currently typing in this thread.  Typing status is\ntransient in nature, so the value is the set of users typing at a\nparticular instant, but may change rapidly.',
-            type: 'array',
-            items: { type: 'string' },
           },
         },
         additionalProperties: false,
-        propertyOrder: [
-          'location',
-          'id',
-          'total',
-          'url',
-          'name',
-          'metadata',
-          'resolvedTimestamp',
-          'resolved',
-          'participants',
-          'typing',
-        ],
-        required: [
-          'id',
-          'location',
-          'metadata',
-          'name',
-          'participants',
-          'resolved',
-          'resolvedTimestamp',
-          'total',
-          'typing',
-          'url',
-        ],
+        propertyOrder: ['metadata'],
       },
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
@@ -1850,6 +1348,91 @@ export default {
         propertyOrder: ['name', 'status', 'members'],
         required: ['name'],
       },
+    },
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  BatchAPIVariables: {
+    description: 'https://docs.cord.com/rest-apis/batch/',
+    type: 'object',
+    properties: {
+      users: {
+        description:
+          'List of user objects. Every object must include the id field. If the user\nalready exists, all other fields are optional and only updated when\npresent. If the user does not already exist, fields are required as\ndescribed in the [Create or update a\nuser](/rest-apis/organizations/#create-or-update-an-organization)\nAPI.',
+        maxItems: 10000,
+        type: 'array',
+        items: {
+          additionalProperties: false,
+          type: 'object',
+          properties: {
+            email: {
+              description: 'Email address',
+              format: 'email',
+              type: 'string',
+            },
+            name: { description: 'Full user name', type: 'string' },
+            shortName: {
+              description:
+                'Short user name. In most cases, this will be preferred over name when set.',
+              type: 'string',
+            },
+            short_name: { type: 'string' },
+            status: { enum: ['active', 'deleted'], type: 'string' },
+            profilePictureURL: {
+              description:
+                "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
+              format: 'uri',
+              type: ['null', 'string'],
+            },
+            profile_picture_url: { format: 'uri', type: ['null', 'string'] },
+            first_name: {
+              description:
+                "User's first name. This field is deprecated and has no effect.",
+              type: 'string',
+            },
+            last_name: {
+              description:
+                "User's last name. This field is deprecated and has no effect.",
+              type: 'string',
+            },
+            metadata: {
+              description:
+                'Arbitrary key-value pairs that can be used to store additional information.',
+              type: 'object',
+              additionalProperties: { type: ['string', 'number', 'boolean'] },
+              propertyOrder: [],
+            },
+            id: { $ref: '#/definitions/ID' },
+          },
+          required: ['id'],
+        },
+      },
+      organizations: {
+        description:
+          'List of organization objects. Every object must include the id field. If\nthe organization already exists, all other fields are optional and only\nupdated when present. If the organization does not already exist, fields\nare required as described in the [Create or update an\norganization](/rest-apis/organizations/#create-or-update-an-organization)\nAPI.',
+        maxItems: 1000,
+        type: 'array',
+        items: {
+          additionalProperties: false,
+          type: 'object',
+          properties: {
+            name: { description: 'Organization name', type: 'string' },
+            status: { enum: ['active', 'deleted'], type: 'string' },
+            members: {
+              description:
+                'List of partner-specific IDs of the users who are members of this organization',
+              type: 'array',
+              items: { type: ['string', 'number'] },
+            },
+            id: { $ref: '#/definitions/ID' },
+          },
+          required: ['id'],
+        },
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['users', 'organizations'],
+    definitions: {
+      ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },

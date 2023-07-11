@@ -16,6 +16,7 @@ export * from './notifications';
 export * from './presence';
 export * from './thread';
 export * from './user';
+export * from './webhook';
 
 // navigate, if present and returning true, overrides our default navigate behavior
 export type NavigateFn = (

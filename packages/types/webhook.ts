@@ -1,11 +1,13 @@
 import type {
+  NotificationReplyAction,
+  ThreadVariables,
+} from '@cord-sdk/api-types';
+import type {
   EntityMetadata,
   NotificationVariables,
   UUID,
   UserData,
 } from '@cord-sdk/types';
-import type { NotificationReplyAction } from './notifications';
-import type { ThreadVariables } from './thread';
 
 // Typing of the payloads we send to clients
 export interface WebhookPayloads {
@@ -21,14 +23,19 @@ export interface WebhookPayloads {
     content: object[];
     plaintext: string;
     url: string;
-    usersToNotify: (UserData & {
-      replyActions: NotificationReplyAction[] | null;
-    })[];
     messageType: 'action_message' | 'user_message';
+    usersToNotify: UsersToNotify[];
     metadata: EntityMetadata;
     thread: Omit<ThreadVariables, 'organizationID'>;
   };
-  'notification-created': NotificationVariables & {
-    recipientUserID: string;
-  };
+  'notification-created': NotificationCreatedWebhookPayload;
+}
+
+export interface UsersToNotify extends UserData {
+  replyActions: NotificationReplyAction[] | null;
+}
+
+export interface NotificationCreatedWebhookPayload
+  extends NotificationVariables {
+  recipientUserID: string;
 }
