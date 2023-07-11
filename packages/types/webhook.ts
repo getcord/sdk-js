@@ -1,4 +1,5 @@
 import type {
+  MessageVariables,
   NotificationReplyAction,
   ThreadVariables,
 } from '@cord-sdk/api-types';
@@ -11,24 +12,33 @@ import type {
 
 // Typing of the payloads we send to clients
 export interface WebhookPayloads {
-  'thread-message-added': {
-    // TODO: deprecate as moved to thread object
-    threadID: string;
-    messageID: string;
-    // TODO: deprecate in favour of organizationID
-    orgID: string;
-    organizationID: string;
-    applicationID: UUID;
-    author: UserData;
-    content: object[];
-    plaintext: string;
-    url: string;
-    messageType: 'action_message' | 'user_message';
-    usersToNotify: UsersToNotify[];
-    metadata: EntityMetadata;
-    thread: Omit<ThreadVariables, 'organizationID'>;
-  };
+  'thread-message-added': ThreadMessageAddedWebhookPayload;
   'notification-created': NotificationCreatedWebhookPayload;
+}
+
+export interface ThreadMessageAddedWebhookPayload {
+  // TODO: deprecate all of these as they have been regrouped into new message
+  // and thread fields, below
+  threadID: string;
+  messageID: string;
+  orgID: string;
+  organizationID: string;
+  applicationID: UUID; // exception: this one will be moved to higher level (see postEvent)
+  author: UserData;
+  content: object[];
+  plaintext: string;
+  url: string;
+  messageType: 'action_message' | 'user_message';
+  metadata: EntityMetadata;
+  // new format/things that can stay the same
+  message: WebhookMessage;
+  thread: ThreadVariables;
+  usersToNotify: UsersToNotify[];
+}
+
+// Need to be split out to help the docs type extraction script
+export interface WebhookMessage extends Omit<MessageVariables, 'authorID'> {
+  author: UserData;
 }
 
 export interface UsersToNotify extends UserData {
@@ -39,3 +49,5 @@ export interface NotificationCreatedWebhookPayload
   extends NotificationVariables {
   recipientUserID: string;
 }
+
+export type WebhookTypes = keyof WebhookPayloads;
