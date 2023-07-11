@@ -2,12 +2,13 @@ import type {
   EntityMetadata,
   ListenerRef,
   Location,
+  MessageID,
   OrganizationID,
   PaginationParams,
   ThreadID,
   UserID,
 } from './core';
-import type { MessageData } from './message';
+import type { MessageData, RestApiMessageData } from './message';
 
 /**
  * Options for the `observeLocationSummary` function in the Thread API.
@@ -243,6 +244,53 @@ export interface UpdateThreadVariables
     >
   > {}
 
+export interface CreateThreadVariables
+  extends Pick<RestApiThreadData, 'location' | 'url' | 'name'>,
+    Partial<
+      Omit<
+        RestApiThreadData,
+        // Required fields
+        | 'location'
+        | 'url'
+        | 'name'
+        // Non-create fields
+        | 'id'
+        | 'organizationID'
+        | 'total'
+        | 'resolved'
+        | 'resolvedTimestamp'
+        | 'participants'
+        | 'typing'
+      >
+    > {}
+
+export interface CreateMessageVariables
+  // Pick the required properties
+  extends Pick<RestApiMessageData, 'content'>,
+    // Then a partial version of the rest of the properties
+    Partial<
+      Omit<
+        RestApiMessageData,
+        | 'authorID'
+        | 'id'
+        | 'content'
+        | 'organizationID'
+        | 'threadID'
+        | 'plaintext'
+        | 'createdTimestamp'
+        | 'updatedTimestamp'
+        | 'deletedTimestamp'
+      >
+    > {
+  /**
+   * The parameters for creating a thread if the supplied thread doesn't exist
+   * yet.  If the thread doesn't exist but `createThread` isn't provided, the
+   * call will generate an error.  This value is ignored if the thread already
+   * exists.
+   */
+  createThread?: CreateThreadVariables;
+}
+
 export interface ICordThreadSDK {
   /**
    * This method allows you to observe summary information about a
@@ -396,6 +444,12 @@ export interface ICordThreadSDK {
   updateThread(
     threadID: ThreadID,
     data: UpdateThreadVariables,
+  ): Promise<boolean>;
+
+  sendMessage(
+    threadID: ThreadID,
+    messageID: MessageID,
+    data: CreateMessageVariables,
   ): Promise<boolean>;
 }
 

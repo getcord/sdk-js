@@ -892,14 +892,14 @@ export default {
         type: 'string',
         format: 'date-time',
       },
-      deletedTimestamp: {
-        description:
-          'The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.',
-        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
-      },
       updatedTimestamp: {
         description:
           'The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
+      },
+      deletedTimestamp: {
+        description:
+          'The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.',
         anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
     },
@@ -915,8 +915,8 @@ export default {
       'metadata',
       'iconURL',
       'createdTimestamp',
-      'deletedTimestamp',
       'updatedTimestamp',
+      'deletedTimestamp',
     ],
     required: ['authorID', 'content', 'id'],
     definitions: {
