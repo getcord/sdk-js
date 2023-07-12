@@ -51,3 +51,26 @@ export interface NotificationCreatedWebhookPayload
 }
 
 export type WebhookTypes = keyof WebhookPayloads;
+
+export interface WebhookWrapperProperties<T extends WebhookTypes> {
+  /**
+   * The type of event.  The contents of the event property will vary depending
+   * on the event type.  See https://docs.cord.com/reference/events-webhook#Events-2
+   * for more detail about the body of each event type.
+   */
+  type: string;
+  /**
+   * The time at which this event was sent.
+   */
+  timestamp: string;
+  /**
+   * The ID for the application this event belongs to.
+   */
+  applicationID: string;
+  /**
+   * The body of the event, which will vary depending on event type.
+   * See https://docs.cord.com/reference/events-webhook#Events-2 for more
+   * detail about the body of each event type.
+   */
+  event: WebhookPayloads[T];
+}
