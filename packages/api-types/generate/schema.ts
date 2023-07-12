@@ -339,7 +339,7 @@ export default {
     properties: {
       filter: {
         description:
-          'This is a JSON object with two optional entries.\nYou may specify both or either. Threads will be matched against the filters specified.\nThis is a partial match, which means any keys other than the ones you specify are ignored\nwhen checking for a match. Please note that because this is a query parameter in a REST API,\nthis JSON object must be URI encoded before being sent.',
+          'Threads will be matched against the filters specified.\nThis is a partial match, which means any keys other than the ones you specify are ignored\nwhen checking for a match. Please note that because this is a query parameter in a REST API,\nthis JSON object must be URI encoded before being sent.',
         type: 'object',
         properties: {
           location: {
