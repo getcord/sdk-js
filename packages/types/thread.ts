@@ -439,7 +439,8 @@ export interface ICordThreadSDK {
   unobserveThreadData(ref: ListenerRef): boolean;
 
   /**
-   * Set the subscribed status for an existing thread for the current user. A subscribed user will be notified of any new thread activity.
+   * Set the subscribed status for an existing thread for the current user. A
+   * subscribed user will be notified of any new thread activity.
    * @example Overview
    * ```
    * await window.CordSDK.thread.setSubscribed('my-awesome-thread-id', false);
@@ -447,7 +448,8 @@ export interface ICordThreadSDK {
    * @param threadID - The ID of the thread.
    *
    * @param subscribed - Whether the user should be subscribed to the thread.
-   * @returns A promise resolving to a boolean representing whether the set succeeded.
+   * @returns A promise that resolves to `true` if the operation succeeded or
+   * rejects if it failed.
    */
   setSubscribed(threadID: ThreadID, subscribed: boolean): Promise<boolean>;
 
@@ -462,8 +464,8 @@ export interface ICordThreadSDK {
    * ```
    * @param threadID - The ID of the thread to update.
    * @param data - The data values that should be updated.
-   * @returns A promise resolving to a boolean representing whether the update
-   * succeeded.
+   * @returns A promise that resolves to `true` if the operation succeeded or
+   * rejects if it failed.
    */
   updateThread(
     threadID: ThreadID,
@@ -489,8 +491,8 @@ export interface ICordThreadSDK {
    * @param messageID - The ID to use for the new message.  This must be unique
    * within the application.
    * @param data - The data values for the new message.
-   * @returns A promise resolving to a boolean representing whether the message
-   * sending succeeded.
+   * @returns A promise that resolves to `true` if the operation succeeded or
+   * rejects if it failed.
    */
   sendMessage(
     threadID: ThreadID,
@@ -513,10 +515,10 @@ export interface ICordThreadSDK {
    * ```
    * @param threadID - The ID of the thread containing the message.
    * @param messageID - The ID of the message to update.
-   * @param data - The data values to update.  Any omitted values will be
-   * left at their current values.
-   * @returns A promise resolving to a boolean representing whether the message
-   * update succeeded.
+   * @param data - The data values to update.  Any omitted values will be left
+   * at their current values.
+   * @returns A promise that resolves to `true` if the operation succeeded or
+   * rejects if it failed.
    */
   updateMessage(
     threadID: ThreadID,
