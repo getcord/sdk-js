@@ -16,7 +16,7 @@ export type ThreadParticipant = ThreadParticipant_;
  * https://docs.cord.com/rest-apis/threads/
  */
 export type UpdateThreadVariables = Partial<
-  Omit<ThreadVariables, 'total' | 'participants' | 'typing'> & {
+  Omit<ThreadVariables, 'total' | 'participants' | 'typing' | 'resolved'> & {
     /**
      * Certain changes to the thread may post a message into the thread -- in
      * particular, resolving or unresolving a thread posts a message into the
@@ -31,6 +31,12 @@ export type UpdateThreadVariables = Partial<
      * be called on an interval.  Pass an empty array to clear all users' typing indicators.
      */
     typing: string[];
+    /**
+     * Whether the thread is resolved.  Setting this to `true` is equivalent to
+     * setting `resolvedTimestamp` to the current time, and setting this to
+     * `false` is equivalent to setting `resolvedTimestamp` to `null`.
+     */
+    resolved?: boolean;
   }
 >;
 
@@ -54,7 +60,14 @@ export interface CreateThreadVariables
         | 'resolvedTimestamp'
         | 'participants'
       >
-    > {}
+    > {
+  /**
+   * Whether the thread is resolved.  Setting this to `true` is equivalent to
+   * setting `resolvedTimestamp` to the current time, and setting this to
+   * `false` is equivalent to setting `resolvedTimestamp` to `null`.
+   */
+  resolved?: boolean;
+}
 
 export type ListThreadQueryParameters = {
   /**

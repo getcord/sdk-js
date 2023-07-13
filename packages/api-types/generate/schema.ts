@@ -103,7 +103,7 @@ export default {
       },
       resolved: {
         description:
-          'Whether this thread is resolved. In a GET request, this is equivalent to\n`!!resolvedTimestamp`. In a PUT request, setting this to `true` is\nequivalent to setting `resolvedTimestamp` to the current time, and setting\nthis to `false` is equivalent to setting `resolvedTimestamp` to `null`.',
+          'Whether this thread is resolved. This is equivalent to checking if\n`resolvedTimestamp` is null.',
         type: 'boolean',
       },
       resolvedTimestamp: {
@@ -251,11 +251,6 @@ export default {
         description: 'The organization ID this thread is in.',
         type: 'string',
       },
-      resolved: {
-        description:
-          'Whether this thread is resolved. In a GET request, this is equivalent to\n`!!resolvedTimestamp`. In a PUT request, setting this to `true` is\nequivalent to setting `resolvedTimestamp` to the current time, and setting\nthis to `false` is equivalent to setting `resolvedTimestamp` to `null`.',
-        type: 'boolean',
-      },
       userID: {
         description:
           'Certain changes to the thread may post a message into the thread -- in\nparticular, resolving or unresolving a thread posts a message into the\nthread saying "User un/resolved this thread". This parameter is the ID of\nthe User who will be listed as the author of that message. It\'s optional\n-- if no user is specified, then those messages won\'t get posted.',
@@ -267,6 +262,11 @@ export default {
         type: 'array',
         items: { type: 'string' },
       },
+      resolved: {
+        description:
+          'Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.',
+        type: 'boolean',
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -277,15 +277,20 @@ export default {
       'metadata',
       'resolvedTimestamp',
       'organizationID',
-      'resolved',
       'userID',
       'typing',
+      'resolved',
     ],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreateThreadVariables: {
     type: 'object',
     properties: {
+      resolved: {
+        description:
+          'Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.',
+        type: 'boolean',
+      },
       location: {
         description: 'The [location](/reference/location) of this thread.',
         type: 'object',
@@ -323,6 +328,7 @@ export default {
     },
     additionalProperties: false,
     propertyOrder: [
+      'resolved',
       'location',
       'id',
       'url',
@@ -539,10 +545,6 @@ export default {
           "A URL where the message can be seen.  This determines where a user is sent\nwhen they click on a reference to this message, such as in a notification.\nIf unset, it defaults to the thread's URL.",
         type: ['null', 'string'],
       },
-      plaintext: {
-        description: 'A plaintext version of the structured message content.',
-        type: 'string',
-      },
       metadata: {
         description:
           'Arbitrary key-value pairs that can be used to store additional information.',
@@ -581,7 +583,6 @@ export default {
       'authorID',
       'type',
       'url',
-      'plaintext',
       'metadata',
       'iconURL',
       'createdTimestamp',
@@ -620,6 +621,11 @@ export default {
             description: 'The organization ID this thread is in.',
             type: 'string',
           },
+          resolved: {
+            description:
+              'Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.',
+            type: 'boolean',
+          },
           typing: {
             description:
               'The users that are currently typing in this thread.  Typing status is\ntransient in nature, so the value is the set of users typing at a\nparticular instant, but may change rapidly.',
@@ -634,6 +640,7 @@ export default {
           'name',
           'metadata',
           'organizationID',
+          'resolved',
           'typing',
         ],
         required: ['location', 'name', 'organizationID', 'url'],
@@ -670,10 +677,6 @@ export default {
         description: 'The content of the message.',
         type: 'array',
         items: { type: 'object', properties: {}, additionalProperties: true },
-      },
-      plaintext: {
-        description: 'A plaintext version of the structured message content.',
-        type: 'string',
       },
       metadata: {
         description:
@@ -712,7 +715,6 @@ export default {
       'id',
       'url',
       'content',
-      'plaintext',
       'metadata',
       'iconURL',
       'authorID',

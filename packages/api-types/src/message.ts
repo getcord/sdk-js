@@ -10,7 +10,12 @@ export interface CreateMessageVariables
     Partial<
       Omit<
         MessageVariables,
-        'authorID' | 'id' | 'content' | 'organizationID' | 'threadID'
+        | 'authorID'
+        | 'id'
+        | 'content'
+        | 'organizationID'
+        | 'threadID'
+        | 'plaintext'
       >
     > {
   /**

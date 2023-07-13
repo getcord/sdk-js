@@ -120,10 +120,8 @@ export interface RestApiThreadData {
   total: number;
 
   /**
-   * Whether this thread is resolved. In a GET request, this is equivalent to
-   * `!!resolvedTimestamp`. In a PUT request, setting this to `true` is
-   * equivalent to setting `resolvedTimestamp` to the current time, and setting
-   * this to `false` is equivalent to setting `resolvedTimestamp` to `null`.
+   * Whether this thread is resolved. This is equivalent to checking if
+   * `resolvedTimestamp` is null.
    */
   resolved: boolean;
 
@@ -242,7 +240,14 @@ export interface UpdateThreadVariables
       RestApiThreadData,
       'name' | 'location' | 'url' | 'metadata' | 'resolved'
     >
-  > {}
+  > {
+  /**
+   * Whether the thread is resolved.  Setting this to `true` is equivalent to
+   * setting `resolvedTimestamp` to the current time, and setting this to
+   * `false` is equivalent to setting `resolvedTimestamp` to `null`.
+   */
+  resolved?: boolean;
+}
 
 export interface CreateThreadVariables
   extends Pick<RestApiThreadData, 'location' | 'url' | 'name'>,

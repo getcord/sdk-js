@@ -66,5 +66,8 @@ export interface RestApiMessageData {
 }
 
 export interface MessageData extends RestApiMessageData {
+  /**
+   * Whether the message has been seen by the current viewer.
+   */
   seen: boolean;
 }
