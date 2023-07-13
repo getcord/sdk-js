@@ -482,6 +482,11 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
+      extraClassnames: {
+        description:
+          'A optional space separated list of classnames to add to the message.',
+        type: ['null', 'string'],
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -498,12 +503,14 @@ export default {
       'iconURL',
       'type',
       'metadata',
+      'extraClassnames',
     ],
     required: [
       'authorID',
       'content',
       'createdTimestamp',
       'deletedTimestamp',
+      'extraClassnames',
       'iconURL',
       'id',
       'metadata',
@@ -574,6 +581,11 @@ export default {
           'The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.',
         anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
+      extraClassnames: {
+        description:
+          'A optional space separated list of classnames to add to the message.',
+        type: ['null', 'string'],
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -588,6 +600,7 @@ export default {
       'createdTimestamp',
       'updatedTimestamp',
       'deletedTimestamp',
+      'extraClassnames',
     ],
     required: ['authorID', 'content', 'id'],
     definitions: {
@@ -706,6 +719,11 @@ export default {
           'The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.',
         anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
+      extraClassnames: {
+        description:
+          'A optional space separated list of classnames to add to the message.',
+        type: ['null', 'string'],
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -720,6 +738,7 @@ export default {
       'authorID',
       'createdTimestamp',
       'updatedTimestamp',
+      'extraClassnames',
     ],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },

@@ -458,6 +458,10 @@
         "type": "object",
         "additionalProperties": { "type": ["string", "number", "boolean"] },
         "propertyOrder": []
+      },
+      "extraClassnames": {
+        "description": "A optional space separated list of classnames to add to the message.",
+        "type": ["null", "string"]
       }
     },
     "additionalProperties": false,
@@ -474,13 +478,15 @@
       "updatedTimestamp",
       "iconURL",
       "type",
-      "metadata"
+      "metadata",
+      "extraClassnames"
     ],
     "required": [
       "authorID",
       "content",
       "createdTimestamp",
       "deletedTimestamp",
+      "extraClassnames",
       "iconURL",
       "id",
       "metadata",
@@ -552,6 +558,10 @@
           { "type": "string", "format": "date-time" },
           { "type": "null" }
         ]
+      },
+      "extraClassnames": {
+        "description": "A optional space separated list of classnames to add to the message.",
+        "type": ["null", "string"]
       }
     },
     "additionalProperties": false,
@@ -566,7 +576,8 @@
       "iconURL",
       "createdTimestamp",
       "updatedTimestamp",
-      "deletedTimestamp"
+      "deletedTimestamp",
+      "extraClassnames"
     ],
     "required": ["authorID", "content", "id"],
     "definitions": {
@@ -681,6 +692,10 @@
           { "type": "string", "format": "date-time" },
           { "type": "null" }
         ]
+      },
+      "extraClassnames": {
+        "description": "A optional space separated list of classnames to add to the message.",
+        "type": ["null", "string"]
       }
     },
     "additionalProperties": false,
@@ -695,7 +710,8 @@
       "iconURL",
       "authorID",
       "createdTimestamp",
-      "updatedTimestamp"
+      "updatedTimestamp",
+      "extraClassnames"
     ],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },

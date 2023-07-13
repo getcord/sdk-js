@@ -63,6 +63,10 @@ export interface RestApiMessageData {
    * Arbitrary key-value pairs that can be used to store additional information.
    */
   metadata: EntityMetadata;
+  /**
+   * A optional space separated list of classnames to add to the message.
+   */
+  extraClassnames: string | null;
 }
 
 export interface MessageData extends RestApiMessageData {
