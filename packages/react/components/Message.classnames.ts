@@ -8,6 +8,9 @@ export const optionsMenuTrigger = cordifyClassname('options-menu-trigger');
 export const undoDeleteButton = cordifyClassname('undo-delete-button');
 export const deletedMessageText = cordifyClassname('deleted-message-text');
 export const deletedIcon = cordifyClassname('deleted-icon');
+export const deletedMultipleMessages = cordifyClassname(
+  'deleted-multiple-messages',
+);
 
 export const messageClassnamesDocs = {
   [message]:
