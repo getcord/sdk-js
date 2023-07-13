@@ -296,6 +296,14 @@ export interface CreateMessageVariables
   createThread?: CreateThreadVariables;
 }
 
+export interface UpdateMessageVariables
+  extends Partial<Omit<CreateMessageVariables, 'createThread'>> {
+  /**
+   * Whether to change the deleted status of this message.
+   */
+  deleted?: boolean;
+}
+
 export interface ICordThreadSDK {
   /**
    * This method allows you to observe summary information about a
@@ -488,6 +496,32 @@ export interface ICordThreadSDK {
     threadID: ThreadID,
     messageID: MessageID,
     data: CreateMessageVariables,
+  ): Promise<boolean>;
+
+  /**
+   * Update the content or properties of an existing message.  This can only be
+   * used to modify messages created by the current viewer.
+   * @example Overview
+   * ```javascript
+   * await window.CordSDK.thread.updateMessage(
+   *   'my-awesome-thread-id',
+   *   'message-42',
+   *   {
+   *     content: [{ type: 'p', children: [{ text: 'An updated message content' }]}],
+   *   }
+   * );
+   * ```
+   * @param threadID - The ID of the thread containing the message.
+   * @param messageID - The ID of the message to update.
+   * @param data - The data values to update.  Any omitted values will be
+   * left at their current values.
+   * @returns A promise resolving to a boolean representing whether the message
+   * update succeeded.
+   */
+  updateMessage(
+    threadID: ThreadID,
+    messageID: MessageID,
+    data: UpdateMessageVariables,
   ): Promise<boolean>;
 }
 
