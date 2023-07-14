@@ -18,3 +18,11 @@ export const typingIndicator = cordifyClassname('typing-indicators');
 
 // ThreadHeader
 export const threadHeader = cordifyClassname('thread-header-container');
+
+// ResolvedThreadHeader
+export const resolvedThreadHeader = cordifyClassname(
+  'resolved-thread-header-container',
+);
+export const resolvedThreadHeaderText = cordifyClassname(
+  'resolved-thread-header-text',
+);
