@@ -15,3 +15,6 @@ export const subscribed = cordifyClassname('subscribed');
 // TypingUsers
 export const typing = cordifyClassname('typing-indicator-container');
 export const typingIndicator = cordifyClassname('typing-indicators');
+
+// ThreadHeader
+export const threadHeader = cordifyClassname('thread-header-container');
