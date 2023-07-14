@@ -120,6 +120,9 @@ function makeAbsoluteURLsRelative(item) {
   if (item.definitions && typeof item.definitions === 'object') {
     Object.values(item.definitions).forEach(makeAbsoluteURLsRelative);
   }
+  if (item.items && typeof item.items === 'object') {
+    makeAbsoluteURLsRelative(item.items);
+  }
   if (item.anyOf && typeof Array.isArray(item.anyOf)) {
     item.anyOf.forEach(makeAbsoluteURLsRelative);
   }

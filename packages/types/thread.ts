@@ -96,9 +96,9 @@ export type ThreadParticipant = {
 
   /**
    * The user ID of the participant. Can be null if the current viewer no longer
-   * shares an [organization](/rest-apis/organizations) with this
-   * participant (and therefore can no longer access that participant's
-   * information).
+   * shares an [organization](https://docs.cord.com/rest-apis/organizations)
+   * with this participant (and therefore can no longer access that
+   * participant's information).
    */
   userID: UserID | null;
 };
@@ -159,7 +159,7 @@ export interface RestApiThreadData {
   url: string;
 
   /**
-   * The [location](/reference/location) of this thread.
+   * The [location](https://docs.cord.com/reference/location) of this thread.
    */
   location: Location;
 

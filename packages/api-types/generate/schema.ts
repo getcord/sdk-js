@@ -127,7 +127,7 @@ export default {
             },
             userID: {
               description:
-                "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/rest-apis/organizations) with this\nparticipant (and therefore can no longer access that participant's\ninformation).",
+                "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/rest-apis/organizations)\nwith this participant (and therefore can no longer access that\nparticipant's information).",
               type: ['null', 'string'],
             },
           },
@@ -205,7 +205,7 @@ export default {
       },
       userID: {
         description:
-          "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/rest-apis/organizations) with this\nparticipant (and therefore can no longer access that participant's\ninformation).",
+          "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/rest-apis/organizations)\nwith this participant (and therefore can no longer access that\nparticipant's information).",
         type: ['null', 'string'],
       },
     },
