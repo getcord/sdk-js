@@ -11,6 +11,7 @@ export const MODIFIERS = {
   unseen: cordifyClassname('unseen'),
   editing: cordifyClassname('editing'),
   selected: cordifyClassname('selected'),
+  subscribed: cordifyClassname('subscribed'),
   highlighted: cordifyClassname('highlighted'),
   error: cordifyClassname('error'),
   hidden: cordifyClassname('hidden'),
