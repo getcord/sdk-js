@@ -17,6 +17,7 @@ export default {
       },
       eventWebhookURL: {
         description: 'The URL that the events webhook is sent to',
+        format: 'uri',
         type: ['null', 'string'],
       },
     },
@@ -42,6 +43,7 @@ export default {
       },
       eventWebhookURL: {
         description: 'The URL that the events webhook is sent to',
+        format: 'uri',
         type: ['null', 'string'],
       },
     },
@@ -67,6 +69,7 @@ export default {
       },
       eventWebhookURL: {
         description: 'The URL that the events webhook is sent to',
+        format: 'uri',
         type: ['null', 'string'],
       },
     },

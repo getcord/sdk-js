@@ -14,6 +14,7 @@ import type {
 export interface WebhookPayloads {
   'thread-message-added': ThreadMessageAddedWebhookPayload;
   'notification-created': NotificationCreatedWebhookPayload;
+  'url-verification': URLVerificationWebhookPayload;
 }
 
 export interface ThreadMessageAddedWebhookPayload {
@@ -48,6 +49,10 @@ export interface UsersToNotify extends UserData {
 export interface NotificationCreatedWebhookPayload
   extends NotificationVariables {
   recipientUserID: string;
+}
+
+export interface URLVerificationWebhookPayload {
+  message: string;
 }
 
 export type WebhookTypes = keyof WebhookPayloads;

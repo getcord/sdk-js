@@ -17,6 +17,7 @@ export interface ApplicationData {
   iconURL: string | null;
   /**
    * The URL that the events webhook is sent to
+   * @format uri
    */
   eventWebhookURL: string | null;
 }
