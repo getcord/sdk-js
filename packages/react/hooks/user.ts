@@ -136,11 +136,6 @@ export function useUserData(
  * ```javascript
  * import { user } from '@cord-sdk/react';
  * const data = user.useViewerData();
- * ```
- * @example Usage
- * ```javascript
- * import { user } from '@cord-sdk/react';
- * const data = user.useViewerData();
  * return (
  *   <div>
  *     {!data && "Loading..."}

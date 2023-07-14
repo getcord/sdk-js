@@ -311,11 +311,6 @@ export interface ICordThreadSDK {
    * updates.
    * @example Overview
    * ```javascript
-   * const ref = window.CordSDK.thread.observeLocationSummary(location, callback, options);
-   * window.CordSDK.thread.unobserveLocationSummary(ref);
-   * ```
-   * @example Usage
-   * ```javascript
    * const ref = window.CordSDK.thread.observeLocationSummary(
    *   {page: 'document_details'},
    *   (summary) => {
@@ -359,11 +354,6 @@ export interface ICordThreadSDK {
    * as its location and number of unread messages, including live updates.
    * @example Overview
    * ```javascript
-   * const ref = window.CordSDK.thread.observeThreadSummary(threadId, callback, options);
-   * window.CordSDK.thread.unobserveThreadSummary(ref);
-   * ```
-   * @example Usage
-   * ```javascript
    * const ref = window.CordSDK.thread.observeThreadSummary(
    *   'my-awesome-thread-id',
    *   (summary) => {
@@ -396,11 +386,6 @@ export interface ICordThreadSDK {
    * This method allows you to observe detailed data about a thread, including
    * data about all the messages inside it, including live updates.
    * @example Overview
-   * ```javascript
-   * const ref = window.CordSDK.thread.observeThreadData(threadId, callback, options);
-   * window.CordSDK.thread.unobserveThreadData(ref);
-   * ```
-   * @example Usage
    * ```javascript
    * const ref = window.CordSDK.thread.observeThreadData(
    *   'my-awesome-thread-id',

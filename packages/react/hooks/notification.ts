@@ -24,12 +24,6 @@ const emptyNotificationData: NotificationData = {
  * @example Overview
  * ```javascript
  * import { notification } from '@cord-sdk/react';
- * const data = notification.useData();
- * ```
- *
- * @example Usage
- * ```javascript
- * import { notification } from '@cord-sdk/react';
  * const { notifications, loading, hasMore, fetchMore } = notification.useData();
  * return (
  *   <div>

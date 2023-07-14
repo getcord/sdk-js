@@ -164,12 +164,6 @@ export interface ICordNotificationSDK {
    *
    * @example Overview
    * ```javascript
-   * const ref = window.CordSDK.notification.observeData(callback);
-   * window.CordSDK.notification.unobserveData(ref);
-   * ```
-   *
-   * @example Usage
-   * ```javascript
    * const ref = window.CordSDK.notification.observeData(
    *   ({ notifications, loading, hasMore, fetchMore }) => {
    *     console.log('Got a notifications data update:');

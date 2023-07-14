@@ -15,11 +15,6 @@ import { useCordContext } from '../contexts/CordContext';
  * @example Overview
  * ```javascript
  * import { presence } from '@cord-sdk/react';
- * const result = presence.useLocationData(location, options);
- * ```
- * @example Usage
- * ```javascript
- * import { presence } from '@cord-sdk/react';
  * const present = presence.useLocationData(
  *   { page: "https://cord.com", block: "id123" },
  *   { exclude_durable: true },

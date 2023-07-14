@@ -22,11 +22,6 @@ import { useMemoizedLocation } from './useMemoizedLocation';
  * @example Overview
  * ```javascript
  * import { thread } from '@cord-sdk/react';
- * const summary = thread.useLocationSummary(location, options);
- * ```
- * @example Usage
- * ```javascript
- * import { thread } from '@cord-sdk/react';
  * const summary = thread.useLocationSummary({page: 'document_details'}, {partialMatch: true});
  * return (
  *   <div>
@@ -89,11 +84,6 @@ export function useLocationSummary(
  * This method allows you to observe summary information about a thread,
  * including live updates.
  * @example Overview
- * ```javascript
- * import { thread } from '@cord-sdk/react';
- * const summary = thread.useThreadSummary(threadId, options);
- * ```
- * @example Usage
  * ```javascript
  * import { thread } from '@cord-sdk/react';
  * const summary = thread.useThreadSummary('my-awesome-thread-id');
@@ -215,11 +205,6 @@ export function useLocationData(
  * This method allows you to observe detailed data about a thread, including
  * live updates.
  * @example Overview
- * ```javascript
- * import { thread } from '@cord-sdk/react';
- * const summary = thread.useThreadData(threadId, options);
- * ```
- * @example Usage
  * ```javascript
  * import { thread } from '@cord-sdk/react';
  * const { messages, loading, hasMore, fetchMore } = thread.useThreadData('my-awesome-thread-id');

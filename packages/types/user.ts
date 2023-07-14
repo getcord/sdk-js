@@ -68,10 +68,6 @@ export interface ICordUserSDK {
    * This method allows you to set notification preferences for the current viewer.
    * @example Overview
    * ```javascript
-   * window.CordSDK.user.setNotificationPreferences(NotificationPreferences);
-   * ```
-   * @example Usage
-   * ```javascript
    * window.CordSDK.user.setNotificationPreferences({ sendViaSlack: true, sendViaEmail: true});
    * ```
    * @param preferences - An object with two optional properties, `sendViaSlack` and `sendViaEmail`,
@@ -154,11 +150,6 @@ export interface ICordUserSDK {
    * This method allows you to observe data about the logged-in user, including
    * live updates.
    * @example Overview
-   * ```javascript
-   * const ref = window.CordSDK.user.observeViewerData(callback);
-   * window.CordSDK.user.unobserveViewerData(ref);
-   * ```
-   * @example Usage
    * ```javascript
    * const ref = window.CordSDK.user.observeViewerData(
    *   (data) => {

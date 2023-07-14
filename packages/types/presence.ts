@@ -123,11 +123,6 @@ export interface ICordPresenceSDK {
    * live updates.
    * @example Overview
    * ```javascript
-   * const ref = window.CordSDK.presence.observeLocationData(location, callback, options);
-   * window.CordSDK.presence.unobserveLocationData(ref);
-   * ```
-   * @example Usage
-   * ```javascript
    * const ref = window.CordSDK.presence.observeLocationData(
    *   { page: "https://cord.com", block: "id123" },
    *   (present) => present.forEach(
