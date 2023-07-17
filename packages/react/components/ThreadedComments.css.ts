@@ -55,6 +55,7 @@ globalStyle(`.${comments} :where(button.${expandReplies})`, {
     'space-2xs',
   )})`,
   margin: `0 ${cssVar('space-3xs')} 0 ${cssVar('space-2xs')}`,
+  color: cssVar('color-content-primary'),
   '--cord-facepile-avatar-size': cssVar('space-m'),
 } as CSSProperties);
 
