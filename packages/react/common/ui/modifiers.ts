@@ -1,6 +1,7 @@
 import { cordifyClassname } from '@cord-sdk/react/common/util';
 
 export const MODIFIERS = {
+  badged: cordifyClassname('badged'),
   loading: cordifyClassname('loading'),
   disabled: cordifyClassname('disabled'),
   notPresent: cordifyClassname('not-present'),
@@ -33,7 +34,7 @@ export function getModifiedSelector(
   selector: string,
 ) {
   const modifiersToApply = Array.isArray(modifiers)
-    ? modifiers.map((modifier) => MODIFIERS[modifier]).join('.')
+    ? `.${modifiers.map((modifier) => MODIFIERS[modifier]).join('.')}`
     : `.${MODIFIERS[modifiers]}`;
   return `:where(${modifiersToApply})${selector}`;
 }
