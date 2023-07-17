@@ -1,4 +1,50 @@
 {
+  "EmailSettings": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "description": "Name to show in both the subject and the body of the email.\nDefaults to your application's name.",
+        "type": ["null", "string"]
+      },
+      "imageURL": {
+        "description": "URL for your logo image. The default for this is the Cord logo.",
+        "type": ["null", "string"]
+      },
+      "sender": {
+        "description": "Email from which notifications for your service will be sent from.\nThis will default to `notifications@cord.fyi`.",
+        "format": "email",
+        "type": ["null", "string"]
+      },
+      "logoConfig": {
+        "description": "Customization for your logo size. Providing either a height (maximum 120) or\nwidth (maximum 240) will result in the image being proportionally resized to\nfit in a container of that size. The default value is `{\"width\": 140}`.",
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "width": { "minimum": 0, "maximum": 240, "type": "number" }
+            },
+            "additionalProperties": false,
+            "propertyOrder": ["width"],
+            "required": ["width"]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "height": { "minimum": 0, "maximum": 120, "type": "number" }
+            },
+            "additionalProperties": false,
+            "propertyOrder": ["height"],
+            "required": ["height"]
+          },
+          { "type": "null" }
+        ]
+      }
+    },
+    "additionalProperties": false,
+    "propertyOrder": ["name", "imageURL", "sender", "logoConfig"],
+    "required": ["imageURL", "logoConfig", "name", "sender"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
   "ApplicationData": {
     "type": "object",
     "properties": {
@@ -17,17 +63,82 @@
         "description": "The URL that the events webhook is sent to",
         "format": "uri",
         "type": ["null", "string"]
+      },
+      "redirectURI": {
+        "description": "Custom url link contained in email and slack notifications. These notifications are sent when a user is\nmentioned or thread is shared and by default, the link points to the page where the conversation happened.\nFor more information, please refer to the [API docs](/how-to/custom-redirect-link)",
+        "type": ["null", "string"]
+      },
+      "emailSettings": {
+        "description": "Email settings configuration for notifications.",
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Name to show in both the subject and the body of the email.\nDefaults to your application's name.",
+            "type": ["null", "string"]
+          },
+          "imageURL": {
+            "description": "URL for your logo image. The default for this is the Cord logo.",
+            "type": ["null", "string"]
+          },
+          "sender": {
+            "description": "Email from which notifications for your service will be sent from.\nThis will default to `notifications@cord.fyi`.",
+            "format": "email",
+            "type": ["null", "string"]
+          },
+          "logoConfig": {
+            "description": "Customization for your logo size. Providing either a height (maximum 120) or\nwidth (maximum 240) will result in the image being proportionally resized to\nfit in a container of that size. The default value is `{\"width\": 140}`.",
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "width": { "minimum": 0, "maximum": 240, "type": "number" }
+                },
+                "additionalProperties": false,
+                "propertyOrder": ["width"],
+                "required": ["width"]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "height": { "minimum": 0, "maximum": 120, "type": "number" }
+                },
+                "additionalProperties": false,
+                "propertyOrder": ["height"],
+                "required": ["height"]
+              },
+              { "type": "null" }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": ["name", "imageURL", "sender", "logoConfig"],
+        "required": ["imageURL", "logoConfig", "name", "sender"]
       }
     },
     "additionalProperties": false,
-    "propertyOrder": ["id", "name", "iconURL", "eventWebhookURL"],
-    "required": ["eventWebhookURL", "iconURL", "id", "name"],
+    "propertyOrder": [
+      "id",
+      "name",
+      "iconURL",
+      "eventWebhookURL",
+      "redirectURI",
+      "emailSettings"
+    ],
+    "required": [
+      "emailSettings",
+      "eventWebhookURL",
+      "iconURL",
+      "id",
+      "name",
+      "redirectURI"
+    ],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
   "CreateApplicationVariables": {
     "description": "https://docs.cord.com/rest-apis/applications/",
     "type": "object",
     "properties": {
+      "emailSettings": { "$ref": "#/definitions/Partial<EmailSettings>" },
       "name": {
         "description": "Name of the application",
         "minLength": 1,
@@ -42,17 +153,74 @@
         "description": "The URL that the events webhook is sent to",
         "format": "uri",
         "type": ["null", "string"]
+      },
+      "redirectURI": {
+        "description": "Custom url link contained in email and slack notifications. These notifications are sent when a user is\nmentioned or thread is shared and by default, the link points to the page where the conversation happened.\nFor more information, please refer to the [API docs](/how-to/custom-redirect-link)",
+        "type": ["null", "string"]
       }
     },
     "additionalProperties": false,
-    "propertyOrder": ["name", "iconURL", "eventWebhookURL"],
+    "propertyOrder": [
+      "emailSettings",
+      "name",
+      "iconURL",
+      "eventWebhookURL",
+      "redirectURI"
+    ],
     "required": ["name"],
+    "definitions": {
+      "Partial<EmailSettings>": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Name to show in both the subject and the body of the email.\nDefaults to your application's name.",
+            "type": ["null", "string"]
+          },
+          "imageURL": {
+            "description": "URL for your logo image. The default for this is the Cord logo.",
+            "type": ["null", "string"]
+          },
+          "sender": {
+            "description": "Email from which notifications for your service will be sent from.\nThis will default to `notifications@cord.fyi`.",
+            "format": "email",
+            "type": ["null", "string"]
+          },
+          "logoConfig": {
+            "description": "Customization for your logo size. Providing either a height (maximum 120) or\nwidth (maximum 240) will result in the image being proportionally resized to\nfit in a container of that size. The default value is `{\"width\": 140}`.",
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "width": { "minimum": 0, "maximum": 240, "type": "number" }
+                },
+                "additionalProperties": false,
+                "propertyOrder": ["width"],
+                "required": ["width"]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "height": { "minimum": 0, "maximum": 120, "type": "number" }
+                },
+                "additionalProperties": false,
+                "propertyOrder": ["height"],
+                "required": ["height"]
+              },
+              { "type": "null" }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": ["name", "imageURL", "sender", "logoConfig"]
+      }
+    },
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
   "UpdateApplicationVariables": {
     "description": "https://docs.cord.com/rest-apis/applications/",
     "type": "object",
     "properties": {
+      "emailSettings": { "$ref": "#/definitions/Partial<EmailSettings>" },
       "name": {
         "description": "Name of the application",
         "minLength": 1,
@@ -67,10 +235,66 @@
         "description": "The URL that the events webhook is sent to",
         "format": "uri",
         "type": ["null", "string"]
+      },
+      "redirectURI": {
+        "description": "Custom url link contained in email and slack notifications. These notifications are sent when a user is\nmentioned or thread is shared and by default, the link points to the page where the conversation happened.\nFor more information, please refer to the [API docs](/how-to/custom-redirect-link)",
+        "type": ["null", "string"]
       }
     },
     "additionalProperties": false,
-    "propertyOrder": ["name", "iconURL", "eventWebhookURL"],
+    "propertyOrder": [
+      "emailSettings",
+      "name",
+      "iconURL",
+      "eventWebhookURL",
+      "redirectURI"
+    ],
+    "definitions": {
+      "Partial<EmailSettings>": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Name to show in both the subject and the body of the email.\nDefaults to your application's name.",
+            "type": ["null", "string"]
+          },
+          "imageURL": {
+            "description": "URL for your logo image. The default for this is the Cord logo.",
+            "type": ["null", "string"]
+          },
+          "sender": {
+            "description": "Email from which notifications for your service will be sent from.\nThis will default to `notifications@cord.fyi`.",
+            "format": "email",
+            "type": ["null", "string"]
+          },
+          "logoConfig": {
+            "description": "Customization for your logo size. Providing either a height (maximum 120) or\nwidth (maximum 240) will result in the image being proportionally resized to\nfit in a container of that size. The default value is `{\"width\": 140}`.",
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "width": { "minimum": 0, "maximum": 240, "type": "number" }
+                },
+                "additionalProperties": false,
+                "propertyOrder": ["width"],
+                "required": ["width"]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "height": { "minimum": 0, "maximum": 120, "type": "number" }
+                },
+                "additionalProperties": false,
+                "propertyOrder": ["height"],
+                "required": ["height"]
+              },
+              { "type": "null" }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": ["name", "imageURL", "sender", "logoConfig"]
+      }
+    },
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
   "DeleteApplicationVariables": {
