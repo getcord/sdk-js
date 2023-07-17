@@ -1,6 +1,10 @@
 import type {} from '@cord-sdk/jsx';
 
-export { CordProvider, CordContext } from './contexts/CordContext';
+export {
+  CordProvider,
+  CordContext,
+  CordContextValue,
+} from './contexts/CordContext';
 export {
   MultipleCursors,
   MultipleCursorsReactComponentProps,
@@ -64,7 +68,10 @@ export { ComposerReactComponentProps, Composer } from './components/Composer';
 export { FacepileReactComponentProps, Facepile } from './components/Facepile';
 export { MessageReactComponentProps, Message } from './components/Message';
 export { Pin, PinReactComponentProps } from './components/Pin';
-export { ThreadedComments } from './components/ThreadedComments';
+export {
+  ThreadedComments,
+  ThreadedCommentsReactComponentProps,
+} from './components/ThreadedComments';
 export {
   Timestamp,
   TimestampReactComponentProps,

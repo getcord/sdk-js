@@ -201,6 +201,12 @@ export const componentAttributes = {
     relative: 'boolean',
     verbose: 'boolean',
   },
+  ThreadedComments: {
+    location: 'json',
+    'message-order': 'string',
+    'composer-position': 'string',
+    'composer-expanded': 'boolean',
+  },
 } as const;
 
 export type PropertyTypes = {

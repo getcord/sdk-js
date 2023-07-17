@@ -16,7 +16,7 @@ import useUnpackClientAuthTokenPayload from '@cord-sdk/react/hooks/useUnpackClie
 
 declare const CORD_REACT_PACKAGE_VERSION: string;
 
-type CordContextValue = {
+export type CordContextValue = {
   sdk: ICordSDK | null;
   location: Location | undefined;
   setLocation: (location: Location | undefined) => unknown;
