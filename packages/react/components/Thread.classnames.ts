@@ -29,6 +29,12 @@ export const resolvedThreadHeaderText = cordifyClassname(
 
 // CollapsedThread
 export const collapsedThread = cordifyClassname('collapsed-thread');
+
 export const threadFooterContainer = cordifyClassname(
   'thread-footer-container',
+);
+
+// LoadOlderMessages
+export const loadOlderMessages = cordifyClassname(
+  'load-older-messages-container',
 );
