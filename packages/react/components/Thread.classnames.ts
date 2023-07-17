@@ -1,6 +1,6 @@
 import { cordifyClassname } from '../common/util';
 
-export const container = cordifyClassname('cord-thread-container');
+export const container = cordifyClassname('thread-container');
 export const inlineThread = cordifyClassname('inline-thread');
 
 // MessageBlock
