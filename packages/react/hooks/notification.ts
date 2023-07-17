@@ -1,4 +1,8 @@
-import type { NotificationData, NotificationSummary } from '@cord-sdk/types';
+import type {
+  NotificationData,
+  NotificationSummary,
+  ObserveNotificationDataOptions,
+} from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 import { useNotificationSummaryInternal } from './useNotificationSummaryInternal';
@@ -24,7 +28,9 @@ const emptyNotificationData: NotificationData = {
  * @example Overview
  * ```javascript
  * import { notification } from '@cord-sdk/react';
- * const { notifications, loading, hasMore, fetchMore } = notification.useData();
+ * const { notifications, loading, hasMore, fetchMore } = notification.useData(
+ *   filter: { metadata: { flavor: 'minty' } } },
+ * );
  * return (
  *   <div>
  *     {notifications.map((notification) => (
@@ -41,11 +47,15 @@ const emptyNotificationData: NotificationData = {
  * );
  * ```
  *
+ * @param options - Miscellaneous options. See below.
+ *
  * @returns The hook will return an object containing the fields described under
  * "Available Data" above. The component will automatically re-render if any of
  * the data changes, i.e., this data is always "live".
  */
-export function useData(): NotificationData {
+export function useData(
+  options?: ObserveNotificationDataOptions,
+): NotificationData {
   const [data, setData] = useState<NotificationData | null>(null);
 
   const { sdk } = useCordContext('useData');
@@ -56,12 +66,12 @@ export function useData(): NotificationData {
       return;
     }
 
-    const key = notificationSDK.observeData(setData);
+    const key = notificationSDK.observeData(setData, options);
 
     return () => {
       notificationSDK.unobserveData(key);
     };
-  }, [notificationSDK]);
+  }, [notificationSDK, options]);
 
   return data ?? emptyNotificationData;
 }

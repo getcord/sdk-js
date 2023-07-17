@@ -151,6 +151,19 @@ export type NotificationDataUpdateCallback = (
   data: NotificationData,
 ) => unknown;
 
+export type NotificationListFilter = { metadata: EntityMetadata };
+
+export interface ObserveNotificationDataOptions {
+  /**
+   * An object that can be used to filter the notifications returned.  Currently
+   * the only valid key is `metadata`. The value for a `metadata` entry should
+   * be an object representing the metadata key/value to filter on.  For
+   * example, to show only notifications with the metadata key of `"category"`
+   * set to `"sales"`, set the filter to `{ metadata: { category: "sales" } }`.
+   */
+  filter?: NotificationListFilter;
+}
+
 export interface ICordNotificationSDK {
   observeSummary(
     callback: NotificationSummaryUpdateCallback,
@@ -177,7 +190,8 @@ export interface ICordNotificationSDK {
    *       // Get the first 25 notifications, 10 at a time.
    *       fetchMore(10);
    *     }
-   *   }
+   *   },
+   *   { filter: { metadata: { flavor: 'minty' } } },
    * );
    * ```
    *
@@ -186,10 +200,15 @@ export interface ICordNotificationSDK {
    * passed to the callback is an object which will contain the fields described
    * under "Available Data" above.
    *
+   * @param options - Miscellaneous options.
+   *
    * @returns A reference number which can be passed to `unobserveData` to stop
    * observing notification data information.
    */
-  observeData(callback: NotificationDataUpdateCallback): ListenerRef;
+  observeData(
+    callback: NotificationDataUpdateCallback,
+    options?: ObserveNotificationDataOptions,
+  ): ListenerRef;
   unobserveData(ref: ListenerRef): boolean;
 
   /**
