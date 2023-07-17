@@ -37,8 +37,13 @@ export type CustomRenderers = Record<
   (m: Record<string, unknown>) => HTMLElement
 >;
 
-export type CordSDKOptions = {
+export type CordSDKInitOptions = CordSDKOptions & {
   client_auth_token?: string;
+  react_package_version?: string;
+  onInitError?: InitErrorCallback;
+};
+
+export type CordSDKOptions = {
   navigate?: NavigateFn | null;
   enable_tasks?: boolean;
   enable_annotations?: boolean;
@@ -53,11 +58,9 @@ export type CordSDKOptions = {
    * @deprecated The annotation_mode prop has been superseded by enable_annotations
    */
   annotation_mode?: AnnotationMode;
-  react_package_version?: string;
   thread_options?: ThreadOptions;
   screenshot_options?: ScreenshotOptions;
   custom_renderers?: CustomRenderers;
-  onInitError?: InitErrorCallback;
   custom_event_metadata?: JsonObject;
 };
 
@@ -143,7 +146,7 @@ export interface ICordAnnotationSDK {
 }
 
 export interface ICordSDK {
-  init(options: CordSDKOptions): Promise<void>;
+  init(options: CordSDKInitOptions): Promise<void>;
   destroy(): void;
   addMonacoEditor(id: string, monacoEditor: unknown): void;
   removeMonacoEditor(id: string): void;
