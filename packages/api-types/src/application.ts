@@ -10,7 +10,7 @@ export type EmailSettings = {
   imageURL: string | null;
   /**
    * Email from which notifications for your service will be sent from.
-   * This will default to `notifications@cord.fyi`.
+   * This will use the provided name for your application to default to `<applicationname>-notifications@cord.fyi`.
    * @format email
    */
   sender: string | null;

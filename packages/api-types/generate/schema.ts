@@ -15,7 +15,7 @@ export default {
       },
       sender: {
         description:
-          'Email from which notifications for your service will be sent from.\nThis will default to `notifications@cord.fyi`.',
+          'Email from which notifications for your service will be sent from.\nThis will use the provided name for your application to default to `<applicationname>-notifications@cord.fyi`.',
         format: 'email',
         type: ['null', 'string'],
       },
@@ -74,7 +74,7 @@ export default {
         type: ['null', 'string'],
       },
       emailSettings: {
-        description: 'Email settings configuration for notifications.',
+        description: 'Email settings for notifications.',
         type: 'object',
         properties: {
           name: {
@@ -89,7 +89,7 @@ export default {
           },
           sender: {
             description:
-              'Email from which notifications for your service will be sent from.\nThis will default to `notifications@cord.fyi`.',
+              'Email from which notifications for your service will be sent from.\nThis will use the provided name for your application to default to `<applicationname>-notifications@cord.fyi`.',
             format: 'email',
             type: ['null', 'string'],
           },
@@ -195,7 +195,7 @@ export default {
           },
           sender: {
             description:
-              'Email from which notifications for your service will be sent from.\nThis will default to `notifications@cord.fyi`.',
+              'Email from which notifications for your service will be sent from.\nThis will use the provided name for your application to default to `<applicationname>-notifications@cord.fyi`.',
             format: 'email',
             type: ['null', 'string'],
           },
@@ -282,7 +282,7 @@ export default {
           },
           sender: {
             description:
-              'Email from which notifications for your service will be sent from.\nThis will default to `notifications@cord.fyi`.',
+              'Email from which notifications for your service will be sent from.\nThis will use the provided name for your application to default to `<applicationname>-notifications@cord.fyi`.',
             format: 'email',
             type: ['null', 'string'],
           },
