@@ -26,3 +26,6 @@ export const resolvedThreadHeader = cordifyClassname(
 export const resolvedThreadHeaderText = cordifyClassname(
   'resolved-thread-header-text',
 );
+
+// CollapsedThread
+export const collapsedThread = cordifyClassname('collapsed-thread');
