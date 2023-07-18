@@ -103,7 +103,7 @@ export type UserPresenceInformation = {
 export type PresenceUpdateCallback = (present: UserLocationData[]) => unknown;
 
 export interface ICordPresenceSDK {
-  setPresent(location: Location, options?: SetPresentOptions): void;
+  setPresent(location: Location, options?: SetPresentOptions): Promise<true>;
   getPresent(
     matcher: Location,
     options?: GetPresentOptions,

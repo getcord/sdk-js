@@ -72,11 +72,12 @@ export interface ICordUserSDK {
    * ```
    * @param preferences - An object with two optional properties, `sendViaSlack` and `sendViaEmail`,
    * to specify the new notification preferences for the viewer.
-   * @returns A promise that can be used to check the status of the request.
+   * @returns A promise that resolves to `true` if the operation succeeded or
+   * rejects if it failed.
    */
   setNotificationPreferences(
     preferences: Partial<NotificationPreferences>,
-  ): Promise<void>;
+  ): Promise<true>;
   /**
    * This method allows you to observe data about a user, including live
    * updates.

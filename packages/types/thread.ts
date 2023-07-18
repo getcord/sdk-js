@@ -436,7 +436,7 @@ export interface ICordThreadSDK {
    * @returns A promise that resolves to `true` if the operation succeeded or
    * rejects if it failed.
    */
-  setSubscribed(threadID: ThreadID, subscribed: boolean): Promise<boolean>;
+  setSubscribed(threadID: ThreadID, subscribed: boolean): Promise<true>;
 
   /**
    * Update an existing thread with new data.
@@ -452,10 +452,7 @@ export interface ICordThreadSDK {
    * @returns A promise that resolves to `true` if the operation succeeded or
    * rejects if it failed.
    */
-  updateThread(
-    threadID: ThreadID,
-    data: UpdateThreadVariables,
-  ): Promise<boolean>;
+  updateThread(threadID: ThreadID, data: UpdateThreadVariables): Promise<true>;
 
   /**
    * Add a new message to a thread.  The message will be authored by the current
@@ -483,7 +480,7 @@ export interface ICordThreadSDK {
     threadID: ThreadID,
     messageID: MessageID,
     data: CreateMessageVariables,
-  ): Promise<boolean>;
+  ): Promise<true>;
 
   /**
    * Update the content or properties of an existing message.  This can only be
@@ -509,7 +506,7 @@ export interface ICordThreadSDK {
     threadID: ThreadID,
     messageID: MessageID,
     data: UpdateMessageVariables,
-  ): Promise<boolean>;
+  ): Promise<true>;
 }
 
 /**
