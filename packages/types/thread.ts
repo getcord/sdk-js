@@ -236,10 +236,7 @@ export type LocationDataCallback = (data: LocationData) => unknown;
 
 export interface UpdateThreadVariables
   extends Partial<
-    Pick<
-      RestApiThreadData,
-      'name' | 'location' | 'url' | 'metadata' | 'resolved'
-    >
+    Pick<RestApiThreadData, 'name' | 'url' | 'metadata' | 'resolved'>
   > {
   /**
    * Whether the thread is resolved.  Setting this to `true` is equivalent to
