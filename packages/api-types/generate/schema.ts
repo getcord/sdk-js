@@ -52,6 +52,11 @@ export default {
     type: 'object',
     properties: {
       id: { description: 'The ID for the application.', type: 'string' },
+      secret: {
+        description:
+          'The secret key for the application.  Please treat securely as access to this will allow someone to take\nactions as if they are the application.',
+        type: 'string',
+      },
       name: {
         description: 'Name of the application',
         minLength: 1,
@@ -127,6 +132,7 @@ export default {
     additionalProperties: false,
     propertyOrder: [
       'id',
+      'secret',
       'name',
       'iconURL',
       'eventWebhookURL',
@@ -140,6 +146,7 @@ export default {
       'id',
       'name',
       'redirectURI',
+      'secret',
     ],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },

@@ -43,6 +43,11 @@ export interface ApplicationData {
    */
   id: string;
   /**
+   * The secret key for the application.  Please treat securely as access to this will allow someone to take
+   * actions as if they are the application.
+   */
+  secret: string;
+  /**
    * Name of the application
    * @minLength 1
    */
@@ -76,7 +81,7 @@ export interface ApplicationData {
  */
 export interface CreateApplicationVariables
   extends Pick<ApplicationData, 'name'>,
-    Partial<Omit<ApplicationData, 'id' | 'name' | 'emailSettings'>> {
+    Partial<Omit<ApplicationData, 'id' | 'secret' | 'name' | 'emailSettings'>> {
   emailSettings?: Partial<EmailSettings>;
 }
 
