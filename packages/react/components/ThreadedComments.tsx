@@ -331,6 +331,7 @@ function ViewerAvatarWithComposer({
         showCloseButton
         onClose={() => setShowingReplyComposer(false)}
         size={'small'}
+        autofocus
       />
     </div>
   );
