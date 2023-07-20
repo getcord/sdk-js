@@ -1,6 +1,9 @@
 import { cordifyClassname } from '../common/util';
 
 export const notificationContainer = cordifyClassname('notification-container');
+
+export const notificationMessage = cordifyClassname('notification-message');
+
 export const notificationIconContainer = cordifyClassname(
   'notification-icon-container',
 );
