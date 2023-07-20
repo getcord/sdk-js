@@ -738,6 +738,11 @@ export default {
           'A optional space separated list of classnames to add to the message.',
         type: ['null', 'string'],
       },
+      attachments: {
+        description: 'The items attached to this message.',
+        type: 'array',
+        items: { $ref: '#/definitions/MessageFileAttachment' },
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -755,8 +760,10 @@ export default {
       'type',
       'metadata',
       'extraClassnames',
+      'attachments',
     ],
     required: [
+      'attachments',
       'authorID',
       'content',
       'createdTimestamp',
@@ -772,6 +779,63 @@ export default {
       'updatedTimestamp',
       'url',
     ],
+    definitions: {
+      MessageFileAttachment: {
+        description: 'A file attached to this message.',
+        type: 'object',
+        properties: {
+          id: { description: 'The ID of this attachment.', type: 'string' },
+          type: {
+            description:
+              'The type of this attachment, which is always `file` for file attachments.',
+            type: 'string',
+            enum: ['file'],
+          },
+          name: {
+            description: 'The name of the file that was attached.',
+            type: 'string',
+          },
+          url: {
+            description:
+              'The URL that a user can use to download the file.  This is a signed URL\nthat will expire after 24 hours.',
+            type: 'string',
+          },
+          mimeType: {
+            description: 'The MIME type of the file.',
+            type: 'string',
+          },
+          size: {
+            description: 'The size of the file, in bytes.',
+            type: 'number',
+          },
+          uploadStatus: {
+            description:
+              'The status of the file upload.  `uploading` means that the user has not yet\ncompleted uploading the file, `uploaded` means the file is successfully\nuploaded, `failed` means the upload encountered an error, and `cancelled`\nmeans the user cancelled the upload before it was finished.',
+            enum: ['cancelled', 'failed', 'uploaded', 'uploading'],
+            type: 'string',
+          },
+        },
+        additionalProperties: false,
+        propertyOrder: [
+          'id',
+          'type',
+          'name',
+          'url',
+          'mimeType',
+          'size',
+          'uploadStatus',
+        ],
+        required: [
+          'id',
+          'mimeType',
+          'name',
+          'size',
+          'type',
+          'uploadStatus',
+          'url',
+        ],
+      },
+    },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreateMessageVariables: {
@@ -837,6 +901,11 @@ export default {
           'A optional space separated list of classnames to add to the message.',
         type: ['null', 'string'],
       },
+      attachments: {
+        description: 'The items attached to this message.',
+        type: 'array',
+        items: { $ref: '#/definitions/MessageFileAttachment' },
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -852,6 +921,7 @@ export default {
       'updatedTimestamp',
       'deletedTimestamp',
       'extraClassnames',
+      'attachments',
     ],
     required: ['authorID', 'content', 'id'],
     definitions: {
@@ -908,6 +978,61 @@ export default {
           'typing',
         ],
         required: ['location', 'name', 'organizationID', 'url'],
+      },
+      MessageFileAttachment: {
+        description: 'A file attached to this message.',
+        type: 'object',
+        properties: {
+          id: { description: 'The ID of this attachment.', type: 'string' },
+          type: {
+            description:
+              'The type of this attachment, which is always `file` for file attachments.',
+            type: 'string',
+            enum: ['file'],
+          },
+          name: {
+            description: 'The name of the file that was attached.',
+            type: 'string',
+          },
+          url: {
+            description:
+              'The URL that a user can use to download the file.  This is a signed URL\nthat will expire after 24 hours.',
+            type: 'string',
+          },
+          mimeType: {
+            description: 'The MIME type of the file.',
+            type: 'string',
+          },
+          size: {
+            description: 'The size of the file, in bytes.',
+            type: 'number',
+          },
+          uploadStatus: {
+            description:
+              'The status of the file upload.  `uploading` means that the user has not yet\ncompleted uploading the file, `uploaded` means the file is successfully\nuploaded, `failed` means the upload encountered an error, and `cancelled`\nmeans the user cancelled the upload before it was finished.',
+            enum: ['cancelled', 'failed', 'uploaded', 'uploading'],
+            type: 'string',
+          },
+        },
+        additionalProperties: false,
+        propertyOrder: [
+          'id',
+          'type',
+          'name',
+          'url',
+          'mimeType',
+          'size',
+          'uploadStatus',
+        ],
+        required: [
+          'id',
+          'mimeType',
+          'name',
+          'size',
+          'type',
+          'uploadStatus',
+          'url',
+        ],
       },
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
@@ -975,6 +1100,11 @@ export default {
           'A optional space separated list of classnames to add to the message.',
         type: ['null', 'string'],
       },
+      attachments: {
+        description: 'The items attached to this message.',
+        type: 'array',
+        items: { $ref: '#/definitions/MessageFileAttachment' },
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -990,7 +1120,65 @@ export default {
       'createdTimestamp',
       'updatedTimestamp',
       'extraClassnames',
+      'attachments',
     ],
+    definitions: {
+      MessageFileAttachment: {
+        description: 'A file attached to this message.',
+        type: 'object',
+        properties: {
+          id: { description: 'The ID of this attachment.', type: 'string' },
+          type: {
+            description:
+              'The type of this attachment, which is always `file` for file attachments.',
+            type: 'string',
+            enum: ['file'],
+          },
+          name: {
+            description: 'The name of the file that was attached.',
+            type: 'string',
+          },
+          url: {
+            description:
+              'The URL that a user can use to download the file.  This is a signed URL\nthat will expire after 24 hours.',
+            type: 'string',
+          },
+          mimeType: {
+            description: 'The MIME type of the file.',
+            type: 'string',
+          },
+          size: {
+            description: 'The size of the file, in bytes.',
+            type: 'number',
+          },
+          uploadStatus: {
+            description:
+              'The status of the file upload.  `uploading` means that the user has not yet\ncompleted uploading the file, `uploaded` means the file is successfully\nuploaded, `failed` means the upload encountered an error, and `cancelled`\nmeans the user cancelled the upload before it was finished.',
+            enum: ['cancelled', 'failed', 'uploaded', 'uploading'],
+            type: 'string',
+          },
+        },
+        additionalProperties: false,
+        propertyOrder: [
+          'id',
+          'type',
+          'name',
+          'url',
+          'mimeType',
+          'size',
+          'uploadStatus',
+        ],
+        required: [
+          'id',
+          'mimeType',
+          'name',
+          'size',
+          'type',
+          'uploadStatus',
+          'url',
+        ],
+      },
+    },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   ListMessageParameters: {

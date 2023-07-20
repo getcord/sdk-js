@@ -1,5 +1,45 @@
 import type { EntityMetadata } from './core';
 
+/**
+ * A file attached to this message.
+ */
+export interface MessageFileAttachment {
+  /**
+   * The ID of this attachment.
+   */
+  id: string;
+  /**
+   * The type of this attachment, which is always `file` for file attachments.
+   */
+  type: 'file';
+  /**
+   * The name of the file that was attached.
+   */
+  name: string;
+  /**
+   * The URL that a user can use to download the file.  This is a signed URL
+   * that will expire after 24 hours.
+   */
+  url: string;
+  /**
+   * The MIME type of the file.
+   */
+  mimeType: string;
+  /**
+   * The size of the file, in bytes.
+   */
+  size: number;
+  /**
+   * The status of the file upload.  `uploading` means that the user has not yet
+   * completed uploading the file, `uploaded` means the file is successfully
+   * uploaded, `failed` means the upload encountered an error, and `cancelled`
+   * means the user cancelled the upload before it was finished.
+   */
+  uploadStatus: 'uploading' | 'uploaded' | 'failed' | 'cancelled';
+}
+
+export type MessageAttachment = MessageFileAttachment;
+
 export interface RestApiMessageData {
   /**
    * The ID for the message.
@@ -67,6 +107,10 @@ export interface RestApiMessageData {
    * A optional space separated list of classnames to add to the message.
    */
   extraClassnames: string | null;
+  /**
+   * The items attached to this message.
+   */
+  attachments: MessageAttachment[];
 }
 
 export interface MessageData extends RestApiMessageData {
