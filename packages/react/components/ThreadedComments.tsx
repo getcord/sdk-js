@@ -132,7 +132,11 @@ function CommentsThread({
       <Message
         messageId={threadSummary.firstMessage?.id}
         threadId={threadId}
-        markAsSeen={false}
+        // Marking a single message as seen is not available just yet. When
+        // we have a thread with no replies, we shouldn't be stuck in unread
+        // state. If the message has replies, we can wait for the user to open
+        // the replies to mark it as seen.
+        markAsSeen={threadSummary.total === 1}
         onClick={() =>
           onMessageClick?.({
             threadId,
