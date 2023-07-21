@@ -164,6 +164,17 @@ export interface ObserveNotificationDataOptions {
   filter?: NotificationListFilter;
 }
 
+export interface MarkAllNotificationsAsReadOptions {
+  /**
+   * An object that can be used to filter the notifications marked as read.
+   * Currently the only valid key is `metadata`. The value for a `metadata`
+   * entry should be an object representing the metadata key/value to filter on.
+   * For example, to show only notifications with the metadata key of
+   * `"category"` set to `"sales"`, set the filter to `{ metadata: { category: "sales" } }`.
+   */
+  filter?: NotificationListFilter;
+}
+
 export interface ICordNotificationSDK {
   observeSummary(
     callback: NotificationSummaryUpdateCallback,
@@ -210,6 +221,36 @@ export interface ICordNotificationSDK {
     options?: ObserveNotificationDataOptions,
   ): ListenerRef;
   unobserveData(ref: ListenerRef): boolean;
+
+  /**
+   * Mark a specific notification as read.
+   *
+   * @example Usage
+   * ```javascript
+   * window.CordSDK.notification.markAsRead('my-awesome-notification-id');
+   * ```
+   *
+   * @param notificationID - The ID of the notification to mark as read.
+   *
+   * @returns A promise which resolves when the database write has completed.
+   */
+  markAsRead(notificationID: string): Promise<void>;
+
+  /**
+   * Mark all notifications as read (that, optionally, match a filter).
+   *
+   * @example Usage
+   * ```javascript
+   * window.CordSDK.notification.markAllAsRead(
+   *   { filter: { metadata: { flavor: 'minty' } } },
+   * );
+   * ```
+   *
+   * @param options - Miscellaneous options.
+   *
+   * @returns A promise which resolves when the database writes have completed.
+   */
+  markAllAsRead(options?: MarkAllNotificationsAsReadOptions): Promise<void>;
 
   /**
    * @deprecated Renamed to unobserveSummary.
