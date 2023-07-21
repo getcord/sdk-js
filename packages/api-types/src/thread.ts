@@ -59,6 +59,8 @@ export interface CreateThreadVariables
         | 'resolved'
         | 'resolvedTimestamp'
         | 'participants'
+        | 'repliers'
+        | 'typing'
       >
     > {
   /**

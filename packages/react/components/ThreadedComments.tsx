@@ -212,10 +212,7 @@ function CollapsedReplies({
           onClick={() => setShowingReplies(true)}
           type="button"
         >
-          <Facepile
-            users={threadSummary.participants.map((p) => p.userID ?? '')}
-            enableTooltip={false}
-          />
+          <Facepile users={threadSummary.repliers} enableTooltip={false} />
           {hasUnread
             ? pluralize(unreadNumber, 'new reply', 'new replies')
             : pluralize(replyNumber, 'reply', 'replies')}

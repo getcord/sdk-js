@@ -137,6 +137,11 @@ export interface RestApiThreadData {
   participants: ThreadParticipant[];
 
   /**
+   * All of the users who have replied to this thread.
+   */
+  repliers: UserID[];
+
+  /**
    * The users that are currently typing in this thread.  Typing status is
    * transient in nature, so the value is the set of users typing at a
    * particular instant, but may change rapidly.
@@ -262,6 +267,7 @@ export interface CreateThreadVariables
         | 'resolved'
         | 'resolvedTimestamp'
         | 'participants'
+        | 'repliers'
         | 'typing'
       >
     > {}

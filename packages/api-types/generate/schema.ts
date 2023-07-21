@@ -387,6 +387,11 @@ export default {
           required: ['lastSeenTimestamp', 'userID'],
         },
       },
+      repliers: {
+        description: 'All of the users who have replied to this thread.',
+        type: 'array',
+        items: { type: 'string' },
+      },
       typing: {
         description:
           'The users that are currently typing in this thread.  Typing status is\ntransient in nature, so the value is the set of users typing at a\nparticular instant, but may change rapidly.',
@@ -425,6 +430,7 @@ export default {
       'resolved',
       'resolvedTimestamp',
       'participants',
+      'repliers',
       'typing',
       'name',
       'url',
@@ -438,6 +444,7 @@ export default {
       'name',
       'organizationID',
       'participants',
+      'repliers',
       'resolved',
       'resolvedTimestamp',
       'total',
@@ -502,6 +509,11 @@ export default {
         description: 'The organization ID this thread is in.',
         type: 'string',
       },
+      repliers: {
+        description: 'All of the users who have replied to this thread.',
+        type: 'array',
+        items: { type: 'string' },
+      },
       userID: {
         description:
           'Certain changes to the thread may post a message into the thread -- in\nparticular, resolving or unresolving a thread posts a message into the\nthread saying "User un/resolved this thread". This parameter is the ID of\nthe User who will be listed as the author of that message. It\'s optional\n-- if no user is specified, then those messages won\'t get posted.',
@@ -528,6 +540,7 @@ export default {
       'metadata',
       'resolvedTimestamp',
       'organizationID',
+      'repliers',
       'userID',
       'typing',
       'resolved',
@@ -570,12 +583,6 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
-      typing: {
-        description:
-          'The users that are currently typing in this thread.  Typing status is\ntransient in nature, so the value is the set of users typing at a\nparticular instant, but may change rapidly.',
-        type: 'array',
-        items: { type: 'string' },
-      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -586,7 +593,6 @@ export default {
       'name',
       'organizationID',
       'metadata',
-      'typing',
     ],
     required: ['id', 'location', 'name', 'organizationID', 'url'],
     $schema: 'http://json-schema.org/draft-07/schema#',
@@ -1007,12 +1013,6 @@ export default {
               'Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.',
             type: 'boolean',
           },
-          typing: {
-            description:
-              'The users that are currently typing in this thread.  Typing status is\ntransient in nature, so the value is the set of users typing at a\nparticular instant, but may change rapidly.',
-            type: 'array',
-            items: { type: 'string' },
-          },
         },
         additionalProperties: false,
         propertyOrder: [
@@ -1022,7 +1022,6 @@ export default {
           'metadata',
           'organizationID',
           'resolved',
-          'typing',
         ],
         required: ['location', 'name', 'organizationID', 'url'],
       },
