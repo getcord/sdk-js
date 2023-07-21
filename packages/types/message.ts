@@ -1,4 +1,19 @@
-import type { EntityMetadata } from './core';
+import type { EntityMetadata, UserID } from './core';
+
+export type Reaction = {
+  /**
+   * The emoji reaction.
+   */
+  reaction: string;
+  /**
+   * The ID of the user who reacted to the message.
+   */
+  userID: UserID;
+  /**
+   *  The timestamp of when the reaction was created.
+   */
+  timestamp: Date;
+};
 
 /**
  * A file attached to this message.
@@ -111,6 +126,10 @@ export interface RestApiMessageData {
    * The items attached to this message.
    */
   attachments: MessageAttachment[];
+  /**
+   * The reactions to this message.
+   */
+  reactions: Reaction[];
 }
 
 export interface MessageData extends RestApiMessageData {

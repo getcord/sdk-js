@@ -743,6 +743,28 @@ export default {
         type: 'array',
         items: { $ref: '#/definitions/MessageFileAttachment' },
       },
+      reactions: {
+        description: 'The reactions to this message.',
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            reaction: { description: 'The emoji reaction.', type: 'string' },
+            userID: {
+              description: 'The ID of the user who reacted to the message.',
+              type: 'string',
+            },
+            timestamp: {
+              description: 'The timestamp of when the reaction was created.',
+              type: 'string',
+              format: 'date-time',
+            },
+          },
+          additionalProperties: false,
+          propertyOrder: ['reaction', 'userID', 'timestamp'],
+          required: ['reaction', 'timestamp', 'userID'],
+        },
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -761,6 +783,7 @@ export default {
       'metadata',
       'extraClassnames',
       'attachments',
+      'reactions',
     ],
     required: [
       'attachments',
@@ -774,6 +797,7 @@ export default {
       'metadata',
       'organizationID',
       'plaintext',
+      'reactions',
       'threadID',
       'type',
       'updatedTimestamp',
@@ -906,6 +930,28 @@ export default {
         type: 'array',
         items: { $ref: '#/definitions/MessageFileAttachment' },
       },
+      reactions: {
+        description: 'The reactions to this message.',
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            reaction: { description: 'The emoji reaction.', type: 'string' },
+            userID: {
+              description: 'The ID of the user who reacted to the message.',
+              type: 'string',
+            },
+            timestamp: {
+              description: 'The timestamp of when the reaction was created.',
+              type: 'string',
+              format: 'date-time',
+            },
+          },
+          additionalProperties: false,
+          propertyOrder: ['reaction', 'userID', 'timestamp'],
+          required: ['reaction', 'timestamp', 'userID'],
+        },
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -922,6 +968,7 @@ export default {
       'deletedTimestamp',
       'extraClassnames',
       'attachments',
+      'reactions',
     ],
     required: ['authorID', 'content', 'id'],
     definitions: {
@@ -1105,6 +1152,28 @@ export default {
         type: 'array',
         items: { $ref: '#/definitions/MessageFileAttachment' },
       },
+      reactions: {
+        description: 'The reactions to this message.',
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            reaction: { description: 'The emoji reaction.', type: 'string' },
+            userID: {
+              description: 'The ID of the user who reacted to the message.',
+              type: 'string',
+            },
+            timestamp: {
+              description: 'The timestamp of when the reaction was created.',
+              type: 'string',
+              format: 'date-time',
+            },
+          },
+          additionalProperties: false,
+          propertyOrder: ['reaction', 'userID', 'timestamp'],
+          required: ['reaction', 'timestamp', 'userID'],
+        },
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -1121,6 +1190,7 @@ export default {
       'updatedTimestamp',
       'extraClassnames',
       'attachments',
+      'reactions',
     ],
     definitions: {
       MessageFileAttachment: {

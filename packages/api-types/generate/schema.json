@@ -700,6 +700,31 @@
         "description": "The items attached to this message.",
         "type": "array",
         "items": { "$ref": "#/definitions/MessageFileAttachment" }
+      },
+      "reactions": {
+        "description": "The reactions to this message.",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "reaction": {
+              "description": "The emoji reaction.",
+              "type": "string"
+            },
+            "userID": {
+              "description": "The ID of the user who reacted to the message.",
+              "type": "string"
+            },
+            "timestamp": {
+              "description": "The timestamp of when the reaction was created.",
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "additionalProperties": false,
+          "propertyOrder": ["reaction", "userID", "timestamp"],
+          "required": ["reaction", "timestamp", "userID"]
+        }
       }
     },
     "additionalProperties": false,
@@ -718,7 +743,8 @@
       "type",
       "metadata",
       "extraClassnames",
-      "attachments"
+      "attachments",
+      "reactions"
     ],
     "required": [
       "attachments",
@@ -732,6 +758,7 @@
       "metadata",
       "organizationID",
       "plaintext",
+      "reactions",
       "threadID",
       "type",
       "updatedTimestamp",
@@ -864,6 +891,31 @@
         "description": "The items attached to this message.",
         "type": "array",
         "items": { "$ref": "#/definitions/MessageFileAttachment" }
+      },
+      "reactions": {
+        "description": "The reactions to this message.",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "reaction": {
+              "description": "The emoji reaction.",
+              "type": "string"
+            },
+            "userID": {
+              "description": "The ID of the user who reacted to the message.",
+              "type": "string"
+            },
+            "timestamp": {
+              "description": "The timestamp of when the reaction was created.",
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "additionalProperties": false,
+          "propertyOrder": ["reaction", "userID", "timestamp"],
+          "required": ["reaction", "timestamp", "userID"]
+        }
       }
     },
     "additionalProperties": false,
@@ -880,7 +932,8 @@
       "updatedTimestamp",
       "deletedTimestamp",
       "extraClassnames",
-      "attachments"
+      "attachments",
+      "reactions"
     ],
     "required": ["authorID", "content", "id"],
     "definitions": {
@@ -1059,6 +1112,31 @@
         "description": "The items attached to this message.",
         "type": "array",
         "items": { "$ref": "#/definitions/MessageFileAttachment" }
+      },
+      "reactions": {
+        "description": "The reactions to this message.",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "reaction": {
+              "description": "The emoji reaction.",
+              "type": "string"
+            },
+            "userID": {
+              "description": "The ID of the user who reacted to the message.",
+              "type": "string"
+            },
+            "timestamp": {
+              "description": "The timestamp of when the reaction was created.",
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "additionalProperties": false,
+          "propertyOrder": ["reaction", "userID", "timestamp"],
+          "required": ["reaction", "timestamp", "userID"]
+        }
       }
     },
     "additionalProperties": false,
@@ -1075,7 +1153,8 @@
       "createdTimestamp",
       "updatedTimestamp",
       "extraClassnames",
-      "attachments"
+      "attachments",
+      "reactions"
     ],
     "definitions": {
       "MessageFileAttachment": {
