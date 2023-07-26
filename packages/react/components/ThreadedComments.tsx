@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { pluralize } from '../common/util';
 import * as user from '../hooks/user';
 import * as thread from '../hooks/thread';
+import { useExtraClassnames } from '../hooks/useExtraClassnames';
 import * as fonts from '../common/ui/atomicClasses/fonts.css';
 import { MODIFIERS } from '../common/ui/modifiers';
 import { useCallFunctionOnce } from '../common/effects/useCallFunctionOnce';
@@ -67,6 +68,7 @@ export function ThreadedComments({
   const renderedThreads = threads.map((oneThread) => (
     <CommentsThread
       key={oneThread.id}
+      threadExtraClassnames={oneThread.extraClassnames}
       threadId={oneThread.id}
       onMessageClick={onMessageClick}
       onMessageMouseEnter={onMessageMouseEnter}
@@ -110,11 +112,13 @@ export function ThreadedComments({
 
 function CommentsThread({
   threadId,
+  threadExtraClassnames,
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
 }: {
   threadId: string;
+  threadExtraClassnames: string | null;
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
@@ -122,13 +126,17 @@ function CommentsThread({
   const threadSummary = thread.useThreadSummary(threadId);
   const threadData = thread.useThreadData(threadId);
   const [showingReplies, setShowingReplies] = useState<boolean>(false);
+  const extraClassnames = useExtraClassnames(threadExtraClassnames);
 
   if (!threadSummary || !threadSummary.firstMessage?.id) {
     return null;
   }
 
   return (
-    <div className={classes.thread} data-cord-thread-id={threadId}>
+    <div
+      className={cx(classes.thread, extraClassnames)}
+      data-cord-thread-id={threadId}
+    >
       <Message
         messageId={threadSummary.firstMessage?.id}
         threadId={threadId}
