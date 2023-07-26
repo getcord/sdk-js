@@ -421,6 +421,11 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
+      extraClassnames: {
+        description:
+          'An optional space separated list of classnames to add to the thread.',
+        type: ['null', 'string'],
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -436,8 +441,10 @@ export default {
       'url',
       'location',
       'metadata',
+      'extraClassnames',
     ],
     required: [
+      'extraClassnames',
       'id',
       'location',
       'metadata',
@@ -514,6 +521,11 @@ export default {
         type: 'array',
         items: { type: 'string' },
       },
+      extraClassnames: {
+        description:
+          'An optional space separated list of classnames to add to the thread.',
+        type: ['null', 'string'],
+      },
       userID: {
         description:
           'Certain changes to the thread may post a message into the thread -- in\nparticular, resolving or unresolving a thread posts a message into the\nthread saying "User un/resolved this thread". This parameter is the ID of\nthe User who will be listed as the author of that message. It\'s optional\n-- if no user is specified, then those messages won\'t get posted.',
@@ -541,6 +553,7 @@ export default {
       'resolvedTimestamp',
       'organizationID',
       'repliers',
+      'extraClassnames',
       'userID',
       'typing',
       'resolved',
@@ -583,6 +596,11 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
+      extraClassnames: {
+        description:
+          'An optional space separated list of classnames to add to the thread.',
+        type: ['null', 'string'],
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -593,6 +611,7 @@ export default {
       'name',
       'organizationID',
       'metadata',
+      'extraClassnames',
     ],
     required: ['id', 'location', 'name', 'organizationID', 'url'],
     $schema: 'http://json-schema.org/draft-07/schema#',
@@ -910,6 +929,11 @@ export default {
         format: 'uri',
         type: ['null', 'string'],
       },
+      extraClassnames: {
+        description:
+          'A optional space separated list of classnames to add to the message.',
+        type: ['null', 'string'],
+      },
       createdTimestamp: {
         description:
           'The timestamp when this message was created.  The default value is the\ncurrent time.',
@@ -925,11 +949,6 @@ export default {
         description:
           'The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.',
         anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
-      },
-      extraClassnames: {
-        description:
-          'A optional space separated list of classnames to add to the message.',
-        type: ['null', 'string'],
       },
       attachments: {
         description: 'The items attached to this message.',
@@ -969,10 +988,10 @@ export default {
       'url',
       'metadata',
       'iconURL',
+      'extraClassnames',
       'createdTimestamp',
       'updatedTimestamp',
       'deletedTimestamp',
-      'extraClassnames',
       'attachments',
       'reactions',
     ],
@@ -1013,6 +1032,11 @@ export default {
               'Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.',
             type: 'boolean',
           },
+          extraClassnames: {
+            description:
+              'An optional space separated list of classnames to add to the thread.',
+            type: ['null', 'string'],
+          },
         },
         additionalProperties: false,
         propertyOrder: [
@@ -1022,6 +1046,7 @@ export default {
           'metadata',
           'organizationID',
           'resolved',
+          'extraClassnames',
         ],
         required: ['location', 'name', 'organizationID', 'url'],
       },
@@ -1126,6 +1151,11 @@ export default {
         format: 'uri',
         type: ['null', 'string'],
       },
+      extraClassnames: {
+        description:
+          'A optional space separated list of classnames to add to the message.',
+        type: ['null', 'string'],
+      },
       authorID: {
         description: 'The ID for the user that sent the message.',
         type: 'string',
@@ -1140,11 +1170,6 @@ export default {
         description:
           'The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.',
         anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
-      },
-      extraClassnames: {
-        description:
-          'A optional space separated list of classnames to add to the message.',
-        type: ['null', 'string'],
       },
       attachments: {
         description: 'The items attached to this message.',
@@ -1184,10 +1209,10 @@ export default {
       'content',
       'metadata',
       'iconURL',
+      'extraClassnames',
       'authorID',
       'createdTimestamp',
       'updatedTimestamp',
-      'extraClassnames',
       'attachments',
       'reactions',
     ],

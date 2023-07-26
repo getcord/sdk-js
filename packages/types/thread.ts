@@ -172,6 +172,11 @@ export interface RestApiThreadData {
    * Arbitrary key-value pairs that can be used to store additional information.
    */
   metadata: EntityMetadata;
+
+  /**
+   * An optional space separated list of classnames to add to the thread.
+   */
+  extraClassnames: string | null;
 }
 
 /**
@@ -241,7 +246,10 @@ export type LocationDataCallback = (data: LocationData) => unknown;
 
 export interface UpdateThreadVariables
   extends Partial<
-    Pick<RestApiThreadData, 'name' | 'url' | 'metadata' | 'resolved'>
+    Pick<
+      RestApiThreadData,
+      'name' | 'url' | 'metadata' | 'resolved' | 'extraClassnames'
+    >
   > {
   /**
    * Whether the thread is resolved.  Setting this to `true` is equivalent to
