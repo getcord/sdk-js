@@ -37,6 +37,12 @@ export type CustomRenderers = Record<
   (m: Record<string, unknown>) => HTMLElement
 >;
 
+export type Translations = {
+  [lang in string]: {
+    [ns in string]: any;
+  };
+};
+
 export type CordSDKInitOptions = CordSDKOptions & {
   client_auth_token?: string;
   react_package_version?: string;
@@ -62,6 +68,8 @@ export type CordSDKOptions = {
   screenshot_options?: ScreenshotOptions;
   custom_renderers?: CustomRenderers;
   custom_event_metadata?: JsonObject;
+  translations?: Translations;
+  language?: string;
 };
 
 export type InitErrorCallback = (error: { message: string }) => unknown;
