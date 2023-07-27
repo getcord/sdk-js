@@ -197,6 +197,11 @@ export interface ThreadSummary
    * `null` if the thread is empty.
    */
   firstMessage: MessageData | null;
+  /**
+   * Contains information about the last (i.e., newest) message in the thread.
+   * `null` if the thread is empty.
+   */
+  lastMessage: MessageData | null;
 }
 
 export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
