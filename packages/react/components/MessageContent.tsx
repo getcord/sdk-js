@@ -3,6 +3,7 @@ import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
+import type { MessageAttachment } from '@cord-sdk/types';
 import type { ReactPropsWithStandardHTMLAttributes } from '../types';
 
 const propsToAttributes = propsToAttributeConverter(
@@ -10,8 +11,9 @@ const propsToAttributes = propsToAttributeConverter(
 );
 
 export type MessageContentReactComponentProps = {
-  threadId: string;
-  messageId?: string;
+  content?: object[] | null | undefined;
+  attachments?: MessageAttachment[];
+  edited: boolean;
 };
 
 export function MessageContent(

@@ -165,8 +165,9 @@ export const componentAttributes = {
     'mark-as-seen': 'boolean',
   },
   MessageContent: {
-    'thread-id': 'string',
-    'message-id': 'string',
+    content: 'json',
+    attachments: 'json',
+    edited: 'boolean',
   },
   Facepile: {
     users: 'array',
