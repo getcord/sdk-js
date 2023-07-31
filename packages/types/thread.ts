@@ -1,5 +1,6 @@
 import type {
   EntityMetadata,
+  FilterParameters,
   ListenerRef,
   Location,
   MessageID,
@@ -8,7 +9,7 @@ import type {
   ThreadID,
   UserID,
 } from './core';
-import type { MessageData, RestApiMessageData } from './message';
+import type { ClientMessageData, CoreMessageData } from './message';
 
 /**
  * Options for the `observeLocationSummary` function in the Thread API.
@@ -103,7 +104,7 @@ export type ThreadParticipant = {
   userID: UserID | null;
 };
 
-export interface RestApiThreadData {
+export interface CoreThreadData {
   /**
    * The ID for this thread.
    */
@@ -183,7 +184,7 @@ export interface RestApiThreadData {
  * A summary of a single thread.
  */
 export interface ThreadSummary
-  extends Omit<RestApiThreadData, 'resolvedTimestamp'> {
+  extends Omit<CoreThreadData, 'resolvedTimestamp'> {
   /**
    * The number of messages that the current user hasn't seen yet.
    */
@@ -196,12 +197,12 @@ export interface ThreadSummary
    * Contains information about the first (i.e., oldest) message in the thread.
    * `null` if the thread is empty.
    */
-  firstMessage: MessageData | null;
+  firstMessage: ClientMessageData | null;
   /**
    * Contains information about the last (i.e., newest) message in the thread.
    * `null` if the thread is empty.
    */
-  lastMessage: MessageData | null;
+  lastMessage: ClientMessageData | null;
 }
 
 export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
@@ -249,10 +250,10 @@ export type LocationData = PaginationParams & {
 };
 export type LocationDataCallback = (data: LocationData) => unknown;
 
-export interface UpdateThreadVariables
+export interface ClientUpdateThread
   extends Partial<
     Pick<
-      RestApiThreadData,
+      CoreThreadData,
       'name' | 'url' | 'metadata' | 'resolved' | 'extraClassnames'
     >
   > {
@@ -264,11 +265,11 @@ export interface UpdateThreadVariables
   resolved?: boolean;
 }
 
-export interface CreateThreadVariables
-  extends Pick<RestApiThreadData, 'location' | 'url' | 'name'>,
+export interface ClientCreateThread
+  extends Pick<CoreThreadData, 'location' | 'url' | 'name'>,
     Partial<
       Omit<
-        RestApiThreadData,
+        CoreThreadData,
         // Required fields
         | 'location'
         | 'url'
@@ -287,11 +288,11 @@ export interface CreateThreadVariables
 
 export interface CreateMessageVariables
   // Pick the required properties
-  extends Pick<RestApiMessageData, 'content'>,
+  extends Pick<CoreMessageData, 'content'>,
     // Then a partial version of the rest of the properties
     Partial<
       Omit<
-        RestApiMessageData,
+        CoreMessageData,
         | 'authorID'
         | 'id'
         | 'content'
@@ -309,7 +310,7 @@ export interface CreateMessageVariables
    * call will generate an error.  This value is ignored if the thread already
    * exists.
    */
-  createThread?: CreateThreadVariables;
+  createThread?: ClientCreateThread;
 }
 
 export interface UpdateMessageVariables
@@ -468,7 +469,7 @@ export interface ICordThreadSDK {
    * @returns A promise that resolves to `true` if the operation succeeded or
    * rejects if it failed.
    */
-  updateThread(threadID: ThreadID, data: UpdateThreadVariables): Promise<true>;
+  updateThread(threadID: ThreadID, data: ClientUpdateThread): Promise<true>;
 
   /**
    * Add a new message to a thread.  The message will be authored by the current
@@ -533,7 +534,7 @@ export interface ThreadData extends PaginationParams {
    * Contains information about the first (i.e., oldest) message in the thread.
    * `null` if the thread is empty.
    */
-  firstMessage: MessageData | null;
+  firstMessage: ClientMessageData | null;
   /**
    * An array of objects, one for each message in the specified thread.
    *
@@ -541,6 +542,75 @@ export interface ThreadData extends PaginationParams {
    * latest (newest) few messages. Calling `fetchMore` will cause further
    * message summaries to be appended to the array.
    */
-  messages: MessageData[];
+  messages: ClientMessageData[];
 }
 export type ThreadDataCallback = (data: ThreadData) => unknown;
+
+/**
+ * https://docs.cord.com/rest-apis/threads/
+ */
+export type ServerUpdateThread = Partial<
+  Omit<CoreThreadData, 'total' | 'participants' | 'typing' | 'resolved'> & {
+    /**
+     * Certain changes to the thread may post a message into the thread -- in
+     * particular, resolving or unresolving a thread posts a message into the
+     * thread saying "User un/resolved this thread". This parameter is the ID of
+     * the User who will be listed as the author of that message. It's optional
+     * -- if no user is specified, then those messages won't get posted.
+     */
+    userID: string;
+    /**
+     * Marks the specified users as typing in this thread.  The typing indicator
+     * expires after 3 seconds, so to continually show the indicator it needs to
+     * be called on an interval.  Pass an empty array to clear all users' typing indicators.
+     */
+    typing: string[];
+    /**
+     * Whether the thread is resolved.  Setting this to `true` is equivalent to
+     * setting `resolvedTimestamp` to the current time, and setting this to
+     * `false` is equivalent to setting `resolvedTimestamp` to `null`.
+     */
+    resolved?: boolean;
+  }
+>;
+
+export interface ServerCreateThread
+  extends Pick<
+      CoreThreadData,
+      'id' | 'location' | 'url' | 'name' | 'organizationID'
+    >,
+    Partial<
+      Omit<
+        CoreThreadData,
+        // Required fields
+        | 'location'
+        | 'url'
+        | 'name'
+        | 'organizationID'
+        | 'id'
+        // Non-create fields
+        | 'total'
+        | 'resolved'
+        | 'resolvedTimestamp'
+        | 'participants'
+        | 'repliers'
+        | 'typing'
+      >
+    > {
+  /**
+   * Whether the thread is resolved.  Setting this to `true` is equivalent to
+   * setting `resolvedTimestamp` to the current time, and setting this to
+   * `false` is equivalent to setting `resolvedTimestamp` to `null`.
+   */
+  resolved?: boolean;
+}
+
+export type ServerListThreadParameters = {
+  /**
+   * Threads will be matched against the filters specified.
+   * This is a partial match, which means any keys other than the ones you specify are ignored
+   * when checking for a match. Please note that because this is a query parameter in a REST API,
+   * this JSON object must be URI encoded before being sent.
+   */
+  filter?: FilterParameters;
+};

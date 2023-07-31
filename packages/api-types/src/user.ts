@@ -1,5 +1,5 @@
-import type { EntityMetadata } from '@cord-sdk/types';
-import type { FilterParameters, ID } from './coreTypes';
+import type { EntityMetadata, FilterParameters } from '@cord-sdk/types';
+import type { ID } from './coreTypes';
 
 export interface PlatformUserVariables {
   /**

@@ -317,532 +317,65 @@
     "required": ["secret"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
-  "ThreadVariables": {
+  "PlatformOrganizationVariables": {
     "type": "object",
     "properties": {
-      "id": { "description": "The ID for this thread.", "type": "string" },
-      "organizationID": {
-        "description": "The organization ID this thread is in.",
-        "type": "string"
-      },
-      "total": {
-        "description": "The total number of messages in this thread.",
-        "type": "number"
-      },
-      "resolved": {
-        "description": "Whether this thread is resolved. This is equivalent to checking if\n`resolvedTimestamp` is null.",
-        "type": "boolean"
-      },
-      "resolvedTimestamp": {
-        "description": "The timestamp when this thread was resolved. Set to `null` if this thread\nis not resolved.",
-        "anyOf": [
-          { "type": "string", "format": "date-time" },
-          { "type": "null" }
-        ]
-      },
-      "participants": {
-        "description": "All of the users who are subscribed to this thread.",
+      "name": { "description": "Organization name", "type": "string" },
+      "status": { "enum": ["active", "deleted"], "type": "string" },
+      "members": {
+        "description": "List of partner-specific IDs of the users who are members of this organization",
         "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "lastSeenTimestamp": {
-              "description": "The timestamp of the most recent message or reaction that this user has\nseen in this thread. Is `null` if this participant has never viewed this\nthread.",
-              "anyOf": [
-                { "type": "string", "format": "date-time" },
-                { "type": "null" }
-              ]
-            },
-            "userID": {
-              "description": "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/rest-apis/organizations)\nwith this participant (and therefore can no longer access that\nparticipant's information).",
-              "type": ["null", "string"]
-            }
-          },
-          "additionalProperties": false,
-          "propertyOrder": ["lastSeenTimestamp", "userID"],
-          "required": ["lastSeenTimestamp", "userID"]
-        }
-      },
-      "repliers": {
-        "description": "All of the users who have replied to this thread.",
-        "type": "array",
-        "items": { "type": "string" }
-      },
-      "typing": {
-        "description": "The users that are currently typing in this thread.  Typing status is\ntransient in nature, so the value is the set of users typing at a\nparticular instant, but may change rapidly.",
-        "type": "array",
-        "items": { "type": "string" }
-      },
-      "name": {
-        "description": "The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  This should generally be something\nlike the page title.",
-        "type": "string"
-      },
-      "url": {
-        "description": "A URL where the thread can be seen.  This determines where a user is sent\nwhen they click on a reference to this thread, such as in a notification,\nor if they click on a reference to a message in the thread and the message\ndoesn't have its own URL.",
-        "type": "string"
-      },
-      "location": {
-        "description": "The [location](/reference/location) of this thread.",
-        "type": "object",
-        "additionalProperties": { "type": ["string", "number", "boolean"] },
-        "propertyOrder": []
-      },
-      "metadata": {
-        "description": "Arbitrary key-value pairs that can be used to store additional information.",
-        "type": "object",
-        "additionalProperties": { "type": ["string", "number", "boolean"] },
-        "propertyOrder": []
-      },
-      "extraClassnames": {
-        "description": "An optional space separated list of classnames to add to the thread.",
-        "type": ["null", "string"]
+        "items": { "type": ["string", "number"] }
       }
     },
     "additionalProperties": false,
-    "propertyOrder": [
-      "id",
-      "organizationID",
-      "total",
-      "resolved",
-      "resolvedTimestamp",
-      "participants",
-      "repliers",
-      "typing",
-      "name",
-      "url",
-      "location",
-      "metadata",
-      "extraClassnames"
-    ],
-    "required": [
-      "extraClassnames",
-      "id",
-      "location",
-      "metadata",
-      "name",
-      "organizationID",
-      "participants",
-      "repliers",
-      "resolved",
-      "resolvedTimestamp",
-      "total",
-      "typing",
-      "url"
-    ],
+    "propertyOrder": ["name", "status", "members"],
+    "required": ["name"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
-  "ThreadParticipant": {
+  "UpdatePlatformOrganizationVariables": {
+    "description": "https://docs.cord.com/rest-apis/organizations/",
     "type": "object",
     "properties": {
-      "lastSeenTimestamp": {
-        "description": "The timestamp of the most recent message or reaction that this user has\nseen in this thread. Is `null` if this participant has never viewed this\nthread.",
-        "anyOf": [
-          { "type": "string", "format": "date-time" },
-          { "type": "null" }
-        ]
-      },
-      "userID": {
-        "description": "The user ID of the participant. Can be null if the current viewer no longer\nshares an [organization](/rest-apis/organizations)\nwith this participant (and therefore can no longer access that\nparticipant's information).",
-        "type": ["null", "string"]
+      "name": { "description": "Organization name", "type": "string" },
+      "status": { "enum": ["active", "deleted"], "type": "string" },
+      "members": {
+        "description": "List of partner-specific IDs of the users who are members of this organization",
+        "type": "array",
+        "items": { "type": ["string", "number"] }
       }
     },
     "additionalProperties": false,
-    "propertyOrder": ["lastSeenTimestamp", "userID"],
-    "required": ["lastSeenTimestamp", "userID"],
+    "propertyOrder": ["name", "status", "members"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
-  "UpdateThreadVariables": {
-    "description": "https://docs.cord.com/rest-apis/threads/",
+  "UpdatePlatformOrganizationMembersVariables": {
+    "description": "https://docs.cord.com/rest-apis/organizations/",
     "type": "object",
     "properties": {
-      "location": {
-        "description": "The [location](/reference/location) of this thread.",
-        "type": "object",
-        "additionalProperties": { "type": ["string", "number", "boolean"] },
-        "propertyOrder": []
-      },
-      "id": { "description": "The ID for this thread.", "type": "string" },
-      "url": {
-        "description": "A URL where the thread can be seen.  This determines where a user is sent\nwhen they click on a reference to this thread, such as in a notification,\nor if they click on a reference to a message in the thread and the message\ndoesn't have its own URL.",
-        "type": "string"
-      },
-      "name": {
-        "description": "The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  This should generally be something\nlike the page title.",
-        "type": "string"
-      },
-      "metadata": {
-        "description": "Arbitrary key-value pairs that can be used to store additional information.",
-        "type": "object",
-        "additionalProperties": { "type": ["string", "number", "boolean"] },
-        "propertyOrder": []
-      },
-      "resolvedTimestamp": {
-        "description": "The timestamp when this thread was resolved. Set to `null` if this thread\nis not resolved.",
-        "anyOf": [
-          { "type": "string", "format": "date-time" },
-          { "type": "null" }
-        ]
-      },
-      "organizationID": {
-        "description": "The organization ID this thread is in.",
-        "type": "string"
-      },
-      "repliers": {
-        "description": "All of the users who have replied to this thread.",
-        "type": "array",
-        "items": { "type": "string" }
-      },
-      "extraClassnames": {
-        "description": "An optional space separated list of classnames to add to the thread.",
-        "type": ["null", "string"]
-      },
-      "userID": {
-        "description": "Certain changes to the thread may post a message into the thread -- in\nparticular, resolving or unresolving a thread posts a message into the\nthread saying \"User un/resolved this thread\". This parameter is the ID of\nthe User who will be listed as the author of that message. It's optional\n-- if no user is specified, then those messages won't get posted.",
-        "type": "string"
-      },
-      "typing": {
-        "description": "Marks the specified users as typing in this thread.  The typing indicator\nexpires after 3 seconds, so to continually show the indicator it needs to\nbe called on an interval.  Pass an empty array to clear all users' typing indicators.",
-        "type": "array",
-        "items": { "type": "string" }
-      },
-      "resolved": {
-        "description": "Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.",
-        "type": "boolean"
-      }
+      "add": { "type": "array", "items": { "type": ["string", "number"] } },
+      "remove": { "type": "array", "items": { "type": ["string", "number"] } }
     },
     "additionalProperties": false,
-    "propertyOrder": [
-      "location",
-      "id",
-      "url",
-      "name",
-      "metadata",
-      "resolvedTimestamp",
-      "organizationID",
-      "repliers",
-      "extraClassnames",
-      "userID",
-      "typing",
-      "resolved"
-    ],
+    "propertyOrder": ["add", "remove"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
-  "CreateThreadVariables": {
+  "CreatePlatformOrganizationVariables": {
+    "additionalProperties": false,
     "type": "object",
     "properties": {
-      "resolved": {
-        "description": "Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.",
-        "type": "boolean"
-      },
-      "location": {
-        "description": "The [location](/reference/location) of this thread.",
-        "type": "object",
-        "additionalProperties": { "type": ["string", "number", "boolean"] },
-        "propertyOrder": []
-      },
-      "id": { "description": "The ID for this thread.", "type": "string" },
-      "url": {
-        "description": "A URL where the thread can be seen.  This determines where a user is sent\nwhen they click on a reference to this thread, such as in a notification,\nor if they click on a reference to a message in the thread and the message\ndoesn't have its own URL.",
-        "type": "string"
-      },
-      "name": {
-        "description": "The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  This should generally be something\nlike the page title.",
-        "type": "string"
-      },
-      "organizationID": {
-        "description": "The organization ID this thread is in.",
-        "type": "string"
-      },
-      "metadata": {
-        "description": "Arbitrary key-value pairs that can be used to store additional information.",
-        "type": "object",
-        "additionalProperties": { "type": ["string", "number", "boolean"] },
-        "propertyOrder": []
-      },
-      "extraClassnames": {
-        "description": "An optional space separated list of classnames to add to the thread.",
-        "type": ["null", "string"]
-      }
-    },
-    "additionalProperties": false,
-    "propertyOrder": [
-      "resolved",
-      "location",
-      "id",
-      "url",
-      "name",
-      "organizationID",
-      "metadata",
-      "extraClassnames"
-    ],
-    "required": ["id", "location", "name", "organizationID", "url"],
-    "$schema": "http://json-schema.org/draft-07/schema#"
-  },
-  "ListThreadQueryParameters": {
-    "type": "object",
-    "properties": {
-      "filter": {
-        "description": "Threads will be matched against the filters specified.\nThis is a partial match, which means any keys other than the ones you specify are ignored\nwhen checking for a match. Please note that because this is a query parameter in a REST API,\nthis JSON object must be URI encoded before being sent.",
-        "type": "object",
-        "properties": {
-          "location": {
-            "description": "The location for the thread.",
-            "type": "object",
-            "additionalProperties": { "type": ["string", "number", "boolean"] },
-            "propertyOrder": []
-          },
-          "metadata": {
-            "description": "Arbitrary key-value pairs of data associated with the object.",
-            "type": "object",
-            "additionalProperties": { "type": ["string", "number", "boolean"] },
-            "propertyOrder": []
-          },
-          "firstMessageTimestamp": {
-            "description": "Timestamp when the first message in a thread was created.",
-            "type": "object",
-            "properties": {
-              "from": {
-                "description": "Timestamp from where to start the interval. If not present, the interval will have no start date and any data will include everything up to the provided `to` timestamp.",
-                "type": "string",
-                "format": "date-time"
-              },
-              "to": {
-                "description": "Timestamp where to end the interval. If not present, the interval will have no end date and any data will include everything from the provided `from` timestamp.",
-                "type": "string",
-                "format": "date-time"
-              }
-            },
-            "additionalProperties": false,
-            "propertyOrder": ["from", "to"]
-          },
-          "mostRecentMessageTimestamp": {
-            "description": "Timestamp when a message in a thread was last created or updated.",
-            "type": "object",
-            "properties": {
-              "from": {
-                "description": "Timestamp from where to start the interval. If not present, the interval will have no start date and any data will include everything up to the provided `to` timestamp.",
-                "type": "string",
-                "format": "date-time"
-              },
-              "to": {
-                "description": "Timestamp where to end the interval. If not present, the interval will have no end date and any data will include everything from the provided `from` timestamp.",
-                "type": "string",
-                "format": "date-time"
-              }
-            },
-            "additionalProperties": false,
-            "propertyOrder": ["from", "to"]
-          }
-        },
-        "additionalProperties": false,
-        "propertyOrder": [
-          "location",
-          "metadata",
-          "firstMessageTimestamp",
-          "mostRecentMessageTimestamp"
-        ]
-      }
-    },
-    "additionalProperties": false,
-    "propertyOrder": ["filter"],
-    "$schema": "http://json-schema.org/draft-07/schema#"
-  },
-  "MessageVariables": {
-    "type": "object",
-    "properties": {
-      "id": { "description": "The ID for the message.", "type": "string" },
-      "authorID": {
-        "description": "The ID for the user that sent the message.",
-        "type": "string"
-      },
-      "organizationID": {
-        "description": "The ID for the organization this message belongs to.",
-        "type": "string"
-      },
-      "threadID": {
-        "description": "The ID for the thread this message is part of.",
-        "type": "string"
-      },
-      "content": {
-        "description": "The content of the message.",
+      "name": { "description": "Organization name", "type": "string" },
+      "status": { "enum": ["active", "deleted"], "type": "string" },
+      "members": {
+        "description": "List of partner-specific IDs of the users who are members of this organization",
         "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {},
-          "additionalProperties": true
-        }
+        "items": { "type": ["string", "number"] }
       },
-      "plaintext": {
-        "description": "A plaintext version of the structured message content.",
-        "type": "string"
-      },
-      "url": {
-        "description": "A URL where the message can be seen.  This determines where a user is sent\nwhen they click on a reference to this message, such as in a notification.\nIf unset, it defaults to the thread's URL.",
-        "type": ["null", "string"]
-      },
-      "createdTimestamp": {
-        "description": "The timestamp when this message was created.  The default value is the\ncurrent time.",
-        "type": "string",
-        "format": "date-time"
-      },
-      "deletedTimestamp": {
-        "description": "The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.",
-        "anyOf": [
-          { "type": "string", "format": "date-time" },
-          { "type": "null" }
-        ]
-      },
-      "updatedTimestamp": {
-        "description": "The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.",
-        "anyOf": [
-          { "type": "string", "format": "date-time" },
-          { "type": "null" }
-        ]
-      },
-      "iconURL": {
-        "description": "The URL of the icon to show next to the message.  This is only used for\n`action_message` messages; other messages show the avatar of the author.\nIf an `action_message` does not have an icon set, no icon is shown.",
-        "format": "uri",
-        "type": ["null", "string"]
-      },
-      "type": {
-        "description": "The type of message this is.  A `user_message` is a message that the author\nsent.  An `action_message` is a message about something that happened, such\nas the thread being resolved.  The default value is `user_message`.",
-        "enum": ["action_message", "user_message"],
-        "type": "string"
-      },
-      "metadata": {
-        "description": "Arbitrary key-value pairs that can be used to store additional information.",
-        "type": "object",
-        "additionalProperties": { "type": ["string", "number", "boolean"] },
-        "propertyOrder": []
-      },
-      "extraClassnames": {
-        "description": "A optional space separated list of classnames to add to the message.",
-        "type": ["null", "string"]
-      },
-      "attachments": {
-        "description": "The items attached to this message.",
-        "type": "array",
-        "items": { "$ref": "#/definitions/MessageFileAttachment" }
-      },
-      "reactions": {
-        "description": "The reactions to this message.",
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "reaction": {
-              "description": "The emoji reaction.",
-              "type": "string"
-            },
-            "userID": {
-              "description": "The ID of the user who reacted to the message.",
-              "type": "string"
-            },
-            "timestamp": {
-              "description": "The timestamp of when the reaction was created.",
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          "additionalProperties": false,
-          "propertyOrder": ["reaction", "userID", "timestamp"],
-          "required": ["reaction", "timestamp", "userID"]
-        }
-      }
+      "id": { "$ref": "#/definitions/ID" }
     },
-    "additionalProperties": false,
-    "propertyOrder": [
-      "id",
-      "authorID",
-      "organizationID",
-      "threadID",
-      "content",
-      "plaintext",
-      "url",
-      "createdTimestamp",
-      "deletedTimestamp",
-      "updatedTimestamp",
-      "iconURL",
-      "type",
-      "metadata",
-      "extraClassnames",
-      "attachments",
-      "reactions"
-    ],
-    "required": [
-      "attachments",
-      "authorID",
-      "content",
-      "createdTimestamp",
-      "deletedTimestamp",
-      "extraClassnames",
-      "iconURL",
-      "id",
-      "metadata",
-      "organizationID",
-      "plaintext",
-      "reactions",
-      "threadID",
-      "type",
-      "updatedTimestamp",
-      "url"
-    ],
+    "required": ["id", "name"],
     "definitions": {
-      "MessageFileAttachment": {
-        "description": "A file attached to this message.",
-        "type": "object",
-        "properties": {
-          "id": {
-            "description": "The ID of this attachment.",
-            "type": "string"
-          },
-          "type": {
-            "description": "The type of this attachment, which is always `file` for file attachments.",
-            "type": "string",
-            "enum": ["file"]
-          },
-          "name": {
-            "description": "The name of the file that was attached.",
-            "type": "string"
-          },
-          "url": {
-            "description": "The URL that a user can use to download the file.  This is a signed URL\nthat will expire after 24 hours.",
-            "type": "string"
-          },
-          "mimeType": {
-            "description": "The MIME type of the file.",
-            "type": "string"
-          },
-          "size": {
-            "description": "The size of the file, in bytes.",
-            "type": "number"
-          },
-          "uploadStatus": {
-            "description": "The status of the file upload.  `uploading` means that the user has not yet\ncompleted uploading the file, `uploaded` means the file is successfully\nuploaded, `failed` means the upload encountered an error, and `cancelled`\nmeans the user cancelled the upload before it was finished.",
-            "enum": ["cancelled", "failed", "uploaded", "uploading"],
-            "type": "string"
-          }
-        },
-        "additionalProperties": false,
-        "propertyOrder": [
-          "id",
-          "type",
-          "name",
-          "url",
-          "mimeType",
-          "size",
-          "uploadStatus"
-        ],
-        "required": [
-          "id",
-          "mimeType",
-          "name",
-          "size",
-          "type",
-          "uploadStatus",
-          "url"
-        ]
-      }
+      "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] }
     },
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
@@ -851,7 +384,7 @@
     "properties": {
       "createThread": {
         "description": "The parameters for creating a thread if the supplied thread doesn't exist\nyet.  If the thread doesn't exist but `createThread` isn't provided, the\ncall will generate an error.  This value is ignored if the thread already\nexists.",
-        "$ref": "#/definitions/Omit<CreateThreadVariables,\"id\">"
+        "$ref": "#/definitions/Omit<ServerCreateThread,\"id\">"
       },
       "id": { "description": "The ID for the message.", "type": "string" },
       "content": {
@@ -887,14 +420,17 @@
         "format": "uri",
         "type": ["null", "string"]
       },
-      "extraClassnames": {
-        "description": "A optional space separated list of classnames to add to the message.",
-        "type": ["null", "string"]
-      },
       "createdTimestamp": {
         "description": "The timestamp when this message was created.  The default value is the\ncurrent time.",
         "type": "string",
         "format": "date-time"
+      },
+      "deletedTimestamp": {
+        "description": "The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.",
+        "anyOf": [
+          { "type": "string", "format": "date-time" },
+          { "type": "null" }
+        ]
       },
       "updatedTimestamp": {
         "description": "The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.",
@@ -903,12 +439,9 @@
           { "type": "null" }
         ]
       },
-      "deletedTimestamp": {
-        "description": "The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.",
-        "anyOf": [
-          { "type": "string", "format": "date-time" },
-          { "type": "null" }
-        ]
+      "extraClassnames": {
+        "description": "A optional space separated list of classnames to add to the message.",
+        "type": ["null", "string"]
       },
       "attachments": {
         "description": "The items attached to this message.",
@@ -951,16 +484,16 @@
       "url",
       "metadata",
       "iconURL",
-      "extraClassnames",
       "createdTimestamp",
-      "updatedTimestamp",
       "deletedTimestamp",
+      "updatedTimestamp",
+      "extraClassnames",
       "attachments",
       "reactions"
     ],
     "required": ["authorID", "content", "id"],
     "definitions": {
-      "Omit<CreateThreadVariables,\"id\">": {
+      "Omit<ServerCreateThread,\"id\">": {
         "type": "object",
         "properties": {
           "location": {
@@ -987,13 +520,13 @@
             "description": "The organization ID this thread is in.",
             "type": "string"
           },
-          "resolved": {
-            "description": "Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.",
-            "type": "boolean"
-          },
           "extraClassnames": {
             "description": "An optional space separated list of classnames to add to the thread.",
             "type": ["null", "string"]
+          },
+          "resolved": {
+            "description": "Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.",
+            "type": "boolean"
           }
         },
         "additionalProperties": false,
@@ -1003,8 +536,8 @@
           "name",
           "metadata",
           "organizationID",
-          "resolved",
-          "extraClassnames"
+          "extraClassnames",
+          "resolved"
         ],
         "required": ["location", "name", "organizationID", "url"]
       },
@@ -1110,10 +643,6 @@
         "format": "uri",
         "type": ["null", "string"]
       },
-      "extraClassnames": {
-        "description": "A optional space separated list of classnames to add to the message.",
-        "type": ["null", "string"]
-      },
       "authorID": {
         "description": "The ID for the user that sent the message.",
         "type": "string"
@@ -1129,6 +658,10 @@
           { "type": "string", "format": "date-time" },
           { "type": "null" }
         ]
+      },
+      "extraClassnames": {
+        "description": "A optional space separated list of classnames to add to the message.",
+        "type": ["null", "string"]
       },
       "attachments": {
         "description": "The items attached to this message.",
@@ -1171,10 +704,10 @@
       "content",
       "metadata",
       "iconURL",
-      "extraClassnames",
       "authorID",
       "createdTimestamp",
       "updatedTimestamp",
+      "extraClassnames",
       "attachments",
       "reactions"
     ],
@@ -1454,68 +987,6 @@
     "type": "string",
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
-  "PlatformOrganizationVariables": {
-    "type": "object",
-    "properties": {
-      "name": { "description": "Organization name", "type": "string" },
-      "status": { "enum": ["active", "deleted"], "type": "string" },
-      "members": {
-        "description": "List of partner-specific IDs of the users who are members of this organization",
-        "type": "array",
-        "items": { "type": ["string", "number"] }
-      }
-    },
-    "additionalProperties": false,
-    "propertyOrder": ["name", "status", "members"],
-    "required": ["name"],
-    "$schema": "http://json-schema.org/draft-07/schema#"
-  },
-  "UpdatePlatformOrganizationVariables": {
-    "description": "https://docs.cord.com/rest-apis/organizations/",
-    "type": "object",
-    "properties": {
-      "name": { "description": "Organization name", "type": "string" },
-      "status": { "enum": ["active", "deleted"], "type": "string" },
-      "members": {
-        "description": "List of partner-specific IDs of the users who are members of this organization",
-        "type": "array",
-        "items": { "type": ["string", "number"] }
-      }
-    },
-    "additionalProperties": false,
-    "propertyOrder": ["name", "status", "members"],
-    "$schema": "http://json-schema.org/draft-07/schema#"
-  },
-  "UpdatePlatformOrganizationMembersVariables": {
-    "description": "https://docs.cord.com/rest-apis/organizations/",
-    "type": "object",
-    "properties": {
-      "add": { "type": "array", "items": { "type": ["string", "number"] } },
-      "remove": { "type": "array", "items": { "type": ["string", "number"] } }
-    },
-    "additionalProperties": false,
-    "propertyOrder": ["add", "remove"],
-    "$schema": "http://json-schema.org/draft-07/schema#"
-  },
-  "CreatePlatformOrganizationVariables": {
-    "additionalProperties": false,
-    "type": "object",
-    "properties": {
-      "name": { "description": "Organization name", "type": "string" },
-      "status": { "enum": ["active", "deleted"], "type": "string" },
-      "members": {
-        "description": "List of partner-specific IDs of the users who are members of this organization",
-        "type": "array",
-        "items": { "type": ["string", "number"] }
-      },
-      "id": { "$ref": "#/definitions/ID" }
-    },
-    "required": ["id", "name"],
-    "definitions": {
-      "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] }
-    },
-    "$schema": "http://json-schema.org/draft-07/schema#"
-  },
   "UpdateUserPresenceVariables": {
     "type": "object",
     "properties": {
@@ -1553,6 +1024,310 @@
       "absent"
     ],
     "required": ["location", "organizationID"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "CreateThreadVariables": {
+    "type": "object",
+    "properties": {
+      "resolved": {
+        "description": "Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.",
+        "type": "boolean"
+      },
+      "location": {
+        "description": "The [location](/reference/location) of this thread.",
+        "type": "object",
+        "additionalProperties": { "type": ["string", "number", "boolean"] },
+        "propertyOrder": []
+      },
+      "id": { "description": "The ID for this thread.", "type": "string" },
+      "url": {
+        "description": "A URL where the thread can be seen.  This determines where a user is sent\nwhen they click on a reference to this thread, such as in a notification,\nor if they click on a reference to a message in the thread and the message\ndoesn't have its own URL.",
+        "type": "string"
+      },
+      "name": {
+        "description": "The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  This should generally be something\nlike the page title.",
+        "type": "string"
+      },
+      "organizationID": {
+        "description": "The organization ID this thread is in.",
+        "type": "string"
+      },
+      "metadata": {
+        "description": "Arbitrary key-value pairs that can be used to store additional information.",
+        "type": "object",
+        "additionalProperties": { "type": ["string", "number", "boolean"] },
+        "propertyOrder": []
+      },
+      "extraClassnames": {
+        "description": "An optional space separated list of classnames to add to the thread.",
+        "type": ["null", "string"]
+      }
+    },
+    "additionalProperties": false,
+    "propertyOrder": [
+      "resolved",
+      "location",
+      "id",
+      "url",
+      "name",
+      "organizationID",
+      "metadata",
+      "extraClassnames"
+    ],
+    "required": ["id", "location", "name", "organizationID", "url"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "UpdateThreadVariables": {
+    "type": "object",
+    "properties": {
+      "location": {
+        "description": "The [location](/reference/location) of this thread.",
+        "type": "object",
+        "additionalProperties": { "type": ["string", "number", "boolean"] },
+        "propertyOrder": []
+      },
+      "id": { "description": "The ID for this thread.", "type": "string" },
+      "url": {
+        "description": "A URL where the thread can be seen.  This determines where a user is sent\nwhen they click on a reference to this thread, such as in a notification,\nor if they click on a reference to a message in the thread and the message\ndoesn't have its own URL.",
+        "type": "string"
+      },
+      "name": {
+        "description": "The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  This should generally be something\nlike the page title.",
+        "type": "string"
+      },
+      "metadata": {
+        "description": "Arbitrary key-value pairs that can be used to store additional information.",
+        "type": "object",
+        "additionalProperties": { "type": ["string", "number", "boolean"] },
+        "propertyOrder": []
+      },
+      "organizationID": {
+        "description": "The organization ID this thread is in.",
+        "type": "string"
+      },
+      "extraClassnames": {
+        "description": "An optional space separated list of classnames to add to the thread.",
+        "type": ["null", "string"]
+      },
+      "resolvedTimestamp": {
+        "description": "The timestamp when this thread was resolved. Set to `null` if this thread\nis not resolved.",
+        "anyOf": [
+          { "type": "string", "format": "date-time" },
+          { "type": "null" }
+        ]
+      },
+      "repliers": {
+        "description": "All of the users who have replied to this thread.",
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "userID": {
+        "description": "Certain changes to the thread may post a message into the thread -- in\nparticular, resolving or unresolving a thread posts a message into the\nthread saying \"User un/resolved this thread\". This parameter is the ID of\nthe User who will be listed as the author of that message. It's optional\n-- if no user is specified, then those messages won't get posted.",
+        "type": "string"
+      },
+      "typing": {
+        "description": "Marks the specified users as typing in this thread.  The typing indicator\nexpires after 3 seconds, so to continually show the indicator it needs to\nbe called on an interval.  Pass an empty array to clear all users' typing indicators.",
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "resolved": {
+        "description": "Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.",
+        "type": "boolean"
+      }
+    },
+    "additionalProperties": false,
+    "propertyOrder": [
+      "location",
+      "id",
+      "url",
+      "name",
+      "metadata",
+      "organizationID",
+      "extraClassnames",
+      "resolvedTimestamp",
+      "repliers",
+      "userID",
+      "typing",
+      "resolved"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "ListThreadQueryParameters": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "description": "Threads will be matched against the filters specified.\nThis is a partial match, which means any keys other than the ones you specify are ignored\nwhen checking for a match. Please note that because this is a query parameter in a REST API,\nthis JSON object must be URI encoded before being sent.",
+        "type": "object",
+        "properties": {
+          "location": {
+            "description": "The location for the thread.",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "number", "boolean"] },
+            "propertyOrder": []
+          },
+          "metadata": {
+            "description": "Arbitrary key-value pairs of data associated with the object.",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "number", "boolean"] },
+            "propertyOrder": []
+          },
+          "firstMessageTimestamp": {
+            "description": "Timestamp when the first message in a thread was created.",
+            "type": "object",
+            "properties": {
+              "from": {
+                "description": "Timestamp from where to start the interval. If not present, the interval will have no start date and any data will include everything up to the provided `to` timestamp.",
+                "type": "string",
+                "format": "date-time"
+              },
+              "to": {
+                "description": "Timestamp where to end the interval. If not present, the interval will have no end date and any data will include everything from the provided `from` timestamp.",
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "additionalProperties": false,
+            "propertyOrder": ["from", "to"]
+          },
+          "mostRecentMessageTimestamp": {
+            "description": "Timestamp when a message in a thread was last created or updated.",
+            "type": "object",
+            "properties": {
+              "from": {
+                "description": "Timestamp from where to start the interval. If not present, the interval will have no start date and any data will include everything up to the provided `to` timestamp.",
+                "type": "string",
+                "format": "date-time"
+              },
+              "to": {
+                "description": "Timestamp where to end the interval. If not present, the interval will have no end date and any data will include everything from the provided `from` timestamp.",
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "additionalProperties": false,
+            "propertyOrder": ["from", "to"]
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": [
+          "location",
+          "metadata",
+          "firstMessageTimestamp",
+          "mostRecentMessageTimestamp"
+        ]
+      }
+    },
+    "additionalProperties": false,
+    "propertyOrder": ["filter"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "ClientAuthTokenData": {
+    "description": "https://docs.cord.com/reference/authentication/",
+    "additionalProperties": true,
+    "type": "object",
+    "properties": {
+      "app_id": {
+        "description": "Your app ID",
+        "format": "uuid",
+        "type": "string"
+      },
+      "user_id": {
+        "$ref": "#/definitions/ID",
+        "description": "The ID for the user"
+      },
+      "organization_id": {
+        "$ref": "#/definitions/ID",
+        "description": "The ID for the user’s organization"
+      },
+      "user_details": {
+        "description": "If present, update’s the user’s details, or creates a user with those\ndetails if the user_id is new to Cord. This is an object that contains the\nsame fields as the [user management REST\nendpoint](/rest-apis/users/)",
+        "$ref": "#/definitions/PlatformUserVariables"
+      },
+      "organization_details": {
+        "description": "If present, update’s the organization’s details, or creates an organization\nwith those details if the organization_id is new to Cord. This is an object\nthat contains the same fields as the [organization management REST\nendpoint](/rest-apis/organizations/)",
+        "$ref": "#/definitions/PlatformOrganizationVariables"
+      }
+    },
+    "propertyOrder": [
+      "app_id",
+      "user_id",
+      "organization_id",
+      "user_details",
+      "organization_details"
+    ],
+    "required": ["app_id", "organization_id", "user_id"],
+    "definitions": {
+      "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] },
+      "PlatformUserVariables": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "description": "Email address",
+            "format": "email",
+            "type": "string"
+          },
+          "name": { "description": "Full user name", "type": "string" },
+          "shortName": {
+            "description": "Short user name. In most cases, this will be preferred over name when set.",
+            "type": "string"
+          },
+          "short_name": { "type": "string" },
+          "status": { "enum": ["active", "deleted"], "type": "string" },
+          "profilePictureURL": {
+            "description": "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
+            "format": "uri",
+            "type": ["null", "string"]
+          },
+          "profile_picture_url": {
+            "format": "uri",
+            "type": ["null", "string"]
+          },
+          "first_name": {
+            "description": "User's first name. This field is deprecated and has no effect.",
+            "type": "string"
+          },
+          "last_name": {
+            "description": "User's last name. This field is deprecated and has no effect.",
+            "type": "string"
+          },
+          "metadata": {
+            "description": "Arbitrary key-value pairs that can be used to store additional information.",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "number", "boolean"] },
+            "propertyOrder": []
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": [
+          "email",
+          "name",
+          "shortName",
+          "short_name",
+          "status",
+          "profilePictureURL",
+          "profile_picture_url",
+          "first_name",
+          "last_name",
+          "metadata"
+        ],
+        "required": ["email"]
+      },
+      "PlatformOrganizationVariables": {
+        "type": "object",
+        "properties": {
+          "name": { "description": "Organization name", "type": "string" },
+          "status": { "enum": ["active", "deleted"], "type": "string" },
+          "members": {
+            "description": "List of partner-specific IDs of the users who are members of this organization",
+            "type": "array",
+            "items": { "type": ["string", "number"] }
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": ["name", "status", "members"],
+        "required": ["name"]
+      }
+    },
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
   "PlatformUserVariables": {
@@ -1726,115 +1501,6 @@
         },
         "additionalProperties": false,
         "propertyOrder": ["metadata"]
-      }
-    },
-    "$schema": "http://json-schema.org/draft-07/schema#"
-  },
-  "ClientAuthTokenData": {
-    "description": "https://docs.cord.com/reference/authentication/",
-    "additionalProperties": true,
-    "type": "object",
-    "properties": {
-      "app_id": {
-        "description": "Your app ID",
-        "format": "uuid",
-        "type": "string"
-      },
-      "user_id": {
-        "$ref": "#/definitions/ID",
-        "description": "The ID for the user"
-      },
-      "organization_id": {
-        "$ref": "#/definitions/ID",
-        "description": "The ID for the user’s organization"
-      },
-      "user_details": {
-        "description": "If present, update’s the user’s details, or creates a user with those\ndetails if the user_id is new to Cord. This is an object that contains the\nsame fields as the [user management REST\nendpoint](/rest-apis/users/)",
-        "$ref": "#/definitions/PlatformUserVariables"
-      },
-      "organization_details": {
-        "description": "If present, update’s the organization’s details, or creates an organization\nwith those details if the organization_id is new to Cord. This is an object\nthat contains the same fields as the [organization management REST\nendpoint](/rest-apis/organizations/)",
-        "$ref": "#/definitions/PlatformOrganizationVariables"
-      }
-    },
-    "propertyOrder": [
-      "app_id",
-      "user_id",
-      "organization_id",
-      "user_details",
-      "organization_details"
-    ],
-    "required": ["app_id", "organization_id", "user_id"],
-    "definitions": {
-      "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] },
-      "PlatformUserVariables": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "description": "Email address",
-            "format": "email",
-            "type": "string"
-          },
-          "name": { "description": "Full user name", "type": "string" },
-          "shortName": {
-            "description": "Short user name. In most cases, this will be preferred over name when set.",
-            "type": "string"
-          },
-          "short_name": { "type": "string" },
-          "status": { "enum": ["active", "deleted"], "type": "string" },
-          "profilePictureURL": {
-            "description": "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
-            "format": "uri",
-            "type": ["null", "string"]
-          },
-          "profile_picture_url": {
-            "format": "uri",
-            "type": ["null", "string"]
-          },
-          "first_name": {
-            "description": "User's first name. This field is deprecated and has no effect.",
-            "type": "string"
-          },
-          "last_name": {
-            "description": "User's last name. This field is deprecated and has no effect.",
-            "type": "string"
-          },
-          "metadata": {
-            "description": "Arbitrary key-value pairs that can be used to store additional information.",
-            "type": "object",
-            "additionalProperties": { "type": ["string", "number", "boolean"] },
-            "propertyOrder": []
-          }
-        },
-        "additionalProperties": false,
-        "propertyOrder": [
-          "email",
-          "name",
-          "shortName",
-          "short_name",
-          "status",
-          "profilePictureURL",
-          "profile_picture_url",
-          "first_name",
-          "last_name",
-          "metadata"
-        ],
-        "required": ["email"]
-      },
-      "PlatformOrganizationVariables": {
-        "type": "object",
-        "properties": {
-          "name": { "description": "Organization name", "type": "string" },
-          "status": { "enum": ["active", "deleted"], "type": "string" },
-          "members": {
-            "description": "List of partner-specific IDs of the users who are members of this organization",
-            "type": "array",
-            "items": { "type": ["string", "number"] }
-          }
-        },
-        "additionalProperties": false,
-        "propertyOrder": ["name", "status", "members"],
-        "required": ["name"]
       }
     },
     "$schema": "http://json-schema.org/draft-07/schema#"

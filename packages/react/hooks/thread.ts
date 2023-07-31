@@ -2,7 +2,7 @@ import type {
   ObserveThreadSummaryOptions,
   ThreadActivitySummary,
   ThreadSummary,
-  MessageData,
+  ClientMessageData,
   Location,
   ObserveThreadDataOptions,
   ThreadData,
@@ -237,8 +237,10 @@ export function useThreadData(
   threadId: string,
   options?: ObserveThreadDataOptions,
 ): ThreadData {
-  const [messages, setMessages] = useState<MessageData[]>([]);
-  const [firstMessage, setFirstMessage] = useState<MessageData | null>(null);
+  const [messages, setMessages] = useState<ClientMessageData[]>([]);
+  const [firstMessage, setFirstMessage] = useState<ClientMessageData | null>(
+    null,
+  );
   const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
     () => async (_n: number) => {},
   );
