@@ -45,3 +45,6 @@ export const emptyStatePlaceholderContainer = cordifyClassname(
 );
 export const emptyStatePlaceholderTitle = cordifyClassname('title');
 export const emptyStatePlaceholderBody = cordifyClassname('body');
+
+// WrapperThread
+export const clickableThread = cordifyClassname('clickable-thread');
