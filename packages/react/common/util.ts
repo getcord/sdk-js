@@ -33,3 +33,7 @@ export function pluralizeWord(
 ) {
   return n === 1 ? what : plural;
 }
+
+export function logComponentInstantiation(name: string) {
+  (window.CordSDK as any)?.__CORD_OPENSOURCE_COMPONENTS.add(name);
+}

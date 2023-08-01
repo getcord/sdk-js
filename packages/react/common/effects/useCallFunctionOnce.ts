@@ -1,12 +1,15 @@
 import { useCallback, useRef } from 'react';
 
-export function useCallFunctionOnce(fn?: () => unknown) {
+export function useCallFunctionOnce(fn?: (...args: any[]) => unknown) {
   const calledAlready = useRef<boolean>(false);
 
-  return useCallback(() => {
-    if (!calledAlready.current) {
-      fn?.();
-      calledAlready.current = true;
-    }
-  }, [fn]);
+  return useCallback(
+    (...args: any[]) => {
+      if (!calledAlready.current) {
+        fn?.(...args);
+        calledAlready.current = true;
+      }
+    },
+    [fn],
+  );
 }

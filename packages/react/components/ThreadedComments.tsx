@@ -8,7 +8,7 @@ import type {
 } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
-import { pluralize } from '../common/util';
+import { logComponentInstantiation, pluralize } from '../common/util';
 import * as user from '../hooks/user';
 import * as thread from '../hooks/thread';
 import { useExtraClassnames } from '../hooks/useExtraClassnames';
@@ -20,6 +20,8 @@ import { Composer } from './Composer';
 import { Avatar } from './Avatar';
 import { Facepile } from './Facepile';
 import { Message } from './Message';
+
+const THREADED_COMMENTS_COMPONENT_NAME = 'CORD-THREADED-COMMENTS';
 
 type MessageOrder = 'newest_on_top' | 'newest_on_bottom';
 type ComposerPosition = 'top' | 'bottom' | 'none';
@@ -57,13 +59,22 @@ export function ThreadedComments({
 
   const dispatchLoadingEvent = useCallFunctionOnce(onLoading);
   const dispatchRenderEvent = useCallFunctionOnce(onRender);
+  const dispatchLogComponentEvent = useCallFunctionOnce(
+    logComponentInstantiation,
+  );
   useEffect(() => {
     if (loading) {
       dispatchLoadingEvent();
     } else {
       dispatchRenderEvent();
+      dispatchLogComponentEvent(THREADED_COMMENTS_COMPONENT_NAME);
     }
-  }, [dispatchLoadingEvent, dispatchRenderEvent, loading]);
+  }, [
+    dispatchLoadingEvent,
+    dispatchLogComponentEvent,
+    dispatchRenderEvent,
+    loading,
+  ]);
 
   const renderedThreads = threads.map((oneThread) => (
     <CommentsThread
