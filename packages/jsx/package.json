@@ -22,7 +22,7 @@
     "@cord-sdk/components": "1.2.0"
   },
   "devDependencies": {
-    "@types/react": "^17.0.43",
+    "@types/react": "^18.2.18",
     "react": "^18.0.0",
     "rollup": "^2.70.1",
     "rollup-plugin-typescript2": "^0.31.2",
