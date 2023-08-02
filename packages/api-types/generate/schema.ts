@@ -324,25 +324,25 @@ export default {
         type: 'string',
         format: 'date-time',
       },
-      deletedTimestamp: {
+      extraClassnames: {
         description:
-          'The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.',
-        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
+          'A optional space separated list of classnames to add to the message.',
+        type: ['null', 'string'],
       },
       updatedTimestamp: {
         description:
           'The timestamp when this message was last edited, if it ever was.  If unset,\nthe message does not show as edited.',
         anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
+      deletedTimestamp: {
+        description:
+          'The timestamp when this message was deleted, if it was.  If unset, the\nmessage is not deleted.',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
+      },
       iconURL: {
         description:
           'The URL of the icon to show next to the message.  This is only used for\n`action_message` messages; other messages show the avatar of the author.\nIf an `action_message` does not have an icon set, no icon is shown.',
         format: 'uri',
-        type: ['null', 'string'],
-      },
-      extraClassnames: {
-        description:
-          'A optional space separated list of classnames to add to the message.',
         type: ['null', 'string'],
       },
       attachments: {
@@ -383,10 +383,10 @@ export default {
       'url',
       'metadata',
       'createdTimestamp',
-      'deletedTimestamp',
-      'updatedTimestamp',
-      'iconURL',
       'extraClassnames',
+      'updatedTimestamp',
+      'deletedTimestamp',
+      'iconURL',
       'attachments',
       'reactions',
     ],
@@ -422,15 +422,15 @@ export default {
             description: 'The organization ID this thread is in.',
             type: 'string',
           },
-          extraClassnames: {
-            description:
-              'An optional space separated list of classnames to add to the thread.',
-            type: ['null', 'string'],
-          },
           resolved: {
             description:
               'Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.',
             type: 'boolean',
+          },
+          extraClassnames: {
+            description:
+              'An optional space separated list of classnames to add to the thread.',
+            type: ['null', 'string'],
           },
         },
         additionalProperties: false,
@@ -440,8 +440,8 @@ export default {
           'name',
           'metadata',
           'organizationID',
-          'extraClassnames',
           'resolved',
+          'extraClassnames',
         ],
         required: ['location', 'name', 'organizationID', 'url'],
       },
@@ -547,6 +547,11 @@ export default {
         type: 'string',
         format: 'date-time',
       },
+      extraClassnames: {
+        description:
+          'A optional space separated list of classnames to add to the message.',
+        type: ['null', 'string'],
+      },
       authorID: {
         description: 'The ID for the user that sent the message.',
         type: 'string',
@@ -560,11 +565,6 @@ export default {
         description:
           'The URL of the icon to show next to the message.  This is only used for\n`action_message` messages; other messages show the avatar of the author.\nIf an `action_message` does not have an icon set, no icon is shown.',
         format: 'uri',
-        type: ['null', 'string'],
-      },
-      extraClassnames: {
-        description:
-          'A optional space separated list of classnames to add to the message.',
         type: ['null', 'string'],
       },
       attachments: {
@@ -605,10 +605,10 @@ export default {
       'content',
       'metadata',
       'createdTimestamp',
+      'extraClassnames',
       'authorID',
       'updatedTimestamp',
       'iconURL',
-      'extraClassnames',
       'attachments',
       'reactions',
     ],
@@ -923,24 +923,24 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
-      organizationID: {
-        description: 'The organization ID this thread is in.',
-        type: 'string',
-      },
-      extraClassnames: {
-        description:
-          'An optional space separated list of classnames to add to the thread.',
-        type: ['null', 'string'],
-      },
       resolvedTimestamp: {
         description:
           'The timestamp when this thread was resolved. Set to `null` if this thread\nis not resolved.',
         anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
+      organizationID: {
+        description: 'The organization ID this thread is in.',
+        type: 'string',
+      },
       repliers: {
         description: 'All of the users who have replied to this thread.',
         type: 'array',
         items: { type: 'string' },
+      },
+      extraClassnames: {
+        description:
+          'An optional space separated list of classnames to add to the thread.',
+        type: ['null', 'string'],
       },
       userID: {
         description:
@@ -966,10 +966,10 @@ export default {
       'url',
       'name',
       'metadata',
-      'organizationID',
-      'extraClassnames',
       'resolvedTimestamp',
+      'organizationID',
       'repliers',
+      'extraClassnames',
       'userID',
       'typing',
       'resolved',

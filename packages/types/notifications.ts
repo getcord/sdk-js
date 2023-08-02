@@ -1,5 +1,6 @@
 import type { EntityMetadata, ListenerRef, PaginationParams } from './core';
 import type { ClientUserData } from './user';
+import type { CoreMessageData } from './message';
 
 export type NotificationSummary = {
   unread: number;
@@ -35,16 +36,19 @@ type NotificationMessageAttachment = {
   type: 'message';
 
   /**
-   * The ID of the message attached to this notification. For example, if this
-   * is a notification about being \@-mentioned, this is the ID of the message
-   * containing that \@-mention.
+   * @deprecated Use `message.id` instead.
    */
   messageID: string;
 
   /**
-   * The ID of the thread that the above message is in.
+   * @deprecated Use `message.threadID` instead.
    */
   threadID: string;
+
+  /**
+   * The relevant message.
+   */
+  message: CoreMessageData;
 };
 
 /**
