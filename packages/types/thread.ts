@@ -40,14 +40,16 @@ export interface ThreadActivitySummary {
    * unresolved.
    */
   total: number;
+
   /**
-   * The total number of threads that have messages the current user hasn't seen
-   * yet.
+   * The total number of threads that contain *at least one* unread message in
+   * the thread.
    *
    * This will count all threads with unread messages at the location, whether
    * the current user is subscribed to the thread or not.
    */
   unread: number;
+
   /**
    * The number of threads that have messages the current user hasn't seen yet
    * and is subscribed to.
@@ -57,6 +59,16 @@ export interface ThreadActivitySummary {
    * `unreadSubscribed` is always less than or equal to `unread`.
    */
   unreadSubscribed: number;
+
+  /**
+   * The total number of threads that the user has never seen before at all,
+   * i.e., *every* message in the thread is unread.
+   *
+   * This will count all threads with unread messages at the location, whether
+   * the current user is subscribed to the thread or not.
+   */
+  new: number;
+
   /**
    * The number of resolved threads. This refers to threads that users have
    * manually marked as resolved within Cord's UI components.
