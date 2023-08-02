@@ -7,7 +7,7 @@ import type {
   ThreadSummary,
 } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { logComponentInstantiation, pluralize } from '../common/util';
 import * as user from '../hooks/user';
 import * as thread from '../hooks/thread';
@@ -137,11 +137,21 @@ function CommentsThread({
   const threadSummary = thread.useThreadSummary(threadId);
   const threadData = thread.useThreadData(threadId);
   const [showingReplies, setShowingReplies] = useState<boolean>(false);
+  const [showingComposer, setShowingComposer] = useState<boolean>(false);
+
+  const handleCollapsedRepliesClick = useCallback(() => {
+    setShowingReplies(true);
+    setShowingComposer(true);
+  }, []);
+
   const extraClassnames = useExtraClassnames(threadExtraClassnames);
 
   if (!threadSummary || !threadSummary.firstMessage?.id) {
     return null;
   }
+
+  const hasReplies = threadSummary.total > 1;
+  const showReplyComponent = !hasReplies || showingReplies;
 
   return (
     <div
@@ -192,7 +202,14 @@ function CommentsThread({
       ) : (
         <CollapsedReplies
           threadSummary={threadSummary}
-          setShowingReplies={setShowingReplies}
+          onClick={handleCollapsedRepliesClick}
+        />
+      )}
+      {showReplyComponent && (
+        <ReplyComponent
+          threadId={threadId}
+          showingComposer={showingComposer}
+          setShowingComposer={setShowingComposer}
         />
       )}
     </div>
@@ -201,10 +218,10 @@ function CommentsThread({
 
 function CollapsedReplies({
   threadSummary,
-  setShowingReplies,
+  onClick,
 }: {
   threadSummary: ThreadSummary;
-  setShowingReplies: Dispatch<SetStateAction<boolean>>;
+  onClick: () => void;
 }) {
   // The thread summary has an unread count covering the entire thread. The UI we
   // render below looks like we are talking about the number of unread *replies*,
@@ -223,12 +240,12 @@ function CollapsedReplies({
 
   return (
     <>
-      {hasReplies ? (
+      {hasReplies && (
         <button
           className={cx(classes.expandReplies, fonts.fontSmall, {
             [MODIFIERS.unseen]: hasUnread,
           })}
-          onClick={() => setShowingReplies(true)}
+          onClick={onClick}
           type="button"
         >
           <Facepile users={threadSummary.repliers} enableTooltip={false} />
@@ -236,8 +253,6 @@ function CollapsedReplies({
             ? pluralize(unreadNumber, 'new reply', 'new replies')
             : pluralize(replyNumber, 'reply', 'replies')}
         </button>
-      ) : (
-        <ReplyButton onClick={() => setShowingReplies(true)} />
       )}
     </>
   );
@@ -259,8 +274,6 @@ function ThreadReplies({
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
 }) {
   const { messages, hasMore, fetchMore } = threadData;
-  const [showingReplyComposer, setShowingReplyComposer] =
-    useState<boolean>(true);
 
   // The useThreadData hook will also return the first message, but
   // since we are already rendering it, we need to remove it when
@@ -321,24 +334,16 @@ function ThreadReplies({
           </div>
         </>
       )}
-      {showingReplyComposer ? (
-        <ViewerAvatarWithComposer
-          threadId={threadId}
-          setShowingReplyComposer={setShowingReplyComposer}
-        />
-      ) : (
-        <ReplyButton onClick={() => setShowingReplyComposer(true)} />
-      )}
     </>
   );
 }
 
 function ViewerAvatarWithComposer({
   threadId,
-  setShowingReplyComposer,
+  onClose,
 }: {
   threadId: string;
-  setShowingReplyComposer: Dispatch<SetStateAction<boolean>>;
+  onClose: () => void;
 }) {
   const viewerData = user.useViewerData();
   const userId = viewerData?.id;
@@ -349,7 +354,7 @@ function ViewerAvatarWithComposer({
       <Composer
         threadId={threadId}
         showCloseButton
-        onClose={() => setShowingReplyComposer(false)}
+        onClose={onClose}
         size={'small'}
         autofocus
       />
@@ -357,11 +362,24 @@ function ViewerAvatarWithComposer({
   );
 }
 
-function ReplyButton({ onClick }: { onClick: () => void }) {
-  return (
+function ReplyComponent({
+  threadId,
+  showingComposer,
+  setShowingComposer,
+}: {
+  threadId: string;
+  showingComposer: boolean;
+  setShowingComposer: Dispatch<SetStateAction<boolean>>;
+}) {
+  return showingComposer ? (
+    <ViewerAvatarWithComposer
+      threadId={threadId}
+      onClose={() => setShowingComposer(false)}
+    />
+  ) : (
     <button
       className={cx(classes.expandReplies, fonts.fontSmall)}
-      onClick={onClick}
+      onClick={() => setShowingComposer(true)}
       type="button"
     >
       {'Reply'}
