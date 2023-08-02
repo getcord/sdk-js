@@ -1,4 +1,5 @@
 import type { EntityMetadata, ListenerRef, PaginationParams } from './core';
+import type { ClientUserData } from './user';
 
 export type NotificationSummary = {
   unread: number;
@@ -51,6 +52,11 @@ type NotificationMessageAttachment = {
  */
 type NotificationTextHeader = {
   /**
+   * Indicator that this is a string header node.
+   */
+  type: 'text';
+
+  /**
    * The text to display. This text may start and/or end with whitespace, which
    * should typically *not* be trimmed. For example, in order to display the
    * notification `"Alice replied to your thread."`, this would typically be
@@ -71,10 +77,19 @@ type NotificationTextHeader = {
  */
 type NotificationUserHeader = {
   /**
-   * The user referenced. This node would typically be rendered by displaying
-   * this user's name.
+   * Indicator that this is a user reference header node.
+   */
+  type: 'user';
+
+  /**
+   * @deprecated Use `user.id` instead.
    */
   userID: string;
+
+  /**
+   * The indicated user.
+   */
+  user: ClientUserData;
 };
 
 export interface CoreNotificationData {

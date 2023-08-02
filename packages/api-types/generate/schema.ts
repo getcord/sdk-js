@@ -541,15 +541,15 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
-      authorID: {
-        description: 'The ID for the user that sent the message.',
-        type: 'string',
-      },
       createdTimestamp: {
         description:
           'The timestamp when this message was created.  The default value is the\ncurrent time.',
         type: 'string',
         format: 'date-time',
+      },
+      authorID: {
+        description: 'The ID for the user that sent the message.',
+        type: 'string',
       },
       updatedTimestamp: {
         description:
@@ -604,8 +604,8 @@ export default {
       'url',
       'content',
       'metadata',
-      'authorID',
       'createdTimestamp',
+      'authorID',
       'updatedTimestamp',
       'iconURL',
       'extraClassnames',
