@@ -16,6 +16,9 @@ export type Reaction = {
   timestamp: Date;
 };
 
+export type AddReactionsVariables = Omit<Reaction, 'timestamp'> &
+  Partial<Pick<Reaction, 'timestamp'>>;
+
 /**
  * A file attached to this message.
  */
@@ -156,6 +159,15 @@ export interface ServerCreateMessage
       >
     > {
   /**
+   * The reactions you want to add to this message.
+   * The default timestamp is the current time.
+   * Trying to create a reaction that already exists for a user does nothing.
+   * Doing the same as before with a timestamp will update the reaction with the new timestamp.
+   * The reaction users need to be an [active member of the org](https://docs.cord.com/rest-apis/organizations#Update-organization-members) that the message and thread belong to.
+   *
+   */
+  addReactions?: AddReactionsVariables[];
+  /**
    * The parameters for creating a thread if the supplied thread doesn't exist
    * yet.  If the thread doesn't exist but `createThread` isn't provided, the
    * call will generate an error.  This value is ignored if the thread already
@@ -179,6 +191,12 @@ export interface ServerUpdateMessage
    * [delete message endpoint](https://docs.cord.com/rest-apis/messages#Delete-a-message).
    */
   deletedTimestamp?: Date | null;
+  /**
+   * The reactions you want to remove from this message.
+   * Removing a reaction that does not exist will have no effect and will not return an error.
+   * An error is returned if a reaction is both added and deleted in the same request.
+   */
+  removeReactions?: Omit<Reaction, 'timestamp'>[];
 }
 
 export interface ServerListMessageParameters {

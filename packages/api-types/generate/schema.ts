@@ -285,6 +285,12 @@ export default {
     description: 'https://docs.cord.com/rest-apis/messages/',
     type: 'object',
     properties: {
+      addReactions: {
+        description:
+          'The reactions you want to add to this message.\nThe default timestamp is the current time.\nTrying to create a reaction that already exists for a user does nothing.\nDoing the same as before with a timestamp will update the reaction with the new timestamp.\nThe reaction users need to be an [active member of the org](/rest-apis/organizations#Update-organization-members) that the message and thread belong to.',
+        type: 'array',
+        items: { $ref: '#/definitions/AddReactionsVariables' },
+      },
       createThread: {
         description:
           "The parameters for creating a thread if the supplied thread doesn't exist\nyet.  If the thread doesn't exist but `createThread` isn't provided, the\ncall will generate an error.  This value is ignored if the thread already\nexists.",
@@ -375,6 +381,7 @@ export default {
     },
     additionalProperties: false,
     propertyOrder: [
+      'addReactions',
       'createThread',
       'id',
       'content',
@@ -392,6 +399,23 @@ export default {
     ],
     required: ['authorID', 'content', 'id'],
     definitions: {
+      AddReactionsVariables: {
+        additionalProperties: false,
+        type: 'object',
+        properties: {
+          reaction: { description: 'The emoji reaction.', type: 'string' },
+          userID: {
+            description: 'The ID of the user who reacted to the message.',
+            type: 'string',
+          },
+          timestamp: {
+            description: 'The timestamp of when the reaction was created.',
+            type: 'string',
+            format: 'date-time',
+          },
+        },
+        required: ['reaction', 'userID'],
+      },
       'Omit<ServerCreateThread,"id">': {
         type: 'object',
         properties: {
@@ -517,6 +541,12 @@ export default {
           "The timestamp when this message was deleted, if it was. If set to null, the message is not deleted.\nDeleting a message this way will only soft delete it, replacing the content of the message with a\nrecord of the deletion on the frontend. If you'd like to permanently delete it instead, use the\n[delete message endpoint](/rest-apis/messages#Delete-a-message).",
         anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
+      removeReactions: {
+        description:
+          'The reactions you want to remove from this message.\nRemoving a reaction that does not exist will have no effect and will not return an error.\nAn error is returned if a reaction is both added and deleted in the same request.',
+        type: 'array',
+        items: { $ref: '#/definitions/Omit<Reaction,"timestamp">' },
+      },
       type: {
         description:
           'The type of message this is.  A `user_message` is a message that the author\nsent.  An `action_message` is a message about something that happened, such\nas the thread being resolved.  The default value is `user_message`.',
@@ -594,11 +624,18 @@ export default {
           required: ['reaction', 'timestamp', 'userID'],
         },
       },
+      addReactions: {
+        description:
+          'The reactions you want to add to this message.\nThe default timestamp is the current time.\nTrying to create a reaction that already exists for a user does nothing.\nDoing the same as before with a timestamp will update the reaction with the new timestamp.\nThe reaction users need to be an [active member of the org](/rest-apis/organizations#Update-organization-members) that the message and thread belong to.',
+        type: 'array',
+        items: { $ref: '#/definitions/AddReactionsVariables' },
+      },
     },
     additionalProperties: false,
     propertyOrder: [
       'deleted',
       'deletedTimestamp',
+      'removeReactions',
       'type',
       'id',
       'url',
@@ -611,8 +648,22 @@ export default {
       'iconURL',
       'attachments',
       'reactions',
+      'addReactions',
     ],
     definitions: {
+      'Omit<Reaction,"timestamp">': {
+        type: 'object',
+        properties: {
+          reaction: { description: 'The emoji reaction.', type: 'string' },
+          userID: {
+            description: 'The ID of the user who reacted to the message.',
+            type: 'string',
+          },
+        },
+        additionalProperties: false,
+        propertyOrder: ['reaction', 'userID'],
+        required: ['reaction', 'userID'],
+      },
       MessageFileAttachment: {
         description: 'A file attached to this message.',
         type: 'object',
@@ -667,6 +718,23 @@ export default {
           'uploadStatus',
           'url',
         ],
+      },
+      AddReactionsVariables: {
+        additionalProperties: false,
+        type: 'object',
+        properties: {
+          reaction: { description: 'The emoji reaction.', type: 'string' },
+          userID: {
+            description: 'The ID of the user who reacted to the message.',
+            type: 'string',
+          },
+          timestamp: {
+            description: 'The timestamp of when the reaction was created.',
+            type: 'string',
+            format: 'date-time',
+          },
+        },
+        required: ['reaction', 'userID'],
       },
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
