@@ -3,6 +3,12 @@ import type { ID } from './coreTypes';
 
 export interface PlatformUserVariables {
   /**
+   * Provided ID for the user
+   *
+   */
+  id?: ID;
+
+  /**
    * Email address
    *
    * @format email
@@ -12,17 +18,17 @@ export interface PlatformUserVariables {
   /**
    * Full user name
    */
-  name?: string;
+  name?: string | null;
 
   /**
    * Short user name. In most cases, this will be preferred over name when set.
    */
-  shortName?: string;
+  shortName?: string | null;
 
   /**
    * @deprecated alias for shortName.
    */
-  short_name?: string;
+  short_name?: string | null;
 
   status?: 'active' | 'deleted';
 
@@ -37,7 +43,10 @@ export interface PlatformUserVariables {
   profilePictureURL?: string | null;
 
   /**
-   * @deprecated alias for profilePictureURL.
+   * Alias for profilePictureURL. This field is deprecated.
+   *
+   * @deprecated
+   *
    * @format uri
    */
   profile_picture_url?: string | null;
@@ -60,17 +69,25 @@ export interface PlatformUserVariables {
    * Arbitrary key-value pairs that can be used to store additional information.
    */
   metadata?: EntityMetadata;
+
+  /**
+   * Creation timestamp
+   */
+  createdTimestamp?: Date | null;
 }
 
 /**
  * https://docs.cord.com/rest-apis/users/
  */
-export type UpdatePlatformUserVariables = Partial<PlatformUserVariables>;
+export type UpdatePlatformUserVariables = Partial<
+  Omit<PlatformUserVariables, 'id'>
+>;
 
 /**
  * @deprecated type for deprecated api route
  */
-export type CreatePlatformUserVariables = PlatformUserVariables & { id: ID };
+export type CreatePlatformUserVariables = Omit<PlatformUserVariables, 'id'> &
+  Required<Pick<PlatformUserVariables, 'id'>>;
 
 export type ListUserQueryParameters = {
   /**

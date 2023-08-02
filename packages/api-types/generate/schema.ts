@@ -1319,18 +1319,24 @@ export default {
       PlatformUserVariables: {
         type: 'object',
         properties: {
+          id: {
+            minLength: 1,
+            maxLength: 128,
+            description: 'Provided ID for the user',
+            type: ['string', 'number'],
+          },
           email: {
             description: 'Email address',
             format: 'email',
             type: 'string',
           },
-          name: { description: 'Full user name', type: 'string' },
+          name: { description: 'Full user name', type: ['null', 'string'] },
           shortName: {
             description:
               'Short user name. In most cases, this will be preferred over name when set.',
-            type: 'string',
+            type: ['null', 'string'],
           },
-          short_name: { type: 'string' },
+          short_name: { type: ['null', 'string'] },
           status: { enum: ['active', 'deleted'], type: 'string' },
           profilePictureURL: {
             description:
@@ -1338,7 +1344,12 @@ export default {
             format: 'uri',
             type: ['null', 'string'],
           },
-          profile_picture_url: { format: 'uri', type: ['null', 'string'] },
+          profile_picture_url: {
+            description:
+              'Alias for profilePictureURL. This field is deprecated.',
+            format: 'uri',
+            type: ['null', 'string'],
+          },
           first_name: {
             description:
               "User's first name. This field is deprecated and has no effect.",
@@ -1356,9 +1367,14 @@ export default {
             additionalProperties: { type: ['string', 'number', 'boolean'] },
             propertyOrder: [],
           },
+          createdTimestamp: {
+            description: 'Creation timestamp',
+            anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
+          },
         },
         additionalProperties: false,
         propertyOrder: [
+          'id',
           'email',
           'name',
           'shortName',
@@ -1369,6 +1385,7 @@ export default {
           'first_name',
           'last_name',
           'metadata',
+          'createdTimestamp',
         ],
         required: ['email'],
       },
@@ -1394,14 +1411,20 @@ export default {
   PlatformUserVariables: {
     type: 'object',
     properties: {
+      id: {
+        minLength: 1,
+        maxLength: 128,
+        description: 'Provided ID for the user',
+        type: ['string', 'number'],
+      },
       email: { description: 'Email address', format: 'email', type: 'string' },
-      name: { description: 'Full user name', type: 'string' },
+      name: { description: 'Full user name', type: ['null', 'string'] },
       shortName: {
         description:
           'Short user name. In most cases, this will be preferred over name when set.',
-        type: 'string',
+        type: ['null', 'string'],
       },
-      short_name: { type: 'string' },
+      short_name: { type: ['null', 'string'] },
       status: { enum: ['active', 'deleted'], type: 'string' },
       profilePictureURL: {
         description:
@@ -1409,7 +1432,11 @@ export default {
         format: 'uri',
         type: ['null', 'string'],
       },
-      profile_picture_url: { format: 'uri', type: ['null', 'string'] },
+      profile_picture_url: {
+        description: 'Alias for profilePictureURL. This field is deprecated.',
+        format: 'uri',
+        type: ['null', 'string'],
+      },
       first_name: {
         description:
           "User's first name. This field is deprecated and has no effect.",
@@ -1427,9 +1454,14 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
+      createdTimestamp: {
+        description: 'Creation timestamp',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
+      },
     },
     additionalProperties: false,
     propertyOrder: [
+      'id',
       'email',
       'name',
       'shortName',
@@ -1440,6 +1472,7 @@ export default {
       'first_name',
       'last_name',
       'metadata',
+      'createdTimestamp',
     ],
     required: ['email'],
     $schema: 'http://json-schema.org/draft-07/schema#',
@@ -1448,22 +1481,37 @@ export default {
     description: 'https://docs.cord.com/rest-apis/users/',
     type: 'object',
     properties: {
+      name: { description: 'Full user name', type: ['null', 'string'] },
+      metadata: {
+        description:
+          'Arbitrary key-value pairs that can be used to store additional information.',
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
+      },
+      status: { enum: ['active', 'deleted'], type: 'string' },
+      createdTimestamp: {
+        description: 'Creation timestamp',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
+      },
       email: { description: 'Email address', format: 'email', type: 'string' },
-      name: { description: 'Full user name', type: 'string' },
       shortName: {
         description:
           'Short user name. In most cases, this will be preferred over name when set.',
-        type: 'string',
+        type: ['null', 'string'],
       },
-      short_name: { type: 'string' },
-      status: { enum: ['active', 'deleted'], type: 'string' },
+      short_name: { type: ['null', 'string'] },
       profilePictureURL: {
         description:
           "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
         format: 'uri',
         type: ['null', 'string'],
       },
-      profile_picture_url: { format: 'uri', type: ['null', 'string'] },
+      profile_picture_url: {
+        description: 'Alias for profilePictureURL. This field is deprecated.',
+        format: 'uri',
+        type: ['null', 'string'],
+      },
       first_name: {
         description:
           "User's first name. This field is deprecated and has no effect.",
@@ -1474,26 +1522,20 @@ export default {
           "User's last name. This field is deprecated and has no effect.",
         type: 'string',
       },
-      metadata: {
-        description:
-          'Arbitrary key-value pairs that can be used to store additional information.',
-        type: 'object',
-        additionalProperties: { type: ['string', 'number', 'boolean'] },
-        propertyOrder: [],
-      },
     },
     additionalProperties: false,
     propertyOrder: [
-      'email',
       'name',
+      'metadata',
+      'status',
+      'createdTimestamp',
+      'email',
       'shortName',
       'short_name',
-      'status',
       'profilePictureURL',
       'profile_picture_url',
       'first_name',
       'last_name',
-      'metadata',
     ],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
@@ -1501,22 +1543,37 @@ export default {
     additionalProperties: false,
     type: 'object',
     properties: {
+      name: { description: 'Full user name', type: ['null', 'string'] },
+      metadata: {
+        description:
+          'Arbitrary key-value pairs that can be used to store additional information.',
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
+      },
+      status: { enum: ['active', 'deleted'], type: 'string' },
+      createdTimestamp: {
+        description: 'Creation timestamp',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
+      },
       email: { description: 'Email address', format: 'email', type: 'string' },
-      name: { description: 'Full user name', type: 'string' },
       shortName: {
         description:
           'Short user name. In most cases, this will be preferred over name when set.',
-        type: 'string',
+        type: ['null', 'string'],
       },
-      short_name: { type: 'string' },
-      status: { enum: ['active', 'deleted'], type: 'string' },
+      short_name: { type: ['null', 'string'] },
       profilePictureURL: {
         description:
           "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
         format: 'uri',
         type: ['null', 'string'],
       },
-      profile_picture_url: { format: 'uri', type: ['null', 'string'] },
+      profile_picture_url: {
+        description: 'Alias for profilePictureURL. This field is deprecated.',
+        format: 'uri',
+        type: ['null', 'string'],
+      },
       first_name: {
         description:
           "User's first name. This field is deprecated and has no effect.",
@@ -1527,14 +1584,7 @@ export default {
           "User's last name. This field is deprecated and has no effect.",
         type: 'string',
       },
-      metadata: {
-        description:
-          'Arbitrary key-value pairs that can be used to store additional information.',
-        type: 'object',
-        additionalProperties: { type: ['string', 'number', 'boolean'] },
-        propertyOrder: [],
-      },
-      id: { $ref: '#/definitions/ID' },
+      id: { $ref: '#/definitions/ID', description: 'Provided ID for the user' },
     },
     required: ['email', 'id'],
     definitions: {
@@ -1584,26 +1634,45 @@ export default {
           additionalProperties: false,
           type: 'object',
           properties: {
+            name: { description: 'Full user name', type: ['null', 'string'] },
+            metadata: {
+              description:
+                'Arbitrary key-value pairs that can be used to store additional information.',
+              type: 'object',
+              additionalProperties: { type: ['string', 'number', 'boolean'] },
+              propertyOrder: [],
+            },
+            status: { enum: ['active', 'deleted'], type: 'string' },
+            createdTimestamp: {
+              description: 'Creation timestamp',
+              anyOf: [
+                { type: 'string', format: 'date-time' },
+                { type: 'null' },
+              ],
+            },
             email: {
               description: 'Email address',
               format: 'email',
               type: 'string',
             },
-            name: { description: 'Full user name', type: 'string' },
             shortName: {
               description:
                 'Short user name. In most cases, this will be preferred over name when set.',
-              type: 'string',
+              type: ['null', 'string'],
             },
-            short_name: { type: 'string' },
-            status: { enum: ['active', 'deleted'], type: 'string' },
+            short_name: { type: ['null', 'string'] },
             profilePictureURL: {
               description:
                 "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
               format: 'uri',
               type: ['null', 'string'],
             },
-            profile_picture_url: { format: 'uri', type: ['null', 'string'] },
+            profile_picture_url: {
+              description:
+                'Alias for profilePictureURL. This field is deprecated.',
+              format: 'uri',
+              type: ['null', 'string'],
+            },
             first_name: {
               description:
                 "User's first name. This field is deprecated and has no effect.",
@@ -1613,13 +1682,6 @@ export default {
               description:
                 "User's last name. This field is deprecated and has no effect.",
               type: 'string',
-            },
-            metadata: {
-              description:
-                'Arbitrary key-value pairs that can be used to store additional information.',
-              type: 'object',
-              additionalProperties: { type: ['string', 'number', 'boolean'] },
-              propertyOrder: [],
             },
             id: { $ref: '#/definitions/ID' },
           },
