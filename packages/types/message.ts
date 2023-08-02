@@ -19,6 +19,8 @@ export type Reaction = {
 export type AddReactionsVariables = Omit<Reaction, 'timestamp'> &
   Partial<Pick<Reaction, 'timestamp'>>;
 
+export type RemoveReactionsVariables = Omit<Reaction, 'timestamp'>;
+
 /**
  * A file attached to this message.
  */
@@ -196,7 +198,7 @@ export interface ServerUpdateMessage
    * Removing a reaction that does not exist will have no effect and will not return an error.
    * An error is returned if a reaction is both added and deleted in the same request.
    */
-  removeReactions?: Omit<Reaction, 'timestamp'>[];
+  removeReactions?: RemoveReactionsVariables[];
 }
 
 export interface ServerListMessageParameters {

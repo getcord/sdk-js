@@ -528,7 +528,7 @@
       "removeReactions": {
         "description": "The reactions you want to remove from this message.\nRemoving a reaction that does not exist will have no effect and will not return an error.\nAn error is returned if a reaction is both added and deleted in the same request.",
         "type": "array",
-        "items": { "$ref": "#/definitions/Omit<Reaction,\"timestamp\">" }
+        "items": { "$ref": "#/definitions/RemoveReactionsVariables" }
       },
       "type": {
         "description": "The type of message this is.  A `user_message` is a message that the author\nsent.  An `action_message` is a message about something that happened, such\nas the thread being resolved.  The default value is `user_message`.",
@@ -636,7 +636,7 @@
       "addReactions"
     ],
     "definitions": {
-      "Omit<Reaction,\"timestamp\">": {
+      "RemoveReactionsVariables": {
         "type": "object",
         "properties": {
           "reaction": {

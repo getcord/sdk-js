@@ -545,7 +545,7 @@ export default {
         description:
           'The reactions you want to remove from this message.\nRemoving a reaction that does not exist will have no effect and will not return an error.\nAn error is returned if a reaction is both added and deleted in the same request.',
         type: 'array',
-        items: { $ref: '#/definitions/Omit<Reaction,"timestamp">' },
+        items: { $ref: '#/definitions/RemoveReactionsVariables' },
       },
       type: {
         description:
@@ -651,7 +651,7 @@ export default {
       'addReactions',
     ],
     definitions: {
-      'Omit<Reaction,"timestamp">': {
+      RemoveReactionsVariables: {
         type: 'object',
         properties: {
           reaction: { description: 'The emoji reaction.', type: 'string' },
