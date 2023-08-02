@@ -1,5 +1,7 @@
 import type {
   EntityMetadata,
+  FilterParameters,
+  ID,
   ListenerRef,
   OrganizationID,
   UserID,
@@ -8,7 +10,7 @@ import type {
 /**
  * The data associated with a Cord user.
  */
-export interface UserData {
+export interface ClientUserData {
   /**
    * The user's ID.  This is unique within an application.
    */
@@ -35,7 +37,7 @@ export interface UserData {
 /**
  * The data associated with the Cord user that's currently logged in.
  */
-export interface ViewerUserData extends UserData {
+export interface ViewerUserData extends ClientUserData {
   /**
    * The identifier for the organization that the current user is using.
    */
@@ -43,9 +45,9 @@ export interface ViewerUserData extends UserData {
   notificationPreferences: { sendViaSlack: boolean; sendViaEmail: boolean };
 }
 
-export type SingleUserUpdateCallback = (user: UserData | null) => unknown;
+export type SingleUserUpdateCallback = (user: ClientUserData | null) => unknown;
 export type MultipleUserUpdateCallback = (
-  users: Record<string, UserData | null>,
+  users: Record<string, ClientUserData | null>,
 ) => unknown;
 export type ViewerUserUpdateCallback = (user: ViewerUserData) => unknown;
 
@@ -172,3 +174,100 @@ export interface ICordUserSDK {
   observeViewerData(callback: ViewerUserUpdateCallback): ListenerRef;
   unobserveViewerData(ref: ListenerRef): boolean;
 }
+
+export interface ServerUserData {
+  /**
+   * Provided ID for the user
+   *
+   */
+  id?: ID;
+
+  /**
+   * Email address
+   *
+   * @format email
+   */
+  email: string;
+
+  /**
+   * Full user name
+   */
+  name?: string | null;
+
+  /**
+   * Short user name. In most cases, this will be preferred over name when set.
+   */
+  shortName?: string | null;
+
+  /**
+   * @deprecated alias for shortName.
+   */
+  short_name?: string | null;
+
+  status?: 'active' | 'deleted';
+
+  /**
+   * This must be a valid URL, which means it needs to follow the usual URL
+   * formatting and encoding rules. For example, any space character will need
+   * to be encoded as `%20`. We recommend using your programming language's
+   * standard URL encoding function, such as `encodeURI` in Javascript.
+   *
+   * @format uri
+   */
+  profilePictureURL?: string | null;
+
+  /**
+   * Alias for profilePictureURL. This field is deprecated.
+   *
+   * @deprecated
+   *
+   * @format uri
+   */
+  profile_picture_url?: string | null;
+
+  /**
+   * User's first name. This field is deprecated and has no effect.
+   *
+   * @deprecated
+   */
+  first_name?: string;
+
+  /**
+   * User's last name. This field is deprecated and has no effect.
+   *
+   * @deprecated
+   */
+  last_name?: string;
+
+  /**
+   * Arbitrary key-value pairs that can be used to store additional information.
+   */
+  metadata?: EntityMetadata;
+
+  /**
+   * Creation timestamp
+   */
+  createdTimestamp?: Date | null;
+}
+
+/**
+ * https://docs.cord.com/rest-apis/users/
+ */
+export type ServerUpdateUser = Partial<Omit<ServerUserData, 'id'>>;
+
+/**
+ * @deprecated type for deprecated api route
+ */
+export type ServerCreateUser = Omit<ServerUserData, 'id'> &
+  Required<Pick<ServerUserData, 'id'>>;
+
+export type ServerListUserParameters = {
+  /**
+   * This is a JSON object with one optional entry.  Users will be matched
+   * against the filter specified. This is a partial match, which means any keys
+   * other than the ones you specify are ignored when checking for a match.
+   * Please note that because this is a query parameter in a REST API, this JSON
+   * object must be URI encoded before being sent.
+   */
+  filter?: Pick<FilterParameters, 'metadata'>;
+};

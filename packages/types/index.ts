@@ -10,9 +10,13 @@ import type { ICordPresenceSDK } from './presence';
 import type { ICordActivitySDK, ICordThreadSDK, ThreadSummary } from './thread';
 import type { ICordUserSDK } from './user';
 
+export * from './application';
+export * from './auth';
+export * from './batch';
 export * from './core';
 export * from './message';
 export * from './notifications';
+export * from './organization';
 export * from './presence';
 export * from './thread';
 export * from './user';

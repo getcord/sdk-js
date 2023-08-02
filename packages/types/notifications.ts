@@ -77,7 +77,7 @@ type NotificationUserHeader = {
   userID: string;
 };
 
-export interface NotificationVariables {
+export interface CoreNotificationData {
   /**
    * The [ID](https://docs.cord.com/reference/identifiers) for this notification.
    */
@@ -137,18 +137,18 @@ export interface NotificationVariables {
   metadata: EntityMetadata;
 }
 
-export interface NotificationData extends PaginationParams {
+export interface ClientNotificationData extends PaginationParams {
   /**
    * The current user's notifications, in reverse-chronological order (i.e.,
    * newest first). Calling `fetchMore` will load a batch of older notifications
    * and append them to this list. Any new notifications that are sent to the
    * current viewer will automatically be prepended to this list.
    */
-  notifications: NotificationVariables[];
+  notifications: CoreNotificationData[];
 }
 
 export type NotificationDataUpdateCallback = (
-  data: NotificationData,
+  data: ClientNotificationData,
 ) => unknown;
 
 export type NotificationListFilter = { metadata: EntityMetadata };
@@ -259,3 +259,75 @@ export interface ICordNotificationSDK {
     ...args: Parameters<ICordNotificationSDK['unobserveSummary']>
   ): ReturnType<ICordNotificationSDK['unobserveSummary']>;
 }
+
+/**
+ * https://docs.cord.com/rest-apis/notifications
+ */
+export type ServerCreateNotification = {
+  /**
+   * ID of user who is the "actor" sending the notification, i.e., the user
+   * taking the action the notification is about.
+   *
+   * Required if `template` includes `{{actor}}`.
+   */
+  actorID?: string;
+
+  /**
+   * @deprecated alias for actorID.
+   */
+  actor_id?: string;
+
+  /**
+   * ID of user receiving the notification.
+   */
+  recipientID?: string;
+
+  /**
+   * @deprecated alias for recipientID.
+   */
+  recipient_id?: string;
+
+  /**
+   * Template for the header of the notification. The expressions `{{actor}}`
+   * and `{{recipient}}` will be replaced respectively with the notification's
+   * actor and recipient. (See below for an example.)
+   */
+  template: string;
+
+  /**
+   * URL of page to go to when the notification is clicked.
+   */
+  url: string;
+
+  /**
+   * URL of an icon image if a specific one is desired. For notifications with
+   * an `actor_id` this will default to the sender's profile picture, otherwise
+   * it will default to a bell icon.
+   */
+  iconUrl?: string;
+
+  /**
+   * Currently must be set to `url`. In the future this may specify different
+   * types of notifications, but for now only `url` is defined.
+   */
+  type: 'url';
+
+  /**
+   * An arbitrary JSON object that can be used to set additional metadata on the
+   * notification. When displaying a [list of
+   * notifications](https://docs.cord.com/components/cord-notification-list),
+   * you can filter the list by metadata value.
+   *
+   * Keys are strings, and values can be strings, numbers or booleans.
+   */
+  metadata?: EntityMetadata;
+};
+
+// NB: these strings are written into the DB, so changes need to be
+// backwards-compatible or involve a migration.
+export type NotificationReplyAction =
+  | 'create-thread'
+  | 'mention'
+  | 'assign-task'
+  | 'unassign-task'
+  | 'attach-file';

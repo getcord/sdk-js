@@ -1,5 +1,5 @@
 import type {
-  NotificationData,
+  ClientNotificationData,
   NotificationSummary,
   ObserveNotificationDataOptions,
 } from '@cord-sdk/types';
@@ -14,7 +14,7 @@ export function useSummary(): NotificationSummary | null {
   return useNotificationSummaryInternal(notificationSDK, false);
 }
 
-const emptyNotificationData: NotificationData = {
+const emptyNotificationData: ClientNotificationData = {
   notifications: [],
   loading: true,
   hasMore: false,
@@ -55,8 +55,8 @@ const emptyNotificationData: NotificationData = {
  */
 export function useData(
   options?: ObserveNotificationDataOptions,
-): NotificationData {
-  const [data, setData] = useState<NotificationData | null>(null);
+): ClientNotificationData {
+  const [data, setData] = useState<ClientNotificationData | null>(null);
 
   const { sdk } = useCordContext('useData');
   const notificationSDK = sdk?.notification;

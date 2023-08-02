@@ -1,4 +1,4 @@
-import type { UserData, ViewerUserData } from '@cord-sdk/types';
+import type { ClientUserData, ViewerUserData } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 
@@ -47,7 +47,7 @@ function sameIDs(left: string | string[], right: string | string[]): boolean {
  * above. The component will automatically re-render if any of the data changes,
  * i.e., this data is always "live".
  */
-export function useUserData(userID: string): UserData | null | undefined;
+export function useUserData(userID: string): ClientUserData | null | undefined;
 
 /**
  * This method allows you to observe data about multiple users, including live
@@ -86,15 +86,17 @@ export function useUserData(userID: string): UserData | null | undefined;
  * The component will automatically re-render if any of the data changes or as
  * more data is loaded, i.e., this data is always "live".
  */
-export function useUserData(userIDs: string[]): Record<string, UserData | null>;
+export function useUserData(
+  userIDs: string[],
+): Record<string, ClientUserData | null>;
 export function useUserData(
   userIDorIDs: string | string[],
-): Record<string, UserData | null> | UserData | null | undefined {
+): Record<string, ClientUserData | null> | ClientUserData | null | undefined {
   const { sdk } = useCordContext('user.useUserData');
   const userSDK = sdk?.user;
 
   const [data, setData] = useState<
-    Record<string, UserData | null> | UserData | null | undefined
+    Record<string, ClientUserData | null> | ClientUserData | null | undefined
   >(Array.isArray(userIDorIDs) ? {} : undefined);
 
   const [memoizedUserIDorIDs, setMemoizedUserIDorIDs] = useState<

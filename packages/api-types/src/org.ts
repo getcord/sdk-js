@@ -1,35 +1,23 @@
-import type { ID } from './coreTypes';
-
-export interface PlatformOrganizationVariables {
-  /**
-   * Organization name
-   */
-  name: string;
-
-  status?: 'active' | 'deleted';
-
-  /**
-   * List of partner-specific IDs of the users who are members of this organization
-   */
-  members?: (string | number)[];
-}
+import type {
+  ServerUpdateOrganizationMembers,
+  ServerCreateOrganization,
+  ServerUpdateOrganization,
+} from '@cord-sdk/types';
 
 /**
  * https://docs.cord.com/rest-apis/organizations/
  */
-export type UpdatePlatformOrganizationVariables =
-  Partial<PlatformOrganizationVariables>;
+export interface UpdatePlatformOrganizationVariables
+  extends ServerUpdateOrganization {}
 
 /**
  * https://docs.cord.com/rest-apis/organizations/
  */
-export interface UpdatePlatformOrganizationMembersVariables {
-  add?: (string | number)[];
-  remove?: (string | number)[];
-}
+export interface UpdatePlatformOrganizationMembersVariables
+  extends ServerUpdateOrganizationMembers {}
 
 /**
- * @deprecated type for deprecated api route
+ * https://docs.cord.com/rest-apis/organizations/
  */
-export type CreatePlatformOrganizationVariables =
-  PlatformOrganizationVariables & { id: ID };
+export interface CreatePlatformOrganizationVariables
+  extends ServerCreateOrganization {}

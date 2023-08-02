@@ -4,6 +4,15 @@ import type {
   ServerListMessageParameters,
 } from '@cord-sdk/types';
 
-export type CreateMessageVariables = ServerCreateMessage;
-export type UpdateMessageVariables = ServerUpdateMessage;
-export type ListMessageParameters = ServerListMessageParameters;
+/**
+ * https://docs.cord.com/rest-apis/messages/
+ */
+export interface CreateMessageVariables extends ServerCreateMessage {}
+/**
+ * https://docs.cord.com/rest-apis/messages/
+ */
+export interface UpdateMessageVariables extends ServerUpdateMessage {}
+/**
+ * https://docs.cord.com/rest-apis/messages/
+ */
+export interface ListMessageParameters extends ServerListMessageParameters {}

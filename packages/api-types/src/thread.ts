@@ -4,6 +4,15 @@ import type {
   ServerUpdateThread,
 } from '@cord-sdk/types';
 
-export type CreateThreadVariables = ServerCreateThread;
-export type UpdateThreadVariables = ServerUpdateThread;
-export type ListThreadQueryParameters = ServerListThreadParameters;
+/**
+ * https://docs.cord.com/rest-apis/threads/
+ */
+export interface CreateThreadVariables extends ServerCreateThread {}
+/**
+ * https://docs.cord.com/rest-apis/threads/
+ */
+export interface UpdateThreadVariables extends ServerUpdateThread {}
+/**
+ * https://docs.cord.com/rest-apis/threads/
+ */
+export interface ListThreadQueryParameters extends ServerListThreadParameters {}

@@ -4,6 +4,12 @@ export type OrganizationID = string;
 export type ThreadID = string;
 export type MessageID = string;
 
+/**
+ * @minLength 1
+ * @maxLength 128
+ * */
+export type ID = string | number;
+
 /*
  * `FlatJsonObject` is an object where all values are simple, scalar types
  * (string, number or boolean).

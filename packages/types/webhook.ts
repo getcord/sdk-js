@@ -1,11 +1,11 @@
-import type { NotificationReplyAction } from '@cord-sdk/api-types';
 import type {
+  NotificationReplyAction,
   CoreThreadData,
   CoreMessageData,
   EntityMetadata,
-  NotificationVariables,
+  CoreNotificationData,
   UUID,
-  UserData,
+  ClientUserData,
 } from '@cord-sdk/types';
 
 // Typing of the payloads we send to clients
@@ -23,7 +23,7 @@ export interface ThreadMessageAddedWebhookPayload {
   orgID: string;
   organizationID: string;
   applicationID: UUID; // exception: this one will be moved to higher level (see postEvent)
-  author: UserData;
+  author: ClientUserData;
   content: object[];
   plaintext: string;
   url: string;
@@ -37,15 +37,15 @@ export interface ThreadMessageAddedWebhookPayload {
 
 // Need to be split out to help the docs type extraction script
 export interface WebhookMessage extends Omit<CoreMessageData, 'authorID'> {
-  author: UserData;
+  author: ClientUserData;
 }
 
-export interface UsersToNotify extends UserData {
+export interface UsersToNotify extends ClientUserData {
   replyActions: NotificationReplyAction[] | null;
 }
 
 export interface NotificationCreatedWebhookPayload
-  extends NotificationVariables {
+  extends CoreNotificationData {
   recipientUserID: string;
 }
 
