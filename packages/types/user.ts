@@ -180,7 +180,7 @@ export interface ServerUserData {
    * Provided ID for the user
    *
    */
-  id?: ID;
+  id: ID;
 
   /**
    * Email address
@@ -192,19 +192,19 @@ export interface ServerUserData {
   /**
    * Full user name
    */
-  name?: string | null;
+  name: string | null;
 
   /**
    * Short user name. In most cases, this will be preferred over name when set.
    */
-  shortName?: string | null;
+  shortName: string | null;
 
   /**
    * @deprecated alias for shortName.
    */
-  short_name?: string | null;
+  short_name: string | null;
 
-  status?: 'active' | 'deleted';
+  status: 'active' | 'deleted';
 
   /**
    * This must be a valid URL, which means it needs to follow the usual URL
@@ -214,7 +214,7 @@ export interface ServerUserData {
    *
    * @format uri
    */
-  profilePictureURL?: string | null;
+  profilePictureURL: string | null;
 
   /**
    * Alias for profilePictureURL. This field is deprecated.
@@ -223,43 +223,52 @@ export interface ServerUserData {
    *
    * @format uri
    */
-  profile_picture_url?: string | null;
+  profile_picture_url: string | null;
 
   /**
    * User's first name. This field is deprecated and has no effect.
    *
    * @deprecated
    */
-  first_name?: string;
+  first_name: string | null;
 
   /**
    * User's last name. This field is deprecated and has no effect.
    *
    * @deprecated
    */
-  last_name?: string;
+  last_name: string | null;
 
   /**
    * Arbitrary key-value pairs that can be used to store additional information.
    */
-  metadata?: EntityMetadata;
+  metadata: EntityMetadata;
 
   /**
    * Creation timestamp
    */
-  createdTimestamp?: Date | null;
+  createdTimestamp: Date | null;
 }
 
 /**
  * https://docs.cord.com/rest-apis/users/
  */
-export type ServerUpdateUser = Partial<Omit<ServerUserData, 'id'>>;
+export type ServerUpdateUser = Partial<
+  Omit<ServerUserData, 'id' | 'createdTimestamp'>
+>;
 
 /**
  * @deprecated type for deprecated api route
  */
-export type ServerCreateUser = Omit<ServerUserData, 'id'> &
-  Required<Pick<ServerUserData, 'id'>>;
+export type ServerCreateUser = ServerUpdateUser &
+  Required<Pick<ServerUserData, 'id' | 'email'>>;
+
+/**
+ * https://docs.cord.com/rest-apis/users/
+ */
+export type ServerListUser = Omit<ServerUserData, 'email'> & {
+  email: string | null;
+};
 
 export type ServerListUserParameters = {
   /**

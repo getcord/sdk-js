@@ -19,6 +19,7 @@ import type {
   ListThreadQueryParameters,
   UpdatePlatformUserVariables,
   CreatePlatformUserVariables,
+  ListPlatformUserVariables,
   ListUserQueryParameters,
   ClientAuthTokenData,
 } from '../src/typeDefinitions';
@@ -41,6 +42,7 @@ export type Types = {
   ListThreadQueryParameters: ListThreadQueryParameters;
   UpdatePlatformUserVariables: UpdatePlatformUserVariables;
   CreatePlatformUserVariables: CreatePlatformUserVariables;
+  ListPlatformUserVariables: ListPlatformUserVariables;
   ListUserQueryParameters: ListUserQueryParameters;
   ClientAuthTokenData: ClientAuthTokenData;
 };

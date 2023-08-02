@@ -213,13 +213,6 @@ export default {
               propertyOrder: [],
             },
             status: { enum: ['active', 'deleted'], type: 'string' },
-            createdTimestamp: {
-              description: 'Creation timestamp',
-              anyOf: [
-                { type: 'string', format: 'date-time' },
-                { type: 'null' },
-              ],
-            },
             email: {
               description: 'Email address',
               format: 'email',
@@ -246,12 +239,12 @@ export default {
             first_name: {
               description:
                 "User's first name. This field is deprecated and has no effect.",
-              type: 'string',
+              type: ['null', 'string'],
             },
             last_name: {
               description:
                 "User's last name. This field is deprecated and has no effect.",
-              type: 'string',
+              type: ['null', 'string'],
             },
             id: { $ref: '#/definitions/ID' },
           },
@@ -1074,10 +1067,6 @@ export default {
         propertyOrder: [],
       },
       status: { enum: ['active', 'deleted'], type: 'string' },
-      createdTimestamp: {
-        description: 'Creation timestamp',
-        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
-      },
       email: { description: 'Email address', format: 'email', type: 'string' },
       shortName: {
         description:
@@ -1099,12 +1088,12 @@ export default {
       first_name: {
         description:
           "User's first name. This field is deprecated and has no effect.",
-        type: 'string',
+        type: ['null', 'string'],
       },
       last_name: {
         description:
           "User's last name. This field is deprecated and has no effect.",
-        type: 'string',
+        type: ['null', 'string'],
       },
     },
     additionalProperties: false,
@@ -1112,7 +1101,6 @@ export default {
       'name',
       'metadata',
       'status',
-      'createdTimestamp',
       'email',
       'shortName',
       'short_name',
@@ -1136,10 +1124,6 @@ export default {
         propertyOrder: [],
       },
       status: { enum: ['active', 'deleted'], type: 'string' },
-      createdTimestamp: {
-        description: 'Creation timestamp',
-        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
-      },
       email: { description: 'Email address', format: 'email', type: 'string' },
       shortName: {
         description:
@@ -1161,12 +1145,12 @@ export default {
       first_name: {
         description:
           "User's first name. This field is deprecated and has no effect.",
-        type: 'string',
+        type: ['null', 'string'],
       },
       last_name: {
         description:
           "User's last name. This field is deprecated and has no effect.",
-        type: 'string',
+        type: ['null', 'string'],
       },
       id: { $ref: '#/definitions/ID', description: 'Provided ID for the user' },
     },
@@ -1175,7 +1159,6 @@ export default {
       'name',
       'metadata',
       'status',
-      'createdTimestamp',
       'email',
       'shortName',
       'short_name',
@@ -1186,6 +1169,87 @@ export default {
       'id',
     ],
     required: ['email', 'id'],
+    definitions: {
+      ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+    },
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  ListPlatformUserVariables: {
+    description: 'https://docs.cord.com/rest-apis/users/',
+    type: 'object',
+    properties: {
+      id: { $ref: '#/definitions/ID', description: 'Provided ID for the user' },
+      name: { description: 'Full user name', type: ['null', 'string'] },
+      metadata: {
+        description:
+          'Arbitrary key-value pairs that can be used to store additional information.',
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
+      },
+      status: { enum: ['active', 'deleted'], type: 'string' },
+      createdTimestamp: {
+        description: 'Creation timestamp',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
+      },
+      shortName: {
+        description:
+          'Short user name. In most cases, this will be preferred over name when set.',
+        type: ['null', 'string'],
+      },
+      short_name: { type: ['null', 'string'] },
+      profilePictureURL: {
+        description:
+          "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
+        format: 'uri',
+        type: ['null', 'string'],
+      },
+      profile_picture_url: {
+        description: 'Alias for profilePictureURL. This field is deprecated.',
+        format: 'uri',
+        type: ['null', 'string'],
+      },
+      first_name: {
+        description:
+          "User's first name. This field is deprecated and has no effect.",
+        type: ['null', 'string'],
+      },
+      last_name: {
+        description:
+          "User's last name. This field is deprecated and has no effect.",
+        type: ['null', 'string'],
+      },
+      email: { type: ['null', 'string'] },
+    },
+    additionalProperties: false,
+    propertyOrder: [
+      'id',
+      'name',
+      'metadata',
+      'status',
+      'createdTimestamp',
+      'shortName',
+      'short_name',
+      'profilePictureURL',
+      'profile_picture_url',
+      'first_name',
+      'last_name',
+      'email',
+    ],
+    required: [
+      'createdTimestamp',
+      'email',
+      'first_name',
+      'id',
+      'last_name',
+      'metadata',
+      'name',
+      'profilePictureURL',
+      'profile_picture_url',
+      'shortName',
+      'short_name',
+      'status',
+    ],
     definitions: {
       ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
     },
@@ -1235,7 +1299,7 @@ export default {
       user_details: {
         description:
           'If present, update’s the user’s details, or creates a user with those\ndetails if the user_id is new to Cord. This is an object that contains the\nsame fields as the [user management REST\nendpoint](/rest-apis/users/)',
-        $ref: '#/definitions/Partial<Omit<ServerUserData,"id">>',
+        $ref: '#/definitions/Partial<Omit<ServerUserData,"id"|"createdTimestamp">>',
       },
       organization_details: {
         description:
@@ -1253,7 +1317,7 @@ export default {
     required: ['app_id', 'organization_id', 'user_id'],
     definitions: {
       ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
-      'Partial<Omit<ServerUserData,"id">>': {
+      'Partial<Omit<ServerUserData,"id"|"createdTimestamp">>': {
         type: 'object',
         properties: {
           name: { description: 'Full user name', type: ['null', 'string'] },
@@ -1265,10 +1329,6 @@ export default {
             propertyOrder: [],
           },
           status: { enum: ['active', 'deleted'], type: 'string' },
-          createdTimestamp: {
-            description: 'Creation timestamp',
-            anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
-          },
           email: {
             description: 'Email address',
             format: 'email',
@@ -1295,12 +1355,12 @@ export default {
           first_name: {
             description:
               "User's first name. This field is deprecated and has no effect.",
-            type: 'string',
+            type: ['null', 'string'],
           },
           last_name: {
             description:
               "User's last name. This field is deprecated and has no effect.",
-            type: 'string',
+            type: ['null', 'string'],
           },
         },
         additionalProperties: false,
@@ -1308,7 +1368,6 @@ export default {
           'name',
           'metadata',
           'status',
-          'createdTimestamp',
           'email',
           'shortName',
           'short_name',
