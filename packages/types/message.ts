@@ -21,18 +21,11 @@ export type AddReactionsVariables = Omit<Reaction, 'timestamp'> &
 
 export type RemoveReactionsVariables = Omit<Reaction, 'timestamp'>;
 
-/**
- * A file attached to this message.
- */
-export interface MessageFileAttachment {
+interface Attachment {
   /**
    * The ID of this attachment.
    */
   id: string;
-  /**
-   * The type of this attachment, which is always `file` for file attachments.
-   */
-  type: 'file';
   /**
    * The name of the file that was attached.
    */
@@ -59,7 +52,33 @@ export interface MessageFileAttachment {
   uploadStatus: 'uploading' | 'uploaded' | 'failed' | 'cancelled';
 }
 
-export type MessageAttachment = MessageFileAttachment;
+/**
+ * A file attached to this message.
+ */
+export interface MessageFileAttachment extends Attachment {
+  /**
+   * The type of this attachment, which is always `file` for file attachments.
+   */
+  type: 'file';
+}
+
+/**
+ * An annotation attached to this message.
+ */
+export interface MessageAnnotationAttachment extends Attachment {
+  /**
+   * The type of this attachment, which is always `annotation` for annotation attachments.
+   */
+  type: 'annotation';
+  /**
+   * (Optional) The text that was selected when creating the annotation.
+   */
+  textContent: string | null;
+}
+
+export type MessageAttachment =
+  | MessageFileAttachment
+  | MessageAnnotationAttachment;
 
 export interface CoreMessageData {
   /**

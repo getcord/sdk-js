@@ -354,7 +354,7 @@ export default {
       attachments: {
         description: 'The items attached to this message.',
         type: 'array',
-        items: { $ref: '#/definitions/MessageFileAttachment' },
+        items: { $ref: '#/definitions/MessageAttachment' },
       },
       reactions: {
         description: 'The reactions to this message.',
@@ -469,17 +469,23 @@ export default {
         ],
         required: ['location', 'name', 'organizationID', 'url'],
       },
+      MessageAttachment: {
+        anyOf: [
+          { $ref: '#/definitions/MessageFileAttachment' },
+          { $ref: '#/definitions/MessageAnnotationAttachment' },
+        ],
+      },
       MessageFileAttachment: {
         description: 'A file attached to this message.',
         type: 'object',
         properties: {
-          id: { description: 'The ID of this attachment.', type: 'string' },
           type: {
             description:
               'The type of this attachment, which is always `file` for file attachments.',
             type: 'string',
             enum: ['file'],
           },
+          id: { description: 'The ID of this attachment.', type: 'string' },
           name: {
             description: 'The name of the file that was attached.',
             type: 'string',
@@ -506,8 +512,8 @@ export default {
         },
         additionalProperties: false,
         propertyOrder: [
-          'id',
           'type',
+          'id',
           'name',
           'url',
           'mimeType',
@@ -519,6 +525,68 @@ export default {
           'mimeType',
           'name',
           'size',
+          'type',
+          'uploadStatus',
+          'url',
+        ],
+      },
+      MessageAnnotationAttachment: {
+        description: 'An annotation attached to this message.',
+        type: 'object',
+        properties: {
+          type: {
+            description:
+              'The type of this attachment, which is always `annotation` for annotation attachments.',
+            type: 'string',
+            enum: ['annotation'],
+          },
+          textContent: {
+            description:
+              '(Optional) The text that was selected when creating the annotation.',
+            type: ['null', 'string'],
+          },
+          id: { description: 'The ID of this attachment.', type: 'string' },
+          name: {
+            description: 'The name of the file that was attached.',
+            type: 'string',
+          },
+          url: {
+            description:
+              'The URL that a user can use to download the file.  This is a signed URL\nthat will expire after 24 hours.',
+            type: 'string',
+          },
+          mimeType: {
+            description: 'The MIME type of the file.',
+            type: 'string',
+          },
+          size: {
+            description: 'The size of the file, in bytes.',
+            type: 'number',
+          },
+          uploadStatus: {
+            description:
+              'The status of the file upload.  `uploading` means that the user has not yet\ncompleted uploading the file, `uploaded` means the file is successfully\nuploaded, `failed` means the upload encountered an error, and `cancelled`\nmeans the user cancelled the upload before it was finished.',
+            enum: ['cancelled', 'failed', 'uploaded', 'uploading'],
+            type: 'string',
+          },
+        },
+        additionalProperties: false,
+        propertyOrder: [
+          'type',
+          'textContent',
+          'id',
+          'name',
+          'url',
+          'mimeType',
+          'size',
+          'uploadStatus',
+        ],
+        required: [
+          'id',
+          'mimeType',
+          'name',
+          'size',
+          'textContent',
           'type',
           'uploadStatus',
           'url',
@@ -600,7 +668,7 @@ export default {
       attachments: {
         description: 'The items attached to this message.',
         type: 'array',
-        items: { $ref: '#/definitions/MessageFileAttachment' },
+        items: { $ref: '#/definitions/MessageAttachment' },
       },
       reactions: {
         description: 'The reactions to this message.',
@@ -664,17 +732,23 @@ export default {
         propertyOrder: ['reaction', 'userID'],
         required: ['reaction', 'userID'],
       },
+      MessageAttachment: {
+        anyOf: [
+          { $ref: '#/definitions/MessageFileAttachment' },
+          { $ref: '#/definitions/MessageAnnotationAttachment' },
+        ],
+      },
       MessageFileAttachment: {
         description: 'A file attached to this message.',
         type: 'object',
         properties: {
-          id: { description: 'The ID of this attachment.', type: 'string' },
           type: {
             description:
               'The type of this attachment, which is always `file` for file attachments.',
             type: 'string',
             enum: ['file'],
           },
+          id: { description: 'The ID of this attachment.', type: 'string' },
           name: {
             description: 'The name of the file that was attached.',
             type: 'string',
@@ -701,8 +775,8 @@ export default {
         },
         additionalProperties: false,
         propertyOrder: [
-          'id',
           'type',
+          'id',
           'name',
           'url',
           'mimeType',
@@ -714,6 +788,68 @@ export default {
           'mimeType',
           'name',
           'size',
+          'type',
+          'uploadStatus',
+          'url',
+        ],
+      },
+      MessageAnnotationAttachment: {
+        description: 'An annotation attached to this message.',
+        type: 'object',
+        properties: {
+          type: {
+            description:
+              'The type of this attachment, which is always `annotation` for annotation attachments.',
+            type: 'string',
+            enum: ['annotation'],
+          },
+          textContent: {
+            description:
+              '(Optional) The text that was selected when creating the annotation.',
+            type: ['null', 'string'],
+          },
+          id: { description: 'The ID of this attachment.', type: 'string' },
+          name: {
+            description: 'The name of the file that was attached.',
+            type: 'string',
+          },
+          url: {
+            description:
+              'The URL that a user can use to download the file.  This is a signed URL\nthat will expire after 24 hours.',
+            type: 'string',
+          },
+          mimeType: {
+            description: 'The MIME type of the file.',
+            type: 'string',
+          },
+          size: {
+            description: 'The size of the file, in bytes.',
+            type: 'number',
+          },
+          uploadStatus: {
+            description:
+              'The status of the file upload.  `uploading` means that the user has not yet\ncompleted uploading the file, `uploaded` means the file is successfully\nuploaded, `failed` means the upload encountered an error, and `cancelled`\nmeans the user cancelled the upload before it was finished.',
+            enum: ['cancelled', 'failed', 'uploaded', 'uploading'],
+            type: 'string',
+          },
+        },
+        additionalProperties: false,
+        propertyOrder: [
+          'type',
+          'textContent',
+          'id',
+          'name',
+          'url',
+          'mimeType',
+          'size',
+          'uploadStatus',
+        ],
+        required: [
+          'id',
+          'mimeType',
+          'name',
+          'size',
+          'textContent',
           'type',
           'uploadStatus',
           'url',
