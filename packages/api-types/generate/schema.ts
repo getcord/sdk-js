@@ -540,11 +540,23 @@ export default {
             type: 'string',
             enum: ['annotation'],
           },
+          screenshot: {
+            $ref: '#/definitions/Attachment',
+            description: 'The screenshot attached to the annotation.',
+          },
           textContent: {
             description:
               '(Optional) The text that was selected when creating the annotation.',
             type: ['null', 'string'],
           },
+        },
+        additionalProperties: false,
+        propertyOrder: ['type', 'screenshot', 'textContent'],
+        required: ['screenshot', 'textContent', 'type'],
+      },
+      Attachment: {
+        type: 'object',
+        properties: {
           id: { description: 'The ID of this attachment.', type: 'string' },
           name: {
             description: 'The name of the file that was attached.',
@@ -572,8 +584,6 @@ export default {
         },
         additionalProperties: false,
         propertyOrder: [
-          'type',
-          'textContent',
           'id',
           'name',
           'url',
@@ -581,16 +591,7 @@ export default {
           'size',
           'uploadStatus',
         ],
-        required: [
-          'id',
-          'mimeType',
-          'name',
-          'size',
-          'textContent',
-          'type',
-          'uploadStatus',
-          'url',
-        ],
+        required: ['id', 'mimeType', 'name', 'size', 'uploadStatus', 'url'],
       },
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
@@ -803,11 +804,23 @@ export default {
             type: 'string',
             enum: ['annotation'],
           },
+          screenshot: {
+            $ref: '#/definitions/Attachment',
+            description: 'The screenshot attached to the annotation.',
+          },
           textContent: {
             description:
               '(Optional) The text that was selected when creating the annotation.',
             type: ['null', 'string'],
           },
+        },
+        additionalProperties: false,
+        propertyOrder: ['type', 'screenshot', 'textContent'],
+        required: ['screenshot', 'textContent', 'type'],
+      },
+      Attachment: {
+        type: 'object',
+        properties: {
           id: { description: 'The ID of this attachment.', type: 'string' },
           name: {
             description: 'The name of the file that was attached.',
@@ -835,8 +848,6 @@ export default {
         },
         additionalProperties: false,
         propertyOrder: [
-          'type',
-          'textContent',
           'id',
           'name',
           'url',
@@ -844,16 +855,7 @@ export default {
           'size',
           'uploadStatus',
         ],
-        required: [
-          'id',
-          'mimeType',
-          'name',
-          'size',
-          'textContent',
-          'type',
-          'uploadStatus',
-          'url',
-        ],
+        required: ['id', 'mimeType', 'name', 'size', 'uploadStatus', 'url'],
       },
       AddReactionsVariables: {
         additionalProperties: false,

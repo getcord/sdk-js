@@ -65,11 +65,15 @@ export interface MessageFileAttachment extends Attachment {
 /**
  * An annotation attached to this message.
  */
-export interface MessageAnnotationAttachment extends Attachment {
+export interface MessageAnnotationAttachment {
   /**
    * The type of this attachment, which is always `annotation` for annotation attachments.
    */
   type: 'annotation';
+  /**
+   * The screenshot attached to the annotation.
+   */
+  screenshot: Attachment;
   /**
    * (Optional) The text that was selected when creating the annotation.
    */
