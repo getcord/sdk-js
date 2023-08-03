@@ -44,6 +44,7 @@ globalStyle(threadOrThreadListButton.join(', '), {
   display: 'flex',
   gap: cssVar('space-2xs'),
   textAlign: 'left',
+  margin: `0 ${cssVar('space-3xs')} 0 ${cssVar('space-2xs')}`,
 });
 globalStyle(threadOrThreadListButton.map((s) => s + ':hover').join(', '), {
   background: cssVar('color-base-strong'),
@@ -54,7 +55,6 @@ globalStyle(`.${comments} :where(button.${expandReplies})`, {
   padding: `${cssVar('space-2xs')} calc(${cssVar('space-l')} + ${cssVar(
     'space-2xs',
   )})`,
-  margin: `0 ${cssVar('space-3xs')} 0 ${cssVar('space-2xs')}`,
   color: cssVar('color-brand-primary'),
   '--cord-facepile-avatar-size': cssVar('space-m'),
 } as CSSProperties);
@@ -124,9 +124,9 @@ export const viewerAvatarWithComposer = cordifyClassname(
 globalStyle(`.${comments} :where(.${viewerAvatarWithComposer})`, {
   display: 'flex',
   gap: cssVar('space-2xs'),
-  padding: `${cssVar('space-2xs')} 0px ${cssVar('space-2xs')} ${cssVar(
+  padding: `${cssVar('space-2xs')} ${cssVar('space-3xs')} ${cssVar(
     'space-2xs',
-  )}`,
+  )} ${cssVar('space-2xs')}`,
   marginLeft: `calc(${cssVar('space-l')} + ${cssVar('space-2xs')})`,
 });
 
