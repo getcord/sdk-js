@@ -207,6 +207,7 @@ export const componentAttributes = {
     'message-order': 'string',
     'composer-position': 'string',
     'composer-expanded': 'boolean',
+    'show-replies': 'string',
   },
 } as const;
 

@@ -23,6 +23,10 @@ import { Message } from './Message';
 
 const THREADED_COMMENTS_COMPONENT_NAME = 'CORD-THREADED-COMMENTS';
 
+type ShowReplies =
+  | 'initiallyCollapsed'
+  | 'initiallyExpanded'
+  | 'alwaysCollapsed';
 type MessageOrder = 'newest_on_top' | 'newest_on_bottom';
 type ComposerPosition = 'top' | 'bottom' | 'none';
 export type ThreadedCommentsReactComponentProps = {
@@ -30,6 +34,7 @@ export type ThreadedCommentsReactComponentProps = {
   messageOrder?: MessageOrder;
   composerPosition?: ComposerPosition;
   composerExpanded?: boolean;
+  showReplies?: ShowReplies;
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
@@ -42,6 +47,7 @@ export function ThreadedComments({
   messageOrder = 'newest_on_bottom',
   composerPosition = 'bottom',
   composerExpanded = false,
+  showReplies = 'initiallyCollapsed',
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
@@ -81,6 +87,7 @@ export function ThreadedComments({
       key={oneThread.id}
       threadExtraClassnames={oneThread.extraClassnames}
       threadId={oneThread.id}
+      showReplies={showReplies}
       onMessageClick={onMessageClick}
       onMessageMouseEnter={onMessageMouseEnter}
       onMessageMouseLeave={onMessageMouseLeave}
@@ -124,25 +131,36 @@ export function ThreadedComments({
 function CommentsThread({
   threadId,
   threadExtraClassnames,
+  showReplies,
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
 }: {
   threadId: string;
   threadExtraClassnames: string | null;
+  showReplies: ShowReplies;
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
 }) {
   const threadSummary = thread.useThreadSummary(threadId);
   const threadData = thread.useThreadData(threadId);
-  const [showingReplies, setShowingReplies] = useState<boolean>(false);
+  const allowReplies = showReplies !== 'alwaysCollapsed';
+  const initiallyExpandedReplies = showReplies === 'initiallyExpanded';
+  const [showingReplies, setShowingReplies] = useState<boolean>(
+    initiallyExpandedReplies,
+  );
   const [showingComposer, setShowingComposer] = useState<boolean>(false);
 
   const handleCollapsedRepliesClick = useCallback(() => {
-    setShowingReplies(true);
-    setShowingComposer(true);
-  }, []);
+    if (allowReplies) {
+      setShowingReplies(true);
+      // When we have initially expanded replies and a user collapses and
+      // reopens a thread, we don't want to show a composer (as we would in initiallyCollapsed)
+      // state. We want to show consistent behavior.
+      setShowingComposer(!initiallyExpandedReplies);
+    }
+  }, [allowReplies, initiallyExpandedReplies]);
 
   const extraClassnames = useExtraClassnames(threadExtraClassnames);
 
@@ -151,7 +169,7 @@ function CommentsThread({
   }
 
   const hasReplies = threadSummary.total > 1;
-  const showReplyComponent = !hasReplies || showingReplies;
+  const showReplyComponent = allowReplies && (!hasReplies || showingReplies);
 
   return (
     <div
