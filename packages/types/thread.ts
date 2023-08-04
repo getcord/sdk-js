@@ -246,6 +246,7 @@ export interface ThreadObserverOptions {
 export type ObserveThreadSummaryOptions = ThreadObserverOptions;
 export type ObserveThreadDataOptions = ThreadObserverOptions;
 
+export type ThreadListFilter = { metadata: EntityMetadata };
 export type SortDirection = 'ascending' | 'descending';
 export type SortBy =
   | 'first_message_timestamp'
@@ -255,6 +256,14 @@ export type ObserveLocationDataOptions = {
   sortDirection?: SortDirection;
   includeResolved?: boolean;
   partialMatch?: boolean;
+  /**
+   * An object that can be used to filter the threads returned.  Currently
+   * the only valid key is `metadata`. The value for a `metadata` entry should
+   * be an object representing the metadata key/value to filter on.  For
+   * example, to show only threads with the metadata key of `"category"`
+   * set to `"sales"`, set the filter to `{ metadata: { category: "sales" } }`.
+   */
+  filter?: ThreadListFilter;
 };
 
 export type LocationData = PaginationParams & {
