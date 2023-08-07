@@ -307,7 +307,7 @@ export interface ClientCreateThread
       >
     > {}
 
-export interface CreateMessageVariables
+export interface ClientCreateMessage
   // Pick the required properties
   extends Pick<CoreMessageData, 'content'>,
     // Then a partial version of the rest of the properties
@@ -334,8 +334,8 @@ export interface CreateMessageVariables
   createThread?: ClientCreateThread;
 }
 
-export interface UpdateMessageVariables
-  extends Partial<Omit<CreateMessageVariables, 'createThread'>> {
+export interface ClientUpdateMessage
+  extends Partial<Omit<ClientCreateMessage, 'createThread'>> {
   /**
    * Whether to change the deleted status of this message.
    */
@@ -517,7 +517,7 @@ export interface ICordThreadSDK {
   sendMessage(
     threadID: ThreadID,
     messageID: MessageID,
-    data: CreateMessageVariables,
+    data: ClientCreateMessage,
   ): Promise<true>;
 
   /**
@@ -543,7 +543,7 @@ export interface ICordThreadSDK {
   updateMessage(
     threadID: ThreadID,
     messageID: MessageID,
-    data: UpdateMessageVariables,
+    data: ClientUpdateMessage,
   ): Promise<true>;
 }
 

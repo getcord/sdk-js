@@ -16,10 +16,10 @@ export type Reaction = {
   timestamp: Date;
 };
 
-export type AddReactionsVariables = Omit<Reaction, 'timestamp'> &
+export type ServerAddReactions = Omit<Reaction, 'timestamp'> &
   Partial<Pick<Reaction, 'timestamp'>>;
 
-export type RemoveReactionsVariables = Omit<Reaction, 'timestamp'>;
+export type ServerRemoveReactions = Omit<Reaction, 'timestamp'>;
 
 interface Attachment {
   /**
@@ -191,7 +191,7 @@ export interface ServerCreateMessage
    * The reaction users need to be an [active member of the org](https://docs.cord.com/rest-apis/organizations#Update-organization-members) that the message and thread belong to.
    *
    */
-  addReactions?: AddReactionsVariables[];
+  addReactions?: ServerAddReactions[];
   /**
    * The parameters for creating a thread if the supplied thread doesn't exist
    * yet.  If the thread doesn't exist but `createThread` isn't provided, the
@@ -221,7 +221,7 @@ export interface ServerUpdateMessage
    * Removing a reaction that does not exist will have no effect and will not return an error.
    * An error is returned if a reaction is both added and deleted in the same request.
    */
-  removeReactions?: RemoveReactionsVariables[];
+  removeReactions?: ServerRemoveReactions[];
 }
 
 export interface ServerListMessageParameters {

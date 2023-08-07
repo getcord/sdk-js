@@ -76,15 +76,15 @@ export interface ApplicationData {
   emailSettings: EmailSettings;
 }
 
-export interface CreateApplicationVariables
+export interface ServerCreateApplication
   extends Pick<ApplicationData, 'name'>,
     Partial<Omit<ApplicationData, 'id' | 'secret' | 'name' | 'emailSettings'>> {
   emailSettings?: Partial<EmailSettings>;
 }
 
-export type UpdateApplicationVariables = Partial<CreateApplicationVariables>;
+export type ServerUpdateApplication = Partial<ServerCreateApplication>;
 
-export interface DeleteApplicationVariables {
+export interface ServerDeleteApplication {
   /**
    * Secret key of the application that you want to delete. This can be found
    * within the Cord Console.

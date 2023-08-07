@@ -1,21 +1,18 @@
 import type {
-  CreateApplicationVariables as CreateApplicationVariables_,
-  UpdateApplicationVariables as UpdateApplicationVariables_,
-  DeleteApplicationVariables as DeleteApplicationVariables_,
+  ServerCreateApplication,
+  ServerUpdateApplication,
+  ServerDeleteApplication,
 } from '@cord-sdk/types';
 
 /**
  * https://docs.cord.com/rest-apis/applications/
  */
-export interface CreateApplicationVariables
-  extends CreateApplicationVariables_ {}
+export interface CreateApplicationVariables extends ServerCreateApplication {}
 /**
  * https://docs.cord.com/rest-apis/applications/
  */
-export interface UpdateApplicationVariables
-  extends UpdateApplicationVariables_ {}
+export interface UpdateApplicationVariables extends ServerUpdateApplication {}
 /**
  * https://docs.cord.com/rest-apis/applications/
  */
-export interface DeleteApplicationVariables
-  extends DeleteApplicationVariables_ {}
+export interface DeleteApplicationVariables extends ServerDeleteApplication {}

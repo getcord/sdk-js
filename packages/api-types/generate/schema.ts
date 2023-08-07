@@ -289,7 +289,7 @@ export default {
         description:
           'The reactions you want to add to this message.\nThe default timestamp is the current time.\nTrying to create a reaction that already exists for a user does nothing.\nDoing the same as before with a timestamp will update the reaction with the new timestamp.\nThe reaction users need to be an [active member of the org](/rest-apis/organizations#Update-organization-members) that the message and thread belong to.',
         type: 'array',
-        items: { $ref: '#/definitions/AddReactionsVariables' },
+        items: { $ref: '#/definitions/ServerAddReactions' },
       },
       createThread: {
         description:
@@ -399,7 +399,7 @@ export default {
     ],
     required: ['authorID', 'content', 'id'],
     definitions: {
-      AddReactionsVariables: {
+      ServerAddReactions: {
         additionalProperties: false,
         type: 'object',
         properties: {
@@ -614,7 +614,7 @@ export default {
         description:
           'The reactions you want to remove from this message.\nRemoving a reaction that does not exist will have no effect and will not return an error.\nAn error is returned if a reaction is both added and deleted in the same request.',
         type: 'array',
-        items: { $ref: '#/definitions/RemoveReactionsVariables' },
+        items: { $ref: '#/definitions/ServerRemoveReactions' },
       },
       type: {
         description:
@@ -697,7 +697,7 @@ export default {
         description:
           'The reactions you want to add to this message.\nThe default timestamp is the current time.\nTrying to create a reaction that already exists for a user does nothing.\nDoing the same as before with a timestamp will update the reaction with the new timestamp.\nThe reaction users need to be an [active member of the org](/rest-apis/organizations#Update-organization-members) that the message and thread belong to.',
         type: 'array',
-        items: { $ref: '#/definitions/AddReactionsVariables' },
+        items: { $ref: '#/definitions/ServerAddReactions' },
       },
     },
     additionalProperties: false,
@@ -720,7 +720,7 @@ export default {
       'addReactions',
     ],
     definitions: {
-      RemoveReactionsVariables: {
+      ServerRemoveReactions: {
         type: 'object',
         properties: {
           reaction: { description: 'The emoji reaction.', type: 'string' },
@@ -857,7 +857,7 @@ export default {
         ],
         required: ['id', 'mimeType', 'name', 'size', 'uploadStatus', 'url'],
       },
-      AddReactionsVariables: {
+      ServerAddReactions: {
         additionalProperties: false,
         type: 'object',
         properties: {
