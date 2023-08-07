@@ -31,6 +31,7 @@ type MessageOrder = 'newest_on_top' | 'newest_on_bottom';
 type ComposerPosition = 'top' | 'bottom' | 'none';
 export type ThreadedCommentsReactComponentProps = {
   location: Location;
+  className?: string;
   messageOrder?: MessageOrder;
   composerPosition?: ComposerPosition;
   composerExpanded?: boolean;
@@ -43,6 +44,7 @@ export type ThreadedCommentsReactComponentProps = {
 };
 
 export function ThreadedComments({
+  className,
   location,
   messageOrder = 'newest_on_bottom',
   composerPosition = 'bottom',
@@ -116,7 +118,7 @@ export function ThreadedComments({
   );
 
   return (
-    <div className={classes.comments}>
+    <div className={cx(classes.comments, className)}>
       {composerOnTop && showComposer && composer}
       <div className={classes.threadList}>
         {!newestOnTop && fetchMoreButton}
