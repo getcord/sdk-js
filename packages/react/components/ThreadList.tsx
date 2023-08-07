@@ -21,14 +21,11 @@ const propsToAttributes = propsToAttributeConverter(
   componentAttributes.ThreadList,
 );
 
-export type ThreadListMode = 'default' | 'experimentalComments';
-
 export type ThreadListReactComponentProps = PropsWithFlags<
   ReactPropsWithLocation<{
     showScreenshotPreviewInMessage?: boolean;
     highlightOpenFloatingThread?: boolean;
     highlightThreadId?: string;
-    mode?: ThreadListMode;
     filter?: ThreadListFilter;
     showPlaceholder?: boolean;
     partialMatch?: boolean;
