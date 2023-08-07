@@ -91,20 +91,21 @@ export const hideReplies = cordifyClassname('hide-replies');
 globalStyle(`.${comments} :where(button.${hideReplies})`, {
   color: cssVar('color-content-primary'),
   padding: cssVar('space-2xs'),
-  paddingLeft: `calc(${cssVar('space-l')} + ${cssVar('space-m')})`,
+  paddingLeft: `calc(${cssVar('space-l')} + ${cssVar('space-2xs')})`,
 });
 
 export const showMore = cordifyClassname('show-more');
 globalStyle(`.${comments} :where(button.${showMore})`, {
   color: cssVar('color-content-primary'),
   padding: cssVar('space-2xs'),
+  marginLeft: cssVar('space-2xs'),
 });
 globalStyle(`.${comments} :where(button.${showMore})::before`, {
   display: 'block',
   content: '',
   // We need to hardcode the width of the horizontal line to make
   // sure that the "Show more" text correctly aligns
-  width: '18px',
+  width: '10px',
   borderTop: `1px solid ${cssVar('color-base-x-strong')}`,
 });
 globalStyle(`.${comments} :where(button.${showMore})::after`, {
