@@ -20,3 +20,6 @@ export const notificationHeaderUserMention = cordifyClassname(
 export const notificationHeaderBold = cordifyClassname(
   'notification-header-text-bold',
 );
+
+export const messageNotification = cordifyClassname('message-notification');
+export const URLNotification = cordifyClassname('url-notification');
