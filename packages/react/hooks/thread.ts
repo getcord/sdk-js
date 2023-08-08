@@ -10,8 +10,10 @@ import type {
   LocationData,
   FetchMoreCallback,
   ObserveThreadActivitySummaryOptions,
+  ThreadListFilter,
 } from '@cord-sdk/types';
 import { locationJson } from '@cord-sdk/types';
+import { isEqual } from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 import { useMemoizedLocation } from './useMemoizedLocation';
@@ -158,6 +160,19 @@ export function useLocationData(
   const { sdk } = useCordContext('useLocationData');
   const threadSDK = sdk?.thread;
 
+  const [memoizedFilter, setMemoizedFilter] = useState<
+    ThreadListFilter | undefined
+  >(options?.filter);
+
+  useEffect(() => {
+    setMemoizedFilter((previous) => {
+      if (!previous || !isEqual(previous, options?.filter)) {
+        return options?.filter;
+      }
+      return previous;
+    });
+  }, [options?.filter]);
+
   const locationString = locationJson(location);
   const optionsMemo = useMemo(
     () => ({
@@ -165,12 +180,14 @@ export function useLocationData(
       sortDirection: options?.sortDirection,
       includeResolved: options?.includeResolved,
       partialMatch: options?.partialMatch,
+      filter: memoizedFilter,
     }),
     [
       options?.sortBy,
       options?.sortDirection,
       options?.includeResolved,
       options?.partialMatch,
+      memoizedFilter,
     ],
   );
 

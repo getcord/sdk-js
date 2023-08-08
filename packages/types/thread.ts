@@ -246,7 +246,7 @@ export interface ThreadObserverOptions {
 export type ObserveThreadSummaryOptions = ThreadObserverOptions;
 export type ObserveThreadDataOptions = ThreadObserverOptions;
 
-export type ThreadListFilter = { metadata: EntityMetadata };
+export type ThreadListFilter = { metadata?: EntityMetadata };
 export type SortDirection = 'ascending' | 'descending';
 export type SortBy =
   | 'first_message_timestamp'

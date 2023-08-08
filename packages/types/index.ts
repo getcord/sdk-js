@@ -1,10 +1,4 @@
-import type {
-  EntityMetadata,
-  Location,
-  OrganizationID,
-  ThreadID,
-  UUID,
-} from './core';
+import type { Location, OrganizationID, ThreadID, UUID } from './core';
 import type { ICordNotificationSDK } from './notifications';
 import type { ICordPresenceSDK } from './presence';
 import type { ICordActivitySDK, ICordThreadSDK, ThreadSummary } from './thread';
@@ -583,5 +577,3 @@ export type ScreenshotConfig =
 export interface WithScreenshotConfig extends HTMLCordElement {
   screenshotConfig: ScreenshotConfig;
 }
-
-export type ThreadListFilter = { metadata: EntityMetadata };
