@@ -451,6 +451,11 @@ export default {
               'Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.',
             type: 'boolean',
           },
+          subscribers: {
+            description: 'All of the users who are subscribed to this thread.',
+            type: 'array',
+            items: { type: 'string' },
+          },
           extraClassnames: {
             description:
               'An optional space separated list of classnames to add to the thread.',
@@ -465,6 +470,7 @@ export default {
           'metadata',
           'organizationID',
           'resolved',
+          'subscribers',
           'extraClassnames',
         ],
         required: ['location', 'name', 'organizationID', 'url'],
@@ -1081,6 +1087,11 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
+      subscribers: {
+        description: 'All of the users who are subscribed to this thread.',
+        type: 'array',
+        items: { type: 'string' },
+      },
       extraClassnames: {
         description:
           'An optional space separated list of classnames to add to the thread.',
@@ -1096,6 +1107,7 @@ export default {
       'name',
       'organizationID',
       'metadata',
+      'subscribers',
       'extraClassnames',
     ],
     required: ['id', 'location', 'name', 'organizationID', 'url'],
@@ -1138,6 +1150,11 @@ export default {
         description: 'The organization ID this thread is in.',
         type: 'string',
       },
+      subscribers: {
+        description: 'All of the users who are subscribed to this thread.',
+        type: 'array',
+        items: { type: 'string' },
+      },
       repliers: {
         description: 'All of the users who have replied to this thread.',
         type: 'array',
@@ -1174,6 +1191,7 @@ export default {
       'metadata',
       'resolvedTimestamp',
       'organizationID',
+      'subscribers',
       'repliers',
       'extraClassnames',
       'userID',

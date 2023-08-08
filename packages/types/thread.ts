@@ -145,9 +145,14 @@ export interface CoreThreadData {
   resolvedTimestamp: Date | null;
 
   /**
-   * All of the users who are subscribed to this thread.
+   * All of the users who are engaging in this thread. This includes both subscribed and unsubscribed users.
    */
   participants: ThreadParticipant[];
+
+  /**
+   * All of the users who are subscribed to this thread.
+   */
+  subscribers: UserID[];
 
   /**
    * All of the users who have replied to this thread.
