@@ -6,18 +6,28 @@ export interface ServerOrganizationData {
    */
   name: string;
 
+  /**
+   * Whether this organization is active or deleted.  Attempting to log into a
+   * deleted organization will fail.
+   */
   status?: 'active' | 'deleted';
 
   /**
    * List of partner-specific IDs of the users who are members of this organization
    */
-  members?: (string | number)[];
+  members?: ID[];
 }
 
 export type ServerUpdateOrganization = Partial<ServerOrganizationData>;
 export interface ServerUpdateOrganizationMembers {
-  add?: (string | number)[];
-  remove?: (string | number)[];
+  /**
+   * The IDs of users to add to this organization.
+   */
+  add?: ID[];
+  /**
+   * The IDs of users to remove from this organization.
+   */
+  remove?: ID[];
 }
 
 /**

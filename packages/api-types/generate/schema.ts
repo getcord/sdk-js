@@ -261,12 +261,17 @@ export default {
           type: 'object',
           properties: {
             name: { description: 'Organization name', type: 'string' },
-            status: { enum: ['active', 'deleted'], type: 'string' },
+            status: {
+              description:
+                'Whether this organization is active or deleted.  Attempting to log into a\ndeleted organization will fail.',
+              enum: ['active', 'deleted'],
+              type: 'string',
+            },
             members: {
               description:
                 'List of partner-specific IDs of the users who are members of this organization',
               type: 'array',
-              items: { type: ['string', 'number'] },
+              items: { $ref: '#/definitions/ID' },
             },
             id: { $ref: '#/definitions/ID' },
           },
@@ -961,27 +966,46 @@ export default {
     type: 'object',
     properties: {
       name: { description: 'Organization name', type: 'string' },
-      status: { enum: ['active', 'deleted'], type: 'string' },
+      status: {
+        description:
+          'Whether this organization is active or deleted.  Attempting to log into a\ndeleted organization will fail.',
+        enum: ['active', 'deleted'],
+        type: 'string',
+      },
       members: {
         description:
           'List of partner-specific IDs of the users who are members of this organization',
         type: 'array',
-        items: { type: ['string', 'number'] },
+        items: { $ref: '#/definitions/ID' },
       },
     },
     additionalProperties: false,
     propertyOrder: ['name', 'status', 'members'],
+    definitions: {
+      ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+    },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   UpdatePlatformOrganizationMembersVariables: {
     description: 'https://docs.cord.com/rest-apis/organizations/',
     type: 'object',
     properties: {
-      add: { type: 'array', items: { type: ['string', 'number'] } },
-      remove: { type: 'array', items: { type: ['string', 'number'] } },
+      add: {
+        description: 'The IDs of users to add to this organization.',
+        type: 'array',
+        items: { $ref: '#/definitions/ID' },
+      },
+      remove: {
+        description: 'The IDs of users to remove from this organization.',
+        type: 'array',
+        items: { $ref: '#/definitions/ID' },
+      },
     },
     additionalProperties: false,
     propertyOrder: ['add', 'remove'],
+    definitions: {
+      ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+    },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreatePlatformOrganizationVariables: {
@@ -989,12 +1013,17 @@ export default {
     type: 'object',
     properties: {
       name: { description: 'Organization name', type: 'string' },
-      status: { enum: ['active', 'deleted'], type: 'string' },
+      status: {
+        description:
+          'Whether this organization is active or deleted.  Attempting to log into a\ndeleted organization will fail.',
+        enum: ['active', 'deleted'],
+        type: 'string',
+      },
       members: {
         description:
           'List of partner-specific IDs of the users who are members of this organization',
         type: 'array',
-        items: { type: ['string', 'number'] },
+        items: { $ref: '#/definitions/ID' },
       },
       id: { $ref: '#/definitions/ID' },
     },
@@ -1605,12 +1634,17 @@ export default {
         type: 'object',
         properties: {
           name: { description: 'Organization name', type: 'string' },
-          status: { enum: ['active', 'deleted'], type: 'string' },
+          status: {
+            description:
+              'Whether this organization is active or deleted.  Attempting to log into a\ndeleted organization will fail.',
+            enum: ['active', 'deleted'],
+            type: 'string',
+          },
           members: {
             description:
               'List of partner-specific IDs of the users who are members of this organization',
             type: 'array',
-            items: { type: ['string', 'number'] },
+            items: { $ref: '#/definitions/ID' },
           },
         },
         additionalProperties: false,
