@@ -2,7 +2,7 @@ import type { CSSProperties } from '@vanilla-extract/css';
 import { globalStyle } from '@vanilla-extract/css';
 import { cordifyClassname } from '../common/util';
 import { cssVar } from '../common/ui/cssVariables';
-import { MODIFIERS } from '../common/ui/modifiers';
+import { getModifiedSelector, MODIFIERS } from '../common/ui/modifiers';
 
 export const comments = cordifyClassname('threaded-comments');
 globalStyle(`.${comments}`, {
@@ -30,6 +30,17 @@ globalStyle(`.${thread}`, {
   display: 'flex',
   flexDirection: 'column',
 });
+
+globalStyle(getModifiedSelector('highlighted', `.${thread}`), {
+  backgroundColor: cssVar('color-base-strong'),
+});
+// TODO Move this style to ui3/Pill when that's available, and reduce its specificity
+globalStyle(
+  getModifiedSelector('highlighted', `.${thread} .${cordifyClassname('pill')}`),
+  {
+    backgroundColor: cssVar('color-base-x-strong'),
+  },
+);
 
 const threadOrThreadListButton = [
   `.${comments} :where(.${threadList} > button)`,

@@ -36,6 +36,7 @@ export type ThreadedCommentsReactComponentProps = {
   composerPosition?: ComposerPosition;
   composerExpanded?: boolean;
   showReplies?: ShowReplies;
+  highlightThreadId?: string;
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
@@ -50,6 +51,7 @@ export function ThreadedComments({
   composerPosition = 'bottom',
   composerExpanded = false,
   showReplies = 'initiallyCollapsed',
+  highlightThreadId,
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
@@ -90,6 +92,7 @@ export function ThreadedComments({
       threadExtraClassnames={oneThread.extraClassnames}
       threadId={oneThread.id}
       showReplies={showReplies}
+      highlightThreadId={highlightThreadId}
       onMessageClick={onMessageClick}
       onMessageMouseEnter={onMessageMouseEnter}
       onMessageMouseLeave={onMessageMouseLeave}
@@ -134,6 +137,7 @@ function CommentsThread({
   threadId,
   threadExtraClassnames,
   showReplies,
+  highlightThreadId,
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
@@ -141,6 +145,7 @@ function CommentsThread({
   threadId: string;
   threadExtraClassnames: string | null;
   showReplies: ShowReplies;
+  highlightThreadId?: string;
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
@@ -175,7 +180,9 @@ function CommentsThread({
 
   return (
     <div
-      className={cx(classes.thread, extraClassnames)}
+      className={cx(classes.thread, extraClassnames, {
+        [MODIFIERS.highlighted]: highlightThreadId === threadId,
+      })}
       data-cord-thread-id={threadId}
     >
       <Message
