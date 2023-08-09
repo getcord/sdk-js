@@ -4,7 +4,11 @@ import {
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 
-import type { ComposerSize, ComposerWebComponentEvents } from '@cord-sdk/types';
+import type {
+  ComposerSize,
+  ComposerWebComponentEvents,
+  EntityMetadata,
+} from '@cord-sdk/types';
 import { useCordLocation } from '../hooks/useCordLocation';
 import type {
   ReactPropsWithLocation,
@@ -24,6 +28,7 @@ export type ComposerReactComponentProps = ReactPropsWithLocation<{
   showExpanded?: boolean;
   showCloseButton?: boolean;
   size?: ComposerSize;
+  messageMetadata?: EntityMetadata;
   onFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
   onBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
   onClose?: (...args: ComposerWebComponentEvents['close']) => unknown;

@@ -131,6 +131,7 @@ export const componentAttributes = {
     'show-expanded': 'boolean',
     'show-close-button': 'boolean',
     size: 'composer-size',
+    'message-metadata': 'json',
   },
   InboxLauncher: {
     label: 'string',
