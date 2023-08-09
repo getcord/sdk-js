@@ -11,12 +11,8 @@
     "tsc-packages": "for package in packages/*/; do echo \"Checking package: ${package}\" && tsc --noEmit -p \"${package}\" || exit 1; done",
     "test": "cd packages/types && npm run test"
   },
-  "dependencies": {
-    "lodash": "^4.17.21"
-  },
   "devDependencies": {
     "@rollup/plugin-replace": "^4.0.0",
-    "@types/lodash": "^4.14.155",
     "@types/node": "^20.2.3",
     "@vanilla-extract/css": "^1.10.0",
     "glob": "^7.2.0",
