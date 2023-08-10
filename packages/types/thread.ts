@@ -482,6 +482,22 @@ export interface ICordThreadSDK {
   setSubscribed(threadID: ThreadID, subscribed: boolean): Promise<true>;
 
   /**
+   * Mark whether the whole thread, i.e. all the messages in the thread, are seen
+   * or unseen for the current user.  This does not affect whether the user is
+   * subscribed to the thread or not.
+   * @example Overview
+   * ```
+   * await window.CordSDK.thread.setSeen('my-awesome-thread-id', false);
+   * ```
+   * @param threadID - The ID of the thread.
+   *
+   * @param seen - Whether the thread should now be seen (true) or unseen (false).
+   * @returns A promise that resolves to `true` if the operation succeeded or
+   * rejects if it failed.
+   */
+  setSeen(threadID: ThreadID, seen: boolean): Promise<true>;
+
+  /**
    * Update an existing thread with new data.
    * @example Overview
    * ```javascript
