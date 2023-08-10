@@ -1,4 +1,10 @@
-import type { Location, OrganizationID, ThreadID, UUID } from './core';
+import type {
+  Location,
+  MessageID,
+  OrganizationID,
+  ThreadID,
+  UUID,
+} from './core';
 import type { ICordNotificationSDK } from './notifications';
 import type { ICordPresenceSDK } from './presence';
 import type { ICordActivitySDK, ICordThreadSDK, ThreadSummary } from './thread';
@@ -259,6 +265,7 @@ export type ComposerWebComponentEvents = {
   focus: [{ threadId: ThreadID }];
   blur: [{ threadId: ThreadID }];
   close: [{ threadId: ThreadID }];
+  send: [{ threadId: ThreadID; messageId: MessageID }];
 };
 
 export const COMPOSER_SIZE = ['small', 'medium', 'large'] as const;

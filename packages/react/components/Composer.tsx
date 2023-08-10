@@ -32,6 +32,7 @@ export type ComposerReactComponentProps = ReactPropsWithLocation<{
   onFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
   onBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
   onClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
+  onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }>;
 
 type PrivateComposerReactComponentProps = ComposerReactComponentProps & {
@@ -46,6 +47,7 @@ export function Composer(
       focus: props.onFocus,
       blur: props.onBlur,
       close: props.onClose,
+      send: props.onSend,
     });
 
   const combinedSetRef = useCustomPropsRef(

@@ -44,6 +44,7 @@ export type ThreadReactComponentProps = PropsWithFlags<
     onLoading?: (...args: ThreadWebComponentEvents['loading']) => unknown;
     onFocusComposer?: (...args: ComposerWebComponentEvents['focus']) => unknown;
     onBlurComposer?: (...args: ComposerWebComponentEvents['blur']) => unknown;
+    onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
   }>
 > & { screenshotConfig?: ScreenshotConfig };
 
@@ -71,6 +72,7 @@ export function Thread(
       {
         focus: props.onFocusComposer,
         blur: props.onBlurComposer,
+        send: props.onSend,
         // Decision to not surface to Threads in favour of devs building their own threads if using
         // the composer component.
         close: undefined,
