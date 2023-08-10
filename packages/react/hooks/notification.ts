@@ -5,6 +5,7 @@ import type {
 } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
+import { useMemoObject } from './useMemoObject';
 import { useNotificationSummaryInternal } from './useNotificationSummaryInternal';
 
 export function useSummary(): NotificationSummary | null {
@@ -60,18 +61,19 @@ export function useData(
 
   const { sdk } = useCordContext('useData');
   const notificationSDK = sdk?.notification;
+  const optionsMemo = useMemoObject(options);
 
   useEffect(() => {
     if (!notificationSDK) {
       return;
     }
 
-    const key = notificationSDK.observeData(setData, options);
+    const key = notificationSDK.observeData(setData, optionsMemo);
 
     return () => {
       notificationSDK.unobserveData(key);
     };
-  }, [notificationSDK, options]);
+  }, [notificationSDK, optionsMemo]);
 
   return data ?? emptyNotificationData;
 }

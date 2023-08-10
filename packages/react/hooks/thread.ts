@@ -11,7 +11,6 @@ import type {
   FetchMoreCallback,
   ObserveThreadActivitySummaryOptions,
 } from '@cord-sdk/types';
-import { locationJson } from '@cord-sdk/types';
 import { useEffect, useMemo, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 import { useMemoizedLocation } from './useMemoizedLocation';
@@ -116,16 +115,7 @@ export function useThreadSummary(
   const { sdk } = useCordContext('useCordThreadSummary');
   const threadSDK = sdk?.thread;
 
-  const locationString = options?.location
-    ? locationJson(options.location)
-    : undefined;
-  const optionsMemo = useMemo(
-    () => ({
-      location: locationString ? JSON.parse(locationString) : undefined,
-      threadName: options?.threadName,
-    }),
-    [locationString, options?.threadName],
-  );
+  const optionsMemo = useMemoObject(options);
 
   useEffect(() => {
     if (!threadSDK) {
@@ -159,36 +149,16 @@ export function useLocationData(
   const { sdk } = useCordContext('useLocationData');
   const threadSDK = sdk?.thread;
 
-  const memoizedFilter = useMemoObject(options?.filter);
-
-  const locationString = locationJson(location);
-  const optionsMemo = useMemo(
-    () => ({
-      sortBy: options?.sortBy,
-      sortDirection: options?.sortDirection,
-      includeResolved: options?.includeResolved,
-      partialMatch: options?.partialMatch,
-      filter: memoizedFilter,
-    }),
-    [
-      options?.sortBy,
-      options?.sortDirection,
-      options?.includeResolved,
-      options?.partialMatch,
-      memoizedFilter,
-    ],
-  );
+  const locationMemo = useMemoObject(location);
+  const optionsMemo = useMemoObject(options);
 
   useEffect(() => {
     if (!threadSDK) {
       return;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow -- use normalized location.
-    const location = JSON.parse(locationString);
-
     const key = threadSDK.observeLocationData(
-      location,
+      locationMemo,
       // eslint-disable-next-line @typescript-eslint/no-shadow -- using to set shadowed vars.
       ({ threads, loading, hasMore, fetchMore }) => {
         setThreads(threads);
@@ -201,7 +171,7 @@ export function useLocationData(
     return () => {
       threadSDK.unobserveLocationData(key);
     };
-  }, [threadSDK, locationString, optionsMemo]);
+  }, [threadSDK, locationMemo, optionsMemo]);
 
   return { threads, loading, hasMore, fetchMore };
 }
@@ -255,16 +225,7 @@ export function useThreadData(
   const { sdk } = useCordContext('useCordThreadData');
   const threadSDK = sdk?.thread;
 
-  const locationString = options?.location
-    ? locationJson(options.location)
-    : undefined;
-  const optionsMemo = useMemo(
-    () => ({
-      location: locationString ? JSON.parse(locationString) : undefined,
-      threadName: options?.threadName,
-    }),
-    [locationString, options?.threadName],
-  );
+  const optionsMemo = useMemoObject(options);
 
   useEffect(() => {
     if (!threadSDK) {
