@@ -1,6 +1,7 @@
 import type { ClientUserData, ViewerUserData } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
+import { useMemoObject } from './useMemoObject';
 
 function sameIDs(left: string | string[], right: string | string[]): boolean {
   if (Array.isArray(left)) {
@@ -99,18 +100,7 @@ export function useUserData(
     Record<string, ClientUserData | null> | ClientUserData | null | undefined
   >(Array.isArray(userIDorIDs) ? {} : undefined);
 
-  const [memoizedUserIDorIDs, setMemoizedUserIDorIDs] = useState<
-    string | string[]
-  >();
-
-  useEffect(() => {
-    setMemoizedUserIDorIDs((previous) => {
-      if (!previous || !sameIDs(previous, userIDorIDs)) {
-        return userIDorIDs;
-      }
-      return previous;
-    });
-  }, [userIDorIDs]);
+  const memoizedUserIDorIDs = useMemoObject(userIDorIDs, sameIDs);
 
   useEffect(() => {
     if (!userSDK || !memoizedUserIDorIDs) {

@@ -10,13 +10,12 @@ import type {
   LocationData,
   FetchMoreCallback,
   ObserveThreadActivitySummaryOptions,
-  ThreadListFilter,
 } from '@cord-sdk/types';
 import { locationJson } from '@cord-sdk/types';
-import { isEqual } from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 import { useMemoizedLocation } from './useMemoizedLocation';
+import { useMemoObject } from './useMemoObject';
 
 /**
  * This method allows you to observe summary information about a
@@ -160,18 +159,7 @@ export function useLocationData(
   const { sdk } = useCordContext('useLocationData');
   const threadSDK = sdk?.thread;
 
-  const [memoizedFilter, setMemoizedFilter] = useState<
-    ThreadListFilter | undefined
-  >(options?.filter);
-
-  useEffect(() => {
-    setMemoizedFilter((previous) => {
-      if (!previous || !isEqual(previous, options?.filter)) {
-        return options?.filter;
-      }
-      return previous;
-    });
-  }, [options?.filter]);
+  const memoizedFilter = useMemoObject(options?.filter);
 
   const locationString = locationJson(location);
   const optionsMemo = useMemo(
