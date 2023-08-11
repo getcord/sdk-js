@@ -487,7 +487,11 @@ export interface ICordThreadSDK {
    * subscribed to the thread or not.
    * @example Overview
    * ```
+   * // To mark a thread as unseen
    * await window.CordSDK.thread.setSeen('my-awesome-thread-id', false);
+   *
+   * // To mark a thread as seen
+   * await window.CordSDK.thread.setSeen('my-awesome-thread-id', true);
    * ```
    * @param threadID - The ID of the thread.
    *
