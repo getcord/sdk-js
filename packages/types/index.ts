@@ -299,6 +299,8 @@ export type MessageWebComponentEvents = {
   click: [messageInfo: MessageInfo];
   mouseenter: [messageInfo: MessageInfo];
   mouseleave: [messageInfo: MessageInfo];
+  editstart: [messageInfo: MessageInfo];
+  editend: [messageInfo: MessageInfo];
   render: [];
   loading: [];
 };

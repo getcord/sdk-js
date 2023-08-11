@@ -24,6 +24,9 @@ export type MessageReactComponentProps = {
   onMouseLeave?: (...args: MessageWebComponentEvents['mouseleave']) => unknown;
   onRender?: (...args: MessageWebComponentEvents['render']) => unknown;
   onLoading?: (...args: MessageWebComponentEvents['loading']) => unknown;
+  isEditing?: boolean;
+  onEditStart?: (...args: MessageWebComponentEvents['editstart']) => unknown;
+  onEditEnd?: (...args: MessageWebComponentEvents['editend']) => unknown;
 };
 
 export function Message(
@@ -38,6 +41,8 @@ export function Message(
       mouseleave: props.onMouseLeave,
       loading: props.onLoading,
       render: props.onRender,
+      editstart: props.onEditStart,
+      editend: props.onEditEnd,
     });
   const combinedSetRef = useComposedRefs<Element | null>(
     props.forwardRef,

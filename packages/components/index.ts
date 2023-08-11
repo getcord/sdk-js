@@ -163,6 +163,7 @@ export const componentAttributes = {
     'thread-id': 'string',
     'message-id': 'string',
     'mark-as-seen': 'boolean',
+    'is-editing': 'boolean',
   },
   MessageContent: {
     content: 'json',
