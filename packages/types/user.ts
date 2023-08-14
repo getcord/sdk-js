@@ -6,6 +6,7 @@ import type {
   OrganizationID,
   UserID,
 } from './core';
+import type { PaginationDetails } from './pagination';
 
 /**
  * The data associated with a Cord user.
@@ -266,11 +267,29 @@ export type ServerCreateUser = ServerUpdateUser &
 /**
  * https://docs.cord.com/rest-apis/users/
  */
-export type ServerListUser = Omit<ServerUserData, 'email'> & {
+export interface ServerListUser extends Omit<ServerUserData, 'email'> {
   email: string | null;
-};
+}
+
+/**
+ * https://docs.cord.com/rest-apis/users/
+ */
+export interface ServerListUsers {
+  users: ServerListUser[];
+  pagination: PaginationDetails;
+}
 
 export type ServerListUserParameters = {
+  /**
+   * Number of users to return.
+   */
+  limit?: number;
+
+  /**
+   * Pagination token. This is returned in the `pagination` object of a previous response.
+   */
+  token?: string;
+
   /**
    * This is a JSON object with one optional entry.  Users will be matched
    * against the filter specified. This is a partial match, which means any keys

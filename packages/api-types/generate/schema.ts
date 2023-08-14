@@ -1431,6 +1431,7 @@ export default {
     description: 'https://docs.cord.com/rest-apis/users/',
     type: 'object',
     properties: {
+      email: { type: ['null', 'string'] },
       id: { $ref: '#/definitions/ID', description: 'Provided ID for the user' },
       name: { description: 'Full user name', type: ['null', 'string'] },
       metadata: {
@@ -1472,10 +1473,10 @@ export default {
           "User's last name. This field is deprecated and has no effect.",
         type: ['null', 'string'],
       },
-      email: { type: ['null', 'string'] },
     },
     additionalProperties: false,
     propertyOrder: [
+      'email',
       'id',
       'name',
       'metadata',
@@ -1487,7 +1488,6 @@ export default {
       'profile_picture_url',
       'first_name',
       'last_name',
-      'email',
     ],
     required: [
       'createdTimestamp',
@@ -1512,6 +1512,12 @@ export default {
     description: 'https://docs.cord.com/rest-apis/users/',
     type: 'object',
     properties: {
+      limit: { description: 'Number of users to return.', type: 'number' },
+      token: {
+        description:
+          'Pagination token. This is returned in the `pagination` object of a previous response.',
+        type: 'string',
+      },
       filter: {
         description:
           'This is a JSON object with one optional entry.  Users will be matched\nagainst the filter specified. This is a partial match, which means any keys\nother than the ones you specify are ignored when checking for a match.\nPlease note that because this is a query parameter in a REST API, this JSON\nobject must be URI encoded before being sent.',
@@ -1519,7 +1525,7 @@ export default {
       },
     },
     additionalProperties: false,
-    propertyOrder: ['filter'],
+    propertyOrder: ['limit', 'token', 'filter'],
     definitions: {
       'Pick<FilterParameters,"metadata">': {
         type: 'object',
