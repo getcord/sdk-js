@@ -1,6 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 import type {
+  ComposerWebComponentEvents,
   Location,
   MessageInfo,
   ThreadData,
@@ -42,6 +43,7 @@ export type ThreadedCommentsReactComponentProps = {
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
   onRender?: () => unknown;
   onLoading?: () => unknown;
+  onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 };
 
 export function ThreadedComments({
@@ -57,6 +59,7 @@ export function ThreadedComments({
   onMessageMouseLeave,
   onRender,
   onLoading,
+  onSend,
 }: ThreadedCommentsReactComponentProps) {
   const { threads, hasMore, loading, fetchMore } = thread.useLocationData(
     location,
@@ -96,6 +99,7 @@ export function ThreadedComments({
       onMessageClick={onMessageClick}
       onMessageMouseEnter={onMessageMouseEnter}
       onMessageMouseLeave={onMessageMouseLeave}
+      onSend={onSend}
     />
   ));
 
@@ -117,7 +121,11 @@ export function ThreadedComments({
   const composerOnTop = composerPosition === 'top';
   const showComposer = composerPosition !== 'none';
   const composer = (
-    <Composer location={location} showExpanded={composerExpanded} />
+    <Composer
+      location={location}
+      showExpanded={composerExpanded}
+      onSend={onSend}
+    />
   );
 
   return (
@@ -141,6 +149,7 @@ function CommentsThread({
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
+  onSend,
 }: {
   threadId: string;
   threadExtraClassnames: string | null;
@@ -149,6 +158,7 @@ function CommentsThread({
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
+  onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
   const threadSummary = thread.useThreadSummary(threadId);
   const threadData = thread.useThreadData(threadId);
@@ -237,6 +247,7 @@ function CommentsThread({
           threadId={threadId}
           showingComposer={showingComposer}
           setShowingComposer={setShowingComposer}
+          onSend={onSend}
         />
       )}
     </div>
@@ -368,9 +379,11 @@ function ThreadReplies({
 function ViewerAvatarWithComposer({
   threadId,
   onClose,
+  onSend,
 }: {
   threadId: string;
   onClose: () => void;
+  onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
   const viewerData = user.useViewerData();
   const userId = viewerData?.id;
@@ -384,6 +397,7 @@ function ViewerAvatarWithComposer({
         onClose={onClose}
         size={'small'}
         autofocus
+        onSend={onSend}
       />
     </div>
   );
@@ -393,15 +407,18 @@ function ReplyComponent({
   threadId,
   showingComposer,
   setShowingComposer,
+  onSend,
 }: {
   threadId: string;
   showingComposer: boolean;
   setShowingComposer: Dispatch<SetStateAction<boolean>>;
+  onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
   return showingComposer ? (
     <ViewerAvatarWithComposer
       threadId={threadId}
       onClose={() => setShowingComposer(false)}
+      onSend={onSend}
     />
   ) : (
     <button
