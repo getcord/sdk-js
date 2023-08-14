@@ -20,6 +20,8 @@ import type {
   UpdatePlatformUserVariables,
   CreatePlatformUserVariables,
   ListPlatformUserVariables,
+  ListUsersResponseWithoutPagination,
+  ListUsersResponse,
   ListUserQueryParameters,
   ClientAuthTokenData,
 } from '../src/typeDefinitions';
@@ -43,6 +45,8 @@ export type Types = {
   UpdatePlatformUserVariables: UpdatePlatformUserVariables;
   CreatePlatformUserVariables: CreatePlatformUserVariables;
   ListPlatformUserVariables: ListPlatformUserVariables;
+  ListUsersResponseWithoutPagination: ListUsersResponseWithoutPagination;
+  ListUsersResponse: ListUsersResponse;
   ListUserQueryParameters: ListUserQueryParameters;
   ClientAuthTokenData: ClientAuthTokenData;
 };

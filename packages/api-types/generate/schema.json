@@ -1466,6 +1466,211 @@
     },
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
+  "ListUsersResponseWithoutPagination": {
+    "description": "https://docs.cord.com/rest-apis/users/",
+    "type": "array",
+    "items": { "$ref": "#/definitions/ServerListUser" },
+    "definitions": {
+      "ServerListUser": {
+        "description": "https://docs.cord.com/rest-apis/users/",
+        "type": "object",
+        "properties": {
+          "email": { "type": ["null", "string"] },
+          "id": {
+            "$ref": "#/definitions/ID",
+            "description": "Provided ID for the user"
+          },
+          "name": {
+            "description": "Full user name",
+            "type": ["null", "string"]
+          },
+          "metadata": {
+            "description": "Arbitrary key-value pairs that can be used to store additional information.",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "number", "boolean"] },
+            "propertyOrder": []
+          },
+          "status": { "enum": ["active", "deleted"], "type": "string" },
+          "createdTimestamp": {
+            "description": "Creation timestamp",
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ]
+          },
+          "shortName": {
+            "description": "Short user name. In most cases, this will be preferred over name when set.",
+            "type": ["null", "string"]
+          },
+          "short_name": { "type": ["null", "string"] },
+          "profilePictureURL": {
+            "description": "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
+            "format": "uri",
+            "type": ["null", "string"]
+          },
+          "profile_picture_url": {
+            "description": "Alias for profilePictureURL. This field is deprecated.",
+            "format": "uri",
+            "type": ["null", "string"]
+          },
+          "first_name": {
+            "description": "User's first name. This field is deprecated and has no effect.",
+            "type": ["null", "string"]
+          },
+          "last_name": {
+            "description": "User's last name. This field is deprecated and has no effect.",
+            "type": ["null", "string"]
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": [
+          "email",
+          "id",
+          "name",
+          "metadata",
+          "status",
+          "createdTimestamp",
+          "shortName",
+          "short_name",
+          "profilePictureURL",
+          "profile_picture_url",
+          "first_name",
+          "last_name"
+        ],
+        "required": [
+          "createdTimestamp",
+          "email",
+          "first_name",
+          "id",
+          "last_name",
+          "metadata",
+          "name",
+          "profilePictureURL",
+          "profile_picture_url",
+          "shortName",
+          "short_name",
+          "status"
+        ]
+      },
+      "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] }
+    },
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "ListUsersResponse": {
+    "description": "https://docs.cord.com/rest-apis/users/",
+    "type": "object",
+    "properties": {
+      "users": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/ServerListUser" }
+      },
+      "pagination": { "$ref": "#/definitions/PaginationDetails" }
+    },
+    "additionalProperties": false,
+    "propertyOrder": ["users", "pagination"],
+    "required": ["pagination", "users"],
+    "definitions": {
+      "ServerListUser": {
+        "description": "https://docs.cord.com/rest-apis/users/",
+        "type": "object",
+        "properties": {
+          "email": { "type": ["null", "string"] },
+          "id": {
+            "$ref": "#/definitions/ID",
+            "description": "Provided ID for the user"
+          },
+          "name": {
+            "description": "Full user name",
+            "type": ["null", "string"]
+          },
+          "metadata": {
+            "description": "Arbitrary key-value pairs that can be used to store additional information.",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "number", "boolean"] },
+            "propertyOrder": []
+          },
+          "status": { "enum": ["active", "deleted"], "type": "string" },
+          "createdTimestamp": {
+            "description": "Creation timestamp",
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ]
+          },
+          "shortName": {
+            "description": "Short user name. In most cases, this will be preferred over name when set.",
+            "type": ["null", "string"]
+          },
+          "short_name": { "type": ["null", "string"] },
+          "profilePictureURL": {
+            "description": "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
+            "format": "uri",
+            "type": ["null", "string"]
+          },
+          "profile_picture_url": {
+            "description": "Alias for profilePictureURL. This field is deprecated.",
+            "format": "uri",
+            "type": ["null", "string"]
+          },
+          "first_name": {
+            "description": "User's first name. This field is deprecated and has no effect.",
+            "type": ["null", "string"]
+          },
+          "last_name": {
+            "description": "User's last name. This field is deprecated and has no effect.",
+            "type": ["null", "string"]
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": [
+          "email",
+          "id",
+          "name",
+          "metadata",
+          "status",
+          "createdTimestamp",
+          "shortName",
+          "short_name",
+          "profilePictureURL",
+          "profile_picture_url",
+          "first_name",
+          "last_name"
+        ],
+        "required": [
+          "createdTimestamp",
+          "email",
+          "first_name",
+          "id",
+          "last_name",
+          "metadata",
+          "name",
+          "profilePictureURL",
+          "profile_picture_url",
+          "shortName",
+          "short_name",
+          "status"
+        ]
+      },
+      "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] },
+      "PaginationDetails": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "description": "The token to use to get the next page of results. If empty, there are no more results.",
+            "type": ["null", "string"]
+          },
+          "total": {
+            "description": "Total number of results. Might be bigger than the number of results returned on the query. Useful to display a \"total\" counter.",
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": ["token", "total"],
+        "required": ["token", "total"]
+      }
+    },
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
   "ListUserQueryParameters": {
     "description": "https://docs.cord.com/rest-apis/users/",
     "type": "object",

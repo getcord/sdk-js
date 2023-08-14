@@ -3,6 +3,7 @@ import type {
   ServerListUserParameters,
   ServerUpdateUser,
   ServerListUser,
+  ServerListUsers,
 } from '@cord-sdk/types';
 
 /**
@@ -19,6 +20,16 @@ export interface CreatePlatformUserVariables extends ServerCreateUser {}
  * https://docs.cord.com/rest-apis/users/
  */
 export interface ListPlatformUserVariables extends ServerListUser {}
+
+/**
+ * https://docs.cord.com/rest-apis/users/
+ */
+export type ListUsersResponseWithoutPagination = ServerListUser[];
+
+/**
+ * https://docs.cord.com/rest-apis/users/
+ */
+export interface ListUsersResponse extends ServerListUsers {}
 
 /**
  * https://docs.cord.com/rest-apis/users/
