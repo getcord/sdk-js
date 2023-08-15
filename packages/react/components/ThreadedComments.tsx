@@ -271,6 +271,7 @@ function CommentsThread({
           threadId={threadId}
           showingComposer={showingComposer}
           setShowingComposer={setShowingComposer}
+          setShowingReplies={setShowingReplies}
           onSend={onSend}
         />
       )}
@@ -447,11 +448,13 @@ function ReplyComponent({
   threadId,
   showingComposer,
   setShowingComposer,
+  setShowingReplies,
   onSend,
 }: {
   threadId: string;
   showingComposer: boolean;
   setShowingComposer: Dispatch<SetStateAction<boolean>>;
+  setShowingReplies: Dispatch<SetStateAction<boolean>>;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
   return showingComposer ? (
@@ -463,7 +466,10 @@ function ReplyComponent({
   ) : (
     <button
       className={cx(classes.expandReplies, fonts.fontSmall)}
-      onClick={() => setShowingComposer(true)}
+      onClick={() => {
+        setShowingComposer(true);
+        setShowingReplies(true);
+      }}
       type="button"
     >
       {'Reply'}
