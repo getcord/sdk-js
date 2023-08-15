@@ -338,6 +338,11 @@ export interface ClientCreateMessage
    * exists.
    */
   createThread?: ClientCreateThread;
+  /**
+   * A list of unicode strings representing the reactions you want to add to this message.
+   * Trying to create a reaction that already exists for a user does nothing.
+   */
+  addReactions?: string[];
 }
 
 export interface ClientUpdateMessage
@@ -346,6 +351,12 @@ export interface ClientUpdateMessage
    * Whether to change the deleted status of this message.
    */
   deleted?: boolean;
+  /**
+   * A list of unicode strings representing the reactions you want to remove from this message.
+   * Removing a reaction that does not exist will have no effect and will not return an error.
+   * An error is returned if a reaction is both added and deleted in the same request.
+   */
+  removeReactions?: string[];
 }
 
 export interface ICordThreadSDK {
