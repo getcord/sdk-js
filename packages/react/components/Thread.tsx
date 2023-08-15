@@ -5,6 +5,7 @@ import { useCallback } from 'react';
 import type {
   ComposerWebComponentEvents,
   EntityMetadata,
+  MessageWebComponentEvents,
   ScreenshotConfig,
   ThreadOptions,
   ThreadWebComponentEvents,
@@ -45,6 +46,12 @@ export type ThreadReactComponentProps = PropsWithFlags<
     onFocusComposer?: (...args: ComposerWebComponentEvents['focus']) => unknown;
     onBlurComposer?: (...args: ComposerWebComponentEvents['blur']) => unknown;
     onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
+    onMessageEditStart?: (
+      ...args: MessageWebComponentEvents['editstart']
+    ) => unknown;
+    onMessageEditEnd?: (
+      ...args: MessageWebComponentEvents['editend']
+    ) => unknown;
   }>
 > & { screenshotConfig?: ScreenshotConfig };
 
@@ -65,6 +72,17 @@ export function Thread(
         loading: props.onLoading,
       },
       'cord-thread',
+    );
+
+  const [messageEventsListenerSetRef, messageListenersAttached] =
+    useCustomEventListeners<
+      Pick<MessageWebComponentEvents, 'editstart' | 'editend'>
+    >(
+      {
+        editstart: props.onMessageEditStart,
+        editend: props.onMessageEditEnd,
+      },
+      'cord-message',
     );
 
   const [composerEventsListenerSetRef, composerListenersAttached] =
@@ -92,12 +110,14 @@ export function Thread(
 
       threadEventsListenerSetRef(element);
       composerEventsListenerSetRef(element);
+      messageEventsListenerSetRef(element);
     },
     [
       props.forwardRef,
       props.screenshotConfig,
       composerEventsListenerSetRef,
       threadEventsListenerSetRef,
+      messageEventsListenerSetRef,
     ],
   );
 
@@ -106,7 +126,11 @@ export function Thread(
   return (
     <cord-thread
       id={props.id}
-      buffer-events={!threadListenersAttached || !composerListenersAttached}
+      buffer-events={
+        !threadListenersAttached ||
+        !composerListenersAttached ||
+        !messageListenersAttached
+      }
       class={props.className}
       style={props.style}
       ref={combinedSetRef}

@@ -41,6 +41,8 @@ export type ThreadedCommentsReactComponentProps = {
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
+  onMessageEditStart?: (messageInfo: MessageInfo) => unknown;
+  onMessageEditEnd?: (messageInfo: MessageInfo) => unknown;
   onRender?: () => unknown;
   onLoading?: () => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
@@ -57,6 +59,8 @@ export function ThreadedComments({
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
+  onMessageEditStart,
+  onMessageEditEnd,
   onRender,
   onLoading,
   onSend,
@@ -99,6 +103,8 @@ export function ThreadedComments({
       onMessageClick={onMessageClick}
       onMessageMouseEnter={onMessageMouseEnter}
       onMessageMouseLeave={onMessageMouseLeave}
+      onMessageEditStart={onMessageEditStart}
+      onMessageEditEnd={onMessageEditEnd}
       onSend={onSend}
     />
   ));
@@ -149,6 +155,8 @@ function CommentsThread({
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
+  onMessageEditStart,
+  onMessageEditEnd,
   onSend,
 }: {
   threadId: string;
@@ -158,6 +166,8 @@ function CommentsThread({
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
+  onMessageEditStart?: (messageInfo: MessageInfo) => unknown;
+  onMessageEditEnd?: (messageInfo: MessageInfo) => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
   const threadSummary = thread.useThreadSummary(threadId);
@@ -221,6 +231,18 @@ function CommentsThread({
             messageId: threadSummary.firstMessage?.id ?? '',
           })
         }
+        onEditStart={() =>
+          onMessageEditStart?.({
+            threadId,
+            messageId: threadSummary.firstMessage?.id ?? '',
+          })
+        }
+        onEditEnd={() =>
+          onMessageEditEnd?.({
+            threadId,
+            messageId: threadSummary.firstMessage?.id ?? '',
+          })
+        }
       />
 
       {showingReplies &&
@@ -235,6 +257,8 @@ function CommentsThread({
           onMessageClick={onMessageClick}
           onMessageMouseEnter={onMessageMouseEnter}
           onMessageMouseLeave={onMessageMouseLeave}
+          onMessageEditStart={onMessageEditStart}
+          onMessageEditEnd={onMessageEditEnd}
         />
       ) : (
         <CollapsedReplies
@@ -303,6 +327,8 @@ function ThreadReplies({
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
+  onMessageEditStart,
+  onMessageEditEnd,
 }: {
   threadId: string;
   threadData: ThreadData;
@@ -310,6 +336,8 @@ function ThreadReplies({
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
+  onMessageEditStart?: (messageInfo: MessageInfo) => unknown;
+  onMessageEditEnd?: (messageInfo: MessageInfo) => unknown;
 }) {
   const { messages, hasMore, fetchMore } = threadData;
 
@@ -362,6 +390,18 @@ function ThreadReplies({
                   }
                   onMouseLeave={() =>
                     onMessageMouseLeave?.({
+                      threadId,
+                      messageId: message.id,
+                    })
+                  }
+                  onEditStart={() =>
+                    onMessageEditStart?.({
+                      threadId,
+                      messageId: message.id,
+                    })
+                  }
+                  onEditEnd={() =>
+                    onMessageEditEnd?.({
                       threadId,
                       messageId: message.id,
                     })
