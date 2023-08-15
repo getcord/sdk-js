@@ -181,6 +181,7 @@ export interface ServerCreateMessage
         | 'organizationID'
         | 'threadID'
         | 'plaintext'
+        | 'reactions'
       >
     > {
   /**
