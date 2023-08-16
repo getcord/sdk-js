@@ -1,4 +1,5 @@
 import type { EntityMetadata, UserID } from './core';
+import type { PaginationDetails } from './pagination';
 import type { ServerCreateThread } from './thread';
 
 export type Reaction = {
@@ -225,9 +226,32 @@ export interface ServerUpdateMessage
   removeReactions?: ServerRemoveReactions[];
 }
 
-export interface ServerListMessageParameters {
+export interface ServerListThreadMessageParameters {
   /**
    * Return messages in ascending or descending order of creation timestamp.  'descending' is the default.
    */
   sortDirection?: 'ascending' | 'descending';
+}
+
+export interface ServerListMessageParameters {
+  /**
+   * Number of users to return. Defaults to 1000.
+   */
+  limit?: number;
+
+  /**
+   * Pagination token. This is returned in the `pagination` object of a previous response.
+   */
+  token?: string;
+}
+
+export interface ServerListMessages {
+  /**
+   * Page containing messages.
+   */
+  messages: CoreMessageData[];
+  /**
+   * Data related to cursor-based pagination.
+   */
+  pagination: PaginationDetails;
 }

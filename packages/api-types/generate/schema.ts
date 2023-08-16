@@ -842,7 +842,7 @@ export default {
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
-  ListMessageParameters: {
+  ListThreadMessageParameters: {
     description: 'https://docs.cord.com/rest-apis/messages/',
     type: 'object',
     properties: {
@@ -855,6 +855,24 @@ export default {
     },
     additionalProperties: false,
     propertyOrder: ['sortDirection'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  ListMessageParameters: {
+    description: 'https://docs.cord.com/rest-apis/messages/',
+    type: 'object',
+    properties: {
+      limit: {
+        description: 'Number of users to return. Defaults to 1000.',
+        type: 'number',
+      },
+      token: {
+        description:
+          'Pagination token. This is returned in the `pagination` object of a previous response.',
+        type: 'string',
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['limit', 'token'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreateNotificationVariables: {

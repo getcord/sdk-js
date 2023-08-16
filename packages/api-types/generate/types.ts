@@ -8,6 +8,7 @@ import type {
   BatchAPIVariables,
   CreateMessageVariables,
   UpdateMessageVariables,
+  ListThreadMessageParameters,
   ListMessageParameters,
   CreateNotificationVariables,
   UpdatePlatformOrganizationVariables,
@@ -33,6 +34,7 @@ export type Types = {
   BatchAPIVariables: BatchAPIVariables;
   CreateMessageVariables: CreateMessageVariables;
   UpdateMessageVariables: UpdateMessageVariables;
+  ListThreadMessageParameters: ListThreadMessageParameters;
   ListMessageParameters: ListMessageParameters;
   CreateNotificationVariables: CreateNotificationVariables;
   UpdatePlatformOrganizationVariables: UpdatePlatformOrganizationVariables;
