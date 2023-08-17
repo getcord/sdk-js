@@ -2,6 +2,11 @@ import type { ID } from './core';
 
 export interface ServerOrganizationData {
   /**
+   * ID of the organization
+   */
+  id: ID;
+
+  /**
    * Organization name
    */
   name: string;
@@ -18,7 +23,9 @@ export interface ServerOrganizationData {
   members?: ID[];
 }
 
-export type ServerUpdateOrganization = Partial<ServerOrganizationData>;
+export type ServerUpdateOrganization = Partial<
+  Omit<ServerOrganizationData, 'id'>
+>;
 export interface ServerUpdateOrganizationMembers {
   /**
    * The IDs of users to add to this organization.
@@ -33,4 +40,9 @@ export interface ServerUpdateOrganizationMembers {
 /**
  * @deprecated type for deprecated api route
  */
-export type ServerCreateOrganization = ServerOrganizationData & { id: ID };
+export interface ServerCreateOrganization extends ServerOrganizationData {}
+
+export interface ServerGetOrganization extends ServerOrganizationData {}
+
+export interface ServerListOrganization
+  extends Omit<ServerOrganizationData, 'members'> {}

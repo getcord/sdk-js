@@ -984,6 +984,7 @@ export default {
     description: 'https://docs.cord.com/rest-apis/organizations/',
     type: 'object',
     properties: {
+      id: { $ref: '#/definitions/ID', description: 'ID of the organization' },
       name: { description: 'Organization name', type: 'string' },
       status: {
         description:
@@ -997,10 +998,9 @@ export default {
         type: 'array',
         items: { $ref: '#/definitions/ID' },
       },
-      id: { $ref: '#/definitions/ID' },
     },
     additionalProperties: false,
-    propertyOrder: ['name', 'status', 'members', 'id'],
+    propertyOrder: ['id', 'name', 'status', 'members'],
     required: ['id', 'name'],
     definitions: {
       ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
@@ -1739,7 +1739,7 @@ export default {
       organization_details: {
         description:
           'If present, update’s the organization’s details, or creates an organization\nwith those details if the organization_id is new to Cord. This is an object\nthat contains the same fields as the [organization management REST\nendpoint](/rest-apis/organizations/)',
-        $ref: '#/definitions/Partial<ServerOrganizationData>',
+        $ref: '#/definitions/Partial<Omit<ServerOrganizationData,"id">>',
       },
     },
     propertyOrder: [
@@ -1812,7 +1812,7 @@ export default {
           'last_name',
         ],
       },
-      'Partial<ServerOrganizationData>': {
+      'Partial<Omit<ServerOrganizationData,"id">>': {
         type: 'object',
         properties: {
           name: { description: 'Organization name', type: 'string' },
