@@ -274,6 +274,16 @@ export interface ServerListUser extends Omit<ServerUserData, 'email'> {
 /**
  * https://docs.cord.com/rest-apis/users/
  */
+export interface ServerGetUser extends ServerListUser {
+  /**
+   * List of organizations the user is a member of.
+   */
+  organizations: ID[];
+}
+
+/**
+ * https://docs.cord.com/rest-apis/users/
+ */
 export interface ServerListUsers {
   users: ServerListUser[];
   pagination: PaginationDetails;
