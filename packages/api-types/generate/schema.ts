@@ -933,6 +933,44 @@ export default {
     required: ['template', 'type', 'url'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
+  UpdateUserPreferenceVariables: {
+    description: 'https://docs.cord.com/rest-apis/preferences/',
+    type: 'object',
+    properties: {
+      key: {
+        description:
+          'The preference key. `notification_channels` controls how users get notified about Cord activity.',
+        type: 'string',
+        enum: ['notification_channels'],
+      },
+      value: {
+        $ref: '#/definitions/Partial<NotificationPreferences>',
+        description:
+          'The updated preference value. This will update only the keys that are passed along.\nFor example, to disable Slack notification, but leave email untouched, you can use this value:\n\n```json\n{\n   "value": { "slack": "false" },\n}\n```',
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['key', 'value'],
+    required: ['key', 'value'],
+    definitions: {
+      'Partial<NotificationPreferences>': {
+        type: 'object',
+        properties: {
+          sendViaSlack: {
+            description: 'Whether notifications should be sent via slack.',
+            type: 'boolean',
+          },
+          sendViaEmail: {
+            description: 'Whether notifications should be sent via email.',
+            type: 'boolean',
+          },
+        },
+        additionalProperties: false,
+        propertyOrder: ['sendViaSlack', 'sendViaEmail'],
+      },
+    },
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
   UpdatePlatformOrganizationVariables: {
     description: 'https://docs.cord.com/rest-apis/organizations/',
     type: 'object',

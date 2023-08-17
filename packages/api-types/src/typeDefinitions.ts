@@ -4,6 +4,7 @@ export * from './application';
 export * from './batch';
 export * from './message';
 export * from './notifications';
+export * from './preferences';
 export * from './org';
 export * from './presence';
 export * from './thread';

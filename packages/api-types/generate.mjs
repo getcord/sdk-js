@@ -9,6 +9,7 @@ const TYPE_DEFINITION_FILES = [
   'batch',
   'message',
   'notifications',
+  'preferences',
   'org',
   'presence',
   'thread',

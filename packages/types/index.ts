@@ -16,6 +16,7 @@ export * from './batch';
 export * from './core';
 export * from './message';
 export * from './notifications';
+export * from './preferences';
 export * from './organization';
 export * from './presence';
 export * from './thread';
