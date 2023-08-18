@@ -917,6 +917,11 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
+      extraClassnames: {
+        description:
+          'An optional space separated list of classnames to add to the notification.',
+        type: ['null', 'string'],
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -929,6 +934,7 @@ export default {
       'iconUrl',
       'type',
       'metadata',
+      'extraClassnames',
     ],
     required: ['template', 'type', 'url'],
     $schema: 'http://json-schema.org/draft-07/schema#',

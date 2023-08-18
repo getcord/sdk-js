@@ -148,6 +148,11 @@ export interface CoreNotificationData {
   timestamp: Date;
 
   /**
+   * A space separated list of classnames to add to the notification.
+   */
+  extraClassnames: string | null;
+
+  /**
    * An arbitrary JSON object specified when the notification was created. This
    * will always be an empty object for Cord's internally-generated
    * notifications (i.e., it can only be non-null for notifications you create
@@ -340,6 +345,11 @@ export type ServerCreateNotification = {
    * Keys are strings, and values can be strings, numbers or booleans.
    */
   metadata?: EntityMetadata;
+
+  /**
+   * An optional space separated list of classnames to add to the notification.
+   */
+  extraClassnames?: string | null;
 };
 
 // NB: these strings are written into the DB, so changes need to be
