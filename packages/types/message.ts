@@ -160,6 +160,10 @@ export interface CoreMessageData {
    * The reactions to this message.
    */
   reactions: Reaction[];
+  /**
+   * A list of IDs of the users that have seen the message.
+   */
+  seenBy: string[];
 }
 
 export interface ClientMessageData extends CoreMessageData {

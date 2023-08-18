@@ -361,6 +361,11 @@ export default {
         type: 'array',
         items: { $ref: '#/definitions/MessageAttachment' },
       },
+      seenBy: {
+        description: 'A list of IDs of the users that have seen the message.',
+        type: 'array',
+        items: { type: 'string' },
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -378,6 +383,7 @@ export default {
       'deletedTimestamp',
       'iconURL',
       'attachments',
+      'seenBy',
     ],
     required: ['authorID', 'content', 'id'],
     definitions: {
@@ -659,6 +665,11 @@ export default {
         type: 'array',
         items: { $ref: '#/definitions/MessageAttachment' },
       },
+      seenBy: {
+        description: 'A list of IDs of the users that have seen the message.',
+        type: 'array',
+        items: { type: 'string' },
+      },
       addReactions: {
         description:
           'The reactions you want to add to this message.\nThe default timestamp is the current time.\nTrying to create a reaction that already exists for a user does nothing.\nDoing the same as before with a timestamp will update the reaction with the new timestamp.\nThe reaction users need to be an [active member of the org](/rest-apis/organizations#Update-organization-members) that the message and thread belong to.',
@@ -682,6 +693,7 @@ export default {
       'updatedTimestamp',
       'iconURL',
       'attachments',
+      'seenBy',
       'addReactions',
     ],
     definitions: {
