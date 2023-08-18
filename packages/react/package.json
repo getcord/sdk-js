@@ -22,7 +22,8 @@
     "@cord-sdk/components": "1.7.0",
     "@cord-sdk/types": "1.7.0",
     "classnames": "^2.3.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "phosphor-react": "^1.4.0"
   },
   "peerDependencies": {
     "react": ">=17.0.0"
