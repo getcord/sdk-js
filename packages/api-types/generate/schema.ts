@@ -946,7 +946,7 @@ export default {
       value: {
         $ref: '#/definitions/Partial<NotificationPreferences>',
         description:
-          'The updated preference value. This will update only the keys that are passed along.\nFor example, to disable Slack notification, but leave email untouched, you can use this value:\n\n```json\n{\n   "value": { "slack": "false" },\n}\n```',
+          'The updated preference value. This will update only the keys that are passed along.\nFor example, to disable Slack notification, but leave email untouched, you can use this value:\n\n```json\n{\n   "value": { "sendViaSlack": "false" },\n}\n```',
       },
     },
     additionalProperties: false,

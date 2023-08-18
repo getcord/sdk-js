@@ -11,7 +11,7 @@ export type ServerUpdatePreference = {
    *
    * ```json
    * {
-   *    "value": { "slack": "false" },
+   *    "value": { "sendViaSlack": "false" },
    * }
    * ```
    */
