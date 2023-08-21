@@ -216,7 +216,7 @@ export default {
             email: {
               description: 'Email address',
               format: 'email',
-              type: 'string',
+              type: ['null', 'string'],
             },
             shortName: {
               description:
@@ -1348,7 +1348,11 @@ export default {
         propertyOrder: [],
       },
       status: { enum: ['active', 'deleted'], type: 'string' },
-      email: { description: 'Email address', format: 'email', type: 'string' },
+      email: {
+        description: 'Email address',
+        format: 'email',
+        type: ['null', 'string'],
+      },
       shortName: {
         description:
           'Short user name. In most cases, this will be preferred over name when set.',
@@ -1405,7 +1409,11 @@ export default {
         propertyOrder: [],
       },
       status: { enum: ['active', 'deleted'], type: 'string' },
-      email: { description: 'Email address', format: 'email', type: 'string' },
+      email: {
+        description: 'Email address',
+        format: 'email',
+        type: ['null', 'string'],
+      },
       shortName: {
         description:
           'Short user name. In most cases, this will be preferred over name when set.',
@@ -1449,7 +1457,7 @@ export default {
       'last_name',
       'id',
     ],
-    required: ['email', 'id'],
+    required: ['id'],
     definitions: {
       ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
     },
@@ -1823,7 +1831,7 @@ export default {
           email: {
             description: 'Email address',
             format: 'email',
-            type: 'string',
+            type: ['null', 'string'],
           },
           shortName: {
             description:

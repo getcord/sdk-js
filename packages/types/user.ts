@@ -188,7 +188,7 @@ export interface ServerUserData {
    *
    * @format email
    */
-  email: string;
+  email: string | null;
 
   /**
    * Full user name
@@ -262,7 +262,7 @@ export type ServerUpdateUser = Partial<
  * @deprecated type for deprecated api route
  */
 export type ServerCreateUser = ServerUpdateUser &
-  Required<Pick<ServerUserData, 'id' | 'email'>>;
+  Required<Pick<ServerUserData, 'id'>>;
 
 /**
  * https://docs.cord.com/rest-apis/users/
