@@ -608,7 +608,15 @@ export type ThreadDataCallback = (data: ThreadData) => unknown;
  * https://docs.cord.com/rest-apis/threads/
  */
 export type ServerUpdateThread = Partial<
-  Omit<CoreThreadData, 'total' | 'participants' | 'typing' | 'resolved'> & {
+  Omit<
+    CoreThreadData,
+    | 'total'
+    | 'participants'
+    | 'typing'
+    | 'resolved'
+    | 'repliers'
+    | 'subscribers'
+  > & {
     /**
      * Certain changes to the thread may post a message into the thread -- in
      * particular, resolving or unresolving a thread posts a message into the

@@ -1207,16 +1207,6 @@ export default {
         description: 'The organization ID this thread is in.',
         type: 'string',
       },
-      subscribers: {
-        description: 'All of the users who are subscribed to this thread.',
-        type: 'array',
-        items: { type: 'string' },
-      },
-      repliers: {
-        description: 'All of the users who have replied to this thread.',
-        type: 'array',
-        items: { type: 'string' },
-      },
       extraClassnames: {
         description:
           'An optional space separated list of classnames to add to the thread.',
@@ -1248,8 +1238,6 @@ export default {
       'metadata',
       'resolvedTimestamp',
       'organizationID',
-      'subscribers',
-      'repliers',
       'extraClassnames',
       'userID',
       'typing',
