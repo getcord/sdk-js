@@ -309,3 +309,10 @@ export type ServerListUserParameters = {
    */
   filter?: Pick<FilterParameters, 'metadata'>;
 };
+
+export interface ServerDeleteUser {
+  /**
+   * The user will be deleted only if this value is true.
+   */
+  permanently_delete: boolean;
+}

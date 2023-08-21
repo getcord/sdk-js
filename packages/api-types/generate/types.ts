@@ -25,6 +25,7 @@ import type {
   ListUsersResponseWithoutPagination,
   ListUsersResponse,
   ListUserQueryParameters,
+  DeleteUserVariables,
   ClientAuthTokenData,
 } from '../src/typeDefinitions';
 
@@ -52,5 +53,6 @@ export type Types = {
   ListUsersResponseWithoutPagination: ListUsersResponseWithoutPagination;
   ListUsersResponse: ListUsersResponse;
   ListUserQueryParameters: ListUserQueryParameters;
+  DeleteUserVariables: DeleteUserVariables;
   ClientAuthTokenData: ClientAuthTokenData;
 };

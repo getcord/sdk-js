@@ -4,6 +4,7 @@ import type {
   ServerUpdateUser,
   ServerListUser,
   ServerListUsers,
+  ServerDeleteUser,
 } from '@cord-sdk/types';
 
 /**
@@ -35,3 +36,8 @@ export interface ListUsersResponse extends ServerListUsers {}
  * https://docs.cord.com/rest-apis/users/
  */
 export interface ListUserQueryParameters extends ServerListUserParameters {}
+
+/**
+ * https://docs.cord.com/rest-apis/users/
+ */
+export interface DeleteUserVariables extends ServerDeleteUser {}

@@ -1772,6 +1772,20 @@ export default {
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
+  DeleteUserVariables: {
+    description: 'https://docs.cord.com/rest-apis/users/',
+    type: 'object',
+    properties: {
+      permanently_delete: {
+        description: 'The user will be deleted only if this value is true.',
+        type: 'boolean',
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['permanently_delete'],
+    required: ['permanently_delete'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
   ClientAuthTokenData: {
     description: 'https://docs.cord.com/reference/authentication/',
     additionalProperties: true,
