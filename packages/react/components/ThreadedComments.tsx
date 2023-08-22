@@ -32,6 +32,7 @@ type MessageOrder = 'newest_on_top' | 'newest_on_bottom';
 type ComposerPosition = 'top' | 'bottom' | 'none';
 export type ThreadedCommentsReactComponentProps = {
   location: Location;
+  partialMatch?: boolean;
   className?: string;
   messageOrder?: MessageOrder;
   composerPosition?: ComposerPosition;
@@ -56,6 +57,7 @@ export function ThreadedComments({
   composerExpanded = false,
   showReplies = 'initiallyCollapsed',
   highlightThreadId,
+  partialMatch = false,
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
@@ -71,6 +73,7 @@ export function ThreadedComments({
       sortBy: 'first_message_timestamp',
       sortDirection: 'descending',
       includeResolved: false,
+      partialMatch,
     },
   );
 

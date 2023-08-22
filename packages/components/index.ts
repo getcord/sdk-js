@@ -210,6 +210,7 @@ export const componentAttributes = {
     'composer-expanded': 'boolean',
     'show-replies': 'string',
     'highlight-thread-id': 'string',
+    'partial-match': 'boolean',
   },
 } as const;
 
