@@ -5,6 +5,9 @@ export const messageAttachment = cordifyClassname('message-attachment');
 export const messageImageAttachments = cordifyClassname(
   'message-image-attachments',
 );
+export const messageVideoAttachments = cordifyClassname(
+  'message-video-attachments',
+);
 export const messageDocumentAttachments = cordifyClassname(
   'message-document-attachments',
 );
