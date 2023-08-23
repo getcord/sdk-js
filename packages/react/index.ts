@@ -80,22 +80,24 @@ export {
   Reactions,
   ReactionsReactComponentProps,
 } from './components/Reactions';
+export {
+  MessageContentReactComponentProps,
+  MessageContent,
+} from './components/MessageContent';
 
-import * as notification from './hooks/notification';
-import * as presence from './hooks/presence';
-import * as thread from './hooks/thread';
-import * as user from './hooks/user';
+export * as notification from './hooks/notification';
+export * as presence from './hooks/presence';
+export * as thread from './hooks/thread';
+export * as user from './hooks/user';
 
-import * as experimental from './experimental';
+export * as experimental from './experimental';
 
 // --- Exports kept for backwards-compat only:
 
-import * as beta from './beta';
+export * as beta from './beta';
 export { useSummary as useCordNotificationSummary } from './hooks/notification';
 export { useLocationData as useCordPresentUsers } from './hooks/presence';
 export {
   useLocationSummary as useCordThreadActivitySummary,
   useThreadSummary as useCordThreadSummary,
 } from './hooks/thread';
-
-export { notification, presence, thread, user, experimental, beta };
