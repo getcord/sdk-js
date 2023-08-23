@@ -594,9 +594,13 @@ export interface ICordThreadSDK {
    * await window.CordSDK.thread.searchMessages('searchTermToFind');
    * ```
    * @param textToMatch - The string you want to find in message content.
+   * @param authorID - The user ID of the message author to filter by.
    * @returns An array containing message objects.
    */
-  searchMessages(textToMatch?: string): Promise<SearchResultData[] | undefined>;
+  searchMessages(
+    textToMatch?: string,
+    authorID?: string,
+  ): Promise<SearchResultData[] | undefined>;
 }
 
 /**

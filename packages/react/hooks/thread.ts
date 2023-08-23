@@ -277,6 +277,7 @@ export function useThreadData(
  */
 export function useSearchMessages(
   textToMatch?: string,
+  authorID?: string,
 ): SearchResultData[] | undefined {
   const [data, setData] = useState<SearchResultData[] | undefined>(undefined);
 
@@ -289,14 +290,14 @@ export function useSearchMessages(
     }
 
     threadSDK
-      .searchMessages(textToMatch)
+      .searchMessages(textToMatch, authorID)
       .then((result) => {
         setData(result);
       })
       .catch((e) => {
         console.error(e);
       });
-  }, [threadSDK, textToMatch]);
+  }, [threadSDK, textToMatch, authorID]);
 
   return data;
 }
