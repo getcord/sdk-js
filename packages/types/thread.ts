@@ -9,7 +9,11 @@ import type {
   ThreadID,
   UserID,
 } from './core';
-import type { ClientMessageData, CoreMessageData } from './message';
+import type {
+  ClientMessageData,
+  CoreMessageData,
+  SearchResultData,
+} from './message';
 
 /**
  * Options for the `observeLocationSummary` function in the Thread API.
@@ -582,6 +586,17 @@ export interface ICordThreadSDK {
     messageID: MessageID,
     data: ClientUpdateMessage,
   ): Promise<true>;
+
+  /**
+   * This method allows you search for messages by content.
+   * @example Overview
+   * ```javascript
+   * await window.CordSDK.thread.searchMessages('searchTermToFind');
+   * ```
+   * @param textToMatch - The string you want to find in message content.
+   * @returns An array containing message objects.
+   */
+  searchMessages(textToMatch?: string): Promise<SearchResultData[] | undefined>;
 }
 
 /**

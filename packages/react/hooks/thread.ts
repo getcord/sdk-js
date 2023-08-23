@@ -10,6 +10,7 @@ import type {
   LocationData,
   FetchMoreCallback,
   ObserveThreadActivitySummaryOptions,
+  SearchResultData,
 } from '@cord-sdk/types';
 import { useEffect, useMemo, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
@@ -250,4 +251,52 @@ export function useThreadData(
   }, [threadSDK, optionsMemo, threadId]);
 
   return { messages, firstMessage, fetchMore, loading, hasMore };
+}
+
+/**
+ * This method allows you search for messages by content.
+ * @example Overview
+ * ```javascript
+ * import { thread } from '@cord-sdk/react';
+ * const results = thread.useSearchMessages('searchTermToFind');
+ *
+ * return (
+ *   <div>
+ *     {results.map((result) => (
+ *       <div key={result.id}>
+ *         Found match in message {result.id}: {result.plaintext}
+ *       </div>
+ *     ))}
+ *   </div>
+ * );
+ * ```
+ * @param textToMatch - The string you want to find in message content.
+ * @returns The hook will initially return `undefined` while the data loads from
+ * our API. Once it has loaded, your component will re-render and the hook will
+ * return an array containing message objects.
+ */
+export function useSearchMessages(
+  textToMatch?: string,
+): SearchResultData[] | undefined {
+  const [data, setData] = useState<SearchResultData[] | undefined>(undefined);
+
+  const { sdk } = useCordContext('useSearchMessages');
+  const threadSDK = sdk?.thread;
+
+  useEffect(() => {
+    if (!threadSDK) {
+      return;
+    }
+
+    threadSDK
+      .searchMessages(textToMatch)
+      .then((result) => {
+        setData(result);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, [threadSDK, textToMatch]);
+
+  return data;
 }

@@ -1,4 +1,4 @@
-import type { EntityMetadata, UserID } from './core';
+import type { EntityMetadata, UserID, Location } from './core';
 import type { PaginationDetails } from './pagination';
 import type { ServerCreateThread } from './thread';
 
@@ -171,6 +171,10 @@ export interface ClientMessageData extends CoreMessageData {
    * Whether the message has been seen by the current viewer.
    */
   seen: boolean;
+}
+
+export interface SearchResultData extends ClientMessageData {
+  location: Location;
 }
 
 export interface ServerCreateMessage
