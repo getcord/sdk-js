@@ -522,8 +522,8 @@ export interface ICordThreadSDK {
    * @example Overview
    * ```javascript
    * await window.CordSDK.thread.updateThread('my-awesome-thread-id', {
-   *   location: { page: 'document_details' },
    *   name: 'A more awesome name',
+   *   resolved: true,
    * });
    * ```
    * @param threadID - The ID of the thread to update.
