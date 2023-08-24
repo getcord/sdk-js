@@ -2,6 +2,7 @@ import * as React from 'react';
 import type {
   HTMLCordMultipleCursorsElement,
   MultipleCursorsWebComponentEvents,
+  Location,
 } from '@cord-sdk/types';
 import {
   componentAttributes,
@@ -9,23 +10,20 @@ import {
 } from '@cord-sdk/components';
 
 import { useCordLocation } from '../hooks/useCordLocation';
-import type {
-  PropsWithFlags,
-  ReactPropsWithLocation,
-  ReactPropsWithStandardHTMLAttributes,
-} from '../types';
+import type { ReactPropsWithStandardHTMLAttributes } from '../types';
 import { useCustomElementRef } from '../hooks/useCustomElementRef';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.MultipleCursors,
 );
 
-export type MultipleCursorsReactComponentProps = PropsWithFlags<
-  ReactPropsWithLocation<unknown>
->;
+export type MultipleCursorsReactComponentProps = { location?: Location };
 
 export function MultipleCursorsWithForwardedRef(
-  props: ReactPropsWithStandardHTMLAttributes<MultipleCursorsReactComponentProps>,
+  {
+    location,
+    ...props
+  }: ReactPropsWithStandardHTMLAttributes<MultipleCursorsReactComponentProps>,
   forwardedRef: React.ForwardedRef<HTMLCordMultipleCursorsElement | null>,
 ) {
   const [ref, listenersAttached] = useCustomElementRef<
@@ -33,7 +31,7 @@ export function MultipleCursorsWithForwardedRef(
     HTMLCordMultipleCursorsElement
   >({}, forwardedRef);
 
-  const location = useCordLocation();
+  const contextLocation = useCordLocation();
 
   return (
     <cord-multiple-cursors
@@ -42,8 +40,10 @@ export function MultipleCursorsWithForwardedRef(
       style={props.style}
       ref={ref}
       buffer-events={!listenersAttached}
-      use-shadow-root={props.useShadowRoot ?? false}
-      {...propsToAttributes({ location, ...props })}
+      {...propsToAttributes({
+        location: location ?? contextLocation,
+        ...props,
+      })}
     />
   );
 }
