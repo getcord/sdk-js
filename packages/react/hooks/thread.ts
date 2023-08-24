@@ -11,6 +11,7 @@ import type {
   FetchMoreCallback,
   ObserveThreadActivitySummaryOptions,
   SearchResultData,
+  SearchOptionsType,
 } from '@cord-sdk/types';
 import { useEffect, useMemo, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
@@ -276,19 +277,15 @@ export function useThreadData(
  * @returns The hook will initially return `undefined` while the data loads from
  * our API. Once it has loaded, your component will re-render and the hook will
  * return an array containing message objects including thread location.
+ *
+ * Please note that the results are limited to 50 messages. To get more
+ * specific results, consider using one or more of the other search options provided.
  */
-export function useSearchMessages({
-  textToMatch,
-  authorID,
-  orgID,
-  locationOptions,
-}: {
-  textToMatch?: string;
-  authorID?: string;
-  orgID?: string;
-  locationOptions?: { location: Location; partialMatch: boolean };
-}): SearchResultData[] | undefined {
+export function useSearchMessages(
+  searchOptions: SearchOptionsType,
+): SearchResultData[] | undefined {
   const [data, setData] = useState<SearchResultData[] | undefined>(undefined);
+  const { textToMatch, authorID, orgID, locationOptions } = searchOptions;
   const inputsMemo = useMemoObject({
     textToMatch,
     authorID,

@@ -177,6 +177,33 @@ export interface SearchResultData extends ClientMessageData {
   location: Location;
 }
 
+export interface SearchOptionsType {
+  /**
+   * The string you want to find in message content.
+   */
+  textToMatch?: string;
+  /**
+   * The user ID of the person who sent the message.
+   */
+  authorID?: string;
+  /**
+   * The org ID of the organization the message belongs to.
+   * If omitted, the search will be across all orgs the current user is a member of.
+   */
+  orgID?: string;
+  /**
+   * Location to filter the messages by.
+   *
+   * Set locationOptions.location to a specific thread location to search.
+   * If locationOptions.partialMatch is `true`, we perform [partial
+   * matching](https://docs.cord.com/reference/location#Partial-Matching) on the
+   * specified location. If `false`, we fetch information only from the
+   * specified location.
+   * @returns An array containing message objects.
+   */
+
+  locationOptions?: { location: Location; partialMatch: boolean };
+}
 export interface ServerCreateMessage
   // Pick the required properties
   extends Pick<CoreMessageData, 'authorID' | 'id' | 'content'>,

@@ -12,6 +12,7 @@ import type {
 import type {
   ClientMessageData,
   CoreMessageData,
+  SearchOptionsType,
   SearchResultData,
 } from './message';
 
@@ -598,15 +599,9 @@ export interface ICordThreadSDK {
    * array.
    * @returns An array containing message objects including thread location.
    */
-  searchMessages({
-    textToMatch,
-    authorID,
-    locationOptions,
-  }: {
-    textToMatch?: string;
-    authorID?: string;
-    locationOptions?: { location: Location; partialMatch: boolean };
-  }): Promise<SearchResultData[] | undefined>;
+  searchMessages(
+    searchOptions: SearchOptionsType,
+  ): Promise<SearchResultData[] | undefined>;
 }
 
 /**
