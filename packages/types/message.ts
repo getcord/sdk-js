@@ -1,4 +1,4 @@
-import type { EntityMetadata, UserID, Location } from './core';
+import type { EntityMetadata, UserID, Location, TimestampRange } from './core';
 import type { PaginationDetails } from './pagination';
 import type { ServerCreateThread } from './thread';
 
@@ -203,6 +203,9 @@ export interface SearchOptionsType {
    */
 
   locationOptions?: { location: Location; partialMatch: boolean };
+
+  // Optional date objects used to scope search.
+  timestampRange?: TimestampRange;
 }
 export interface ServerCreateMessage
   // Pick the required properties
