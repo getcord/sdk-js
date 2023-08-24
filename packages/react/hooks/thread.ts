@@ -278,8 +278,10 @@ export function useThreadData(
 export function useSearchMessages(
   textToMatch?: string,
   authorID?: string,
+  locationOptions?: { location: Location; partialMatch: boolean },
 ): SearchResultData[] | undefined {
   const [data, setData] = useState<SearchResultData[] | undefined>(undefined);
+  const locationMemo = useMemoObject(locationOptions);
 
   const { sdk } = useCordContext('useSearchMessages');
   const threadSDK = sdk?.thread;
@@ -290,14 +292,14 @@ export function useSearchMessages(
     }
 
     threadSDK
-      .searchMessages(textToMatch, authorID)
+      .searchMessages(textToMatch, authorID, locationMemo)
       .then((result) => {
         setData(result);
       })
       .catch((e) => {
         console.error(e);
       });
-  }, [threadSDK, textToMatch, authorID]);
+  }, [threadSDK, textToMatch, authorID, locationMemo]);
 
   return data;
 }

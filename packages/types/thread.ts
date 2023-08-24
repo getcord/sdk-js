@@ -595,11 +595,18 @@ export interface ICordThreadSDK {
    * ```
    * @param textToMatch - The string you want to find in message content.
    * @param authorID - The user ID of the message author to filter by.
+   * @param locationOptions - An object with two keys, location and partialMatch.
+   * Set locationOptions.location to a specific thread location to search.
+   * If locationOptions.partialMatch is `true`, perform [partial
+   * matching](https://docs.cord.com/reference/location#Partial-Matching) on the
+   * specified location. If `false`, fetch information for only exactly the
+   * location specified.
    * @returns An array containing message objects.
    */
   searchMessages(
     textToMatch?: string,
     authorID?: string,
+    locationOptions?: { location: Location; partialMatch: boolean },
   ): Promise<SearchResultData[] | undefined>;
 }
 
