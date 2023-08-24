@@ -319,13 +319,13 @@ export interface ClientCreateThread
 
 export interface ClientCreateMessage
   // Pick the required properties
-  extends Pick<CoreMessageData, 'content'>,
+  extends Pick<CoreMessageData, 'id' | 'content'>,
     // Then a partial version of the rest of the properties
     Partial<
       Omit<
         CoreMessageData,
-        | 'authorID'
         | 'id'
+        | 'authorID'
         | 'content'
         | 'organizationID'
         | 'threadID'
@@ -351,7 +351,7 @@ export interface ClientCreateMessage
 }
 
 export interface ClientUpdateMessage
-  extends Partial<Omit<ClientCreateMessage, 'createThread'>> {
+  extends Partial<Omit<ClientCreateMessage, 'id' | 'createThread'>> {
   /**
    * Whether to change the deleted status of this message.
    */
@@ -561,6 +561,28 @@ export interface ICordThreadSDK {
     messageID: MessageID,
     data: ClientCreateMessage,
   ): Promise<true>;
+
+  /**
+   * Add a new message to a thread.  The message will be authored by the current
+   * user and belong to their current organization.
+   * @example Overview
+   * ```javascript
+   * await window.CordSDK.thread.sendMessage(
+   *   'my-awesome-thread-id',
+   *   {
+   *     id: crypto.randomUUID(),
+   *     content: [{ type: 'p', children: [{ text: 'Amazing job!' }]}],
+   *   }
+   * );
+   * ```
+   * @param threadID - The ID of the thread to add the message to.  If this
+   * thread does not yet exist, the `createThread` parameter determines what
+   * happens.
+   * @param data - The data values for the new message.
+   * @returns A promise that resolves to `true` if the operation succeeded or
+   * rejects if it failed.
+   */
+  sendMessage(threadID: ThreadID, data: ClientCreateMessage): Promise<true>;
 
   /**
    * Update the content or properties of an existing message.  This can only be
