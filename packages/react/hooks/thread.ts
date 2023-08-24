@@ -280,10 +280,12 @@ export function useThreadData(
 export function useSearchMessages({
   textToMatch,
   authorID,
+  orgID,
   locationOptions,
 }: {
   textToMatch?: string;
   authorID?: string;
+  orgID?: string;
   locationOptions?: { location: Location; partialMatch: boolean };
 }): SearchResultData[] | undefined {
   const [data, setData] = useState<SearchResultData[] | undefined>(undefined);
@@ -291,6 +293,7 @@ export function useSearchMessages({
     textToMatch,
     authorID,
     locationOptions,
+    orgID,
   });
 
   const { sdk } = useCordContext('useSearchMessages');
