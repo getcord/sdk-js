@@ -591,23 +591,22 @@ export interface ICordThreadSDK {
    * This method allows you search for messages by content.
    * @example Overview
    * ```javascript
-   * await window.CordSDK.thread.searchMessages('searchTermToFind');
+   * await window.CordSDK.thread.searchMessages({textToMatch: 'hello'});
    * ```
-   * @param textToMatch - The string you want to find in message content.
-   * @param authorID - The user ID of the message author to filter by.
-   * @param locationOptions - An object with two keys, location and partialMatch.
-   * Set locationOptions.location to a specific thread location to search.
-   * If locationOptions.partialMatch is `true`, perform [partial
-   * matching](https://docs.cord.com/reference/location#Partial-Matching) on the
-   * specified location. If `false`, fetch information for only exactly the
-   * location specified.
-   * @returns An array containing message objects.
+   * @param searchOptions - Various options for how to search the messages.  Each
+   * option is optional, but if you supply no options the result will be an empty
+   * array.
+   * @returns An array containing message objects including thread location.
    */
-  searchMessages(
-    textToMatch?: string,
-    authorID?: string,
-    locationOptions?: { location: Location; partialMatch: boolean },
-  ): Promise<SearchResultData[] | undefined>;
+  searchMessages({
+    textToMatch,
+    authorID,
+    locationOptions,
+  }: {
+    textToMatch?: string;
+    authorID?: string;
+    locationOptions?: { location: Location; partialMatch: boolean };
+  }): Promise<SearchResultData[] | undefined>;
 }
 
 /**

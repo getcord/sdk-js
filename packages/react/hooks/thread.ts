@@ -258,7 +258,7 @@ export function useThreadData(
  * @example Overview
  * ```javascript
  * import { thread } from '@cord-sdk/react';
- * const results = thread.useSearchMessages('searchTermToFind');
+ * const results = thread.useSearchMessages({textToMatch: 'hello'});
  *
  * return (
  *   <div>
@@ -270,18 +270,28 @@ export function useThreadData(
  *   </div>
  * );
  * ```
- * @param textToMatch - The string you want to find in message content.
+ * @param searchOptions - Various options for how to search the messages.  Each
+ * option is optional, but if you supply no options the result will be an empty
+ * array.
  * @returns The hook will initially return `undefined` while the data loads from
  * our API. Once it has loaded, your component will re-render and the hook will
- * return an array containing message objects.
+ * return an array containing message objects including thread location.
  */
-export function useSearchMessages(
-  textToMatch?: string,
-  authorID?: string,
-  locationOptions?: { location: Location; partialMatch: boolean },
-): SearchResultData[] | undefined {
+export function useSearchMessages({
+  textToMatch,
+  authorID,
+  locationOptions,
+}: {
+  textToMatch?: string;
+  authorID?: string;
+  locationOptions?: { location: Location; partialMatch: boolean };
+}): SearchResultData[] | undefined {
   const [data, setData] = useState<SearchResultData[] | undefined>(undefined);
-  const locationMemo = useMemoObject(locationOptions);
+  const inputsMemo = useMemoObject({
+    textToMatch,
+    authorID,
+    locationOptions,
+  });
 
   const { sdk } = useCordContext('useSearchMessages');
   const threadSDK = sdk?.thread;
@@ -292,14 +302,14 @@ export function useSearchMessages(
     }
 
     threadSDK
-      .searchMessages(textToMatch, authorID, locationMemo)
+      .searchMessages(inputsMemo)
       .then((result) => {
         setData(result);
       })
       .catch((e) => {
         console.error(e);
       });
-  }, [threadSDK, textToMatch, authorID, locationMemo]);
+  }, [threadSDK, textToMatch, authorID, inputsMemo]);
 
   return data;
 }
