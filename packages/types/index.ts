@@ -521,16 +521,22 @@ export interface HTMLCordFloatingThreadsElement
     HTMLCordFloatingThreadsFunctions,
     WithScreenshotConfig {}
 
+type MultipleCursorsDocumentLocation =
+  | {
+      documentX: number;
+      documentY: number;
+    }
+  | null
+  | undefined;
+
 export interface HTMLCordMultipleCursorsFunctions {
   setTranslations(
-    eventToLocation: (e: MouseEvent) => Location,
-    locationToDocument: (location: Location) =>
-      | {
-          documentX: number;
-          documentY: number;
-        }
-      | null
-      | undefined,
+    eventToLocation: (e: MouseEvent) => Promise<Location> | Location,
+    locationToDocument: (
+      location: Location,
+    ) =>
+      | Promise<MultipleCursorsDocumentLocation>
+      | MultipleCursorsDocumentLocation,
   ): void;
 }
 
