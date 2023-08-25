@@ -91,7 +91,7 @@ export function MultipleCursors({
 }: MultipleCursorsReactComponentProps) {
   // Make sure we've covered all the props we say we take; given the layers of
   // type generics etc it's easy to forget something.
-  const _: Record<never, never> = remainingProps;
+  const _: Record<string, never> = remainingProps;
 
   const contextLocation = useCordLocation();
   const location = locationProp ?? contextLocation;
