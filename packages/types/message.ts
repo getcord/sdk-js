@@ -214,13 +214,17 @@ export interface ServerCreateMessage
     Partial<
       Omit<
         CoreMessageData,
+        // Required fields
         | 'authorID'
         | 'id'
         | 'content'
+        // Fields that are readonly
         | 'organizationID'
         | 'threadID'
         | 'plaintext'
         | 'reactions'
+        | 'attachments'
+        | 'seenBy'
       >
     > {
   /**

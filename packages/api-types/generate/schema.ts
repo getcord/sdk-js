@@ -356,16 +356,6 @@ export default {
         format: 'uri',
         type: ['null', 'string'],
       },
-      attachments: {
-        description: 'The items attached to this message.',
-        type: 'array',
-        items: { $ref: '#/definitions/MessageAttachment' },
-      },
-      seenBy: {
-        description: 'A list of IDs of the users that have seen the message.',
-        type: 'array',
-        items: { type: 'string' },
-      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -382,8 +372,6 @@ export default {
       'updatedTimestamp',
       'deletedTimestamp',
       'iconURL',
-      'attachments',
-      'seenBy',
     ],
     required: ['authorID', 'content', 'id'],
     definitions: {
@@ -463,130 +451,6 @@ export default {
         ],
         required: ['location', 'name', 'organizationID', 'url'],
       },
-      MessageAttachment: {
-        anyOf: [
-          { $ref: '#/definitions/MessageFileAttachment' },
-          { $ref: '#/definitions/MessageAnnotationAttachment' },
-        ],
-      },
-      MessageFileAttachment: {
-        description: 'A file attached to this message.',
-        type: 'object',
-        properties: {
-          type: {
-            description:
-              'The type of this attachment, which is always `file` for file attachments.',
-            type: 'string',
-            enum: ['file'],
-          },
-          id: { description: 'The ID of this attachment.', type: 'string' },
-          name: {
-            description: 'The name of the file that was attached.',
-            type: 'string',
-          },
-          url: {
-            description:
-              'The URL that a user can use to download the file.  This is a signed URL\nthat will expire after 24 hours.',
-            type: 'string',
-          },
-          mimeType: {
-            description: 'The MIME type of the file.',
-            type: 'string',
-          },
-          size: {
-            description: 'The size of the file, in bytes.',
-            type: 'number',
-          },
-          uploadStatus: {
-            description:
-              'The status of the file upload.  `uploading` means that the user has not yet\ncompleted uploading the file, `uploaded` means the file is successfully\nuploaded, `failed` means the upload encountered an error, and `cancelled`\nmeans the user cancelled the upload before it was finished.',
-            enum: ['cancelled', 'failed', 'uploaded', 'uploading'],
-            type: 'string',
-          },
-        },
-        additionalProperties: false,
-        propertyOrder: [
-          'type',
-          'id',
-          'name',
-          'url',
-          'mimeType',
-          'size',
-          'uploadStatus',
-        ],
-        required: [
-          'id',
-          'mimeType',
-          'name',
-          'size',
-          'type',
-          'uploadStatus',
-          'url',
-        ],
-      },
-      MessageAnnotationAttachment: {
-        description: 'An annotation attached to this message.',
-        type: 'object',
-        properties: {
-          type: {
-            description:
-              'The type of this attachment, which is always `annotation` for annotation attachments.',
-            type: 'string',
-            enum: ['annotation'],
-          },
-          screenshot: {
-            $ref: '#/definitions/Attachment',
-            description: 'The screenshot attached to the annotation.',
-          },
-          textContent: {
-            description:
-              '(Optional) The text that was selected when creating the annotation.',
-            type: ['null', 'string'],
-          },
-        },
-        additionalProperties: false,
-        propertyOrder: ['type', 'screenshot', 'textContent'],
-        required: ['screenshot', 'textContent', 'type'],
-      },
-      Attachment: {
-        type: 'object',
-        properties: {
-          id: { description: 'The ID of this attachment.', type: 'string' },
-          name: {
-            description: 'The name of the file that was attached.',
-            type: 'string',
-          },
-          url: {
-            description:
-              'The URL that a user can use to download the file.  This is a signed URL\nthat will expire after 24 hours.',
-            type: 'string',
-          },
-          mimeType: {
-            description: 'The MIME type of the file.',
-            type: 'string',
-          },
-          size: {
-            description: 'The size of the file, in bytes.',
-            type: 'number',
-          },
-          uploadStatus: {
-            description:
-              'The status of the file upload.  `uploading` means that the user has not yet\ncompleted uploading the file, `uploaded` means the file is successfully\nuploaded, `failed` means the upload encountered an error, and `cancelled`\nmeans the user cancelled the upload before it was finished.',
-            enum: ['cancelled', 'failed', 'uploaded', 'uploading'],
-            type: 'string',
-          },
-        },
-        additionalProperties: false,
-        propertyOrder: [
-          'id',
-          'name',
-          'url',
-          'mimeType',
-          'size',
-          'uploadStatus',
-        ],
-        required: ['id', 'mimeType', 'name', 'size', 'uploadStatus', 'url'],
-      },
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
@@ -660,16 +524,6 @@ export default {
         format: 'uri',
         type: ['null', 'string'],
       },
-      attachments: {
-        description: 'The items attached to this message.',
-        type: 'array',
-        items: { $ref: '#/definitions/MessageAttachment' },
-      },
-      seenBy: {
-        description: 'A list of IDs of the users that have seen the message.',
-        type: 'array',
-        items: { type: 'string' },
-      },
       addReactions: {
         description:
           'The reactions you want to add to this message.\nThe default timestamp is the current time.\nTrying to create a reaction that already exists for a user does nothing.\nDoing the same as before with a timestamp will update the reaction with the new timestamp.\nThe reaction users need to be an [active member of the org](/rest-apis/organizations#Update-organization-members) that the message and thread belong to.',
@@ -692,8 +546,6 @@ export default {
       'authorID',
       'updatedTimestamp',
       'iconURL',
-      'attachments',
-      'seenBy',
       'addReactions',
     ],
     definitions: {
@@ -709,130 +561,6 @@ export default {
         additionalProperties: false,
         propertyOrder: ['reaction', 'userID'],
         required: ['reaction', 'userID'],
-      },
-      MessageAttachment: {
-        anyOf: [
-          { $ref: '#/definitions/MessageFileAttachment' },
-          { $ref: '#/definitions/MessageAnnotationAttachment' },
-        ],
-      },
-      MessageFileAttachment: {
-        description: 'A file attached to this message.',
-        type: 'object',
-        properties: {
-          type: {
-            description:
-              'The type of this attachment, which is always `file` for file attachments.',
-            type: 'string',
-            enum: ['file'],
-          },
-          id: { description: 'The ID of this attachment.', type: 'string' },
-          name: {
-            description: 'The name of the file that was attached.',
-            type: 'string',
-          },
-          url: {
-            description:
-              'The URL that a user can use to download the file.  This is a signed URL\nthat will expire after 24 hours.',
-            type: 'string',
-          },
-          mimeType: {
-            description: 'The MIME type of the file.',
-            type: 'string',
-          },
-          size: {
-            description: 'The size of the file, in bytes.',
-            type: 'number',
-          },
-          uploadStatus: {
-            description:
-              'The status of the file upload.  `uploading` means that the user has not yet\ncompleted uploading the file, `uploaded` means the file is successfully\nuploaded, `failed` means the upload encountered an error, and `cancelled`\nmeans the user cancelled the upload before it was finished.',
-            enum: ['cancelled', 'failed', 'uploaded', 'uploading'],
-            type: 'string',
-          },
-        },
-        additionalProperties: false,
-        propertyOrder: [
-          'type',
-          'id',
-          'name',
-          'url',
-          'mimeType',
-          'size',
-          'uploadStatus',
-        ],
-        required: [
-          'id',
-          'mimeType',
-          'name',
-          'size',
-          'type',
-          'uploadStatus',
-          'url',
-        ],
-      },
-      MessageAnnotationAttachment: {
-        description: 'An annotation attached to this message.',
-        type: 'object',
-        properties: {
-          type: {
-            description:
-              'The type of this attachment, which is always `annotation` for annotation attachments.',
-            type: 'string',
-            enum: ['annotation'],
-          },
-          screenshot: {
-            $ref: '#/definitions/Attachment',
-            description: 'The screenshot attached to the annotation.',
-          },
-          textContent: {
-            description:
-              '(Optional) The text that was selected when creating the annotation.',
-            type: ['null', 'string'],
-          },
-        },
-        additionalProperties: false,
-        propertyOrder: ['type', 'screenshot', 'textContent'],
-        required: ['screenshot', 'textContent', 'type'],
-      },
-      Attachment: {
-        type: 'object',
-        properties: {
-          id: { description: 'The ID of this attachment.', type: 'string' },
-          name: {
-            description: 'The name of the file that was attached.',
-            type: 'string',
-          },
-          url: {
-            description:
-              'The URL that a user can use to download the file.  This is a signed URL\nthat will expire after 24 hours.',
-            type: 'string',
-          },
-          mimeType: {
-            description: 'The MIME type of the file.',
-            type: 'string',
-          },
-          size: {
-            description: 'The size of the file, in bytes.',
-            type: 'number',
-          },
-          uploadStatus: {
-            description:
-              'The status of the file upload.  `uploading` means that the user has not yet\ncompleted uploading the file, `uploaded` means the file is successfully\nuploaded, `failed` means the upload encountered an error, and `cancelled`\nmeans the user cancelled the upload before it was finished.',
-            enum: ['cancelled', 'failed', 'uploaded', 'uploading'],
-            type: 'string',
-          },
-        },
-        additionalProperties: false,
-        propertyOrder: [
-          'id',
-          'name',
-          'url',
-          'mimeType',
-          'size',
-          'uploadStatus',
-        ],
-        required: ['id', 'mimeType', 'name', 'size', 'uploadStatus', 'url'],
       },
       ServerAddReactions: {
         additionalProperties: false,

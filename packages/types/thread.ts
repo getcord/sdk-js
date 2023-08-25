@@ -313,6 +313,7 @@ export interface ClientCreateThread
         | 'resolvedTimestamp'
         | 'participants'
         | 'repliers'
+        | 'subscribers'
         | 'typing'
       >
     > {}
@@ -324,16 +325,21 @@ export interface ClientCreateMessage
     Partial<
       Omit<
         CoreMessageData,
+        // Required fields
         | 'id'
-        | 'authorID'
         | 'content'
+        // Fields that are readonly
+        | 'plaintext'
+        | 'reactions'
+        | 'attachments'
+        | 'seenBy'
+        // Fields that can't be set in the client API
+        | 'authorID'
         | 'organizationID'
         | 'threadID'
-        | 'plaintext'
         | 'createdTimestamp'
         | 'updatedTimestamp'
         | 'deletedTimestamp'
-        | 'reactions'
       >
     > {
   /**
