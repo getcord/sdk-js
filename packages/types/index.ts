@@ -567,14 +567,18 @@ type MultipleCursorsDocumentLocation =
   | null
   | undefined;
 
+export type MultipleCursorsEventToLocationFn = (
+  e: MouseEvent,
+) => Promise<Location> | Location;
+
+export type MultipleCursorsLocationToDocumentFn = (
+  location: Location,
+) => Promise<MultipleCursorsDocumentLocation> | MultipleCursorsDocumentLocation;
+
 export interface HTMLCordMultipleCursorsFunctions {
   setTranslations(
-    eventToLocation: (e: MouseEvent) => Promise<Location> | Location,
-    locationToDocument: (
-      location: Location,
-    ) =>
-      | Promise<MultipleCursorsDocumentLocation>
-      | MultipleCursorsDocumentLocation,
+    eventToLocation: MultipleCursorsEventToLocationFn,
+    locationToDocument: MultipleCursorsLocationToDocumentFn,
   ): void;
 }
 

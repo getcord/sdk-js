@@ -8,6 +8,8 @@ export {
 export {
   MultipleCursors,
   MultipleCursorsReactComponentProps,
+  defaultEventToLocation as multipleCursorsDefaultEventToLocation,
+  defaultLocationToDocument as multipleCursorsDefaultLocationToDocument,
 } from './components/MultipleCursors';
 export {
   PagePresence,
