@@ -7,7 +7,12 @@ import type {
 } from './core';
 import type { ICordNotificationSDK } from './notifications';
 import type { ICordPresenceSDK } from './presence';
-import type { ICordActivitySDK, ICordThreadSDK, ThreadSummary } from './thread';
+import type {
+  ClientCreateMessage,
+  ICordActivitySDK,
+  ICordThreadSDK,
+  ThreadSummary,
+} from './thread';
 import type { ICordUserSDK } from './user';
 
 export * from './application';
@@ -77,6 +82,16 @@ export type CordSDKOptions = {
   custom_event_metadata?: JsonObject;
   translations?: Translations;
   language?: string;
+  beforeMessageCreate?: (
+    message: ClientCreateMessage,
+    context: {
+      threadID: ThreadID;
+    },
+  ) =>
+    | ClientCreateMessage
+    | null
+    | undefined
+    | Promise<ClientCreateMessage | null | undefined>;
 };
 
 export type InitErrorCallback = (error: { message: string }) => unknown;
