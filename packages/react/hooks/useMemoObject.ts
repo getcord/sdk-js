@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { isEqual as lodashIsEqual } from 'lodash';
+import { isEqual as libIsEqual } from 'radash';
 
 /**
  * Returns a memoized version of the given complex JS object (such as an array
@@ -8,7 +8,7 @@ import { isEqual as lodashIsEqual } from 'lodash';
  */
 export function useMemoObject<T>(
   obj: T,
-  isEqual: (a: T, b: T) => boolean = lodashIsEqual,
+  isEqual: (a: T, b: T) => boolean = libIsEqual,
 ) {
   const ref = useRef(obj);
   if (ref.current !== obj && !isEqual(ref.current, obj)) {

@@ -22,15 +22,14 @@
     "@cord-sdk/components": "1.10.0",
     "@cord-sdk/types": "1.10.0",
     "classnames": "^2.3.1",
-    "lodash": "^4.17.21",
-    "phosphor-react": "^1.4.0"
+    "phosphor-react": "^1.4.0",
+    "radash": "^11.0.0"
   },
   "peerDependencies": {
     "react": ">=17.0.0"
   },
   "devDependencies": {
     "@cord-sdk/jsx": "1.10.0",
-    "@types/lodash": "^4.14.155",
     "@types/react": "^18.2.18",
     "@vanilla-extract/css": "^1.10.0",
     "@vanilla-extract/rollup-plugin": "^1.2.2",
