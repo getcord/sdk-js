@@ -602,7 +602,7 @@ export default {
     type: 'object',
     properties: {
       limit: {
-        description: 'Number of users to return. Defaults to 1000.',
+        description: 'Number of messages to return. Defaults to 1000.',
         type: 'number',
       },
       token: {

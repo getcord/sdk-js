@@ -277,7 +277,7 @@ export interface ServerListThreadMessageParameters {
 
 export interface ServerListMessageParameters {
   /**
-   * Number of users to return. Defaults to 1000.
+   * Number of messages to return. Defaults to 1000.
    */
   limit?: number;
 
