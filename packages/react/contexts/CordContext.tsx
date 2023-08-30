@@ -12,6 +12,7 @@ import type {
   ScreenshotOptions,
   JsonObject,
   Translations,
+  CordSDKOptions,
 } from '@cord-sdk/types';
 import useUnpackClientAuthTokenPayload from '@cord-sdk/react/hooks/useUnpackClientAuthTokenPayload';
 
@@ -73,6 +74,7 @@ type Props = {
   enableScreenshotCapture?: boolean;
   customEventMetadata?: JsonObject;
   translations?: Translations;
+  beforeMessageCreate?: CordSDKOptions['beforeMessageCreate'];
 };
 
 type ThreadOptions = {
@@ -98,6 +100,7 @@ export function CordProvider({
   onInitError,
   customEventMetadata,
   translations,
+  beforeMessageCreate,
 }: React.PropsWithChildren<Props>) {
   if (clientAuthToken?.length === 0) {
     console.warn(
@@ -208,6 +211,7 @@ export function CordProvider({
           onInitError,
           custom_renderers: customRenderers,
           translations,
+          beforeMessageCreate,
         })
         .then(() => {
           setLastInitialized(Date.now());
@@ -230,6 +234,7 @@ export function CordProvider({
     customRenderers,
     customEventMetadata,
     translations,
+    beforeMessageCreate,
   ]);
 
   useEffect(() => {
