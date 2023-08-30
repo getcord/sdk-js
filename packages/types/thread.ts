@@ -29,7 +29,14 @@ export interface ObserveThreadActivitySummaryOptions {
    * If unset, defaults to `false`.
    */
   partialMatch?: boolean;
-  filter?: ThreadListFilter;
+
+  /**
+   * We should implement this properly, but until then, just what we need for
+   * experimentation.
+   *
+   * @privateRemarks hidden
+   */
+  filter?: Pick<ThreadListFilter, 'organizationId'>;
 }
 
 export type ObserveThreadActivitySummaryHookOptions = {
