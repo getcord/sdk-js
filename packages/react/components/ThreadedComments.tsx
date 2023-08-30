@@ -16,7 +16,7 @@ import { useExtraClassnames } from '../hooks/useExtraClassnames';
 import * as fonts from '../common/ui/atomicClasses/fonts.css';
 import { MODIFIERS } from '../common/ui/modifiers';
 import { useCallFunctionOnce } from '../common/effects/useCallFunctionOnce';
-import * as classes from './ThreadedComments.css';
+import classes from './ThreadedComments.css';
 import { Composer } from './Composer';
 import { Avatar } from './Avatar';
 import { Facepile } from './Facepile';
