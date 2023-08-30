@@ -59,8 +59,9 @@ export function useLocationSummary(
   const optionsMemo = useMemo(
     () => ({
       partialMatch: !!options?.partialMatch,
+      organizationId: options?.filter?.organizationId,
     }),
-    [options?.partialMatch],
+    [options?.filter?.organizationId, options?.partialMatch],
   );
 
   useEffect(() => {

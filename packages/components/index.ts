@@ -113,6 +113,7 @@ export const componentAttributes = {
     'show-placeholder': 'boolean',
     'composer-expanded': 'boolean',
     'thread-options': 'json',
+    'organization-id': 'string',
   },
   ThreadList: {
     location: 'json',
@@ -132,6 +133,7 @@ export const componentAttributes = {
     'show-close-button': 'boolean',
     size: 'composer-size',
     'message-metadata': 'json',
+    'organization-id': 'string',
   },
   InboxLauncher: {
     label: 'string',
@@ -164,6 +166,7 @@ export const componentAttributes = {
     'message-id': 'string',
     'mark-as-seen': 'boolean',
     'is-editing': 'boolean',
+    'organization-id': 'string',
   },
   MessageContent: {
     content: 'json',

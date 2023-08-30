@@ -29,6 +29,7 @@ export interface ObserveThreadActivitySummaryOptions {
    * If unset, defaults to `false`.
    */
   partialMatch?: boolean;
+  filter?: ThreadListFilter;
 }
 
 export type ObserveThreadActivitySummaryHookOptions = {
@@ -251,12 +252,23 @@ export interface ThreadObserverOptions {
    * hook if that was used. Otherwise, will default to the current page's URL.
    */
   location?: Location;
+  /**
+   * Experimental filter
+   */
+  organizationId?: string;
 }
 
 export type ObserveThreadSummaryOptions = ThreadObserverOptions;
 export type ObserveThreadDataOptions = ThreadObserverOptions;
 
-export type ThreadListFilter = { metadata?: EntityMetadata };
+export type ThreadListFilter = {
+  metadata?: EntityMetadata;
+  /**
+   * Experimental filter for privacy model project
+   * @privateRemarks hidden
+   */
+  organizationId?: string;
+};
 export type SortDirection = 'ascending' | 'descending';
 export type SortBy =
   | 'first_message_timestamp'

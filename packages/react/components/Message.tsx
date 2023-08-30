@@ -19,6 +19,7 @@ export type MessageReactComponentProps = {
   threadId: string;
   messageId?: string;
   markAsSeen?: boolean;
+  organizationId?: string;
   onClick?: (...args: MessageWebComponentEvents['click']) => unknown;
   onMouseEnter?: (...args: MessageWebComponentEvents['mouseenter']) => unknown;
   onMouseLeave?: (...args: MessageWebComponentEvents['mouseleave']) => unknown;
