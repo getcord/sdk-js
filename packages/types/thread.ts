@@ -253,7 +253,8 @@ export interface ThreadObserverOptions {
    */
   location?: Location;
   /**
-   * Experimental filter
+   * Experimental filter for privacy model project
+   * @privateRemarks hidden
    */
   organizationId?: string;
 }
