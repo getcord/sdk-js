@@ -21,6 +21,7 @@ import { Composer } from './Composer';
 import { Avatar } from './Avatar';
 import { Facepile } from './Facepile';
 import { Message } from './Message';
+import { Icon } from './helpers/Icon';
 
 const THREADED_COMMENTS_COMPONENT_NAME = 'CORD-THREADED-COMMENTS';
 
@@ -198,6 +199,7 @@ function CommentsThread({
     return null;
   }
 
+  const isResolved = threadSummary.resolved;
   const hasReplies = threadSummary.total > 1;
   const showReplyComponent = allowReplies && (!hasReplies || showingReplies);
 
@@ -205,9 +207,11 @@ function CommentsThread({
     <div
       className={cx(classes.thread, extraClassnames, {
         [MODIFIERS.highlighted]: highlightThreadId === threadId,
+        [MODIFIERS.resolved]: isResolved,
       })}
       data-cord-thread-id={threadId}
     >
+      {isResolved && <ResolvedThreadHeader threadId={threadId} />}
       <Message
         messageId={threadSummary.firstMessage?.id}
         threadId={threadId}
@@ -477,5 +481,28 @@ function ReplyComponent({
     >
       {'Reply'}
     </button>
+  );
+}
+
+function ResolvedThreadHeader({ threadId }: { threadId: string }) {
+  const setUnresolved = useCallback(() => {
+    if (window.CordSDK) {
+      void window.CordSDK.thread.updateThread(threadId, {
+        resolved: false,
+      });
+    }
+  }, [threadId]);
+  return (
+    <div className={cx(classes.resolvedThreadHeader, fonts.fontSmall)}>
+      <Icon name={'CheckCircle'} />
+      {'Resolved'}
+      <button
+        type="button"
+        className={cx(classes.reopenButton, fonts.fontSmall)}
+        onClick={setUnresolved}
+      >
+        {'Reopen'}
+      </button>
+    </div>
   );
 }

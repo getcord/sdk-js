@@ -1,6 +1,7 @@
 import { globalStyle, keyframes } from '@vanilla-extract/css';
 import { cssVar } from '../../common/ui/cssVariables';
 import { getModifiedSelector } from '../../common/ui/modifiers';
+import { resolvedThreadHeader } from '../ThreadedComments.classnames';
 import { button } from './Button.classnames';
 import * as classes from './Icon.classnames';
 import { emptyStateContainer } from '@cord-sdk/react/components/helpers/EmptyStateWithIcon.classnames';
@@ -64,4 +65,10 @@ globalStyle(`.${emptyStateContainer} :where(.${icon})`, {
   height: cssVar('space-2xl'),
   width: cssVar('space-2xl'),
   marginBottom: cssVar('space-2xs'),
+});
+
+globalStyle(`:where(.${resolvedThreadHeader}) .${icon}`, {
+  color: cssVar('color-brand-primary'),
+  height: cssVar('space-l'),
+  width: cssVar('space-l'),
 });

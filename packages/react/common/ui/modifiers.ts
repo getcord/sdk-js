@@ -16,6 +16,7 @@ export const MODIFIERS = {
   highlighted: cordifyClassname('highlighted'),
   error: cordifyClassname('error'),
   hidden: cordifyClassname('hidden'),
+  resolved: cordifyClassname('resolved'),
 
   extraLarge: cordifyClassname('extra-large'),
   large: cordifyClassname('large'),

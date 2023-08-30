@@ -10,6 +10,8 @@ const {
   comments,
   threadList,
   thread,
+  resolvedThreadHeader,
+  reopenButton,
   expandReplies,
   repliesContainer,
   hideReplies,
@@ -21,7 +23,7 @@ globalStyle(`.${comments}`, {
   width: '320px',
   border: `1px solid ${cssVar('color-base-x-strong')}`,
   padding: cssVar('space-2xs'),
-  borderRadius: cssVar('border-radius-medium'),
+  borderRadius: cssVar('space-3xs'),
   display: 'flex',
   flexDirection: 'column',
   gap: cssVar('space-2xs'),
@@ -39,6 +41,40 @@ globalStyle(`.${threadList}`, {
 globalStyle(`.${thread}`, {
   display: 'flex',
   flexDirection: 'column',
+  borderRadius: cssVar('space-3xs'),
+});
+
+globalStyle(`.${resolvedThreadHeader}`, {
+  alignItems: 'center',
+  color: cssVar('color-content-primary'),
+  display: 'flex',
+  gap: cssVar('space-2xs'),
+  padding: `0 ${cssVar('space-3xs')} 0 ${cssVar('space-2xs')}`,
+});
+
+globalStyle(`.${reopenButton}`, {
+  border: 'none',
+  borderRadius: cssVar('space-3xs'),
+  cursor: 'pointer',
+  marginLeft: 'auto',
+  padding: `${cssVar('space-3xs')} ${cssVar('space-2xs')}`,
+  pointerEvents: 'none',
+  visibility: 'hidden',
+});
+
+globalStyle(`.${reopenButton}:hover`, {
+  backgroundColor: cssVar('color-base-x-strong'),
+});
+
+globalStyle(`:where(.${resolvedThreadHeader}):hover .${reopenButton}`, {
+  pointerEvents: 'auto',
+  visibility: 'visible',
+});
+
+globalStyle(getModifiedSelector('resolved', `.${thread}`), {
+  backgroundColor: cssVar('color-base-strong'),
+  margin: `0 ${cssVar('space-3xs')} 0 ${cssVar('space-2xs')}`,
+  padding: `${cssVar('space-2xs')} 0`,
 });
 
 globalStyle(getModifiedSelector('highlighted', `.${thread}`), {
