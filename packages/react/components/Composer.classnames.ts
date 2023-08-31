@@ -12,7 +12,6 @@ export const primaryButtonsGroup = cordifyClassname('composer-primary-buttons');
 export const secondaryButtonsGroup = cordifyClassname(
   'composer-secondary-buttons',
 );
-export const active = cordifyClassname('active');
 
 export const editorContainer = cordifyClassname('editor-container');
 export const editor = cordifyClassname('editor');

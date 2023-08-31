@@ -1,6 +1,7 @@
 import { cordifyClassname } from '@cord-sdk/react/common/util';
 
 export const MODIFIERS = {
+  active: cordifyClassname('active'),
   badged: cordifyClassname('badged'),
   loading: cordifyClassname('loading'),
   disabled: cordifyClassname('disabled'),
