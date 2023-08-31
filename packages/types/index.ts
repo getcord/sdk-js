@@ -86,7 +86,7 @@ export type CordSDKOptions = {
     message: ClientCreateMessage,
     context: {
       threadID: ThreadID;
-      newThread: boolean;
+      firstMessage: boolean;
     },
   ) =>
     | ClientCreateMessage
