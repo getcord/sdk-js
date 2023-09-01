@@ -13,7 +13,7 @@ import type {
   SearchResultData,
   SearchOptionsType,
 } from '@cord-sdk/types';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 import { useMemoizedLocation } from './useMemoizedLocation';
 import { useMemoObject } from './useMemoObject';
@@ -56,13 +56,7 @@ export function useLocationSummary(
 
   const [summary, setSummary] = useState<ThreadActivitySummary>();
 
-  const optionsMemo = useMemo(
-    () => ({
-      partialMatch: !!options?.partialMatch,
-      organizationId: options?.filter?.organizationId,
-    }),
-    [options?.filter?.organizationId, options?.partialMatch],
-  );
+  const optionsMemo = useMemoObject(options);
 
   useEffect(() => {
     if (!threadSDK) {
