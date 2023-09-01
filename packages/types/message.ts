@@ -87,7 +87,8 @@ export type MessageAttachment =
 
 export interface CoreMessageData {
   /**
-   * The ID for the message.
+   * The ID for the message.  If a message is created with no ID, a random
+   * UUID-based ID will be automatically created for it.
    */
   id: string;
   /**
@@ -207,16 +208,16 @@ export interface SearchOptionsType {
   // Optional date objects used to scope search.
   timestampRange?: TimestampRange;
 }
+
 export interface ServerCreateMessage
   // Pick the required properties
-  extends Pick<CoreMessageData, 'authorID' | 'id' | 'content'>,
+  extends Pick<CoreMessageData, 'authorID' | 'content'>,
     // Then a partial version of the rest of the properties
     Partial<
       Omit<
         CoreMessageData,
         // Required fields
         | 'authorID'
-        | 'id'
         | 'content'
         // Fields that are readonly
         | 'organizationID'

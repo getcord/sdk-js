@@ -280,7 +280,6 @@
         "description": "The parameters for creating a thread if the supplied thread doesn't exist\nyet.  If the thread doesn't exist but `createThread` isn't provided, the\ncall will generate an error.  This value is ignored if the thread already\nexists.",
         "$ref": "#/definitions/Omit<ServerCreateThread,\"id\">"
       },
-      "id": { "description": "The ID for the message.", "type": "string" },
       "content": {
         "description": "The content of the message.",
         "type": "array",
@@ -297,6 +296,10 @@
       "type": {
         "description": "The type of message this is.  A `user_message` is a message that the author\nsent.  An `action_message` is a message about something that happened, such\nas the thread being resolved.  The default value is `user_message`.",
         "enum": ["action_message", "user_message"],
+        "type": "string"
+      },
+      "id": {
+        "description": "The ID for the message.  If a message is created with no ID, a random\nUUID-based ID will be automatically created for it.",
         "type": "string"
       },
       "url": {
@@ -342,10 +345,10 @@
     "propertyOrder": [
       "addReactions",
       "createThread",
-      "id",
       "content",
       "authorID",
       "type",
+      "id",
       "url",
       "metadata",
       "createdTimestamp",
@@ -354,7 +357,7 @@
       "deletedTimestamp",
       "iconURL"
     ],
-    "required": ["authorID", "content", "id"],
+    "required": ["authorID", "content"],
     "definitions": {
       "ServerAddReactions": {
         "additionalProperties": false,
@@ -458,7 +461,10 @@
         "enum": ["action_message", "user_message"],
         "type": "string"
       },
-      "id": { "description": "The ID for the message.", "type": "string" },
+      "id": {
+        "description": "The ID for the message.  If a message is created with no ID, a random\nUUID-based ID will be automatically created for it.",
+        "type": "string"
+      },
       "url": {
         "description": "A URL where the message can be seen.  This determines where a user is sent\nwhen they click on a reference to this message, such as in a notification.\nIf unset, it defaults to the thread's URL.",
         "type": ["null", "string"]

@@ -340,13 +340,12 @@ export interface ClientCreateThread
 
 export interface ClientCreateMessage
   // Pick the required properties
-  extends Pick<CoreMessageData, 'id' | 'content'>,
+  extends Pick<CoreMessageData, 'content'>,
     // Then a partial version of the rest of the properties
     Partial<
       Omit<
         CoreMessageData,
         // Required fields
-        | 'id'
         | 'content'
         // Fields that are readonly
         | 'plaintext'
