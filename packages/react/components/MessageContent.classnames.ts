@@ -14,6 +14,7 @@ export const messageDocumentAttachments = cordifyClassname(
 export const messageAnnotationAttachments = cordifyClassname(
   'message-annotation-attachments',
 );
+export const messageLinkPreviews = cordifyClassname('message-link-previews');
 
 export const messageContentClassnamesDocs = {
   [messageContent]:
@@ -26,4 +27,5 @@ export const messageContentClassnamesDocs = {
     'Applied to the div that contains document attachments.',
   [messageAnnotationAttachments]:
     'Applied to the div that contains annotation attachments.',
+  [messageLinkPreviews]: 'Applied to the div that contains link previews.',
 };
