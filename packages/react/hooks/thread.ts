@@ -132,6 +132,38 @@ export function useThreadSummary(
   return summary;
 }
 
+/**
+ * This method allows you to observe detailed data about
+ * a [location](https://docs.cord.com/reference/location),
+ * including live updates.
+ * @example Overview
+ * ```javascript
+ * import { thread } from '@cord-sdk/react';
+ * const { threads, loading, hasMore, fetchMore } = thread.useLocationData({
+ *   page: 'document_details',
+ * });
+ * return (
+ *   <div>
+ *     {threads.map((threadSummary) => (
+ *       <div key={threadSummary.id}>
+ *         Thread ID {threadSummary.id} has {threadSummary.total} messages!
+ *       </div>
+ *     ))}
+ *     {loading ? (
+ *       <div>Loading...</div>
+ *     ) : hasMore ? (
+ *       <div onClick={() => fetchMore(10)}>Fetch 10 more</div>
+ *     ) : null}
+ *   </div>
+ * );
+ * ```
+ * @param location - The [location](https://docs.cord.com/reference/location)
+ * to fetch data for.
+ * @param options -  Miscellaneous options.
+ * @returns The hook will return an object containing the fields described under
+ * "Available Data" above. The component will automatically re-render if any of
+ * the data changes, i.e., this data is always "live".
+ */
 export function useLocationData(
   location: Location,
   options?: ObserveLocationDataOptions,

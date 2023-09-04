@@ -270,6 +270,12 @@ export type ObserveThreadSummaryOptions = ThreadObserverOptions;
 export type ObserveThreadDataOptions = ThreadObserverOptions;
 
 export type ThreadListFilter = {
+  /**
+   * The value for a `metadata` entry should be an object representing the
+   * metadata key/value to filter on.  For example, to show only threads
+   * with the metadata key of `"category"` set to `"sales"`, set the filter
+   * to `{ metadata: { category: "sales" } }`.
+   */
   metadata?: EntityMetadata;
   /**
    * Experimental filter for privacy model project
@@ -282,21 +288,76 @@ export type SortBy =
   | 'first_message_timestamp'
   | 'most_recent_message_timestamp';
 export type ObserveLocationDataOptions = {
+  /**
+   * This option controls the criteria for how threads are sorted.
+   * Combined with `sortDirection`, it determines which threads are
+   * "first".
+   *
+   * It's a string enum which can have one of the following values:
+   *
+   * * `first_message_timestamp`: sort threads by the
+   *   timestamp of the first message in the thread. In other
+   *    words, threads will be sorted based on how recently they
+   *    were created.
+   *
+   * * `most_recent_message_timestamp`: sort threads
+   *    by the timestamp of the most recent message in the thread.
+   *    In other words, threads will be sorted based on how
+   *    recently they were responded to.
+   *
+   * If unset, defaults to `first_message_timestamp`.
+   */
   sortBy?: SortBy;
+  /**
+   * This option controls the direction that `sortBy`
+   * sorts. Combined with `sortBy`, it determines
+   * which threads are "first".
+   *
+   * It's a string enum which can have one of the following
+   * values:
+   *
+   * * `ascending`: sort older threads in front of newer threads.
+   *
+   * * `descending`: sort newer threads in front of older threads.
+   *
+   * If unset, defaults to `descending` (since people usually care
+   * about the most recent things).
+   */
   sortDirection?: SortDirection;
+  /**
+   * If `false`, resolved threads are filtered out of the results. If `true`,
+   * all threads are returned.
+   *
+   * If unset, defaults to `false`.
+   */
   includeResolved?: boolean;
+  /**
+   * If `true`, perform [partial matching](/reference/location#Partial-Matching)
+   * on the specified location. If `false`, fetch information for only exactly the
+   * location specified.
+   *
+   * If unset, defaults to `false`.
+   */
   partialMatch?: boolean;
   /**
-   * An object that can be used to filter the threads returned.  Currently
-   * the only valid key is `metadata`. The value for a `metadata` entry should
-   * be an object representing the metadata key/value to filter on.  For
-   * example, to show only threads with the metadata key of `"category"`
-   * set to `"sales"`, set the filter to `{ metadata: { category: "sales" } }`.
+   * An object that can be used to filter the threads returned.
    */
   filter?: ThreadListFilter;
 };
 
 export type LocationData = PaginationParams & {
+  /**
+   * An array of [thread summary](/js-apis-and-hooks/thread-api/observeThreadSummary#Available-Data)
+   * objects. There will be one of each thread at the specified
+   * [location](/reference/location).
+   *
+   * This array is paginated. At first, it will contain summaries of only the first
+   * few threads. Calling `fetchMore` will cause further thread summaries to be
+   * appended to the array.
+   *
+   * The order in which you will receive the threads is determined by the sorting
+   * options.
+   */
   threads: ThreadSummary[];
 };
 export type LocationDataCallback = (data: LocationData) => unknown;
@@ -427,6 +488,41 @@ export interface ICordThreadSDK {
   ): ListenerRef;
   unobserveLocationSummary(ref: ListenerRef): boolean;
 
+  /**
+   * This method allows you to observe detailed data about a
+   * [location](https://docs.cord.com/reference/location), including live
+   * updates.
+   * @example Overview
+   * ```javascript
+   * const ref = window.CordSDK.thread.observeLocationData(
+   *   { page: 'document_details' },
+   *   ({ threads, loading, hasMore, fetchMore }) => {
+   *     console.log('Got a thread data update:');
+   *     if (loading) {
+   *       console.log('Loading...');
+   *     }
+   *     threads.forEach((threadSummary) =>
+   *       console.log(\`Thread \${threadSummary.id} has \${threadSummary.total} messages!\`),
+   *     );
+   *     if (!loading && hasMore && threads.length < 25) {
+   *       // Get the first 25 threads, 10 at a time.
+   *       fetchMore(10);
+   *     }
+   *   },
+   * );
+   * // ... Later, when updates are no longer needed ...
+   * window.CordSDK.thread.unobserveLocationData(ref);
+   * ```
+   * @param location - The [location](https://docs.cord.com/reference/location)
+   * to fetch data for.
+   * @param callback - This callback will be called once with the current location
+   * data, and then again every time the data changes. The
+   * argument passed to the callback is an object which will
+   * contain the fields described under "Available Data" above.
+   * @param options - Miscellaneous options. See below.
+   * @returns A reference number which can be passed to
+   * `unobserveLocationData` to stop observing location data.
+   */
   observeLocationData(
     location: Location,
     callback: LocationDataCallback,
