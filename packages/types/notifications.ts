@@ -218,7 +218,7 @@ export interface ICordNotificationSDK {
    *     if (loading) {
    *       console.log('Loading...');
    *     }
-   *     threads.forEach((notification) =>
+   *     notifications.forEach((notification) =>
    *       console.log(\`Got notification \${notification.id}!\`),
    *     );
    *     if (!loading && hasMore && notifications.length < 25) {
