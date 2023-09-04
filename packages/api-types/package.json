@@ -23,7 +23,7 @@
     "prettier": "^2.8.2",
     "rollup": "^2.70.1",
     "rollup-plugin-typescript2": "^0.31.2",
-    "typescript": "^4.9.4",
-    "typescript-json-schema": "^0.56.0"
+    "typescript": "~5.1.6",
+    "typescript-json-schema": "^0.60.0"
   }
 }

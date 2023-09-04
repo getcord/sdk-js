@@ -632,7 +632,7 @@
       "type": {
         "description": "Currently must be set to `url`. In the future this may specify different\ntypes of notifications, but for now only `url` is defined.",
         "type": "string",
-        "enum": ["url"]
+        "const": "url"
       },
       "metadata": {
         "description": "An arbitrary JSON object that can be used to set additional metadata on the\nnotification. When displaying a [list of\nnotifications](/components/cord-notification-list),\nyou can filter the list by metadata value.\n\nKeys are strings, and values can be strings, numbers or booleans.",
@@ -668,7 +668,7 @@
       "key": {
         "description": "The preference key. `notification_channels` controls how users get notified about Cord activity.",
         "type": "string",
-        "enum": ["notification_channels"]
+        "const": "notification_channels"
       },
       "value": {
         "$ref": "#/definitions/Partial<NotificationPreferences>",

@@ -656,7 +656,7 @@ export default {
         description:
           'Currently must be set to `url`. In the future this may specify different\ntypes of notifications, but for now only `url` is defined.',
         type: 'string',
-        enum: ['url'],
+        const: 'url',
       },
       metadata: {
         description:
@@ -695,7 +695,7 @@ export default {
         description:
           'The preference key. `notification_channels` controls how users get notified about Cord activity.',
         type: 'string',
-        enum: ['notification_channels'],
+        const: 'notification_channels',
       },
       value: {
         $ref: '#/definitions/Partial<NotificationPreferences>',
