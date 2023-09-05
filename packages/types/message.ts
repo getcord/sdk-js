@@ -1,6 +1,7 @@
 import type { EntityMetadata, UserID, Location, TimestampRange } from './core';
 import type { PaginationDetails } from './pagination';
 import type { ServerCreateThread } from './thread';
+import type { UploadedFile } from './file';
 
 export type Reaction = {
   /**
@@ -22,41 +23,10 @@ export type ServerAddReactions = Omit<Reaction, 'timestamp'> &
 
 export type ServerRemoveReactions = Omit<Reaction, 'timestamp'>;
 
-interface Attachment {
-  /**
-   * The ID of this attachment.
-   */
-  id: string;
-  /**
-   * The name of the file that was attached.
-   */
-  name: string;
-  /**
-   * The URL that a user can use to download the file.  This is a signed URL
-   * that will expire after 24 hours.
-   */
-  url: string;
-  /**
-   * The MIME type of the file.
-   */
-  mimeType: string;
-  /**
-   * The size of the file, in bytes.
-   */
-  size: number;
-  /**
-   * The status of the file upload.  `uploading` means that the user has not yet
-   * completed uploading the file, `uploaded` means the file is successfully
-   * uploaded, `failed` means the upload encountered an error, and `cancelled`
-   * means the user cancelled the upload before it was finished.
-   */
-  uploadStatus: 'uploading' | 'uploaded' | 'failed' | 'cancelled';
-}
-
 /**
  * A file attached to this message.
  */
-export interface MessageFileAttachment extends Attachment {
+export interface MessageFileAttachment extends UploadedFile {
   /**
    * The type of this attachment, which is always `file` for file attachments.
    */
@@ -74,7 +44,7 @@ export interface MessageAnnotationAttachment {
   /**
    * The screenshot attached to the annotation.
    */
-  screenshot: Attachment;
+  screenshot: UploadedFile;
   /**
    * (Optional) The text that was selected when creating the annotation.
    */
