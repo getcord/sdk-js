@@ -73,7 +73,6 @@ export function ThreadedComments({
     {
       sortBy: 'first_message_timestamp',
       sortDirection: 'descending',
-      includeResolved: false,
       partialMatch,
     },
   );
