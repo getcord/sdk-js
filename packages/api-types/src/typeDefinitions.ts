@@ -9,5 +9,6 @@ export * from './org';
 export * from './presence';
 export * from './thread';
 export * from './user';
+export * from './webhook';
 
 export type ClientAuthTokenData = ClientAuthTokenData_;

@@ -1522,6 +1522,32 @@ export default {
     required: ['permanently_delete'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
+  CreateWebhookVariables: {
+    type: 'object',
+    properties: {
+      url: {
+        description: 'The URL to register that will receive webhook events',
+        format: 'uri',
+        type: 'string',
+      },
+      events: {
+        description: 'The events which you will receive',
+        type: 'array',
+        items: {
+          enum: [
+            'notification-created',
+            'thread-message-added',
+            'url-verification',
+          ],
+          type: 'string',
+        },
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['url', 'events'],
+    required: ['events', 'url'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
   ClientAuthTokenData: {
     description: 'https://docs.cord.com/reference/authentication/',
     additionalProperties: true,

@@ -77,3 +77,16 @@ export interface WebhookWrapperProperties<T extends WebhookTypes> {
    */
   event: WebhookPayloads[T];
 }
+
+export type ServerCreateWebhook = {
+  /**
+   * The URL to register that will receive webhook events
+   * @format uri
+   */
+  url: string;
+
+  /**
+   * The events which you will receive
+   */
+  events: (keyof WebhookPayloads)[];
+};

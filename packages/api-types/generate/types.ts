@@ -26,6 +26,7 @@ import type {
   ListUsersResponse,
   ListUserQueryParameters,
   DeleteUserVariables,
+  CreateWebhookVariables,
   ClientAuthTokenData,
 } from '../src/typeDefinitions';
 
@@ -54,5 +55,6 @@ export type Types = {
   ListUsersResponse: ListUsersResponse;
   ListUserQueryParameters: ListUserQueryParameters;
   DeleteUserVariables: DeleteUserVariables;
+  CreateWebhookVariables: CreateWebhookVariables;
   ClientAuthTokenData: ClientAuthTokenData;
 };
