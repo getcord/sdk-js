@@ -296,6 +296,20 @@ export default {
         type: 'array',
         items: { $ref: '#/definitions/ServerAddReactions' },
       },
+      addAttachments: {
+        description: 'The attachments to add to this message.',
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            type: { type: 'string', const: 'file' },
+            id: { type: 'string' },
+          },
+          additionalProperties: false,
+          propertyOrder: ['type', 'id'],
+          required: ['id', 'type'],
+        },
+      },
       createThread: {
         description:
           "The parameters for creating a thread if the supplied thread doesn't exist\nyet.  If the thread doesn't exist but `createThread` isn't provided, the\ncall will generate an error.  This value is ignored if the thread already\nexists.",
@@ -364,6 +378,7 @@ export default {
     additionalProperties: false,
     propertyOrder: [
       'addReactions',
+      'addAttachments',
       'createThread',
       'content',
       'authorID',

@@ -1,6 +1,6 @@
 import type { EntityMetadata, UserID, Location, TimestampRange } from './core';
 import type { PaginationDetails } from './pagination';
-import type { ServerCreateThread } from './thread';
+import type { CreateAttachment, ServerCreateThread } from './thread';
 import type { UploadedFile } from './file';
 
 export type Reaction = {
@@ -204,9 +204,12 @@ export interface ServerCreateMessage
    * Trying to create a reaction that already exists for a user does nothing.
    * Doing the same as before with a timestamp will update the reaction with the new timestamp.
    * The reaction users need to be an [active member of the org](https://docs.cord.com/rest-apis/organizations#Update-organization-members) that the message and thread belong to.
-   *
    */
   addReactions?: ServerAddReactions[];
+  /**
+   * The attachments to add to this message.
+   */
+  addAttachments?: CreateAttachment[];
   /**
    * The parameters for creating a thread if the supplied thread doesn't exist
    * yet.  If the thread doesn't exist but `createThread` isn't provided, the
@@ -217,7 +220,9 @@ export interface ServerCreateMessage
 }
 
 export interface ServerUpdateMessage
-  extends Partial<Omit<ServerCreateMessage, 'createThread'>> {
+  extends Partial<
+    Omit<ServerCreateMessage, 'createThread' | 'addAttachments'>
+  > {
   /**
    * Whether we want to mark this message as deleted. Setting this to `true` without
    * providing a value for `deletedTimestamp` is equivalent to setting `deletedTimestamp` to current

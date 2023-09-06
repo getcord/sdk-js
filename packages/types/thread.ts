@@ -411,6 +411,13 @@ export interface ClientCreateThread
       >
     > {}
 
+export type CreateFileAttachment = {
+  type: 'file';
+  id: string;
+};
+
+export type CreateAttachment = CreateFileAttachment;
+
 export interface ClientCreateMessage
   // Pick the required properties
   extends Pick<CoreMessageData, 'content'>,
@@ -446,10 +453,16 @@ export interface ClientCreateMessage
    * Trying to create a reaction that already exists for a user does nothing.
    */
   addReactions?: string[];
+  /**
+   * A list of attachments to add to the message.
+   */
+  addAttachments?: CreateAttachment[];
 }
 
 export interface ClientUpdateMessage
-  extends Partial<Omit<ClientCreateMessage, 'id' | 'createThread'>> {
+  extends Partial<
+    Omit<ClientCreateMessage, 'id' | 'createThread' | 'addAttachments'>
+  > {
   /**
    * Whether to change the deleted status of this message.
    */
