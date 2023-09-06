@@ -528,6 +528,20 @@
         "description": "The reactions you want to add to this message.\nThe default timestamp is the current time.\nTrying to create a reaction that already exists for a user does nothing.\nDoing the same as before with a timestamp will update the reaction with the new timestamp.\nThe reaction users need to be an [active member of the org](/rest-apis/organizations#Update-organization-members) that the message and thread belong to.",
         "type": "array",
         "items": { "$ref": "#/definitions/ServerAddReactions" }
+      },
+      "addAttachments": {
+        "description": "The attachments to add to this message.",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "const": "file" },
+            "id": { "type": "string" }
+          },
+          "additionalProperties": false,
+          "propertyOrder": ["type", "id"],
+          "required": ["id", "type"]
+        }
       }
     },
     "additionalProperties": false,
@@ -545,7 +559,8 @@
       "authorID",
       "updatedTimestamp",
       "iconURL",
-      "addReactions"
+      "addReactions",
+      "addAttachments"
     ],
     "definitions": {
       "ServerRemoveReactions": {

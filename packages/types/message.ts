@@ -220,9 +220,7 @@ export interface ServerCreateMessage
 }
 
 export interface ServerUpdateMessage
-  extends Partial<
-    Omit<ServerCreateMessage, 'createThread' | 'addAttachments'>
-  > {
+  extends Partial<Omit<ServerCreateMessage, 'createThread'>> {
   /**
    * Whether we want to mark this message as deleted. Setting this to `true` without
    * providing a value for `deletedTimestamp` is equivalent to setting `deletedTimestamp` to current

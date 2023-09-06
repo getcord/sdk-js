@@ -553,6 +553,20 @@ export default {
         type: 'array',
         items: { $ref: '#/definitions/ServerAddReactions' },
       },
+      addAttachments: {
+        description: 'The attachments to add to this message.',
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            type: { type: 'string', const: 'file' },
+            id: { type: 'string' },
+          },
+          additionalProperties: false,
+          propertyOrder: ['type', 'id'],
+          required: ['id', 'type'],
+        },
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -570,6 +584,7 @@ export default {
       'updatedTimestamp',
       'iconURL',
       'addReactions',
+      'addAttachments',
     ],
     definitions: {
       ServerRemoveReactions: {

@@ -460,9 +460,7 @@ export interface ClientCreateMessage
 }
 
 export interface ClientUpdateMessage
-  extends Partial<
-    Omit<ClientCreateMessage, 'id' | 'createThread' | 'addAttachments'>
-  > {
+  extends Partial<Omit<ClientCreateMessage, 'id' | 'createThread'>> {
   /**
    * Whether to change the deleted status of this message.
    */
