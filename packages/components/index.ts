@@ -204,7 +204,6 @@ export const componentAttributes = {
   Timestamp: {
     value: 'string',
     relative: 'boolean',
-    verbose: 'boolean',
   },
   ThreadedComments: {
     location: 'json',

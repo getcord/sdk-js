@@ -12,7 +12,6 @@ const propsToAttributes = propsToAttributeConverter(
 export type TimestampReactComponentProps = {
   value?: string | number | Date;
   relative?: boolean;
-  verbose?: boolean;
 };
 
 export function Timestamp(
