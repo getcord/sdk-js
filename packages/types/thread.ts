@@ -36,7 +36,7 @@ export interface ObserveThreadActivitySummaryOptions {
    *
    * @privateRemarks hidden
    */
-  filter?: Pick<ThreadListFilter, 'organizationId'>;
+  filter?: Pick<ThreadListFilter, 'organizationID'>;
 }
 
 export type ObserveThreadActivitySummaryHookOptions = {
@@ -263,7 +263,7 @@ export interface ThreadObserverOptions {
    * Experimental filter for privacy model project
    * @privateRemarks hidden
    */
-  organizationId?: string;
+  organizationID?: string;
 }
 
 export type ObserveThreadSummaryOptions = ThreadObserverOptions;
@@ -281,7 +281,7 @@ export type ThreadListFilter = {
    * Experimental filter for privacy model project
    * @privateRemarks hidden
    */
-  organizationId?: string;
+  organizationID?: string;
 };
 export type SortDirection = 'ascending' | 'descending';
 export type SortBy =

@@ -964,14 +964,14 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
+      organizationID: {
+        description: 'The organization ID this thread is in.',
+        type: 'string',
+      },
       resolvedTimestamp: {
         description:
           'The timestamp when this thread was resolved. Set to `null` if this thread\nis not resolved.',
         anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
-      },
-      organizationID: {
-        description: 'The organization ID this thread is in.',
-        type: 'string',
       },
       extraClassnames: {
         description:
@@ -1002,8 +1002,8 @@ export default {
       'url',
       'name',
       'metadata',
-      'resolvedTimestamp',
       'organizationID',
+      'resolvedTimestamp',
       'extraClassnames',
       'userID',
       'typing',
