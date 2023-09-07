@@ -2,6 +2,9 @@ import { cordifyClassname } from '../common/util';
 
 export const comments = cordifyClassname('threaded-comments');
 
+export const tabContainer = cordifyClassname('threaded-comments-tab-container');
+export const tab = cordifyClassname('threaded-comments-tab');
+
 export const threadList = cordifyClassname('threaded-comments-thread-list');
 
 export const thread = cordifyClassname('threaded-comments-thread');
@@ -18,6 +21,10 @@ export const viewerAvatarWithComposer = cordifyClassname(
 );
 
 export const threadedCommentsClassnameDocs = {
+  [tabContainer]:
+    'Applied to the tabs that appear on the top of the component.',
+  [tab]:
+    'Applied to the individual "Open" and "Resolved" buttons within the aforementioned `tabContainer`.',
   [threadList]:
     'Applied to the high-level list of threads. Although it is a list of threads, it is not actually a `ThreadList` component, hence the long name.',
   [thread]:

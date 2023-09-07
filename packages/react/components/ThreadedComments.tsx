@@ -4,6 +4,7 @@ import type {
   ComposerWebComponentEvents,
   Location,
   MessageInfo,
+  ResolvedStatus,
   ThreadData,
   ThreadSummary,
 } from '@cord-sdk/types';
@@ -25,6 +26,11 @@ import { Icon } from './helpers/Icon';
 
 const THREADED_COMMENTS_COMPONENT_NAME = 'CORD-THREADED-COMMENTS';
 
+type DisplayResolved =
+  | 'interleaved'
+  | 'tabbed'
+  | 'resolvedOnly'
+  | 'unresolvedOnly';
 type ShowReplies =
   | 'initiallyCollapsed'
   | 'initiallyExpanded'
@@ -40,6 +46,7 @@ export type ThreadedCommentsReactComponentProps = {
   composerExpanded?: boolean;
   showReplies?: ShowReplies;
   highlightThreadId?: string;
+  displayResolved?: DisplayResolved;
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
@@ -59,6 +66,7 @@ export function ThreadedComments({
   showReplies = 'initiallyCollapsed',
   highlightThreadId,
   partialMatch = false,
+  displayResolved = 'unresolvedOnly',
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
@@ -68,12 +76,44 @@ export function ThreadedComments({
   onLoading,
   onSend,
 }: ThreadedCommentsReactComponentProps) {
+  const [resolvedTabSelected, setResolvedTabSelected] = useState<boolean>(
+    displayResolved === 'resolvedOnly',
+  );
+  // The property for ThreadedComments does not correspond 1:1 with the underlying
+  // `resolvedStatus` API filter. If we want to see resolved and unresolved threads
+  // together, we want to fetch `resolvedStatus: any`. Otherwise we only want to
+  // fetch threads with the `resolvedStatus` of the tab which is currently active.
+  let resolvedStatus: ResolvedStatus;
+  switch (displayResolved) {
+    case 'interleaved': {
+      resolvedStatus = 'any';
+      break;
+    }
+    case 'tabbed': {
+      resolvedStatus = resolvedTabSelected ? 'resolved' : 'unresolved';
+      break;
+    }
+    case 'resolvedOnly': {
+      resolvedStatus = 'resolved';
+      break;
+    }
+    case 'unresolvedOnly': {
+      resolvedStatus = 'unresolved';
+      break;
+    }
+    default: {
+      const _: never = displayResolved;
+      resolvedStatus = 'any';
+      break;
+    }
+  }
   const { threads, hasMore, loading, fetchMore } = thread.useLocationData(
     location,
     {
       sortBy: 'first_message_timestamp',
       sortDirection: 'descending',
       partialMatch,
+      filter: { resolvedStatus },
     },
   );
 
@@ -128,7 +168,10 @@ export function ThreadedComments({
   );
 
   const composerOnTop = composerPosition === 'top';
-  const showComposer = composerPosition !== 'none';
+  // When showing resolved threads only, we don't want to show the composer
+  // since it does not make sense to create a new thread which is resolved.
+  const showComposer =
+    composerPosition !== 'none' && resolvedStatus !== 'resolved';
   const composer = (
     <Composer
       location={location}
@@ -137,8 +180,16 @@ export function ThreadedComments({
     />
   );
 
+  const resolvedStatusTabs = displayResolved === 'tabbed' && (
+    <ResolvedStatusTabs
+      showResolved={resolvedTabSelected}
+      setShowResolved={setResolvedTabSelected}
+    />
+  );
+
   return (
     <div className={cx(classes.comments, className)}>
+      {resolvedStatusTabs}
       {composerOnTop && showComposer && composer}
       <div className={classes.threadList}>
         {!newestOnTop && fetchMoreButton}
@@ -146,6 +197,37 @@ export function ThreadedComments({
         {newestOnTop && fetchMoreButton}
       </div>
       {!composerOnTop && showComposer && composer}
+    </div>
+  );
+}
+
+function ResolvedStatusTabs({
+  showResolved,
+  setShowResolved,
+}: {
+  showResolved: boolean;
+  setShowResolved: Dispatch<SetStateAction<boolean>>;
+}) {
+  return (
+    <div className={classes.tabContainer}>
+      <button
+        type="button"
+        className={cx(fonts.fontSmall, classes.tab, {
+          [MODIFIERS.active]: !showResolved,
+        })}
+        onClick={() => setShowResolved(false)}
+      >
+        {'Open'}
+      </button>
+      <button
+        type="button"
+        className={cx(fonts.fontSmall, classes.tab, {
+          [MODIFIERS.active]: showResolved,
+        })}
+        onClick={() => setShowResolved(true)}
+      >
+        {'Resolved'}
+      </button>
     </div>
   );
 }

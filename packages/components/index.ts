@@ -213,6 +213,7 @@ export const componentAttributes = {
     'show-replies': 'string',
     'highlight-thread-id': 'string',
     'partial-match': 'boolean',
+    'display-resolved': 'string',
   },
 } as const;
 

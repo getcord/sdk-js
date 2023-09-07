@@ -8,6 +8,8 @@ export default classes;
 
 const {
   comments,
+  tabContainer,
+  tab,
   threadList,
   thread,
   resolvedThreadHeader,
@@ -75,6 +77,37 @@ globalStyle(getModifiedSelector('resolved', `.${thread}`), {
   backgroundColor: cssVar('color-base-strong'),
   margin: `0 ${cssVar('space-3xs')} 0 ${cssVar('space-2xs')}`,
   padding: `${cssVar('space-2xs')} 0`,
+});
+
+globalStyle(`.${tabContainer}`, {
+  backgroundColor: cssVar('color-base-strong'),
+  borderRadius: cssVar('space-3xs'),
+  display: 'flex',
+  gap: cssVar('space-2xs'),
+  margin: cssVar('space-2xs'),
+  padding: cssVar('space-3xs'),
+});
+
+globalStyle(`.${tab}`, {
+  backgroundColor: 'unset',
+  border: 'none',
+  borderRadius: cssVar('space-3xs'),
+  flexGrow: 1,
+  padding: cssVar('space-3xs'),
+});
+
+globalStyle(`.${tab}:hover`, {
+  backgroundColor: cssVar('color-base-x-strong'),
+  cursor: 'pointer',
+});
+
+globalStyle(getModifiedSelector('active', `.${tab}`), {
+  backgroundColor: cssVar('color-base'),
+});
+
+globalStyle(getModifiedSelector('active', `.${tab}:hover`), {
+  backgroundColor: cssVar('color-base'),
+  cursor: 'unset',
 });
 
 globalStyle(getModifiedSelector('highlighted', `.${thread}`), {
