@@ -1,4 +1,9 @@
-import type { EntityMetadata, ListenerRef, PaginationParams } from './core';
+import type {
+  EntityMetadata,
+  ListenerRef,
+  PaginationParams,
+  Location,
+} from './core';
 import type { ClientUserData } from './user';
 import type { CoreMessageData } from './message';
 
@@ -175,7 +180,11 @@ export type NotificationDataUpdateCallback = (
   data: ClientNotificationData,
 ) => unknown;
 
-export type NotificationListFilter = { metadata: EntityMetadata };
+export type NotificationListFilter = {
+  metadata?: EntityMetadata;
+  location?: Location;
+  organizationID?: string;
+};
 
 export interface ObserveNotificationDataOptions {
   /**
