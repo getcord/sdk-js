@@ -110,6 +110,10 @@ export type FilterParameters = {
    */
   metadata?: EntityMetadata;
   /**
+   * The organization which the threads belong to.
+   */
+  organizationID?: string;
+  /**
    * Timestamp when the first message in a thread was created.
    */
   firstMessageTimestamp?: TimestampRange;

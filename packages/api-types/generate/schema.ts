@@ -1034,6 +1034,13 @@ export default {
       filter: {
         description:
           'Threads will be matched against the filters specified.\nThis is a partial match, which means any keys other than the ones you specify are ignored\nwhen checking for a match. Please note that because this is a query parameter in a REST API,\nthis JSON object must be URI encoded before being sent.',
+        $ref: '#/definitions/Omit<FilterParameters,"organizationID">',
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['filter'],
+    definitions: {
+      'Omit<FilterParameters,"organizationID">': {
         type: 'object',
         properties: {
           location: {
@@ -1101,8 +1108,6 @@ export default {
         ],
       },
     },
-    additionalProperties: false,
-    propertyOrder: ['filter'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   UpdatePlatformUserVariables: {

@@ -878,5 +878,5 @@ export type ServerListThreadParameters = {
    * when checking for a match. Please note that because this is a query parameter in a REST API,
    * this JSON object must be URI encoded before being sent.
    */
-  filter?: FilterParameters;
+  filter?: Omit<FilterParameters, 'organizationID'>;
 };
