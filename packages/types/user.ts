@@ -40,9 +40,11 @@ export interface ClientUserData {
  */
 export interface ViewerUserData extends ClientUserData {
   /**
-   * The identifier for the organization that the current user is using.
+   * The identifier for the organization that the current user is using (i.e.,
+   * the organization specified in the access token). Null if and only if no
+   * organization was specified in the access token.
    */
-  organizationID: OrganizationID;
+  organizationID: OrganizationID | null;
   notificationPreferences: { sendViaSlack: boolean; sendViaEmail: boolean };
 }
 
