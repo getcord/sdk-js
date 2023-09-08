@@ -1,6 +1,10 @@
 import type { EntityMetadata, UserID, Location, TimestampRange } from './core';
 import type { PaginationDetails } from './pagination';
-import type { CreateAttachment, ServerCreateThread } from './thread';
+import type {
+  CreateAttachment,
+  RemoveAttachment,
+  ServerCreateThread,
+} from './thread';
 import type { UploadedFile } from './file';
 
 export type Reaction = {
@@ -240,6 +244,13 @@ export interface ServerUpdateMessage
    * An error is returned if a reaction is both added and deleted in the same request.
    */
   removeReactions?: ServerRemoveReactions[];
+  /**
+   * The attachments you want to remove from this message.  Removing an
+   * attachment that doesn't exist has no effect and won't return an error.
+   * Attempting to add and remove the same attachment in one request is an
+   * error.
+   */
+  removeAttachments?: RemoveAttachment[];
 }
 
 export interface ServerListThreadMessageParameters {

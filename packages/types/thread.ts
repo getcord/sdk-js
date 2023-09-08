@@ -418,6 +418,13 @@ export type CreateFileAttachment = {
 
 export type CreateAttachment = CreateFileAttachment;
 
+export type RemoveFileAttachment = {
+  type: 'file';
+  id: string;
+};
+
+export type RemoveAttachment = RemoveFileAttachment;
+
 export interface ClientCreateMessage
   // Pick the required properties
   extends Pick<CoreMessageData, 'content'>,
@@ -471,6 +478,13 @@ export interface ClientUpdateMessage
    * An error is returned if a reaction is both added and deleted in the same request.
    */
   removeReactions?: string[];
+  /**
+   * The attachments you want to remove from this message.  Removing an
+   * attachment that doesn't exist has no effect and won't return an error.
+   * Attempting to add and remove the same attachment in one request is an
+   * error.
+   */
+  removeAttachments?: RemoveAttachment[];
 }
 
 export interface ICordThreadSDK {

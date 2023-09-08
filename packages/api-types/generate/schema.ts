@@ -493,6 +493,21 @@ export default {
         type: 'array',
         items: { $ref: '#/definitions/ServerRemoveReactions' },
       },
+      removeAttachments: {
+        description:
+          "The attachments you want to remove from this message.  Removing an\nattachment that doesn't exist has no effect and won't return an error.\nAttempting to add and remove the same attachment in one request is an\nerror.",
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            type: { type: 'string', const: 'file' },
+            id: { type: 'string' },
+          },
+          additionalProperties: false,
+          propertyOrder: ['type', 'id'],
+          required: ['id', 'type'],
+        },
+      },
       type: {
         description:
           'The type of message this is.  A `user_message` is a message that the author\nsent.  An `action_message` is a message about something that happened, such\nas the thread being resolved.  The default value is `user_message`.',
@@ -573,6 +588,7 @@ export default {
       'deleted',
       'deletedTimestamp',
       'removeReactions',
+      'removeAttachments',
       'type',
       'id',
       'url',
