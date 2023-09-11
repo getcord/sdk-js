@@ -54,6 +54,7 @@ export const componentAttributes = {
   MultipleCursors: {
     context: 'json',
     location: 'json',
+    'show-viewer-cursor': 'boolean',
   },
   PagePresence: {
     context: 'json',

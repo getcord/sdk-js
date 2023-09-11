@@ -16,6 +16,7 @@ import { Icon } from './helpers/Icon';
 
 export type MultipleCursorsReactComponentProps = {
   location?: Location;
+  showViewerCursor?: boolean;
   translations?: {
     eventToLocation: MultipleCursorsEventToLocationFn;
     locationToDocument: MultipleCursorsLocationToDocumentFn;
@@ -86,6 +87,7 @@ const cordInternal: any = {
 
 export function MultipleCursors({
   location: locationProp,
+  showViewerCursor,
   translations,
   ...remainingProps
 }: MultipleCursorsReactComponentProps) {
@@ -214,7 +216,7 @@ export function MultipleCursors({
         await Promise.all(
           data.map(async ({ id, ephemeral }) => {
             const receivedLocation = ephemeral.locations[0];
-            if (id !== viewerID && receivedLocation) {
+            if ((showViewerCursor || id !== viewerID) && receivedLocation) {
               mappedLocations[id] = await locationToDocument(receivedLocation);
             }
           }),
@@ -223,10 +225,6 @@ export function MultipleCursors({
         setUserCursors((prevUserCursors) => {
           const newUserCursors = { ...prevUserCursors };
           for (const { id } of data) {
-            if (id === viewerID) {
-              continue;
-            }
-
             // We specifically use || because it short circuits, so it only
             // advances the colorIndex if it uses it
             const existingValue = prevUserCursors[id] || {
@@ -249,7 +247,7 @@ export function MultipleCursors({
     return () => {
       presenceSDK.unobserveLocationData(listenerRef);
     };
-  }, [locationToDocument, presenceSDK, region, viewerID]);
+  }, [locationToDocument, presenceSDK, region, viewerID, showViewerCursor]);
 
   const result = useMemo<CursorProps[]>(() => {
     if (viewerID === undefined) {
