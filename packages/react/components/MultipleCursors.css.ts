@@ -13,7 +13,7 @@ globalStyle(`.${cursor}`, {
   marginLeft: -2,
   marginTop: -2,
   padding: 0,
-  position: 'absolute',
+  position: 'fixed',
   zIndex: ZINDEX.annotation,
   transition: `all ${POSITION_UPDATE_INTERVAL_MS}ms linear`,
 });

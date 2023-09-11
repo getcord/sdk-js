@@ -48,8 +48,8 @@ export async function defaultLocationToDocument(location: Location) {
     );
     if (coords) {
       return {
-        documentX: coords.x + window.scrollX,
-        documentY: coords.y + window.scrollY,
+        documentX: coords.x,
+        documentY: coords.y,
       };
     }
   }
