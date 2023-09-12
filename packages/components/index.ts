@@ -215,6 +215,7 @@ export const componentAttributes = {
     'highlight-thread-id': 'string',
     'partial-match': 'boolean',
     'display-resolved': 'string',
+    autofocus: 'boolean',
   },
 } as const;
 

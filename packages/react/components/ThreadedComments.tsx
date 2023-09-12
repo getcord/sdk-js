@@ -47,6 +47,7 @@ export type ThreadedCommentsReactComponentProps = {
   showReplies?: ShowReplies;
   highlightThreadId?: string;
   displayResolved?: DisplayResolved;
+  autofocus?: boolean;
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
@@ -67,6 +68,7 @@ export function ThreadedComments({
   highlightThreadId,
   partialMatch = false,
   displayResolved = 'unresolvedOnly',
+  autofocus = false,
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
@@ -177,6 +179,7 @@ export function ThreadedComments({
       location={location}
       showExpanded={composerExpanded}
       onSend={onSend}
+      autofocus={autofocus}
     />
   );
 
