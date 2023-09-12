@@ -278,6 +278,10 @@ export type ThreadListFilter = {
    */
   metadata?: EntityMetadata;
   /**
+   * The [Location](https://docs.cord.com/reference/location) of the threads.
+   */
+  location?: Location;
+  /**
    * Experimental filter for privacy model project
    * @privateRemarks hidden
    */
