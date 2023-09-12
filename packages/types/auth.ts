@@ -19,7 +19,7 @@ export interface ClientAuthTokenData {
   /**
    * The ID for the user’s organization
    */
-  organization_id: ID;
+  organization_id?: ID;
   /**
    * If present, update’s the user’s details, or creates a user with those
    * details if the user_id is new to Cord. This is an object that contains the

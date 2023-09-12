@@ -1557,8 +1557,10 @@
         "description": "The ID for the user"
       },
       "organization_id": {
-        "$ref": "#/definitions/ID",
-        "description": "The ID for the user’s organization"
+        "minLength": 1,
+        "maxLength": 128,
+        "description": "The ID for the user’s organization",
+        "type": ["string", "number"]
       },
       "user_details": {
         "description": "If present, update’s the user’s details, or creates a user with those\ndetails if the user_id is new to Cord. This is an object that contains the\nsame fields as the [user management REST\nendpoint](/rest-apis/users/)",
@@ -1576,7 +1578,7 @@
       "user_details",
       "organization_details"
     ],
-    "required": ["app_id", "organization_id", "user_id"],
+    "required": ["app_id", "user_id"],
     "definitions": {
       "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] },
       "Partial<Omit<ServerUserData,\"id\"|\"createdTimestamp\">>": {

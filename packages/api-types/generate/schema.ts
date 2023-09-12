@@ -1607,8 +1607,10 @@ export default {
       app_id: { description: 'Your app ID', format: 'uuid', type: 'string' },
       user_id: { $ref: '#/definitions/ID', description: 'The ID for the user' },
       organization_id: {
-        $ref: '#/definitions/ID',
+        minLength: 1,
+        maxLength: 128,
         description: 'The ID for the user’s organization',
+        type: ['string', 'number'],
       },
       user_details: {
         description:
@@ -1628,7 +1630,7 @@ export default {
       'user_details',
       'organization_details',
     ],
-    required: ['app_id', 'organization_id', 'user_id'],
+    required: ['app_id', 'user_id'],
     definitions: {
       ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
       'Partial<Omit<ServerUserData,"id"|"createdTimestamp">>': {
