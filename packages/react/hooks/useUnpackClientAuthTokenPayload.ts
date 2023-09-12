@@ -50,15 +50,19 @@ function useUnpackClientAuthTokenPayload(
     }
 
     if (
-      hasOwnProperty(decodedPayload, 'organization_id') &&
-      typeof decodedPayload.organization_id === 'string' &&
       hasOwnProperty(decodedPayload, 'user_id') &&
       typeof decodedPayload.user_id === 'string'
     ) {
       ret.userID = decodedPayload.user_id;
-      ret.organizationID = decodedPayload.organization_id;
     } else {
-      console.log('`clientAuthToken` was missing user_id or organization_id');
+      console.log('`clientAuthToken` was missing user_id');
+    }
+
+    if (
+      hasOwnProperty(decodedPayload, 'organization_id') &&
+      typeof decodedPayload.organization_id === 'string'
+    ) {
+      ret.organizationID = decodedPayload.organization_id;
     }
 
     return ret;
