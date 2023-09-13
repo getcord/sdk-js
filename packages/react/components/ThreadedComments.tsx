@@ -48,6 +48,7 @@ export type ThreadedCommentsReactComponentProps = {
   highlightThreadId?: string;
   displayResolved?: DisplayResolved;
   autofocus?: boolean;
+  enableFacepileTooltip?: boolean;
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
@@ -69,6 +70,7 @@ export function ThreadedComments({
   partialMatch = false,
   displayResolved = 'unresolvedOnly',
   autofocus = false,
+  enableFacepileTooltip = false,
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
@@ -145,6 +147,7 @@ export function ThreadedComments({
       threadId={oneThread.id}
       showReplies={showReplies}
       highlightThreadId={highlightThreadId}
+      enableFacepileTooltip={enableFacepileTooltip}
       onMessageClick={onMessageClick}
       onMessageMouseEnter={onMessageMouseEnter}
       onMessageMouseLeave={onMessageMouseLeave}
@@ -240,6 +243,7 @@ function CommentsThread({
   threadExtraClassnames,
   showReplies,
   highlightThreadId,
+  enableFacepileTooltip,
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
@@ -251,6 +255,7 @@ function CommentsThread({
   threadExtraClassnames: string | null;
   showReplies: ShowReplies;
   highlightThreadId?: string;
+  enableFacepileTooltip: boolean;
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
@@ -354,6 +359,7 @@ function CommentsThread({
       ) : (
         <CollapsedReplies
           threadSummary={threadSummary}
+          enableFacepileTooltip={enableFacepileTooltip}
           onClick={handleCollapsedRepliesClick}
         />
       )}
@@ -372,9 +378,11 @@ function CommentsThread({
 
 function CollapsedReplies({
   threadSummary,
+  enableFacepileTooltip,
   onClick,
 }: {
   threadSummary: ThreadSummary;
+  enableFacepileTooltip: boolean;
   onClick: () => void;
 }) {
   // The thread summary has an unread count covering the entire thread. The UI we
@@ -402,7 +410,10 @@ function CollapsedReplies({
           onClick={onClick}
           type="button"
         >
-          <Facepile users={threadSummary.repliers} enableTooltip={false} />
+          <Facepile
+            users={threadSummary.repliers}
+            enableTooltip={enableFacepileTooltip}
+          />
           {hasUnread
             ? pluralize(unreadNumber, 'new reply', 'new replies')
             : pluralize(replyNumber, 'reply', 'replies')}

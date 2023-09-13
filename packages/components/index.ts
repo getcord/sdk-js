@@ -216,6 +216,7 @@ export const componentAttributes = {
     'partial-match': 'boolean',
     'display-resolved': 'string',
     autofocus: 'boolean',
+    'enable-facepile-tooltip': 'boolean',
   },
 } as const;
 
