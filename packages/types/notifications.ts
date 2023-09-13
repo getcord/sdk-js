@@ -181,18 +181,30 @@ export type NotificationDataUpdateCallback = (
 ) => unknown;
 
 export type NotificationListFilter = {
+  /**
+   * An arbitrary JSON object specified when the notification is created.
+   * The value for a `metadata` entry should be an object representing the
+   * metadata key/value to filter on.  For example, to show only notifications
+   * with the metadata key of `"category"` set to `"sales"`, set the filter
+   * to `{ metadata: { category: "sales" } }`.
+   */
   metadata?: EntityMetadata;
+  /**
+   * The [location](https://docs.cord.com/reference/location) where the notifications
+   * live.
+   * This will be the location of the thread containing the message which
+   * prompted the notification.
+   */
   location?: Location;
+  /**
+   * The organization to which the message that prompted the notification belongs.
+   */
   organizationID?: string;
 };
 
 export interface ObserveNotificationDataOptions {
   /**
-   * An object that can be used to filter the notifications returned.  Currently
-   * the only valid key is `metadata`. The value for a `metadata` entry should
-   * be an object representing the metadata key/value to filter on.  For
-   * example, to show only notifications with the metadata key of `"category"`
-   * set to `"sales"`, set the filter to `{ metadata: { category: "sales" } }`.
+   * An object that can be used to filter the notifications returned.
    */
   filter?: NotificationListFilter;
 }
@@ -200,10 +212,6 @@ export interface ObserveNotificationDataOptions {
 export interface MarkAllNotificationsAsReadOptions {
   /**
    * An object that can be used to filter the notifications marked as read.
-   * Currently the only valid key is `metadata`. The value for a `metadata`
-   * entry should be an object representing the metadata key/value to filter on.
-   * For example, to show only notifications with the metadata key of
-   * `"category"` set to `"sales"`, set the filter to `{ metadata: { category: "sales" } }`.
    */
   filter?: NotificationListFilter;
 }
@@ -359,6 +367,15 @@ export type ServerCreateNotification = {
    * An optional space separated list of classnames to add to the notification.
    */
   extraClassnames?: string | null;
+};
+
+export type ServerListNotificationParameters = {
+  /**
+   * Notifications will be matched against the filters specified.
+   * Please note that because this is a query parameter in a REST API,
+   * this JSON object must be URI encoded before being sent.
+   */
+  filter?: NotificationListFilter;
 };
 
 // NB: these strings are written into the DB, so changes need to be
