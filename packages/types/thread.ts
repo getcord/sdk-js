@@ -141,9 +141,26 @@ export interface CoreThreadData {
   organizationID: OrganizationID;
 
   /**
-   * The total number of messages in this thread.
+   * The total number of messages in this thread. Equal to user messages + action messages.
+   * Deleted messages are excluded from this count.
    */
   total: number;
+
+  /**
+   * The number of messages in this thread that were sent by users (i.e., not action messages).
+   */
+  userMessages: number;
+
+  /**
+   * The number of action messages sent in this thread. An example is the
+   * message that appears when a thread is resolved.
+   */
+  actionMessages: number;
+
+  /**
+   * The number of deleted messages in this thread.
+   */
+  deletedMessages: number;
 
   /**
    * Whether this thread is resolved. This is equivalent to checking if
@@ -216,7 +233,8 @@ export interface CoreThreadData {
 export interface ThreadSummary
   extends Omit<CoreThreadData, 'resolvedTimestamp'> {
   /**
-   * The number of messages that the current user hasn't seen yet.
+   * The number of messages that the current user hasn't seen yet. This count
+   * excludes deleted messages.
    */
   unread: number;
   /**
@@ -406,6 +424,9 @@ export interface ClientCreateThread
         | 'id'
         | 'organizationID'
         | 'total'
+        | 'userMessages'
+        | 'actionMessages'
+        | 'deletedMessages'
         | 'resolved'
         | 'resolvedTimestamp'
         | 'participants'
@@ -816,6 +837,9 @@ export type ServerUpdateThread = Partial<
   Omit<
     CoreThreadData,
     | 'total'
+    | 'userMessages'
+    | 'actionMessages'
+    | 'deletedMessages'
     | 'participants'
     | 'typing'
     | 'resolved'
@@ -861,6 +885,9 @@ export interface ServerCreateThread
         | 'id'
         // Non-create fields
         | 'total'
+        | 'userMessages'
+        | 'actionMessages'
+        | 'deletedMessages'
         | 'resolved'
         | 'resolvedTimestamp'
         | 'participants'
