@@ -202,6 +202,13 @@ export type NotificationListFilter = {
   organizationID?: string;
 };
 
+export interface ObserveNotificationSummaryOptions {
+  /**
+   * An object that can be used to filter the notifications returned.
+   */
+  filter?: NotificationListFilter;
+}
+
 export interface ObserveNotificationDataOptions {
   /**
    * An object that can be used to filter the notifications returned.
@@ -217,9 +224,36 @@ export interface MarkAllNotificationsAsReadOptions {
 }
 
 export interface ICordNotificationSDK {
+  /**
+   * This method allows you to observe the notification summary for the current
+   * user, including live updates.
+   *
+   * @example Overview
+   * ```javascript
+   * const ref = window.CordSDK.notification.observeSummary(
+   *   (summary) => {
+   *        console.log("Unread notifications", summary.unread);
+   *   },
+   *   { filter: {
+   *         metadata: { flavor: 'minty'},
+   *         location: {page: 'bookmarks'} 
+   *         organizationID: 'org123',
+   *    }}
+   * );
+   * ```
+   *
+   * @param callback - This callback will be called once with the current notification summary,
+                    and then again every time the data changes. The argument passed to the callback is an
+                    object which will contain the fields described under "Available Data" above..
+   *
+   * @param options
+   *
+   * @returns A reference number which can be passed to unobserveSummary
+   *  to stop observing notification summary information.
+   */
   observeSummary(
     callback: NotificationSummaryUpdateCallback,
-    options?: Record<never, string>,
+    options?: ObserveNotificationSummaryOptions,
   ): ListenerRef;
   unobserveSummary(ref: ListenerRef): boolean;
 

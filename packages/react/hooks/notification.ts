@@ -2,17 +2,53 @@ import type {
   ClientNotificationData,
   NotificationSummary,
   ObserveNotificationDataOptions,
+  ObserveNotificationSummaryOptions,
 } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 import { useMemoObject } from './useMemoObject';
 import { useNotificationSummaryInternal } from './useNotificationSummaryInternal';
 
-export function useSummary(): NotificationSummary | null {
+/**
+ * This method allows you to observe the notification summary for the current
+ * user, including live updates.
+ *
+  @example Overview
+* ```javascript
+*   import { notification } from '@cord-sdk/react';
+*   const summary = notification.useSummary({
+*         filter: {
+*             metadata: { flavor: 'minty'},
+*             location: {page: 'bookmarks'} 
+*             organizationID: 'org123',
+*          },
+*       });
+*
+*   return (
+*     <div>
+*        {!summary && "Loading..."}
+*        {summary && (
+*          <p>Unread notifications: {summary.unread}</p>
+*         )}
+*     </div>
+*    );
+* ```
+* @param options
+*
+* @returns A reference number which can be passed to unobserveSummary
+*  to stop observing notification summary information.
+ */
+export function useSummary(
+  options?: ObserveNotificationSummaryOptions,
+): NotificationSummary | null {
   const { sdk } = useCordContext('useSummary');
   const notificationSDK = sdk?.notification;
 
-  return useNotificationSummaryInternal(notificationSDK, false);
+  return useNotificationSummaryInternal(
+    notificationSDK,
+    false,
+    options?.filter,
+  );
 }
 
 const emptyNotificationData: ClientNotificationData = {

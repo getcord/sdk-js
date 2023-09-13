@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import type {
   ICordNotificationSDK,
+  NotificationListFilter,
   NotificationSummary,
 } from '@cord-sdk/types';
 
 export function useNotificationSummaryInternal(
   notificationSDK: ICordNotificationSDK | undefined,
   isCordInternalCall: boolean,
+  filter?: NotificationListFilter | undefined,
 ): NotificationSummary | null {
   const [summary, setSummary] = useState<NotificationSummary | null>(null);
 
@@ -16,13 +18,16 @@ export function useNotificationSummaryInternal(
     }
 
     const listenerRef = notificationSDK.observeSummary(setSummary, {
-      __cordInternal: isCordInternalCall,
+      filter,
+      ...{
+        __cordInternal: isCordInternalCall,
+      },
     });
 
     return () => {
       notificationSDK.unobserveSummary(listenerRef);
     };
-  }, [notificationSDK, isCordInternalCall]);
+  }, [notificationSDK, isCordInternalCall, filter]);
 
   return summary;
 }
