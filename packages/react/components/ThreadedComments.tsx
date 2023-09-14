@@ -397,8 +397,12 @@ function CollapsedReplies({
   }
 
   const hasUnread = unreadNumber > 0;
-  const hasReplies = threadSummary.total > 1;
-  const replyNumber = threadSummary.total - 1;
+  // We are including only user messages in the reply count,
+  // as it doesn't make sense to count action messages such as
+  // "User X resolved this thread".
+  // Then, the number of replies is one less than the total number of messages.
+  const replyCount = threadSummary.userMessages - 1;
+  const hasReplies = replyCount > 0;
 
   return (
     <>
@@ -416,7 +420,7 @@ function CollapsedReplies({
           />
           {hasUnread
             ? pluralize(unreadNumber, 'new reply', 'new replies')
-            : pluralize(replyNumber, 'reply', 'replies')}
+            : pluralize(replyCount, 'reply', 'replies')}
         </button>
       )}
     </>
