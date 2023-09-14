@@ -23,6 +23,12 @@ export type MultipleCursorsReactComponentProps = {
   };
 };
 
+/**
+ * Default translation function to convert a MouseEvent into a serialized
+ * location.  The primary data we try to use is from
+ * `CordSDK.annotation.viewportCoordinatesToString`. That's not always available
+ * though, so we also transmit absolute x/y coordinates.
+ */
 export async function defaultEventToLocation(e: MouseEvent): Promise<Location> {
   const annotationSDK = window.CordSDK?.annotation;
   const s = await annotationSDK?.viewportCoordinatesToString({
@@ -41,6 +47,13 @@ export async function defaultEventToLocation(e: MouseEvent): Promise<Location> {
   };
 }
 
+/**
+ * Default translation function to convert a Location into x/y coordinates. This
+ * primarily tries to use `CordSDK.annotation.stringToViewportCoordinates` to
+ * get coordinates, if that data is available and the Cord SDK can find a
+ * suitable element that it references. If that doesn't work, fall back on x/y
+ * coordinates, which should always be present.
+ */
 export async function defaultLocationToDocument(location: Location) {
   const annotationSDK = window.CordSDK?.annotation;
   if ('__cord_annotation' in location && annotationSDK) {
@@ -70,12 +83,18 @@ type CursorPosition = {
   documentY: number;
 };
 
+/**
+ * The position and color of a specific user's cursor. We allow `pos` to become
+ * `undefined` so that we can still track the color of a cursor which currently
+ * isn't visible, to keep a user's color consistent (at least for a single
+ * page load).
+ */
 type CursorState = {
   pos: CursorPosition | undefined;
   color: string;
 };
 
-// The set of colors we rotate between as we need colors for people
+// The set of colors we rotate between as we need colors for people.
 const CURSOR_COLORS = ['#9A6AFF', '#EB5757', '#71BC8F', '#F88D76'];
 
 // A secret param passed to a few API functions which only affects Cord's
@@ -96,8 +115,8 @@ export function MultipleCursors({
   const _: Record<string, never> = remainingProps;
 
   const contextLocation = useCordLocation();
-  const location = locationProp ?? contextLocation;
-  if (!location) {
+  const locationInput = locationProp ?? contextLocation;
+  if (!locationInput) {
     throw new Error('cord-multiple-cursors: missing location');
   }
 
@@ -106,38 +125,48 @@ export function MultipleCursors({
   const locationToDocument =
     translations?.locationToDocument ?? defaultLocationToDocument;
 
+  // The result of eventToLocation from our own most recent mouse move, or null
+  // if we haven't moved our mouse or have moved it outside of the page.
   const mouseLocationRef = useRef<Location | null>(null);
 
   const { sdk } = useCordContext('MultipleCursors');
   const presenceSDK = sdk?.presence;
 
-  const region = useMemo(
+  // The "base" location for all of our presence updates. We transmit our cursor
+  // position by encoding our cursor information into a sub-location of this and
+  // setting ourselves as present there (setting this base location as
+  // "exclusive within" to clear our presence at any other such sub-locations).
+  // Then we get others' cursor positions by looking for others present at this
+  // base location, using partial matching so that we get back all of the
+  // sub-locations with their cursor information encoded.
+  const baseLocation = useMemo(
     () => ({
-      ...location,
+      ...locationInput,
       __cord_multiple_cursors: true,
     }),
-    [location],
+    [locationInput],
   );
 
   const clearPresence = useCallback(() => {
     if (lastLocationRef.current && presenceSDK) {
       void presenceSDK.setPresent(
         {
-          // NOTE(flooey): We put region second so in case the same key is
-          // available in both, the value from region is used, so that
-          // the overall matching will work.
+          // We put baseLocation second so in case the same key is available in
+          // both, the value from baseLocation is used, so that the overall
+          // matching will work.
           ...lastLocationRef.current,
-          ...region,
+          ...baseLocation,
         },
         {
-          exclusive_within: region,
+          exclusive_within: baseLocation,
           absent: true,
           ...cordInternal,
         },
       );
     }
-  }, [presenceSDK, region]);
+  }, [presenceSDK, baseLocation]);
 
+  // Track our own mouse movements and write them into mouseLocationRef.
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => {
       void (async () => {
@@ -159,56 +188,69 @@ export function MultipleCursors({
     };
   }, [eventToLocation, clearPresence]);
 
+  // The last mouseLocationRef that we transmitted. Track this so that we don't
+  // send unnecessary presence updates if our cursor hasn't actually moved.
   const lastLocationRef = useRef<Location | undefined>(undefined);
+
   useEffect(() => {
     const timer = setInterval(() => {
+      // If the we are currently on the page...
       if (mouseLocationRef.current && presenceSDK) {
-        // If the user is currently on the page...
+        // ...and our mouse has moved...
         if (
           !isEqualLocation(mouseLocationRef.current, lastLocationRef.current)
         ) {
-          // ...and their mouse has moved, send an update
+          // ... send an update. See comment above baseLocation describing the
+          // format of this update.
           void presenceSDK.setPresent(
             {
-              // NOTE(flooey): We put region second so in case the same key is
-              // available in both, the value from region is used, so that
-              // the overall matching will work.
+              // We put baseLocation second so in case the same key is available
+              // in both, the value from baseLocation is used, so that the
+              // overall matching will work.
               ...mouseLocationRef.current,
-              ...region,
+              ...baseLocation,
             },
-            { exclusive_within: region, ...cordInternal },
+            { exclusive_within: baseLocation, ...cordInternal },
           );
           lastLocationRef.current = mouseLocationRef.current;
         }
       } else if (lastLocationRef.current) {
-        // If the user isn't here, but we have an active mouse position on the
-        // server, clear it
+        // If we aren't currently on the page, but we have an active mouse
+        // position on the server, clear it.
         clearPresence();
         lastLocationRef.current = undefined;
       }
     }, POSITION_UPDATE_INTERVAL_MS);
 
     return () => clearInterval(timer);
-  }, [presenceSDK, region, clearPresence]);
+  }, [presenceSDK, baseLocation, clearPresence]);
 
   const viewerData = user.useViewerData();
   const viewerID = viewerData?.id;
 
+  // Information about other cursors that we've received -- map from user ID to
+  // that user's CursorState (coordinates and color).
   const [userCursors, setUserCursors] = useState<Record<string, CursorState>>(
     {},
   );
 
-  const users = user.useUserData(Object.keys(userCursors));
-
-  // This is the index of the next color to use when we see a new user
+  // Index of the next CURSOR_COLORS to use when we see a new user.
   const colorIndex = useRef<number>(0);
+
+  // Listen for and process cursor updates from other users.
   useEffect(() => {
     if (viewerID === undefined || !presenceSDK) {
       return undefined;
     }
+
+    // Partial match listen for presence updates at baseLocation. See comment
+    // above baseLocation for an overview of how this works.
     const listenerRef = presenceSDK.observeLocationData(
-      region,
+      baseLocation,
       async (data) => {
+        // Use locationToDocument to take the cursor positions encoded in the
+        // locations the other users are present at, and turn those into
+        // viewport coordinates.
         const mappedLocations: Record<
           string,
           Awaited<ReturnType<MultipleCursorsLocationToDocumentFn>>
@@ -222,11 +264,12 @@ export function MultipleCursors({
           }),
         );
 
+        // Combine any updated viewport coordinates with the existing cursors.
         setUserCursors((prevUserCursors) => {
           const newUserCursors = { ...prevUserCursors };
           for (const { id } of data) {
             // We specifically use || because it short circuits, so it only
-            // advances the colorIndex if it uses it
+            // advances the colorIndex if it uses it.
             const existingValue = prevUserCursors[id] || {
               pos: undefined,
               color: CURSOR_COLORS[colorIndex.current++ % CURSOR_COLORS.length],
@@ -247,12 +290,24 @@ export function MultipleCursors({
     return () => {
       presenceSDK.unobserveLocationData(listenerRef);
     };
-  }, [locationToDocument, presenceSDK, region, viewerID, showViewerCursor]);
+  }, [
+    locationToDocument,
+    presenceSDK,
+    baseLocation,
+    viewerID,
+    showViewerCursor,
+  ]);
 
+  // Load detailed information for each user whose cursor we have, so we can
+  // display their name etc.
+  const users = user.useUserData(Object.keys(userCursors));
+
+  // Combine the userCursors user ID and position info with the detailed user
+  // information to produce the information Cursor needs to actually render.
   const result = useMemo<CursorProps[]>(() => {
     if (viewerID === undefined) {
       // Skip if we don't know who the viewer is, since we don't want to show
-      // them their own cursor
+      // them their own cursor.
       return [];
     }
 
@@ -282,6 +337,11 @@ type CursorProps = {
   color: string;
 };
 
+/**
+ * Component for an individual cursor. A "dumb" rendering component, taking only
+ * the processed data it needs to render and just dumping that onto the screen.
+ * All of the smarts are above.
+ */
 function Cursor({ name, pos, color }: CursorProps) {
   return (
     <div
