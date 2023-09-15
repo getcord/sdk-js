@@ -6,8 +6,7 @@ import type {
 } from '@cord-sdk/types';
 
 export const componentNames = {
-  'cord-multiple-cursors': 'LiveCursors',
-  'cord-live-cursors': 'LiveCursors',
+  'cord-multiple-cursors': 'MultipleCursors',
   'cord-page-presence': 'PagePresence',
   'cord-presence-facepile': 'PresenceFacepile',
   'cord-sidebar': 'Sidebar',
@@ -52,7 +51,7 @@ const NotificationListAttributes = {
 } as const;
 
 export const componentAttributes = {
-  LiveCursors: {
+  MultipleCursors: {
     context: 'json',
     location: 'json',
     'show-viewer-cursor': 'boolean',

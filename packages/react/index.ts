@@ -6,11 +6,11 @@ export {
   CordContextValue,
 } from './contexts/CordContext';
 export {
-  LiveCursors as MultipleCursors,
-  LiveCursorsReactComponentProps as MultipleCursorsReactComponentProps,
+  MultipleCursors,
+  MultipleCursorsReactComponentProps,
   defaultEventToLocation as multipleCursorsDefaultEventToLocation,
   defaultLocationToDocument as multipleCursorsDefaultLocationToDocument,
-} from './components/LiveCursors';
+} from './components/MultipleCursors';
 export {
   PagePresence,
   PagePresenceReactComponentProps,

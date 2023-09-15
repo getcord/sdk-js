@@ -241,7 +241,7 @@ declare global {
 
 /* cord-multiple-cursors */
 
-export type LiveCursorsWebComponentEvents = Record<string, never>;
+export type MultipleCursorsWebComponentEvents = Record<string, never>;
 
 /* cord-page-presence */
 
@@ -576,7 +576,7 @@ export interface HTMLCordFloatingThreadsElement
     HTMLCordFloatingThreadsFunctions,
     WithScreenshotConfig {}
 
-type LiveCursorsDocumentLocation =
+type MultipleCursorsDocumentLocation =
   | {
       documentX: number;
       documentY: number;
@@ -584,29 +584,24 @@ type LiveCursorsDocumentLocation =
   | null
   | undefined;
 
-export type LiveCursorsEventToLocationFn = (
+export type MultipleCursorsEventToLocationFn = (
   e: MouseEvent,
 ) => Promise<Location> | Location;
-export type MultipleCursorsEventToLocationFn = LiveCursorsEventToLocationFn;
 
-export type LiveCursorsLocationToDocumentFn = (
+export type MultipleCursorsLocationToDocumentFn = (
   location: Location,
-) => Promise<LiveCursorsDocumentLocation> | LiveCursorsDocumentLocation;
-export type MultipleCursorsLocationToDocumentFn =
-  LiveCursorsLocationToDocumentFn;
+) => Promise<MultipleCursorsDocumentLocation> | MultipleCursorsDocumentLocation;
 
-export interface HTMLCordLiveCursorsFunctions {
+export interface HTMLCordMultipleCursorsFunctions {
   setTranslations(
-    eventToLocation: LiveCursorsEventToLocationFn,
-    locationToDocument: LiveCursorsLocationToDocumentFn,
+    eventToLocation: MultipleCursorsEventToLocationFn,
+    locationToDocument: MultipleCursorsLocationToDocumentFn,
   ): void;
 }
-export type HTMLCordMultipleCursorsFunctions = HTMLCordLiveCursorsFunctions;
 
-export interface HTMLCordLiveCursorsElement
+export interface HTMLCordMultipleCursorsElement
   extends HTMLCordElement,
-    HTMLCordLiveCursorsFunctions {}
-export type HTMLCordMultipleCursorsElement = HTMLCordLiveCursorsElement;
+    HTMLCordMultipleCursorsFunctions {}
 
 export type HTMLCordAnchoredThreadsElement = HTMLCordFloatingThreadsElement;
 
