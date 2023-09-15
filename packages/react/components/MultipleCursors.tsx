@@ -125,13 +125,6 @@ export function MultipleCursors({
   const locationToDocument =
     translations?.locationToDocument ?? defaultLocationToDocument;
 
-  // The result of eventToLocation from our own most recent mouse move, or null
-  // if we haven't moved our mouse or have moved it outside of the page.
-  const mouseLocationRef = useRef<Location | null>(null);
-
-  const { sdk } = useCordContext('MultipleCursors');
-  const presenceSDK = sdk?.presence;
-
   // The "base" location for all of our presence updates. We transmit our cursor
   // position by encoding our cursor information into a sub-location of this and
   // setting ourselves as present there (setting this base location as
@@ -146,6 +139,67 @@ export function MultipleCursors({
     }),
     [locationInput],
   );
+
+  useSendCursor(baseLocation, eventToLocation);
+
+  const userCursors = useUserCursors(
+    baseLocation,
+    locationToDocument,
+    !!showViewerCursor,
+  );
+
+  // Load detailed information for each user whose cursor we have, so we can
+  // display their name etc.
+  const users = user.useUserData(Object.keys(userCursors));
+  const viewerID = useViewerID();
+
+  // Combine the userCursors user ID and position info with the detailed user
+  // information to produce the information Cursor needs to actually render.
+  const result = useMemo<CursorProps[]>(() => {
+    if (viewerID === undefined) {
+      // Skip if we don't know who the viewer is, since we don't want to show
+      // them their own cursor.
+      return [];
+    }
+
+    return Object.keys(userCursors)
+      .filter((id) => userCursors[id].pos && users[id])
+      .map((id) => ({
+        id,
+        name: users[id]!.shortName ?? users[id]!.name ?? 'Unknown',
+        pos: userCursors[id].pos!,
+        color: userCursors[id].color,
+      }));
+  }, [users, userCursors, viewerID]);
+
+  return (
+    <>
+      {result.map((props) => (
+        <Cursor key={props.id} {...props} />
+      ))}
+    </>
+  );
+}
+
+function useViewerID() {
+  const viewerData = user.useViewerData();
+  return viewerData?.id;
+}
+
+/**
+ * Add event listeners for mouse movements, and transmit our cursor's position
+ * via the presence API.
+ */
+function useSendCursor(
+  baseLocation: Location,
+  eventToLocation: MultipleCursorsEventToLocationFn,
+): void {
+  const { sdk } = useCordContext('MultipleCursors.useSendCursor');
+  const presenceSDK = sdk?.presence;
+
+  // The result of eventToLocation from our own most recent mouse move, or null
+  // if we haven't moved our mouse or have moved it outside of the page.
+  const mouseLocationRef = useRef<Location | null>(null);
 
   const clearPresence = useCallback(() => {
     if (lastLocationRef.current && presenceSDK) {
@@ -200,8 +254,9 @@ export function MultipleCursors({
         if (
           !isEqualLocation(mouseLocationRef.current, lastLocationRef.current)
         ) {
-          // ... send an update. See comment above baseLocation describing the
-          // format of this update.
+          // ... send an update. See comment above the definition of
+          // baseLocation in the main component describing the format of this
+          // update.
           void presenceSDK.setPresent(
             {
               // We put baseLocation second so in case the same key is available
@@ -224,12 +279,23 @@ export function MultipleCursors({
 
     return () => clearInterval(timer);
   }, [presenceSDK, baseLocation, clearPresence]);
+}
 
-  const viewerData = user.useViewerData();
-  const viewerID = viewerData?.id;
+/**
+ * Subscribe to presence updates listening for other users' cursors, and return
+ * a map from user ID to CursorState for other users' cursors currently on the
+ * page.
+ */
+function useUserCursors(
+  baseLocation: Location,
+  locationToDocument: MultipleCursorsLocationToDocumentFn,
+  showViewerCursor: boolean,
+): Record<string, CursorState> {
+  const { sdk } = useCordContext('MultipleCursors.useUserCursors');
+  const presenceSDK = sdk?.presence;
 
-  // Information about other cursors that we've received -- map from user ID to
-  // that user's CursorState (coordinates and color).
+  const viewerID = useViewerID();
+
   const [userCursors, setUserCursors] = useState<Record<string, CursorState>>(
     {},
   );
@@ -244,7 +310,8 @@ export function MultipleCursors({
     }
 
     // Partial match listen for presence updates at baseLocation. See comment
-    // above baseLocation for an overview of how this works.
+    // above the definition of baseLocation in the main component for an
+    // overview of how this works.
     const listenerRef = presenceSDK.observeLocationData(
       baseLocation,
       async (data) => {
@@ -298,36 +365,7 @@ export function MultipleCursors({
     showViewerCursor,
   ]);
 
-  // Load detailed information for each user whose cursor we have, so we can
-  // display their name etc.
-  const users = user.useUserData(Object.keys(userCursors));
-
-  // Combine the userCursors user ID and position info with the detailed user
-  // information to produce the information Cursor needs to actually render.
-  const result = useMemo<CursorProps[]>(() => {
-    if (viewerID === undefined) {
-      // Skip if we don't know who the viewer is, since we don't want to show
-      // them their own cursor.
-      return [];
-    }
-
-    return Object.keys(userCursors)
-      .filter((id) => userCursors[id].pos && users[id])
-      .map((id) => ({
-        id,
-        name: users[id]!.shortName ?? users[id]!.name ?? 'Unknown',
-        pos: userCursors[id].pos!,
-        color: userCursors[id].color,
-      }));
-  }, [users, userCursors, viewerID]);
-
-  return (
-    <>
-      {result.map((props) => (
-        <Cursor key={props.id} {...props} />
-      ))}
-    </>
-  );
+  return userCursors;
 }
 
 type CursorProps = {
