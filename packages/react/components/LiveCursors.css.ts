@@ -4,8 +4,8 @@ import { ZINDEX } from '@cord-sdk/react/common/ui/zIndex';
 
 export const POSITION_UPDATE_INTERVAL_MS = 100;
 
-export const cursor = cordifyClassname('multiple-cursors-cursor');
-export const name = cordifyClassname('multiple-cursors-name');
+export const cursor = cordifyClassname('live-cursors-cursor');
+export const name = cordifyClassname('live-cursors-name');
 
 globalStyle(`.${cursor}`, {
   // A small negative margin makes the pointer of the icon appear where the
