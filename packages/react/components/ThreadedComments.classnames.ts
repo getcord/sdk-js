@@ -1,6 +1,10 @@
 import { cordifyClassname } from '../common/util';
 
 export const comments = cordifyClassname('threaded-comments');
+export const unresolvedOnly = cordifyClassname(
+  'threaded-comments-unresolved-only',
+);
+export const resolvedOnly = cordifyClassname('threaded-comments-resolved-only');
 
 export const tabContainer = cordifyClassname('threaded-comments-tab-container');
 export const tab = cordifyClassname('threaded-comments-tab');

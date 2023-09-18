@@ -197,7 +197,12 @@ export function ThreadedComments({
   );
 
   return (
-    <div className={cx(classes.comments, className)}>
+    <div
+      className={cx(classes.comments, className, {
+        [classes.unresolvedOnly]: displayResolved === 'unresolvedOnly',
+        [classes.resolvedOnly]: displayResolved === 'resolvedOnly',
+      })}
+    >
       {resolvedStatusTabs}
       {composerOnTop && showComposer && composer}
       <div className={classes.threadList}>

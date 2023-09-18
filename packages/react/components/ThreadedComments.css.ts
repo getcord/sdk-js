@@ -4,10 +4,13 @@ import { cordifyClassname } from '../common/util';
 import { cssVar } from '../common/ui/cssVariables';
 import { getModifiedSelector, MODIFIERS } from '../common/ui/modifiers';
 import * as classes from './ThreadedComments.classnames';
+import { separator } from './helpers/Separator.classnames';
 export default classes;
 
 const {
   comments,
+  unresolvedOnly,
+  resolvedOnly,
   tabContainer,
   tab,
   threadList,
@@ -218,3 +221,32 @@ globalStyle(`.${comments} :where(.${viewerAvatarWithComposer} > cord-avatar)`, {
   marginTop: '10px',
   '--cord-facepile-avatar-size': cssVar('space-l'),
 } as CSSProperties);
+
+// when showing only unresolved threads, we don't want to let users resolve
+// a thread, since they will have no way to access it. So we hide all elements
+// that can resolve.
+globalStyle(
+  `:where(.${unresolvedOnly}.${comments}) [data-cord-menu-item="thread-resolve"]`,
+  {
+    display: 'none',
+  },
+);
+
+const hideOnResolvedOnly = [
+  '[data-cord-menu-item="message-edit-resolved"]',
+  `.${viewerAvatarWithComposer}`,
+  `.${reopenButton}`,
+  `.${separator}`,
+];
+
+// When showing only resolved threads, we don't want to let users unresolve a thread
+// since they will have no way to access it. So we hide all elements
+// that can unresolve.
+globalStyle(
+  `:where(.${comments}.${resolvedOnly}) :is(` +
+    hideOnResolvedOnly.join(', ') +
+    `)`,
+  {
+    display: 'none',
+  },
+);
