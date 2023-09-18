@@ -287,6 +287,7 @@ export interface ThreadObserverOptions {
 export type ObserveThreadSummaryOptions = ThreadObserverOptions;
 export type ObserveThreadDataOptions = ThreadObserverOptions;
 
+export type ResolvedStatus = 'any' | 'resolved' | 'unresolved';
 export type ThreadListFilter = {
   /**
    * The value for a `metadata` entry should be an object representing the
@@ -304,12 +305,19 @@ export type ThreadListFilter = {
    * @privateRemarks hidden
    */
   organizationID?: string;
+  /**
+   * If set to `resolved`, only resolved threads will be returned. If set to `unresolved`,
+   * only unresolved threads will be returned. If set to `any`, both resolved and
+   * unresolved threads will be returned.
+   *
+   * If unset, defaults to `unresolved`.
+   */
+  resolvedStatus?: ResolvedStatus;
 };
 export type SortDirection = 'ascending' | 'descending';
 export type SortBy =
   | 'first_message_timestamp'
   | 'most_recent_message_timestamp';
-export type ResolvedStatus = 'any' | 'resolved' | 'unresolved';
 export type ObserveLocationDataOptions = {
   /**
    * This option controls the criteria for how threads are sorted.
@@ -367,16 +375,7 @@ export type ObserveLocationDataOptions = {
   /**
    * An object that can be used to filter the threads returned.
    */
-  filter?: ThreadListFilter & {
-    /**
-     * If set to `resolved`, only resolved threads will be returned. If set to `unresolved`,
-     * only unresolved threads will be returned. If set to `any`, both resolved and
-     * unresolved threads will be returned.
-     *
-     * If unset, defaults to `unresolved`.
-     */
-    resolvedStatus?: ResolvedStatus;
-  };
+  filter?: ThreadListFilter;
 };
 
 export type LocationData = PaginationParams & {

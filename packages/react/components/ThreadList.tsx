@@ -26,7 +26,7 @@ export type ThreadListReactComponentProps = PropsWithFlags<
     showScreenshotPreviewInMessage?: boolean;
     highlightOpenFloatingThread?: boolean;
     highlightThreadId?: string;
-    filter?: ThreadListFilter;
+    filter?: Omit<ThreadListFilter, 'resolvedStatus'>;
     showPlaceholder?: boolean;
     partialMatch?: boolean;
     onThreadClick?: (
