@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  type MultipleCursorsEventToLocationFn,
-  type MultipleCursorsLocationToDocumentFn,
+  type LiveCursorsEventToLocationFn,
+  type LiveCursorsLocationToDocumentFn,
   type Location,
   isEqualLocation,
 } from '@cord-sdk/types';
@@ -10,16 +10,16 @@ import {
 import { useCordLocation } from '../hooks/useCordLocation';
 import { user } from '..';
 import { useCordContext } from '../contexts/CordContext';
-import * as classes from './MultipleCursors.css';
-import { POSITION_UPDATE_INTERVAL_MS } from './MultipleCursors.css';
+import * as classes from './LiveCursors.css';
+import { POSITION_UPDATE_INTERVAL_MS } from './LiveCursors.css';
 import { Icon } from './helpers/Icon';
 
-export type MultipleCursorsReactComponentProps = {
+export type LiveCursorsReactComponentProps = {
   location?: Location;
   showViewerCursor?: boolean;
   translations?: {
-    eventToLocation: MultipleCursorsEventToLocationFn;
-    locationToDocument: MultipleCursorsLocationToDocumentFn;
+    eventToLocation: LiveCursorsEventToLocationFn;
+    locationToDocument: LiveCursorsLocationToDocumentFn;
   };
 };
 
@@ -104,12 +104,12 @@ const cordInternal: any = {
   __cordInternal: true,
 };
 
-export function MultipleCursors({
+export function LiveCursors({
   location: locationProp,
   showViewerCursor,
   translations,
   ...remainingProps
-}: MultipleCursorsReactComponentProps) {
+}: LiveCursorsReactComponentProps) {
   // Make sure we've covered all the props we say we take; given the layers of
   // type generics etc it's easy to forget something.
   const _: Record<string, never> = remainingProps;
@@ -117,7 +117,7 @@ export function MultipleCursors({
   const contextLocation = useCordLocation();
   const locationInput = locationProp ?? contextLocation;
   if (!locationInput) {
-    throw new Error('cord-multiple-cursors: missing location');
+    throw new Error('cord-live-cursors: missing location');
   }
 
   const eventToLocation =
@@ -192,9 +192,9 @@ function useViewerID() {
  */
 function useSendCursor(
   baseLocation: Location,
-  eventToLocation: MultipleCursorsEventToLocationFn,
+  eventToLocation: LiveCursorsEventToLocationFn,
 ): void {
-  const { sdk } = useCordContext('MultipleCursors.useSendCursor');
+  const { sdk } = useCordContext('LiveCursors.useSendCursor');
   const presenceSDK = sdk?.presence;
 
   // The result of eventToLocation from our own most recent mouse move, or null
@@ -288,10 +288,10 @@ function useSendCursor(
  */
 function useUserCursors(
   baseLocation: Location,
-  locationToDocument: MultipleCursorsLocationToDocumentFn,
+  locationToDocument: LiveCursorsLocationToDocumentFn,
   showViewerCursor: boolean,
 ): Record<string, CursorState> {
-  const { sdk } = useCordContext('MultipleCursors.useUserCursors');
+  const { sdk } = useCordContext('LiveCursors.useUserCursors');
   const presenceSDK = sdk?.presence;
 
   const viewerID = useViewerID();
@@ -320,7 +320,7 @@ function useUserCursors(
         // viewport coordinates.
         const mappedLocations: Record<
           string,
-          Awaited<ReturnType<MultipleCursorsLocationToDocumentFn>>
+          Awaited<ReturnType<LiveCursorsLocationToDocumentFn>>
         > = {};
         await Promise.all(
           data.map(async ({ id, ephemeral }) => {
