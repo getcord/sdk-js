@@ -43,7 +43,8 @@ export type ThreadedCommentsReactComponentProps = {
   className?: string;
   messageOrder?: MessageOrder;
   composerPosition?: ComposerPosition;
-  composerExpanded?: boolean;
+  topLevelComposerExpanded?: boolean;
+  replyComposerExpanded?: boolean;
   showReplies?: ShowReplies;
   highlightThreadId?: string;
   displayResolved?: DisplayResolved;
@@ -64,7 +65,8 @@ export function ThreadedComments({
   location,
   messageOrder = 'newest_on_bottom',
   composerPosition = 'bottom',
-  composerExpanded = false,
+  topLevelComposerExpanded = false,
+  replyComposerExpanded = false,
   showReplies = 'initiallyCollapsed',
   highlightThreadId,
   partialMatch = false,
@@ -148,6 +150,7 @@ export function ThreadedComments({
       showReplies={showReplies}
       highlightThreadId={highlightThreadId}
       enableFacepileTooltip={enableFacepileTooltip}
+      replyComposerExpanded={replyComposerExpanded}
       onMessageClick={onMessageClick}
       onMessageMouseEnter={onMessageMouseEnter}
       onMessageMouseLeave={onMessageMouseLeave}
@@ -180,7 +183,7 @@ export function ThreadedComments({
   const composer = (
     <Composer
       location={location}
-      showExpanded={composerExpanded}
+      showExpanded={topLevelComposerExpanded}
       onSend={onSend}
       autofocus={autofocus}
     />
@@ -244,6 +247,7 @@ function CommentsThread({
   showReplies,
   highlightThreadId,
   enableFacepileTooltip,
+  replyComposerExpanded,
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
@@ -256,6 +260,7 @@ function CommentsThread({
   showReplies: ShowReplies;
   highlightThreadId?: string;
   enableFacepileTooltip: boolean;
+  replyComposerExpanded?: boolean;
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
@@ -367,6 +372,7 @@ function CommentsThread({
         <ReplyComponent
           threadId={threadId}
           showingComposer={showingComposer}
+          replyComposerExpanded={replyComposerExpanded}
           setShowingComposer={setShowingComposer}
           setShowingReplies={setShowingReplies}
           onSend={onSend}
@@ -525,10 +531,12 @@ function ThreadReplies({
 
 function ViewerAvatarWithComposer({
   threadId,
+  replyComposerExpanded,
   onClose,
   onSend,
 }: {
   threadId: string;
+  replyComposerExpanded?: boolean;
   onClose: () => void;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
@@ -540,6 +548,7 @@ function ViewerAvatarWithComposer({
       {userId && <Avatar userId={userId} />}
       <Composer
         threadId={threadId}
+        showExpanded={replyComposerExpanded}
         showCloseButton
         onClose={onClose}
         size={'small'}
@@ -553,12 +562,14 @@ function ViewerAvatarWithComposer({
 function ReplyComponent({
   threadId,
   showingComposer,
+  replyComposerExpanded,
   setShowingComposer,
   setShowingReplies,
   onSend,
 }: {
   threadId: string;
   showingComposer: boolean;
+  replyComposerExpanded?: boolean;
   setShowingComposer: Dispatch<SetStateAction<boolean>>;
   setShowingReplies: Dispatch<SetStateAction<boolean>>;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
@@ -566,6 +577,7 @@ function ReplyComponent({
   return showingComposer ? (
     <ViewerAvatarWithComposer
       threadId={threadId}
+      replyComposerExpanded={replyComposerExpanded}
       onClose={() => setShowingComposer(false)}
       onSend={onSend}
     />
