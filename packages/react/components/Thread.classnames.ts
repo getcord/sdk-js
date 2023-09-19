@@ -39,12 +39,5 @@ export const loadOlderMessages = cordifyClassname(
   'load-older-messages-container',
 );
 
-// EmptyStateWithFacepile
-export const emptyStatePlaceholderContainer = cordifyClassname(
-  'empty-state-placeholder',
-);
-export const emptyStatePlaceholderTitle = cordifyClassname('title');
-export const emptyStatePlaceholderBody = cordifyClassname('body');
-
 // WrapperThread
 export const clickableThread = cordifyClassname('clickable-thread');
