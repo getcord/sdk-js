@@ -534,36 +534,6 @@ function ThreadReplies({
   );
 }
 
-function ViewerAvatarWithComposer({
-  threadId,
-  replyComposerExpanded,
-  onClose,
-  onSend,
-}: {
-  threadId: string;
-  replyComposerExpanded?: boolean;
-  onClose: () => void;
-  onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
-}) {
-  const viewerData = user.useViewerData();
-  const userId = viewerData?.id;
-
-  return (
-    <div className={classes.viewerAvatarWithComposer}>
-      {userId && <Avatar userId={userId} />}
-      <Composer
-        threadId={threadId}
-        showExpanded={replyComposerExpanded}
-        showCloseButton
-        onClose={onClose}
-        size={'small'}
-        autofocus
-        onSend={onSend}
-      />
-    </div>
-  );
-}
-
 function ReplyComponent({
   threadId,
   showingComposer,
@@ -579,13 +549,22 @@ function ReplyComponent({
   setShowingReplies: Dispatch<SetStateAction<boolean>>;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
+  const viewerData = user.useViewerData();
+  const userId = viewerData?.id;
+
   return showingComposer ? (
-    <ViewerAvatarWithComposer
-      threadId={threadId}
-      replyComposerExpanded={replyComposerExpanded}
-      onClose={() => setShowingComposer(false)}
-      onSend={onSend}
-    />
+    <div className={classes.viewerAvatarWithComposer}>
+      {userId && <Avatar userId={userId} />}
+      <Composer
+        threadId={threadId}
+        showExpanded={replyComposerExpanded}
+        showCloseButton
+        onClose={() => setShowingComposer(false)}
+        size={'small'}
+        autofocus
+        onSend={onSend}
+      />
+    </div>
   ) : (
     <button
       className={cx(classes.expandReplies, fonts.fontSmall)}
