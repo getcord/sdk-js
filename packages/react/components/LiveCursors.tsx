@@ -16,6 +16,7 @@ import { Icon } from './helpers/Icon';
 
 export type LiveCursorsReactComponentProps = {
   location?: Location;
+  organizationID?: string;
   showViewerCursor?: boolean;
   translations?: {
     eventToLocation: LiveCursorsEventToLocationFn;
@@ -106,6 +107,7 @@ const cordInternal: any = {
 
 export function LiveCursors({
   location: locationProp,
+  organizationID,
   showViewerCursor,
   translations,
   ...remainingProps
@@ -140,12 +142,13 @@ export function LiveCursors({
     [locationInput],
   );
 
-  useSendCursor(baseLocation, eventToLocation);
+  useSendCursor(baseLocation, eventToLocation, organizationID);
 
   const userCursors = useUserCursors(
     baseLocation,
     locationToDocument,
     !!showViewerCursor,
+    organizationID,
   );
 
   // Load detailed information for each user whose cursor we have, so we can
@@ -193,6 +196,7 @@ function useViewerID() {
 function useSendCursor(
   baseLocation: Location,
   eventToLocation: LiveCursorsEventToLocationFn,
+  organizationID: string | undefined,
 ): void {
   const { sdk } = useCordContext('LiveCursors.useSendCursor');
   const presenceSDK = sdk?.presence;
@@ -214,11 +218,12 @@ function useSendCursor(
         {
           exclusive_within: baseLocation,
           absent: true,
+          organizationID,
           ...cordInternal,
         },
       );
     }
-  }, [presenceSDK, baseLocation]);
+  }, [presenceSDK, baseLocation, organizationID]);
 
   // Track our own mouse movements and write them into mouseLocationRef.
   useEffect(() => {
@@ -265,7 +270,7 @@ function useSendCursor(
               ...mouseLocationRef.current,
               ...baseLocation,
             },
-            { exclusive_within: baseLocation, ...cordInternal },
+            { exclusive_within: baseLocation, organizationID, ...cordInternal },
           );
           lastLocationRef.current = mouseLocationRef.current;
         }
@@ -278,7 +283,7 @@ function useSendCursor(
     }, POSITION_UPDATE_INTERVAL_MS);
 
     return () => clearInterval(timer);
-  }, [presenceSDK, baseLocation, clearPresence]);
+  }, [presenceSDK, baseLocation, clearPresence, organizationID]);
 }
 
 /**
@@ -290,6 +295,7 @@ function useUserCursors(
   baseLocation: Location,
   locationToDocument: LiveCursorsLocationToDocumentFn,
   showViewerCursor: boolean,
+  organizationID: string | undefined,
 ): Record<string, CursorState> {
   const { sdk } = useCordContext('LiveCursors.useUserCursors');
   const presenceSDK = sdk?.presence;
@@ -351,7 +357,12 @@ function useUserCursors(
           return newUserCursors;
         });
       },
-      { partial_match: true, exclude_durable: true, ...cordInternal },
+      {
+        partial_match: true,
+        exclude_durable: true,
+        organizationID,
+        ...cordInternal,
+      },
     );
 
     return () => {
@@ -363,6 +374,7 @@ function useUserCursors(
     baseLocation,
     viewerID,
     showViewerCursor,
+    organizationID,
   ]);
 
   return userCursors;
