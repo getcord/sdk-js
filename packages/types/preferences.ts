@@ -17,3 +17,10 @@ export type ServerUpdatePreference = {
    */
   value: Partial<NotificationPreferences>;
 };
+
+export type UserPreferences = {
+  /**
+   * `notification_channels` controls how users get notified about Cord activity.
+   */
+  notification_channels: NotificationPreferences;
+};
