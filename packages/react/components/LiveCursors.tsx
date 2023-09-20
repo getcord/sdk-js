@@ -10,7 +10,7 @@ import {
 } from '@cord-sdk/types';
 
 import { useCordLocation } from '../hooks/useCordLocation';
-import { user } from '..';
+import * as user from '../hooks/user';
 import { useCordContext } from '../contexts/CordContext';
 import { POSITION_UPDATE_INTERVAL_MS } from './LiveCursors.css';
 import {
