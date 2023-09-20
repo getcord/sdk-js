@@ -335,7 +335,7 @@ function useUserCursors(
             if (cursorLocation) {
               newUserCursors[id] = cursorLocation;
             } else {
-              //delete newUserCursors[id];
+              delete newUserCursors[id];
             }
           }
           return newUserCursors;
