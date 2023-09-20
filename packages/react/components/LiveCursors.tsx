@@ -137,7 +137,7 @@ export function LiveCursors({
   const baseLocation = useMemo(
     () => ({
       ...locationInput,
-      __cord_multiple_cursors: true,
+      __cord_live_cursors: true,
     }),
     [locationInput],
   );
