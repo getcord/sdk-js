@@ -576,10 +576,10 @@ export interface HTMLCordFloatingThreadsElement
     HTMLCordFloatingThreadsFunctions,
     WithScreenshotConfig {}
 
-type LiveCursorsDocumentLocation =
+export type LiveCursorsCursorPosition =
   | {
-      documentX: number;
-      documentY: number;
+      x: number;
+      y: number;
     }
   | null
   | undefined;
@@ -591,7 +591,7 @@ export type MultipleCursorsEventToLocationFn = LiveCursorsEventToLocationFn;
 
 export type LiveCursorsLocationToDocumentFn = (
   location: Location,
-) => Promise<LiveCursorsDocumentLocation> | LiveCursorsDocumentLocation;
+) => Promise<LiveCursorsCursorPosition> | LiveCursorsCursorPosition;
 export type MultipleCursorsLocationToDocumentFn =
   LiveCursorsLocationToDocumentFn;
 

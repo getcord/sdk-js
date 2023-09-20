@@ -1,5 +1,7 @@
 import * as React from 'react';
+import type { FunctionComponent } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { LiveCursorsCursorPosition } from '@cord-sdk/types';
 import {
   type LiveCursorsEventToLocationFn,
   type LiveCursorsLocationToDocumentFn,
@@ -10,9 +12,11 @@ import {
 import { useCordLocation } from '../hooks/useCordLocation';
 import { user } from '..';
 import { useCordContext } from '../contexts/CordContext';
-import * as classes from './LiveCursors.css';
 import { POSITION_UPDATE_INTERVAL_MS } from './LiveCursors.css';
-import { Icon } from './helpers/Icon';
+import {
+  LiveCursorsDefaultCursor,
+  type LiveCursorsCursorProps,
+} from './LiveCursorsDefaultCursor';
 
 export type LiveCursorsReactComponentProps = {
   location?: Location;
@@ -22,6 +26,7 @@ export type LiveCursorsReactComponentProps = {
     eventToLocation: LiveCursorsEventToLocationFn;
     locationToDocument: LiveCursorsLocationToDocumentFn;
   };
+  cursorComponent?: FunctionComponent<LiveCursorsCursorProps>;
 };
 
 /**
@@ -55,7 +60,9 @@ export async function defaultEventToLocation(e: MouseEvent): Promise<Location> {
  * suitable element that it references. If that doesn't work, fall back on x/y
  * coordinates, which should always be present.
  */
-export async function defaultLocationToDocument(location: Location) {
+export async function defaultLocationToDocument(
+  location: Location,
+): Promise<LiveCursorsCursorPosition> {
   const annotationSDK = window.CordSDK?.annotation;
   if ('__cord_annotation' in location && annotationSDK) {
     const coords = await annotationSDK.stringToViewportCoordinates(
@@ -63,40 +70,23 @@ export async function defaultLocationToDocument(location: Location) {
     );
     if (coords) {
       return {
-        documentX: coords.x,
-        documentY: coords.y,
+        x: coords.x,
+        y: coords.y,
       };
     }
   }
 
   if ('__cord_cursor_x' in location && '__cord_cursor_y' in location) {
     return {
-      documentX: location.__cord_cursor_x as number,
-      documentY: location.__cord_cursor_y as number,
+      x: location.__cord_cursor_x as number,
+      y: location.__cord_cursor_y as number,
     };
   }
 
   return null;
 }
 
-type CursorPosition = {
-  documentX: number;
-  documentY: number;
-};
-
-/**
- * The position and color of a specific user's cursor. We allow `pos` to become
- * `undefined` so that we can still track the color of a cursor which currently
- * isn't visible, to keep a user's color consistent (at least for a single
- * page load).
- */
-type CursorState = {
-  pos: CursorPosition | undefined;
-  color: string;
-};
-
-// The set of colors we rotate between as we need colors for people.
-const CURSOR_COLORS = ['#9A6AFF', '#EB5757', '#71BC8F', '#F88D76'];
+type CursorPosition = NonNullable<LiveCursorsCursorPosition>;
 
 // A secret param passed to a few API functions which only affects Cord's
 // logging. Feel free to remove this if you're modifying this code in your own
@@ -110,6 +100,7 @@ export function LiveCursors({
   organizationID,
   showViewerCursor,
   translations,
+  cursorComponent,
   ...remainingProps
 }: LiveCursorsReactComponentProps) {
   // Make sure we've covered all the props we say we take; given the layers of
@@ -158,7 +149,7 @@ export function LiveCursors({
 
   // Combine the userCursors user ID and position info with the detailed user
   // information to produce the information Cursor needs to actually render.
-  const result = useMemo<CursorProps[]>(() => {
+  const result = useMemo<LiveCursorsCursorProps[]>(() => {
     if (viewerID === undefined) {
       // Skip if we don't know who the viewer is, since we don't want to show
       // them their own cursor.
@@ -166,19 +157,19 @@ export function LiveCursors({
     }
 
     return Object.keys(userCursors)
-      .filter((id) => userCursors[id].pos && users[id])
+      .filter((id) => userCursors[id] && users[id])
       .map((id) => ({
-        id,
-        name: users[id]!.shortName ?? users[id]!.name ?? 'Unknown',
-        pos: userCursors[id].pos!,
-        color: userCursors[id].color,
+        user: users[id]!,
+        pos: userCursors[id]!,
       }));
   }, [users, userCursors, viewerID]);
+
+  const Cursor = cursorComponent ?? LiveCursorsDefaultCursor;
 
   return (
     <>
       {result.map((props) => (
-        <Cursor key={props.id} {...props} />
+        <Cursor key={props.user.id} {...props} />
       ))}
     </>
   );
@@ -296,18 +287,15 @@ function useUserCursors(
   locationToDocument: LiveCursorsLocationToDocumentFn,
   showViewerCursor: boolean,
   organizationID: string | undefined,
-): Record<string, CursorState> {
+): Record<string, CursorPosition> {
   const { sdk } = useCordContext('LiveCursors.useUserCursors');
   const presenceSDK = sdk?.presence;
 
   const viewerID = useViewerID();
 
-  const [userCursors, setUserCursors] = useState<Record<string, CursorState>>(
-    {},
-  );
-
-  // Index of the next CURSOR_COLORS to use when we see a new user.
-  const colorIndex = useRef<number>(0);
+  const [userCursors, setUserCursors] = useState<
+    Record<string, CursorPosition>
+  >({});
 
   // Listen for and process cursor updates from other users.
   useEffect(() => {
@@ -333,6 +321,8 @@ function useUserCursors(
             const receivedLocation = ephemeral.locations[0];
             if ((showViewerCursor || id !== viewerID) && receivedLocation) {
               mappedLocations[id] = await locationToDocument(receivedLocation);
+            } else {
+              mappedLocations[id] = undefined;
             }
           }),
         );
@@ -340,19 +330,13 @@ function useUserCursors(
         // Combine any updated viewport coordinates with the existing cursors.
         setUserCursors((prevUserCursors) => {
           const newUserCursors = { ...prevUserCursors };
-          for (const { id } of data) {
-            // We specifically use || because it short circuits, so it only
-            // advances the colorIndex if it uses it.
-            const existingValue = prevUserCursors[id] || {
-              pos: undefined,
-              color: CURSOR_COLORS[colorIndex.current++ % CURSOR_COLORS.length],
-            };
-
-            const cursorLocation = mappedLocations[id] ?? undefined;
-            newUserCursors[id] = {
-              ...existingValue,
-              pos: cursorLocation,
-            };
+          for (const id in mappedLocations) {
+            const cursorLocation = mappedLocations[id];
+            if (cursorLocation) {
+              newUserCursors[id] = cursorLocation;
+            } else {
+              delete newUserCursors[id];
+            }
           }
           return newUserCursors;
         });
@@ -378,30 +362,4 @@ function useUserCursors(
   ]);
 
   return userCursors;
-}
-
-type CursorProps = {
-  id: string;
-  name: string;
-  pos: CursorPosition;
-  color: string;
-};
-
-/**
- * Component for an individual cursor. A "dumb" rendering component, taking only
- * the processed data it needs to render and just dumping that onto the screen.
- * All of the smarts are above.
- */
-function Cursor({ name, pos, color }: CursorProps) {
-  return (
-    <div
-      className={classes.cursor}
-      style={{ left: pos.documentX + 'px', top: pos.documentY + 'px' }}
-    >
-      <Icon name="Cursor" size="large" style={{ color: color }} />
-      <span className={classes.name} style={{ backgroundColor: color }}>
-        {name}
-      </span>
-    </div>
-  );
 }
