@@ -230,8 +230,7 @@ export interface CoreThreadData {
 /**
  * A summary of a single thread.
  */
-export interface ThreadSummary
-  extends Omit<CoreThreadData, 'resolvedTimestamp'> {
+export interface ThreadSummary extends CoreThreadData {
   /**
    * The number of messages that the current user hasn't seen yet. This count
    * excludes deleted messages.
@@ -813,9 +812,7 @@ export interface ICordThreadSDK {
 /**
  * Detailed data about a single thread.
  */
-export interface ThreadData
-  extends Omit<CoreThreadData, 'resolvedTimestamp'>,
-    PaginationParams {
+export interface ThreadData extends CoreThreadData, PaginationParams {
   /**
    * The number of messages that the current user hasn't seen yet.
    */

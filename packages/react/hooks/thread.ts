@@ -246,6 +246,7 @@ export function useThreadData(
     organizationID: '',
     total: 0,
     resolved: false,
+    resolvedTimestamp: null,
     participants: [],
     subscribers: [],
     repliers: [],

@@ -446,15 +446,15 @@ export default {
               'Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.',
             type: 'boolean',
           },
-          subscribers: {
-            description: 'All of the users who are subscribed to this thread.',
-            type: 'array',
-            items: { type: 'string' },
-          },
           extraClassnames: {
             description:
               'An optional space separated list of classnames to add to the thread.',
             type: ['null', 'string'],
+          },
+          subscribers: {
+            description: 'All of the users who are subscribed to this thread.',
+            type: 'array',
+            items: { type: 'string' },
           },
         },
         additionalProperties: false,
@@ -465,8 +465,8 @@ export default {
           'metadata',
           'organizationID',
           'resolved',
-          'subscribers',
           'extraClassnames',
+          'subscribers',
         ],
         required: ['location', 'name', 'organizationID', 'url'],
       },
@@ -926,15 +926,15 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
-      subscribers: {
-        description: 'All of the users who are subscribed to this thread.',
-        type: 'array',
-        items: { type: 'string' },
-      },
       extraClassnames: {
         description:
           'An optional space separated list of classnames to add to the thread.',
         type: ['null', 'string'],
+      },
+      subscribers: {
+        description: 'All of the users who are subscribed to this thread.',
+        type: 'array',
+        items: { type: 'string' },
       },
     },
     additionalProperties: false,
@@ -946,8 +946,8 @@ export default {
       'name',
       'organizationID',
       'metadata',
-      'subscribers',
       'extraClassnames',
+      'subscribers',
     ],
     required: ['id', 'location', 'name', 'organizationID', 'url'],
     $schema: 'http://json-schema.org/draft-07/schema#',
@@ -984,15 +984,15 @@ export default {
         description: 'The organization ID this thread is in.',
         type: 'string',
       },
-      resolvedTimestamp: {
-        description:
-          'The timestamp when this thread was resolved. Set to `null` if this thread\nis not resolved.',
-        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
-      },
       extraClassnames: {
         description:
           'An optional space separated list of classnames to add to the thread.',
         type: ['null', 'string'],
+      },
+      resolvedTimestamp: {
+        description:
+          'The timestamp when this thread was resolved. Set to `null` if this thread\nis not resolved.',
+        anyOf: [{ type: 'string', format: 'date-time' }, { type: 'null' }],
       },
       userID: {
         description:
@@ -1019,8 +1019,8 @@ export default {
       'name',
       'metadata',
       'organizationID',
-      'resolvedTimestamp',
       'extraClassnames',
+      'resolvedTimestamp',
       'userID',
       'typing',
       'resolved',
