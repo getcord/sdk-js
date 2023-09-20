@@ -134,6 +134,7 @@ export const componentAttributes = {
     'show-expanded': 'boolean',
     'show-close-button': 'boolean',
     size: 'composer-size',
+    'thread-url': 'string',
     'message-metadata': 'json',
     'organization-id': 'string',
   },
@@ -219,6 +220,7 @@ export const componentAttributes = {
     'display-resolved': 'string',
     autofocus: 'boolean',
     'enable-facepile-tooltip': 'boolean',
+    'thread-url': 'string',
   },
 } as const;
 

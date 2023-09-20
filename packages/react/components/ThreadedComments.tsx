@@ -43,6 +43,7 @@ export type ThreadedCommentsReactComponentProps = {
   className?: string;
   messageOrder?: MessageOrder;
   composerPosition?: ComposerPosition;
+  threadUrl?: string;
   topLevelComposerExpanded?: boolean;
   replyComposerExpanded?: boolean;
   showReplies?: ShowReplies;
@@ -65,6 +66,7 @@ export function ThreadedComments({
   location,
   messageOrder = 'newest_on_bottom',
   composerPosition = 'bottom',
+  threadUrl,
   topLevelComposerExpanded = false,
   replyComposerExpanded = false,
   showReplies = 'initiallyCollapsed',
@@ -184,6 +186,7 @@ export function ThreadedComments({
     <Composer
       location={location}
       showExpanded={topLevelComposerExpanded}
+      threadUrl={threadUrl}
       onSend={onSend}
       autofocus={autofocus}
     />

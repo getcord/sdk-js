@@ -24,6 +24,7 @@ const propsToAttributes = propsToAttributeConverter(
 export type ComposerReactComponentProps = ReactPropsWithLocation<{
   threadId?: string;
   threadName?: string;
+  threadUrl?: string;
   autofocus?: boolean;
   showExpanded?: boolean;
   showCloseButton?: boolean;
