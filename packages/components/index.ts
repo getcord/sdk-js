@@ -221,6 +221,7 @@ export const componentAttributes = {
     autofocus: 'boolean',
     'enable-facepile-tooltip': 'boolean',
     'thread-url': 'string',
+    'thread-name': 'string',
   },
 } as const;
 
