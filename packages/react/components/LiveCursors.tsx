@@ -79,8 +79,8 @@ export async function defaultLocationToDocument(
 
   if ('__cord_cursor_x' in location && '__cord_cursor_y' in location) {
     return {
-      viewportX: location.__cord_cursor_x as number,
-      viewportY: location.__cord_cursor_y as number,
+      viewportX: (location.__cord_cursor_x as number) - window.scrollX,
+      viewportY: (location.__cord_cursor_y as number) - window.scrollY,
     };
   }
 
