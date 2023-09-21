@@ -616,7 +616,6 @@ export interface ICordThreadSDK {
    * @param options - Options for creating new threads.
    * @returns A reference which can be passed to `unobserveThreadSummary` to
    * stop observing thread summary information.
-   * @deprecated Thread summary information is now included in ThreadData. Please use `observeThreadData` instead.
    */
   observeThreadSummary(
     threadId: ThreadID,
@@ -812,25 +811,12 @@ export interface ICordThreadSDK {
 /**
  * Detailed data about a single thread.
  */
-export interface ThreadData extends CoreThreadData, PaginationParams {
-  /**
-   * The number of messages that the current user hasn't seen yet.
-   */
-  unread: number;
-  /**
-   * Whether the current viewer has either left a message or reacted to this thread.
-   */
-  viewerIsThreadParticipant: boolean;
+export interface ThreadData extends PaginationParams {
   /**
    * Contains information about the first (i.e., oldest) message in the thread.
    * `null` if the thread is empty.
    */
   firstMessage: ClientMessageData | null;
-  /**
-   * Contains information about the last (i.e., newest) message in the thread.
-   * `null` if the thread is empty.
-   */
-  lastMessage: ClientMessageData | null;
   /**
    * An array of objects, one for each message in the specified thread.
    *
@@ -840,7 +826,6 @@ export interface ThreadData extends CoreThreadData, PaginationParams {
    */
   messages: ClientMessageData[];
 }
-
 export type ThreadDataCallback = (data: ThreadData) => unknown;
 
 /**

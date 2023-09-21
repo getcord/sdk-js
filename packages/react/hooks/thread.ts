@@ -2,6 +2,7 @@ import type {
   ObserveThreadSummaryOptions,
   ThreadActivitySummary,
   ThreadSummary,
+  ClientMessageData,
   Location,
   ObserveThreadDataOptions,
   ThreadData,
@@ -79,7 +80,6 @@ export function useLocationSummary(
 /**
  * This method allows you to observe summary information about a thread,
  * including live updates.
- * @deprecated Summary information is now included in ThreadData. Please use `useThreadData` instead.
  * @example Overview
  * ```javascript
  * import { thread } from '@cord-sdk/react';
@@ -206,12 +206,12 @@ export function useLocationData(
 }
 
 /**
- * This method allows you to observe summary and detailed data about a thread, including
+ * This method allows you to observe detailed data about a thread, including
  * live updates.
  * @example Overview
  * ```javascript
  * import { thread } from '@cord-sdk/react';
- * const { messages, loading, hasMore, fetchMore, unread } = thread.useThreadData('my-awesome-thread-id');
+ * const { messages, loading, hasMore, fetchMore } = thread.useThreadData('my-awesome-thread-id');
  *
  * return (
  *   <div>
@@ -241,33 +241,15 @@ export function useThreadData(
   threadId: string,
   options?: ObserveThreadDataOptions,
 ): ThreadData {
-  const [data, setData] = useState<ThreadData>({
-    id: threadId,
-    organizationID: '',
-    total: 0,
-    resolved: false,
-    resolvedTimestamp: null,
-    participants: [],
-    subscribers: [],
-    repliers: [],
-    typing: [],
-    name: '',
-    url: '',
-    location: {},
-    firstMessage: null,
-    lastMessage: null,
-    messages: [],
-    userMessages: 0,
-    actionMessages: 0,
-    deletedMessages: 0,
-    unread: 0,
-    viewerIsThreadParticipant: false,
-    extraClassnames: null,
-    metadata: {},
-    loading: true,
-    hasMore: false,
-    fetchMore: async (_n: number) => {},
-  });
+  const [messages, setMessages] = useState<ClientMessageData[]>([]);
+  const [firstMessage, setFirstMessage] = useState<ClientMessageData | null>(
+    null,
+  );
+  const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
+    () => async (_n: number) => {},
+  );
+  const [loading, setLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
 
   const { sdk } = useCordContext('useCordThreadData');
   const threadSDK = sdk?.thread;
@@ -282,8 +264,12 @@ export function useThreadData(
     const key = threadSDK.observeThreadData(
       threadId,
       // eslint-disable-next-line @typescript-eslint/no-shadow
-      (data) => {
-        setData(data);
+      ({ messages, firstMessage, fetchMore, loading, hasMore }) => {
+        setMessages(messages);
+        setFirstMessage(firstMessage);
+        setFetchMore(() => fetchMore);
+        setLoading(loading);
+        setHasMore(hasMore);
       },
       optionsMemo,
     );
@@ -292,7 +278,7 @@ export function useThreadData(
     };
   }, [threadSDK, optionsMemo, threadId]);
 
-  return data;
+  return { messages, firstMessage, fetchMore, loading, hasMore };
 }
 
 /**
