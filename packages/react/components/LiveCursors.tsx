@@ -8,6 +8,7 @@ import {
   type Location,
   isEqualLocation,
 } from '@cord-sdk/types';
+import { debounce } from 'radash';
 
 import { useCordLocation } from '../hooks/useCordLocation';
 import * as user from '../hooks/user';
@@ -293,9 +294,41 @@ function useUserCursors(
 
   const viewerID = useViewerID();
 
-  const [userCursors, setUserCursors] = useState<
+  // Cord presence gives us a Location for the cursor, which is a durable
+  // semantic encoding. We then convert that into a CursorPosition, which is
+  // viewport-relative x/y coordinates. Those viewport coordinates change as
+  // they scroll, so we need to track the original Location for each cursor and
+  // recompute both when we get any updates and when the page is scrolled.
+  // Unfortunately that conversion process is async, so it needs to happen in
+  // the event handlers (we can't just have one state to store the Location and
+  // convert as we return). Instead, use a ref to track the Location (we don't
+  // need to rerender when it changes, just need a persistent place to hold onto
+  // it), and then have a helper function which does the conversion into another
+  // state which is the actual CursorPosition we can return. (We immediately
+  // call that conversion helper after changes to the Locations.)
+  const cursorLocations = useRef<Record<string, Location>>({});
+  const [cursorPositions, setCursorPositions] = useState<
     Record<string, CursorPosition>
   >({});
+
+  // Aforementioned conversion function, see above.
+  const computeCursorPositions = useCallback(async () => {
+    const newCursorPositions: Record<string, CursorPosition> = {};
+    await Promise.all(
+      Object.entries(cursorLocations.current).map(async ([id, location]) => {
+        const pos = await locationToDocument(location);
+        if (pos) {
+          newCursorPositions[id] = pos;
+        }
+      }),
+    );
+
+    setCursorPositions(newCursorPositions);
+  }, [locationToDocument]);
+  const debouncedComputeCursorPositions = useMemo(
+    () => debounce({ delay: 50 }, computeCursorPositions),
+    [computeCursorPositions],
+  );
 
   // Listen for and process cursor updates from other users.
   useEffect(() => {
@@ -306,40 +339,18 @@ function useUserCursors(
     // Partial match listen for presence updates at baseLocation. See comment
     // above the definition of baseLocation in the main component for an
     // overview of how this works.
-    const listenerRef = presenceSDK.observeLocationData(
+    const locationDataListenerRef = presenceSDK.observeLocationData(
       baseLocation,
       async (data) => {
-        // Use locationToDocument to take the cursor positions encoded in the
-        // locations the other users are present at, and turn those into
-        // viewport coordinates.
-        const mappedLocations: Record<
-          string,
-          Awaited<ReturnType<LiveCursorsLocationToDocumentFn>>
-        > = {};
-        await Promise.all(
-          data.map(async ({ id, ephemeral }) => {
-            const receivedLocation = ephemeral.locations[0];
-            if ((showViewerCursor || id !== viewerID) && receivedLocation) {
-              mappedLocations[id] = await locationToDocument(receivedLocation);
-            } else {
-              mappedLocations[id] = undefined;
-            }
-          }),
-        );
-
-        // Combine any updated viewport coordinates with the existing cursors.
-        setUserCursors((prevUserCursors) => {
-          const newUserCursors = { ...prevUserCursors };
-          for (const id in mappedLocations) {
-            const cursorLocation = mappedLocations[id];
-            if (cursorLocation) {
-              newUserCursors[id] = cursorLocation;
-            } else {
-              delete newUserCursors[id];
-            }
+        data.forEach(({ id, ephemeral }) => {
+          const receivedLocation = ephemeral.locations[0];
+          if ((showViewerCursor || id !== viewerID) && receivedLocation) {
+            cursorLocations.current[id] = receivedLocation;
+          } else {
+            delete cursorLocations.current[id];
           }
-          return newUserCursors;
         });
+        debouncedComputeCursorPositions();
       },
       {
         partial_match: true,
@@ -350,7 +361,7 @@ function useUserCursors(
     );
 
     return () => {
-      presenceSDK.unobserveLocationData(listenerRef);
+      presenceSDK.unobserveLocationData(locationDataListenerRef);
     };
   }, [
     locationToDocument,
@@ -359,7 +370,21 @@ function useUserCursors(
     viewerID,
     showViewerCursor,
     organizationID,
+    debouncedComputeCursorPositions,
   ]);
 
-  return userCursors;
+  // Also recompute positions on scroll, since the coordinates are
+  // viewport-relative.
+  useEffect(() => {
+    document.addEventListener('scroll', debouncedComputeCursorPositions);
+    document.addEventListener('wheel', debouncedComputeCursorPositions);
+    document.addEventListener('resize', debouncedComputeCursorPositions);
+    return () => {
+      document.removeEventListener('scroll', debouncedComputeCursorPositions);
+      document.removeEventListener('wheel', debouncedComputeCursorPositions);
+      document.removeEventListener('resize', debouncedComputeCursorPositions);
+    };
+  }, [debouncedComputeCursorPositions]);
+
+  return cursorPositions;
 }
