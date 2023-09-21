@@ -52,8 +52,8 @@ export function LiveCursorsDefaultCursor({
     <div
       className={classes.cursor}
       style={{
-        left: pos.x + 'px',
-        top: pos.y + 'px',
+        left: pos.viewportX + 'px',
+        top: pos.viewportY + 'px',
         [classes.colorVar as any]: color.background,
         [classes.borderVar as any]: color.border,
       }}

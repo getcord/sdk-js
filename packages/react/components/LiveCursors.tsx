@@ -71,16 +71,16 @@ export async function defaultLocationToDocument(
     );
     if (coords) {
       return {
-        x: coords.x,
-        y: coords.y,
+        viewportX: coords.x,
+        viewportY: coords.y,
       };
     }
   }
 
   if ('__cord_cursor_x' in location && '__cord_cursor_y' in location) {
     return {
-      x: location.__cord_cursor_x as number,
-      y: location.__cord_cursor_y as number,
+      viewportX: location.__cord_cursor_x as number,
+      viewportY: location.__cord_cursor_y as number,
     };
   }
 

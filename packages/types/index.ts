@@ -578,8 +578,8 @@ export interface HTMLCordFloatingThreadsElement
 
 export type LiveCursorsCursorPosition =
   | {
-      x: number;
-      y: number;
+      viewportX: number;
+      viewportY: number;
     }
   | null
   | undefined;
