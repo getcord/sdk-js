@@ -58,6 +58,9 @@ export type ThreadedCommentsReactComponentProps = {
   onMessageEditEnd?: (messageInfo: MessageInfo) => unknown;
   onRender?: () => unknown;
   onLoading?: () => unknown;
+  onComposerFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
+  onComposerBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
+  onComposerClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 };
 
@@ -82,6 +85,9 @@ export function ThreadedComments({
   onMessageEditEnd,
   onRender,
   onLoading,
+  onComposerFocus,
+  onComposerBlur,
+  onComposerClose,
   onSend,
 }: ThreadedCommentsReactComponentProps) {
   const [resolvedTabSelected, setResolvedTabSelected] = useState<boolean>(
@@ -158,6 +164,9 @@ export function ThreadedComments({
       onMessageMouseLeave={onMessageMouseLeave}
       onMessageEditStart={onMessageEditStart}
       onMessageEditEnd={onMessageEditEnd}
+      onComposerFocus={onComposerFocus}
+      onComposerBlur={onComposerBlur}
+      onComposerClose={onComposerClose}
       onSend={onSend}
     />
   ));
@@ -187,6 +196,8 @@ export function ThreadedComments({
       location={location}
       showExpanded={topLevelComposerExpanded}
       threadUrl={threadUrl}
+      onFocus={onComposerFocus}
+      onBlur={onComposerBlur}
       onSend={onSend}
       autofocus={autofocus}
     />
@@ -261,6 +272,9 @@ function CommentsThread({
   onMessageMouseLeave,
   onMessageEditStart,
   onMessageEditEnd,
+  onComposerFocus,
+  onComposerBlur,
+  onComposerClose,
   onSend,
 }: {
   threadId: string;
@@ -274,6 +288,9 @@ function CommentsThread({
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
   onMessageEditStart?: (messageInfo: MessageInfo) => unknown;
   onMessageEditEnd?: (messageInfo: MessageInfo) => unknown;
+  onComposerFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
+  onComposerBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
+  onComposerClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
   const threadSummary = thread.useThreadSummary(threadId);
@@ -383,6 +400,9 @@ function CommentsThread({
           replyComposerExpanded={replyComposerExpanded}
           setShowingComposer={setShowingComposer}
           setShowingReplies={setShowingReplies}
+          onComposerFocus={onComposerFocus}
+          onComposerBlur={onComposerBlur}
+          onComposerClose={onComposerClose}
           onSend={onSend}
         />
       )}
@@ -543,6 +563,9 @@ function ReplyComponent({
   replyComposerExpanded,
   setShowingComposer,
   setShowingReplies,
+  onComposerFocus,
+  onComposerBlur,
+  onComposerClose,
   onSend,
 }: {
   threadId: string;
@@ -550,6 +573,9 @@ function ReplyComponent({
   replyComposerExpanded?: boolean;
   setShowingComposer: Dispatch<SetStateAction<boolean>>;
   setShowingReplies: Dispatch<SetStateAction<boolean>>;
+  onComposerFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
+  onComposerBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
+  onComposerClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
   const viewerData = user.useViewerData();
@@ -562,9 +588,14 @@ function ReplyComponent({
         threadId={threadId}
         showExpanded={replyComposerExpanded}
         showCloseButton
-        onClose={() => setShowingComposer(false)}
         size={'small'}
         autofocus
+        onFocus={onComposerFocus}
+        onBlur={onComposerBlur}
+        onClose={(args) => {
+          setShowingComposer(false);
+          onComposerClose?.(args);
+        }}
         onSend={onSend}
       />
     </div>
