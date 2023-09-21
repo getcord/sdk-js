@@ -11,7 +11,10 @@ export {
   defaultEventToLocation as liveCursorsDefaultEventToLocation,
   defaultLocationToDocument as liveCursorsDefaultLocationToDocument,
 } from './components/LiveCursors';
-export { LiveCursorsCursorProps } from './components/LiveCursorsDefaultCursor';
+export {
+  LiveCursorsCursorProps,
+  LiveCursorsDefaultCursor,
+} from './components/LiveCursorsDefaultCursor';
 export {
   PagePresence,
   PagePresenceReactComponentProps,
