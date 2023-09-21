@@ -60,7 +60,7 @@ export function LiveCursorsDefaultCursor({
     >
       <Icon className={classes.icon} name="Cursor" size="large" />
       <div className={classes.label}>
-        <Avatar userId={user.id} />
+        {user.profilePictureURL && <Avatar userId={user.id} />}
         <span className={classes.name}>{user.name}</span>
       </div>
     </div>
