@@ -322,7 +322,7 @@ function CommentsThread({
   }
 
   const isResolved = threadSummary.resolved;
-  const hasReplies = threadSummary.total > 1;
+  const hasReplies = threadSummary.userMessages > 1;
   const showReplyComponent = allowReplies && (!hasReplies || showingReplies);
 
   return (
