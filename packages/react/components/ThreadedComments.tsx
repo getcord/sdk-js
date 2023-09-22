@@ -383,6 +383,7 @@ function CommentsThread({
           threadId={threadId}
           threadData={threadData}
           setShowingReplies={setShowingReplies}
+          setShowingComposer={setShowingComposer}
           onMessageClick={onMessageClick}
           onMessageMouseEnter={onMessageMouseEnter}
           onMessageMouseLeave={onMessageMouseLeave}
@@ -468,6 +469,7 @@ function ThreadReplies({
   threadId,
   threadData,
   setShowingReplies,
+  setShowingComposer,
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
@@ -477,6 +479,7 @@ function ThreadReplies({
   threadId: string;
   threadData: ThreadData;
   setShowingReplies: Dispatch<SetStateAction<boolean>>;
+  setShowingComposer: Dispatch<SetStateAction<boolean>>;
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
@@ -498,7 +501,10 @@ function ThreadReplies({
         <>
           <button
             className={cx(classes.hideReplies, fonts.fontSmall)}
-            onClick={() => setShowingReplies(false)}
+            onClick={() => {
+              setShowingReplies(false);
+              setShowingComposer(false);
+            }}
             type="button"
           >
             {'Hide replies'}
