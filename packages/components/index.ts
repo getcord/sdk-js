@@ -15,6 +15,7 @@ export const componentNames = {
   'cord-presence-observer': 'PresenceObserver',
   'cord-thread': 'Thread',
   'cord-thread-list': 'ThreadList',
+  'cord-threaded-comments': 'ThreadedComments',
   'cord-composer': 'Composer',
   'cord-inbox-launcher': 'InboxLauncher',
   'cord-inbox': 'Inbox',
