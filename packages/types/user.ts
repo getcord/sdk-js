@@ -4,6 +4,7 @@ import type {
   ID,
   ListenerRef,
   OrganizationID,
+  PaginationParams,
   UserID,
 } from './core';
 import type { PaginationDetails } from './pagination';
@@ -53,6 +54,24 @@ export type MultipleUserUpdateCallback = (
   users: Record<string, ClientUserData | null>,
 ) => unknown;
 export type ViewerUserUpdateCallback = (user: ViewerUserData) => unknown;
+
+export type OrgMembersData = PaginationParams & {
+  orgMembers: ClientUserData[];
+};
+export type OrgMembersDataCallback = (data: OrgMembersData) => unknown;
+
+/**
+ * Options for the `observeOrgMembers` function in the User API.
+ */
+export type ObserveOrgMembersOptions = {
+  /**
+   * The organization to search for.  The viewer must be a member of the
+   * organization in order to receive its data.  If omitted, the API will
+   * fetch the members of the org the viewer is currently logged in with, i.e.
+   * the one that is specified in their access token.
+   */
+  organizationID?: string;
+};
 
 /**
  * The notification preferences for a user.
@@ -176,6 +195,43 @@ export interface ICordUserSDK {
    */
   observeViewerData(callback: ViewerUserUpdateCallback): ListenerRef;
   unobserveViewerData(ref: ListenerRef): boolean;
+
+  /**
+   * This method allows you to observe the members of an org the current user is
+   * a member of - either the current org the viewer is logged into, or, if
+   * specified as an option, another org the viewer is a member of.
+   * @example Overview
+   * ```javascript
+   * const ref = window.CordSDK.user.observeOrgMembers(
+   *   (data) =>  ({ orgMembers, loading, hasMore, fetchMore }) => {
+   *     console.log('Got an org members update:');
+   *     if (loading) {
+   *       console.log('Loading...');
+   *     }
+   *     orgMembers.forEach((orgMember) =>
+   *       console.log(`Org member ${orgMember.id} is called ${orgMember.name}!`),
+   *     );
+   *     if (!loading && hasMore && orgMembers.length < 25) {
+   *       // Get the first 25 org members, 10 at a time.
+   *       fetchMore(10);
+   *     }
+   *   },
+   *   {organizationID: 'org123'}
+   * );
+   * ```
+   * @param callback - This callback will be called once with the current data,
+   * and then again every time the data changes.  The argument passed to the
+   * callback is an object which will contain the fields described under
+   * "Available Data" above.
+   * @param options - An object of filters.
+   * @returns A reference number which can be passed to `unobserveOrgMembers` to
+   * stop observing the data.
+   */
+  observeOrgMembers(
+    callback: OrgMembersDataCallback,
+    options?: ObserveOrgMembersOptions,
+  ): ListenerRef;
+  unobserveOrgMembers(ref: ListenerRef): boolean;
 }
 
 export interface ServerUserData {

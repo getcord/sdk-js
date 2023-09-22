@@ -1,4 +1,10 @@
-import type { ClientUserData, ViewerUserData } from '@cord-sdk/types';
+import type {
+  ClientUserData,
+  FetchMoreCallback,
+  ObserveOrgMembersOptions,
+  OrgMembersData,
+  ViewerUserData,
+} from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
 import { useMemoObject } from './useMemoObject';
@@ -164,4 +170,70 @@ export function useViewerData(): ViewerUserData | undefined {
   }, [userSDK]);
 
   return data;
+}
+
+/**
+ * This method allows you to observe the members of an org the current user is
+ * a member of - either the current org the viewer is logged into, or, if
+ * specified as an option, another org the viewer is a member of.
+ * @example Overview
+ * ```javascript
+ * import { user } from '@cord-sdk/react';
+ * const { orgMembers, loading, hasMore, fetchMore } = user.useOrgMembers();
+ * return (
+ *   <div>
+ *     {orgMembers.map((orgMember) => (
+ *       <div key={orgMember.id}>
+ *         Org member ${orgMember.id} is called ${orgMember.name}!
+ *       </div>
+ *     ))}
+ *     {loading ? (
+ *       <div>Loading...</div>
+ *     ) : hasMore ? (
+ *       <div onClick={() => fetchMore(10)}>Fetch 10 more</div>
+ *     ) : null}
+ *   </div>
+ * );
+ * ```
+ * @returns The hook will initially return an empty array while the data loads from
+ * our API. Once it has loaded, your component will re-render and the hook will
+ * return an object containing the fields described under "Available Data"
+ * above.
+ */
+export function useOrgMembers(
+  options: ObserveOrgMembersOptions = {},
+): OrgMembersData {
+  const { sdk } = useCordContext('user.useOrgMemberData');
+  const userSDK = sdk?.user;
+
+  const [orgMembers, setOrgMembers] = useState<ClientUserData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [hasMore, setHasMore] = useState<boolean>(false);
+  const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
+    () => async (_n: number) => {},
+  );
+
+  const optionsMemo = useMemoObject(options);
+
+  useEffect(() => {
+    if (!userSDK) {
+      return;
+    }
+    const ref = userSDK.observeOrgMembers(
+      // eslint-disable-next-line @typescript-eslint/no-shadow -- using to set shadowed vars.
+      ({ orgMembers, loading, hasMore, fetchMore }) => {
+        setOrgMembers(orgMembers);
+        setLoading(loading);
+        setHasMore(hasMore);
+        setFetchMore((_previous: unknown) => fetchMore);
+      },
+      optionsMemo,
+    );
+
+    return () => {
+      userSDK.unobserveOrgMembers(ref);
+    };
+  }, [userSDK, optionsMemo]);
+
+  return { orgMembers, loading, hasMore, fetchMore };
 }
