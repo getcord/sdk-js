@@ -1,3 +1,4 @@
+import type { i18n } from 'i18next';
 import type {
   Location,
   MessageID,
@@ -5,6 +6,7 @@ import type {
   ThreadID,
   UUID,
 } from './core';
+import type { TranslationResources } from './i18n';
 import type { ICordNotificationSDK } from './notifications';
 import type { ICordPresenceSDK } from './presence';
 import type {
@@ -51,9 +53,7 @@ export type CustomRenderers = Record<
 >;
 
 export type Translations = {
-  [lang in string]: {
-    [ns in string]: any;
-  };
+  [lang in string]: Partial<TranslationResources>;
 };
 
 export type CordSDKInitOptions = CordSDKOptions & {
@@ -231,6 +231,7 @@ export interface ICordSDK {
   thread: ICordThreadSDK;
   notification: ICordNotificationSDK;
   experimental: Record<string, never>;
+  readonly i18n: i18n;
 }
 
 declare global {

@@ -14,6 +14,8 @@ import type {
   Translations,
   CordSDKOptions,
 } from '@cord-sdk/types';
+import { I18nextProvider } from 'react-i18next';
+import type { i18n } from 'i18next';
 import useUnpackClientAuthTokenPayload from '@cord-sdk/react/hooks/useUnpackClientAuthTokenPayload';
 
 declare const CORD_REACT_PACKAGE_VERSION: string;
@@ -269,7 +271,13 @@ export function CordProvider({
     ],
   );
 
-  return <CordContext.Provider value={value}>{children}</CordContext.Provider>;
+  return (
+    <CordContext.Provider value={value}>
+      {/* The i18n might be undefined, but I18nextProvider is fine with undefined
+          internally, it just marks the prop as required */}
+      <I18nextProvider i18n={sdk?.i18n as i18n}>{children}</I18nextProvider>
+    </CordContext.Provider>
+  );
 }
 
 export function useCordContext(hook: string) {

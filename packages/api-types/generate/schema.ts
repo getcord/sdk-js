@@ -466,14 +466,14 @@ export default {
             additionalProperties: { type: ['string', 'number', 'boolean'] },
             propertyOrder: [],
           },
-          organizationID: {
-            description: 'The organization ID this thread is in.',
-            type: 'string',
-          },
           resolved: {
             description:
               'Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.',
             type: 'boolean',
+          },
+          organizationID: {
+            description: 'The organization ID this thread is in.',
+            type: 'string',
           },
           extraClassnames: {
             description:
@@ -492,8 +492,8 @@ export default {
           'url',
           'name',
           'metadata',
-          'organizationID',
           'resolved',
+          'organizationID',
           'extraClassnames',
           'subscribers',
         ],

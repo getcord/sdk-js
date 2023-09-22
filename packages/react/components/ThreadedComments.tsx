@@ -10,6 +10,7 @@ import type {
 } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { logComponentInstantiation, pluralize } from '../common/util';
 import * as user from '../hooks/user';
 import * as thread from '../hooks/thread';
@@ -213,6 +214,13 @@ export function ThreadedComments({
     />
   );
 
+  if (!window.CordSDK) {
+    // We can't get translations until the SDK is initialized, so all the text
+    // will just show the translation keys and look really weird.  Render
+    // nothing instead.
+    return null;
+  }
+
   return (
     <div
       className={cx(classes.comments, className, {
@@ -239,6 +247,7 @@ function ResolvedStatusTabs({
   showResolved: boolean;
   setShowResolved: Dispatch<SetStateAction<boolean>>;
 }) {
+  const { t } = useTranslation('threaded_comments');
   return (
     <div className={classes.tabContainer}>
       <button
@@ -248,7 +257,7 @@ function ResolvedStatusTabs({
         })}
         onClick={() => setShowResolved(false)}
       >
-        {'Open'}
+        {t('show_unresolved')}
       </button>
       <button
         type="button"
@@ -257,7 +266,7 @@ function ResolvedStatusTabs({
         })}
         onClick={() => setShowResolved(true)}
       >
-        {'Resolved'}
+        {t('show_resolved')}
       </button>
     </div>
   );
