@@ -1,3 +1,5 @@
+import type { UserID } from './core';
+
 export interface UploadedFile {
   /**
    * The ID of the file.
@@ -74,3 +76,16 @@ export interface ICordFileSDK {
    */
   uploadFile(data: ClientCreateFile): Promise<UploadFileResult>;
 }
+
+export type ServerCreateFile = {
+  /**
+   * The ID of the user that owns the file.  Files can only be attached to
+   * messages authored by their owner.
+   */
+  ownerID: UserID;
+  /**
+   * The name of the file.  If not supplied, it will be taken from the file
+   * parameter.
+   */
+  name?: string;
+};

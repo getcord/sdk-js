@@ -7,10 +7,11 @@ import prettier from 'prettier';
 const TYPE_DEFINITION_FILES = [
   'application',
   'batch',
+  'file',
   'message',
   'notifications',
-  'preferences',
   'org',
+  'preferences',
   'presence',
   'thread',
   'typeDefinitions',

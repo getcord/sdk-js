@@ -6,15 +6,16 @@ import type {
   UpdateApplicationVariables,
   DeleteApplicationVariables,
   BatchAPIVariables,
+  CreateFileVariables,
   CreateMessageVariables,
   UpdateMessageVariables,
   ListThreadMessageParameters,
   ListMessageParameters,
   CreateNotificationVariables,
-  UpdateUserPreferenceVariables,
   UpdatePlatformOrganizationVariables,
   UpdatePlatformOrganizationMembersVariables,
   CreatePlatformOrganizationVariables,
+  UpdateUserPreferenceVariables,
   UpdateUserPresenceVariables,
   CreateThreadVariables,
   UpdateThreadVariables,
@@ -35,15 +36,16 @@ export type Types = {
   UpdateApplicationVariables: UpdateApplicationVariables;
   DeleteApplicationVariables: DeleteApplicationVariables;
   BatchAPIVariables: BatchAPIVariables;
+  CreateFileVariables: CreateFileVariables;
   CreateMessageVariables: CreateMessageVariables;
   UpdateMessageVariables: UpdateMessageVariables;
   ListThreadMessageParameters: ListThreadMessageParameters;
   ListMessageParameters: ListMessageParameters;
   CreateNotificationVariables: CreateNotificationVariables;
-  UpdateUserPreferenceVariables: UpdateUserPreferenceVariables;
   UpdatePlatformOrganizationVariables: UpdatePlatformOrganizationVariables;
   UpdatePlatformOrganizationMembersVariables: UpdatePlatformOrganizationMembersVariables;
   CreatePlatformOrganizationVariables: CreatePlatformOrganizationVariables;
+  UpdateUserPreferenceVariables: UpdateUserPreferenceVariables;
   UpdateUserPresenceVariables: UpdateUserPresenceVariables;
   CreateThreadVariables: CreateThreadVariables;
   UpdateThreadVariables: UpdateThreadVariables;
