@@ -236,6 +236,7 @@ export interface ICordSDK {
 declare global {
   interface Window {
     CordSDK?: ICordSDK;
+    cord?: ICordSDK;
   }
 }
 
