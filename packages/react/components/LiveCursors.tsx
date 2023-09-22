@@ -1,12 +1,12 @@
 import * as React from 'react';
 import type { FunctionComponent } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { LiveCursorsCursorPosition } from '@cord-sdk/types';
-import {
-  type LiveCursorsEventToLocationFn,
-  type LiveCursorsLocationToDocumentFn,
-  type Location,
-  isEqualLocation,
+import { isEqualLocation } from '@cord-sdk/types';
+import type {
+  LiveCursorsEventToLocationFn,
+  LiveCursorsLocationToDocumentFn,
+  Location,
+  LiveCursorsCursorPosition,
 } from '@cord-sdk/types';
 import { debounce } from 'radash';
 
@@ -14,10 +14,8 @@ import { useCordLocation } from '../hooks/useCordLocation';
 import * as user from '../hooks/user';
 import { useCordContext } from '../contexts/CordContext';
 import { POSITION_UPDATE_INTERVAL_MS } from './LiveCursors.css';
-import {
-  LiveCursorsDefaultCursor,
-  type LiveCursorsCursorProps,
-} from './LiveCursorsDefaultCursor';
+import { LiveCursorsDefaultCursor } from './LiveCursorsDefaultCursor';
+import type { LiveCursorsCursorProps } from './LiveCursorsDefaultCursor';
 
 export type LiveCursorsReactComponentProps = {
   location?: Location;
