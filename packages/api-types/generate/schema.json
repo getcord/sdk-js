@@ -275,7 +275,7 @@
         "type": "string"
       },
       "name": {
-        "description": "The name of the file.  If not supplied, it will be taken from the file\nparameter.",
+        "description": "The name of the file.  This will be shown to the user when attached to a\nmessage and will be the file's name if it's downloaded.  If not supplied,\nit will be taken from the filename of the `file` parameter.",
         "type": "string"
       }
     },
@@ -294,13 +294,20 @@
         "items": { "$ref": "#/definitions/ServerAddReactions" }
       },
       "addAttachments": {
-        "description": "The attachments to add to this message.",
+        "description": "A list of attachments to add to the message.  The same file cannot be\nattached to the same message multiple times.",
         "type": "array",
         "items": {
           "type": "object",
           "properties": {
-            "type": { "type": "string", "const": "file" },
-            "id": { "type": "string" }
+            "type": {
+              "description": "The type of attachment.  This is `file` for file attachments.",
+              "type": "string",
+              "const": "file"
+            },
+            "id": {
+              "description": "The ID of the file to attach.  This must have been previously uploaded via\nthe [file API](/js-apis-and-hooks/file-api/uploadFile).",
+              "type": "string"
+            }
           },
           "additionalProperties": false,
           "propertyOrder": ["type", "id"],
@@ -494,8 +501,15 @@
         "items": {
           "type": "object",
           "properties": {
-            "type": { "type": "string", "const": "file" },
-            "id": { "type": "string" }
+            "type": {
+              "description": "The type of attachment to remove.  This is `file` for file attachments.",
+              "type": "string",
+              "const": "file"
+            },
+            "id": {
+              "description": "The ID of the file attachment to remove.",
+              "type": "string"
+            }
           },
           "additionalProperties": false,
           "propertyOrder": ["type", "id"],
@@ -561,13 +575,20 @@
         "items": { "$ref": "#/definitions/ServerAddReactions" }
       },
       "addAttachments": {
-        "description": "The attachments to add to this message.",
+        "description": "A list of attachments to add to the message.  The same file cannot be\nattached to the same message multiple times.",
         "type": "array",
         "items": {
           "type": "object",
           "properties": {
-            "type": { "type": "string", "const": "file" },
-            "id": { "type": "string" }
+            "type": {
+              "description": "The type of attachment.  This is `file` for file attachments.",
+              "type": "string",
+              "const": "file"
+            },
+            "id": {
+              "description": "The ID of the file to attach.  This must have been previously uploaded via\nthe [file API](/js-apis-and-hooks/file-api/uploadFile).",
+              "type": "string"
+            }
           },
           "additionalProperties": false,
           "propertyOrder": ["type", "id"],

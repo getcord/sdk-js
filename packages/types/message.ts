@@ -211,7 +211,8 @@ export interface ServerCreateMessage
    */
   addReactions?: ServerAddReactions[];
   /**
-   * The attachments to add to this message.
+   * A list of attachments to add to the message.  The same file cannot be
+   * attached to the same message multiple times.
    */
   addAttachments?: CreateAttachment[];
   /**

@@ -32,7 +32,14 @@ export interface UploadedFile {
 }
 
 export type ClientCreateFile = {
+  /**
+   * The name of the file.  This will be shown to the user when attached to a
+   * message and will be the file's name if it's downloaded.
+   */
   name: string;
+  /**
+   * The file contents, such as from a file input element.
+   */
   blob: Blob;
 };
 
@@ -53,10 +60,15 @@ export type UploadFileResult = {
 export interface ICordFileSDK {
   /**
    * Upload a file to Cord's file storage for use in other Cord APIs, such as
-   * attaching to a message.  Because uploading the file may take a long time,
-   * this works in two steps.  First, the file record is created, and then the
-   * file is uploaded directly from the browser to the file storage. You can
-   * reference the file in other APIs as soon as the first step is complete.
+   * [attaching to a
+   * message](https://docs.cord.com/js-apis-and-hooks/thread-api/sendMessage#addAttachments).
+   * Because uploading the file contents may take a long time, this works in two
+   * steps.  First, the file record is created, and then the file is uploaded
+   * directly from the browser to the file storage. You can reference the file
+   * in other APIs as soon as the first step is complete.
+   *
+   * Certain types of files, such as executable code, cannot be uploaded. Trying
+   * to do so will generate an error.
    *
    * Files that are uploaded but never attached to a message will eventually be
    * garbage collected.
@@ -84,8 +96,9 @@ export type ServerCreateFile = {
    */
   ownerID: UserID;
   /**
-   * The name of the file.  If not supplied, it will be taken from the file
-   * parameter.
+   * The name of the file.  This will be shown to the user when attached to a
+   * message and will be the file's name if it's downloaded.  If not supplied,
+   * it will be taken from the filename of the `file` parameter.
    */
   name?: string;
 };

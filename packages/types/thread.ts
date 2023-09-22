@@ -435,14 +435,27 @@ export interface ClientCreateThread
     > {}
 
 export type CreateFileAttachment = {
+  /**
+   * The type of attachment.  This is `file` for file attachments.
+   */
   type: 'file';
+  /**
+   * The ID of the file to attach.  This must have been previously uploaded via
+   * the [file API](https://docs.cord.com/js-apis-and-hooks/file-api/uploadFile).
+   */
   id: string;
 };
 
 export type CreateAttachment = CreateFileAttachment;
 
 export type RemoveFileAttachment = {
+  /**
+   * The type of attachment to remove.  This is `file` for file attachments.
+   */
   type: 'file';
+  /**
+   * The ID of the file attachment to remove.
+   */
   id: string;
 };
 
