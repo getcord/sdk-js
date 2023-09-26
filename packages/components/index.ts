@@ -137,6 +137,7 @@ export const componentAttributes = {
     size: 'composer-size',
     'thread-url': 'string',
     'message-metadata': 'json',
+    'thread-metadata': 'json',
     'organization-id': 'string',
   },
   InboxLauncher: {
@@ -223,6 +224,7 @@ export const componentAttributes = {
     'enable-facepile-tooltip': 'boolean',
     'thread-url': 'string',
     'thread-name': 'string',
+    'thread-metadata': 'json',
   },
 } as const;
 

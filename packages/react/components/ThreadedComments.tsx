@@ -2,6 +2,7 @@ import * as React from 'react';
 import cx from 'classnames';
 import type {
   ComposerWebComponentEvents,
+  EntityMetadata,
   Location,
   MessageInfo,
   ResolvedStatus,
@@ -41,6 +42,7 @@ type ComposerPosition = 'top' | 'bottom' | 'none';
 export type ThreadedCommentsReactComponentProps = {
   location: Location;
   partialMatch?: boolean;
+  threadMetadata?: EntityMetadata;
   className?: string;
   messageOrder?: MessageOrder;
   composerPosition?: ComposerPosition;
@@ -78,6 +80,7 @@ export function ThreadedComments({
   showReplies = 'initiallyCollapsed',
   highlightThreadId,
   partialMatch = false,
+  threadMetadata,
   displayResolved = 'unresolvedOnly',
   autofocus = false,
   enableFacepileTooltip = false,
@@ -200,6 +203,7 @@ export function ThreadedComments({
       showExpanded={topLevelComposerExpanded}
       threadUrl={threadUrl}
       threadName={threadName}
+      threadMetadata={threadMetadata}
       onFocus={onComposerFocus}
       onBlur={onComposerBlur}
       onSend={onSend}

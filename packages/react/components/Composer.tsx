@@ -30,6 +30,7 @@ export type ComposerReactComponentProps = ReactPropsWithLocation<{
   showCloseButton?: boolean;
   size?: ComposerSize;
   messageMetadata?: EntityMetadata;
+  threadMetadata?: EntityMetadata;
   organizationId?: string;
   onFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
   onBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
