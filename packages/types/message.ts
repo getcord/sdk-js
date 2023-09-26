@@ -261,6 +261,16 @@ export interface ServerListThreadMessageParameters {
   sortDirection?: 'ascending' | 'descending';
 }
 
+export type ServerListMessageFilter = {
+  /**
+   * Arbitrary key-value pairs of data associated with the message.
+   */
+  metadata?: EntityMetadata;
+  /**
+   * The [location](https://docs.cord.com/reference/location) of the thread containing the message.
+   */
+  location?: string;
+};
 export interface ServerListMessageParameters {
   /**
    * Number of messages to return. Defaults to 1000.
