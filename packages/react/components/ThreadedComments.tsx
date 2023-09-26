@@ -214,7 +214,9 @@ export function ThreadedComments({
     />
   );
 
-  if (!window.CordSDK) {
+  // In server-side rendered apps, we won't have access to the window object.
+  // We need to check if the object is defined first, then if CordSDK is defined.
+  if (typeof window === 'undefined' || !window.CordSDK) {
     // We can't get translations until the SDK is initialized, so all the text
     // will just show the translation keys and look really weird.  Render
     // nothing instead.
