@@ -907,9 +907,7 @@ export interface ServerCreateThread
       >
     > {
   /**
-   * Whether the thread is resolved.  Setting this to `true` is equivalent to
-   * setting `resolvedTimestamp` to the current time, and setting this to
-   * `false` is equivalent to setting `resolvedTimestamp` to `null`.
+   * @deprecated This field is deprecated and has no effect.
    */
   resolved?: boolean;
 }

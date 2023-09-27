@@ -466,11 +466,7 @@ export default {
             additionalProperties: { type: ['string', 'number', 'boolean'] },
             propertyOrder: [],
           },
-          resolved: {
-            description:
-              'Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.',
-            type: 'boolean',
-          },
+          resolved: { type: 'boolean' },
           organizationID: {
             description: 'The organization ID this thread is in.',
             type: 'string',
@@ -940,11 +936,7 @@ export default {
     description: 'https://docs.cord.com/rest-apis/threads/',
     type: 'object',
     properties: {
-      resolved: {
-        description:
-          'Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.',
-        type: 'boolean',
-      },
+      resolved: { type: 'boolean' },
       location: {
         description: 'The [location](/reference/location) of this thread.',
         type: 'object',
