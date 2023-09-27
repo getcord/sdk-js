@@ -7,6 +7,7 @@ import type {
   MessageInfo,
   ResolvedStatus,
   ThreadData,
+  ThreadListFilter,
   ThreadSummary,
 } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
@@ -42,6 +43,7 @@ type ComposerPosition = 'top' | 'bottom' | 'none';
 export type ThreadedCommentsReactComponentProps = {
   location: Location;
   partialMatch?: boolean;
+  filter?: ThreadListFilter;
   threadMetadata?: EntityMetadata;
   className?: string;
   messageOrder?: MessageOrder;
@@ -80,6 +82,7 @@ export function ThreadedComments({
   showReplies = 'initiallyCollapsed',
   highlightThreadId,
   partialMatch = false,
+  filter,
   threadMetadata,
   displayResolved = 'unresolvedOnly',
   autofocus = false,
@@ -133,7 +136,12 @@ export function ThreadedComments({
       sortBy: 'first_message_timestamp',
       sortDirection: 'descending',
       partialMatch,
-      filter: { resolvedStatus },
+      filter: {
+        ...filter,
+        resolvedStatus: displayResolved
+          ? resolvedStatus
+          : filter?.resolvedStatus,
+      },
     },
   );
 
