@@ -466,11 +466,11 @@ export default {
             additionalProperties: { type: ['string', 'number', 'boolean'] },
             propertyOrder: [],
           },
-          resolved: { type: 'boolean' },
           organizationID: {
             description: 'The organization ID this thread is in.',
             type: 'string',
           },
+          resolved: { type: 'boolean' },
           extraClassnames: {
             description:
               'An optional space separated list of classnames to add to the thread.',
@@ -488,8 +488,8 @@ export default {
           'url',
           'name',
           'metadata',
-          'resolved',
           'organizationID',
+          'resolved',
           'extraClassnames',
           'subscribers',
         ],

@@ -3,6 +3,18 @@
 // block below works.
 import type {} from 'i18next';
 
+// We follow a few patterns in naming to clarify the context in which a string
+// will be displayed, particularly in adding suffixes to keys.  The common
+// suffixes are:
+// * _action - A label on a button, menu item, or the like that causes an action
+//   to happen
+// * _action_success - A message indicating an action succeeded
+// * _action_[failure type] - A message indicating an action failed or cannot be
+//   attempted
+// * _status - A message indicating the status of an item
+// * _placeholder - A label that shows as a placeholder in an input
+// * _tooltip - A tooltip that shows on a button, menu item, or the like
+
 // NOTE: These strings are here for documentation, but they will not be used at
 // runtime.  The Cord SDK comes with a compiled-in copy of these strings which
 // will be used instead.  If you want to change the value for any of these
@@ -12,21 +24,21 @@ export const resources = {
   en: {
     default: {},
     composer: {
-      reply: 'Reply...',
-      add_a_comment: 'Add a comment...',
-      mention_someone: 'Mention someone',
-      replace_annotation: 'Replace annotation',
-      add_emoji: 'Add emoji',
-      remove_task: 'Remove task',
-      create_task: 'Create task',
-      attach_file: 'Attach file',
-      start_video_msg: 'Record a video',
-      remove_file: 'Remove',
-      connect_to_slack: 'Connect your Slack team',
+      send_message_placeholder: 'Add a comment...',
+      reply_placeholder: 'Reply...',
+      mention_someone_tooltip: 'Mention someone',
+      replace_annotation_tooltip: 'Replace annotation',
+      add_emoji_tooltip: 'Add emoji',
+      remove_task_tooltip: 'Remove task',
+      create_task_tooltip: 'Create task',
+      attach_file_tooltip: 'Attach file',
+      start_video_msg_tooltip: 'Record a video',
+      remove_file_action: 'Remove',
+      connect_to_slack_action: 'Connect your Slack team',
       slack_follow_instructions: 'Follow the instructions',
-      editing: 'Editing',
+      editing_status: 'Editing',
       cancel_editing_action: 'Cancel',
-      resolved: 'Resolved',
+      resolved_status: 'Resolved',
       unresolve_action: 'Reopen to reply',
       annotation: 'Your annotation',
       remove_annotation_action: 'Remove',
@@ -35,11 +47,11 @@ export const resources = {
       placeholder_title: 'Chat with your team, right here',
       placeholder_body:
         "Ask a question, give feedback, or just say 'Hi'. Comments can be seen by anyone who can access this page.",
-      new: 'New',
-      reply: 'Reply...',
-      new_replies_other: '{{count}} unread',
-      replies_one: '1 reply',
-      replies_other: '{{count}} replies',
+      new_status: 'New',
+      reply_action: 'Reply...',
+      new_replies_status_other: '{{count}} unread',
+      replies_status_one: '1 reply',
+      replies_status_other: '{{count}} replies',
       mark_as_read_action: 'Mark as read',
       share_via_slack_action: 'Share with Slack',
       share_via_slack_action_not_connected: 'Connect to share',
@@ -51,7 +63,7 @@ export const resources = {
       unsubscribe_action_success: "You've unsubscribed from this thread",
       resolve_action: 'Resolve',
       resolve_action_success: 'You resolved this thread',
-      resolved: 'Resolved',
+      resolved_status: 'Resolved',
       unresolve_action: 'Reopen',
       unresolve_action_success: 'You have reopened this thread',
       collapse_action: 'Collapse thread',
@@ -60,29 +72,29 @@ export const resources = {
       placeholder_title: 'Be the first to add a comment',
       placeholder_body:
         "Ask a question, give feedback, or just say 'Hi'. Comments can be seen by anyone who can access this page.",
-      show_resolved_threads: 'Show resolved threads',
-      hide_resolved_threads: 'Hide resolved threads',
+      show_resolved_threads_action: 'Show resolved threads',
+      hide_resolved_threads_action: 'Hide resolved threads',
     },
     threaded_comments: {
       show_unresolved: 'Open',
       show_resolved: 'Resolved',
     },
     message: {
-      download: 'Download',
+      download_action: 'Download',
       unable_to_display_document: 'Unable to display document',
       unable_to_display_image: 'Unable to display image',
-      editing: '(Editing)',
-      edited: '(Edited)',
+      editing_status: '(Editing)',
+      edited_status: '(Edited)',
       edit_action: 'Edit',
-      edit_action_resolved: 'Reopen to edit',
+      edit_resolved_action: 'Reopen to edit',
       delete_action: 'Delete',
       deleted_message: '{{user.displayName}} deleted a message',
       undo_delete_action: 'Undo',
       add_reaction_action: 'Add reaction',
       show_more_other: 'Show {{count}} more',
       message_options_tooltip: 'Options',
-      screenshot_loading: 'Loading',
-      screenshot_missing: 'No screenshot found',
+      screenshot_loading_status: 'Loading',
+      screenshot_missing_status: 'No screenshot found',
       screenshot_expand_action: 'Image',
       screenshot_expand_tooltip: 'Click to expand',
       timestamp: {
@@ -115,9 +127,9 @@ export const resources = {
     },
     notifications: {
       notifications_title: 'Notifications',
-      mark_all_as_read: 'Mark all as read',
-      mark_as_read: 'Mark as read',
-      delete: 'Delete notification',
+      mark_all_as_read_action: 'Mark all as read',
+      mark_as_read_action: 'Mark as read',
+      delete_action: 'Delete notification',
       timestamp: {
         in_less_than_a_minute: 'In less than a minute',
         just_now: 'Just now',
