@@ -173,6 +173,9 @@ export const resources = {
     },
     user: {
       viewer_user: '{{user.displayName}} (you)',
+      viewer_user_subtitle: '{{user.secondaryDisplayName}}',
+      other_user: '{{user.displayName}}',
+      other_user_subtitle: '{{user.secondaryDisplayName}}',
     },
   },
 };
