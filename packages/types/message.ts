@@ -38,6 +38,21 @@ export interface MessageFileAttachment extends UploadedFile {
 }
 
 /**
+ * The screenshot attached to this message.
+ */
+export interface MessageScreenshotAttachment {
+  /**
+   * The type of this attachment, which is always `screenshot` for screenshot attachments.
+   */
+  type: 'screenshot';
+  /**
+   * The screenshot attached to the message. Screenshots are attached via `screenshotOptions.captureWhen`
+   * API.
+   */
+  screenshot: UploadedFile;
+}
+
+/**
  * An annotation attached to this message.
  */
 export interface MessageAnnotationAttachment {
@@ -57,7 +72,8 @@ export interface MessageAnnotationAttachment {
 
 export type MessageAttachment =
   | MessageFileAttachment
-  | MessageAnnotationAttachment;
+  | MessageAnnotationAttachment
+  | MessageScreenshotAttachment;
 
 export interface CoreMessageData {
   /**
