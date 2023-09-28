@@ -27,6 +27,21 @@ export interface ClientUserData {
    */
   shortName: string | null;
   /**
+   * The primary display name of the user.  This is a readonly field that's
+   * provided as a convenience.  Its value is the user's shortName or name,
+   * preferring shortName if both are set, or the string "unknown" if neither is
+   * set.
+   */
+  displayName: string;
+  /**
+   * The secondary display name of the user, in cases where you might want to
+   * display a secondary name (such as in a subtitle).  This is a readonly field
+   * that's provided as a convenience.  Its value is the user's name or
+   * shortName, preferring name if both are set, or the string "Unknown" if
+   * neither is set.
+   */
+  secondaryDisplayName: string;
+  /**
    * A URL to the user's profile picture.
    */
   profilePictureURL: string | null;
