@@ -190,15 +190,16 @@ export function ThreadedComments({
     renderedThreads.reverse();
   }
 
-  const fetchMoreButton = hasMore && (
-    <button
-      className={cx(classes.showMore, fonts.fontSmall)}
-      onClick={() => void fetchMore(5)}
-      type="button"
-    >
-      {'Fetch more'}
-    </button>
-  );
+  const fetchMoreButton =
+    !loading && hasMore ? (
+      <button
+        className={cx(classes.showMore, fonts.fontSmall)}
+        onClick={() => void fetchMore(5)}
+        type="button"
+      >
+        Load more
+      </button>
+    ) : null;
 
   const composerOnTop = composerPosition === 'top';
   // When showing resolved threads only, we don't want to show the composer
