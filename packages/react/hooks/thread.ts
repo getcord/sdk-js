@@ -309,7 +309,7 @@ export function useThreadData(
  *   </div>
  * );
  * ```
- * @param threadId - The thread ID to fetch data for. If a thread with this ID
+ * @param threadID - The thread ID to fetch data for. If a thread with this ID
  * does not exist, it will be created.
  * @param options - Options for creating new threads.
  * @returns The hook will initially return `loading: true`, initial values for
