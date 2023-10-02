@@ -97,9 +97,11 @@ globalStyle(`.${tab}`, {
   borderRadius: cssVar('space-3xs'),
   flexGrow: 1,
   padding: cssVar('space-3xs'),
+  color: 'inherit',
 });
 
 globalStyle(`.${tab}:hover`, {
+  color: 'inherit',
   backgroundColor: cssVar('color-base-x-strong'),
   cursor: 'pointer',
 });
