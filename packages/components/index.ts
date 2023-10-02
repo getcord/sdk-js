@@ -84,6 +84,7 @@ export const componentAttributes = {
     'observe-document': 'boolean',
     durable: 'boolean',
     'initial-state': 'boolean',
+    'organization-id': 'string',
   },
   Sidebar: {
     context: 'json',

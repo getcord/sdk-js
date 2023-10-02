@@ -24,6 +24,7 @@ export type PresenceObserverReactComponentProps = React.PropsWithChildren<
     presentEvents?: string[];
     absentEvents?: string[];
     initialState?: boolean;
+    organizationId?: string;
     onChange?: (
       ...args: PresenceObserverWebComponentEvents['change']
     ) => unknown;
