@@ -26,6 +26,7 @@ import { Avatar } from './Avatar';
 import { Facepile } from './Facepile';
 import { Message } from './Message';
 import { Icon } from './helpers/Icon';
+import { EmptyStateWithFacepile } from './helpers/EmptyStateWithFacepile';
 
 const THREADED_COMMENTS_COMPONENT_NAME = 'CORD-THREADED-COMMENTS';
 
@@ -57,6 +58,7 @@ export type ThreadedCommentsReactComponentProps = {
   displayResolved?: DisplayResolved;
   autofocus?: boolean;
   enableFacepileTooltip?: boolean;
+  showPlaceholder?: boolean;
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
@@ -87,6 +89,7 @@ export function ThreadedComments({
   displayResolved = 'unresolvedOnly',
   autofocus = false,
   enableFacepileTooltip = false,
+  showPlaceholder = true,
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
@@ -144,6 +147,7 @@ export function ThreadedComments({
       },
     },
   );
+  const { orgMembers } = user.useOrgMembers();
 
   const dispatchLoadingEvent = useCallFunctionOnce(onLoading);
   const dispatchRenderEvent = useCallFunctionOnce(onRender);
@@ -247,7 +251,13 @@ export function ThreadedComments({
       {composerOnTop && showComposer && composer}
       <div className={classes.threadList}>
         {!newestOnTop && fetchMoreButton}
-        {renderedThreads}
+        {threads.length === 0 && showPlaceholder ? (
+          <EmptyStateWithFacepile
+            users={orgMembers?.map((p) => p.id).slice(0, 4) ?? []}
+          />
+        ) : (
+          renderedThreads
+        )}
         {newestOnTop && fetchMoreButton}
       </div>
       {!composerOnTop && showComposer && composer}

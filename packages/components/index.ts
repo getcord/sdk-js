@@ -227,6 +227,7 @@ export const componentAttributes = {
     'thread-name': 'string',
     'thread-metadata': 'json',
     filter: 'json',
+    'show-placeholder': 'boolean',
   },
 } as const;
 

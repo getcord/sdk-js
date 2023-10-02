@@ -4,7 +4,7 @@ import { getModifiedSelector } from '../../common/ui/modifiers';
 import { resolvedThreadHeader } from '../ThreadedComments.classnames';
 import { button } from './Button.classnames';
 import * as classes from './Icon.classnames';
-import { emptyStateContainer } from '@cord-sdk/react/components/helpers/EmptyStateWithIcon.classnames';
+import { emptyStateContainer } from './EmptyStateWithIcon.classnames';
 
 export default classes;
 

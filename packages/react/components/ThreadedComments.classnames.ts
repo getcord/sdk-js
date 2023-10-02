@@ -1,4 +1,5 @@
 import { cordifyClassname } from '../common/util';
+import * as emptyStateClasses from './helpers/EmptyStateWithFacepile.classnames';
 
 export const comments = cordifyClassname('threaded-comments');
 export const unresolvedOnly = cordifyClassname(
@@ -31,6 +32,12 @@ export const threadedCommentsClassnameDocs = {
     'Applied to the individual "Open" and "Resolved" buttons within the aforementioned `tabContainer`.',
   [threadList]:
     'Applied to the high-level list of threads. Although it is a list of threads, it is not actually a `ThreadList` component, hence the long name.',
+  [emptyStateClasses.emptyStatePlaceholderContainer]:
+    'Applied to the container of the placeholder that appears when there are no messages.',
+  [emptyStateClasses.emptyStatePlaceholderTitle]:
+    'Applied to the title of the placeholder when there are no messages.',
+  [emptyStateClasses.emptyStatePlaceholderBody]:
+    'Applied to the body of the placeholder when there are no messages.',
   [thread]:
     'Applied to an individual thread. Although it represents a thread, it is not actually a `Thread` component, hence the long name.',
   [resolvedThreadHeader]:
