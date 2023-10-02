@@ -12,6 +12,8 @@ import type {
   ObserveThreadActivitySummaryOptions,
   SearchResultData,
   SearchOptionsType,
+  ThreadObserverOptions,
+  ClientThreadData,
 } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
@@ -216,7 +218,7 @@ export function useLocationData(
  * return (
  *   <div>
  *     {messages.map((messageSummary) => (
- *       <div key={summary.id}>
+ *       <div key={messageSummary.id}>
  *         Message ID {messageSummary.id} was created at {messageSummary.createdTimestamp}!
  *       </div>
  *     ))}
@@ -279,6 +281,84 @@ export function useThreadData(
   }, [threadSDK, optionsMemo, threadId]);
 
   return { messages, firstMessage, fetchMore, loading, hasMore };
+}
+
+/**
+ * This hook allows you to observe message and summary data about a thread, including
+ * live updates.
+ * @example Overview
+ * ```javascript
+ * import { thread } from '@cord-sdk/react';
+ * const { messages, summary, loading, hasMore, fetchMore } = thread.useThread('my-awesome-thread-id');
+ *
+ * return (
+ *   <div>
+ *     {summary ?
+ *       <p> {summary.unread} / {summary.total} unread messages </p>
+ *       : null}
+ *     {messages.map((messageSummary) => (
+ *       <div key={messageSummary.id}>
+ *         Message ID {messageSummary.id} was created at {messageSummary.createdTimestamp}!
+ *       </div>
+ *     ))}
+ *     {loading ? (
+ *       <div>Loading...</div>
+ *     ) : hasMore ? (
+ *       <div onClick={() => fetchMore(10)}>Fetch 10 more</div>
+ *     ) : null}
+ *   </div>
+ * );
+ * ```
+ * @param threadId - The thread ID to fetch data for. If a thread with this ID
+ * does not exist, it will be created.
+ * @param options - Options for creating new threads.
+ * @returns The hook will initially return `loading: true`, initial values for
+ * pagination information and messages, and summary will be undefined while the
+ * data loads from our API. Once it has loaded, your component will re-render
+ * and the hook will return an object containing the fields described under
+ * "Available Data" above. The component will automatically re-render if any of
+ * the data changes, i.e., this data is always "live".
+ */
+export function useThread(
+  threadID: string,
+  options?: ThreadObserverOptions,
+): ClientThreadData {
+  const [messages, setMessages] = useState<ClientMessageData[]>([]);
+  const [summary, setSummary] = useState<ThreadSummary | undefined>();
+  const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
+    () => async (_n: number) => {},
+  );
+  const [loading, setLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
+
+  const { sdk } = useCordContext('useCordThread');
+  const threadSDK = sdk?.thread;
+
+  const optionsMemo = useMemoObject(options);
+
+  useEffect(() => {
+    if (!threadSDK) {
+      return;
+    }
+
+    const key = threadSDK.observeThread(
+      threadID,
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      ({ messages, summary, fetchMore, loading, hasMore }) => {
+        setMessages(messages);
+        setSummary(summary);
+        setFetchMore(() => fetchMore);
+        setLoading(loading);
+        setHasMore(hasMore);
+      },
+      optionsMemo,
+    );
+    return () => {
+      threadSDK.unobserveThread(key);
+    };
+  }, [threadSDK, optionsMemo, threadID]);
+
+  return { messages, summary, fetchMore, loading, hasMore };
 }
 
 /**
