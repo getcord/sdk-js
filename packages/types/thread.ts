@@ -607,6 +607,7 @@ export interface ICordThreadSDK {
   /**
    * This method allows you to observe summary information about a thread, such
    * as its location and number of unread messages, including live updates.
+   * @deprecated In favor of `observeThread` which returns both thread messages and thread summary data.
    * @example Overview
    * ```javascript
    * const ref = window.CordSDK.thread.observeThreadSummary(
@@ -640,6 +641,7 @@ export interface ICordThreadSDK {
   /**
    * This method allows you to observe detailed data about a thread, including
    * data about all the messages inside it, including live updates.
+   * @deprecated In favor of `observeThread` which returns both thread messages and thread summary data.
    * @example Overview
    * ```javascript
    * const ref = window.CordSDK.thread.observeThreadData(

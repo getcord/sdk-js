@@ -82,6 +82,7 @@ export function useLocationSummary(
 /**
  * This method allows you to observe summary information about a thread,
  * including live updates.
+ * @deprecated In favor of `useThread` which returns both thread messages and thread summary data.
  * @example Overview
  * ```javascript
  * import { thread } from '@cord-sdk/react';
@@ -210,6 +211,7 @@ export function useLocationData(
 /**
  * This method allows you to observe detailed data about a thread, including
  * live updates.
+ * @deprecated In favor of `useThread` which returns both thread messages and thread summary data.
  * @example Overview
  * ```javascript
  * import { thread } from '@cord-sdk/react';
