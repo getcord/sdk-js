@@ -25,6 +25,7 @@ const {
 } = classes;
 
 globalStyle(`.${comments}`, {
+  position: 'relative', // Make sure toasts appear inside `comments`
   width: '320px',
   border: `1px solid ${cssVar('color-base-x-strong')}`,
   padding: cssVar('space-2xs'),
