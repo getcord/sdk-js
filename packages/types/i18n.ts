@@ -78,6 +78,16 @@ export const resources = {
     threaded_comments: {
       show_unresolved: 'Open',
       show_resolved: 'Resolved',
+      load_more_action: 'Load more',
+      show_replies_action_read_one: '1 reply',
+      show_replies_action_read_other: '{{count}} replies',
+      show_replies_action_unread_one: '1 new reply',
+      show_replies_action_unread_other: '{{count}} new replies',
+      hide_replies_action: 'Hide replies',
+      show_more_replies_action: 'Show more',
+      reply_action: 'Reply',
+      resolved_status: '$t(thread:resolved_status)',
+      unresolve_action: '$t(thread:unresolve_action)',
     },
     message: {
       download_action: 'Download',

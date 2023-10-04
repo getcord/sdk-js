@@ -13,7 +13,7 @@ import type {
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { logComponentInstantiation, pluralize } from '../common/util';
+import { logComponentInstantiation } from '../common/util';
 import * as user from '../hooks/user';
 import * as thread from '../hooks/thread';
 import { useExtraClassnames } from '../hooks/useExtraClassnames';
@@ -195,15 +195,7 @@ export function ThreadedComments({
   }
 
   const fetchMoreButton =
-    !loading && hasMore ? (
-      <button
-        className={cx(classes.showMore, fonts.fontSmall)}
-        onClick={() => void fetchMore(5)}
-        type="button"
-      >
-        Load more
-      </button>
-    ) : null;
+    !loading && hasMore ? <FetchMoreButton fetchMore={fetchMore} /> : null;
 
   const composerOnTop = composerPosition === 'top';
   // When showing resolved threads only, we don't want to show the composer
@@ -262,6 +254,23 @@ export function ThreadedComments({
       </div>
       {!composerOnTop && showComposer && composer}
     </div>
+  );
+}
+
+function FetchMoreButton({
+  fetchMore,
+}: {
+  fetchMore: (howMany: number) => Promise<void>;
+}) {
+  const { t } = useTranslation('threaded_comments');
+  return (
+    <button
+      className={cx(classes.showMore, fonts.fontSmall)}
+      onClick={() => void fetchMore(5)}
+      type="button"
+    >
+      {t('load_more_action')}
+    </button>
   );
 }
 
@@ -457,6 +466,7 @@ function CollapsedReplies({
   enableFacepileTooltip: boolean;
   onClick: () => void;
 }) {
+  const { t } = useTranslation('threaded_comments');
   // The thread summary has an unread count covering the entire thread. The UI we
   // render below looks like we are talking about the number of unread *replies*,
   // so if the first message itself is unread, subtract that from the number.
@@ -491,8 +501,8 @@ function CollapsedReplies({
             enableTooltip={enableFacepileTooltip}
           />
           {hasUnread
-            ? pluralize(unreadNumber, 'new reply', 'new replies')
-            : pluralize(replyCount, 'reply', 'replies')}
+            ? t('show_replies_action_unread', { count: unreadNumber })
+            : t('show_replies_action_read', { count: replyCount })}
         </button>
       )}
     </>
@@ -520,6 +530,7 @@ function ThreadReplies({
   onMessageEditStart?: (messageInfo: MessageInfo) => unknown;
   onMessageEditEnd?: (messageInfo: MessageInfo) => unknown;
 }) {
+  const { t } = useTranslation('threaded_comments');
   const { messages, hasMore, fetchMore } = threadData;
 
   // The useThreadData hook will also return the first message, but
@@ -541,7 +552,7 @@ function ThreadReplies({
             }}
             type="button"
           >
-            {'Hide replies'}
+            {t('hide_replies_action')}
           </button>
 
           {hasMore && (
@@ -550,7 +561,7 @@ function ThreadReplies({
               onClick={() => void fetchMore(5)}
               type="button"
             >
-              {'Show more'}
+              {t('show_more_replies_action')}
             </button>
           )}
           <div className={classes.repliesContainer}>
@@ -621,6 +632,7 @@ function ReplyComponent({
   onComposerClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
+  const { t } = useTranslation('threaded_comments');
   const viewerData = user.useViewerData();
   const userId = viewerData?.id;
 
@@ -651,12 +663,13 @@ function ReplyComponent({
       }}
       type="button"
     >
-      {'Reply'}
+      {t('reply_action')}
     </button>
   );
 }
 
 function ResolvedThreadHeader({ threadId }: { threadId: string }) {
+  const { t } = useTranslation('threaded_comments');
   const setUnresolved = useCallback(() => {
     if (window.CordSDK) {
       void window.CordSDK.thread.updateThread(threadId, {
@@ -667,13 +680,13 @@ function ResolvedThreadHeader({ threadId }: { threadId: string }) {
   return (
     <div className={cx(classes.resolvedThreadHeader, fonts.fontSmall)}>
       <Icon name={'CheckCircle'} />
-      {'Resolved'}
+      {t('resolved_status')}
       <button
         type="button"
         className={cx(classes.reopenButton, fonts.fontSmall)}
         onClick={setUnresolved}
       >
-        {'Reopen'}
+        {t('unresolve_action')}
       </button>
     </div>
   );
