@@ -94,6 +94,7 @@ export function Thread(
         send: props.onSend,
         // Decision to not surface to Threads in favour of devs building their own threads if using
         // the composer component.
+        threadreopen: undefined,
         close: undefined,
       },
       'cord-composer',

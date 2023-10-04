@@ -36,6 +36,9 @@ export type ComposerReactComponentProps = ReactPropsWithLocation<{
   onBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
   onClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
+  onThreadReopen?: (
+    ...args: ComposerWebComponentEvents['threadreopen']
+  ) => unknown;
 }>;
 
 type PrivateComposerReactComponentProps = ComposerReactComponentProps & {
@@ -51,6 +54,7 @@ export function Composer(
       blur: props.onBlur,
       close: props.onClose,
       send: props.onSend,
+      threadreopen: props.onThreadReopen,
     });
 
   const combinedSetRef = useCustomPropsRef(

@@ -330,6 +330,7 @@ export type ComposerWebComponentEvents = {
   blur: [{ threadId: ThreadID }];
   close: [{ threadId: ThreadID }];
   send: [{ threadId: ThreadID; messageId: MessageID }];
+  threadreopen: [{ threadId: ThreadID }];
 };
 
 export const COMPOSER_SIZE = ['small', 'medium', 'large'] as const;
