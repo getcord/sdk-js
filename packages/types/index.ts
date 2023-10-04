@@ -365,6 +365,8 @@ export type MessageWebComponentEvents = {
   mouseleave: [messageInfo: MessageInfo];
   editstart: [messageInfo: MessageInfo];
   editend: [messageInfo: MessageInfo];
+  threadresolve: [{ threadID: ThreadID }];
+  threadreopen: [{ threadID: ThreadID }];
   render: [];
   loading: [];
 };

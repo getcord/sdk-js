@@ -28,6 +28,12 @@ export type MessageReactComponentProps = {
   isEditing?: boolean;
   onEditStart?: (...args: MessageWebComponentEvents['editstart']) => unknown;
   onEditEnd?: (...args: MessageWebComponentEvents['editend']) => unknown;
+  onThreadResolve?: (
+    ...args: MessageWebComponentEvents['threadresolve']
+  ) => unknown;
+  onThreadReopen?: (
+    ...args: MessageWebComponentEvents['threadreopen']
+  ) => unknown;
 };
 
 export function Message(
@@ -44,6 +50,8 @@ export function Message(
       render: props.onRender,
       editstart: props.onEditStart,
       editend: props.onEditEnd,
+      threadresolve: props.onThreadResolve,
+      threadreopen: props.onThreadReopen,
     });
   const combinedSetRef = useComposedRefs<Element | null>(
     props.forwardRef,
