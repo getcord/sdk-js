@@ -20,6 +20,7 @@ import { useExtraClassnames } from '../hooks/useExtraClassnames';
 import * as fonts from '../common/ui/atomicClasses/fonts.css';
 import { MODIFIERS } from '../common/ui/modifiers';
 import { useCallFunctionOnce } from '../common/effects/useCallFunctionOnce';
+import type { ThreadListReactComponentProps } from '..';
 import classes from './ThreadedComments.css';
 import { Composer } from './Composer';
 import { Avatar } from './Avatar';
@@ -64,6 +65,8 @@ export type ThreadedCommentsReactComponentProps = {
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
   onMessageEditStart?: (messageInfo: MessageInfo) => unknown;
   onMessageEditEnd?: (messageInfo: MessageInfo) => unknown;
+  onThreadResolve?: ThreadListReactComponentProps['onThreadResolve'];
+  onThreadReopen?: ThreadListReactComponentProps['onThreadReopen'];
   onRender?: () => unknown;
   onLoading?: () => unknown;
   onComposerFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
@@ -95,6 +98,8 @@ export function ThreadedComments({
   onMessageMouseLeave,
   onMessageEditStart,
   onMessageEditEnd,
+  onThreadResolve,
+  onThreadReopen,
   onRender,
   onLoading,
   onComposerFocus,
@@ -182,6 +187,8 @@ export function ThreadedComments({
       onMessageMouseLeave={onMessageMouseLeave}
       onMessageEditStart={onMessageEditStart}
       onMessageEditEnd={onMessageEditEnd}
+      onThreadResolve={onThreadResolve}
+      onThreadReopen={onThreadReopen}
       onComposerFocus={onComposerFocus}
       onComposerBlur={onComposerBlur}
       onComposerClose={onComposerClose}
@@ -318,6 +325,8 @@ function CommentsThread({
   onMessageMouseLeave,
   onMessageEditStart,
   onMessageEditEnd,
+  onThreadResolve,
+  onThreadReopen,
   onComposerFocus,
   onComposerBlur,
   onComposerClose,
@@ -334,6 +343,8 @@ function CommentsThread({
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
   onMessageEditStart?: (messageInfo: MessageInfo) => unknown;
   onMessageEditEnd?: (messageInfo: MessageInfo) => unknown;
+  onThreadResolve?: ThreadListReactComponentProps['onThreadResolve'];
+  onThreadReopen?: ThreadListReactComponentProps['onThreadReopen'];
   onComposerFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
   onComposerBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
   onComposerClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
@@ -376,7 +387,12 @@ function CommentsThread({
       })}
       data-cord-thread-id={threadId}
     >
-      {isResolved && <ResolvedThreadHeader threadId={threadId} />}
+      {isResolved && (
+        <ResolvedThreadHeader
+          threadId={threadId}
+          onThreadReopen={onThreadReopen}
+        />
+      )}
       <Message
         messageId={threadSummary.firstMessage?.id}
         threadId={threadId}
@@ -415,6 +431,8 @@ function CommentsThread({
             messageId: threadSummary.firstMessage?.id ?? '',
           })
         }
+        onThreadResolve={onThreadResolve}
+        onThreadReopen={onThreadReopen}
       />
 
       {showingReplies &&
@@ -451,6 +469,9 @@ function CommentsThread({
           onComposerBlur={onComposerBlur}
           onComposerClose={onComposerClose}
           onSend={onSend}
+          onThreadReopen={(args) =>
+            onThreadReopen?.({ threadID: args.threadId })
+          }
         />
       )}
     </div>
@@ -567,6 +588,9 @@ function ThreadReplies({
           <div className={classes.repliesContainer}>
             {restOfMessages.map((message) => {
               return (
+                // We are not passing the onThreadResolve/onThreadReopen events
+                // to the remaining messages, because we can only resolve/reopen
+                // from the first message of a thread.
                 <Message
                   key={message.id}
                   threadId={threadId}
@@ -621,6 +645,7 @@ function ReplyComponent({
   onComposerBlur,
   onComposerClose,
   onSend,
+  onThreadReopen,
 }: {
   threadId: string;
   showingComposer: boolean;
@@ -631,6 +656,9 @@ function ReplyComponent({
   onComposerBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
   onComposerClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
+  onThreadReopen?: (
+    ...args: ComposerWebComponentEvents['threadreopen']
+  ) => unknown;
 }) {
   const { t } = useTranslation('threaded_comments');
   const viewerData = user.useViewerData();
@@ -652,6 +680,7 @@ function ReplyComponent({
           onComposerClose?.(args);
         }}
         onSend={onSend}
+        onThreadReopen={onThreadReopen}
       />
     </div>
   ) : (
@@ -668,7 +697,13 @@ function ReplyComponent({
   );
 }
 
-function ResolvedThreadHeader({ threadId }: { threadId: string }) {
+function ResolvedThreadHeader({
+  threadId,
+  onThreadReopen,
+}: {
+  threadId: string;
+  onThreadReopen?: ThreadListReactComponentProps['onThreadReopen'];
+}) {
   const { t } = useTranslation('threaded_comments');
   const setUnresolved = useCallback(() => {
     if (window.CordSDK) {
@@ -684,7 +719,10 @@ function ResolvedThreadHeader({ threadId }: { threadId: string }) {
       <button
         type="button"
         className={cx(classes.reopenButton, fonts.fontSmall)}
-        onClick={setUnresolved}
+        onClick={() => {
+          setUnresolved();
+          onThreadReopen?.({ threadID: threadId });
+        }}
       >
         {t('unresolve_action')}
       </button>
