@@ -250,7 +250,7 @@ export function ThreadedComments({
       {composerOnTop && showComposer && composer}
       <div className={classes.threadList}>
         {!newestOnTop && fetchMoreButton}
-        {threads.length === 0 && showPlaceholder ? (
+        {threads.length === 0 && !loading && showPlaceholder ? (
           <EmptyStateWithFacepile
             users={orgMembers?.map((p) => p.id).slice(0, 4) ?? []}
           />
