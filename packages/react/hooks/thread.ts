@@ -14,6 +14,7 @@ import type {
   SearchOptionsType,
   ThreadObserverOptions,
   ClientThreadData,
+  MessageID,
 } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
@@ -415,4 +416,45 @@ export function useSearchMessages(
   }, [threadSDK, textToMatch, authorID, inputsMemo]);
 
   return data;
+}
+
+/**
+ * This method allows you to fetch data for a single message, including live updates.
+ * @example Overview
+ * ```javascript
+ * import { thread } from '@cord-sdk/react';
+ * const message = thread.useMessage('my-awesome-message-id');
+ *
+ * return message && <div>Message with id: {message.id} found!</div>;
+ * ```
+ * @param messageID - The ID of the message.
+ * @returns The hook will initially return `undefined` while the data loads from
+ * our API. Once it has loaded, your component will re-render and the hook will
+ * return an an object containing the message data. If no message matching the
+ * provided messageID is found, it will return `null` instead.
+ *
+ */
+export function useMessage(
+  messageID: MessageID,
+): ClientMessageData | null | undefined {
+  const [message, setMessage] = useState<
+    ClientMessageData | null | undefined
+  >();
+  const { sdk } = useCordContext('useMessage');
+  const threadSDK = sdk?.thread;
+
+  useEffect(() => {
+    if (!threadSDK) {
+      return;
+    }
+
+    const key = threadSDK.observeMessage(messageID, (messageData) =>
+      setMessage(messageData),
+    );
+
+    return () => {
+      threadSDK.unobserveMessage(key);
+    };
+  }, [threadSDK, messageID]);
+  return message;
 }

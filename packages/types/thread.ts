@@ -12,6 +12,7 @@ import type {
 import type {
   ClientMessageData,
   CoreMessageData,
+  MessageCallback,
   SearchOptionsType,
   SearchResultData,
 } from './message';
@@ -722,6 +723,38 @@ export interface ICordThreadSDK {
     options?: ThreadObserverOptions,
   ): ListenerRef;
   unobserveThread(ref: ListenerRef): boolean;
+
+  /**
+   * This method allows you fetch data for a single message, including live updates.
+   * @example Overview
+   * ```javascript
+  
+   * const ref = window.CordSDK.thread.observeMessage(
+   *   'my-awesome-message-id',
+   *   (message) => {
+   *     console.log('Got a thread data update:');
+   *     if (message === undefined) {
+   *       console.log('Loading...');
+   *     }
+   *     if (message) {
+   *       console.log(`Message /${message.id} was authored by: /${message.authorID}`)
+   *     }
+   *   }
+   * );
+   * // ... Later, when updates are no longer needed ...
+   * window.CordSDK.thread.unobserveMessage(ref);
+   * 
+   * ```
+   * @param messageID - The ID of the message.
+   * @param callback - This callback will be called once with the current message
+   * data, and then again every time it changes. The argument passed to the
+   * callback is an object containing the message data or null if there's no
+   * message found with the provided messageID.
+   * @returns A reference number which can be passed to `unobserveMessage` to
+   * stop observing message information.
+   */
+  observeMessage(messageID: MessageID, callback: MessageCallback): ListenerRef;
+  unobserveMessage(ref: ListenerRef): boolean;
 
   /**
    * Set the subscribed status for an existing thread for the current user. A

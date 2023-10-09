@@ -163,6 +163,9 @@ export interface ClientMessageData extends CoreMessageData {
    */
   seen: boolean;
 }
+export type MessageCallback = (
+  data: ClientMessageData | null | undefined,
+) => unknown;
 
 export interface SearchResultData extends ClientMessageData {
   location: Location;
