@@ -250,7 +250,7 @@
               "type": "string"
             },
             "members": {
-              "description": "List of partner-specific IDs of the users who are members of this organization",
+              "description": "List of partner-specific IDs of the users who are members of this organization.\nThis will replace the existing members.",
               "type": "array",
               "items": { "$ref": "#/definitions/ID" }
             },
@@ -752,7 +752,7 @@
         "type": "string"
       },
       "members": {
-        "description": "List of partner-specific IDs of the users who are members of this organization",
+        "description": "List of partner-specific IDs of the users who are members of this organization.\nThis will replace the existing members.",
         "type": "array",
         "items": { "$ref": "#/definitions/ID" }
       }
@@ -1600,7 +1600,7 @@
       },
       "organization_details": {
         "description": "If present, update’s the organization’s details, or creates an organization\nwith those details if the organization_id is new to Cord. This is an object\nthat contains the same fields as the [organization management REST\nendpoint](/rest-apis/organizations/)",
-        "$ref": "#/definitions/Partial<Omit<ServerOrganizationData,\"id\">>"
+        "$ref": "#/definitions/Partial<Omit<ServerOrganizationData,\"id\"|\"members\">&{members?:ID[]|undefined;}>"
       }
     },
     "propertyOrder": [
@@ -1670,7 +1670,7 @@
           "last_name"
         ]
       },
-      "Partial<Omit<ServerOrganizationData,\"id\">>": {
+      "Partial<Omit<ServerOrganizationData,\"id\"|\"members\">&{members?:ID[]|undefined;}>": {
         "type": "object",
         "properties": {
           "name": { "description": "Organization name", "type": "string" },
@@ -1680,7 +1680,7 @@
             "type": "string"
           },
           "members": {
-            "description": "List of partner-specific IDs of the users who are members of this organization",
+            "description": "List of partner-specific IDs of the users who are members of this organization.\nThis will replace the existing members.",
             "type": "array",
             "items": { "$ref": "#/definitions/ID" }
           }

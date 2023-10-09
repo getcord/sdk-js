@@ -269,7 +269,7 @@ export default {
             },
             members: {
               description:
-                'List of partner-specific IDs of the users who are members of this organization',
+                'List of partner-specific IDs of the users who are members of this organization.\nThis will replace the existing members.',
               type: 'array',
               items: { $ref: '#/definitions/ID' },
             },
@@ -789,7 +789,7 @@ export default {
       },
       members: {
         description:
-          'List of partner-specific IDs of the users who are members of this organization',
+          'List of partner-specific IDs of the users who are members of this organization.\nThis will replace the existing members.',
         type: 'array',
         items: { $ref: '#/definitions/ID' },
       },
@@ -1659,7 +1659,7 @@ export default {
       organization_details: {
         description:
           'If present, update’s the organization’s details, or creates an organization\nwith those details if the organization_id is new to Cord. This is an object\nthat contains the same fields as the [organization management REST\nendpoint](/rest-apis/organizations/)',
-        $ref: '#/definitions/Partial<Omit<ServerOrganizationData,"id">>',
+        $ref: '#/definitions/Partial<Omit<ServerOrganizationData,"id"|"members">&{members?:ID[]|undefined;}>',
       },
     },
     propertyOrder: [
@@ -1732,26 +1732,27 @@ export default {
           'last_name',
         ],
       },
-      'Partial<Omit<ServerOrganizationData,"id">>': {
-        type: 'object',
-        properties: {
-          name: { description: 'Organization name', type: 'string' },
-          status: {
-            description:
-              'Whether this organization is active or deleted.  Attempting to log into a\ndeleted organization will fail.',
-            enum: ['active', 'deleted'],
-            type: 'string',
+      'Partial<Omit<ServerOrganizationData,"id"|"members">&{members?:ID[]|undefined;}>':
+        {
+          type: 'object',
+          properties: {
+            name: { description: 'Organization name', type: 'string' },
+            status: {
+              description:
+                'Whether this organization is active or deleted.  Attempting to log into a\ndeleted organization will fail.',
+              enum: ['active', 'deleted'],
+              type: 'string',
+            },
+            members: {
+              description:
+                'List of partner-specific IDs of the users who are members of this organization.\nThis will replace the existing members.',
+              type: 'array',
+              items: { $ref: '#/definitions/ID' },
+            },
           },
-          members: {
-            description:
-              'List of partner-specific IDs of the users who are members of this organization',
-            type: 'array',
-            items: { $ref: '#/definitions/ID' },
-          },
+          additionalProperties: false,
+          propertyOrder: ['name', 'status', 'members'],
         },
-        additionalProperties: false,
-        propertyOrder: ['name', 'status', 'members'],
-      },
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },

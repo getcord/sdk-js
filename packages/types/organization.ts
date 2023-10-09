@@ -24,7 +24,13 @@ export interface ServerOrganizationData {
 }
 
 export type ServerUpdateOrganization = Partial<
-  Omit<ServerOrganizationData, 'id'>
+  Omit<ServerOrganizationData, 'id' | 'members'> & {
+    /**
+     * List of partner-specific IDs of the users who are members of this organization.
+     * This will replace the existing members.
+     */
+    members?: ID[];
+  }
 >;
 export interface ServerUpdateOrganizationMembers {
   /**
