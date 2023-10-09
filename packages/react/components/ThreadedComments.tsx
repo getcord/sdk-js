@@ -401,36 +401,11 @@ function CommentsThread({
         // state. If the message has replies, we can wait for the user to open
         // the replies to mark it as seen.
         markAsSeen={threadSummary.total === 1}
-        onClick={() =>
-          onMessageClick?.({
-            threadId,
-            messageId: threadSummary.firstMessage?.id ?? '',
-          })
-        }
-        onMouseEnter={() =>
-          onMessageMouseEnter?.({
-            threadId,
-            messageId: threadSummary.firstMessage?.id ?? '',
-          })
-        }
-        onMouseLeave={() =>
-          onMessageMouseLeave?.({
-            threadId,
-            messageId: threadSummary.firstMessage?.id ?? '',
-          })
-        }
-        onEditStart={() =>
-          onMessageEditStart?.({
-            threadId,
-            messageId: threadSummary.firstMessage?.id ?? '',
-          })
-        }
-        onEditEnd={() =>
-          onMessageEditEnd?.({
-            threadId,
-            messageId: threadSummary.firstMessage?.id ?? '',
-          })
-        }
+        onClick={onMessageClick}
+        onMouseEnter={onMessageMouseEnter}
+        onMouseLeave={onMessageMouseLeave}
+        onEditStart={onMessageEditStart}
+        onEditEnd={onMessageEditEnd}
         onThreadResolve={onThreadResolve}
         onThreadReopen={onThreadReopen}
       />
@@ -595,36 +570,11 @@ function ThreadReplies({
                   key={message.id}
                   threadId={threadId}
                   messageId={message.id}
-                  onClick={() =>
-                    onMessageClick?.({
-                      threadId,
-                      messageId: message.id,
-                    })
-                  }
-                  onMouseEnter={() =>
-                    onMessageMouseEnter?.({
-                      threadId,
-                      messageId: message.id,
-                    })
-                  }
-                  onMouseLeave={() =>
-                    onMessageMouseLeave?.({
-                      threadId,
-                      messageId: message.id,
-                    })
-                  }
-                  onEditStart={() =>
-                    onMessageEditStart?.({
-                      threadId,
-                      messageId: message.id,
-                    })
-                  }
-                  onEditEnd={() =>
-                    onMessageEditEnd?.({
-                      threadId,
-                      messageId: message.id,
-                    })
-                  }
+                  onClick={onMessageClick}
+                  onMouseEnter={onMessageMouseEnter}
+                  onMouseLeave={onMessageMouseLeave}
+                  onEditStart={onMessageEditStart}
+                  onEditEnd={onMessageEditEnd}
                 />
               );
             })}
