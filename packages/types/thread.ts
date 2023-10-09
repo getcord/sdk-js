@@ -681,18 +681,18 @@ export interface ICordThreadSDK {
   unobserveThreadData(ref: ListenerRef): boolean;
 
   /**
-   * This method allows you to observe all messages and summary data for a thread, including live updates.
+   * This method allows you to observe all messages and data for a thread, including live updates.
    * @example Overview
    * ```javascript
    * const ref = window.CordSDK.thread.observeThread(
    *   'my-awesome-thread-id',
-   *   ({ messages, loading, hasMore, fetchMore, summary }) => {
+   *   ({ messages, loading, hasMore, fetchMore, thread }) => {
    *     console.log('Got a thread data update:');
    *     if (loading) {
    *       console.log('Loading...');
    *     }
-   *     if (summary) {
-   *       console.log(`${summary.unread}/${summary.total} unread`)
+   *     if (thread) {
+   *       console.log(`${thread.unread}/${thread.total} unread`)
    *     }
    *     messages.forEach((messageSummary) =>
    *       console.log(`Message ${messageSummary.id} was created at ${messageSummary.createdTimestamp}!`),
@@ -891,16 +891,23 @@ export type ClientThreadData = {
   /**
    * An array of objects, one for each message in the specified thread.
    *
-   * This array is paginated. At first, it will contain summaries of only the
-   * latest (newest) few messages. Calling `fetchMore` will cause further
-   * message summaries to be appended to the array.
+   * This array is paginated. At first, it will contain only the latest (newest)
+   * messages. Calling `fetchMore` will cause further messages to be appended to
+   * the array.
    */
   messages: ClientMessageData[];
 
   /**
-   * Summary data of the thread.
+   * Information about the thread.
+   * @deprecated
    */
-  summary?: ThreadSummary;
+  summary: ThreadSummary | undefined;
+
+  /**
+   * Information about the thread.  This will be undefined if the thread is
+   * still loading and null if the thread does not exist.
+   */
+  thread: ThreadSummary | null | undefined;
 } & PaginationParams;
 
 export type ThreadCallback = (data: ClientThreadData) => unknown;
