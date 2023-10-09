@@ -31,8 +31,8 @@
   },
   "devDependencies": {
     "@cord-sdk/jsx": "1.17.0",
-    "@types/react": "^18.2.18",
-    "@vanilla-extract/css": "^1.10.0",
+    "@types/react": "^18.2.25",
+    "@vanilla-extract/css": "^1.13.0",
     "@vanilla-extract/rollup-plugin": "^1.2.2",
     "rollup": "^2.70.1",
     "rollup-plugin-typescript2": "^0.31.2",
