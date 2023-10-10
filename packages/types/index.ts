@@ -16,6 +16,7 @@ import type {
   ThreadSummary,
 } from './thread';
 import type { ICordUserSDK } from './user';
+import type { ClientMessageData } from './message';
 
 export * from './application';
 export * from './auth';
@@ -358,6 +359,8 @@ export type PinWebComponentEvents = {
 export type MessageInfo = {
   threadId: string;
   messageId: string;
+  thread: ThreadSummary;
+  message: ClientMessageData;
 };
 
 export type MessageWebComponentEvents = {
