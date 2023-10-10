@@ -172,7 +172,6 @@ export const componentAttributes = {
     'message-id': 'string',
     'mark-as-seen': 'boolean',
     'is-editing': 'boolean',
-    'organization-id': 'string',
   },
   MessageContent: {
     content: 'json',
