@@ -12,6 +12,7 @@ export const primaryButtonsGroup = cordifyClassname('composer-primary-buttons');
 export const secondaryButtonsGroup = cordifyClassname(
   'composer-secondary-buttons',
 );
+export const composerErrorMessage = cordifyClassname('composer-error-message');
 
 export const editorContainer = cordifyClassname('editor-container');
 export const editor = cordifyClassname('editor');
@@ -33,4 +34,6 @@ export const composerClassnamesDocs = {
   [placeholder]: 'Applied to the typing placeholder.',
   [attachmentsContainer]:
     'Applied to the div containing the attachments (files and images).',
+  [composerErrorMessage]:
+    'Applied to the div containing the error message that appears when a message fails to send',
 };
