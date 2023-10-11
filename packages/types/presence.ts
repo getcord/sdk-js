@@ -3,7 +3,6 @@ import type { ListenerRef, Location, UserID } from './core';
 export type GetPresentOptions = {
   exclude_durable?: boolean;
   partial_match?: boolean;
-  organizationID?: string;
 };
 
 export type SetPresentOptions = {
@@ -29,7 +28,6 @@ export type SetPresentOptions = {
 
 export interface AddListenerOptions {
   partial_match?: boolean;
-  organizationID?: string;
 }
 
 export type PresenceListener = (update: PartialUserLocationData) => void;
@@ -53,7 +51,6 @@ export interface ObservePresenceOptions {
    * This value defaults to `false`.
    */
   partial_match?: boolean;
-  organizationID?: string;
 }
 
 export interface PartialUserLocationData {

@@ -138,7 +138,6 @@ export function LiveCursors({
     baseLocation,
     locationToDocument,
     !!showViewerCursor,
-    organizationID,
   );
 
   // Load detailed information for each user whose cursor we have, so we can
@@ -285,7 +284,6 @@ function useUserCursors(
   baseLocation: Location,
   locationToDocument: LiveCursorsLocationToDocumentFn,
   showViewerCursor: boolean,
-  organizationID: string | undefined,
 ): Record<string, CursorPosition> {
   const { sdk } = useCordContext('LiveCursors.useUserCursors');
   const presenceSDK = sdk?.presence;
@@ -353,7 +351,6 @@ function useUserCursors(
       {
         partial_match: true,
         exclude_durable: true,
-        organizationID,
         ...cordInternal,
       },
     );
@@ -367,7 +364,6 @@ function useUserCursors(
     baseLocation,
     viewerID,
     showViewerCursor,
-    organizationID,
     debouncedComputeCursorPositions,
   ]);
 
