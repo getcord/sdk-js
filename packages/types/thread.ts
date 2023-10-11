@@ -40,6 +40,13 @@ export interface ObserveThreadActivitySummaryOptions {
   filter?: Pick<ThreadListFilter, 'organizationID'>;
 }
 
+export interface ObserveThreadCountsOptions {
+  /**
+   * An object that can be used to filter the threads returned.
+   */
+  filter?: ClientThreadFilter;
+}
+
 export type ObserveThreadActivitySummaryHookOptions = {
   partialMatch?: boolean;
 };
@@ -288,6 +295,18 @@ export type ObserveThreadSummaryOptions = ThreadObserverOptions;
 export type ObserveThreadDataOptions = ThreadObserverOptions;
 
 export type ResolvedStatus = 'any' | 'resolved' | 'unresolved';
+export type LocationFilterOptions = {
+  /**
+   * The [Location](https://docs.cord.com/reference/location) of the threads.
+   */
+  matcher: Location;
+  /**
+   * If `true`, perform [partial matching](https://docs.cord.com/reference/location#Partial-Matching)
+   * on the specified location. If `false`, fetch information for only exactly the
+   * location specified.
+   */
+  partialMatch: boolean;
+};
 export type ThreadListFilter = {
   /**
    * The value for a `metadata` entry should be an object representing the
@@ -314,6 +333,18 @@ export type ThreadListFilter = {
    */
   resolvedStatus?: ResolvedStatus;
 };
+
+export interface ClientThreadFilter extends Omit<ThreadListFilter, 'location'> {
+  /**
+   * The [Location](https://docs.cord.com/reference/location) of the threads.
+   * This can either be just the location value or an object with a value for
+   * both the location and partialMatch properties.
+   *
+   * The value for partialMatch will default to false if only location is provided.
+   */
+  location?: Location | LocationFilterOptions;
+}
+
 export type SortDirection = 'ascending' | 'descending';
 export type SortBy =
   | 'first_message_timestamp'
@@ -365,7 +396,7 @@ export type ObserveLocationDataOptions = {
    */
   includeResolved?: boolean;
   /**
-   * If `true`, perform [partial matching](/reference/location#Partial-Matching)
+   * If `true`, perform [partial matching](https://docs.cord.com/reference/location#Partial-Matching)
    * on the specified location. If `false`, fetch information for only exactly the
    * location specified.
    *
@@ -530,6 +561,7 @@ export interface ICordThreadSDK {
    * This method allows you to observe summary information about a
    * [location](https://docs.cord.com/reference/location), including live
    * updates.
+   *
    * @example Overview
    * ```javascript
    * const ref = window.CordSDK.thread.observeLocationSummary(
@@ -562,6 +594,45 @@ export interface ICordThreadSDK {
     options?: ObserveThreadActivitySummaryOptions,
   ): ListenerRef;
   unobserveLocationSummary(ref: ListenerRef): boolean;
+
+  /**
+   * This API allows you to observe the count of all the threads in your application.
+   *
+   * @example Overview
+   * ```javascript
+   * const ref = window.CordSDK.thread.observeThreadCounts(
+   *   (threadCounts) => {
+   *      // Received an update!
+   *      console.log("Total threads", threadCounts.total);
+   *      console.log("Unread threads", threadCounts.unread);
+   *      console.log("Unread subscribed threads", threadCounts.unreadSubscribed);
+   *      console.log("Resolved threads", threadCounts.resolved);
+   *   },
+   *    { filter: {
+   *        location: {
+   *              'matcher': { 'page': 'document_details'},
+   *              'partialMatch': true
+   *             },
+   *        metadata: {'category': 'sales'}
+   *    }}
+   * );
+   * // ... Later, when updates are no longer needed ...
+   * window.CordSDK.thread.unobserveThreadCounts(ref);
+   * ```
+   *
+   * @param callback - This callback will be called once with the current observeThreadCounts
+   * data, and then again every time the data changes. The
+   * argument passed to the callback is an object which will
+   * contain the fields described under "Available Data" above.
+   * @param options - Miscellaneous options.
+   * @returns A reference number which can be passed to
+   * `unobserveThreadCounts` to stop observing location data.
+   */
+  observeThreadCounts(
+    callback: ThreadActivitySummaryUpdateCallback,
+    options?: ObserveThreadCountsOptions,
+  ): ListenerRef;
+  unobserveThreadCounts(ref: ListenerRef): boolean;
 
   /**
    * This method allows you to observe detailed data about a

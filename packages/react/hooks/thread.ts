@@ -15,6 +15,7 @@ import type {
   ThreadObserverOptions,
   ClientThreadData,
   MessageID,
+  ObserveThreadCountsOptions,
 } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
@@ -24,6 +25,7 @@ import { useMemoObject } from './useMemoObject';
 /**
  * This method allows you to observe summary information about a
  * [location](https://docs.cord.com/reference/location), including live updates.
+ *
  * @example Overview
  * ```javascript
  * import { thread } from '@cord-sdk/react';
@@ -76,6 +78,66 @@ export function useLocationSummary(
       threadSDK.unobserveLocationSummary(ref);
     };
   }, [threadSDK, memoizedLocation, optionsMemo]);
+
+  return summary;
+}
+
+/**
+ * This API allows you to observe the count of all the threads in your application.
+ *
+ * @example Overview
+ * ```javascript
+ * import { thread } from '@cord-sdk/react';
+ * const threadCounts = thread.useThreadCounts(
+ *     { filter: {
+ *        location: {
+ *              'matcher' {'page': 'document_details'},
+ *              'partialMatch': false
+ *             },
+ *        metadata: {'category': 'sales'}
+ *    }}
+ * );
+ * return (
+ *   <div>
+ *     {!threadCounts && "Loading..."}
+ *     {threadCounts && (
+ *       <p>Total threads: {threadCounts.total}</p>
+ *       <p>Unread threads: {threadCounts.unread}</p>
+ *       <p>Unread subscribed threads: {threadCounts.unreadSubscribed}</p>
+ *       <p>Resolved threads: {threadCounts.resolved}</p>
+ *     )}
+ *   </div>
+ * );
+ * ```
+ *
+ * @param options - Options that control which threads are counted.
+ * @returns The hook will initially return `undefined` while the data loads from
+ * our API. Once it has loaded, your component will re-render and the hook will
+ * return an object containing the fields described under "Available Data"
+ * above. The component will automatically re-render if any of the data changes,
+ * i.e., this data is always "live".
+ */
+export function useThreadCounts(
+  options?: ObserveThreadCountsOptions,
+): ThreadActivitySummary | undefined {
+  const { sdk } = useCordContext('thread.useThreadCounts');
+  const threadSDK = sdk?.thread;
+
+  const [summary, setSummary] = useState<ThreadActivitySummary>();
+
+  const optionsMemo = useMemoObject(options);
+
+  useEffect(() => {
+    if (!threadSDK) {
+      return;
+    }
+
+    const ref = threadSDK.observeThreadCounts(setSummary, optionsMemo);
+
+    return () => {
+      threadSDK.unobserveThreadCounts(ref);
+    };
+  }, [threadSDK, optionsMemo]);
 
   return summary;
 }
