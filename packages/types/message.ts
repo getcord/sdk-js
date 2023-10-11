@@ -1,4 +1,10 @@
-import type { EntityMetadata, UserID, Location, TimestampRange } from './core';
+import type {
+  EntityMetadata,
+  UserID,
+  Location,
+  TimestampRange,
+  FilterParameters,
+} from './core';
 import type { PaginationDetails } from './pagination';
 import type {
   CreateAttachment,
@@ -300,6 +306,14 @@ export interface ServerListMessageParameters {
    * Pagination token. This is returned in the `pagination` object of a previous response.
    */
   token?: string;
+
+  /**
+   * Messages will be matched against the filters specified.
+   * This is a partial match, which means any keys other than the ones you specify are ignored
+   * when checking for a match. Please note that because this is a query parameter in a REST API,
+   * this JSON object must be URI encoded before being sent.
+   */
+  filter?: Pick<FilterParameters, 'location' | 'metadata'>;
 }
 
 export interface ServerListMessages {

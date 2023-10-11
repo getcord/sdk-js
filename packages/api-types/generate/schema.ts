@@ -707,9 +707,36 @@ export default {
           'Pagination token. This is returned in the `pagination` object of a previous response.',
         type: 'string',
       },
+      filter: {
+        description:
+          'Messages will be matched against the filters specified.\nThis is a partial match, which means any keys other than the ones you specify are ignored\nwhen checking for a match. Please note that because this is a query parameter in a REST API,\nthis JSON object must be URI encoded before being sent.',
+        $ref: '#/definitions/Pick<FilterParameters,"location"|"metadata">',
+      },
     },
     additionalProperties: false,
-    propertyOrder: ['limit', 'token'],
+    propertyOrder: ['limit', 'token', 'filter'],
+    definitions: {
+      'Pick<FilterParameters,"location"|"metadata">': {
+        type: 'object',
+        properties: {
+          location: {
+            description: 'The location for the thread.',
+            type: 'object',
+            additionalProperties: { type: ['string', 'number', 'boolean'] },
+            propertyOrder: [],
+          },
+          metadata: {
+            description:
+              'Arbitrary key-value pairs of data associated with the object.',
+            type: 'object',
+            additionalProperties: { type: ['string', 'number', 'boolean'] },
+            propertyOrder: [],
+          },
+        },
+        additionalProperties: false,
+        propertyOrder: ['location', 'metadata'],
+      },
+    },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreateNotificationVariables: {
