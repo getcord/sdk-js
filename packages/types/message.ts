@@ -1,10 +1,4 @@
-import type {
-  EntityMetadata,
-  UserID,
-  Location,
-  TimestampRange,
-  FilterParameters,
-} from './core';
+import type { EntityMetadata, UserID, Location, TimestampRange } from './core';
 import type { PaginationDetails } from './pagination';
 import type {
   CreateAttachment,
@@ -313,7 +307,7 @@ export interface ServerListMessageParameters {
    * when checking for a match. Please note that because this is a query parameter in a REST API,
    * this JSON object must be URI encoded before being sent.
    */
-  filter?: Pick<FilterParameters, 'location' | 'metadata'>;
+  filter?: ServerListMessageFilter;
 }
 
 export interface ServerListMessages {
