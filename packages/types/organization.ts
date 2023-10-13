@@ -21,10 +21,15 @@ export interface ServerOrganizationData {
    * List of partner-specific IDs of the users who are members of this organization
    */
   members?: ID[];
+
+  /**
+   * If the organization has connected to a Slack workspace
+   */
+  connectedToSlack: boolean;
 }
 
 export type ServerUpdateOrganization = Partial<
-  Omit<ServerOrganizationData, 'id' | 'members'> & {
+  Omit<ServerOrganizationData, 'id' | 'members' | 'connectedToSlack'> & {
     /**
      * List of partner-specific IDs of the users who are members of this organization.
      * This will replace the existing members.
@@ -46,7 +51,8 @@ export interface ServerUpdateOrganizationMembers {
 /**
  * @deprecated type for deprecated api route
  */
-export interface ServerCreateOrganization extends ServerOrganizationData {}
+export interface ServerCreateOrganization
+  extends Omit<ServerOrganizationData, 'connectedToSlack'> {}
 
 export interface ServerGetOrganization extends ServerOrganizationData {}
 

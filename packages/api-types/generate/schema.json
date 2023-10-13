@@ -1626,7 +1626,7 @@
       },
       "organization_details": {
         "description": "If present, update’s the organization’s details, or creates an organization\nwith those details if the organization_id is new to Cord. This is an object\nthat contains the same fields as the [organization management REST\nendpoint](/rest-apis/organizations/)",
-        "$ref": "#/definitions/Partial<Omit<ServerOrganizationData,\"id\"|\"members\">&{members?:ID[]|undefined;}>"
+        "$ref": "#/definitions/Partial<Omit<ServerOrganizationData,\"id\"|\"members\"|\"connectedToSlack\">&{members?:ID[]|undefined;}>"
       }
     },
     "propertyOrder": [
@@ -1696,7 +1696,7 @@
           "last_name"
         ]
       },
-      "Partial<Omit<ServerOrganizationData,\"id\"|\"members\">&{members?:ID[]|undefined;}>": {
+      "Partial<Omit<ServerOrganizationData,\"id\"|\"members\"|\"connectedToSlack\">&{members?:ID[]|undefined;}>": {
         "type": "object",
         "properties": {
           "name": { "description": "Organization name", "type": "string" },
