@@ -10,6 +10,7 @@ export const cursor = cordifyClassname('live-cursors-cursor');
 export const icon = cordifyClassname('live-cursors-icon');
 export const label = cordifyClassname('live-cursors-label');
 export const name = cordifyClassname('live-cursors-name');
+export const colorPalette = cordifyClassname('color-palette');
 
 export const colorVar = '--cord-live-cursors-cursor-color';
 export const borderVar = '--cord-live-cursors-cursor-border-color';
@@ -57,3 +58,24 @@ globalStyle(`.${label}`, {
   alignItems: 'center',
   gap: '8px',
 });
+
+// The set of colors we rotate between as we need colors for people.
+const CURSOR_COLORS = [
+  { background: '#8462cc', border: '#533d80' },
+  { background: '#cc566c', border: '#803644' },
+  { background: '#ca6037', border: '#7d3c22' },
+  { background: '#c361aa', border: '#753b66' },
+  { background: '#688bcd', border: '#415780' },
+  { background: '#b49242', border: '#695527' },
+  { background: '#70a845', border: '#3e5c26' },
+  { background: '#4aac8d', border: '#295e4d' },
+];
+
+for (let i = 0; i < CURSOR_COLORS.length; i++) {
+  globalStyle(`.${cursor}:where(.${colorPalette}-${i + 1})`, {
+    vars: {
+      [borderVar]: CURSOR_COLORS[i].border,
+      [colorVar]: CURSOR_COLORS[i].background,
+    },
+  });
+}

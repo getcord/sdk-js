@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { useMemo } from 'react';
+import cx from 'classnames';
+
 import type {
   ClientUserData,
   LiveCursorsCursorPosition,
@@ -19,44 +22,40 @@ export type LiveCursorsCursorProps = {
    * The position of the user's cursor in viewport-relative coordinates.
    */
   pos: CursorPosition;
+  className?: string;
 };
 
-// The set of colors we rotate between as we need colors for people.
-const CURSOR_COLORS = [
-  { background: '#0079FF', border: '#074B9C' },
-  { background: '#9A6AFF', border: '#6949AC' },
-  { background: '#9B3617', border: '#4E1908' },
-  { background: '#45CF7C', border: '#159347' },
-];
-
-// Index of the next CURSOR_COLORS to use when we see a new user.
-let colorIndex = 0;
-
-// Saved colors of users (map from user ID to their color). We never delete from
-// this map so that a user's color is always consistent across a page load even
-// if their cursor goes away and comes back later.
-const colors: Record<string, (typeof CURSOR_COLORS)[number]> = {};
-
-function getColor(userID: string) {
-  return (colors[userID] ??=
-    CURSOR_COLORS[colorIndex++ % CURSOR_COLORS.length]);
+// Map userIDs to stable class name and apply colors with CSS.
+const TOTAL_NUM_OF_PALETTES = 8;
+export function getStableColorPaletteID(userId: string) {
+  let simpleHash = 0;
+  for (const char of userId) {
+    simpleHash += char.charCodeAt(0);
+  }
+  return (simpleHash % TOTAL_NUM_OF_PALETTES) + 1; // 1-indexed;
 }
 
 export function LiveCursorsDefaultCursor({
   user,
   pos,
+  className,
+  ...otherProps
 }: LiveCursorsCursorProps) {
-  const color = React.useMemo(() => getColor(user.id), [user.id]);
+  const cursorPaletteID = useMemo(
+    () => getStableColorPaletteID(user.id),
+    [user.id],
+  );
 
   return (
     <div
-      className={classes.cursor}
+      className={cx(classes.cursor, className, [
+        `${classes.colorPalette}-${cursorPaletteID}`,
+      ])}
       style={{
         left: pos.viewportX + 'px',
         top: pos.viewportY + 'px',
-        [classes.colorVar as any]: color.background,
-        [classes.borderVar as any]: color.border,
       }}
+      {...otherProps}
     >
       <Icon className={classes.icon} name="Cursor" size="large" />
       <div className={classes.label}>
