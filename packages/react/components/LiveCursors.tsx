@@ -26,6 +26,8 @@ export type LiveCursorsReactComponentProps = {
     locationToDocument: LiveCursorsLocationToDocumentFn;
   };
   cursorComponent?: FunctionComponent<LiveCursorsCursorProps>;
+  sendCursor?: boolean;
+  showCursors?: boolean;
 };
 
 /**
@@ -100,12 +102,13 @@ export function LiveCursors({
   showViewerCursor,
   translations,
   cursorComponent,
+  sendCursor = true,
+  showCursors = true,
   ...remainingProps
 }: LiveCursorsReactComponentProps) {
   // Make sure we've covered all the props we say we take; given the layers of
   // type generics etc it's easy to forget something.
   const _: Record<string, never> = remainingProps;
-
   const contextLocation = useCordLocation();
   const locationInput = locationProp ?? contextLocation;
   if (!locationInput) {
@@ -116,7 +119,6 @@ export function LiveCursors({
     translations?.eventToLocation ?? defaultEventToLocation;
   const locationToDocument =
     translations?.locationToDocument ?? defaultLocationToDocument;
-
   // The "base" location for all of our presence updates. We transmit our cursor
   // position by encoding our cursor information into a sub-location of this and
   // setting ourselves as present there (setting this base location as
@@ -132,12 +134,13 @@ export function LiveCursors({
     [locationInput],
   );
 
-  useSendCursor(baseLocation, eventToLocation, organizationID);
+  useSendCursor(baseLocation, eventToLocation, organizationID, !sendCursor);
 
   const userCursors = useUserCursors(
     baseLocation,
     locationToDocument,
     !!showViewerCursor,
+    !showCursors,
   );
 
   // Load detailed information for each user whose cursor we have, so we can
@@ -160,7 +163,7 @@ export function LiveCursors({
         user: users[id]!,
         pos: userCursors[id]!,
       }));
-  }, [users, userCursors, viewerID]);
+  }, [viewerID, userCursors, users]);
 
   const Cursor = cursorComponent ?? LiveCursorsDefaultCursor;
 
@@ -186,6 +189,7 @@ function useSendCursor(
   baseLocation: Location,
   eventToLocation: LiveCursorsEventToLocationFn,
   organizationID: string | undefined,
+  skip = false,
 ): void {
   const { sdk } = useCordContext('LiveCursors.useSendCursor');
   const presenceSDK = sdk?.presence;
@@ -216,6 +220,10 @@ function useSendCursor(
 
   // Track our own mouse movements and write them into mouseLocationRef.
   useEffect(() => {
+    if (skip) {
+      return;
+    }
+
     const onMouseMove = (e: MouseEvent) => {
       void (async () => {
         mouseLocationRef.current = await eventToLocation(e);
@@ -234,13 +242,17 @@ function useSendCursor(
       document.removeEventListener('mouseout', onMouseOut);
       window.removeEventListener('beforeunload', clearPresence);
     };
-  }, [eventToLocation, clearPresence]);
+  }, [eventToLocation, clearPresence, skip]);
 
   // The last mouseLocationRef that we transmitted. Track this so that we don't
   // send unnecessary presence updates if our cursor hasn't actually moved.
   const lastLocationRef = useRef<Location | undefined>(undefined);
 
   useEffect(() => {
+    if (skip) {
+      return;
+    }
+
     const timer = setInterval(() => {
       // If the we are currently on the page...
       if (mouseLocationRef.current && presenceSDK) {
@@ -272,7 +284,7 @@ function useSendCursor(
     }, POSITION_UPDATE_INTERVAL_MS);
 
     return () => clearInterval(timer);
-  }, [presenceSDK, baseLocation, clearPresence, organizationID]);
+  }, [presenceSDK, baseLocation, clearPresence, organizationID, skip]);
 }
 
 /**
@@ -284,6 +296,7 @@ function useUserCursors(
   baseLocation: Location,
   locationToDocument: LiveCursorsLocationToDocumentFn,
   showViewerCursor: boolean,
+  skip = false,
 ): Record<string, CursorPosition> {
   const { sdk } = useCordContext('LiveCursors.useUserCursors');
   const presenceSDK = sdk?.presence;
@@ -328,7 +341,7 @@ function useUserCursors(
 
   // Listen for and process cursor updates from other users.
   useEffect(() => {
-    if (viewerID === undefined || !presenceSDK) {
+    if (viewerID === undefined || !presenceSDK || skip) {
       return undefined;
     }
 
@@ -365,6 +378,7 @@ function useUserCursors(
     viewerID,
     showViewerCursor,
     debouncedComputeCursorPositions,
+    skip,
   ]);
 
   // Also recompute positions on scroll, since the coordinates are

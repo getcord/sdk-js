@@ -57,6 +57,8 @@ export const componentAttributes = {
     context: 'json',
     location: 'json',
     'show-viewer-cursor': 'boolean',
+    'send-cursor': 'boolean',
+    'show-cursors': 'boolean',
   },
   PagePresence: {
     context: 'json',
