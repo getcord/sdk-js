@@ -62,6 +62,14 @@ export interface ViewerUserData extends ClientUserData {
    */
   organizationID: OrganizationID | null;
   notificationPreferences: { sendViaSlack: boolean; sendViaEmail: boolean };
+  /**
+   * If the user has connected to a Slack user
+   */
+  isSlackConnected: boolean;
+  /**
+   * If the organization is connected to a Slack workspace
+   */
+  organizationIsSlackConnected: boolean;
 }
 
 export type SingleUserUpdateCallback = (user: ClientUserData | null) => unknown;
