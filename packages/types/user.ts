@@ -255,6 +255,12 @@ export interface ICordUserSDK {
     options?: ObserveOrgMembersOptions,
   ): ListenerRef;
   unobserveOrgMembers(ref: ListenerRef): boolean;
+
+  /**
+   * This method will disconnect the Slack workspace from the organization.
+   * This means all users who were connected to Slack will also be disconnected.
+   */
+  disconnectSlackWorkspace(): Promise<boolean>;
 }
 
 export interface ServerUserData {
