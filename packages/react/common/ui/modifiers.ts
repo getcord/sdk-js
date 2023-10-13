@@ -8,6 +8,7 @@ export const MODIFIERS = {
   notPresent: cordifyClassname('not-present'),
   present: cordifyClassname('present'),
   noReactions: cordifyClassname('no-reactions'),
+  noReplies: cordifyClassname('no-replies'),
   deleted: cordifyClassname('deleted'),
   action: cordifyClassname('action'),
   unseen: cordifyClassname('unseen'),

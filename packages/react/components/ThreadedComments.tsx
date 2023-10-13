@@ -384,6 +384,7 @@ function CommentsThread({
       className={cx(classes.thread, extraClassnames, {
         [MODIFIERS.highlighted]: highlightThreadId === threadId,
         [MODIFIERS.resolved]: isResolved,
+        [MODIFIERS.noReplies]: !hasReplies,
       })}
       data-cord-thread-id={threadId}
     >
