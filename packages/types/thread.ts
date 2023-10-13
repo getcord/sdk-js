@@ -16,6 +16,7 @@ import type {
   SearchOptionsType,
   SearchResultData,
 } from './message';
+import type { PaginationDetails } from './pagination';
 
 /**
  * Options for the `observeLocationSummary` function in the Thread API.
@@ -233,6 +234,17 @@ export interface CoreThreadData {
    * An optional space separated list of classnames to add to the thread.
    */
   extraClassnames: string | null;
+}
+
+export interface ServerListThreads {
+  /**
+   * Page containing threads.
+   */
+  threads: CoreThreadData[];
+  /**
+   * Data related to cursor-based pagination.
+   */
+  pagination: PaginationDetails;
 }
 
 /**
@@ -1095,4 +1107,12 @@ export type ServerListThreadParameters = {
    * this JSON object must be URI encoded before being sent.
    */
   filter?: Omit<FilterParameters, 'organizationID'>;
+  /**
+   * Number of threads to return. Defaults to 1000.
+   */
+  limit?: number;
+  /**
+   * Pagination token. This is returned in the `pagination` object of a previous response.
+   */
+  token?: string;
 };

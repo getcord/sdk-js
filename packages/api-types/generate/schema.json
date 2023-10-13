@@ -1040,10 +1040,18 @@
       "filter": {
         "description": "Threads will be matched against the filters specified.\nThis is a partial match, which means any keys other than the ones you specify are ignored\nwhen checking for a match. Please note that because this is a query parameter in a REST API,\nthis JSON object must be URI encoded before being sent.",
         "$ref": "#/definitions/Omit<FilterParameters,\"organizationID\">"
+      },
+      "limit": {
+        "description": "Number of threads to return. Defaults to 1000.",
+        "type": "number"
+      },
+      "token": {
+        "description": "Pagination token. This is returned in the `pagination` object of a previous response.",
+        "type": "string"
       }
     },
     "additionalProperties": false,
-    "propertyOrder": ["filter"],
+    "propertyOrder": ["filter", "limit", "token"],
     "definitions": {
       "Omit<FilterParameters,\"organizationID\">": {
         "type": "object",
