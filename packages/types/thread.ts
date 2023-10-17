@@ -346,7 +346,8 @@ export type ThreadListFilter = {
   resolvedStatus?: ResolvedStatus;
 };
 
-export interface ClientThreadFilter extends Omit<ThreadListFilter, 'location'> {
+export interface ClientThreadFilter
+  extends Omit<ThreadListFilter, 'location' | 'resolvedStatus'> {
   /**
    * The [Location](https://docs.cord.com/reference/location) of the threads.
    * This can either be just the location value or an object with a value for
@@ -355,6 +356,14 @@ export interface ClientThreadFilter extends Omit<ThreadListFilter, 'location'> {
    * The value for partialMatch will default to false if only location is provided.
    */
   location?: Location | LocationFilterOptions;
+  /**
+   * If set to `resolved`, only resolved threads will be returned. If set to `unresolved`,
+   * only unresolved threads will be returned. If set to `any`, both resolved and
+   * unresolved threads will be returned.
+   *
+   * If unset, defaults to `any`.
+   */
+  resolvedStatus?: ResolvedStatus;
 }
 
 export type SortDirection = 'ascending' | 'descending';
