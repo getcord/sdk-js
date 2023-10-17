@@ -260,7 +260,11 @@ export default {
           additionalProperties: false,
           type: 'object',
           properties: {
-            name: { description: 'Organization name', type: 'string' },
+            name: {
+              description:
+                'Organization name. Required when creating an organization.',
+              type: 'string',
+            },
             status: {
               description:
                 'Whether this organization is active or deleted.  Attempting to log into a\ndeleted organization will fail.',
@@ -801,7 +805,11 @@ export default {
     description: 'https://docs.cord.com/rest-apis/organizations/',
     type: 'object',
     properties: {
-      name: { description: 'Organization name', type: 'string' },
+      name: {
+        description:
+          'Organization name. Required when creating an organization.',
+        type: 'string',
+      },
       status: {
         description:
           'Whether this organization is active or deleted.  Attempting to log into a\ndeleted organization will fail.',
@@ -849,7 +857,11 @@ export default {
     type: 'object',
     properties: {
       id: { $ref: '#/definitions/ID', description: 'ID of the organization' },
-      name: { description: 'Organization name', type: 'string' },
+      name: {
+        description:
+          'Organization name. Required when creating an organization.',
+        type: 'string',
+      },
       status: {
         description:
           'Whether this organization is active or deleted.  Attempting to log into a\ndeleted organization will fail.',
@@ -1766,7 +1778,11 @@ export default {
         {
           type: 'object',
           properties: {
-            name: { description: 'Organization name', type: 'string' },
+            name: {
+              description:
+                'Organization name. Required when creating an organization.',
+              type: 'string',
+            },
             status: {
               description:
                 'Whether this organization is active or deleted.  Attempting to log into a\ndeleted organization will fail.',

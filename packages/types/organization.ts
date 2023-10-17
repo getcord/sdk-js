@@ -7,7 +7,7 @@ export interface ServerOrganizationData {
   id: ID;
 
   /**
-   * Organization name
+   * Organization name. Required when creating an organization.
    */
   name: string;
 
