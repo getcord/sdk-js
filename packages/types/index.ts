@@ -7,7 +7,10 @@ import type {
   UUID,
 } from './core';
 import type { TranslationResources } from './i18n';
-import type { ICordNotificationSDK } from './notifications';
+import type {
+  CoreNotificationData,
+  ICordNotificationSDK,
+} from './notifications';
 import type { ICordPresenceSDK } from './presence';
 import type {
   ClientCreateMessage,
@@ -345,6 +348,19 @@ export type InboxWebComponentEvents = { closeRequested: [] };
 
 // cord-notification-list-launcher
 export type NotificationListLauncherWebComponentEvents = { click: [] };
+
+// cord-notification
+export type NotificationWebComponentEvents = {
+  click: [
+    MouseEvent,
+    {
+      notification: CoreNotificationData;
+      message: ClientMessageData | null;
+      location: Location | null;
+      destinationUrl: string;
+    },
+  ];
+};
 
 // cord-pin
 export type PinWebComponentEvents = {
