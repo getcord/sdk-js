@@ -199,6 +199,84 @@ export const resources = {
       other_user: '{{user.displayName}}',
       other_user_subtitle: '{{user.secondaryDisplayName}}',
     },
+    // Cord's emoji picker is an external library, which doesn't use i18next,
+    // nor conforms to Cord's patterns. You can still translate these strings
+    // like you would translate any other string in this file.
+    // For more context, see https://www.npmjs.com/package/emoji-picker-element#internationalization
+    emoji_picker: {
+      categories: {
+        custom: 'Custom',
+        'smileys-emotion': 'Smileys and emoticons',
+        'people-body': 'People and body',
+        'animals-nature': 'Animals and nature',
+        'food-drink': 'Food and drink',
+        'travel-places': 'Travel and places',
+        activities: 'Activities',
+        objects: 'Objects',
+        symbols: 'Symbols',
+        flags: 'Flags',
+      },
+      categoriesLabel: 'Categories',
+      emojiUnsupportedMessage: 'Your browser does not support color emoji.',
+      favoritesLabel: 'Favorites',
+      loadingMessage: 'Loading…',
+      networkErrorMessage: 'Could not load emoji.',
+      regionLabel: 'Emoji picker',
+      searchDescription:
+        'When search results are available, press up or down to select and enter to choose.',
+      searchLabel: 'Search',
+      searchResultsLabel: 'Search results',
+      skinToneDescription:
+        'When expanded, press up or down to select and enter to choose.',
+      skinToneLabel: 'Choose a skin tone (currently {skinTone})',
+      skinTones: [
+        'Default',
+        'Light',
+        'Medium-Light',
+        'Medium',
+        'Medium-Dark',
+        'Dark',
+      ],
+      skinTonesLabel: 'Skin tones',
+    },
+  },
+  // Cord's emoji picker is an external library, which doesn't use i18next, thus it
+  // doesn't support "ci mode" out of the box. So we add our own:
+  cimode: {
+    emoji_picker: {
+      categories: {
+        custom: 'custom',
+        'smileys-emotion': 'smileys-emotion',
+        'people-body': 'people-body',
+        'animals-nature': 'animals-nature',
+        'food-drink': 'food-drink',
+        'travel-places': 'travel-places',
+        activities: 'activities',
+        objects: 'objects',
+        symbols: 'symbols',
+        flags: 'flags',
+      },
+      categoriesLabel: 'categoriesLabel',
+      emojiUnsupportedMessage: 'emojiUnsupportedMessage',
+      favoritesLabel: 'favoritesLabel',
+      loadingMessage: 'loadingMessage',
+      networkErrorMessage: 'networkErrorMessage',
+      regionLabel: 'regionLabel',
+      searchDescription: 'searchDescription',
+      searchLabel: 'searchLabel',
+      searchResultsLabel: 'searchResultsLabel',
+      skinToneDescription: 'skinToneDescription',
+      skinToneLabel: 'skinToneLabel',
+      skinTones: [
+        'Default',
+        'Light',
+        'Medium-Light',
+        'Medium',
+        'Medium-Dark',
+        'Dark',
+      ],
+      skinTonesLabel: 'skinTonesLabel',
+    },
   },
 };
 
