@@ -257,16 +257,29 @@ export interface ICordUserSDK {
   unobserveOrgMembers(ref: ListenerRef): boolean;
 
   /**
-   * This method will trigger a popup to appear where the user can connect to
-   * a Slack user, and this will also connect the Slack workspace to the
-   * organization if the organization is not already connected to a Slack workspace.
-   * If a user is already linked to a Slack user then the method will not trigger
-   * the popup.
+   * Calling this method will trigger a popup window to appear containing a flow
+   * for the user to link their Cord user to a Slack user.
+   * Completion of the flow will additionally connect the user's Slack workspace
+   * to their Cord organization if that Cord organization is not already
+   * connected to a Slack workspace.
+   * Calling this method will not do anything if the Cord user is already linked
+   * to a Slack user.
+   * @example Overview
+   * ```javascript
+   * window.CordSDK.user.connectToSlack();
+   * ```
+   * @returns This function does not return anything.
    */
   connectToSlack(): Promise<void>;
   /**
-   * This method will disconnect the Slack workspace from the organization.
+   * This method will disconnect the Slack workspace from the Cord organization.
    * This means all users who were connected to Slack will also be disconnected.
+   * @example Overview
+   * ```javascript
+   * window.CordSDK.user.disconnectSlackWorkSpace();
+   * ```
+   * @returns A promise that resolves to `true` if the operation succeeded or
+   * rejects if it failed.
    */
   disconnectSlackWorkspace(): Promise<boolean>;
 }
