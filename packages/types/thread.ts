@@ -59,7 +59,8 @@ export interface ThreadActivitySummary {
   /**
    * The total number of threads at the
    * [location](https://docs.cord.com/reference/location), both resolved and
-   * unresolved.
+   * unresolved. This does not include threads in which all messages have been
+   * deleted.
    */
   total: number;
 
@@ -96,6 +97,12 @@ export interface ThreadActivitySummary {
    * manually marked as resolved within Cord's UI components.
    */
   resolved: number;
+
+  /**
+   * The number of thread with no visible messages. This refers to threads
+   * in which all the messages have been deleted.
+   */
+  empty: number;
 }
 
 export type ThreadActivitySummaryUpdateCallback = (
