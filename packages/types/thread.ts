@@ -38,7 +38,7 @@ export interface ObserveThreadActivitySummaryOptions {
    *
    * @privateRemarks hidden
    */
-  filter?: Pick<ThreadListFilter, 'organizationID'>;
+  filter?: Pick<ThreadListFilter, 'groupID'>;
 }
 
 export interface ObserveThreadCountsOptions {
@@ -300,7 +300,7 @@ export interface ThreadObserverOptions {
    * Experimental filter for privacy model project
    * @privateRemarks hidden
    */
-  organizationID?: string;
+  groupID?: string;
 }
 
 export type ObserveThreadSummaryOptions = ThreadObserverOptions;
@@ -335,7 +335,7 @@ export type ThreadListFilter = {
    * Experimental filter for privacy model project
    * @privateRemarks hidden
    */
-  organizationID?: string;
+  groupID?: string;
   /**
    * If set to `resolved`, only resolved threads will be returned. If set to `unresolved`,
    * only unresolved threads will be returned. If set to `any`, both resolved and

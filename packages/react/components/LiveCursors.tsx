@@ -19,7 +19,7 @@ import type { LiveCursorsCursorProps } from './LiveCursorsDefaultCursor';
 
 export type LiveCursorsReactComponentProps = {
   location?: Location;
-  organizationID?: string;
+  groupID?: string;
   showViewerCursor?: boolean;
   translations?: {
     eventToLocation: LiveCursorsEventToLocationFn;
@@ -98,7 +98,7 @@ const cordInternal: any = {
 
 export function LiveCursors({
   location: locationProp,
-  organizationID,
+  groupID,
   showViewerCursor,
   translations,
   cursorComponent,
@@ -134,7 +134,7 @@ export function LiveCursors({
     [locationInput],
   );
 
-  useSendCursor(baseLocation, eventToLocation, organizationID, !sendCursor);
+  useSendCursor(baseLocation, eventToLocation, groupID, !sendCursor);
 
   const userCursors = useUserCursors(
     baseLocation,
@@ -188,7 +188,7 @@ function useViewerID() {
 function useSendCursor(
   baseLocation: Location,
   eventToLocation: LiveCursorsEventToLocationFn,
-  organizationID: string | undefined,
+  groupID: string | undefined,
   skip = false,
 ): void {
   const { sdk } = useCordContext('LiveCursors.useSendCursor');
@@ -211,12 +211,12 @@ function useSendCursor(
         {
           exclusive_within: baseLocation,
           absent: true,
-          organizationID,
+          groupID,
           ...cordInternal,
         },
       );
     }
-  }, [presenceSDK, baseLocation, organizationID]);
+  }, [presenceSDK, baseLocation, groupID]);
 
   // Track our own mouse movements and write them into mouseLocationRef.
   useEffect(() => {
@@ -271,7 +271,7 @@ function useSendCursor(
               ...mouseLocationRef.current,
               ...baseLocation,
             },
-            { exclusive_within: baseLocation, organizationID, ...cordInternal },
+            { exclusive_within: baseLocation, groupID, ...cordInternal },
           );
           lastLocationRef.current = mouseLocationRef.current;
         }
@@ -284,7 +284,7 @@ function useSendCursor(
     }, POSITION_UPDATE_INTERVAL_MS);
 
     return () => clearInterval(timer);
-  }, [presenceSDK, baseLocation, clearPresence, organizationID, skip]);
+  }, [presenceSDK, baseLocation, clearPresence, groupID, skip]);
 }
 
 /**

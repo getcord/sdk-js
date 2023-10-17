@@ -31,7 +31,7 @@ export type ComposerReactComponentProps = ReactPropsWithLocation<{
   size?: ComposerSize;
   messageMetadata?: EntityMetadata;
   threadMetadata?: EntityMetadata;
-  organizationId?: string;
+  groupId?: string;
   onFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
   onBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
   onClose?: (...args: ComposerWebComponentEvents['close']) => unknown;

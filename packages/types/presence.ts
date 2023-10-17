@@ -23,7 +23,7 @@ export type SetPresentOptions = {
    */
   absent?: boolean;
   exclusive_within?: Location;
-  organizationID?: string;
+  groupID?: string;
 };
 
 export interface AddListenerOptions {
@@ -153,7 +153,7 @@ export interface ICordPresenceSDK {
 }
 
 export interface ServerUpdatePresence
-  extends Omit<SetPresentOptions, 'exclusive_within'> {
+  extends Omit<SetPresentOptions, 'exclusive_within' | 'groupID'> {
   /**
    * The organization that the user belongs to.
    */

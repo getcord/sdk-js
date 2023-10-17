@@ -86,7 +86,7 @@ export const componentAttributes = {
     'observe-document': 'boolean',
     durable: 'boolean',
     'initial-state': 'boolean',
-    'organization-id': 'string',
+    'group-id': 'string',
   },
   Sidebar: {
     context: 'json',
@@ -119,7 +119,7 @@ export const componentAttributes = {
     'show-placeholder': 'boolean',
     'composer-expanded': 'boolean',
     'thread-options': 'json',
-    'organization-id': 'string',
+    'group-id': 'string',
   },
   ThreadList: {
     location: 'json',
@@ -141,7 +141,7 @@ export const componentAttributes = {
     'thread-url': 'string',
     'message-metadata': 'json',
     'thread-metadata': 'json',
-    'organization-id': 'string',
+    'group-id': 'string',
   },
   InboxLauncher: {
     label: 'string',

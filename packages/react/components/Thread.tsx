@@ -36,7 +36,7 @@ export type ThreadReactComponentProps = PropsWithFlags<
     showPlaceholder?: boolean;
     composerExpanded?: boolean;
     threadOptions?: ThreadOptions;
-    organizationId?: string;
+    groupId?: string;
     onThreadInfoChange?: (
       ...args: ThreadWebComponentEvents['threadinfochange']
     ) => unknown;
