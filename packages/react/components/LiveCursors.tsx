@@ -19,7 +19,7 @@ import type { LiveCursorsCursorProps } from './LiveCursorsDefaultCursor';
 
 export type LiveCursorsReactComponentProps = {
   location?: Location;
-  groupID?: string;
+  groupId?: string;
   showViewerCursor?: boolean;
   translations?: {
     eventToLocation: LiveCursorsEventToLocationFn;
@@ -99,7 +99,7 @@ const cordInternal: any = {
 
 export function LiveCursors({
   location: locationProp,
-  groupID,
+  groupId,
   showViewerCursor,
   translations,
   cursorComponent,
@@ -139,7 +139,7 @@ export function LiveCursors({
   useSendCursor(
     baseLocation,
     eventToLocation,
-    groupID,
+    groupId,
     !sendCursor,
     boundingElementRef,
   );
