@@ -132,11 +132,13 @@ export function Thread(
         !threadListenersAttached ||
         !composerListenersAttached ||
         !messageListenersAttached
+          ? 'true'
+          : 'false'
       }
       class={props.className}
       style={props.style}
       ref={combinedSetRef}
-      use-shadow-root={props.useShadowRoot ?? false}
+      use-shadow-root={props.useShadowRoot ? 'true' : 'false'}
       {...propsToAttributes({ location, ...props })}
     >
       {props.children}

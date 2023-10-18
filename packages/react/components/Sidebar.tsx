@@ -82,7 +82,7 @@ function SidebarWithForwardedRef(
       class={props.className}
       style={props.style}
       ref={combinedSetRef}
-      buffer-events={!listenersAttached}
+      buffer-events={!listenersAttached ? 'true' : 'false'}
       {...propsToAttributes({ location, ...props })}
     />
   );

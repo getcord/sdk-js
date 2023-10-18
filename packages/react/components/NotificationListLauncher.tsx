@@ -48,8 +48,8 @@ export function NotificationListLauncher(
       class={props.className}
       style={props.style}
       ref={setRef}
-      buffer-events={!listenersAttached}
-      use-shadow-root={props.useShadowRoot ?? false}
+      buffer-events={!listenersAttached ? 'true' : 'false'}
+      use-shadow-root={props.useShadowRoot ? 'true' : 'false'}
       {...propsToAttributes(props)}
     />
   );

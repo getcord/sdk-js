@@ -82,8 +82,8 @@ export function ThreadList(
       class={props.className}
       style={props.style}
       ref={combinedSetRef}
-      use-shadow-root={props.useShadowRoot ?? false}
-      buffer-events={!listenersAttached}
+      use-shadow-root={props.useShadowRoot ? 'true' : 'false'}
+      buffer-events={!listenersAttached ? 'true' : 'false'}
       {...propsToAttributes({ location, ...props })}
     />
   );

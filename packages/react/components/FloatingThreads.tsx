@@ -93,10 +93,10 @@ export function FloatingThreadsWithForwardedRef(
     <cord-floating-threads
       ref={combinedSetRef}
       id={props.id}
-      buffer-events={!listenersAttached}
+      buffer-events={!listenersAttached ? 'true' : 'false'}
       class={props.className}
       style={props.style}
-      use-shadow-root={props.useShadowRoot ?? false}
+      use-shadow-root={props.useShadowRoot ? 'true' : 'false'}
       {...propsToAttributes(props)}
     />
   );

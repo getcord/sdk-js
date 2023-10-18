@@ -48,7 +48,7 @@ export function PresenceObserver(
       class={props.className}
       style={props.style}
       ref={setRef}
-      buffer-events={!listenersAttached}
+      buffer-events={!listenersAttached ? 'true' : 'false'}
       {...propsToAttributes({ location, ...props })}
     >
       {props.children}
