@@ -28,6 +28,10 @@ import { useMemoObject } from './useMemoObject';
  * This method allows you to observe summary information about a
  * [location](https://docs.cord.com/reference/location), including live updates.
  *
+ * @deprecated This method has been deprecated in favor of `useThreadCounts`.
+ * It returns identical data as useLocationSummary and offers more
+ * flexibility with additional filter parameters.
+ *
  * @example Overview
  * ```javascript
  * import { thread } from '@cord-sdk/react';
@@ -85,7 +89,8 @@ export function useLocationSummary(
 }
 
 /**
- * This API allows you to observe the count of all the threads in your application.
+ * This API allows you to observe the count of all the threads in an application
+ * that are visible to the current user.
  *
  * @example Overview
  * ```javascript
@@ -204,6 +209,10 @@ export function useThreadSummary(
  * This method allows you to observe detailed data about
  * a [location](https://docs.cord.com/reference/location),
  * including live updates.
+ *
+ * @deprecated This method has been deprecated in favor of `useThreads`
+ * which provides all functionalities of `useLocationData` and
+ * offers more flexibility with extra filter parameters.
  *
  * @example Overview
  * ```javascript

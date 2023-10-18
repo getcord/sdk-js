@@ -621,6 +621,10 @@ export interface ICordThreadSDK {
    * [location](https://docs.cord.com/reference/location), including live
    * updates.
    *
+   * @deprecated This method has been deprecated in favor of `observeThreadCounts`.
+   * It returns identical data as observeLocationSummary and offers more
+   * flexibility with additional filter parameters.
+   *
    * @example Overview
    * ```javascript
    * const ref = window.CordSDK.thread.observeLocationSummary(
@@ -655,7 +659,8 @@ export interface ICordThreadSDK {
   unobserveLocationSummary(ref: ListenerRef): boolean;
 
   /**
-   * This API allows you to observe the count of all the threads in your application.
+   * This API allows you to observe the count of all the threads in an application
+   * that are visible to the current user.
    *
    * @example Overview
    * ```javascript
@@ -698,6 +703,10 @@ export interface ICordThreadSDK {
    * [location](https://docs.cord.com/reference/location), including live
    * updates.
    *
+   * @deprecated This method has been deprecated in favor of `observeThreads`
+   * which provides all functionalities of `observeLocationData` and offers
+   * more flexibility with extra filter parameters.
+   *
    * @example Overview
    * ```javascript
    * const ref = window.CordSDK.thread.observeLocationData(
@@ -737,9 +746,9 @@ export interface ICordThreadSDK {
   unobserveLocationData(ref: ListenerRef): boolean;
 
   /**
-   * This API allows you to observe threads data within your application,
-   * including live updates. You can use the available filter options to fine tune
-   * the threads returned.
+   * This API allows you to observe threads data within your application, that are
+   * visible to the current user, including live updates. You can use the available
+   * filter options to fine tune the threads returned.
    *
    * @example Overview
    * ```javascript
