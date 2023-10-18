@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, MutableRefObject } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { isEqualLocation } from '@cord-sdk/types';
 import type {
@@ -28,6 +28,7 @@ export type LiveCursorsReactComponentProps = {
   cursorComponent?: FunctionComponent<LiveCursorsCursorProps>;
   sendCursor?: boolean;
   showCursors?: boolean;
+  boundingElementRef?: MutableRefObject<HTMLElement | null>;
 };
 
 /**
@@ -104,6 +105,7 @@ export function LiveCursors({
   cursorComponent,
   sendCursor = true,
   showCursors = true,
+  boundingElementRef,
   ...remainingProps
 }: LiveCursorsReactComponentProps) {
   // Make sure we've covered all the props we say we take; given the layers of
@@ -134,13 +136,20 @@ export function LiveCursors({
     [locationInput],
   );
 
-  useSendCursor(baseLocation, eventToLocation, groupID, !sendCursor);
+  useSendCursor(
+    baseLocation,
+    eventToLocation,
+    groupID,
+    !sendCursor,
+    boundingElementRef,
+  );
 
   const userCursors = useUserCursors(
     baseLocation,
     locationToDocument,
     !!showViewerCursor,
     !showCursors,
+    boundingElementRef,
   );
 
   // Load detailed information for each user whose cursor we have, so we can
@@ -190,6 +199,7 @@ function useSendCursor(
   eventToLocation: LiveCursorsEventToLocationFn,
   groupID: string | undefined,
   skip = false,
+  boundingElementRef?: MutableRefObject<HTMLElement | null>,
 ): void {
   const { sdk } = useCordContext('LiveCursors.useSendCursor');
   const presenceSDK = sdk?.presence;
@@ -233,16 +243,30 @@ function useSendCursor(
       mouseLocationRef.current = null;
     };
 
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseout', onMouseOut);
+    const element = boundingElementRef?.current;
+
+    if (element) {
+      element.addEventListener('mousemove', onMouseMove);
+      element.addEventListener('mouseout', onMouseOut);
+    } else {
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseout', onMouseOut);
+    }
+
     window.addEventListener('beforeunload', clearPresence);
+
     return () => {
       clearPresence();
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseout', onMouseOut);
+      if (element) {
+        element.removeEventListener('mousemove', onMouseMove);
+        element.removeEventListener('mouseout', onMouseOut);
+      } else {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseout', onMouseOut);
+      }
       window.removeEventListener('beforeunload', clearPresence);
     };
-  }, [eventToLocation, clearPresence, skip]);
+  }, [eventToLocation, clearPresence, skip, boundingElementRef]);
 
   // The last mouseLocationRef that we transmitted. Track this so that we don't
   // send unnecessary presence updates if our cursor hasn't actually moved.
@@ -297,6 +321,7 @@ function useUserCursors(
   locationToDocument: LiveCursorsLocationToDocumentFn,
   showViewerCursor: boolean,
   skip = false,
+  boundingElementRef?: MutableRefObject<HTMLElement | null>,
 ): Record<string, CursorPosition> {
   const { sdk } = useCordContext('LiveCursors.useUserCursors');
   const presenceSDK = sdk?.presence;
@@ -323,17 +348,33 @@ function useUserCursors(
   // Aforementioned conversion function, see above.
   const computeCursorPositions = useCallback(async () => {
     const newCursorPositions: Record<string, CursorPosition> = {};
+    const boundingElementRect =
+      boundingElementRef?.current?.getBoundingClientRect();
+
     await Promise.all(
       Object.entries(cursorLocations.current).map(async ([id, location]) => {
         const pos = await locationToDocument(location);
+
         if (pos) {
-          newCursorPositions[id] = pos;
+          if (!boundingElementRef || !boundingElementRect) {
+            newCursorPositions[id] = pos;
+          } else {
+            const { top, left, width, height } = boundingElementRect;
+            if (
+              pos.viewportX > left &&
+              pos.viewportX < left + width &&
+              pos.viewportY > top &&
+              pos.viewportY < top + height
+            ) {
+              newCursorPositions[id] = pos;
+            }
+          }
         }
       }),
     );
-
     setCursorPositions(newCursorPositions);
-  }, [locationToDocument]);
+  }, [locationToDocument, boundingElementRef]);
+
   const debouncedComputeCursorPositions = useMemo(
     () => debounce({ delay: 50 }, computeCursorPositions),
     [computeCursorPositions],
