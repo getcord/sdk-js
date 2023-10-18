@@ -377,7 +377,7 @@ export type SortDirection = 'ascending' | 'descending';
 export type SortBy =
   | 'first_message_timestamp'
   | 'most_recent_message_timestamp';
-export type ObserveLocationDataOptions = {
+export type ThreadSortOptions = {
   /**
    * This option controls the criteria for how threads are sorted.
    * Combined with `sortDirection`, it determines which threads are
@@ -414,6 +414,9 @@ export type ObserveLocationDataOptions = {
    * about the most recent things).
    */
   sortDirection?: SortDirection;
+};
+
+export type ObserveLocationDataOptions = ThreadSortOptions & {
   /**
    * If `false`, resolved threads are filtered out of the results. If `true`,
    * all threads are returned.
@@ -437,6 +440,13 @@ export type ObserveLocationDataOptions = {
   filter?: ThreadListFilter;
 };
 
+export type ObserveThreadsOptions = ThreadSortOptions & {
+  /**
+   * An object that can be used to filter the threads returned.
+   */
+  filter?: ClientThreadFilter;
+};
+
 export type LocationData = PaginationParams & {
   /**
    * An array of [thread summary](/js-apis-and-hooks/thread-api/observeThreadSummary#Available-Data)
@@ -453,6 +463,27 @@ export type LocationData = PaginationParams & {
   threads: ThreadSummary[];
 };
 export type LocationDataCallback = (data: LocationData) => unknown;
+
+export type ThreadsData = PaginationParams & {
+  /**
+   * An array of objects containing the threads that match the request.
+   *
+   * This array is paginated. At first, it will contain only the first
+   * few threads. Calling `fetchMore` will cause further threads to be
+   * appended to the array.
+   *
+   * The order in which you will receive the threads is determined by the sorting
+   * options.
+   */
+  threads: ThreadSummary[];
+
+  /**
+   * An object providing counts of threads. Refer to [observeThreadCount API](https://docs.cord.com/js-apis-and-hooks/thread-api/observeThreadCounts#Available-Data)
+   * for more information about the properties returned.
+   */
+  counts?: ThreadActivitySummary;
+};
+export type ThreadsCallback = (data: ThreadsData) => unknown;
 
 export interface ClientUpdateThread
   extends Partial<
@@ -652,9 +683,9 @@ export interface ICordThreadSDK {
    * data, and then again every time the data changes. The
    * argument passed to the callback is an object which will
    * contain the fields described under "Available Data" above.
-   * @param options - Miscellaneous options.
-   * @returns A reference number which can be passed to
-   * `unobserveThreadCounts` to stop observing location data.
+   * @param options - Options that control the thread counts returned.
+   * @returns A reference which can be passed to `unobserveThreadCounts`
+   * to stop observing thread counts.
    */
   observeThreadCounts(
     callback: ThreadActivitySummaryUpdateCallback,
@@ -666,6 +697,7 @@ export interface ICordThreadSDK {
    * This method allows you to observe detailed data about a
    * [location](https://docs.cord.com/reference/location), including live
    * updates.
+   *
    * @example Overview
    * ```javascript
    * const ref = window.CordSDK.thread.observeLocationData(
@@ -703,6 +735,55 @@ export interface ICordThreadSDK {
     options?: ObserveLocationDataOptions,
   ): ListenerRef;
   unobserveLocationData(ref: ListenerRef): boolean;
+
+  /**
+   * This API allows you to observe threads data within your application,
+   * including live updates. You can use the available filter options to fine tune
+   * the threads returned.
+   *
+   * @example Overview
+   * ```javascript
+   * const ref = window.CordSDK.thread.observeThreads(
+   *   ({ threads, loading, hasMore, fetchMore, counts }) => {
+   *     console.log('Got a thread data update:');
+   *     if (loading) {
+   *       console.log('Loading...');
+   *     }
+   *      if (counts){
+   *       console.log(`Total threads: ${counts.total} and unread threads: ${counts.unread}`)
+   *      }
+   *     threads.forEach((thread) =>
+   *       console.log(\`Thread \${thread.id} has \${thread.total} messages!\`)
+   *     );
+   *     if (!loading && hasMore && threads.length < 25) {
+   *       // Get the first 25 threads, 10 at a time.
+   *       fetchMore(10);
+   *     }
+   *   },
+   *   { filter: {
+   *        location: {
+   *              'matcher': { 'page': 'document_details'},
+   *              'partialMatch': true
+   *             },
+   *        metadata: {'category': 'sales'}
+   *    }}
+   * );
+   * // ... Later, when updates are no longer needed ...
+   * window.CordSDK.thread.unobserveThreads(ref);
+   * ```
+   * @param callback - This callback will be called once with the options
+   * data, and then again every time the data changes. The
+   * argument passed to the callback is an object which will
+   * contain the fields described under "Available Data" above.
+   * @param options - Options that control which threads are returned.
+   * @returns A reference which can be passed to `unobserveThreads`
+   * to stop observing threads data.
+   */
+  observeThreads(
+    callback: ThreadsCallback,
+    options?: ObserveThreadsOptions,
+  ): ListenerRef;
+  unobserveThreads(ref: ListenerRef): boolean;
 
   /**
    * This method allows you to observe summary information about a thread, such

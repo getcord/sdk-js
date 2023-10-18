@@ -16,6 +16,8 @@ import type {
   ClientThreadData,
   MessageID,
   ObserveThreadCountsOptions,
+  ObserveThreadsOptions,
+  ThreadsData,
 } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext';
@@ -202,6 +204,7 @@ export function useThreadSummary(
  * This method allows you to observe detailed data about
  * a [location](https://docs.cord.com/reference/location),
  * including live updates.
+ *
  * @example Overview
  * ```javascript
  * import { thread } from '@cord-sdk/react';
@@ -272,7 +275,76 @@ export function useLocationData(
 }
 
 /**
- * This method allows you to observe detailed data about a thread, including
+ * This method allows you to observe threads data including live updates.
+ *
+ * @example Overview
+ * ```javascript
+ * import { thread } from '@cord-sdk/react';
+ * const { threads, loading, hasMore, fetchMore, counts } = thread.useThreads({
+ *   sortBy: 'first_message_timestamp',
+ *   filter: {
+ *     location: {
+ *       matcher: { page: 'document_details' },
+ *       partialMatch: true
+ *     },
+ *     metadata: { category: 'sales' },
+ *   },
+ * });
+ *
+ * return (
+ *   <div>
+ *      {counts &&
+ *         <div>
+ *           We have {counts.total} total threads and {counts.unread} unread threads.
+ *         </div>
+ *       }
+ *     {threads.map((thread) => (
+ *       <div key={thread.id}>
+ *         Thread ID {thread.id} has {thread.total} messages!
+ *       </div>
+ *     ))}
+ *     {loading ? (
+ *       <div>Loading...</div>
+ *     ) : hasMore ? (
+ *       <div onClick={() => fetchMore(10)}>Fetch 10 more</div>
+ *     ) : null}
+ *   </div>
+ * );
+ * ```
+ * @param options -  Options that control which threads are returned.
+ * @returns The hook will return an object containing the fields described under
+ * "Available Data" above. The component will automatically re-render if any of
+ * the data changes, i.e., this data is always "live".
+ */
+export function useThreads(options?: ObserveThreadsOptions): ThreadsData {
+  const [threadDataResult, setThreadDataResult] = useState<ThreadsData>();
+
+  const { sdk } = useCordContext('useThreads');
+  const threadSDK = sdk?.thread;
+
+  const optionsMemo = useMemoObject(options);
+
+  useEffect(() => {
+    if (!threadSDK) {
+      return;
+    }
+    const key = threadSDK.observeThreads(setThreadDataResult, optionsMemo);
+    return () => {
+      threadSDK.unobserveThreads(key);
+    };
+  }, [threadSDK, optionsMemo]);
+
+  return {
+    threads: threadDataResult?.threads ?? [],
+    loading: threadDataResult?.loading ?? true,
+    hasMore: threadDataResult?.hasMore ?? false,
+    fetchMore: threadDataResult?.fetchMore ?? (async (_n: number) => {}),
+    counts: threadDataResult?.counts,
+  };
+}
+
+/**
+ * This method allows you to observe summary and detailed data about a thread, including
  * live updates.
  * @deprecated In favor of `useThread` which returns both thread messages and thread summary data.
  * @example Overview
