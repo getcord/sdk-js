@@ -67,6 +67,7 @@ import { AssignIcon as Assign } from '../../common/icons/customIcons/AssignIcon'
 import { ChatAddIcon as ChatAdd } from '../../common/icons/customIcons/ChatAddIcon';
 import { CursorIcon as Cursor } from '../../common/icons/customIcons/CursorIcon';
 import { SlackIcon as Slack } from '../../common/icons/customIcons/SlackIcon';
+// eslint-disable-next-line @cspell/spellchecker
 import { SlackColourIcon as SlackColour } from '../../common/icons/customIcons/SlackColourIcon';
 import { AsanaIcon as Asana } from '../../common/icons/customIcons/AsanaIcon';
 import { LinearIcon as Linear } from '../../common/icons/customIcons/LinearIcon';
