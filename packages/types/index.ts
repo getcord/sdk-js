@@ -72,6 +72,18 @@ export type CordSDKInitOptions = CordSDKOptions & {
   onInitError?: InitErrorCallback;
 };
 
+export type BeforeMessageCreateFunction = (
+  message: ClientCreateMessage,
+  context: {
+    threadID: ThreadID;
+    firstMessage: boolean;
+  },
+) =>
+  | ClientCreateMessage
+  | null
+  | undefined
+  | Promise<ClientCreateMessage | null | undefined>;
+
 export type CordSDKOptions = {
   navigate?: NavigateFn | null;
   enable_tasks?: boolean;
@@ -93,17 +105,7 @@ export type CordSDKOptions = {
   custom_event_metadata?: JsonObject;
   translations?: Translations;
   language?: string;
-  beforeMessageCreate?: (
-    message: ClientCreateMessage,
-    context: {
-      threadID: ThreadID;
-      firstMessage: boolean;
-    },
-  ) =>
-    | ClientCreateMessage
-    | null
-    | undefined
-    | Promise<ClientCreateMessage | null | undefined>;
+  beforeMessageCreate?: BeforeMessageCreateFunction | null;
 };
 
 export type InitErrorCallback = (error: { message: string }) => unknown;
