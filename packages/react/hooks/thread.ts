@@ -98,7 +98,7 @@ export function useLocationSummary(
  * const threadCounts = thread.useThreadCounts(
  *     { filter: {
  *        location: {
- *              'matcher' {'page': 'document_details'},
+ *              'value' {'page': 'document_details'},
  *              'partialMatch': false
  *             },
  *        metadata: {'category': 'sales'}
@@ -293,7 +293,7 @@ export function useLocationData(
  *   sortBy: 'first_message_timestamp',
  *   filter: {
  *     location: {
- *       matcher: { page: 'document_details' },
+ *       value: { page: 'document_details' },
  *       partialMatch: true
  *     },
  *     metadata: { category: 'sales' },

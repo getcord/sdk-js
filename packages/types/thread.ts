@@ -318,7 +318,7 @@ export type LocationFilterOptions = {
   /**
    * The [Location](https://docs.cord.com/reference/location) of the threads.
    */
-  matcher: Location;
+  value: Location;
   /**
    * If `true`, perform [partial matching](https://docs.cord.com/reference/location#Partial-Matching)
    * on the specified location. If `false`, fetch information for only exactly the
@@ -674,7 +674,7 @@ export interface ICordThreadSDK {
    *   },
    *    { filter: {
    *        location: {
-   *              'matcher': { 'page': 'document_details'},
+   *              'value': { 'page': 'document_details'},
    *              'partialMatch': true
    *             },
    *        metadata: {'category': 'sales'}
@@ -771,7 +771,7 @@ export interface ICordThreadSDK {
    *   },
    *   { filter: {
    *        location: {
-   *              'matcher': { 'page': 'document_details'},
+   *              'value': { 'page': 'document_details'},
    *              'partialMatch': true
    *             },
    *        metadata: {'category': 'sales'}
