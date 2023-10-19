@@ -186,6 +186,10 @@ export interface SearchOptionsType {
    */
   orgID?: string;
   /**
+   * Arbitrary key-value pairs of data associated with the message.
+   */
+  metadata?: EntityMetadata;
+  /**
    * Location to filter the messages by.
    *
    * Set locationOptions.location to a specific thread location to search.
@@ -195,10 +199,10 @@ export interface SearchOptionsType {
    * specified location.
    * @returns An array containing message objects.
    */
-
   locationOptions?: { location: Location; partialMatch: boolean };
-
-  // Optional date objects used to scope search.
+  /**
+   * Optional date objects used to scope search.
+   */
   timestampRange?: TimestampRange;
 }
 

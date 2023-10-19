@@ -530,14 +530,22 @@ export function useSearchMessages(
   searchOptions: SearchOptionsType,
 ): SearchResultData[] | undefined {
   const [data, setData] = useState<SearchResultData[] | undefined>(undefined);
-  const { textToMatch, authorID, orgID, locationOptions, timestampRange } =
-    searchOptions;
+  const {
+    textToMatch,
+    authorID,
+    orgID,
+    locationOptions,
+    timestampRange,
+    metadata,
+  } = searchOptions;
+
   const inputsMemo = useMemoObject({
     textToMatch,
     authorID,
     locationOptions,
     orgID,
     timestampRange,
+    metadata,
   });
 
   const { sdk } = useCordContext('useSearchMessages');
