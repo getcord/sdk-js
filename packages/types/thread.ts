@@ -57,9 +57,8 @@ export type ObserveThreadActivitySummaryHookOptions = {
  */
 export interface ThreadActivitySummary {
   /**
-   * The total number of threads at the
-   * [location](https://docs.cord.com/reference/location), both resolved and
-   * unresolved. This does not include threads in which all messages have been
+   * The total number of threads, both resolved and unresolved.
+   * This does not include threads in which all messages have been
    * deleted.
    */
   total: number;
@@ -68,7 +67,7 @@ export interface ThreadActivitySummary {
    * The total number of threads that contain *at least one* unread message in
    * the thread.
    *
-   * This will count all threads with unread messages at the location, whether
+   * This will count all threads with unread messages, whether
    * the current user is subscribed to the thread or not.
    */
   unread: number;
@@ -87,7 +86,7 @@ export interface ThreadActivitySummary {
    * The total number of threads that the user has never seen before at all,
    * i.e., *every* message in the thread is unread.
    *
-   * This will count all threads with unread messages at the location, whether
+   * This will count all threads with unread messages, whether
    * the current user is subscribed to the thread or not.
    */
   new: number;
