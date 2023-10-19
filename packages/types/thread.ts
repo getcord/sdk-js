@@ -852,8 +852,8 @@ export interface ICordThreadSDK {
    * // ... Later, when updates are no longer needed ...
    * window.CordSDK.thread.unobserveThreadData(ref);
    * ```
-   * @param threadId - The thread ID to fetch data for. If a thread with this ID
-   * does not exist, it will be created.
+   *
+   * @param threadId - The thread ID to fetch data for.
    * @param callback - This callback will be called once with the current thread
    * data, and then again every time it changes. The argument passed to the
    * callback is an object which will contain the fields described under
