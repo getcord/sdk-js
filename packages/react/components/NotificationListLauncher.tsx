@@ -6,12 +6,14 @@ import {
 import type {
   BadgeStyle,
   NotificationListLauncherWebComponentEvents,
+  NotificationWebComponentEvents,
 } from '@cord-sdk/types';
 import { useCustomEventListeners } from '../hooks/useCustomEventListener';
 import type {
   PropsWithFlags,
   ReactPropsWithStandardHTMLAttributes,
 } from '../types';
+import { useComposedRefs } from '../common/lib/composeRefs';
 import type { NotificationListReactComponentProps } from './NotificationList';
 
 const propsToAttributes = propsToAttributeConverter(
@@ -27,6 +29,9 @@ type NotificationListLauncherSpecificReactComponentProps = PropsWithFlags<{
   onClick?: (
     ...args: NotificationListLauncherWebComponentEvents['click']
   ) => unknown;
+  onClickNotification?: (
+    ...args: NotificationWebComponentEvents['click']
+  ) => unknown;
 }>;
 
 export type NotificationListLauncherReactComponentProps =
@@ -36,19 +41,35 @@ export type NotificationListLauncherReactComponentProps =
 export function NotificationListLauncher(
   props: ReactPropsWithStandardHTMLAttributes<NotificationListLauncherReactComponentProps>,
 ) {
-  const { onClick } = props;
-  const [setRef, listenersAttached] =
-    useCustomEventListeners<NotificationListLauncherWebComponentEvents>({
-      click: onClick,
+  const { onClick, onClickNotification } = props;
+  const [
+    notificationListLauncherRef,
+    notificationListLauncherListenersAttached,
+  ] = useCustomEventListeners<NotificationListLauncherWebComponentEvents>({
+    click: onClick,
+  });
+  const [notificationRef, notificationListenersAttached] =
+    useCustomEventListeners<NotificationWebComponentEvents>({
+      click: onClickNotification,
     });
+
+  const combinedSetRef = useComposedRefs<Element | null>(
+    notificationListLauncherRef,
+    notificationRef,
+  );
 
   return (
     <cord-notification-list-launcher
       id={props.id}
       class={props.className}
       style={props.style}
-      ref={setRef}
-      buffer-events={!listenersAttached ? 'true' : 'false'}
+      ref={combinedSetRef}
+      buffer-events={
+        !notificationListLauncherListenersAttached ||
+        !notificationListenersAttached
+          ? 'true'
+          : 'false'
+      }
       use-shadow-root={props.useShadowRoot ? 'true' : 'false'}
       {...propsToAttributes(props)}
     />
