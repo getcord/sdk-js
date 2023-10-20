@@ -49,9 +49,12 @@ export function NotificationListLauncher(
     click: onClick,
   });
   const [notificationRef, notificationListenersAttached] =
-    useCustomEventListeners<NotificationWebComponentEvents>({
-      click: onClickNotification,
-    });
+    useCustomEventListeners<NotificationWebComponentEvents>(
+      {
+        click: onClickNotification,
+      },
+      'cord-notification',
+    );
 
   const combinedSetRef = useComposedRefs<Element | null>(
     notificationListLauncherRef,
