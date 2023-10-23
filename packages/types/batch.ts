@@ -11,7 +11,7 @@ export interface ServerUpdateBatch {
    * already exists, all other fields are optional and only updated when
    * present. If the user does not already exist, fields are required as
    * described in the [Create or update a
-   * user](https://docs.cord.com/rest-apis/organizations/#create-or-update-an-organization)
+   * user](https://docs.cord.com/rest-apis/users#Create-or-update-a-user)
    * API.
    *
    * @maxItems 10000

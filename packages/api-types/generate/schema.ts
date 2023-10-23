@@ -197,7 +197,7 @@ export default {
     properties: {
       users: {
         description:
-          'List of user objects. Every object must include the id field. If the user\nalready exists, all other fields are optional and only updated when\npresent. If the user does not already exist, fields are required as\ndescribed in the [Create or update a\nuser](/rest-apis/organizations/#create-or-update-an-organization)\nAPI.',
+          'List of user objects. Every object must include the id field. If the user\nalready exists, all other fields are optional and only updated when\npresent. If the user does not already exist, fields are required as\ndescribed in the [Create or update a\nuser](/rest-apis/users#Create-or-update-a-user)\nAPI.',
         maxItems: 10000,
         type: 'array',
         items: {
