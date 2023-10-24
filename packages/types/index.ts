@@ -309,14 +309,18 @@ export type FloatingThreadsWebComponentEvents = {
 /* cord-thread */
 export type ThreadWebComponentEvents = {
   threadinfochange: [threadInfo: ThreadInfo];
-  close: [];
-  resolved: [];
+  close: [threadInfo: ThreadCallbackInfo];
+  resolved: [threadInfo: ThreadCallbackInfo];
   render: [];
   loading: [];
 };
 
-export type ThreadInfo = {
+export type ThreadInfo = ThreadCallbackInfo & {
   messageCount: number;
+};
+
+export type ThreadCallbackInfo = {
+  thread: ThreadSummary;
 };
 
 /* cord-thread-list */
