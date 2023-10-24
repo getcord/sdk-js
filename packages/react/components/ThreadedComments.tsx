@@ -34,6 +34,7 @@ const THREADED_COMMENTS_COMPONENT_NAME = 'CORD-THREADED-COMMENTS';
 
 type DisplayResolved =
   | 'interleaved'
+  | 'sequentially'
   | 'tabbed'
   | 'resolvedOnly'
   | 'unresolvedOnly';
@@ -111,6 +112,7 @@ export function ThreadedComments({
   const [resolvedTabSelected, setResolvedTabSelected] = useState<boolean>(
     displayResolved === 'resolvedOnly',
   );
+  const [expandResolved, setExpandResolved] = useState<boolean>(false);
   // We are using the following hook to make sure we get called back
   // when the CordSDK is initialized
   const { sdk: cordSDK } = useContext(CordContext);
@@ -137,13 +139,22 @@ export function ThreadedComments({
       resolvedStatus = 'unresolved';
       break;
     }
+    // This option renders open and resolved threads as two panels in the
+    // same page. Open threads first, resolved threads second. The order
+    // is directly tied to the sorting. For example, if the newest thread
+    // is on top, the user will have to scroll to the bottom of the
+    // ThreadedComments to view resolved threads.
+    case 'sequentially': {
+      resolvedStatus = 'unresolved';
+      break;
+    }
     default: {
       const _: never = displayResolved;
       resolvedStatus = 'any';
       break;
     }
   }
-
+  const showResolvedInSamePage = displayResolved === 'sequentially';
   const composerOnTop = composerPosition === 'top';
   // When showing resolved threads only, we don't want to show the composer
   // since it does not make sense to create a new thread which is resolved.
@@ -170,6 +181,78 @@ export function ThreadedComments({
     />
   );
 
+  const newestOnTop = messageOrder === 'newest_on_top';
+
+  const expandResolvedButton = showResolvedInSamePage && (
+    <ExpandResolvedButton
+      isExpanded={expandResolved}
+      onClick={() => setExpandResolved((prev) => !prev)}
+      expandedArrow={
+        newestOnTop ? <Icon name="UpSolid" /> : <Icon name="DownSolid" />
+      }
+      collapsedArrow={
+        newestOnTop ? <Icon name="DownSolid" /> : <Icon name="UpSolid" />
+      }
+    />
+  );
+
+  const threadList = (
+    <ThreadedCommentsThreadList
+      location={location}
+      partialMatch={partialMatch}
+      filter={filter}
+      resolvedStatus={
+        filter?.resolvedStatus ? filter?.resolvedStatus : resolvedStatus
+      }
+      messageOrder={messageOrder}
+      showReplies={showReplies}
+      replyComposerExpanded={replyComposerExpanded}
+      highlightThreadId={highlightThreadId}
+      enableFacepileTooltip={enableFacepileTooltip}
+      showPlaceholder={showPlaceholder}
+      onRender={onRender}
+      onLoading={onLoading}
+      onMessageClick={onMessageClick}
+      onMessageMouseEnter={onMessageMouseEnter}
+      onMessageMouseLeave={onMessageMouseLeave}
+      onMessageEditStart={onMessageEditStart}
+      onMessageEditEnd={onMessageEditEnd}
+      onThreadResolve={onThreadResolve}
+      onThreadReopen={onThreadReopen}
+      onComposerFocus={onComposerFocus}
+      onComposerBlur={onComposerBlur}
+      onComposerClose={onComposerClose}
+      onSend={onSend}
+    />
+  );
+  const resolvedThreadList = showResolvedInSamePage && expandResolved && (
+    <ThreadedCommentsThreadList
+      location={location}
+      partialMatch={partialMatch}
+      filter={filter}
+      resolvedStatus={'resolved'}
+      messageOrder={messageOrder}
+      showReplies={showReplies}
+      enableFacepileTooltip={enableFacepileTooltip}
+      showPlaceholder={showPlaceholder}
+      onMessageClick={onMessageClick}
+      onMessageMouseEnter={onMessageMouseEnter}
+      onMessageMouseLeave={onMessageMouseLeave}
+      onThreadResolve={onThreadResolve}
+      onThreadReopen={onThreadReopen}
+    />
+  );
+
+  // When displayResolved is set to `sequentially` we display: unresolved threads,
+  // a button to trigger the showing of resolved threads and the resolved threads.
+  // The order is directly tied to the sort order of the messages, so we use an
+  // array to be able to easily reverse how these components are displayed
+  const threadListOrderedArray = [
+    threadList,
+    expandResolvedButton,
+    resolvedThreadList,
+  ];
+
   if (!cordSDK) {
     // We can't get translations until the SDK is initialized, so all the text
     // will just show the translation keys and look really weird.  Render
@@ -187,33 +270,9 @@ export function ThreadedComments({
       {resolvedStatusTabs}
       {composerOnTop && showComposer && composer}
       <div className={classes.threadList}>
-        <ThreadedCommentsThreadList
-          location={location}
-          partialMatch={partialMatch}
-          filter={filter}
-          resolvedStatus={
-            displayResolved ? resolvedStatus : filter?.resolvedStatus
-          }
-          messageOrder={messageOrder}
-          showReplies={showReplies}
-          replyComposerExpanded={replyComposerExpanded}
-          highlightThreadId={highlightThreadId}
-          enableFacepileTooltip={enableFacepileTooltip}
-          showPlaceholder={showPlaceholder}
-          onRender={onRender}
-          onLoading={onLoading}
-          onMessageClick={onMessageClick}
-          onMessageMouseEnter={onMessageMouseEnter}
-          onMessageMouseLeave={onMessageMouseLeave}
-          onMessageEditStart={onMessageEditStart}
-          onMessageEditEnd={onMessageEditEnd}
-          onThreadResolve={onThreadResolve}
-          onThreadReopen={onThreadReopen}
-          onComposerFocus={onComposerFocus}
-          onComposerBlur={onComposerBlur}
-          onComposerClose={onComposerClose}
-          onSend={onSend}
-        />
+        {newestOnTop
+          ? threadListOrderedArray
+          : threadListOrderedArray.reverse()}
       </div>
       {!composerOnTop && showComposer && composer}
     </div>
@@ -353,6 +412,33 @@ function ThreadedCommentsThreadList({
       {threads.length !== 0 && renderedThreads}
       {newestOnTop && fetchMoreButton}
     </>
+  );
+}
+
+function ExpandResolvedButton({
+  isExpanded,
+  onClick,
+  expandedArrow,
+  collapsedArrow,
+}: {
+  isExpanded: boolean;
+  onClick: () => void;
+  expandedArrow: JSX.Element;
+  collapsedArrow: JSX.Element;
+}) {
+  const { t } = useTranslation('threaded_comments');
+
+  return (
+    <button
+      type="button"
+      className={cx(classes.expandResolvedButton, fonts.fontSmall)}
+      onClick={onClick}
+    >
+      {isExpanded
+        ? t('hide_resolved_threads_action')
+        : t('show_resolved_threads_action')}
+      {isExpanded ? expandedArrow : collapsedArrow}
+    </button>
   );
 }
 

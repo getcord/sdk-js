@@ -78,6 +78,10 @@ export const resources = {
     threaded_comments: {
       show_unresolved: 'Open',
       show_resolved: 'Resolved',
+      show_resolved_threads_action:
+        '$t(thread_list:show_resolved_threads_action)',
+      hide_resolved_threads_action:
+        '$t(thread_list:hide_resolved_threads_action)',
       load_more_action: 'Load more',
       show_replies_action_read_one: '1 reply',
       show_replies_action_read_other: '{{count}} replies',

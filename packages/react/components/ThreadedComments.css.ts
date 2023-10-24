@@ -16,6 +16,7 @@ const {
   threadList,
   thread,
   resolvedThreadHeader,
+  expandResolvedButton,
   reopenButton,
   expandReplies,
   repliesContainer,
@@ -144,6 +145,21 @@ globalStyle(threadOrThreadListButton.join(', '), {
 });
 globalStyle(threadOrThreadListButton.map((s) => s + ':hover').join(', '), {
   background: cssVar('color-base-strong'),
+});
+
+globalStyle(`.${expandResolvedButton}`, {
+  background: 'none',
+  border: 'none',
+  color: cssVar('color-content-emphasis'),
+  display: 'flex',
+  gap: cssVar('space-2xs'),
+  paddingLeft: `calc(${cssVar('space-l')} + ${cssVar('space-2xs')})`,
+});
+
+globalStyle(`.${expandResolvedButton}:hover`, {
+  background: 'none',
+  cursor: 'pointer',
+  textDecoration: 'underline',
 });
 
 globalStyle(`.${comments} :where(button.${expandReplies})`, {

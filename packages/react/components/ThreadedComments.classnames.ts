@@ -11,6 +11,9 @@ export const tabContainer = cordifyClassname('threaded-comments-tab-container');
 export const tab = cordifyClassname('threaded-comments-tab');
 
 export const threadList = cordifyClassname('threaded-comments-thread-list');
+export const expandResolvedButton = cordifyClassname(
+  'threaded-comments-expand-resolved-button',
+);
 
 export const thread = cordifyClassname('threaded-comments-thread');
 export const resolvedThreadHeader = cordifyClassname(
@@ -32,6 +35,8 @@ export const threadedCommentsClassnameDocs = {
     'Applied to the individual "Open" and "Resolved" buttons within the aforementioned `tabContainer`.',
   [threadList]:
     'Applied to the high-level list of threads. Although it is a list of threads, it is not actually a `ThreadList` component, hence the long name.',
+  [expandResolvedButton]:
+    'Applied to the "Show resolved threads" button, which appears when the display resolved property is set to `sequentially`.',
   [emptyStateClasses.emptyStatePlaceholderContainer]:
     'Applied to the container of the placeholder that appears when there are no messages.',
   [emptyStateClasses.emptyStatePlaceholderTitle]:
