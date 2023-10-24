@@ -276,7 +276,7 @@ export interface ICordUserSDK {
    * This means all users who were connected to Slack will also be disconnected.
    * @example Overview
    * ```javascript
-   * window.CordSDK.user.disconnectSlackWorkSpace();
+   * window.CordSDK.user.disconnectSlackWorkspace();
    * ```
    * @returns A promise that resolves to `true` if the operation succeeded or
    * rejects if it failed.
