@@ -11,7 +11,7 @@ import type {
   ThreadSummary,
 } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { logComponentInstantiation } from '../common/util';
 import * as user from '../hooks/user';
@@ -20,6 +20,7 @@ import { useExtraClassnames } from '../hooks/useExtraClassnames';
 import * as fonts from '../common/ui/atomicClasses/fonts.css';
 import { MODIFIERS } from '../common/ui/modifiers';
 import { useCallFunctionOnce } from '../common/effects/useCallFunctionOnce';
+import { CordContext } from '..';
 import type { ThreadListReactComponentProps } from '..';
 import classes from './ThreadedComments.css';
 import { Composer } from './Composer';
@@ -110,6 +111,10 @@ export function ThreadedComments({
   const [resolvedTabSelected, setResolvedTabSelected] = useState<boolean>(
     displayResolved === 'resolvedOnly',
   );
+  // We are using the following hook to make sure we get called back
+  // when the CordSDK is initialized
+  const { sdk: cordSDK } = useContext(CordContext);
+
   // The property for ThreadedComments does not correspond 1:1 with the underlying
   // `resolvedStatus` API filter. If we want to see resolved and unresolved threads
   // together, we want to fetch `resolvedStatus: any`. Otherwise we only want to
@@ -230,9 +235,7 @@ export function ThreadedComments({
     />
   );
 
-  // In server-side rendered apps, we won't have access to the window object.
-  // We need to check if the object is defined first, then if CordSDK is defined.
-  if (typeof window === 'undefined' || !window.CordSDK) {
+  if (!cordSDK) {
     // We can't get translations until the SDK is initialized, so all the text
     // will just show the translation keys and look really weird.  Render
     // nothing instead.
