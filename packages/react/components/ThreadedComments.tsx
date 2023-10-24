@@ -143,6 +143,138 @@ export function ThreadedComments({
       break;
     }
   }
+
+  const composerOnTop = composerPosition === 'top';
+  // When showing resolved threads only, we don't want to show the composer
+  // since it does not make sense to create a new thread which is resolved.
+  const showComposer =
+    composerPosition !== 'none' && resolvedStatus !== 'resolved';
+  const composer = (
+    <Composer
+      location={location}
+      showExpanded={topLevelComposerExpanded}
+      threadUrl={threadUrl}
+      threadName={threadName}
+      threadMetadata={threadMetadata}
+      onFocus={onComposerFocus}
+      onBlur={onComposerBlur}
+      onSend={onSend}
+      autofocus={autofocus}
+    />
+  );
+
+  const resolvedStatusTabs = displayResolved === 'tabbed' && (
+    <ResolvedStatusTabs
+      showResolved={resolvedTabSelected}
+      setShowResolved={setResolvedTabSelected}
+    />
+  );
+
+  if (!cordSDK) {
+    // We can't get translations until the SDK is initialized, so all the text
+    // will just show the translation keys and look really weird.  Render
+    // nothing instead.
+    return null;
+  }
+
+  return (
+    <div
+      className={cx(classes.comments, className, {
+        [classes.unresolvedOnly]: displayResolved === 'unresolvedOnly',
+        [classes.resolvedOnly]: displayResolved === 'resolvedOnly',
+      })}
+    >
+      {resolvedStatusTabs}
+      {composerOnTop && showComposer && composer}
+      <div className={classes.threadList}>
+        <ThreadedCommentsThreadList
+          location={location}
+          partialMatch={partialMatch}
+          filter={filter}
+          resolvedStatus={
+            displayResolved ? resolvedStatus : filter?.resolvedStatus
+          }
+          messageOrder={messageOrder}
+          showReplies={showReplies}
+          replyComposerExpanded={replyComposerExpanded}
+          highlightThreadId={highlightThreadId}
+          enableFacepileTooltip={enableFacepileTooltip}
+          showPlaceholder={showPlaceholder}
+          onRender={onRender}
+          onLoading={onLoading}
+          onMessageClick={onMessageClick}
+          onMessageMouseEnter={onMessageMouseEnter}
+          onMessageMouseLeave={onMessageMouseLeave}
+          onMessageEditStart={onMessageEditStart}
+          onMessageEditEnd={onMessageEditEnd}
+          onThreadResolve={onThreadResolve}
+          onThreadReopen={onThreadReopen}
+          onComposerFocus={onComposerFocus}
+          onComposerBlur={onComposerBlur}
+          onComposerClose={onComposerClose}
+          onSend={onSend}
+        />
+      </div>
+      {!composerOnTop && showComposer && composer}
+    </div>
+  );
+}
+
+function ThreadedCommentsThreadList({
+  location,
+  partialMatch = false,
+  filter,
+  resolvedStatus,
+  messageOrder = 'newest_on_bottom',
+  replyComposerExpanded = false,
+  showReplies = 'initiallyCollapsed',
+  highlightThreadId,
+  enableFacepileTooltip = false,
+  showPlaceholder = true,
+  onRender,
+  onLoading,
+  onMessageClick,
+  onMessageMouseEnter,
+  onMessageMouseLeave,
+  onMessageEditStart,
+  onMessageEditEnd,
+  onThreadResolve,
+  onThreadReopen,
+  onComposerFocus,
+  onComposerBlur,
+  onComposerClose,
+  onSend,
+}: {
+  location: Location;
+  partialMatch?: boolean;
+  filter?: ThreadListFilter;
+  resolvedStatus?: ResolvedStatus;
+  threadMetadata?: EntityMetadata;
+  messageOrder?: MessageOrder;
+  composerPosition?: ComposerPosition;
+  threadUrl?: string;
+  threadName?: string;
+  topLevelComposerExpanded?: boolean;
+  replyComposerExpanded?: boolean;
+  showReplies?: ShowReplies;
+  highlightThreadId?: string;
+  autofocus?: boolean;
+  enableFacepileTooltip?: boolean;
+  showPlaceholder?: boolean;
+  onMessageClick?: (messageInfo: MessageInfo) => unknown;
+  onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
+  onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
+  onMessageEditStart?: (messageInfo: MessageInfo) => unknown;
+  onMessageEditEnd?: (messageInfo: MessageInfo) => unknown;
+  onThreadResolve?: ThreadListReactComponentProps['onThreadResolve'];
+  onThreadReopen?: ThreadListReactComponentProps['onThreadReopen'];
+  onRender?: () => unknown;
+  onLoading?: () => unknown;
+  onComposerFocus?: (...args: ComposerWebComponentEvents['focus']) => unknown;
+  onComposerBlur?: (...args: ComposerWebComponentEvents['blur']) => unknown;
+  onComposerClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
+  onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
+}) {
   const { threads, hasMore, loading, fetchMore } = thread.useLocationData(
     location,
     {
@@ -151,9 +283,7 @@ export function ThreadedComments({
       partialMatch,
       filter: {
         ...filter,
-        resolvedStatus: displayResolved
-          ? resolvedStatus
-          : filter?.resolvedStatus,
+        resolvedStatus,
       },
     },
   );
@@ -209,61 +339,20 @@ export function ThreadedComments({
   const fetchMoreButton =
     !loading && hasMore ? <FetchMoreButton fetchMore={fetchMore} /> : null;
 
-  const composerOnTop = composerPosition === 'top';
-  // When showing resolved threads only, we don't want to show the composer
-  // since it does not make sense to create a new thread which is resolved.
-  const showComposer =
-    composerPosition !== 'none' && resolvedStatus !== 'resolved';
-  const composer = (
-    <Composer
-      location={location}
-      showExpanded={topLevelComposerExpanded}
-      threadUrl={threadUrl}
-      threadName={threadName}
-      threadMetadata={threadMetadata}
-      onFocus={onComposerFocus}
-      onBlur={onComposerBlur}
-      onSend={onSend}
-      autofocus={autofocus}
-    />
-  );
-
-  const resolvedStatusTabs = displayResolved === 'tabbed' && (
-    <ResolvedStatusTabs
-      showResolved={resolvedTabSelected}
-      setShowResolved={setResolvedTabSelected}
-    />
-  );
-
-  if (!cordSDK) {
-    // We can't get translations until the SDK is initialized, so all the text
-    // will just show the translation keys and look really weird.  Render
-    // nothing instead.
-    return null;
-  }
-
   return (
-    <div
-      className={cx(classes.comments, className, {
-        [classes.unresolvedOnly]: displayResolved === 'unresolvedOnly',
-        [classes.resolvedOnly]: displayResolved === 'resolvedOnly',
-      })}
-    >
-      {resolvedStatusTabs}
-      {composerOnTop && showComposer && composer}
-      <div className={classes.threadList}>
-        {!newestOnTop && fetchMoreButton}
-        {threads.length === 0 && !loading && showPlaceholder ? (
+    <>
+      {showPlaceholder &&
+        threads.length === 0 &&
+        !loading &&
+        resolvedStatus !== 'resolved' && (
           <EmptyStateWithFacepile
             users={orgMembers?.map((p) => p.id).slice(0, 4) ?? []}
           />
-        ) : (
-          renderedThreads
         )}
-        {newestOnTop && fetchMoreButton}
-      </div>
-      {!composerOnTop && showComposer && composer}
-    </div>
+      {!newestOnTop && fetchMoreButton}
+      {threads.length !== 0 && renderedThreads}
+      {newestOnTop && fetchMoreButton}
+    </>
   );
 }
 
