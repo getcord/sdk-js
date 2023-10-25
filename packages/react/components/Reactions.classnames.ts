@@ -11,7 +11,8 @@ export const count = cordifyClassname('count');
 export const reactionsClassnamesDocs = {
   [reactionsContainer]:
     'Applied to the container div. This class is always present.',
-  [reactionList]: 'Applied to the div containing reactions.',
+  [reactionList]:
+    'Applied to the div containing reactions and the add reaction button.',
   [addReaction]: 'Applied to the add reaction button element',
   [pill]:
     'Applied to the div element containing the emoji unicode and the number of reactions.',
