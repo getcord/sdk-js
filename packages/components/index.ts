@@ -215,6 +215,8 @@ export const componentAttributes = {
   ThreadedComments: {
     location: 'json',
     'message-order': 'string',
+    'sort-by': 'string',
+    'scroll-direction': 'string',
     'composer-position': 'string',
     'top-level-composer-expanded': 'boolean',
     'reply-composer-expanded': 'boolean',

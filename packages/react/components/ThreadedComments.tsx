@@ -6,6 +6,7 @@ import type {
   Location,
   MessageInfo,
   ResolvedStatus,
+  SortBy,
   ThreadData,
   ThreadListFilter,
   ThreadSummary,
@@ -43,6 +44,7 @@ type ShowReplies =
   | 'initiallyExpanded'
   | 'alwaysCollapsed';
 type MessageOrder = 'newest_on_top' | 'newest_on_bottom';
+type ScrollDirection = 'up' | 'down';
 type ComposerPosition = 'top' | 'bottom' | 'none';
 export type ThreadedCommentsReactComponentProps = {
   location: Location;
@@ -50,7 +52,10 @@ export type ThreadedCommentsReactComponentProps = {
   filter?: ThreadListFilter;
   threadMetadata?: EntityMetadata;
   className?: string;
+  /** @deprecated Use sortBy and scrollDirection instead. */
   messageOrder?: MessageOrder;
+  sortBy?: SortBy;
+  scrollDirection?: ScrollDirection;
   composerPosition?: ComposerPosition;
   threadUrl?: string;
   threadName?: string;
@@ -81,6 +86,8 @@ export function ThreadedComments({
   className,
   location,
   messageOrder = 'newest_on_bottom',
+  sortBy = 'first_message_timestamp',
+  scrollDirection,
   composerPosition = 'bottom',
   threadUrl,
   threadName,
@@ -116,6 +123,32 @@ export function ThreadedComments({
   // We are using the following hook to make sure we get called back
   // when the CordSDK is initialized
   const { sdk: cordSDK } = useContext(CordContext);
+
+  // We have intentionally left the scrollDirection prop without a default, so we
+  // can be sure whether developers have set it or not. We always want the
+  // scrollDirection to take precedence over the deprecated messageOrder now on,
+  // until we completely remove it. But for developers already using it, we want
+  // to convert it below.
+  if (!scrollDirection) {
+    switch (messageOrder) {
+      case 'newest_on_top': {
+        scrollDirection = 'down';
+        break;
+      }
+      // If neither the messageOrder or scrollDirection are set, the default value
+      // of scrollDirection will be based on the default value of the messageOrder prop,
+      // which is "newest_on_bottom".
+      case 'newest_on_bottom': {
+        scrollDirection = 'up';
+        break;
+      }
+      default: {
+        const _: never = messageOrder;
+        scrollDirection = 'up';
+        break;
+      }
+    }
+  }
 
   // The property for ThreadedComments does not correspond 1:1 with the underlying
   // `resolvedStatus` API filter. If we want to see resolved and unresolved threads
@@ -181,7 +214,7 @@ export function ThreadedComments({
     />
   );
 
-  const newestOnTop = messageOrder === 'newest_on_top';
+  const newestOnTop = scrollDirection === 'down';
 
   const expandResolvedButton = showResolvedInSamePage && (
     <ExpandResolvedButton
@@ -204,7 +237,8 @@ export function ThreadedComments({
       resolvedStatus={
         filter?.resolvedStatus ? filter?.resolvedStatus : resolvedStatus
       }
-      messageOrder={messageOrder}
+      sortBy={sortBy}
+      scrollDirection={scrollDirection}
       showReplies={showReplies}
       replyComposerExpanded={replyComposerExpanded}
       highlightThreadId={highlightThreadId}
@@ -231,7 +265,8 @@ export function ThreadedComments({
       partialMatch={partialMatch}
       filter={filter}
       resolvedStatus={'resolved'}
-      messageOrder={messageOrder}
+      sortBy={sortBy}
+      scrollDirection={scrollDirection}
       showReplies={showReplies}
       enableFacepileTooltip={enableFacepileTooltip}
       showPlaceholder={showPlaceholder}
@@ -284,7 +319,8 @@ function ThreadedCommentsThreadList({
   partialMatch = false,
   filter,
   resolvedStatus,
-  messageOrder = 'newest_on_bottom',
+  sortBy = 'first_message_timestamp',
+  scrollDirection = 'up',
   replyComposerExpanded = false,
   showReplies = 'initiallyCollapsed',
   highlightThreadId,
@@ -309,7 +345,8 @@ function ThreadedCommentsThreadList({
   filter?: ThreadListFilter;
   resolvedStatus?: ResolvedStatus;
   threadMetadata?: EntityMetadata;
-  messageOrder?: MessageOrder;
+  sortBy?: SortBy;
+  scrollDirection?: ScrollDirection;
   composerPosition?: ComposerPosition;
   threadUrl?: string;
   threadName?: string;
@@ -337,7 +374,7 @@ function ThreadedCommentsThreadList({
   const { threads, hasMore, loading, fetchMore } = thread.useLocationData(
     location,
     {
-      sortBy: 'first_message_timestamp',
+      sortBy,
       sortDirection: 'descending',
       partialMatch,
       filter: {
@@ -390,7 +427,7 @@ function ThreadedCommentsThreadList({
     />
   ));
 
-  const newestOnTop = messageOrder === 'newest_on_top';
+  const newestOnTop = scrollDirection === 'down';
   if (!newestOnTop) {
     renderedThreads.reverse();
   }
