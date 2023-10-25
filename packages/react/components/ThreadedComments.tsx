@@ -404,9 +404,7 @@ function ThreadedCommentsThreadList({
         threads.length === 0 &&
         !loading &&
         resolvedStatus !== 'resolved' && (
-          <EmptyStateWithFacepile
-            users={orgMembers?.map((p) => p.id).slice(0, 4) ?? []}
-          />
+          <EmptyStateWithFacepile users={orgMembers?.map((p) => p.id) ?? []} />
         )}
       {!newestOnTop && fetchMoreButton}
       {threads.length !== 0 && renderedThreads}

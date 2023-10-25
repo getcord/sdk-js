@@ -14,7 +14,7 @@ export function EmptyStateWithFacepile({ users, className }: Props) {
   const { t } = useTranslation('thread');
   return (
     <div className={cx(classes.emptyStatePlaceholderContainer, className)}>
-      {users.length > 0 && <Facepile users={users} />}
+      {users.length > 0 && <Facepile users={users.slice(0, 4)} />}
       <p className={classes.emptyStatePlaceholderTitle}>
         {t('placeholder_title')}
       </p>
