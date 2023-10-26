@@ -1,5 +1,8 @@
 import type { ID } from './core';
 
+/**
+ * @deprecated use ServerGroupData instead
+ */
 export interface ServerOrganizationData {
   /**
    * ID of the organization
@@ -28,6 +31,9 @@ export interface ServerOrganizationData {
   connectedToSlack: boolean;
 }
 
+/**
+ * @deprecated use ServerUpdateGroup instead
+ */
 export type ServerUpdateOrganization = Partial<
   Omit<ServerOrganizationData, 'id' | 'members' | 'connectedToSlack'> & {
     /**
@@ -37,6 +43,10 @@ export type ServerUpdateOrganization = Partial<
     members?: ID[];
   }
 >;
+
+/**
+ * @deprecated use ServerUpdateGroupMembers instead
+ */
 export interface ServerUpdateOrganizationMembers {
   /**
    * The IDs of users to add to this organization.
@@ -54,7 +64,13 @@ export interface ServerUpdateOrganizationMembers {
 export interface ServerCreateOrganization
   extends Omit<ServerOrganizationData, 'connectedToSlack'> {}
 
+/**
+ * @deprecated use ServerGetGroup instead
+ */
 export interface ServerGetOrganization extends ServerOrganizationData {}
 
+/**
+ * @deprecated use ServerListGroup instead
+ */
 export interface ServerListOrganization
   extends Omit<ServerOrganizationData, 'members'> {}

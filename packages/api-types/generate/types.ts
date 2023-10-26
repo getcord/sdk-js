@@ -15,6 +15,8 @@ import type {
   UpdatePlatformOrganizationVariables,
   UpdatePlatformOrganizationMembersVariables,
   CreatePlatformOrganizationVariables,
+  UpdatePlatformGroupVariables,
+  UpdatePlatformGroupMembersVariables,
   UpdateUserPreferenceVariables,
   UpdateUserPresenceVariables,
   CreateThreadVariables,
@@ -45,6 +47,8 @@ export type Types = {
   UpdatePlatformOrganizationVariables: UpdatePlatformOrganizationVariables;
   UpdatePlatformOrganizationMembersVariables: UpdatePlatformOrganizationMembersVariables;
   CreatePlatformOrganizationVariables: CreatePlatformOrganizationVariables;
+  UpdatePlatformGroupVariables: UpdatePlatformGroupVariables;
+  UpdatePlatformGroupMembersVariables: UpdatePlatformGroupMembersVariables;
   UpdateUserPreferenceVariables: UpdateUserPreferenceVariables;
   UpdateUserPresenceVariables: UpdateUserPresenceVariables;
   CreateThreadVariables: CreateThreadVariables;

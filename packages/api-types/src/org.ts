@@ -5,19 +5,22 @@ import type {
 } from '@cord-sdk/types';
 
 /**
- * https://docs.cord.com/rest-apis/organizations/
+ * @deprecated Use UpdatePlatformGroupVariables
+ * https://docs.cord.com/rest-apis/group/
  */
 export interface UpdatePlatformOrganizationVariables
   extends ServerUpdateOrganization {}
 
 /**
- * https://docs.cord.com/rest-apis/organizations/
+ * @deprecated Use UpdatePlatformGroupMembersVariables
+ * https://docs.cord.com/rest-apis/groups/
  */
 export interface UpdatePlatformOrganizationMembersVariables
   extends ServerUpdateOrganizationMembers {}
 
 /**
- * https://docs.cord.com/rest-apis/organizations/
+ * @deprecated Use CreatePlatformGroupVariables
+ * https://docs.cord.com/rest-apis/groups/
  */
 export interface CreatePlatformOrganizationVariables
   extends ServerCreateOrganization {}

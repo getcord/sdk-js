@@ -252,8 +252,6 @@ export default {
         },
       },
       organizations: {
-        description:
-          'List of organization objects. Every object must include the id field. If\nthe organization already exists, all other fields are optional and only\nupdated when present. If the organization does not already exist, fields\nare required as described in the [Create or update an\norganization](/rest-apis/organizations/#create-or-update-an-organization)\nAPI.',
         maxItems: 1000,
         type: 'array',
         items: {
@@ -282,9 +280,39 @@ export default {
           required: ['id'],
         },
       },
+      groups: {
+        description:
+          'List of group objects. Every object must include the id field. If\nthe group already exists, all other fields are optional and only\nupdated when present. If the group does not already exist, fields\nare required as described in the [Create or update a\ngroup](/rest-apis/groups/#create-or-update-a-group)\nAPI.',
+        maxItems: 1000,
+        type: 'array',
+        items: {
+          additionalProperties: false,
+          type: 'object',
+          properties: {
+            name: {
+              description: 'Group name. Required when creating an group.',
+              type: 'string',
+            },
+            status: {
+              description:
+                'Whether this group is active or deleted.  Attempting to log into a\ndeleted group will fail.',
+              enum: ['active', 'deleted'],
+              type: 'string',
+            },
+            members: {
+              description:
+                'List of partner-specific IDs of the users who are members of this group.\nThis will replace the existing members.',
+              type: 'array',
+              items: { $ref: '#/definitions/ID' },
+            },
+            id: { $ref: '#/definitions/ID' },
+          },
+          required: ['id'],
+        },
+      },
     },
     additionalProperties: false,
-    propertyOrder: ['users', 'organizations'],
+    propertyOrder: ['users', 'organizations', 'groups'],
     definitions: {
       ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
     },
@@ -802,7 +830,6 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   UpdatePlatformOrganizationVariables: {
-    description: 'https://docs.cord.com/rest-apis/organizations/',
     type: 'object',
     properties: {
       name: {
@@ -831,7 +858,6 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   UpdatePlatformOrganizationMembersVariables: {
-    description: 'https://docs.cord.com/rest-apis/organizations/',
     type: 'object',
     properties: {
       add: {
@@ -853,7 +879,6 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreatePlatformOrganizationVariables: {
-    description: 'https://docs.cord.com/rest-apis/organizations/',
     type: 'object',
     properties: {
       id: { $ref: '#/definitions/ID', description: 'ID of the organization' },
@@ -878,6 +903,56 @@ export default {
     additionalProperties: false,
     propertyOrder: ['id', 'name', 'status', 'members'],
     required: ['id', 'name'],
+    definitions: {
+      ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+    },
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  UpdatePlatformGroupVariables: {
+    description: 'https://docs.cord.com/rest-apis/groups/',
+    type: 'object',
+    properties: {
+      name: {
+        description: 'Group name. Required when creating an group.',
+        type: 'string',
+      },
+      status: {
+        description:
+          'Whether this group is active or deleted.  Attempting to log into a\ndeleted group will fail.',
+        enum: ['active', 'deleted'],
+        type: 'string',
+      },
+      members: {
+        description:
+          'List of partner-specific IDs of the users who are members of this group.\nThis will replace the existing members.',
+        type: 'array',
+        items: { $ref: '#/definitions/ID' },
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['name', 'status', 'members'],
+    definitions: {
+      ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
+    },
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
+  UpdatePlatformGroupMembersVariables: {
+    description: 'https://docs.cord.com/rest-apis/groups/',
+    type: 'object',
+    properties: {
+      add: {
+        description: 'The IDs of users to add to this group.',
+        type: 'array',
+        items: { $ref: '#/definitions/ID' },
+      },
+      remove: {
+        description: 'The IDs of users to remove from this group.',
+        type: 'array',
+        items: { $ref: '#/definitions/ID' },
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['add', 'remove'],
     definitions: {
       ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
     },

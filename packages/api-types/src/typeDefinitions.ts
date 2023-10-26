@@ -3,6 +3,7 @@ import type { ClientAuthTokenData as ClientAuthTokenData_ } from '@cord-sdk/type
 export * from './application';
 export * from './batch';
 export * from './file';
+export * from './group';
 export * from './message';
 export * from './notifications';
 export * from './preferences';

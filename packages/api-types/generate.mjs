@@ -11,6 +11,7 @@ const TYPE_DEFINITION_FILES = [
   'message',
   'notifications',
   'org',
+  'group',
   'preferences',
   'presence',
   'thread',

@@ -26,6 +26,7 @@ export * from './auth';
 export * from './batch';
 export * from './core';
 export * from './file';
+export * from './group';
 export * from './message';
 export * from './notifications';
 export * from './organization';
