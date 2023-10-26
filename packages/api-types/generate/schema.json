@@ -1712,7 +1712,12 @@
       "organization_id": {
         "minLength": 1,
         "maxLength": 128,
-        "description": "The ID for the user’s organization",
+        "type": ["string", "number"]
+      },
+      "group_id": {
+        "minLength": 1,
+        "maxLength": 128,
+        "description": "The ID for the user’s group",
         "type": ["string", "number"]
       },
       "user_details": {
@@ -1720,16 +1725,21 @@
         "$ref": "#/definitions/Partial<Omit<ServerUserData,\"id\"|\"createdTimestamp\">>"
       },
       "organization_details": {
-        "description": "If present, update’s the organization’s details, or creates an organization\nwith those details if the organization_id is new to Cord. This is an object\nthat contains the same fields as the [organization management REST\nendpoint](/rest-apis/organizations/)",
         "$ref": "#/definitions/Partial<Omit<ServerOrganizationData,\"id\"|\"members\"|\"connectedToSlack\">&{members?:ID[]|undefined;}>"
+      },
+      "group_details": {
+        "description": "If present, updates the group's details, or creates a group\nwith those details if the group_id is new to Cord. This is an object\nthat contains the same fields as the [group management REST\nendpoint](/rest-apis/groups/)",
+        "$ref": "#/definitions/Partial<Omit<ServerGroupData,\"id\"|\"members\"|\"connectedToSlack\">&{members?:ID[]|undefined;}>"
       }
     },
     "propertyOrder": [
       "app_id",
       "user_id",
       "organization_id",
+      "group_id",
       "user_details",
-      "organization_details"
+      "organization_details",
+      "group_details"
     ],
     "required": ["app_id", "user_id"],
     "definitions": {
@@ -1805,6 +1815,27 @@
           },
           "members": {
             "description": "List of partner-specific IDs of the users who are members of this organization.\nThis will replace the existing members.",
+            "type": "array",
+            "items": { "$ref": "#/definitions/ID" }
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": ["name", "status", "members"]
+      },
+      "Partial<Omit<ServerGroupData,\"id\"|\"members\"|\"connectedToSlack\">&{members?:ID[]|undefined;}>": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Group name. Required when creating an group.",
+            "type": "string"
+          },
+          "status": {
+            "description": "Whether this group is active or deleted.  Attempting to log into a\ndeleted group will fail.",
+            "enum": ["active", "deleted"],
+            "type": "string"
+          },
+          "members": {
+            "description": "List of partner-specific IDs of the users who are members of this group.\nThis will replace the existing members.",
             "type": "array",
             "items": { "$ref": "#/definitions/ID" }
           }
