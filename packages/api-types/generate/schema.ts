@@ -1005,13 +1005,10 @@ export default {
     description: 'https://docs.cord.com/rest-apis/presence/',
     type: 'object',
     properties: {
-      organizationID: {
-        description: 'The organization that the user belongs to.',
-        type: 'string',
-      },
+      organizationID: { type: 'string' },
       exclusiveWithin: {
         description:
-          'Sets an "exclusivity region" for the ephemeral presence set by this update.\nA user can only be present at one location for a given value of exclusiveWithin.\nIf the user becomes present at a different location with the same value of\nexclusiveWithin, they automatically become no longer present at all other\nlocations with that value of exclusive_within.\nThis is useful to more easily track presence as a user moves among sub-locations.\nFor example, suppose we\'d like to track which specific paragraph on a page\na user is present. We could make those updates like this:\n\n```json\n{\n   "organizationID": "<ORG_ID>",\n   "location": { "page": "<PAGE_ID>", "paragraph": "<PARAGRAPH_ID>" },\n   "exclusiveWithin": { "page": "<PAGE_ID>" }\n}\n```\n\nAs a user moves around a page, their paragraphID will change, while their\npageID will remain the same. The above call to setPresent will mark them\npresent at their specific paragraph. However, since every update uses the\nsame exclusiveWithin, each time they are marked present at one paragraph\nthey will become no longer present at their previous paragraph.',
+          'Sets an "exclusivity region" for the ephemeral presence set by this update.\nA user can only be present at one location for a given value of exclusiveWithin.\nIf the user becomes present at a different location with the same value of\nexclusiveWithin, they automatically become no longer present at all other\nlocations with that value of exclusive_within.\nThis is useful to more easily track presence as a user moves among sub-locations.\nFor example, suppose we\'d like to track which specific paragraph on a page\na user is present. We could make those updates like this:\n\n```json\n{\n   "groupID": "<GROUP_ID>",\n   "location": { "page": "<PAGE_ID>", "paragraph": "<PARAGRAPH_ID>" },\n   "exclusiveWithin": { "page": "<PAGE_ID>" }\n}\n```\n\nAs a user moves around a page, their paragraphID will change, while their\npageID will remain the same. The above call to setPresent will mark them\npresent at their specific paragraph. However, since every update uses the\nsame exclusiveWithin, each time they are marked present at one paragraph\nthey will become no longer present at their previous paragraph.',
         type: 'object',
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
@@ -1022,6 +1019,11 @@ export default {
         type: 'object',
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
+      },
+      groupID: {
+        description:
+          'The ID of the group which should be able to see this presence update',
+        type: 'string',
       },
       durable: {
         description:
@@ -1039,10 +1041,11 @@ export default {
       'organizationID',
       'exclusiveWithin',
       'location',
+      'groupID',
       'durable',
       'absent',
     ],
-    required: ['location', 'organizationID'],
+    required: ['groupID', 'location'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreateThreadVariables: {

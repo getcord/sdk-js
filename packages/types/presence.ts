@@ -23,7 +23,10 @@ export type SetPresentOptions = {
    */
   absent?: boolean;
   exclusive_within?: Location;
-  groupID?: string;
+  /**
+   * The ID of the group which should be able to see this presence update
+   */
+  groupID: string;
 };
 
 export interface AddListenerOptions {
@@ -153,11 +156,11 @@ export interface ICordPresenceSDK {
 }
 
 export interface ServerUpdatePresence
-  extends Omit<SetPresentOptions, 'exclusive_within' | 'groupID'> {
+  extends Omit<SetPresentOptions, 'exclusive_within'> {
   /**
-   * The organization that the user belongs to.
+   * @deprecated - use groupID instead.
    */
-  organizationID: string;
+  organizationID?: string;
   /**
    * Sets an "exclusivity region" for the ephemeral presence set by this update.
    * A user can only be present at one location for a given value of exclusiveWithin.
@@ -170,7 +173,7 @@ export interface ServerUpdatePresence
    *
    * ```json
    * {
-   *    "organizationID": "<ORG_ID>",
+   *    "groupID": "<GROUP_ID>",
    *    "location": { "page": "<PAGE_ID>", "paragraph": "<PARAGRAPH_ID>" },
    *    "exclusiveWithin": { "page": "<PAGE_ID>" }
    * }
