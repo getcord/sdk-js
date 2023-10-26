@@ -1,6 +1,10 @@
 export type UUID = string;
 export type UserID = string;
+/**
+ * @deprecated Use GroupID instead.
+ */
 export type OrganizationID = string;
+export type GroupID = string;
 export type ThreadID = string;
 export type MessageID = string;
 

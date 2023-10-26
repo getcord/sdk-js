@@ -502,6 +502,10 @@ export default {
             description: 'The organization ID this thread is in.',
             type: 'string',
           },
+          groupID: {
+            description: 'The group ID this thread is in.',
+            type: 'string',
+          },
           resolved: { type: 'boolean' },
           extraClassnames: {
             description:
@@ -521,11 +525,12 @@ export default {
           'name',
           'metadata',
           'organizationID',
+          'groupID',
           'resolved',
           'extraClassnames',
           'subscribers',
         ],
-        required: ['location', 'name', 'organizationID', 'url'],
+        required: ['groupID', 'location', 'name', 'url'],
       },
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
@@ -1062,8 +1067,8 @@ export default {
           'The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  This should generally be something\nlike the page title.',
         type: 'string',
       },
-      organizationID: {
-        description: 'The organization ID this thread is in.',
+      groupID: {
+        description: 'The group ID this thread is in.',
         type: 'string',
       },
       metadata: {
@@ -1072,6 +1077,10 @@ export default {
         type: 'object',
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
+      },
+      organizationID: {
+        description: 'The organization ID this thread is in.',
+        type: 'string',
       },
       extraClassnames: {
         description:
@@ -1091,12 +1100,13 @@ export default {
       'id',
       'url',
       'name',
-      'organizationID',
+      'groupID',
       'metadata',
+      'organizationID',
       'extraClassnames',
       'subscribers',
     ],
-    required: ['id', 'location', 'name', 'organizationID', 'url'],
+    required: ['groupID', 'id', 'location', 'name', 'url'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   UpdateThreadVariables: {
@@ -1129,6 +1139,10 @@ export default {
       },
       organizationID: {
         description: 'The organization ID this thread is in.',
+        type: 'string',
+      },
+      groupID: {
+        description: 'The group ID this thread is in.',
         type: 'string',
       },
       extraClassnames: {
@@ -1166,6 +1180,7 @@ export default {
       'name',
       'metadata',
       'organizationID',
+      'groupID',
       'extraClassnames',
       'resolvedTimestamp',
       'userID',

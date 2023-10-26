@@ -1,6 +1,7 @@
 import type {
   EntityMetadata,
   FilterParameters,
+  GroupID,
   ListenerRef,
   Location,
   MessageID,
@@ -152,8 +153,14 @@ export interface CoreThreadData {
 
   /**
    * The organization ID this thread is in.
+   * @deprecated Use groupID instead.
    */
   organizationID: OrganizationID;
+
+  /**
+   * The group ID this thread is in.
+   */
+  groupID: GroupID;
 
   /**
    * The total number of messages in this thread. Equal to user messages + action messages.
@@ -511,6 +518,7 @@ export interface ClientCreateThread
         // Non-create fields
         | 'id'
         | 'organizationID'
+        | 'groupID'
         | 'total'
         | 'userMessages'
         | 'actionMessages'
@@ -568,6 +576,7 @@ export interface ClientCreateMessage
         // Fields that can't be set in the client API
         | 'authorID'
         | 'organizationID'
+        | 'groupID'
         | 'threadID'
         | 'createdTimestamp'
         | 'updatedTimestamp'
@@ -1173,10 +1182,7 @@ export type ServerUpdateThread = Partial<
 >;
 
 export interface ServerCreateThread
-  extends Pick<
-      CoreThreadData,
-      'id' | 'location' | 'url' | 'name' | 'organizationID'
-    >,
+  extends Pick<CoreThreadData, 'id' | 'location' | 'url' | 'name' | 'groupID'>,
     Partial<
       Omit<
         CoreThreadData,
@@ -1184,7 +1190,7 @@ export interface ServerCreateThread
         | 'location'
         | 'url'
         | 'name'
-        | 'organizationID'
+        | 'groupID'
         | 'id'
         // Non-create fields
         | 'total'

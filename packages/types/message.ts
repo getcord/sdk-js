@@ -87,8 +87,13 @@ export interface CoreMessageData {
   authorID: string;
   /**
    * The ID for the organization this message belongs to.
+   * @deprecated Use groupID instead.
    */
   organizationID: string;
+  /**
+   * The ID for the group this message belongs to.
+   */
+  groupID: string;
   /**
    * The ID for the thread this message is part of.
    */
@@ -218,6 +223,7 @@ export interface ServerCreateMessage
         | 'content'
         // Fields that are readonly
         | 'organizationID'
+        | 'groupID'
         | 'threadID'
         | 'plaintext'
         | 'reactions'
