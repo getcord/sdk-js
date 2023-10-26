@@ -343,7 +343,7 @@ export default {
     properties: {
       addReactions: {
         description:
-          'The reactions you want to add to this message.\nThe default timestamp is the current time.\nTrying to create a reaction that already exists for a user does nothing.\nDoing the same as before with a timestamp will update the reaction with the new timestamp.\nThe reaction users need to be an [active member of the org](/rest-apis/organizations#Update-organization-members) that the message and thread belong to.',
+          'The reactions you want to add to this message.\nThe default timestamp is the current time.\nTrying to create a reaction that already exists for a user does nothing.\nDoing the same as before with a timestamp will update the reaction with the new timestamp.\nThe reaction users need to be an [active member of the group](/rest-apis/groups#Update-group-members) that the message and thread belong to.',
         type: 'array',
         items: { $ref: '#/definitions/ServerAddReactions' },
       },
@@ -634,7 +634,7 @@ export default {
       },
       addReactions: {
         description:
-          'The reactions you want to add to this message.\nThe default timestamp is the current time.\nTrying to create a reaction that already exists for a user does nothing.\nDoing the same as before with a timestamp will update the reaction with the new timestamp.\nThe reaction users need to be an [active member of the org](/rest-apis/organizations#Update-organization-members) that the message and thread belong to.',
+          'The reactions you want to add to this message.\nThe default timestamp is the current time.\nTrying to create a reaction that already exists for a user does nothing.\nDoing the same as before with a timestamp will update the reaction with the new timestamp.\nThe reaction users need to be an [active member of the group](/rest-apis/groups#Update-group-members) that the message and thread belong to.',
         type: 'array',
         items: { $ref: '#/definitions/ServerAddReactions' },
       },

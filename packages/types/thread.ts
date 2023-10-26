@@ -138,7 +138,7 @@ export type ThreadParticipant = {
 
   /**
    * The user ID of the participant. Can be null if the current viewer no longer
-   * shares an [organization](https://docs.cord.com/rest-apis/organizations)
+   * shares a [group](https://docs.cord.com/rest-apis/groups)
    * with this participant (and therefore can no longer access that
    * participant's information).
    */
@@ -1006,7 +1006,7 @@ export interface ICordThreadSDK {
 
   /**
    * Add a new message to a thread.  The message will be authored by the current
-   * user and belong to their current organization.
+   * user and belong to their current group.
    * @example Overview
    * ```javascript
    * await window.CordSDK.thread.sendMessage(
@@ -1034,7 +1034,7 @@ export interface ICordThreadSDK {
 
   /**
    * Add a new message to a thread.  The message will be authored by the current
-   * user and belong to their current organization.
+   * user and belong to their current group.
    * @example Overview
    * ```javascript
    * await window.CordSDK.thread.sendMessage(

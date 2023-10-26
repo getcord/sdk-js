@@ -242,7 +242,7 @@ export interface ServerCreateMessage
    * The default timestamp is the current time.
    * Trying to create a reaction that already exists for a user does nothing.
    * Doing the same as before with a timestamp will update the reaction with the new timestamp.
-   * The reaction users need to be an [active member of the org](https://docs.cord.com/rest-apis/organizations#Update-organization-members) that the message and thread belong to.
+   * The reaction users need to be an [active member of the group](https://docs.cord.com/rest-apis/groups#Update-group-members) that the message and thread belong to.
    */
   addReactions?: ServerAddReactions[];
   /**
