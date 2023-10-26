@@ -534,6 +534,7 @@ export function useSearchMessages(
     textToMatch,
     authorID,
     orgID,
+    groupID,
     locationOptions,
     timestampRange,
     metadata,
@@ -544,6 +545,7 @@ export function useSearchMessages(
     authorID,
     locationOptions,
     orgID,
+    groupID,
     timestampRange,
     metadata,
   });

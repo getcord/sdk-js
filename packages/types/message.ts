@@ -188,8 +188,14 @@ export interface SearchOptionsType {
   /**
    * The org ID of the organization the message belongs to.
    * If omitted, the search will be across all orgs the current user is a member of.
+   * @deprecated Use groupID instead.
    */
   orgID?: string;
+  /**
+   * The ID of the group the message belongs to.
+   * If omitted, the search will be across all groups the current user is a member of.
+   */
+  groupID?: string;
   /**
    * Arbitrary key-value pairs of data associated with the message.
    */
