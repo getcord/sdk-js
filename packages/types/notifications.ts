@@ -197,9 +197,13 @@ export type NotificationListFilter = {
    */
   location?: Location;
   /**
-   * The organization to which the message that prompted the notification belongs.
+   * @deprecated use groupID instead
    */
   organizationID?: string;
+  /**
+   * The group to which the message that prompted the notification belongs.
+   */
+  groupID?: string;
 };
 
 export interface ObserveNotificationSummaryOptions {
@@ -237,7 +241,7 @@ export interface ICordNotificationSDK {
    *   { filter: {
    *         metadata: { flavor: 'minty'},
    *         location: {page: 'bookmarks'} 
-   *         organizationID: 'org123',
+   *         groupID: 'group123',
    *    }}
    * );
    * ```
