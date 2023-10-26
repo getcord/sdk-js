@@ -1,6 +1,7 @@
 import type {
   EntityMetadata,
   FilterParameters,
+  GroupID,
   ID,
   ListenerRef,
   OrganizationID,
@@ -56,20 +57,28 @@ export interface ClientUserData {
  */
 export interface ViewerUserData extends ClientUserData {
   /**
-   * The identifier for the organization that the current user is using (i.e.,
-   * the organization specified in the access token). Null if and only if no
-   * organization was specified in the access token.
+   * @deprecated - see groupID
    */
   organizationID: OrganizationID | null;
+  /**
+   * The identifier for the group that the current user is using (i.e.,
+   * the group specified in the access token). Null if and only if no
+   * group was specified in the access token.
+   */
+  groupID: GroupID | null;
   notificationPreferences: { sendViaSlack: boolean; sendViaEmail: boolean };
   /**
    * If the user has connected to a Slack user
    */
   isSlackConnected: boolean;
   /**
-   * If the organization is connected to a Slack workspace
+   * @deprecated - see groupIsSlackConnected
    */
   organizationIsSlackConnected: boolean;
+  /**
+   * If the group is connected to a Slack workspace
+   */
+  groupIsSlackConnected: boolean;
 }
 
 export type SingleUserUpdateCallback = (user: ClientUserData | null) => unknown;
@@ -78,22 +87,39 @@ export type MultipleUserUpdateCallback = (
 ) => unknown;
 export type ViewerUserUpdateCallback = (user: ViewerUserData) => unknown;
 
+/**
+ * @deprecated - use GroupMembersData instead
+ */
 export type OrgMembersData = PaginationParams & {
   orgMembers: ClientUserData[];
 };
+/**
+ * @deprecated - use GroupMembersDataCallback instead
+ */
 export type OrgMembersDataCallback = (data: OrgMembersData) => unknown;
+/**
+ * @deprecated - use ObserveGroupMembersOptions instead
+ */
+export type ObserveOrgMembersOptions = {
+  organizationID?: string;
+};
+
+export type GroupMembersData = PaginationParams & {
+  groupMembers: ClientUserData[];
+};
+export type GroupMembersDataCallback = (data: GroupMembersData) => unknown;
 
 /**
  * Options for the `observeOrgMembers` function in the User API.
  */
-export type ObserveOrgMembersOptions = {
+export type ObserveGroupMembersOptions = {
   /**
-   * The organization to search for.  The viewer must be a member of the
-   * organization in order to receive its data.  If omitted, the API will
-   * fetch the members of the org the viewer is currently logged in with, i.e.
+   * The group to search for.  The viewer must be a member of the
+   * group in order to receive its data.  If omitted, the API will
+   * fetch the members of the group the viewer is currently logged in with, i.e.
    * the one that is specified in their access token.
    */
-  organizationID?: string;
+  groupID?: string;
 };
 
 /**
@@ -205,7 +231,7 @@ export interface ICordUserSDK {
    *     console.log("User name", data.name);
    *     console.log("User short name", data.shortName);
    *     console.log("User profile picture URL", data.profilePictureURL);
-   *     console.log("Organization ID", data.organizationID);
+   *     console.log("Group ID", data.groupID);
    *   }
    * );
    * ```
@@ -220,26 +246,26 @@ export interface ICordUserSDK {
   unobserveViewerData(ref: ListenerRef): boolean;
 
   /**
-   * This method allows you to observe the members of an org the current user is
-   * a member of - either the current org the viewer is logged into, or, if
-   * specified as an option, another org the viewer is a member of.
+   * This method allows you to observe the members of a group the current user is
+   * a member of - either the current group the viewer is logged into, or, if
+   * specified as an option, another group the viewer is a member of.
    * @example Overview
    * ```javascript
-   * const ref = window.CordSDK.user.observeOrgMembers(
-   *   (data) =>  ({ orgMembers, loading, hasMore, fetchMore }) => {
-   *     console.log('Got an org members update:');
+   * const ref = window.CordSDK.user.observeGroupMembers(
+   *   ({ groupMembers, loading, hasMore, fetchMore }) => {
+   *     console.log('Got a group members update:');
    *     if (loading) {
    *       console.log('Loading...');
    *     }
-   *     orgMembers.forEach((orgMember) =>
-   *       console.log(`Org member ${orgMember.id} is called ${orgMember.name}!`),
+   *     groupMembers.forEach((groupMember) =>
+   *       console.log(`Group member ${groupMember.id} is called ${groupMember.name}!`),
    *     );
-   *     if (!loading && hasMore && orgMembers.length < 25) {
-   *       // Get the first 25 org members, 10 at a time.
+   *     if (!loading && hasMore && groupMembers.length < 25) {
+   *       // Get the first 25 group members, 10 at a time.
    *       fetchMore(10);
    *     }
    *   },
-   *   {organizationID: 'org123'}
+   *   {groupID: 'group123'}
    * );
    * ```
    * @param callback - This callback will be called once with the current data,
@@ -247,20 +273,31 @@ export interface ICordUserSDK {
    * callback is an object which will contain the fields described under
    * "Available Data" above.
    * @param options - An object of filters.
-   * @returns A reference number which can be passed to `unobserveOrgMembers` to
+   * @returns A reference number which can be passed to `unobserveGroupMembers` to
    * stop observing the data.
+   */
+  observeGroupMembers(
+    callback: GroupMembersDataCallback,
+    options?: ObserveGroupMembersOptions,
+  ): ListenerRef;
+  unobserveGroupMembers(ref: ListenerRef): boolean;
+  /*
+   * @deprecated Renamed to sdk.user.observeGroupMembers.
    */
   observeOrgMembers(
     callback: OrgMembersDataCallback,
     options?: ObserveOrgMembersOptions,
   ): ListenerRef;
+  /*
+   * @deprecated Renamed to sdk.user.unobserveGroupMembers.
+   */
   unobserveOrgMembers(ref: ListenerRef): boolean;
 
   /**
    * Calling this method will trigger a popup window to appear containing a flow
    * for the user to link their Cord user to a Slack user.
    * Completion of the flow will additionally connect the user's Slack workspace
-   * to their Cord organization if that Cord organization is not already
+   * to their Cord group if that Cord group is not already
    * connected to a Slack workspace.
    * Calling this method will not do anything if the Cord user is already linked
    * to a Slack user.
@@ -272,7 +309,7 @@ export interface ICordUserSDK {
    */
   connectToSlack(): Promise<void>;
   /**
-   * This method will disconnect the Slack workspace from the Cord organization.
+   * This method will disconnect the Slack workspace from the Cord group.
    * This means all users who were connected to Slack will also be disconnected.
    * @example Overview
    * ```javascript
@@ -384,9 +421,13 @@ export interface ServerListUser extends Omit<ServerUserData, 'email'> {
  */
 export interface ServerGetUser extends ServerListUser {
   /**
-   * List of organizations the user is a member of.
+   * @deprecated - use groups instead
    */
   organizations: ID[];
+  /**
+   * List of groups the user is a member of.
+   */
+  groups: ID[];
 }
 
 /**

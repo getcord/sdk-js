@@ -1,6 +1,8 @@
 import type {
   ClientUserData,
   FetchMoreCallback,
+  GroupMembersData,
+  ObserveGroupMembersOptions,
   ObserveOrgMembersOptions,
   OrgMembersData,
   ViewerUserData,
@@ -141,7 +143,7 @@ export function useUserData(
  *       <p>User name: {data.name}</p>
  *       <p>User short name: {data.shortName}</p>
  *       <p>User profile picture: <img src={data.profilePictureURL} /></p>
- *       <p>Organization ID: {data.organizationID}</p>
+ *       <p>Group ID: {data.groupID}</p>
  *     )}
  *   </div>
  * );
@@ -173,18 +175,18 @@ export function useViewerData(): ViewerUserData | undefined {
 }
 
 /**
- * This method allows you to observe the members of an org the current user is
- * a member of - either the current org the viewer is logged into, or, if
- * specified as an option, another org the viewer is a member of.
+ * This method allows you to observe the members of a group the current user is
+ * a member of - either the current group the viewer is logged into, or, if
+ * specified as an option, another group the viewer is a member of.
  * @example Overview
  * ```javascript
  * import { user } from '@cord-sdk/react';
- * const { orgMembers, loading, hasMore, fetchMore } = user.useOrgMembers();
+ * const { groupMembers, loading, hasMore, fetchMore } = user.useGroupMembers();
  * return (
  *   <div>
- *     {orgMembers.map((orgMember) => (
- *       <div key={orgMember.id}>
- *         Org member ${orgMember.id} is called ${orgMember.name}!
+ *     {groupMembers.map((groupMembers) => (
+ *       <div key={groupMembers.id}>
+ *         Group member ${groupMembers.id} is called ${groupMembers.name}!
  *       </div>
  *     ))}
  *     {loading ? (
@@ -200,13 +202,13 @@ export function useViewerData(): ViewerUserData | undefined {
  * return an object containing the fields described under "Available Data"
  * above.
  */
-export function useOrgMembers(
-  options: ObserveOrgMembersOptions = {},
-): OrgMembersData {
-  const { sdk } = useCordContext('user.useOrgMemberData');
+export function useGroupMembers(
+  options: ObserveGroupMembersOptions = {},
+): GroupMembersData {
+  const { sdk } = useCordContext('user.useGroupMemberData');
   const userSDK = sdk?.user;
 
-  const [orgMembers, setOrgMembers] = useState<ClientUserData[]>([]);
+  const [groupMembers, setGroupMembers] = useState<ClientUserData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [hasMore, setHasMore] = useState<boolean>(false);
   const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
@@ -219,10 +221,10 @@ export function useOrgMembers(
     if (!userSDK) {
       return;
     }
-    const ref = userSDK.observeOrgMembers(
+    const ref = userSDK.observeGroupMembers(
       // eslint-disable-next-line @typescript-eslint/no-shadow -- using to set shadowed vars.
-      ({ orgMembers, loading, hasMore, fetchMore }) => {
-        setOrgMembers(orgMembers);
+      ({ groupMembers, loading, hasMore, fetchMore }) => {
+        setGroupMembers(groupMembers);
         setLoading(loading);
         setHasMore(hasMore);
         setFetchMore((_previous: unknown) => fetchMore);
@@ -231,9 +233,23 @@ export function useOrgMembers(
     );
 
     return () => {
-      userSDK.unobserveOrgMembers(ref);
+      userSDK.unobserveGroupMembers(ref);
     };
   }, [userSDK, optionsMemo]);
 
-  return { orgMembers, loading, hasMore, fetchMore };
+  return { groupMembers, loading, hasMore, fetchMore };
+}
+
+/*
+ * @deprecated see useGroupMembers
+ */
+export function useOrgMembers(
+  options: ObserveOrgMembersOptions = {},
+): OrgMembersData {
+  const optionsWithGroup = { groupID: options.organizationID };
+
+  const { groupMembers, loading, fetchMore, hasMore } =
+    useGroupMembers(optionsWithGroup);
+
+  return { orgMembers: groupMembers, loading, fetchMore, hasMore };
 }
