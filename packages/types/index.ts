@@ -1,5 +1,6 @@
 import type { i18n } from 'i18next';
 import type {
+  GroupID,
   Location,
   MessageID,
   OrganizationID,
@@ -42,7 +43,7 @@ export type Point2D = { x: number; y: number };
 export type NavigateFn = (
   url: string,
   location: Location | null,
-  info: { orgID: OrganizationID; threadID: ThreadID },
+  info: { orgID: OrganizationID; threadID: ThreadID; groupID: GroupID },
 ) => boolean | Promise<boolean>;
 
 export type ScreenshotOptions = {
