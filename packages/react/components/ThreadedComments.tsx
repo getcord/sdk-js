@@ -1,13 +1,13 @@
 import * as React from 'react';
 import cx from 'classnames';
 import type {
+  ClientThreadData,
   ComposerWebComponentEvents,
   EntityMetadata,
   Location,
   MessageInfo,
   ResolvedStatus,
   SortBy,
-  ThreadData,
   ThreadListFilter,
   ThreadSummary,
 } from '@cord-sdk/types';
@@ -563,8 +563,7 @@ function CommentsThread({
   onComposerClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
-  const threadSummary = thread.useThreadSummary(threadId);
-  const threadData = thread.useThreadData(threadId);
+  const threadData = thread.useThread(threadId);
   const allowReplies = showReplies !== 'alwaysCollapsed';
   const initiallyExpandedReplies = showReplies === 'initiallyExpanded';
   const [showingReplies, setShowingReplies] = useState<boolean>(
@@ -584,10 +583,10 @@ function CommentsThread({
 
   const extraClassnames = useExtraClassnames(threadExtraClassnames);
 
+  const threadSummary = threadData?.thread;
   if (!threadSummary || !threadSummary.firstMessage?.id) {
     return null;
   }
-
   const isResolved = threadSummary.resolved;
   const hasReplies = threadSummary.userMessages > 1;
   const showReplyComponent = allowReplies && (!hasReplies || showingReplies);
@@ -731,7 +730,7 @@ function ThreadReplies({
   onMessageEditEnd,
 }: {
   threadId: string;
-  threadData: ThreadData;
+  threadData: ClientThreadData;
   setShowingReplies: Dispatch<SetStateAction<boolean>>;
   setShowingComposer: Dispatch<SetStateAction<boolean>>;
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
