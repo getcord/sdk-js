@@ -1202,6 +1202,7 @@ export interface ServerCreateThread
         | 'participants'
         | 'repliers'
         | 'typing'
+        | 'subscribers'
       >
     > {
   /**
