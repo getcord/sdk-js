@@ -20,8 +20,15 @@ export interface ThreadMessageAddedWebhookPayload {
   // and thread fields, below
   threadID: string;
   messageID: string;
+  /**
+   * @deprecated use groupID instead.
+   */
   orgID: string;
+  /**
+   * @deprecated use groupID instead.
+   */
   organizationID: string;
+  groupID: string;
   applicationID: UUID; // exception: this one will be moved to higher level (see postEvent)
   author: ClientUserData;
   content: object[];
