@@ -231,6 +231,7 @@ export function ThreadedComments({
 
   const threadList = (
     <ThreadedCommentsThreadList
+      key="main_list"
       location={location}
       partialMatch={partialMatch}
       filter={filter}
@@ -261,6 +262,7 @@ export function ThreadedComments({
   );
   const resolvedThreadList = showResolvedInSamePage && expandResolved && (
     <ThreadedCommentsThreadList
+      key="resolved_list"
       location={location}
       partialMatch={partialMatch}
       filter={filter}
