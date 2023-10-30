@@ -1011,36 +1011,7 @@ export interface ICordThreadSDK {
    * ```javascript
    * await window.CordSDK.thread.sendMessage(
    *   'my-awesome-thread-id',
-   *   crypto.randomUUID(),
    *   {
-   *     content: [{ type: 'p', children: [{ text: 'Amazing job!' }]}],
-   *   }
-   * );
-   * ```
-   * @param threadID - The ID of the thread to add the message to.  If this
-   * thread does not yet exist, the `createThread` parameter determines what
-   * happens.
-   * @param messageID - The ID to use for the new message.  This must be unique
-   * within the application.
-   * @param data - The data values for the new message.
-   * @returns A promise that resolves to `true` if the operation succeeded or
-   * rejects if it failed.
-   */
-  sendMessage(
-    threadID: ThreadID,
-    messageID: MessageID,
-    data: ClientCreateMessage,
-  ): Promise<true>;
-
-  /**
-   * Add a new message to a thread.  The message will be authored by the current
-   * user and belong to their current group.
-   * @example Overview
-   * ```javascript
-   * await window.CordSDK.thread.sendMessage(
-   *   'my-awesome-thread-id',
-   *   {
-   *     id: crypto.randomUUID(),
    *     content: [{ type: 'p', children: [{ text: 'Amazing job!' }]}],
    *   }
    * );
