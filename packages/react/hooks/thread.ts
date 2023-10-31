@@ -376,8 +376,7 @@ export function useThreads(options?: ObserveThreadsOptions): ThreadsData {
  *   </div>
  * );
  * ```
- * @param threadId - The thread ID to fetch data for. If a thread with this ID
- * does not exist, it will be created.
+ * @param threadId - The thread ID to fetch data for.
  * @param options - Options for creating new threads.
  * @returns The hook will initially return `undefined` while the data loads from
  * our API. Once it has loaded, your component will re-render and the hook will
@@ -464,15 +463,13 @@ const STILL_LOADING_RETURN_VALUE = {
  *   </div>
  * );
  * ```
- * @param threadID - The thread ID to fetch data for. If a thread with this ID
- * does not exist, it will be created.
+ * @param threadID - The thread ID to fetch data for.
  * @param options - Options for creating new threads.
- * @returns The hook will initially return `loading: true`, initial values for
- * pagination information and messages, and `thread` will be null while the data
- * loads from our API. Once it has loaded, your component will re-render and the
- * hook will return an object containing the fields described under "Available
- * Data" above. The component will automatically re-render if any of the data
- * changes, i.e., this data is always "live".
+ * @returns Returns an object containing the fields described under "Available Data" above.
+ * Initially, `loading` will be `true`, `thread` will be `undefined`, and `messages` an empty array
+ * while the data loads from our API. Once it has loaded, your component will re-render and
+ * the hook will return an object containing the full data. The component will automatically
+ * re-render if any of the data changes, i.e., this data is always "live".
  */
 export function useThread(
   threadID: string,
