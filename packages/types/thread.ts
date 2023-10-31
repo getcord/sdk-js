@@ -504,6 +504,13 @@ export interface ClientUpdateThread
    * `false` is equivalent to setting `resolvedTimestamp` to `null`.
    */
   resolved?: boolean;
+  /**
+   * Whether to mark the current user as typing in the thread. The typing
+   * indicator expires after 3 seconds, so to continually show the indicator
+   * it needs to be called on an interval.  Passing `false` is a no-op and
+   * the indicator will time out normally.
+   */
+  typing?: boolean;
 }
 
 export interface ClientCreateThread
