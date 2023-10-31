@@ -19,7 +19,7 @@ import type {} from 'i18next';
 // runtime.  The Cord SDK comes with a compiled-in copy of these strings which
 // will be used instead.  If you want to change the value for any of these
 // strings, use the `translations` configuration option as described in
-// https://docs.cord.com/js-apis-and-hooks/initialization.
+// https://docs.cord.com/js-apis-and-hooks/initialization#translations.
 export const resources = {
   en: {
     default: {},

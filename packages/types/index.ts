@@ -105,7 +105,17 @@ export type CordSDKOptions = {
   screenshot_options?: ScreenshotOptions;
   custom_renderers?: CustomRenderers;
   custom_event_metadata?: JsonObject;
+  /**
+   * A set of translations to use in Cord components.  This is an object where
+   * the keys are language codes and the values are objects representing
+   * translation keys.  See [the detailed guide to customizing Cord's
+   * text](https://docs.cord.com/how-to/translations) for more details.
+   */
   translations?: Translations;
+  /**
+   * The user language to display in components.  This must be used in
+   * combination with the `translations` option to have any effect.
+   */
   language?: string;
   beforeMessageCreate?: BeforeMessageCreateFunction | null;
 };
