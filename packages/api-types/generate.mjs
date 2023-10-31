@@ -84,7 +84,7 @@ async function main() {
   // write schema to schema.ts
   await fs.promises.writeFile(
     schemaTsFile,
-    prettier.format(
+    await prettier.format(
       `// @generated\nexport default ${JSON.stringify(jsonSchema)} as const;`,
       {
         filepath: schemaTsFile,
@@ -96,7 +96,7 @@ async function main() {
   // write schema to schema.json
   await fs.promises.writeFile(
     schemaJsonFile,
-    prettier.format(JSON.stringify(jsonSchema), {
+    await prettier.format(JSON.stringify(jsonSchema), {
       filepath: schemaJsonFile,
       ...(await prettier.resolveConfig(schemaJsonFile)),
     }),
@@ -104,7 +104,7 @@ async function main() {
 
   // write types to types.js
   const typeNames = tjsGenerator.getUserSymbols();
-  const typesFileCode = prettier.format(printTypesFile(typeNames), {
+  const typesFileCode = await prettier.format(printTypesFile(typeNames), {
     filepath: typesFile,
     ...(await prettier.resolveConfig(typesFile)),
   });

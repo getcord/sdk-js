@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@cord-sdk/types": "1.23.0",
-    "prettier": "^2.8.2",
+    "prettier": "^3.0.3",
     "rollup": "^2.70.1",
     "rollup-plugin-typescript2": "^0.31.2",
     "typescript": "~5.1.6",
