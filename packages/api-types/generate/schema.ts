@@ -1046,7 +1046,6 @@ export default {
     description: 'https://docs.cord.com/rest-apis/threads/',
     type: 'object',
     properties: {
-      resolved: { type: 'boolean' },
       location: {
         description: 'The [location](/reference/location) of this thread.',
         type: 'object',
@@ -1064,10 +1063,6 @@ export default {
           'The name of the thread.  This is shown to users when the thread is\nreferenced, such as in notifications.  This should generally be something\nlike the page title.',
         type: 'string',
       },
-      groupID: {
-        description: 'The group ID this thread is in.',
-        type: 'string',
-      },
       metadata: {
         description:
           'Arbitrary key-value pairs that can be used to store additional information.',
@@ -1075,8 +1070,8 @@ export default {
         additionalProperties: { type: ['string', 'number', 'boolean'] },
         propertyOrder: [],
       },
-      organizationID: {
-        description: 'The organization ID this thread is in.',
+      groupID: {
+        description: 'The group ID this thread is in.',
         type: 'string',
       },
       extraClassnames: {
@@ -1087,17 +1082,15 @@ export default {
     },
     additionalProperties: false,
     propertyOrder: [
-      'resolved',
       'location',
       'id',
       'url',
       'name',
-      'groupID',
       'metadata',
-      'organizationID',
+      'groupID',
       'extraClassnames',
     ],
-    required: ['groupID', 'id', 'location', 'name', 'url'],
+    required: ['groupID', 'location', 'name', 'url'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   UpdateThreadVariables: {

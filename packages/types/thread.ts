@@ -1159,7 +1159,7 @@ export type ServerUpdateThread = Partial<
 >;
 
 export interface ServerCreateThread
-  extends Pick<CoreThreadData, 'id' | 'location' | 'url' | 'name' | 'groupID'>,
+  extends Pick<CoreThreadData, 'location' | 'url' | 'name' | 'groupID'>,
     Partial<
       Omit<
         CoreThreadData,
@@ -1168,7 +1168,6 @@ export interface ServerCreateThread
         | 'url'
         | 'name'
         | 'groupID'
-        | 'id'
         // Non-create fields
         | 'total'
         | 'userMessages'

@@ -7,7 +7,8 @@ import type {
 /**
  * https://docs.cord.com/rest-apis/threads/
  */
-export interface CreateThreadVariables extends ServerCreateThread {}
+export interface CreateThreadVariables
+  extends Omit<ServerCreateThread, 'resolved' | 'organizationID'> {}
 /**
  * https://docs.cord.com/rest-apis/threads/
  */
