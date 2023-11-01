@@ -523,7 +523,6 @@ export interface ClientCreateThread
         | 'url'
         | 'name'
         // Non-create fields
-        | 'id'
         | 'organizationID'
         | 'groupID'
         | 'total'
@@ -596,7 +595,7 @@ export interface ClientCreateMessage
    * call will generate an error.  This value is ignored if the thread already
    * exists.
    */
-  createThread?: ClientCreateThread;
+  createThread?: Omit<ClientCreateThread, 'id'>;
   /**
    * A list of unicode strings representing the reactions you want to add to this message.
    * Trying to create a reaction that already exists for a user does nothing.
@@ -993,6 +992,30 @@ export interface ICordThreadSDK {
    * rejects if it failed.
    */
   setSeen(threadID: ThreadID, seen: boolean): Promise<true>;
+
+  /**
+   * Create a new empty thread i.e. a thread without messages.
+   * Please note that because the new thread won't have any messages, it will not be displayed
+   * on any of the thread-related components like [ThreadedComments](https://docs.cord.com/components/cord-threaded-comments),
+   * [ThreadList](https://docs.cord.com/components/cord-thread-list) or [Thread](https://docs.cord.com/components/cord-thread).
+   * If you would like to create a thread containing a message instead, please use
+   * the [SendMessage API](https://docs.cord.com/js-apis-and-hooks/thread-api/sendMessage) and
+   * pass in thread data via the `createThread` argument.
+   *
+   * @example Overview
+   * ```javascript
+   * await window.CordSDK.thread.createThread({
+   *   id: 'my-awesome-thread-id',
+   *   name: 'A more awesome name',
+   *   location: {'page': 'sales'},
+   * });
+   * ```
+   *
+   * @param data - The data values the new thread should have.
+   * @returns A promise that resolves to `true` if the operation succeeded or
+   * rejects if it failed.
+   */
+  createThread(data: ClientCreateThread): Promise<true>;
 
   /**
    * Update an existing thread with new data.
