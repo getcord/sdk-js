@@ -338,10 +338,10 @@ export type ThreadCallbackInfo = {
 /* cord-thread-list */
 export type ThreadListWebComponentEvents = {
   threadclick: [threadID: ThreadID, threadSummary: ThreadSummary];
-  threadmouseenter: [threadID: ThreadID];
-  threadmouseleave: [threadID: ThreadID];
-  threadresolve: [{ threadID: ThreadID }];
-  threadreopen: [{ threadID: ThreadID }];
+  threadmouseenter: [ThreadID, { thread: ThreadSummary }];
+  threadmouseleave: [ThreadID, { thread: ThreadSummary }];
+  threadresolve: [{ threadID: ThreadID; thread: ThreadSummary }];
+  threadreopen: [{ threadID: ThreadID; thread: ThreadSummary }];
   render: [];
   loading: [];
 };
@@ -403,8 +403,8 @@ export type MessageWebComponentEvents = {
   mouseleave: [messageInfo: MessageInfo];
   editstart: [messageInfo: MessageInfo];
   editend: [messageInfo: MessageInfo];
-  threadresolve: [{ threadID: ThreadID }];
-  threadreopen: [{ threadID: ThreadID }];
+  threadresolve: [{ threadID: ThreadID; thread: ThreadSummary }];
+  threadreopen: [{ threadID: ThreadID; thread: ThreadSummary }];
   render: [];
   loading: [];
 };

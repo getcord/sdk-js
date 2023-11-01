@@ -1,6 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 import type {
+  ThreadSummary,
   ClientThreadData,
   ComposerWebComponentEvents,
   EntityMetadata,
@@ -9,7 +10,6 @@ import type {
   ResolvedStatus,
   SortBy,
   ThreadListFilter,
-  ThreadSummary,
 } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useContext, useEffect, useState } from 'react';
@@ -605,6 +605,7 @@ function CommentsThread({
       {isResolved && (
         <ResolvedThreadHeader
           threadId={threadId}
+          threadSummary={threadSummary}
           onThreadReopen={onThreadReopen}
         />
       )}
@@ -660,7 +661,7 @@ function CommentsThread({
           onComposerClose={onComposerClose}
           onSend={onSend}
           onThreadReopen={(args) =>
-            onThreadReopen?.({ threadID: args.threadId })
+            onThreadReopen?.({ threadID: args.threadId, thread: threadSummary })
           }
         />
       )}
@@ -864,9 +865,11 @@ function ReplyComponent({
 
 function ResolvedThreadHeader({
   threadId,
+  threadSummary,
   onThreadReopen,
 }: {
   threadId: string;
+  threadSummary: ThreadSummary;
   onThreadReopen?: ThreadListReactComponentProps['onThreadReopen'];
 }) {
   const { t } = useTranslation('threaded_comments');
@@ -886,7 +889,7 @@ function ResolvedThreadHeader({
         className={cx(classes.reopenButton, fonts.fontSmall)}
         onClick={() => {
           setUnresolved();
-          onThreadReopen?.({ threadID: threadId });
+          onThreadReopen?.({ threadID: threadId, thread: threadSummary });
         }}
       >
         {t('unresolve_action')}
