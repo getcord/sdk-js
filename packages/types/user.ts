@@ -303,11 +303,14 @@ export interface ICordUserSDK {
    * to a Slack user.
    * @example Overview
    * ```javascript
-   * window.CordSDK.user.connectToSlack();
+   * window.CordSDK.user.connectToSlack((success) => console.log('Has user successfully signed into Slack', success));
    * ```
-   * @returns This function does not return anything.
+   * @param onCompleteOAuth - This callback will be called once the user has finished/cancelled
+   * the oauth process. If users interrupt the OAuth process by closing the popup window, this callback will not run.
+   * The argument passed to the callback is a boolean which states if the user has successfully connected Slack.
+   * @returns This function returns a promise that resolves when the Slack connection popup window opens.
    */
-  connectToSlack(): Promise<void>;
+  connectToSlack(onCompleteOAuth?: (success: boolean) => void): Promise<void>;
   /**
    * This method will disconnect the Slack workspace from the Cord group.
    * This means all users who were connected to Slack will also be disconnected.
