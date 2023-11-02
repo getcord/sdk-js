@@ -139,6 +139,40 @@ export const resources = {
         other_format: 'MMM D, YYYY',
       },
     },
+    // The message_templates namespace is used for translating the body of Cord
+    // messages by marking the messages with a translationKey.  See
+    // https://docs.cord.com/how-to/translations for more details on message
+    // translation.
+    message_templates: {
+      cord: {
+        thread_resolved: [
+          {
+            type: 'p',
+            children: [
+              {
+                type: 'mention',
+                user: { id: '{{mention1.userID}}' },
+                children: [{ text: '{{mention1.text}}' }],
+              },
+              { text: ' resolved this thread' },
+            ],
+          },
+        ],
+        thread_unresolved: [
+          {
+            type: 'p',
+            children: [
+              {
+                type: 'mention',
+                user: { id: '{{mention1.userID}}' },
+                children: [{ text: '{{mention1.text}}' }],
+              },
+              { text: ' reopened this thread' },
+            ],
+          },
+        ],
+      },
+    },
     notifications: {
       notifications_title: 'Notifications',
       mark_all_as_read_action: 'Mark all as read',
