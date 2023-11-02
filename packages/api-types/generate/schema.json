@@ -406,6 +406,10 @@
         "description": "The URL of the icon to show next to the message.  This is only used for\n`action_message` messages; other messages show the avatar of the author.\nIf an `action_message` does not have an icon set, no icon is shown.",
         "format": "uri",
         "type": ["null", "string"]
+      },
+      "translationKey": {
+        "description": "An optional translation key used for this message.  This is useful for\nsystem-generated messages where you might want to translate or customize\nthem at runtime.  See [the translations\ndocumentation](/how-to/translations) for more\ninformation.",
+        "type": ["null", "string"]
       }
     },
     "additionalProperties": false,
@@ -423,7 +427,8 @@
       "extraClassnames",
       "updatedTimestamp",
       "deletedTimestamp",
-      "iconURL"
+      "iconURL",
+      "translationKey"
     ],
     "required": ["authorID", "content"],
     "definitions": {
@@ -594,6 +599,10 @@
         "format": "uri",
         "type": ["null", "string"]
       },
+      "translationKey": {
+        "description": "An optional translation key used for this message.  This is useful for\nsystem-generated messages where you might want to translate or customize\nthem at runtime.  See [the translations\ndocumentation](/how-to/translations) for more\ninformation.",
+        "type": ["null", "string"]
+      },
       "addReactions": {
         "description": "The reactions you want to add to this message.\nThe default timestamp is the current time.\nTrying to create a reaction that already exists for a user does nothing.\nDoing the same as before with a timestamp will update the reaction with the new timestamp.\nThe reaction users need to be an [active member of the group](/rest-apis/groups#Update-group-members) that the message and thread belong to.",
         "type": "array",
@@ -637,6 +646,7 @@
       "authorID",
       "updatedTimestamp",
       "iconURL",
+      "translationKey",
       "addReactions",
       "addAttachments"
     ],

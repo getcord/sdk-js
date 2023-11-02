@@ -435,6 +435,11 @@ export default {
         format: 'uri',
         type: ['null', 'string'],
       },
+      translationKey: {
+        description:
+          'An optional translation key used for this message.  This is useful for\nsystem-generated messages where you might want to translate or customize\nthem at runtime.  See [the translations\ndocumentation](/how-to/translations) for more\ninformation.',
+        type: ['null', 'string'],
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -452,6 +457,7 @@ export default {
       'updatedTimestamp',
       'deletedTimestamp',
       'iconURL',
+      'translationKey',
     ],
     required: ['authorID', 'content'],
     definitions: {
@@ -626,6 +632,11 @@ export default {
         format: 'uri',
         type: ['null', 'string'],
       },
+      translationKey: {
+        description:
+          'An optional translation key used for this message.  This is useful for\nsystem-generated messages where you might want to translate or customize\nthem at runtime.  See [the translations\ndocumentation](/how-to/translations) for more\ninformation.',
+        type: ['null', 'string'],
+      },
       addReactions: {
         description:
           'The reactions you want to add to this message.\nThe default timestamp is the current time.\nTrying to create a reaction that already exists for a user does nothing.\nDoing the same as before with a timestamp will update the reaction with the new timestamp.\nThe reaction users need to be an [active member of the group](/rest-apis/groups#Update-group-members) that the message and thread belong to.',
@@ -673,6 +684,7 @@ export default {
       'authorID',
       'updatedTimestamp',
       'iconURL',
+      'translationKey',
       'addReactions',
       'addAttachments',
     ],

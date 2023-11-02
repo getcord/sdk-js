@@ -135,6 +135,14 @@ export interface CoreMessageData {
    */
   iconURL: string | null;
   /**
+   * An optional translation key used for this message.  This is useful for
+   * system-generated messages where you might want to translate or customize
+   * them at runtime.  See [the translations
+   * documentation](https://docs.cord.com/how-to/translations) for more
+   * information.
+   */
+  translationKey: string | null;
+  /**
    * The type of message this is.  A `user_message` is a message that the author
    * sent.  An `action_message` is a message about something that happened, such
    * as the thread being resolved.  The default value is `user_message`.
