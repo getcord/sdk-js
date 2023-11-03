@@ -72,7 +72,7 @@ async function main() {
       .filter((key) => pkg[key] !== undefined)
       .map((key) => `${JSON.stringify(key)}:${JSON.stringify(pkg[key])}`)
       .join(',')}}`;
-    const newContent = prettier.format(newJson, { filepath: fn });
+    const newContent = await prettier.format(newJson, { filepath: fn });
     if (newContent !== content) {
       await fs.writeFile(fn, newContent);
     }
