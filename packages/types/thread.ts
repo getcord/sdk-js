@@ -524,7 +524,6 @@ export interface ClientCreateThread
         | 'name'
         // Non-create fields
         | 'organizationID'
-        | 'groupID'
         | 'total'
         | 'userMessages'
         | 'actionMessages'
