@@ -348,11 +348,13 @@ export type ThreadListWebComponentEvents = {
 
 /* cord-composer */
 export type ComposerWebComponentEvents = {
-  focus: [{ threadId: ThreadID }];
-  blur: [{ threadId: ThreadID }];
-  close: [{ threadId: ThreadID }];
-  send: [{ threadId: ThreadID; messageId: MessageID }];
-  threadreopen: [{ threadId: ThreadID }];
+  focus: [{ threadId: ThreadID; thread: ThreadSummary | null }];
+  blur: [{ threadId: ThreadID; thread: ThreadSummary | null }];
+  close: [{ threadId: ThreadID; thread: ThreadSummary | null }];
+  send: [
+    { threadId: ThreadID; messageId: MessageID; thread: ThreadSummary | null },
+  ];
+  threadreopen: [{ threadId: ThreadID; thread: ThreadSummary }];
 };
 
 export const COMPOSER_SIZE = ['small', 'medium', 'large'] as const;
