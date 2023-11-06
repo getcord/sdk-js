@@ -76,6 +76,7 @@ type Props = {
   enableScreenshotCapture?: boolean;
   customEventMetadata?: JsonObject;
   translations?: Translations;
+  language?: string;
   beforeMessageCreate?: CordSDKOptions['beforeMessageCreate'];
 };
 
@@ -102,6 +103,7 @@ export function CordProvider({
   onInitError,
   customEventMetadata,
   translations,
+  language,
   beforeMessageCreate,
 }: React.PropsWithChildren<Props>) {
   if (clientAuthToken?.length === 0) {
@@ -213,6 +215,7 @@ export function CordProvider({
           onInitError,
           custom_renderers: customRenderers,
           translations,
+          language,
           beforeMessageCreate,
         })
         .then(() => {
@@ -236,6 +239,7 @@ export function CordProvider({
     customRenderers,
     customEventMetadata,
     translations,
+    language,
     beforeMessageCreate,
   ]);
 
