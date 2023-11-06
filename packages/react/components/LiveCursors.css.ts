@@ -2,14 +2,13 @@ import { globalStyle } from '@vanilla-extract/css';
 import { cordifyClassname } from '../common/util';
 import { cssVar } from '../common/ui/cssVariables';
 import * as avatarClasses from './Avatar.classnames';
+import * as classes from './LiveCursors.classnames';
 import { ZINDEX } from '@cord-sdk/react/common/ui/zIndex';
+
+export const { cursor, icon, label, name } = classes;
 
 export const POSITION_UPDATE_INTERVAL_MS = 100;
 
-export const cursor = cordifyClassname('live-cursors-cursor');
-export const icon = cordifyClassname('live-cursors-icon');
-export const label = cordifyClassname('live-cursors-label');
-export const name = cordifyClassname('live-cursors-name');
 export const colorPalette = cordifyClassname('color-palette');
 
 export const colorVar = '--cord-live-cursors-cursor-color';
