@@ -27,6 +27,7 @@ export const resources = {
       send_message_placeholder: 'Add a comment...',
       reply_placeholder: 'Reply...',
       mention_someone_tooltip: 'Mention someone',
+      annotate_action: 'Annotate',
       replace_annotation_tooltip: 'Replace annotation',
       add_emoji_tooltip: 'Add emoji',
       remove_task_tooltip: 'Remove task',
@@ -42,6 +43,7 @@ export const resources = {
       unresolve_action: 'Reopen to reply',
       annotation: 'Your annotation',
       remove_annotation_action: 'Remove',
+      send_message_action_failure: 'Failed to send message. Please try again.',
     },
     thread: {
       placeholder_title: 'Chat with your team, right here',
@@ -57,6 +59,9 @@ export const resources = {
       share_via_slack_action_not_connected: 'Connect to share',
       share_via_slack_action_success: 'Shared to #{{slackChannel}}',
       share_via_email_action: 'Share via email',
+      share_via_email_screenshot_warning:
+        'A screenshot of this page will be included in the email.',
+      share_via_email_placeholder: 'email@email.com',
       subscribe_action: 'Subscribe',
       subscribe_action_success: "You've subscribed to this thread",
       unsubscribe_action: 'Unsubscribe',
@@ -67,6 +72,7 @@ export const resources = {
       unresolve_action: 'Reopen',
       unresolve_action_success: 'You have reopened this thread',
       collapse_action: 'Collapse thread',
+      typing_users_status: 'Typing',
     },
     thread_list: {
       placeholder_title: 'Be the first to add a comment',
