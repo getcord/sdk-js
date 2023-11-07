@@ -32,6 +32,7 @@ export type SidebarReactComponentProps = ReactPropsWithLocation<
     open?: boolean;
     showLauncher?: boolean;
     threadName?: string;
+    groupId?: string; // Needs to be specified if no org in the token
     onOpen?: (...args: SidebarWebComponentEvents['open']) => unknown;
     onClose?: (...args: SidebarWebComponentEvents['close']) => unknown;
     onThreadOpen?: (

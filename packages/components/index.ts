@@ -100,6 +100,7 @@ export const componentAttributes = {
     'exclude-viewer-from-presence': 'boolean',
     'show-pins-on-page': 'boolean',
     'thread-name': 'string',
+    'group-id': 'string',
   },
   SidebarLauncher: {
     disabled: 'boolean',
