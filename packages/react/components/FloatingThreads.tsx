@@ -38,6 +38,7 @@ export type FloatingThreadsReactComponentProps = PropsWithFlags<
       threadName?: string;
       disabled?: boolean;
       showScreenshotPreview?: boolean;
+      groupId?: string; // Needs to be specified if no org in the token
       onStart?: (
         ...args: FloatingThreadsWebComponentEvents['start']
       ) => unknown;

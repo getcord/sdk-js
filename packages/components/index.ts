@@ -160,6 +160,7 @@ export const componentAttributes = {
     'button-label': 'string',
     'thread-name': 'string',
     'show-screenshot-preview': 'boolean',
+    'group-id': 'string',
   },
   SelectionComments: {
     location: 'json',
