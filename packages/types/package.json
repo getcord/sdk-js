@@ -1,7 +1,7 @@
 {
   "name": "@cord-sdk/types",
   "description": "Common type declarations for the cord-sdk packages",
-  "version": "1.24.0",
+  "version": "1.24.1",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
   "files": [
