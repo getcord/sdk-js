@@ -518,6 +518,11 @@ export default {
               'An optional space separated list of classnames to add to the thread.',
             type: ['null', 'string'],
           },
+          subscribers: {
+            description: 'All of the users who are subscribed to this thread.',
+            type: 'array',
+            items: { type: 'string' },
+          },
         },
         additionalProperties: false,
         propertyOrder: [
@@ -529,6 +534,7 @@ export default {
           'groupID',
           'resolved',
           'extraClassnames',
+          'subscribers',
         ],
         required: ['groupID', 'location', 'name', 'url'],
       },
@@ -1091,6 +1097,11 @@ export default {
           'An optional space separated list of classnames to add to the thread.',
         type: ['null', 'string'],
       },
+      subscribers: {
+        description: 'All of the users who are subscribed to this thread.',
+        type: 'array',
+        items: { type: 'string' },
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -1101,6 +1112,7 @@ export default {
       'metadata',
       'groupID',
       'extraClassnames',
+      'subscribers',
     ],
     required: ['groupID', 'location', 'name', 'url'],
     $schema: 'http://json-schema.org/draft-07/schema#',
