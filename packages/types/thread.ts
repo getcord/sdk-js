@@ -532,7 +532,6 @@ export interface ClientCreateThread
         | 'resolvedTimestamp'
         | 'participants'
         | 'repliers'
-        | 'subscribers'
         | 'typing'
       >
     > {}
