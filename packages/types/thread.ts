@@ -533,8 +533,14 @@ export interface ClientCreateThread
         | 'participants'
         | 'repliers'
         | 'typing'
+        | 'subscribers'
       >
-    > {}
+    > {
+  /**
+   * A list of subscribers to add to this thread.
+   */
+  addSubscribers?: UserID[];
+}
 
 export type CreateFileAttachment = {
   /**
@@ -1199,12 +1205,17 @@ export interface ServerCreateThread
         | 'participants'
         | 'repliers'
         | 'typing'
+        | 'subscribers'
       >
     > {
   /**
    * @deprecated This field is deprecated and has no effect.
    */
   resolved?: boolean;
+  /**
+   * A list of subscribers to add to this thread.
+   */
+  addSubscribers?: UserID[];
 }
 
 export type ServerListThreadParameters = {
