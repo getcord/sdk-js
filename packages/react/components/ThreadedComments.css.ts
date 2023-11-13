@@ -98,6 +98,7 @@ globalStyle(`.${tab}`, {
   border: 'none',
   borderRadius: cssVar('space-3xs'),
   flexGrow: 1,
+  flexBasis: 0,
   padding: cssVar('space-3xs'),
   color: 'inherit',
 });
