@@ -44,6 +44,7 @@ export const resources = {
       annotation: 'Your annotation',
       remove_annotation_action: 'Remove',
       send_message_action_failure: 'Failed to send message. Please try again.',
+      drag_and_drop_files_tooltip: 'Drop Files',
     },
     thread: {
       placeholder_title: 'Chat with your team, right here',
@@ -56,8 +57,11 @@ export const resources = {
       replies_status_other: '{{count}} replies',
       mark_as_read_action: 'Mark as read',
       share_via_slack_action: 'Share with Slack',
+      share_via_slack_channel_action: 'Share to #{{slackChannel}}',
       share_via_slack_action_not_connected: 'Connect to share',
       share_via_slack_action_success: 'Shared to #{{slackChannel}}',
+      share_via_slack_channel_placeholder: 'Type or select',
+      share_via_slack_no_channels: 'No public channels found',
       share_via_email_action: 'Share via email',
       share_via_email_screenshot_warning:
         'A screenshot of this page will be included in the email.',
@@ -179,6 +183,16 @@ export const resources = {
         ],
       },
     },
+    sidebar: {
+      add_comment_action: 'Add comment',
+      add_comment_instruction: 'Add your comment',
+      close_sidebar_tooltip: 'Close',
+      close_settings_tooltip: 'Close',
+      inbox_tooltip: 'All updates',
+      thread_options_menu: 'Options',
+      thread_list_title: 'Comments',
+      return_to_list_action: 'All',
+    },
     notifications: {
       notifications_title: 'Notifications',
       mark_all_as_read_action: 'Mark all as read',
@@ -225,6 +239,10 @@ export const resources = {
     },
     inbox: {
       go_to_page_action: 'Go to page',
+      close_tooltip: 'Close',
+      inbox_title: 'Your Inbox',
+      all_pages_title: 'All Pages',
+      settings_tooltip: 'Collaboration settings',
     },
     annotation: {
       click_prompt: 'Click to comment',
