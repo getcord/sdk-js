@@ -642,7 +642,7 @@ export type LiveCursorsEventToLocationFnOptions = {
 export type LiveCursorsEventToLocationFn = (
   e: MouseEvent,
   options: LiveCursorsEventToLocationFnOptions,
-) => Promise<Location> | Location;
+) => Promise<Location | null> | Location | null;
 export type MultipleCursorsEventToLocationFn = LiveCursorsEventToLocationFn;
 
 export type LiveCursorsLocationToDocumentFn = (
