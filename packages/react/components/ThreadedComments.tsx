@@ -123,6 +123,17 @@ export function ThreadedComments({
   // We are using the following hook to make sure we get called back
   // when the CordSDK is initialized
   const { sdk: cordSDK } = useContext(CordContext);
+  const threadCounts = thread.useThreadCounts({
+    filter: {
+      ...filter,
+      // We are going to deprecate the location and resolvedStatus from the filter parameter.
+      // In the meantime, we don't want anyone specifying their value for this hook.
+      // This hook needs to fetch information about the location regardless of
+      // what the aforementioned two filter parameters are set to.
+      ...{ location: { value: location, partialMatch } },
+      ...{ resolvedStatus: 'any' },
+    },
+  });
 
   // We have intentionally left the scrollDirection prop without a default, so we
   // can be sure whether developers have set it or not. We always want the
@@ -188,6 +199,8 @@ export function ThreadedComments({
     }
   }
   const showResolvedInSamePage = displayResolved === 'sequentially';
+  const locationHasResolvedThreads =
+    !!threadCounts && threadCounts.resolved > 0;
   const composerOnTop = composerPosition === 'top';
   // When showing resolved threads only, we don't want to show the composer
   // since it does not make sense to create a new thread which is resolved.
@@ -216,19 +229,20 @@ export function ThreadedComments({
 
   const newestOnTop = scrollDirection === 'down';
 
-  const expandResolvedButton = showResolvedInSamePage && (
-    <ExpandResolvedButton
-      key="expand_resolved_threads_button"
-      isExpanded={expandResolved}
-      onClick={() => setExpandResolved((prev) => !prev)}
-      expandedArrow={
-        newestOnTop ? <Icon name="UpSolid" /> : <Icon name="DownSolid" />
-      }
-      collapsedArrow={
-        newestOnTop ? <Icon name="DownSolid" /> : <Icon name="UpSolid" />
-      }
-    />
-  );
+  const expandResolvedButton = showResolvedInSamePage &&
+    locationHasResolvedThreads && (
+      <ExpandResolvedButton
+        key="expand_resolved_threads_button"
+        isExpanded={expandResolved}
+        onClick={() => setExpandResolved((prev) => !prev)}
+        expandedArrow={
+          newestOnTop ? <Icon name="UpSolid" /> : <Icon name="DownSolid" />
+        }
+        collapsedArrow={
+          newestOnTop ? <Icon name="DownSolid" /> : <Icon name="UpSolid" />
+        }
+      />
+    );
 
   const threadList = (
     <ThreadedCommentsThreadList
