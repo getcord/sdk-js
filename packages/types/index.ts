@@ -630,12 +630,18 @@ export type LiveCursorsCursorPosition =
   | {
       viewportX: number;
       viewportY: number;
+      click: boolean;
     }
   | null
   | undefined;
 
+export type LiveCursorsEventToLocationFnOptions = {
+  send_clicks?: boolean;
+};
+
 export type LiveCursorsEventToLocationFn = (
   e: MouseEvent,
+  options: LiveCursorsEventToLocationFnOptions,
 ) => Promise<Location> | Location;
 export type MultipleCursorsEventToLocationFn = LiveCursorsEventToLocationFn;
 

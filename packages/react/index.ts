@@ -14,6 +14,7 @@ export {
 export {
   LiveCursorsCursorProps,
   LiveCursorsDefaultCursor,
+  LiveCursorsDefaultClick,
 } from './components/LiveCursorsDefaultCursor';
 export {
   PagePresence,

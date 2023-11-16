@@ -7,6 +7,8 @@ import type {
   LiveCursorsLocationToDocumentFn,
   Location,
   LiveCursorsCursorPosition,
+  ClientUserData,
+  LiveCursorsEventToLocationFnOptions,
 } from '@cord-sdk/types';
 import { debounce } from 'radash';
 
@@ -14,7 +16,10 @@ import { useCordLocation } from '../hooks/useCordLocation';
 import * as user from '../hooks/user';
 import { useCordContext } from '../contexts/CordContext';
 import { POSITION_UPDATE_INTERVAL_MS } from './LiveCursors.css';
-import { LiveCursorsDefaultCursor } from './LiveCursorsDefaultCursor';
+import {
+  LiveCursorsDefaultClick,
+  LiveCursorsDefaultCursor,
+} from './LiveCursorsDefaultCursor';
 import type { LiveCursorsCursorProps } from './LiveCursorsDefaultCursor';
 
 export type LiveCursorsReactComponentProps = {
@@ -29,6 +34,10 @@ export type LiveCursorsReactComponentProps = {
   sendCursor?: boolean;
   showCursors?: boolean;
   boundingElementRef?: MutableRefObject<HTMLElement | null>;
+  clickComponent?: FunctionComponent<LiveCursorsCursorProps>;
+  sendClicks?: boolean;
+  showClicks?: boolean;
+  clickDisplayDuration?: number;
 };
 
 /**
@@ -37,7 +46,10 @@ export type LiveCursorsReactComponentProps = {
  * `CordSDK.annotation.viewportCoordinatesToString`. That's not always available
  * though, so we also transmit absolute x/y coordinates.
  */
-export async function defaultEventToLocation(e: MouseEvent): Promise<Location> {
+export async function defaultEventToLocation(
+  e: MouseEvent,
+  options: LiveCursorsEventToLocationFnOptions,
+): Promise<Location> {
   const annotationSDK = window.CordSDK?.annotation;
   const s = await annotationSDK?.viewportCoordinatesToString({
     x: e.clientX,
@@ -47,10 +59,10 @@ export async function defaultEventToLocation(e: MouseEvent): Promise<Location> {
   const annotationObj: Record<string, string> = s
     ? { __cord_annotation: s }
     : {};
-
   return {
     __cord_cursor_x: e.pageX,
     __cord_cursor_y: e.pageY,
+    __cord_cursor_click: options?.send_clicks ? e.buttons === 1 : false,
     ...annotationObj,
   };
 }
@@ -66,6 +78,9 @@ export async function defaultLocationToDocument(
   location: Location,
 ): Promise<LiveCursorsCursorPosition> {
   const annotationSDK = window.CordSDK?.annotation;
+  const click =
+    '__cord_cursor_click' in location && !!location.__cord_cursor_click;
+
   if ('__cord_annotation' in location && annotationSDK) {
     const coords = await annotationSDK.stringToViewportCoordinates(
       String(location.__cord_annotation),
@@ -74,6 +89,7 @@ export async function defaultLocationToDocument(
       return {
         viewportX: coords.x,
         viewportY: coords.y,
+        click,
       };
     }
   }
@@ -82,6 +98,7 @@ export async function defaultLocationToDocument(
     return {
       viewportX: (location.__cord_cursor_x as number) - window.scrollX,
       viewportY: (location.__cord_cursor_y as number) - window.scrollY,
+      click,
     };
   }
 
@@ -89,6 +106,9 @@ export async function defaultLocationToDocument(
 }
 
 type CursorPosition = NonNullable<LiveCursorsCursorPosition>;
+type ClickPosition = CursorPosition & {
+  clickTimestamp: number;
+};
 
 // A secret param passed to a few API functions which only affects Cord's
 // logging. Feel free to remove this if you're modifying this code in your own
@@ -106,6 +126,10 @@ export function LiveCursors({
   sendCursor = true,
   showCursors = true,
   boundingElementRef,
+  clickComponent,
+  sendClicks = false,
+  showClicks = false,
+  clickDisplayDuration = 1000,
   ...remainingProps
 }: LiveCursorsReactComponentProps) {
   // Make sure we've covered all the props we say we take; given the layers of
@@ -141,6 +165,7 @@ export function LiveCursors({
     eventToLocation,
     groupId,
     !sendCursor,
+    sendClicks,
     boundingElementRef,
   );
 
@@ -152,6 +177,12 @@ export function LiveCursors({
     boundingElementRef,
   );
 
+  const userCursorClicks = useUserCursorClicks(
+    userCursors,
+    clickDisplayDuration,
+    !showClicks,
+  );
+
   // Load detailed information for each user whose cursor we have, so we can
   // display their name etc.
   const users = user.useUserData(Object.keys(userCursors));
@@ -159,27 +190,26 @@ export function LiveCursors({
 
   // Combine the userCursors user ID and position info with the detailed user
   // information to produce the information Cursor needs to actually render.
-  const result = useMemo<LiveCursorsCursorProps[]>(() => {
-    if (viewerID === undefined) {
-      // Skip if we don't know who the viewer is, since we don't want to show
-      // them their own cursor.
-      return [];
-    }
+  const cursorData = useMemo<LiveCursorsCursorProps[]>(
+    () => getLiveCursorsProps(viewerID, userCursors, users),
 
-    return Object.keys(userCursors)
-      .filter((id) => userCursors[id] && users[id])
-      .map((id) => ({
-        user: users[id]!,
-        pos: userCursors[id]!,
-      }));
-  }, [viewerID, userCursors, users]);
+    [viewerID, userCursors, users],
+  );
 
+  const clickData = useMemo<LiveCursorsCursorProps[]>(
+    () => getLiveCursorsProps(viewerID, userCursorClicks, users),
+    [viewerID, userCursorClicks, users],
+  );
   const Cursor = cursorComponent ?? LiveCursorsDefaultCursor;
+  const Click = clickComponent ?? LiveCursorsDefaultClick;
 
   return (
     <>
-      {result.map((props) => (
+      {cursorData.map((props) => (
         <Cursor key={props.user.id} {...props} />
+      ))}
+      {clickData.map((props) => (
+        <Click key={props.user.id} {...props} />
       ))}
     </>
   );
@@ -188,6 +218,24 @@ export function LiveCursors({
 function useViewerID() {
   const viewerData = user.useViewerData();
   return viewerData?.id;
+}
+
+function getLiveCursorsProps(
+  viewerID: string | undefined,
+  cursorPositions: Record<string, CursorPosition>,
+  users: Record<string, ClientUserData | null>,
+): LiveCursorsCursorProps[] {
+  if (viewerID === undefined) {
+    // Skip if we don't know who the viewer is, since we don't want to show
+    // them their own cursor.
+    return [];
+  }
+  return Object.keys(cursorPositions)
+    .filter((id) => cursorPositions[id] && users[id])
+    .map((id) => ({
+      user: users[id]!,
+      pos: cursorPositions[id]!,
+    }));
 }
 
 /**
@@ -199,6 +247,7 @@ function useSendCursor(
   eventToLocation: LiveCursorsEventToLocationFn,
   groupID: string | undefined,
   skip = false,
+  sendClicks = false,
   boundingElementRef?: MutableRefObject<HTMLElement | null>,
 ): void {
   const { sdk } = useCordContext('LiveCursors.useSendCursor');
@@ -234,23 +283,28 @@ function useSendCursor(
       return;
     }
 
-    const onMouseMove = (e: MouseEvent) => {
+    const onMouseMoveOrClick = (e: MouseEvent) => {
       void (async () => {
-        mouseLocationRef.current = await eventToLocation(e);
+        mouseLocationRef.current = await eventToLocation(e, {
+          send_clicks: sendClicks,
+        });
       })();
     };
-    const onMouseOut = () => {
+
+    const onMouseLeave = () => {
       mouseLocationRef.current = null;
     };
 
     const element = boundingElementRef?.current;
 
     if (element) {
-      element.addEventListener('mousemove', onMouseMove);
-      element.addEventListener('mouseout', onMouseOut);
-    } else {
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('mouseout', onMouseOut);
+      element.addEventListener('mousemove', onMouseMoveOrClick);
+      element.addEventListener('mouseleave', onMouseLeave);
+      element.addEventListener('mousedown', onMouseMoveOrClick);
+    } else if (!boundingElementRef) {
+      document.addEventListener('mousedown', onMouseMoveOrClick);
+      document.addEventListener('mousemove', onMouseMoveOrClick);
+      document.addEventListener('mouseleave', onMouseLeave);
     }
 
     window.addEventListener('beforeunload', clearPresence);
@@ -258,15 +312,17 @@ function useSendCursor(
     return () => {
       clearPresence();
       if (element) {
-        element.removeEventListener('mousemove', onMouseMove);
-        element.removeEventListener('mouseout', onMouseOut);
-      } else {
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseout', onMouseOut);
+        element.removeEventListener('mousemove', onMouseMoveOrClick);
+        element.removeEventListener('mouseleave', onMouseLeave);
+        element.removeEventListener('mousedown', onMouseMoveOrClick);
+      } else if (!boundingElementRef) {
+        document.removeEventListener('mousemove', onMouseMoveOrClick);
+        document.removeEventListener('mouseleave', onMouseLeave);
+        document.removeEventListener('mousedown', onMouseMoveOrClick);
       }
       window.removeEventListener('beforeunload', clearPresence);
     };
-  }, [eventToLocation, clearPresence, skip, boundingElementRef]);
+  }, [eventToLocation, clearPresence, skip, boundingElementRef, sendClicks]);
 
   // The last mouseLocationRef that we transmitted. Track this so that we don't
   // send unnecessary presence updates if our cursor hasn't actually moved.
@@ -436,4 +492,97 @@ function useUserCursors(
   }, [debouncedComputeCursorPositions]);
 
   return cursorPositions;
+}
+
+function useUserCursorClicks(
+  userCursors: Record<string, CursorPosition>,
+  clickDisplayDuration: number,
+  skip: boolean,
+): Record<string, ClickPosition> {
+  const [clickPositions, setClickPositions] = useState<
+    Record<string, ClickPosition>
+  >({});
+
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const newClicks: [string, ClickPosition][] = [];
+
+  Object.entries(userCursors).forEach(([id, position]) => {
+    const { click, viewportX, viewportY } = position;
+    if (
+      !skip &&
+      click &&
+      viewportX !== clickPositions[id]?.viewportX &&
+      viewportY !== clickPositions[id]?.viewportY
+    ) {
+      newClicks.push([id, { ...position, clickTimestamp: Date.now() }]);
+    }
+  });
+
+  if (newClicks.length > 0) {
+    const newClickPositions = {
+      ...clickPositions,
+      ...Object.fromEntries(newClicks),
+    };
+    setClickPositions(newClickPositions);
+  }
+
+  useEffect(() => {
+    const next = findNextExpiryTime(clickPositions, clickDisplayDuration);
+    if (next !== null) {
+      timeoutRef.current = setTimeout(() => {
+        timeoutRef.current = null;
+        // When another click comes then setClickPositions
+        // will execute and cause this useEffect to run again to set up the next
+        // applicable timeout. This means we don't need to set up another
+        // expiry here.
+        const pruned = pruneExpiredClicks(clickPositions, clickDisplayDuration);
+        setClickPositions(pruned);
+      }, next);
+    }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    };
+  }, [clickDisplayDuration, clickPositions, skip]);
+  return clickPositions;
+}
+
+function findNextExpiryTime(
+  clickPositions: Record<string, ClickPosition>,
+  clickDisplayDuration: number,
+): number | null {
+  const cursorPositions = Object.values(clickPositions);
+  if (cursorPositions.length === 0) {
+    return null;
+  }
+
+  const cursorPositionClickTimestamps = cursorPositions.map(
+    (positions) => positions.clickTimestamp,
+  );
+
+  const oldestTimestamp = Math.min(...cursorPositionClickTimestamps);
+  // This calculates the delay used for clearing the oldest click position.
+  // Add extra 50ms to guard against executing early.
+  return Math.max(oldestTimestamp + clickDisplayDuration + 50 - Date.now(), 0);
+}
+
+function pruneExpiredClicks(
+  clickPositions: Record<string, ClickPosition>,
+  clickDisplayDuration: number,
+): Record<string, ClickPosition> {
+  let didChange = false;
+
+  const newClickPositions = { ...clickPositions };
+
+  Object.entries(clickPositions).forEach(([id, position]) => {
+    if (Date.now() >= position.clickTimestamp + clickDisplayDuration) {
+      delete newClickPositions[id];
+      didChange = true;
+    }
+  });
+  return didChange ? newClickPositions : clickPositions;
 }

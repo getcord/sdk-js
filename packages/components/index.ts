@@ -59,6 +59,9 @@ export const componentAttributes = {
     'show-viewer-cursor': 'boolean',
     'send-cursor': 'boolean',
     'show-cursors': 'boolean',
+    'send-clicks': 'boolean',
+    'show-clicks': 'boolean',
+    'click-display-duration': 'boolean',
   },
   PagePresence: {
     context: 'json',

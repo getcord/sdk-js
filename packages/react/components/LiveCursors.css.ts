@@ -1,4 +1,4 @@
-import { globalStyle } from '@vanilla-extract/css';
+import { globalStyle, keyframes } from '@vanilla-extract/css';
 import { cordifyClassname } from '../common/util';
 import { cssVar } from '../common/ui/cssVariables';
 import * as avatarClasses from './Avatar.classnames';
@@ -8,17 +8,19 @@ import { ZINDEX } from '@cord-sdk/react/common/ui/zIndex';
 export const { cursor, icon, label, name } = classes;
 
 export const POSITION_UPDATE_INTERVAL_MS = 100;
+// A small negative margin makes the pointer of the icon and click appear where the
+// other user's cursor actually is
+export const CURSOR_MARGIN_OFFSET = -2;
 
 export const colorPalette = cordifyClassname('color-palette');
+export const cursorClick = cordifyClassname('live-cursors-click');
 
 export const colorVar = '--cord-live-cursors-cursor-color';
 export const borderVar = '--cord-live-cursors-cursor-border-color';
 
 globalStyle(`.${cursor}`, {
-  // A small negative margin makes the pointer of the icon appear where the
-  // other user's cursor actually is
-  marginLeft: -2,
-  marginTop: -2,
+  marginLeft: CURSOR_MARGIN_OFFSET,
+  marginTop: CURSOR_MARGIN_OFFSET,
   padding: 0,
   position: 'fixed',
   zIndex: ZINDEX.annotation,
@@ -58,6 +60,29 @@ globalStyle(`.${label}`, {
   gap: '8px',
 });
 
+const rippleEffect = keyframes({
+  '100%': {
+    opacity: 0.01,
+    transform: 'scale(15)',
+  },
+});
+
+globalStyle(`.${cursorClick}`, {
+  animation: `${rippleEffect} 0.4s linear`,
+  animationDirection: 'alternate',
+  animationIterationCount: 'infinite',
+  backgroundColor: 'transparent',
+  border: `1px solid var(${colorVar})`,
+  borderRadius: '50%',
+  height: '10px',
+  marginLeft: CURSOR_MARGIN_OFFSET,
+  marginTop: CURSOR_MARGIN_OFFSET,
+  pointerEvents: 'none',
+  position: 'fixed',
+  width: '10px',
+  zIndex: ZINDEX.annotation,
+});
+
 // The set of colors we rotate between as we need colors for people.
 const CURSOR_COLORS = [
   { background: '#8462cc', border: '#533d80' },
@@ -71,10 +96,13 @@ const CURSOR_COLORS = [
 ];
 
 for (let i = 0; i < CURSOR_COLORS.length; i++) {
-  globalStyle(`.${cursor}:where(.${colorPalette}-${i + 1})`, {
-    vars: {
-      [borderVar]: CURSOR_COLORS[i].border,
-      [colorVar]: CURSOR_COLORS[i].background,
+  globalStyle(
+    `:is(.${cursor}, .${cursorClick}):where(.${colorPalette}-${i + 1})`,
+    {
+      vars: {
+        [borderVar]: CURSOR_COLORS[i].border,
+        [colorVar]: CURSOR_COLORS[i].background,
+      },
     },
-  });
+  );
 }

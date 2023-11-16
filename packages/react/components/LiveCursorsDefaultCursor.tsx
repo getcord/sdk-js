@@ -65,3 +65,28 @@ export function LiveCursorsDefaultCursor({
     </div>
   );
 }
+
+export function LiveCursorsDefaultClick({
+  user,
+  pos,
+  className,
+  ...otherProps
+}: LiveCursorsCursorProps) {
+  const cursorPaletteID = useMemo(
+    () => getStableColorPaletteID(user.id),
+    [user.id],
+  );
+
+  return (
+    <div
+      style={{
+        left: pos.viewportX + 'px',
+        top: pos.viewportY + 'px',
+      }}
+      className={cx([className, `${classes.colorPalette}-${cursorPaletteID}`], {
+        [classes.cursorClick]: pos.click,
+      })}
+      {...otherProps}
+    ></div>
+  );
+}
