@@ -218,6 +218,7 @@ export function ThreadedComments({
 
   const expandResolvedButton = showResolvedInSamePage && (
     <ExpandResolvedButton
+      key="expand_resolved_threads_button"
       isExpanded={expandResolved}
       onClick={() => setExpandResolved((prev) => !prev)}
       expandedArrow={
