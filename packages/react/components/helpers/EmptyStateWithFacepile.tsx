@@ -1,26 +1,27 @@
 import * as React from 'react';
 import cx from 'classnames';
 
-import { useTranslation } from 'react-i18next';
 import { Facepile } from '../Facepile';
 import * as classes from './EmptyStateWithFacepile.css';
 
 type Props = {
   users: string[];
+  titlePlaceholder: string;
+  bodyPlaceholder: string;
   className?: string;
 };
 
-export function EmptyStateWithFacepile({ users, className }: Props) {
-  const { t } = useTranslation('thread');
+export function EmptyStateWithFacepile({
+  users,
+  titlePlaceholder,
+  bodyPlaceholder,
+  className,
+}: Props) {
   return (
     <div className={cx(classes.emptyStatePlaceholderContainer, className)}>
       {users.length > 0 && <Facepile users={users.slice(0, 4)} />}
-      <p className={classes.emptyStatePlaceholderTitle}>
-        {t('placeholder_title')}
-      </p>
-      <p className={classes.emptyStatePlaceholderBody}>
-        {t('placeholder_body')}
-      </p>
+      <p className={classes.emptyStatePlaceholderTitle}>{titlePlaceholder}</p>
+      <p className={classes.emptyStatePlaceholderBody}>{bodyPlaceholder}</p>
     </div>
   );
 }

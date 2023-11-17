@@ -401,6 +401,7 @@ function ThreadedCommentsThreadList({
     },
   );
   const { orgMembers } = user.useOrgMembers();
+  const { t } = useTranslation('threaded_comments');
 
   const dispatchLoadingEvent = useCallFunctionOnce(onLoading);
   const dispatchRenderEvent = useCallFunctionOnce(onRender);
@@ -452,14 +453,24 @@ function ThreadedCommentsThreadList({
   const fetchMoreButton =
     !loading && hasMore ? <FetchMoreButton fetchMore={fetchMore} /> : null;
 
+  const titlePlaceholder =
+    resolvedStatus === 'resolved'
+      ? t('resolved_placeholder_title')
+      : t('placeholder_title');
+  const bodyPlaceholder =
+    resolvedStatus === 'resolved'
+      ? t('resolved_placeholder_body')
+      : t('placeholder_body');
+
   return (
     <>
-      {showPlaceholder &&
-        threads.length === 0 &&
-        !loading &&
-        resolvedStatus !== 'resolved' && (
-          <EmptyStateWithFacepile users={orgMembers?.map((p) => p.id) ?? []} />
-        )}
+      {showPlaceholder && threads.length === 0 && !loading && (
+        <EmptyStateWithFacepile
+          users={orgMembers?.map((p) => p.id) ?? []}
+          titlePlaceholder={titlePlaceholder}
+          bodyPlaceholder={bodyPlaceholder}
+        />
+      )}
       {!newestOnTop && fetchMoreButton}
       {threads.length !== 0 && renderedThreads}
       {newestOnTop && fetchMoreButton}

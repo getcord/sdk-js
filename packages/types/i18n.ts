@@ -86,6 +86,12 @@ export const resources = {
       hide_resolved_threads_action: 'Hide resolved threads',
     },
     threaded_comments: {
+      placeholder_title: 'Be the first to add a comment',
+      placeholder_body:
+        "Ask a question, give feedback, or just say 'Hi'. Comments can be seen by anyone who can access this page.",
+      resolved_placeholder_title: 'This is where resolved comments will appear',
+      resolved_placeholder_body:
+        'Resolved comments can be seen by anyone who can access this page.',
       show_unresolved: 'Open',
       show_resolved: 'Resolved',
       show_resolved_threads_action:
