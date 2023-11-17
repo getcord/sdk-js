@@ -29,6 +29,7 @@ export * from './core';
 export * from './file';
 export * from './group';
 export * from './message';
+export * from './messageNodes';
 export * from './notifications';
 export * from './organization';
 export * from './preferences';
