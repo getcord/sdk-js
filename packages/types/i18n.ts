@@ -33,7 +33,6 @@ export const resources = {
       remove_task_tooltip: 'Remove task',
       create_task_tooltip: 'Create task',
       attach_file_tooltip: 'Attach file',
-      start_video_msg_tooltip: 'Record a video',
       remove_file_action: 'Remove',
       connect_to_slack_action: 'Connect your Slack team',
       slack_follow_instructions: 'Follow the instructions',
@@ -127,6 +126,16 @@ export const resources = {
       screenshot_missing_status: 'No screenshot found',
       screenshot_expand_action: 'Image',
       screenshot_expand_tooltip: 'Click to expand',
+      image_modal_copy_link_action: 'Link',
+      image_modal_copy_link_toolitp: 'Click to copy',
+      image_modal_copy_link_success: 'Copied to clipboard',
+      image_modal_blurred_status:
+        'Potentially confidential content has been blurred',
+      image_modal_annotation_header:
+        '{{user.displayName}} annotated this <datespan>on {{date}}</datespan>',
+      image_modal_attachment_header:
+        '{{user.displayName}} attached this <datespan>on {{date}}</datespan>',
+      image_modal_header_date_format: 'D MMM [at] h:mm A',
       timestamp: {
         in_less_than_a_minute: 'in less than a minute',
         just_now: 'just now',
