@@ -118,6 +118,10 @@ export const resources = {
       edit_resolved_action: 'Reopen to edit',
       delete_action: 'Delete',
       deleted_message: '{{user.displayName}} deleted a message',
+      deleted_messages_one: '{{user.displayName}} deleted a message',
+      deleted_messages_other: '{{user.displayName}} deleted {{count}} messages',
+      sent_via_slack_tooltip: 'Sent via Slack',
+      sent_via_email_tooltip: 'Sent via Email',
       undo_delete_action: 'Undo',
       add_reaction_action: 'Add reaction',
       show_more_other: 'Show {{count}} more',
@@ -126,6 +130,11 @@ export const resources = {
       screenshot_missing_status: 'No screenshot found',
       screenshot_expand_action: 'Image',
       screenshot_expand_tooltip: 'Click to expand',
+      seen_by_status: 'Seen by {{users, list(style: short)}}',
+      seen_by_status_overflow_one:
+        'Seen by {{users, list(style: narrow)}}, and 1 other',
+      seen_by_status_overflow_other:
+        'Seen by {{users, list(style: narrow)}}, and {{count}} others',
       image_modal_copy_link_action: 'Link',
       image_modal_copy_link_toolitp: 'Click to copy',
       image_modal_copy_link_success: 'Copied to clipboard',
@@ -207,12 +216,17 @@ export const resources = {
       thread_options_menu: 'Options',
       thread_list_title: 'Comments',
       return_to_list_action: 'All',
+      annotation_nudge: 'Why not try <l>annotating part of the page</l>?',
     },
     notifications: {
       notifications_title: 'Notifications',
       mark_all_as_read_action: 'Mark all as read',
       mark_as_read_action: 'Mark as read',
       delete_action: 'Delete notification',
+      empty_state_title: 'You’re all caught up',
+      empty_state_body:
+        'When someone @mentions you or replies to your comments, we’ll let you know here.',
+      notification_options_tooltip: 'Options',
       timestamp: {
         in_less_than_a_minute: 'In less than a minute',
         just_now: 'Just now',
@@ -258,6 +272,10 @@ export const resources = {
       inbox_title: 'Your Inbox',
       all_pages_title: 'All Pages',
       settings_tooltip: 'Collaboration settings',
+      mark_all_as_read_action: 'Mark all as read',
+      empty_state_title: 'You’re all caught up',
+      empty_state_body:
+        'When someone @mentions you or replies to your comments, we’ll let you know here.',
     },
     annotation: {
       click_prompt: 'Click to comment',
