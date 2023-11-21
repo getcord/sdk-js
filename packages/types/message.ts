@@ -168,6 +168,10 @@ export interface CoreMessageData {
    * A list of IDs of the users that have seen the message.
    */
   seenBy: string[];
+  /**
+   * If set, Cord won't analyze links in the message to generate previews.
+   */
+  skipLinkPreviews: boolean;
 }
 
 export interface ClientMessageData extends CoreMessageData {
