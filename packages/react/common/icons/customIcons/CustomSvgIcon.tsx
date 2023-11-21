@@ -9,6 +9,7 @@ export function CustomSvgIcon({
       {React.Children.map(children, (child) =>
         React.isValidElement(child)
           ? React.cloneElement(child as any, {
+              // eslint-disable-next-line i18next/no-literal-string
               vectorEffect: 'non-scaling-stroke',
             })
           : child,
