@@ -43,6 +43,28 @@ globalStyle(`.${threadList}`, {
   flexDirection: 'column',
   gap: cssVar('space-2xs'),
   height: 'auto',
+
+  // Setting the color of the thumb of the scrollbar and the track respectively
+  // In Firefox the scrollbar will overlap with the options menu. Having the track
+  // to be transparent makes clicking the options menu slightly easier.
+  scrollbarColor: `${cssVar('color-base-x-strong')} transparent`,
+});
+
+// MacOS hides scrollbars when we are not scrolling, which
+// then makes them overlap with the options menu when we do scroll.
+// We are explicitly setting styles to avoid this overlap.
+
+// By setting a fixed width, we are ensuring that
+// the scrollbar is always present
+globalStyle(`.${threadList}::-webkit-scrollbar`, {
+  width: '10px',
+});
+
+globalStyle(`.${threadList}::-webkit-scrollbar-thumb`, {
+  backgroundColor: cssVar('color-base-x-strong'),
+  borderRadius: cssVar('border-radius-large'),
+  // Preventing the scrollbar thumb from becoming too small
+  minHeight: '28px',
 });
 
 globalStyle(`.${thread}`, {
