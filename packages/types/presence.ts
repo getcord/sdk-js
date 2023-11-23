@@ -26,7 +26,7 @@ export type SetPresentOptions = {
   /**
    * The ID of the group which should be able to see this presence update
    */
-  groupID: string;
+  groupID?: string;
 };
 
 export interface AddListenerOptions {

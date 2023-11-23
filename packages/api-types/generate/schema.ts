@@ -1069,7 +1069,7 @@ export default {
       'durable',
       'absent',
     ],
-    required: ['groupID', 'location'],
+    required: ['location'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreateThreadVariables: {
