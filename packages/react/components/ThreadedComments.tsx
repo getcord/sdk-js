@@ -135,8 +135,9 @@ export function ThreadedComments({
     tokenOrgID && propGroupID && tokenOrgID !== propGroupID;
 
   if (groupIDSetTwice) {
+    // Todo link to docs explainer of the switchover
     console.error(
-      "groupId attribute will be ignored in favor of the groupId in the user's access token",
+      'Must not specify a groupId on the component if the user is signed in with an access token that contains a groupId - choose one or the other',
     );
     return null;
   }
