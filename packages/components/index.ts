@@ -219,6 +219,7 @@ export const componentAttributes = {
   },
   ThreadedComments: {
     location: 'json',
+    'group-id': 'string',
     'message-order': 'string',
     'sort-by': 'string',
     'scroll-direction': 'string',

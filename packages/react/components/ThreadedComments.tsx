@@ -48,6 +48,7 @@ type ScrollDirection = 'up' | 'down';
 type ComposerPosition = 'top' | 'bottom' | 'none';
 export type ThreadedCommentsReactComponentProps = {
   location: Location;
+  groupId?: string;
   partialMatch?: boolean;
   filter?: ThreadListFilter;
   threadMetadata?: EntityMetadata;
@@ -85,6 +86,7 @@ export type ThreadedCommentsReactComponentProps = {
 export function ThreadedComments({
   className,
   location,
+  groupId: propGroupID,
   messageOrder = 'newest_on_bottom',
   sortBy = 'first_message_timestamp',
   scrollDirection,
@@ -122,7 +124,23 @@ export function ThreadedComments({
   const [expandResolved, setExpandResolved] = useState<boolean>(false);
   // We are using the following hook to make sure we get called back
   // when the CordSDK is initialized
-  const { sdk: cordSDK } = useContext(CordContext);
+  const { sdk: cordSDK, organizationID: tokenOrgID } = useContext(CordContext);
+
+  if (!tokenOrgID && !propGroupID) {
+    console.error('Must specify a groupId');
+    return null;
+  }
+
+  const groupIDSetTwice =
+    tokenOrgID && propGroupID && tokenOrgID !== propGroupID;
+
+  if (groupIDSetTwice) {
+    console.error(
+      "groupId attribute will be ignored in favor of the groupId in the user's access token",
+    );
+    return null;
+  }
+
   const threadCounts = thread.useThreadCounts({
     filter: {
       ...filter,
@@ -217,6 +235,7 @@ export function ThreadedComments({
       onBlur={onComposerBlur}
       onSend={onSend}
       autofocus={autofocus}
+      groupId={propGroupID}
     />
   );
 
@@ -247,6 +266,7 @@ export function ThreadedComments({
   const threadList = (
     <ThreadedCommentsThreadList
       key="main_list"
+      groupId={propGroupID}
       location={location}
       partialMatch={partialMatch}
       filter={filter}
@@ -334,6 +354,7 @@ export function ThreadedComments({
 function ThreadedCommentsThreadList({
   location,
   partialMatch = false,
+  groupId,
   filter,
   resolvedStatus,
   sortBy = 'first_message_timestamp',
@@ -359,6 +380,7 @@ function ThreadedCommentsThreadList({
 }: {
   location: Location;
   partialMatch?: boolean;
+  groupId?: string;
   filter?: ThreadListFilter;
   resolvedStatus?: ResolvedStatus;
   threadMetadata?: EntityMetadata;
@@ -400,7 +422,10 @@ function ThreadedCommentsThreadList({
       },
     },
   );
-  const { orgMembers } = user.useOrgMembers();
+
+  // If groupId is not passed as a prop, this will be undefined.  If the user has
+  // an org in their token the method will find and use that, so it will still work.
+  const { groupMembers } = user.useGroupMembers({ groupID: groupId });
   const { t } = useTranslation('threaded_comments');
 
   const dispatchLoadingEvent = useCallFunctionOnce(onLoading);
@@ -466,7 +491,7 @@ function ThreadedCommentsThreadList({
     <>
       {showPlaceholder && threads.length === 0 && !loading && (
         <EmptyStateWithFacepile
-          users={orgMembers?.map((p) => p.id) ?? []}
+          users={groupMembers?.map((p) => p.id) ?? []}
           titlePlaceholder={titlePlaceholder}
           bodyPlaceholder={bodyPlaceholder}
         />
