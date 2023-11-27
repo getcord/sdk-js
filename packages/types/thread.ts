@@ -1012,6 +1012,7 @@ export interface ICordThreadSDK {
    *   id: 'my-awesome-thread-id',
    *   name: 'A more awesome name',
    *   location: {'page': 'sales'},
+   *   url: "https://my-awesome-url.com",
    * });
    * ```
    *
