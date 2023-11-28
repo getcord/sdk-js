@@ -124,23 +124,9 @@ export function ThreadedComments({
   const [expandResolved, setExpandResolved] = useState<boolean>(false);
   // We are using the following hook to make sure we get called back
   // when the CordSDK is initialized
-  const { sdk: cordSDK, organizationID: tokenOrgID } = useContext(CordContext);
+  const { sdk: cordSDK } = useContext(CordContext);
 
-  if (!tokenOrgID && !propGroupID) {
-    console.error('Must specify a groupId');
-    return null;
-  }
-
-  const groupIDSetTwice =
-    tokenOrgID && propGroupID && tokenOrgID !== propGroupID;
-
-  if (groupIDSetTwice) {
-    // Todo link to docs explainer of the switchover
-    console.error(
-      'Must not specify a groupId on the component if the user is signed in with an access token that contains a groupId - choose one or the other',
-    );
-    return null;
-  }
+  // TODO - add back errors about groupID
 
   const threadCounts = thread.useThreadCounts({
     filter: {
