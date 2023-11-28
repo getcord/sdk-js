@@ -1191,6 +1191,12 @@ export default {
           'Whether the thread is resolved.  Setting this to `true` is equivalent to\nsetting `resolvedTimestamp` to the current time, and setting this to\n`false` is equivalent to setting `resolvedTimestamp` to `null`.',
         type: 'boolean',
       },
+      seenByUsers: {
+        description:
+          'Marks the specified users as having seet/not seen this thread. If a user\nis not included in this list, the seen status will not be changed.',
+        type: 'array',
+        items: { $ref: '#/definitions/ServerThreadSeenUser' },
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -1206,7 +1212,27 @@ export default {
       'userID',
       'typing',
       'resolved',
+      'seenByUsers',
     ],
+    definitions: {
+      ServerThreadSeenUser: {
+        description: 'https://docs.cord.com/rest-apis/threads/',
+        type: 'object',
+        properties: {
+          userID: {
+            description: 'ID of the user that has seen/not seen the thread.',
+            type: 'string',
+          },
+          seen: {
+            description: 'Whether the user has seen the thread or not.',
+            type: 'boolean',
+          },
+        },
+        additionalProperties: false,
+        propertyOrder: ['userID', 'seen'],
+        required: ['seen', 'userID'],
+      },
+    },
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   ListThreadQueryParameters: {

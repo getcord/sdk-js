@@ -1183,6 +1183,11 @@ export type ServerUpdateThread = Partial<
      * `false` is equivalent to setting `resolvedTimestamp` to `null`.
      */
     resolved?: boolean;
+    /**
+     * Marks the specified users as having seet/not seen this thread. If a user
+     * is not included in this list, the seen status will not be changed.
+     */
+    seenByUsers: ServerThreadSeenUser[];
   }
 >;
 
@@ -1236,3 +1241,17 @@ export type ServerListThreadParameters = {
    */
   token?: string;
 };
+
+/**
+ * https://docs.cord.com/rest-apis/threads/
+ */
+export interface ServerThreadSeenUser {
+  /**
+   * ID of the user that has seen/not seen the thread.
+   */
+  userID: UserID;
+  /**
+   * Whether the user has seen the thread or not.
+   */
+  seen: boolean;
+}
