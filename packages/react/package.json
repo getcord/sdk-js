@@ -23,7 +23,6 @@
     "@cord-sdk/types": "1.26.2",
     "classnames": "^2.3.1",
     "phosphor-react": "^1.4.0",
-    "radash": "^11.0.0",
     "react-i18next": "^13.2.2"
   },
   "peerDependencies": {

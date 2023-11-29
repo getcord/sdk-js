@@ -10,11 +10,11 @@ import type {
   ClientUserData,
   LiveCursorsEventToLocationFnOptions,
 } from '@cord-sdk/types';
-import { debounce } from 'radash';
 
 import { useCordLocation } from '../hooks/useCordLocation';
 import * as user from '../hooks/user';
 import { useCordContext } from '../contexts/CordContext';
+import { debounce } from '../common/lib/debounce';
 import { POSITION_UPDATE_INTERVAL_MS } from './LiveCursors.css';
 import {
   LiveCursorsDefaultClick,
@@ -432,7 +432,7 @@ function useUserCursors(
   }, [locationToDocument, boundingElementRef]);
 
   const debouncedComputeCursorPositions = useMemo(
-    () => debounce({ delay: 50 }, computeCursorPositions),
+    () => debounce(50, computeCursorPositions),
     [computeCursorPositions],
   );
 
