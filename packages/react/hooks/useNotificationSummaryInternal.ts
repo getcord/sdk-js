@@ -4,6 +4,7 @@ import type {
   NotificationListFilter,
   NotificationSummary,
 } from '@cord-sdk/types';
+import { useMemoObject } from './useMemoObject';
 
 export function useNotificationSummaryInternal(
   notificationSDK: ICordNotificationSDK | undefined,
@@ -11,6 +12,7 @@ export function useNotificationSummaryInternal(
   filter?: NotificationListFilter | undefined,
 ): NotificationSummary | null {
   const [summary, setSummary] = useState<NotificationSummary | null>(null);
+  const filterMemo = useMemoObject(filter);
 
   useEffect(() => {
     if (!notificationSDK) {
@@ -18,7 +20,7 @@ export function useNotificationSummaryInternal(
     }
 
     const listenerRef = notificationSDK.observeSummary(setSummary, {
-      filter,
+      filter: filterMemo,
       ...{
         __cordInternal: isCordInternalCall,
       },
@@ -27,7 +29,7 @@ export function useNotificationSummaryInternal(
     return () => {
       notificationSDK.unobserveSummary(listenerRef);
     };
-  }, [notificationSDK, isCordInternalCall, filter]);
+  }, [notificationSDK, isCordInternalCall, filterMemo]);
 
   return summary;
 }
