@@ -26,11 +26,13 @@
     "react-i18next": "^13.2.2"
   },
   "peerDependencies": {
-    "react": ">=17.0.0"
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
   },
   "devDependencies": {
     "@cord-sdk/jsx": "1.27.0",
     "@types/react": "^18.2.25",
+    "@types/react-dom": "^18.2.17",
     "@vanilla-extract/css": "^1.13.0",
     "@vanilla-extract/rollup-plugin": "^1.2.2",
     "rollup": "^2.70.1",
