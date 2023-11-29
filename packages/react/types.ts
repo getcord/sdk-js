@@ -1,5 +1,6 @@
 import type * as React from 'react';
 import type { Location } from '@cord-sdk/types';
+import type { Placement } from '@floating-ui/react-dom';
 
 export type ReactPropsWithStandardHTMLAttributes<T> = T & {
   id?: string;
@@ -33,3 +34,5 @@ export type PropsWithFlags<T> = T &
   Partial<{
     useShadowRoot: boolean;
   }>;
+
+export type PopperPosition = Placement;
