@@ -136,6 +136,23 @@ export type NotificationPreferences = {
   sendViaEmail: boolean;
 };
 
+/**
+ * Use ConnectToSlackOptions instead
+ */
+export type ConnectToSlackCallback = (success: boolean) => void;
+
+/**
+ * Options for the `connectToSlack` function in the User API.
+ */
+export type ConnectToSlackOptions = {
+  /**
+   * This callback will be called once the user has finished/cancelled
+   * the oauth process. If users interrupt the OAuth process by closing the popup window, this callback will not run.
+   * The argument passed to the callback is a boolean which states if the user has successfully connected Slack.
+   */
+  onCompleteOAuth?: (success: boolean) => void;
+};
+
 export interface ICordUserSDK {
   /**
    * This method allows you to set notification preferences for the current viewer.
@@ -303,14 +320,31 @@ export interface ICordUserSDK {
    * to a Slack user.
    * @example Overview
    * ```javascript
-   * window.CordSDK.user.connectToSlack((success) => console.log('Has user successfully signed into Slack', success));
+   * window.CordSDK.user.connectToSlack(
+   *    (success) => console.log('Has user successfully signed into Slack', success)
+   * );
    * ```
-   * @param onCompleteOAuth - This callback will be called once the user has finished/cancelled
-   * the oauth process. If users interrupt the OAuth process by closing the popup window, this callback will not run.
-   * The argument passed to the callback is a boolean which states if the user has successfully connected Slack.
-   * @returns This function returns a promise that resolves when the Slack connection popup window opens.
+   * @returns This function returns a promise that resolves to nothing when the Slack connection popup window opens.
    */
-  connectToSlack(onCompleteOAuth?: (success: boolean) => void): Promise<void>;
+  connectToSlack(callback: ConnectToSlackCallback): Promise<void>;
+  /**
+   * Calling this method will trigger a popup window to appear containing a flow
+   * for the user to link their Cord user to a Slack user.
+   * Completion of the flow will additionally connect the user's Slack workspace
+   * to their Cord group if that Cord group is not already
+   * connected to a Slack workspace.
+   * Calling this method will not do anything if the Cord user is already linked
+   * to a Slack user.
+   * @example Overview
+   * ```javascript
+   * window.CordSDK.user.connectToSlack({
+   *    onCompleteOAuth: (success) => console.log('Has user successfully signed into Slack: ', success)
+   * });
+   * ```
+   * @returns This function returns a promise that resolves to nothing when the Slack connection popup window opens.
+   */
+  connectToSlack(options?: ConnectToSlackOptions): Promise<void>;
+
   /**
    * This method will disconnect the Slack workspace from the Cord group.
    * This means all users who were connected to Slack will also be disconnected.
