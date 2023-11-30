@@ -37,3 +37,12 @@ export function pluralizeWord(
 export function logComponentInstantiation(name: string) {
   (window.CordSDK as any)?.__CORD_OPENSOURCE_COMPONENTS.add(name);
 }
+
+const TOTAL_NUM_OF_PALETTES = 8;
+export function getStableColorPalette(userId: string) {
+  let simpleHash = 0;
+  for (const char of userId) {
+    simpleHash += char.charCodeAt(0);
+  }
+  return (simpleHash % TOTAL_NUM_OF_PALETTES) + 1; // 1-indexed;
+}
