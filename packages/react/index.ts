@@ -46,6 +46,7 @@ export {
   useCordAnnotationClickHandler,
   useCordAnnotationRenderer,
 } from './hooks/useCordAnnotationTargetRef';
+export { useCordTranslation, CordTrans } from './hooks/useCordTranslation';
 export {
   InboxLauncher,
   InboxLauncherReactComponentProps,

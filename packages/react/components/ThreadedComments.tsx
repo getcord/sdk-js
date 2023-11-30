@@ -13,7 +13,6 @@ import type {
 } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { logComponentInstantiation } from '../common/util';
 import * as user from '../hooks/user';
 import * as thread from '../hooks/thread';
@@ -22,6 +21,7 @@ import * as fonts from '../common/ui/atomicClasses/fonts.css';
 import { MODIFIERS } from '../common/ui/modifiers';
 import { useCallFunctionOnce } from '../common/effects/useCallFunctionOnce';
 import { CordContext } from '../contexts/CordContext';
+import { useCordTranslation } from '../hooks/useCordTranslation';
 import type { ThreadListReactComponentProps } from './ThreadList';
 import classes from './ThreadedComments.css';
 import { Composer } from './Composer';
@@ -413,7 +413,7 @@ function ThreadedCommentsThreadList({
   // If groupId is not passed as a prop, this will be undefined.  If the user has
   // an org in their token the method will find and use that, so it will still work.
   const { groupMembers } = user.useGroupMembers({ groupID: groupId });
-  const { t } = useTranslation('threaded_comments');
+  const { t } = useCordTranslation('threaded_comments');
 
   const dispatchLoadingEvent = useCallFunctionOnce(onLoading);
   const dispatchRenderEvent = useCallFunctionOnce(onRender);
@@ -501,7 +501,7 @@ function ExpandResolvedButton({
   expandedArrow: JSX.Element;
   collapsedArrow: JSX.Element;
 }) {
-  const { t } = useTranslation('threaded_comments');
+  const { t } = useCordTranslation('threaded_comments');
 
   return (
     <button
@@ -522,7 +522,7 @@ function FetchMoreButton({
 }: {
   fetchMore: (howMany: number) => Promise<void>;
 }) {
-  const { t } = useTranslation('threaded_comments');
+  const { t } = useCordTranslation('threaded_comments');
   return (
     <button
       className={cx(classes.showMore, fonts.fontSmall)}
@@ -541,7 +541,7 @@ function ResolvedStatusTabs({
   showResolved: boolean;
   setShowResolved: Dispatch<SetStateAction<boolean>>;
 }) {
-  const { t } = useTranslation('threaded_comments');
+  const { t } = useCordTranslation('threaded_comments');
   return (
     <div className={classes.tabContainer}>
       <button
@@ -716,7 +716,7 @@ function CollapsedReplies({
   enableFacepileTooltip: boolean;
   onClick: () => void;
 }) {
-  const { t } = useTranslation('threaded_comments');
+  const { t } = useCordTranslation('threaded_comments');
   // The thread summary has an unread count covering the entire thread. The UI we
   // render below looks like we are talking about the number of unread *replies*,
   // so if the first message itself is unread, subtract that from the number.
@@ -780,7 +780,7 @@ function ThreadReplies({
   onMessageEditStart?: (messageInfo: MessageInfo) => unknown;
   onMessageEditEnd?: (messageInfo: MessageInfo) => unknown;
 }) {
-  const { t } = useTranslation('threaded_comments');
+  const { t } = useCordTranslation('threaded_comments');
   const { messages, hasMore, fetchMore } = threadData;
 
   // The useThreadData hook will also return the first message, but
@@ -864,7 +864,7 @@ function ReplyComponent({
     ...args: ComposerWebComponentEvents['threadreopen']
   ) => unknown;
 }) {
-  const { t } = useTranslation('threaded_comments');
+  const { t } = useCordTranslation('threaded_comments');
   const viewerData = user.useViewerData();
   const userId = viewerData?.id;
 
@@ -910,7 +910,7 @@ function ResolvedThreadHeader({
   threadSummary: ThreadSummary;
   onThreadReopen?: ThreadListReactComponentProps['onThreadReopen'];
 }) {
-  const { t } = useTranslation('threaded_comments');
+  const { t } = useCordTranslation('threaded_comments');
   const setUnresolved = useCallback(() => {
     if (window.CordSDK) {
       void window.CordSDK.thread.updateThread(threadId, {
