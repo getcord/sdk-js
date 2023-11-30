@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import withPortal from './withPortal';
 import withSDK from './withSDK';
+import withWrapper from './withWrapper';
 
 interface Props {
   children?: React.ReactNode;
@@ -11,6 +12,7 @@ interface Props {
 // High Order Component (HOC) that adds what Cord needs.
 export default function withCord<T extends Props = Props>(
   WrappedComponent: React.ComponentType<T>,
+  componentName: string,
 ) {
-  return withSDK(withPortal(WrappedComponent));
+  return withSDK(withPortal(withWrapper(WrappedComponent, componentName)));
 }
