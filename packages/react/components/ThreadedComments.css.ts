@@ -200,18 +200,21 @@ globalStyle(`.${comments} :where(.${MODIFIERS.unseen}):hover`, {
   backgroundColor: cssVar('color-notification-background'),
 });
 
-globalStyle(`.${comments} :where(cord-facepile)`, {
+globalStyle(`.${comments} :where(.cord-component-facepile)`, {
   display: 'contents',
   lineHeight: cssVar('line-height-body'),
 });
-globalStyle(`.${comments} :where(.${MODIFIERS.unseen} cord-facepile)::before`, {
-  background: cssVar('color-notification'),
-  borderRadius: '50%',
-  content: '',
-  height: '8px',
-  marginLeft: '-18px',
-  width: '8px',
-});
+globalStyle(
+  `.${comments} :where(.${MODIFIERS.unseen} .cord-component-facepile)::before`,
+  {
+    background: cssVar('color-notification'),
+    borderRadius: '50%',
+    content: '',
+    height: '8px',
+    marginLeft: '-18px',
+    width: '8px',
+  },
+);
 
 globalStyle(`.${repliesContainer}`, {
   marginLeft: cssVar('space-l'),
@@ -246,7 +249,7 @@ globalStyle(`.${comments} :where(button.${showMore})::after`, {
   borderTop: `1px solid ${cssVar('color-base-x-strong')}`,
 });
 
-globalStyle(`.${comments} :where(cord-composer)`, {
+globalStyle(`.${comments} :where(.cord-component-composer)`, {
   flexGrow: '1',
 });
 
@@ -259,10 +262,13 @@ globalStyle(`.${comments} :where(.${viewerAvatarWithComposer})`, {
   marginLeft: `calc(${cssVar('space-l')} + ${cssVar('space-2xs')})`,
 });
 
-globalStyle(`.${comments} :where(.${viewerAvatarWithComposer} > cord-avatar)`, {
-  marginTop: '10px',
-  '--cord-facepile-avatar-size': cssVar('space-l'),
-} as CSSProperties);
+globalStyle(
+  `.${comments} :where(.${viewerAvatarWithComposer} > .cord-component-avatar)`,
+  {
+    marginTop: '10px',
+    '--cord-facepile-avatar-size': cssVar('space-l'),
+  } as CSSProperties,
+);
 
 // when showing only unresolved threads, we don't want to let users resolve
 // a thread, since they will have no way to access it. So we hide all elements
