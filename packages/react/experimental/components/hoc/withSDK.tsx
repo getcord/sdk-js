@@ -15,13 +15,15 @@ export default function withSDK<T extends Props = Props>(
   const displayName =
     WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
-  const ComponentWithSDK = (props: T) => {
-    const { sdk: cordSDK } = useContext(CordContext);
-    if (!cordSDK) {
-      return null;
-    }
-    return <WrappedComponent {...props} />;
-  };
+  const ComponentWithSDK = React.forwardRef(
+    (props: T, ref: React.ForwardedRef<HTMLDivElement>) => {
+      const { sdk: cordSDK } = useContext(CordContext);
+      if (!cordSDK) {
+        return null;
+      }
+      return <WrappedComponent ref={ref} {...props} />;
+    },
+  );
 
   ComponentWithSDK.displayName = `withSDK(${displayName})`;
 
