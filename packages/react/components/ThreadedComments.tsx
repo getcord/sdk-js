@@ -15,7 +15,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { logComponentInstantiation } from '../common/util';
 import * as user from '../hooks/user';
-import * as thread from '../hooks/thread';
+import { useThreadCounts, useThread, useLocationData } from '../hooks/thread';
 import { useExtraClassnames } from '../hooks/useExtraClassnames';
 import * as fonts from '../common/ui/atomicClasses/fonts.css';
 import { MODIFIERS } from '../common/ui/modifiers';
@@ -83,7 +83,35 @@ export type ThreadedCommentsReactComponentProps = {
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 };
 
-export function ThreadedComments({
+export function ThreadedComments(props: ThreadedCommentsReactComponentProps) {
+  const { sdk: cordSDK, organizationID: tokenOrgID } = useContext(CordContext);
+
+  if (!cordSDK) {
+    return null;
+  }
+
+  if (!tokenOrgID && !props.groupId) {
+    console.error('Must specify a groupId');
+    return null;
+  }
+
+  // Only error if the two groups don't match: do allow matching groups for the
+  // purposes of migrations
+  const groupIDSetTwice =
+    tokenOrgID && props.groupId && tokenOrgID !== props.groupId;
+
+  if (groupIDSetTwice) {
+    // TODO: link to docs explainer of the switchover
+    console.error(
+      'Must not specify a groupId on the component if the user is signed in with an access token that contains a groupId - choose one or the other',
+    );
+    return null;
+  }
+
+  return <ThreadedCommentsImpl {...props} />;
+}
+
+function ThreadedCommentsImpl({
   className,
   location,
   groupId: propGroupID,
@@ -122,13 +150,8 @@ export function ThreadedComments({
     displayResolved === 'resolvedOnly',
   );
   const [expandResolved, setExpandResolved] = useState<boolean>(false);
-  // We are using the following hook to make sure we get called back
-  // when the CordSDK is initialized
-  const { sdk: cordSDK } = useContext(CordContext);
 
-  // TODO - add back errors about groupID
-
-  const threadCounts = thread.useThreadCounts({
+  const threadCounts = useThreadCounts({
     filter: {
       ...filter,
       // We are going to deprecate the location and resolvedStatus from the filter parameter.
@@ -312,13 +335,6 @@ export function ThreadedComments({
     resolvedThreadList,
   ];
 
-  if (!cordSDK) {
-    // We can't get translations until the SDK is initialized, so all the text
-    // will just show the translation keys and look really weird.  Render
-    // nothing instead.
-    return null;
-  }
-
   return (
     <div
       className={cx(classes.comments, className, {
@@ -397,18 +413,15 @@ function ThreadedCommentsThreadList({
   onComposerClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
-  const { threads, hasMore, loading, fetchMore } = thread.useLocationData(
-    location,
-    {
-      sortBy,
-      sortDirection: 'descending',
-      partialMatch,
-      filter: {
-        ...filter,
-        resolvedStatus,
-      },
+  const { threads, hasMore, loading, fetchMore } = useLocationData(location, {
+    sortBy,
+    sortDirection: 'descending',
+    partialMatch,
+    filter: {
+      ...filter,
+      resolvedStatus,
     },
-  );
+  });
 
   // If groupId is not passed as a prop, this will be undefined.  If the user has
   // an org in their token the method will find and use that, so it will still work.
@@ -603,7 +616,7 @@ function CommentsThread({
   onComposerClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
-  const threadData = thread.useThread(threadId);
+  const threadData = useThread(threadId);
   const allowReplies = showReplies !== 'alwaysCollapsed';
   const initiallyExpandedReplies = showReplies === 'initiallyExpanded';
   const [showingReplies, setShowingReplies] = useState<boolean>(
