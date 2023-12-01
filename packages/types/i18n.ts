@@ -1,7 +1,4 @@
-// `import type` so that i18next is not actually imported in the built code,
-// which doesn't need it, we just need the name so the `declare module '18next'`
-// block below works.
-import type {} from 'i18next';
+import type {} from './i18next';
 
 // We follow a few patterns in naming to clarify the context in which a string
 // will be displayed, particularly in adding suffixes to keys.  The common
@@ -376,13 +373,3 @@ export const resources = {
 };
 
 export type TranslationResources = (typeof resources)['en'];
-
-// This tells i18next what shape the resources file is, which then feeds into
-// the TypeScript types in a very clever way so that when you ask for a
-// translation key, it can check that you're using a key that exists.
-declare module 'i18next' {
-  export interface CustomTypeOptions {
-    defaultNS: 'default';
-    resources: TranslationResources;
-  }
-}
