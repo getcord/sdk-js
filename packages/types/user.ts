@@ -151,6 +151,14 @@ export type ConnectToSlackOptions = {
    * The argument passed to the callback is a boolean which states if the user has successfully connected Slack.
    */
   onCompleteOAuth?: (success: boolean) => void;
+  /**
+   * The group the user should connect to Slack in.  The viewer must be a member of the
+   * group in order for the connection flow to trigger.  If omitted, the API will
+   * connect to Slack using the group the viewer is currently logged in with, i.e.
+   * the one that is specified in their access token.
+   * @privateRemarks hidden
+   */
+  groupID?: string;
 };
 
 export interface ICordUserSDK {
