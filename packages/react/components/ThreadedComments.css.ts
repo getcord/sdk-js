@@ -143,6 +143,11 @@ globalStyle(getModifiedSelector('active', `.${tab}:hover`), {
 globalStyle(getModifiedSelector('highlighted', `.${thread}`), {
   backgroundColor: cssVar('color-base-strong'),
 });
+
+globalStyle(getModifiedSelector(['resolved', 'highlighted'], `.${thread}`), {
+  backgroundColor: cssVar('color-base-x-strong'),
+});
+
 // TODO Move this style to ui3/Pill when that's available, and reduce its specificity
 globalStyle(
   getModifiedSelector('highlighted', `.${thread} .${cordifyClassname('pill')}`),
