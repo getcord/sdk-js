@@ -73,7 +73,31 @@ export interface MessageAnnotationAttachment {
 export type MessageAttachment =
   | MessageFileAttachment
   | MessageAnnotationAttachment
-  | MessageScreenshotAttachment;
+  | MessageScreenshotAttachment
+  | MessageLinkPreviewAttachment;
+
+export interface MessageLinkPreviewAttachment {
+  /**
+   * The type of this attachment, which is always `link_preview` for file link previews.
+   */
+  type: 'link_preview';
+  /**
+   * The url from which the preview was generated.
+   */
+  url: string;
+  /**
+   * URL of the image to show in the link preview. It is usually specified in the meta or og tags of the page.
+   */
+  imageURL: string | null;
+  /**
+   * Title for the link preview. Sometimes it's the page title, sometimes it is specified in meta or og tags.
+   */
+  title: string | null;
+  /**
+   * Description for the link preview. Generated from the url provided from meta or og tags in the page.
+   */
+  description: string | null;
+}
 
 export interface CoreMessageData {
   /**

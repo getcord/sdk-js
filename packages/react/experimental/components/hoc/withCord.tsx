@@ -1,5 +1,5 @@
 // @ts-ignore TS wants us to `import type` this, but we need it for JSX
-import * as React from 'react';
+import * as React from 'react'; // eslint-disable-line @typescript-eslint/consistent-type-imports
 
 import withPortal from './withPortal';
 import withSDK from './withSDK';
