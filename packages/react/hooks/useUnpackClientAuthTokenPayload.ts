@@ -65,6 +65,13 @@ function useUnpackClientAuthTokenPayload(
       ret.organizationID = decodedPayload.organization_id;
     }
 
+    if (
+      hasOwnProperty(decodedPayload, 'group_id') &&
+      typeof decodedPayload.group_id === 'string'
+    ) {
+      ret.organizationID = decodedPayload.group_id;
+    }
+
     return ret;
   }, [clientAuthToken]);
 }
