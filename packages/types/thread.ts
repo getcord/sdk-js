@@ -1224,6 +1224,9 @@ export interface ServerCreateThread
   addSubscribers?: UserID[];
 }
 
+export interface ServerListThreadFilter
+  extends Omit<FilterParameters, 'organizationID' | 'authorID'> {}
+
 export type ServerListThreadParameters = {
   /**
    * Threads will be matched against the filters specified.
@@ -1231,7 +1234,7 @@ export type ServerListThreadParameters = {
    * when checking for a match. Please note that because this is a query parameter in a REST API,
    * this JSON object must be URI encoded before being sent.
    */
-  filter?: Omit<FilterParameters, 'organizationID'>;
+  filter?: ServerListThreadFilter;
   /**
    * Number of threads to return. Defaults to 1000.
    */

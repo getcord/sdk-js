@@ -125,4 +125,8 @@ export type FilterParameters = {
    * Timestamp when a message in a thread was last created or updated.
    */
   mostRecentMessageTimestamp?: TimestampRange;
+  /**
+   * User ID of the author.
+   */
+  authorID?: string;
 };

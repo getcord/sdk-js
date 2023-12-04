@@ -341,6 +341,10 @@ export type ServerListMessageFilter = {
    * The [location](https://docs.cord.com/reference/location) of the thread containing the message.
    */
   location?: string;
+  /**
+   * If provided, will return messages created by this author.
+   */
+  authorID?: string;
 };
 export interface ServerListMessageParameters {
   /**

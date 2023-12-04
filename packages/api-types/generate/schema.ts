@@ -624,14 +624,14 @@ export default {
         type: 'string',
         format: 'date-time',
       },
+      authorID: {
+        description: 'The ID for the user that sent the message.',
+        type: 'string',
+      },
       extraClassnames: {
         description:
           'A optional space separated list of classnames to add to the message.',
         type: ['null', 'string'],
-      },
-      authorID: {
-        description: 'The ID for the user that sent the message.',
-        type: 'string',
       },
       updatedTimestamp: {
         description:
@@ -697,8 +697,8 @@ export default {
       'content',
       'metadata',
       'createdTimestamp',
-      'extraClassnames',
       'authorID',
+      'extraClassnames',
       'updatedTimestamp',
       'iconURL',
       'translationKey',
@@ -785,9 +785,14 @@ export default {
               'The [location](/reference/location) of the thread containing the message.',
             type: 'string',
           },
+          authorID: {
+            description:
+              'If provided, will return messages created by this author.',
+            type: 'string',
+          },
         },
         additionalProperties: false,
-        propertyOrder: ['metadata', 'location'],
+        propertyOrder: ['metadata', 'location', 'authorID'],
       },
     },
     additionalProperties: false,
@@ -1242,7 +1247,7 @@ export default {
       filter: {
         description:
           'Threads will be matched against the filters specified.\nThis is a partial match, which means any keys other than the ones you specify are ignored\nwhen checking for a match. Please note that because this is a query parameter in a REST API,\nthis JSON object must be URI encoded before being sent.',
-        $ref: '#/definitions/Omit<FilterParameters,"organizationID">',
+        $ref: '#/definitions/ServerListThreadFilter',
       },
       limit: {
         description: 'Number of threads to return. Defaults to 1000.',
@@ -1257,7 +1262,7 @@ export default {
     additionalProperties: false,
     propertyOrder: ['filter', 'limit', 'token'],
     definitions: {
-      'Omit<FilterParameters,"organizationID">': {
+      ServerListThreadFilter: {
         type: 'object',
         properties: {
           location: {
