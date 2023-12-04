@@ -46,3 +46,7 @@ export function getStableColorPalette(userId: string) {
   }
   return (simpleHash % TOTAL_NUM_OF_PALETTES) + 1; // 1-indexed;
 }
+
+export function isDefined<T>(value: T | null | undefined): value is T {
+  return value !== null && value !== undefined;
+}

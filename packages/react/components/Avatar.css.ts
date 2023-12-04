@@ -78,11 +78,17 @@ globalStyle(`:where(.${facepileContainer}) .${avatarContainer}`, {
     'facepile-background-color',
   )}`,
 });
-globalStyle(`.${facepileContainer} > :where(.${avatarContainer}:last-child)`, {
-  boxShadow: 'none',
-});
 globalStyle(
-  `.${facepileContainer} > :where(.${avatarContainer}:not(:first-child))`,
+  `.${facepileContainer} > :where(.${avatarContainer}:last-child),
+.${facepileContainer} :where(.cord-component-avatar:last-child .${avatarContainer})`,
+  {
+    boxShadow: 'none',
+  },
+);
+
+globalStyle(
+  `.${facepileContainer} > :where(.${avatarContainer}:not(:first-child)), 
+  .${facepileContainer} :where(.cord-component-avatar:not(:first-child) .${avatarContainer})`,
   {
     marginLeft: `calc(${cssVar('facepile-avatar-overlap')} * -1)`,
   },
@@ -105,7 +111,8 @@ const AVATAR_MAX_ZINDEX = 20;
 // styles because it's easier for devs to override.
 for (let i = 1; i < AVATAR_MAX_ZINDEX; i++) {
   globalStyle(
-    `.${facepileContainer} :where(.${avatarContainer}:nth-child(${i}))`,
+    `.${facepileContainer} > :where(.${avatarContainer}:nth-child(${i})), 
+    .${facepileContainer} :where(.cord-component-avatar:nth-child(${i}))`,
     {
       position: 'relative', // Allow zIndex, needed because we overlap avatars
       zIndex: AVATAR_MAX_ZINDEX - i,

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isDefined } from '../common/util';
 import { Facepile, thread } from '@cord-sdk/react';
 
 export function ThreadFacepile({ threadId }: { threadId: string }) {
@@ -10,8 +11,4 @@ export function ThreadFacepile({ threadId }: { threadId: string }) {
     .map((u) => u.userID)
     .filter(isDefined);
   return <Facepile users={userIDs} />;
-}
-
-function isDefined<T>(value: T | null | undefined): value is T {
-  return value !== null && value !== undefined;
 }
