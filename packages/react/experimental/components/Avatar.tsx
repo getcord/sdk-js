@@ -28,6 +28,7 @@ export const Avatar = withCord<
       enableTooltip = false,
       className,
       isAbsent,
+      ...restProps
     }: AvatarReactComponentProps,
     ref?: React.ForwardedRef<HTMLDivElement>,
   ) {
@@ -55,6 +56,7 @@ export const Avatar = withCord<
               user={userAvatar}
               className={cx('cord-component', className)}
               isAbsent={isAbsent}
+              {...restProps}
             />
           </WithTooltip>
         ) : (
@@ -63,6 +65,7 @@ export const Avatar = withCord<
             user={userAvatar}
             className={cx('cord-component', className)}
             isAbsent={isAbsent}
+            {...restProps}
           />
         )}
       </>
