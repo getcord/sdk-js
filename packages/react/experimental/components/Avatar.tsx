@@ -4,11 +4,11 @@ import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 
 import cx from 'classnames';
 
-import type { ClientUserData } from '@cord-sdk/types';
+import type { ClientUserData, ViewerUserData } from '@cord-sdk/types';
+import { MODIFIERS } from '../../common/ui/modifiers';
 import { cordifyClassname, getStableColorPalette } from '../../common/util';
 import classes from '../../components/Avatar.css';
-import { MODIFIERS } from '../../common/ui/modifiers';
-import { WithTooltip } from './WithTooltip';
+import { WithTooltip, DefaultTooltip } from './WithTooltip';
 import withCord from './hoc/withCord';
 import { useCordTranslation, user } from '@cord-sdk/react';
 
@@ -17,6 +17,7 @@ export type AvatarReactComponentProps = {
   enableTooltip?: boolean;
   className?: string;
   isAbsent?: boolean;
+  Tooltip?: React.ComponentType<AvatarTooltipProps>;
 };
 
 export const Avatar = withCord<
@@ -24,6 +25,7 @@ export const Avatar = withCord<
 >(
   React.forwardRef(function Avatar(
     {
+      Tooltip,
       userId,
       enableTooltip = false,
       className,
@@ -32,25 +34,24 @@ export const Avatar = withCord<
     }: AvatarReactComponentProps,
     ref?: React.ForwardedRef<HTMLDivElement>,
   ) {
-    const { t } = useCordTranslation('user');
     const viewerData = user.useViewerData();
     const userAvatar = user.useUserData(userId);
+
+    const tooltip = useMemo(() => {
+      if (!userAvatar || !viewerData) {
+        return null;
+      }
+      const TooltipComponent = Tooltip ?? AvatarTooltip;
+      return <TooltipComponent userData={userAvatar} viewerData={viewerData} />;
+    }, [userAvatar, viewerData, Tooltip]);
 
     if (!userAvatar) {
       return null;
     }
-
     return (
       <>
         {enableTooltip ? (
-          <WithTooltip
-            label={t(
-              viewerData?.id === userAvatar.id ? 'viewer_user' : 'other_user',
-              {
-                user: userAvatar,
-              },
-            )}
-          >
+          <WithTooltip tooltip={tooltip} unstyled={!!Tooltip}>
             <AvatarInner
               ref={ref}
               user={userAvatar}
@@ -156,3 +157,19 @@ const AvatarInner = forwardRef(function AvatarImpl(
     </div>
   );
 });
+
+export type AvatarTooltipProps = {
+  viewerData: ViewerUserData;
+  userData: ClientUserData;
+};
+
+export function AvatarTooltip({ viewerData, userData }: AvatarTooltipProps) {
+  const { t } = useCordTranslation('user');
+  return (
+    <DefaultTooltip
+      label={t(viewerData?.id === userData.id ? 'viewer_user' : 'other_user', {
+        user: userData,
+      })}
+    />
+  );
+}

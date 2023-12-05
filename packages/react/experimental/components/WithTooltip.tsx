@@ -20,24 +20,25 @@ export type TooltipProps = {
   subtitle?: string;
 };
 
-type WithTooltipProps = TooltipProps &
-  React.PropsWithChildren<{
-    popperPosition?: PopperPosition;
-    offset?: number | ((placement: Placement) => number);
-    tooltipDisabled?: boolean;
-    onHover?: () => void;
-    className?: string;
-  }>;
+type WithTooltipProps = React.PropsWithChildren<{
+  tooltip: JSX.Element | null;
+  popperPosition?: PopperPosition;
+  offset?: number | ((placement: Placement) => number);
+  tooltipDisabled?: boolean;
+  onHover?: () => void;
+  className?: string;
+  unstyled?: boolean;
+}>;
 
 export const WithTooltip = forwardRef(function WithTooltip(
   {
-    label,
-    subtitle,
     popperPosition = DEFAULT_POSITION,
+    tooltip,
     offset = DEFAULT_OFFSET,
     tooltipDisabled = false,
     onHover,
     children,
+    unstyled,
     className,
     ...otherProps
   }: WithTooltipProps,
@@ -81,18 +82,31 @@ export const WithTooltip = forwardRef(function WithTooltip(
       >
         {children}
       </Slot>
-      {label && hover && (
+      {tooltip && hover && (
         <Portal>
           <div
             ref={setPopperElement}
             style={popperStyles}
-            className={cx(classes.tooltip, fontSmallLight)}
+            // We do this so a user replacing our Tooltip does not get the original tooltip style
+            // They can put it back by adding `.cord-tooltip` themselves
+            className={cx({
+              [classes.tooltip]: !unstyled,
+              [fontSmallLight]: !unstyled,
+            })}
           >
-            <p className={classes.tooltipLabel}>{label}</p>
-            {subtitle && <p className={classes.tooltipSubtitle}>{subtitle}</p>}
+            {tooltip}
           </div>
         </Portal>
       )}
     </>
   );
 });
+
+export function DefaultTooltip({ subtitle, label }: TooltipProps) {
+  return (
+    <>
+      <p className={classes.tooltipLabel}>{label}</p>
+      {subtitle && <p className={classes.tooltipSubtitle}>{subtitle}</p>}
+    </>
+  );
+}

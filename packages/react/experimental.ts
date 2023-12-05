@@ -4,5 +4,9 @@ export {
 } from './components/SelectionComments';
 export { ThreadFacepile } from './components/ThreadFacepile';
 
-export { Avatar } from './experimental/components/Avatar';
+export {
+  Avatar,
+  AvatarTooltip,
+  type AvatarTooltipProps,
+} from './experimental/components/Avatar';
 export { Facepile } from './experimental/components/Facepile';
