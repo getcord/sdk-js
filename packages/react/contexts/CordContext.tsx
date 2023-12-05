@@ -9,10 +9,11 @@ import type {
   NavigateFn,
   InitErrorCallback,
   LoadCallback,
-  ScreenshotOptions,
+  ScreenshotOptions as SnakeCaseScreenshotOptions,
   JsonObject,
   Translations,
   CordSDKOptions,
+  CaptureScreenshotEvent,
 } from '@cord-sdk/types';
 import useUnpackClientAuthTokenPayload from '@cord-sdk/react/hooks/useUnpackClientAuthTokenPayload';
 
@@ -56,7 +57,10 @@ type Props = {
   cordScriptUrl?: string;
   navigate?: NavigateFn | null;
   threadOptions?: ThreadOptions;
-  screenshotOptions?: ScreenshotOptions;
+  /**
+   * Please use the camelCase version of the options.
+   */
+  screenshotOptions?: ScreenshotOptions & SnakeCaseScreenshotOptions;
   customRenderers?: Record<string, (m: Record<string, unknown>) => HTMLElement>;
   /**
    * @deprecated The annotationMode prop has been reverted to enableAnnotations
@@ -80,6 +84,14 @@ type Props = {
 
 type ThreadOptions = {
   additionalSubscribersOnCreate: string[];
+};
+
+// Camel case version of @cord-sdk/types ScreenshotOptions
+type ScreenshotOptions = {
+  blur?: boolean;
+  showBlurred?: BlurDisplayLocation;
+  captureWhen?: CaptureScreenshotEvent[];
+  showScreenshot?: boolean;
 };
 
 export function CordProvider({
@@ -188,11 +200,24 @@ export function CordProvider({
 
   useEffect(() => {
     if (sdk && clientAuthToken) {
-      const backwardsCompatibleScreenshotOptions: ScreenshotOptions = {
-        blur: blurScreenshots,
-        capture_when: enableScreenshotCapture === false ? [] : undefined,
-        show_blurred: showBlurredScreenshots,
-        ...screenshotOptions,
+      // All screenshotOptions.snake_case props have been deprecated
+      // in favour of screenshotOptions.camelCase. We also support
+      // even older deprecated props, like `enableScreenshotCapture`
+      const backwardsCompatibleScreenshotOptions: SnakeCaseScreenshotOptions = {
+        blur: screenshotOptions?.blur ?? blurScreenshots,
+        capture_when:
+          screenshotOptions?.captureWhen ??
+          screenshotOptions?.capture_when ??
+          enableScreenshotCapture === false
+            ? []
+            : undefined,
+        show_blurred:
+          screenshotOptions?.showBlurred ??
+          screenshotOptions?.show_blurred ??
+          showBlurredScreenshots,
+        show_screenshot:
+          screenshotOptions?.showScreenshot ??
+          screenshotOptions?.show_screenshot,
       };
       void sdk
         .init({
