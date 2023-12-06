@@ -10,7 +10,8 @@ import { cordifyClassname, getStableColorPalette } from '../../common/util';
 import classes from '../../components/Avatar.css';
 import { WithTooltip, DefaultTooltip } from './WithTooltip';
 import withCord from './hoc/withCord';
-import { useCordTranslation, user } from '@cord-sdk/react';
+import { useCordTranslation } from '@cord-sdk/react';
+import { useViewerData, useUserData } from '@cord-sdk/react/hooks/user';
 
 export type AvatarReactComponentProps = {
   userId: string;
@@ -34,8 +35,8 @@ export const Avatar = withCord<
     }: AvatarReactComponentProps,
     ref?: React.ForwardedRef<HTMLDivElement>,
   ) {
-    const viewerData = user.useViewerData();
-    const userAvatar = user.useUserData(userId);
+    const viewerData = useViewerData();
+    const userAvatar = useUserData(userId);
 
     const tooltip = useMemo(() => {
       if (!userAvatar || !viewerData) {
@@ -82,14 +83,10 @@ export type AvatarProps = {
 type AvatarPropsWithClassname = AvatarProps & { className?: string };
 
 const AvatarInner = forwardRef(function AvatarImpl(
-  {
-    user: { displayName, name, id, profilePictureURL },
-    isAbsent,
-    className,
-    ...restProps
-  }: AvatarPropsWithClassname,
+  { user, isAbsent, className, ...restProps }: AvatarPropsWithClassname,
   ref: React.Ref<HTMLDivElement>,
 ) {
+  const { displayName, name, id, profilePictureURL } = user;
   const [imageStatus, setImageStatus] = useState<
     'loading' | 'loaded' | 'error'
   >(() => {
@@ -151,12 +148,21 @@ const AvatarInner = forwardRef(function AvatarImpl(
       data-cord-user-id={id}
       data-cord-user-name={name}
     >
-      <div className={classes.avatarFallback}>
-        {displayName[0].toUpperCase()}
-      </div>
+      <AvatarFallback userData={user} />
     </div>
   );
 });
+
+export type AvatarFallbackProps = {
+  userData: ClientUserData;
+};
+
+export function AvatarFallback({ userData: user }: AvatarFallbackProps) {
+  const { displayName } = user;
+  return (
+    <div className={classes.avatarFallback}>{displayName[0].toUpperCase()}</div>
+  );
+}
 
 export type AvatarTooltipProps = {
   viewerData: ViewerUserData;
