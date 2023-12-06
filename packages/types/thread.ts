@@ -1184,7 +1184,7 @@ export type ServerUpdateThread = Partial<
      */
     resolved?: boolean;
     /**
-     * Marks the specified users as having seet/not seen this thread. If a user
+     * Marks the specified users as having seen/not seen this thread. If a user
      * is not included in this list, the seen status will not be changed.
      */
     seenByUsers: ServerThreadSeenUser[];

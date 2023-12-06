@@ -1198,7 +1198,7 @@ export default {
       },
       seenByUsers: {
         description:
-          'Marks the specified users as having seet/not seen this thread. If a user\nis not included in this list, the seen status will not be changed.',
+          'Marks the specified users as having seen/not seen this thread. If a user\nis not included in this list, the seen status will not be changed.',
         type: 'array',
         items: { $ref: '#/definitions/ServerThreadSeenUser' },
       },
