@@ -56,7 +56,7 @@ export const Avatar = withCord<
             <AvatarInner
               ref={ref}
               user={userAvatar}
-              className={cx('cord-component', className)}
+              className={className}
               isAbsent={isAbsent}
               {...restProps}
             />
@@ -65,7 +65,7 @@ export const Avatar = withCord<
           <AvatarInner
             ref={ref}
             user={userAvatar}
-            className={cx('cord-component', className)}
+            className={className}
             isAbsent={isAbsent}
             {...restProps}
           />
@@ -73,7 +73,6 @@ export const Avatar = withCord<
       </>
     );
   }),
-  'avatar',
 );
 
 export type AvatarProps = {

@@ -3,7 +3,7 @@ import * as React from 'react'; // eslint-disable-line @typescript-eslint/consis
 
 import withPortal from './withPortal';
 import withSDK from './withSDK';
-import withWrapper from './withWrapper';
+import withCordClassname from './withCordClassname';
 
 interface Props {
   children?: React.ReactNode;
@@ -12,7 +12,6 @@ interface Props {
 // High Order Component (HOC) that adds what Cord needs.
 export default function withCord<T extends Props = Props>(
   WrappedComponent: React.ComponentType<T>,
-  componentName: string,
 ) {
-  return withSDK(withPortal(withWrapper(WrappedComponent, componentName)));
+  return withSDK(withPortal(withCordClassname(WrappedComponent)));
 }
