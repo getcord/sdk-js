@@ -494,6 +494,12 @@ export interface ServerGetUser extends ServerListUser {
    * List of groups the user is a member of.
    */
   groups: ID[];
+  /**
+   * A list containing all the groups the user has explicity linked their Slack
+   * profile to. This list excludes groups connected to a Slack workspace where
+   * the user has not linked their Slack profile.
+   */
+  groupIDsWithLinkedSlackProfile: GroupID[];
 }
 
 /**
