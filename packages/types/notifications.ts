@@ -6,6 +6,7 @@ import type {
 } from './core';
 import type { ClientUserData } from './user';
 import type { CoreMessageData } from './message';
+import type { Translation } from './i18n';
 
 export type NotificationSummary = {
   unread: number;
@@ -131,6 +132,17 @@ export interface CoreNotificationData {
    * below.
    */
   header: (NotificationTextHeader | NotificationUserHeader)[];
+
+  /**
+   * A translation that can be used to translate the header of the notification.
+   * All Cord-created notifications will have a translation, but this may be
+   * null for notifications you [create through the REST
+   * API](https://docs.cord.com/rest-apis/notifications#Create-a-notification).
+   * See [the translations
+   * documentation](https://docs.cord.com/how-to/translations) for more
+   * information.
+   */
+  headerTranslation: Translation | null;
 
   /**
    * Additional context attached to the notification. For example, if this

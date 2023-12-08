@@ -1,4 +1,5 @@
 import type {} from './i18next';
+import type { ClientUserData } from './user';
 
 // We follow a few patterns in naming to clarify the context in which a string
 // will be displayed, particularly in adding suffixes to keys.  The common
@@ -375,3 +376,22 @@ export const resources = {
 };
 
 export type TranslationResources = (typeof resources)['en'];
+
+export type TranslationParameters = {
+  [key: string]: string | number | boolean | ClientUserData | ClientUserData[];
+};
+
+export type Translation = {
+  /**
+   * A translation key that is used to look up the proper translation.  See [the
+   * translations documentation](https://docs.cord.com/how-to/translations) for
+   * more information on how translations work.
+   */
+  key: string;
+
+  /**
+   * The parameters to supply to the translation.  This will always be set, but
+   * may be an empty object if the translation doesn't take any parameters.
+   */
+  parameters: TranslationParameters;
+};
