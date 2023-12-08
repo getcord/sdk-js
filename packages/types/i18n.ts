@@ -246,6 +246,34 @@ export const resources = {
         other_format: 'MMM D, YYYY',
       },
     },
+    notification_templates: {
+      cord: {
+        reaction_single:
+          '<user>{{senders.0.displayName}}</user> reacted {{reaction}} to your message',
+        reaction_double:
+          '<user>{{senders.0.displayName}}</user> <bold>and</bold> <user>{{senders.1.displayName}}</user> reacted {{reaction}} to your message',
+        reaction_overflow_one:
+          '<user>{{senders.0.displayName}}</user> <bold>and 1 other</bold> reacted {{reaction}} to your message',
+        reaction_overflow_other:
+          '<user>{{senders.0.displayName}}</user> <bold>and {{count}} others</bold> reacted {{reaction}} to your message',
+        reply:
+          '<user>{{senders.0.displayName}}</user> replied on <bold>{{threadName}}</bold>',
+        reply_mention:
+          '<user>{{senders.0.displayName}}</user> mentioned you in <bold>{{threadName}}</bold>',
+        reply_mention_assign:
+          '<user>{{senders.0.displayName}}</user> mentioned you and assigned you to a task in <bold>{{threadName}}</bold>',
+        reply_mention_unassign:
+          '<user>{{senders.0.displayName}}</user> mentioned you and unassigned you from a task in <bold>{{threadName}}</bold>',
+        reply_mention_attachment:
+          '<user>{{senders.0.displayName}}</user> mentioned you and sent you a file in <bold>{{threadName}}</bold>',
+        reply_assign:
+          '<user>{{senders.0.displayName}}</user> assigned you to a task in <bold>{{threadName}}</bold>',
+        reply_unassign:
+          '<user>{{senders.0.displayName}}</user> unassigned you from a task in <bold>{{threadName}}</bold>',
+        thread_create:
+          '<user>{{senders.0.displayName}}</user> created a new thread named <bold>{{threadName}}</bold>',
+      },
+    },
     presence: {
       timestamp: {
         in_less_than_a_minute: 'Viewing in less than a minute',

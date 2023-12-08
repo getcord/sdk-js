@@ -8,7 +8,7 @@ import type {
   UUID,
 } from './core';
 import type { TranslationResources } from './i18n';
-export { TranslationParameters } from './i18n';
+export { TranslationParameters, TranslationResources } from './i18n';
 import type {
   CoreNotificationData,
   ICordNotificationSDK,
