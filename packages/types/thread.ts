@@ -314,6 +314,15 @@ export interface ThreadObserverOptions {
    * @privateRemarks hidden
    */
   groupID?: string;
+
+  /**
+   * An object that can be used to filter the thread returned. In most cases,
+   * you won't need to use this -- fetching a single thread but then filtering
+   * it out isn't useful in most cases. However, it can be useful to make sure
+   * the result of this function matches the filter of another Cord component
+   * or hook.
+   */
+  filter?: ClientThreadFilter;
 }
 
 export type ObserveThreadSummaryOptions = ThreadObserverOptions;
