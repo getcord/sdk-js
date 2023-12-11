@@ -14,3 +14,4 @@ export {
 export { Facepile } from './experimental/components/Facepile';
 export { PresenceFacepile } from './experimental/components/PresenceFacepile';
 export { PresenceObserver } from './experimental/components/PresenceObserver';
+export { AddReactionButton } from './experimental/components/AddReactionButton';
