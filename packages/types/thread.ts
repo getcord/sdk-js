@@ -212,6 +212,12 @@ export interface CoreThreadData {
   repliers: UserID[];
 
   /**
+   * Authors of any message of type `action_message` in this thread's replies, including
+   * automatically generated messages from resolving or unresolving the thread.
+   */
+  actionMessageRepliers: UserID[];
+
+  /**
    * The users that are currently typing in this thread.  Typing status is
    * transient in nature, so the value is the set of users typing at a
    * particular instant, but may change rapidly.
@@ -541,6 +547,7 @@ export interface ClientCreateThread
         | 'resolvedTimestamp'
         | 'participants'
         | 'repliers'
+        | 'actionMessageRepliers'
         | 'typing'
         | 'subscribers'
       >
@@ -1170,6 +1177,7 @@ export type ServerUpdateThread = Partial<
     | 'typing'
     | 'resolved'
     | 'repliers'
+    | 'actionMessageRepliers'
     | 'subscribers'
   > & {
     /**
@@ -1219,6 +1227,7 @@ export interface ServerCreateThread
         | 'resolvedTimestamp'
         | 'participants'
         | 'repliers'
+        | 'actionMessageRepliers'
         | 'typing'
         | 'subscribers'
       >
