@@ -12,3 +12,4 @@ export {
   type AvatarFallbackProps,
 } from './experimental/components/Avatar';
 export { Facepile } from './experimental/components/Facepile';
+export { PresenceFacepile } from './experimental/components/PresenceFacepile';
