@@ -73,6 +73,7 @@ export const PresenceFacepile = withCord<
             tooltip={
               <PresenceTooltip
                 isViewer={viewer?.id === user.id}
+                isPresent={isPresent}
                 lastPresentTime={lastPresentTime}
                 user={user}
               />
@@ -98,14 +99,17 @@ export const PresenceFacepile = withCord<
 type PresenceTooltipProps = {
   user: ClientUserData;
   isViewer: boolean;
+  isPresent: boolean;
   lastPresentTime: number | null;
 };
 function PresenceTooltip({
   isViewer,
+  isPresent,
   lastPresentTime,
   user,
 }: PresenceTooltipProps) {
   const { t } = useCordTranslation('user');
+  const { t: presenceT } = useCordTranslation('presence');
   const { t: relativeT } = useCordTranslation('presence', {
     keyPrefix: 'timestamp',
   });
@@ -115,7 +119,9 @@ function PresenceTooltip({
     <DefaultTooltip
       label={isViewer ? t('viewer_user', { user }) : t('other_user', { user })}
       subtitle={
-        lastPresentTime
+        isPresent
+          ? presenceT('viewing')
+          : lastPresentTime
           ? relativeTimestampString(new Date(lastPresentTime), time, relativeT)
           : undefined
       }
