@@ -1,11 +1,3 @@
-// @ts-ignore
-import dayjs = require('dayjs');
-// @ts-ignore
-import Calendar = require('dayjs/plugin/calendar');
-dayjs.extend(Calendar);
-// eslint-disable-next-line no-restricted-imports
-import type { TFunction } from 'i18next';
-
 /**
  * Prepend "cord-" to a classname. Useful mostly to grep all places
  * where we've added a stable classname.
@@ -57,74 +49,4 @@ export function getStableColorPalette(userId: string) {
 
 export function isDefined<T>(value: T | null | undefined): value is T {
   return value !== null && value !== undefined;
-}
-
-export function relativeTimestampString(
-  date: Date,
-  now: number,
-  t: TFunction<'presence' | 'message' | 'notifications', 'timestamp'>,
-) {
-  const deltaSeconds = (now - date.getTime()) / 1000;
-  const absoluteDeltaSeconds = Math.abs(deltaSeconds);
-  const dateNow = new Date(now);
-  const isFuture = deltaSeconds < 0;
-
-  if (absoluteDeltaSeconds < 60) {
-    // new messages can have a delta second of -0.X which we still want to show as just now
-    if (deltaSeconds < -5) {
-      return t(`in_less_than_a_minute`);
-    }
-    // during the last minute
-    // For the MESSAGE location, "just now" appears as the end of a full sentence, so we don't want to capitalize it; for the NOTIFICATION location it appears standalone and so we do.
-    return t('just_now');
-  } else if (absoluteDeltaSeconds < 60 * 60) {
-    const minutes = Math.floor(absoluteDeltaSeconds / 60);
-
-    if (isFuture) {
-      // in the next hour
-      return t('in_minutes', { count: minutes });
-    }
-
-    // during the last hour
-    return t('minutes_ago', { count: minutes });
-  } else if (absoluteDeltaSeconds < 60 * 60 * 24) {
-    const hours = Math.floor(absoluteDeltaSeconds / (60 * 60));
-
-    if (isFuture) {
-      // in the next 24 hours
-      return t('in_hours', { count: hours });
-    }
-    // during the last 24 hours
-    return t('hours_ago', { count: hours });
-  } else {
-    return dayjs(date).calendar(now, {
-      lastDay: t('yesterday_format'),
-      lastWeek: t('last_week_format'),
-      nextDay: t('tomorrow_format'),
-      nextWeek: t('next_week_format'),
-      sameElse:
-        date.getFullYear() === dateNow.getFullYear()
-          ? t('this_year_format')
-          : t('other_format'),
-    });
-  }
-}
-
-export function absoluteTimestampString(
-  date: Date,
-  now: number,
-  t: TFunction<'message', 'absolute_timestamp'>,
-) {
-  const dateNow = new Date(now);
-  return dayjs(date).calendar(now, {
-    sameDay: t('today_format'),
-    lastDay: t('yesterday_format'),
-    lastWeek: t('last_week_format'),
-    nextDay: t('tomorrow_format'),
-    nextWeek: t('next_week_format'),
-    sameElse:
-      date.getFullYear() === dateNow.getFullYear()
-        ? t('this_year_format')
-        : t('other_format'),
-  });
 }

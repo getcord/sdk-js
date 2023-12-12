@@ -3,7 +3,6 @@ import * as React from 'react';
 import cx from 'classnames';
 import { useMemo, forwardRef } from 'react';
 import type { UserLocationData, ClientUserData } from '@cord-sdk/types';
-import { relativeTimestampString } from '../../common/util';
 import { useUserData, useViewerData } from '../../hooks/user';
 import { useCordTranslation } from '../../hooks/useCordTranslation';
 import type { PresenceReducerOptions } from '../../types';
@@ -212,4 +211,13 @@ function useFacepileUsers({
     usersDataByUserID,
     viewerID,
   ]);
+}
+
+// TODO: Implement this
+function relativeTimestampString(
+  _lastPresent: Date,
+  _time: number,
+  _relativeT: unknown,
+): string | undefined {
+  return undefined;
 }
