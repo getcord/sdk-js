@@ -449,6 +449,8 @@ export const resources = {
       },
     },
     presence: {
+      // The string shown when a user is currently active
+      viewing: 'Viewing',
       // The strings used to display a relative timestamp in a presence display
       timestamp: {
         in_less_than_a_minute: 'Viewing in less than a minute',
