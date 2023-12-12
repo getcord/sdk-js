@@ -1,6 +1,7 @@
 // @ts-ignore TS wants us to `import type` this, but we need it for JSX
 import * as React from 'react'; // eslint-disable-line @typescript-eslint/consistent-type-imports
 
+import { memo } from 'react';
 import withPortal from './withPortal';
 import withSDK from './withSDK';
 import withCordClassname from './withCordClassname';
@@ -13,5 +14,5 @@ interface Props {
 export default function withCord<T extends Props = Props>(
   WrappedComponent: React.ComponentType<T>,
 ) {
-  return withSDK(withPortal(withCordClassname(WrappedComponent)));
+  return withSDK(withPortal(withCordClassname(memo(WrappedComponent))));
 }
