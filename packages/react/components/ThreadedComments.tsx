@@ -12,7 +12,14 @@ import type {
   ThreadListFilter,
 } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { logComponentInstantiation } from '../common/util';
 import * as user from '../hooks/user';
 import { useThreadCounts, useThread, useLocationData } from '../hooks/thread';
@@ -22,6 +29,7 @@ import { MODIFIERS } from '../common/ui/modifiers';
 import { useCallFunctionOnce } from '../common/effects/useCallFunctionOnce';
 import { CordContext } from '../contexts/CordContext';
 import { useCordTranslation } from '../hooks/useCordTranslation';
+import { useEnsureHighlightedThreadVisible } from '../hooks/useEnsureHighlightedThreadVisible';
 import type { ThreadListReactComponentProps } from './ThreadList';
 import classes from './ThreadedComments.css';
 import { Composer } from './Composer';
@@ -33,7 +41,7 @@ import { EmptyStateWithFacepile } from './helpers/EmptyStateWithFacepile';
 
 const THREADED_COMMENTS_COMPONENT_NAME = 'CORD-THREADED-COMMENTS';
 
-type DisplayResolved =
+export type DisplayResolved =
   | 'interleaved'
   | 'sequentially'
   | 'tabbed'
@@ -127,7 +135,7 @@ function ThreadedCommentsImpl({
   highlightThreadId,
   partialMatch = false,
   filter,
-  threadMetadata,
+  threadMetadata = {},
   displayResolved = 'unresolvedOnly',
   autofocus = false,
   enableFacepileTooltip = false,
@@ -146,10 +154,33 @@ function ThreadedCommentsImpl({
   onComposerClose,
   onSend,
 }: ThreadedCommentsReactComponentProps) {
-  const [resolvedTabSelected, setResolvedTabSelected] = useState<boolean>(
-    displayResolved === 'resolvedOnly',
+  const { thread: maybeThreadToHighlight } = useThread(
+    highlightThreadId ?? '',
+    {
+      filter: {
+        location: { value: location, partialMatch },
+        groupID: propGroupID,
+        metadata: filter?.metadata,
+        // We always need to fetch the thread to highlight, regardless of
+        // the resolvedStatus. We then adjust the initial state of
+        // ThreadedComments based on the resolvedStatus of that thread.
+        resolvedStatus: 'any',
+      },
+    },
   );
-  const [expandResolved, setExpandResolved] = useState<boolean>(false);
+  const [resolvedTabSelected, setResolvedTabSelected] = useState(
+    !!maybeThreadToHighlight?.resolved || displayResolved === 'resolvedOnly',
+  );
+  const [expandResolved, setExpandResolved] = useState(
+    !!maybeThreadToHighlight?.resolved && displayResolved === 'sequentially',
+  );
+
+  useEnsureHighlightedThreadVisible({
+    maybeThreadToHighlight: maybeThreadToHighlight ?? undefined,
+    displayResolved,
+    setResolvedTabSelected,
+    setExpandResolved,
+  });
 
   const threadCounts = useThreadCounts({
     filter: {
@@ -287,7 +318,7 @@ function ThreadedCommentsImpl({
       scrollDirection={scrollDirection}
       showReplies={showReplies}
       replyComposerExpanded={replyComposerExpanded}
-      highlightThreadId={highlightThreadId}
+      highlightThread={maybeThreadToHighlight ?? undefined}
       enableFacepileTooltip={enableFacepileTooltip}
       showPlaceholder={showPlaceholder}
       onRender={onRender}
@@ -312,6 +343,7 @@ function ThreadedCommentsImpl({
       partialMatch={partialMatch}
       filter={filter}
       resolvedStatus={'resolved'}
+      highlightThread={maybeThreadToHighlight ?? undefined}
       sortBy={sortBy}
       scrollDirection={scrollDirection}
       showReplies={showReplies}
@@ -364,7 +396,7 @@ function ThreadedCommentsThreadList({
   scrollDirection = 'up',
   replyComposerExpanded = false,
   showReplies = 'initiallyCollapsed',
-  highlightThreadId,
+  highlightThread,
   enableFacepileTooltip = false,
   showPlaceholder = true,
   onRender,
@@ -385,7 +417,7 @@ function ThreadedCommentsThreadList({
   partialMatch?: boolean;
   groupId?: string;
   filter?: ThreadListFilter;
-  resolvedStatus?: ResolvedStatus;
+  resolvedStatus: ResolvedStatus;
   threadMetadata?: EntityMetadata;
   sortBy?: SortBy;
   scrollDirection?: ScrollDirection;
@@ -395,7 +427,7 @@ function ThreadedCommentsThreadList({
   topLevelComposerExpanded?: boolean;
   replyComposerExpanded?: boolean;
   showReplies?: ShowReplies;
-  highlightThreadId?: string;
+  highlightThread?: ThreadSummary;
   autofocus?: boolean;
   enableFacepileTooltip?: boolean;
   showPlaceholder?: boolean;
@@ -423,6 +455,40 @@ function ThreadedCommentsThreadList({
     },
   });
 
+  let showHighlightedThread: boolean;
+  switch (resolvedStatus) {
+    case 'resolved': {
+      showHighlightedThread = !!highlightThread?.resolved;
+      break;
+    }
+    case 'unresolved': {
+      showHighlightedThread = !highlightThread?.resolved;
+      break;
+    }
+    case 'any': {
+      showHighlightedThread = true;
+      break;
+    }
+    default: {
+      const _: never = resolvedStatus;
+      showHighlightedThread = false;
+      break;
+    }
+  }
+
+  const localThreads = useMemo(() => {
+    if (!highlightThread) {
+      return threads;
+    }
+
+    const isThreadPresent = threads.find((t) => t.id === highlightThread.id);
+    if (!isThreadPresent && showHighlightedThread) {
+      return [...threads, highlightThread];
+    }
+
+    return threads;
+  }, [highlightThread, showHighlightedThread, threads]);
+
   // If groupId is not passed as a prop, this will be undefined.  If the user has
   // an org in their token the method will find and use that, so it will still work.
   const { groupMembers } = user.useGroupMembers({ groupID: groupId });
@@ -447,13 +513,13 @@ function ThreadedCommentsThreadList({
     loading,
   ]);
 
-  const renderedThreads = threads.map((oneThread) => (
+  const renderedThreads = localThreads.map((oneThread) => (
     <CommentsThread
       key={oneThread.id}
       threadExtraClassnames={oneThread.extraClassnames}
       threadId={oneThread.id}
       showReplies={showReplies}
-      highlightThreadId={highlightThreadId}
+      highlightThread={oneThread.id === highlightThread?.id}
       enableFacepileTooltip={enableFacepileTooltip}
       replyComposerExpanded={replyComposerExpanded}
       onMessageClick={onMessageClick}
@@ -583,7 +649,7 @@ function CommentsThread({
   threadId,
   threadExtraClassnames,
   showReplies,
-  highlightThreadId,
+  highlightThread,
   enableFacepileTooltip,
   replyComposerExpanded,
   onMessageClick,
@@ -601,7 +667,7 @@ function CommentsThread({
   threadId: string;
   threadExtraClassnames: string | null;
   showReplies: ShowReplies;
-  highlightThreadId?: string;
+  highlightThread: boolean;
   enableFacepileTooltip: boolean;
   replyComposerExpanded?: boolean;
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
@@ -623,6 +689,7 @@ function CommentsThread({
     initiallyExpandedReplies,
   );
   const [showingComposer, setShowingComposer] = useState<boolean>(false);
+  const threadRef = useRef<HTMLDivElement>(null);
 
   const handleCollapsedRepliesClick = useCallback(() => {
     if (allowReplies) {
@@ -646,8 +713,9 @@ function CommentsThread({
 
   return (
     <div
+      ref={threadRef}
       className={cx(classes.thread, extraClassnames, {
-        [MODIFIERS.highlighted]: highlightThreadId === threadId,
+        [MODIFIERS.highlighted]: highlightThread,
         [MODIFIERS.resolved]: isResolved,
         [MODIFIERS.noReplies]: !hasReplies,
       })}
@@ -675,6 +743,13 @@ function CommentsThread({
         onEditEnd={onMessageEditEnd}
         onThreadResolve={onThreadResolve}
         onThreadReopen={onThreadReopen}
+        onRender={() => {
+          if (highlightThread) {
+            // By setting `block: nearest` we are preventing ThreadedComments from
+            // scrolling too much and causing the rest of the page to jump
+            threadRef.current?.scrollIntoView({ block: 'nearest' });
+          }
+        }}
       />
 
       {showingReplies &&
