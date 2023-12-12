@@ -748,7 +748,12 @@ function CollapsedReplies({
   // Then, the number of replies is one less than the total number of messages.
   const replyCount = threadSummary.userMessages - 1;
   const hasReplies = replyCount > 0;
-
+  const allRepliers = Array.from(
+    new Set([
+      ...threadSummary.repliers,
+      ...threadSummary.actionMessageRepliers,
+    ]),
+  );
   return (
     <>
       {hasReplies && (
@@ -759,10 +764,7 @@ function CollapsedReplies({
           onClick={onClick}
           type="button"
         >
-          <Facepile
-            users={threadSummary.repliers}
-            enableTooltip={enableFacepileTooltip}
-          />
+          <Facepile users={allRepliers} enableTooltip={enableFacepileTooltip} />
           {hasUnread
             ? t('show_replies_action_unread', { count: unreadNumber })
             : t('show_replies_action_read', { count: replyCount })}
