@@ -83,6 +83,7 @@ import { FaceIcon as Face } from '../../common/icons/customIcons/FaceIcon';
 import { WinkSmileyRectIcon as WinkSmileyRect } from '../../common/icons/customIcons/WinkSmileyRectIcon';
 import { WinkSmileyCircleIcon as WinkSmileyCircle } from '../../common/icons/customIcons/WinkSmileyCircleIcon';
 import { ReturnArrowIcon as ReturnArrow } from '../../common/icons/customIcons/ReturnArrow';
+import { MailUnreadIcon as MailUnread } from '../../common/icons/customIcons/MailUnreadIcon';
 
 import classes from './Icon.css';
 
@@ -170,6 +171,7 @@ const CUSTOM_ICONS = {
   WinkSmileyCircle,
   WinkSmileyRect,
   ReturnArrow,
+  MailUnread,
 };
 
 const ALL_ICONS = { ...PHOSPHOR_ICONS, ...CUSTOM_ICONS };

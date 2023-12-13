@@ -374,6 +374,8 @@ export const resources = {
       mark_all_as_read_action: 'Mark all as read',
       // The text of the menu item that marks one notification as read
       mark_as_read_action: 'Mark as read',
+      // The text of the menu item that marks one notification as unread
+      mark_as_unread_action: 'Mark as unread',
       // The text of the menu item that deletes a notification
       delete_action: 'Delete notification',
       // The title text shown when there are no notifications to display

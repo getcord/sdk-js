@@ -328,6 +328,20 @@ export interface ICordNotificationSDK {
   markAsRead(notificationID: string): Promise<void>;
 
   /**
+   * Mark a specific notification as unread.
+   *
+   * @example Usage
+   * ```javascript
+   * window.CordSDK.notification.markAsUnread('my-awesome-notification-id');
+   * ```
+   *
+   * @param notificationID - The ID of the notification to mark as unread.
+   *
+   * @returns A promise which resolves when the database write has completed.
+   */
+  markAsUnread(notificationID: string): Promise<void>;
+
+  /**
    * Mark all notifications as read (that, optionally, match a filter).
    *
    * @example Usage
