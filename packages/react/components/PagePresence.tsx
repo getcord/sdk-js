@@ -26,6 +26,7 @@ export type PagePresenceReactComponentProps = PropsWithFlags<
     maxUsers?: number;
     orientation?: Orientation;
     onUpdate?: (...args: PagePresenceWebComponentEvents['update']) => unknown;
+    groupId?: string;
   }
 >;
 

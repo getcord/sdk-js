@@ -71,6 +71,7 @@ export const componentAttributes = {
     'exclude-viewer': 'boolean',
     'only-present-users': 'boolean',
     orientation: 'orientation',
+    'group-id': 'string',
   },
   PresenceFacepile: {
     context: 'json',
