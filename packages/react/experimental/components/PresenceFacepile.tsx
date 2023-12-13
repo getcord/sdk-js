@@ -1,7 +1,6 @@
-// @ts-ignore TS wants us to `import type` this, but we need it for JSX
 import * as React from 'react';
-import cx from 'classnames';
 import { useMemo, forwardRef } from 'react';
+import cx from 'classnames';
 import type { UserLocationData, ClientUserData } from '@cord-sdk/types';
 import { useUserData, useViewerData } from '../../hooks/user';
 import { useCordTranslation } from '../../hooks/useCordTranslation';

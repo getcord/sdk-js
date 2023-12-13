@@ -1,4 +1,3 @@
-// @ts-ignore TS wants us to `import type` this, but we need it for JSX
 import * as React from 'react'; // eslint-disable-line @typescript-eslint/consistent-type-imports
 
 import { memo } from 'react';

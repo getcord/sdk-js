@@ -1,4 +1,3 @@
-// @ts-ignore TS wants us to `import type` this, but we need it for JSX
 import * as React from 'react';
 import cx from 'classnames';
 import { forwardRef } from 'react';

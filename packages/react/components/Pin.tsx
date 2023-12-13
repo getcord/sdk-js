@@ -1,4 +1,3 @@
-// @ts-ignore TS wants us to `import type` this, but we need it for JSX
 import * as React from 'react';
 import type { PropsWithChildren } from 'react';
 import { useCallback } from 'react';
