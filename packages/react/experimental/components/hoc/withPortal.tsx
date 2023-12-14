@@ -15,7 +15,7 @@ export default function withPortal<T extends Props = Props>(
     WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
   const ComponentWithPortal = React.forwardRef(
-    (props: T, ref: React.ForwardedRef<HTMLDivElement>) => {
+    (props: T, ref: React.ForwardedRef<HTMLElement>) => {
       const [portalTarget, setPortalTarget] =
         React.useState<HTMLElement | null>(null);
 

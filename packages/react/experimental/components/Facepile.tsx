@@ -3,21 +3,19 @@ import { useMemo, forwardRef } from 'react';
 import cx from 'classnames';
 import { isDefined } from '../../common/util';
 import { useUserData } from '../../hooks/user';
-import { Avatar } from './Avatar';
 import withCord from './hoc/withCord';
+import { Avatar } from './Avatar';
 import * as classes from '@cord-sdk/react/components/Facepile.classnames';
 
-type FacepileReactComponentProps = {
+export type FacepileProps = {
   userIDs: string[];
   enableTooltip?: boolean;
   className?: string;
 };
 
-export const Facepile = withCord<
-  React.PropsWithChildren<FacepileReactComponentProps>
->(
+export const Facepile = withCord<React.PropsWithChildren<FacepileProps>>(
   forwardRef(function Facepile(
-    { className, userIDs, enableTooltip = true }: FacepileReactComponentProps,
+    { className, userIDs, enableTooltip = true }: FacepileProps,
     ref?: React.ForwardedRef<HTMLDivElement>,
   ) {
     const usersDataById = useUserData(userIDs);
@@ -32,9 +30,15 @@ export const Facepile = withCord<
     return (
       <div className={cx(classes.facepileContainer, className)} ref={ref}>
         {userIDs.map((userID) => (
-          <Avatar key={userID} userId={userID} enableTooltip={enableTooltip} />
+          <Avatar
+            key={userID}
+            userId={userID}
+            enableTooltip={enableTooltip}
+            canBeReplaced
+          />
         ))}
       </div>
     );
   }),
+  'Facepile',
 );

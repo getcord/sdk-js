@@ -77,6 +77,7 @@ globalStyle(`:where(.${facepileContainer}) .${avatarContainer}`, {
   boxShadow: ` ${cssVar('facepile-avatar-border-width')} 0 0 ${cssVar(
     'facepile-background-color',
   )}`,
+  position: 'relative',
 });
 globalStyle(
   `.${facepileContainer} > :where(.${avatarContainer}:last-child),

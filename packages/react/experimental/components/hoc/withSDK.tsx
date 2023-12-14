@@ -15,7 +15,7 @@ export default function withSDK<T extends Props = Props>(
     WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
   const ComponentWithSDK = React.forwardRef(
-    (props: T, ref: React.ForwardedRef<HTMLDivElement>) => {
+    (props: T, ref: React.ForwardedRef<HTMLElement>) => {
       const { sdk: cordSDK } = useContext(CordContext);
       if (!cordSDK) {
         return null;

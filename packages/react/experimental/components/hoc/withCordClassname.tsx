@@ -13,7 +13,7 @@ export default function withCordClassname<T extends Props>(
     WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
   const ComponentWithCordClassname = React.forwardRef(
-    (props: T, ref: React.ForwardedRef<HTMLDivElement>) => {
+    (props: T, ref: React.ForwardedRef<HTMLElement>) => {
       const { className, ...restProps } = props;
       return (
         <WrappedComponent

@@ -26,7 +26,6 @@ type WithTooltipProps = React.PropsWithChildren<{
   tooltipDisabled?: boolean;
   onHover?: () => void;
   className?: string;
-  unstyled?: boolean;
 }>;
 
 export const WithTooltip = forwardRef(function WithTooltip(
@@ -37,7 +36,6 @@ export const WithTooltip = forwardRef(function WithTooltip(
     tooltipDisabled = false,
     onHover,
     children,
-    unstyled,
     className,
     ...otherProps
   }: WithTooltipProps,
@@ -86,12 +84,7 @@ export const WithTooltip = forwardRef(function WithTooltip(
           <div
             ref={setPopperElement}
             style={popperStyles}
-            // We do this so a user replacing our Tooltip does not get the original tooltip style
-            // They can put it back by adding `.cord-tooltip` themselves
-            className={cx({
-              [classes.tooltip]: !unstyled,
-              [fontSmallLight]: !unstyled,
-            })}
+            className={cx(classes.tooltip, fontSmallLight)}
           >
             {tooltip}
           </div>

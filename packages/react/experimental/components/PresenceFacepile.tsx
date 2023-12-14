@@ -15,7 +15,7 @@ import * as classes from '@cord-sdk/react/components/Facepile.classnames';
 
 const DEFAULT_NUM_OF_AVATARS = 5;
 
-type PresenceFacepileReactComponentProps = PresenceReducerOptions & {
+export type PresenceFacepileProps = PresenceReducerOptions & {
   /**
    * If 100 users visited the page, we'll likely only want to show ~5 avatars.
    * The rest of users will be added to the count ("+<Number of users>") appended
@@ -28,7 +28,7 @@ type PresenceFacepileReactComponentProps = PresenceReducerOptions & {
  * Display all users at a particular location.
  */
 export const PresenceFacepile = withCord<
-  React.PropsWithChildren<PresenceFacepileReactComponentProps>
+  React.PropsWithChildren<PresenceFacepileProps>
 >(
   forwardRef(function PresenceFacepile(
     {
@@ -39,7 +39,7 @@ export const PresenceFacepile = withCord<
       partialMatch = true,
       numOfAvatars = DEFAULT_NUM_OF_AVATARS,
       ...restProps
-    }: PresenceFacepileReactComponentProps,
+    }: PresenceFacepileProps,
     ref?: React.ForwardedRef<HTMLDivElement>,
   ) {
     const viewer = useViewerData();
@@ -93,6 +93,7 @@ export const PresenceFacepile = withCord<
       </div>
     );
   }),
+  'PresenceFacepile',
 );
 
 type PresenceTooltipProps = {

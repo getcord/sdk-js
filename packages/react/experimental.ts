@@ -10,7 +10,10 @@ export {
   AvatarFallback,
   type AvatarTooltipProps,
   type AvatarFallbackProps,
+  type AvatarProps,
 } from './experimental/components/Avatar';
+
+export { Replace } from './experimental/components/hoc/withReplacement';
 export { Facepile } from './experimental/components/Facepile';
 export { PresenceFacepile } from './experimental/components/PresenceFacepile';
 export { PresenceObserver } from './experimental/components/PresenceObserver';
