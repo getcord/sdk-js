@@ -8,6 +8,7 @@ import type {
 
 import type { FacepileProps } from './Facepile';
 import type { PresenceFacepileProps } from './PresenceFacepile';
+import type { PagePresenceProps } from './PagePresence';
 import type { GeneralButtonProps } from './helpers/Button';
 
 export type ReplaceConfig = ReplaceConfigBase & ReplaceWithin;
@@ -21,6 +22,7 @@ export type ReplaceConfigBase = Partial<{
   PresenceFacepile: React.ComponentType<PresenceFacepileProps>;
   AddReactionButton: React.ComponentType<GeneralButtonProps>;
   Button: React.ComponentType<GeneralButtonProps>;
+  PagePresence: React.ComponentType<PagePresenceProps>;
 }>;
 
 type ReplaceWithin = Partial<{

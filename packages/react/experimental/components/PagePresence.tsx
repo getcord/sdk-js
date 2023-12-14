@@ -7,7 +7,7 @@ import { PresenceObserver } from '../../components/PresenceObserver';
 import withCord from './hoc/withCord';
 import { PresenceFacepile } from './PresenceFacepile';
 
-type PagePresenceProps = {
+export type PagePresenceProps = {
   location: Location;
   numOfAvatars?: number;
   durable?: boolean;
@@ -48,4 +48,5 @@ export const PagePresence = withCord<PagePresenceProps>(
       </>
     );
   }),
+  'PagePresence',
 );
