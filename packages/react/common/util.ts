@@ -50,3 +50,18 @@ export function getStableColorPalette(userId: string) {
 export function isDefined<T>(value: T | null | undefined): value is T {
   return value !== null && value !== undefined;
 }
+
+export function getFileSizeString(size: number) {
+  let fileSizeString;
+  if (size > 1000000) {
+    // larger than a mb then we convert to MB
+    fileSizeString = (size / 1000000).toFixed() + ' MB';
+  } else if (size > 1000) {
+    // larger than a kb then we convert to KB
+    fileSizeString = (size / 1000).toFixed() + ' KB';
+  } else {
+    // converts to bytes
+    fileSizeString = size.toString() + ' bytes';
+  }
+  return fileSizeString;
+}
