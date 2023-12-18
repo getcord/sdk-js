@@ -1196,28 +1196,28 @@
         "type": "object",
         "properties": {
           "location": {
-            "description": "The location for the thread.",
+            "description": "Return only threads at this location.",
             "type": "object",
             "additionalProperties": { "type": ["string", "number", "boolean"] },
             "propertyOrder": []
           },
           "metadata": {
-            "description": "Arbitrary key-value pairs of data associated with the object.",
+            "description": "Return only objects containing these metadata keys and values. (Metadata is\narbitrary key-value pairs of data that you can associate with an object.)",
             "type": "object",
             "additionalProperties": { "type": ["string", "number", "boolean"] },
             "propertyOrder": []
           },
           "firstMessageTimestamp": {
-            "description": "Timestamp when the first message in a thread was created.",
+            "description": "Return only threads with a \"first message timestamp\" within this range. The\n\"first message timestamp\" of a thread is the timestamp when the first\nmessage in the thread was created. (This is typically when the thread was\ncreated.)",
             "type": "object",
             "properties": {
               "from": {
-                "description": "Timestamp from where to start the interval. If not present, the interval will have no start date and any data will include everything up to the provided `to` timestamp.",
+                "description": "Timestamp from where to start the interval. The thread's timestamp must be\n*newer* than (or equal to) this in order to match the filter.\n\nIf not present, the interval will have no start date and any data will\ninclude everything older than the provided `to` timestamp.",
                 "type": "string",
                 "format": "date-time"
               },
               "to": {
-                "description": "Timestamp where to end the interval. If not present, the interval will have no end date and any data will include everything from the provided `from` timestamp.",
+                "description": "Timestamp where to end the interval. The thread's timestamp must be *older*\nthan (or equal to) this in order to match the filter.\n\nIf not present, the interval will have no end date and any data will\ninclude everything newer than the provided `from` timestamp.",
                 "type": "string",
                 "format": "date-time"
               }
@@ -1226,16 +1226,16 @@
             "propertyOrder": ["from", "to"]
           },
           "mostRecentMessageTimestamp": {
-            "description": "Timestamp when a message in a thread was last created or updated.",
+            "description": "Return only threads with a \"most recent message timestamp\" within this\nrange. The \"most recent message timestamp\" of a thread is the timestamp\nwhen the most recent message in the thread was created or updated. (This is\ntypically when the thread was most recently replied to.)",
             "type": "object",
             "properties": {
               "from": {
-                "description": "Timestamp from where to start the interval. If not present, the interval will have no start date and any data will include everything up to the provided `to` timestamp.",
+                "description": "Timestamp from where to start the interval. The thread's timestamp must be\n*newer* than (or equal to) this in order to match the filter.\n\nIf not present, the interval will have no start date and any data will\ninclude everything older than the provided `to` timestamp.",
                 "type": "string",
                 "format": "date-time"
               },
               "to": {
-                "description": "Timestamp where to end the interval. If not present, the interval will have no end date and any data will include everything from the provided `from` timestamp.",
+                "description": "Timestamp where to end the interval. The thread's timestamp must be *older*\nthan (or equal to) this in order to match the filter.\n\nIf not present, the interval will have no end date and any data will\ninclude everything newer than the provided `from` timestamp.",
                 "type": "string",
                 "format": "date-time"
               }
@@ -1687,7 +1687,7 @@
         "type": "object",
         "properties": {
           "metadata": {
-            "description": "Arbitrary key-value pairs of data associated with the object.",
+            "description": "Return only objects containing these metadata keys and values. (Metadata is\narbitrary key-value pairs of data that you can associate with an object.)",
             "type": "object",
             "additionalProperties": { "type": ["string", "number", "boolean"] },
             "propertyOrder": []

@@ -95,38 +95,60 @@ export interface PaginationParams {
 
 export type TimestampRange = {
   /**
-   * Timestamp from where to start the interval. If not present, the interval will have no start date and any data will include everything up to the provided `to` timestamp.
+   * Timestamp from where to start the interval. The thread's timestamp must be
+   * *newer* than (or equal to) this in order to match the filter.
+   *
+   * If not present, the interval will have no start date and any data will
+   * include everything older than the provided `to` timestamp.
    */
   from?: Date;
+
   /**
-   * Timestamp where to end the interval. If not present, the interval will have no end date and any data will include everything from the provided `from` timestamp.
+   * Timestamp where to end the interval. The thread's timestamp must be *older*
+   * than (or equal to) this in order to match the filter.
+   *
+   * If not present, the interval will have no end date and any data will
+   * include everything newer than the provided `from` timestamp.
    */
   to?: Date;
 };
 
 export type FilterParameters = {
   /**
-   * The location for the thread.
+   * Return only threads at this location.
    */
   location?: Location;
+
   /**
-   * Arbitrary key-value pairs of data associated with the object.
+   * Return only objects containing these metadata keys and values. (Metadata is
+   * arbitrary key-value pairs of data that you can associate with an object.)
    */
   metadata?: EntityMetadata;
+
   /**
-   * The organization which the threads belong to.
+   * Return only threads [belonging to this
+   * organization](https://docs.cord.com/reference/permissions).
    */
   organizationID?: string;
+
   /**
-   * Timestamp when the first message in a thread was created.
+   * Return only threads with a "first message timestamp" within this range. The
+   * "first message timestamp" of a thread is the timestamp when the first
+   * message in the thread was created. (This is typically when the thread was
+   * created.)
    */
   firstMessageTimestamp?: TimestampRange;
+
   /**
-   * Timestamp when a message in a thread was last created or updated.
+   * Return only threads with a "most recent message timestamp" within this
+   * range. The "most recent message timestamp" of a thread is the timestamp
+   * when the most recent message in the thread was created or updated. (This is
+   * typically when the thread was most recently replied to.)
    */
   mostRecentMessageTimestamp?: TimestampRange;
+
   /**
-   * User ID of the author.
+   * Return only threads created by this user.
    */
   authorID?: string;
 };
