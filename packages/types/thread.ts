@@ -33,12 +33,6 @@ export interface ObserveThreadActivitySummaryOptions {
    */
   partialMatch?: boolean;
 
-  /**
-   * We should implement this properly, but until then, just what we need for
-   * experimentation.
-   *
-   * @privateRemarks hidden
-   */
   filter?: Pick<ThreadListFilter, 'groupID'>;
 }
 
@@ -316,8 +310,7 @@ export interface ThreadObserverOptions {
    */
   location?: Location;
   /**
-   * Experimental filter for privacy model project
-   * @privateRemarks hidden
+   * The [group](/rest-apis/groups) of a thread.
    */
   groupID?: string;
 
@@ -360,8 +353,7 @@ export type ThreadListFilter = {
    */
   location?: Location;
   /**
-   * Experimental filter for privacy model project
-   * @privateRemarks hidden
+   * Filter to threads belonging to a specified [group](/rest-apis/groups).
    */
   groupID?: string;
   /**

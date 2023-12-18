@@ -115,9 +115,7 @@ export type GroupMembersDataCallback = (data: GroupMembersData) => unknown;
 export type ObserveGroupMembersOptions = {
   /**
    * The group to search for.  The viewer must be a member of the
-   * group in order to receive its data.  If omitted, the API will
-   * fetch the members of the group the viewer is currently logged in with, i.e.
-   * the one that is specified in their access token.
+   * group in order to receive its data.
    */
   groupID?: string;
 };
@@ -153,10 +151,7 @@ export type ConnectToSlackOptions = {
   onCompleteOAuth?: (success: boolean) => void;
   /**
    * The group the user should connect to Slack in.  The viewer must be a member of the
-   * group in order for the connection flow to trigger.  If omitted, the API will
-   * connect to Slack using the group the viewer is currently logged in with, i.e.
-   * the one that is specified in their access token.
-   * @privateRemarks hidden
+   * group in order for the connection flow to trigger.
    */
   groupID?: string;
 };
@@ -170,10 +165,7 @@ export type DisconnectSlackWorkspaceOptions = {
   onDisconnect?: (success: boolean) => void;
   /**
    * The group the user will disconnect the Slack workspace from.  The viewer must be a member of the
-   * group in order for the disconnection flow to trigger.  If omitted, the API will
-   * disconnect the Slack workspace using the group the viewer is currently logged in with, i.e.
-   * the one that is specified in their access token.
-   * @privateRemarks hidden
+   * group in order for the disconnection flow to trigger.
    */
   groupID?: string;
 };
