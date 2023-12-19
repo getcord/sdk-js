@@ -4,6 +4,7 @@ import {
   offset as offsetMiddleware,
   shift,
   useFloating,
+  size,
 } from '@floating-ui/react-dom';
 import type { Placement } from '@floating-ui/react-dom';
 import { useMemo, useRef } from 'react';
@@ -16,6 +17,7 @@ export type UsePopperCreatorProps = {
   popperPosition?: PopperPosition;
   offset?: number | ((placement: Placement) => number);
   allowFlip?: boolean;
+  popperWidth?: number | 'full';
 };
 
 type Props = UsePopperCreatorProps;
@@ -24,6 +26,7 @@ export function usePopperCreator({
   popperPosition = DEFAULT_POSITION,
   offset = DEFAULT_OFFSET,
   allowFlip = true,
+  popperWidth,
 }: Props) {
   // offset variables are not correctly updated when used inside a function without using a ref.
   // https://floating-ui.com/docs/react#variable-freshness
@@ -51,6 +54,20 @@ export function usePopperCreator({
         padding: 2,
       }),
       ...(allowFlip ? [flip()] : []),
+      size({
+        apply({ rects, elements }) {
+          if (popperWidth) {
+            if (popperWidth === 'full') {
+              elements.floating.style.setProperty(
+                'width',
+                `${rects.reference.width}px`,
+              );
+            } else {
+              elements.floating.style.setProperty('width', `${popperWidth}px`);
+            }
+          }
+        },
+      }),
     ],
   });
   const styles = useMemo(
