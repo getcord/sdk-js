@@ -1133,6 +1133,16 @@
         "description": "Marks the specified users as having seen/not seen this thread. If a user\nis not included in this list, the seen status will not be changed.",
         "type": "array",
         "items": { "$ref": "#/definitions/ServerThreadSeenUser" }
+      },
+      "addSubscribers": {
+        "description": "A list of subscribers to add to this thread.",
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "removeSubscribers": {
+        "description": "A list of subscribers to remove from this thread.",
+        "type": "array",
+        "items": { "type": "string" }
       }
     },
     "additionalProperties": false,
@@ -1149,7 +1159,9 @@
       "userID",
       "typing",
       "resolved",
-      "seenByUsers"
+      "seenByUsers",
+      "addSubscribers",
+      "removeSubscribers"
     ],
     "definitions": {
       "ServerThreadSeenUser": {

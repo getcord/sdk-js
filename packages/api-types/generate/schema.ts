@@ -1202,6 +1202,16 @@ export default {
         type: 'array',
         items: { $ref: '#/definitions/ServerThreadSeenUser' },
       },
+      addSubscribers: {
+        description: 'A list of subscribers to add to this thread.',
+        type: 'array',
+        items: { type: 'string' },
+      },
+      removeSubscribers: {
+        description: 'A list of subscribers to remove from this thread.',
+        type: 'array',
+        items: { type: 'string' },
+      },
     },
     additionalProperties: false,
     propertyOrder: [
@@ -1218,6 +1228,8 @@ export default {
       'typing',
       'resolved',
       'seenByUsers',
+      'addSubscribers',
+      'removeSubscribers',
     ],
     definitions: {
       ServerThreadSeenUser: {

@@ -1197,6 +1197,14 @@ export type ServerUpdateThread = Partial<
      * is not included in this list, the seen status will not be changed.
      */
     seenByUsers: ServerThreadSeenUser[];
+    /**
+     * A list of subscribers to add to this thread.
+     */
+    addSubscribers?: UserID[];
+    /**
+     * A list of subscribers to remove from this thread.
+     */
+    removeSubscribers?: UserID[];
   }
 >;
 
