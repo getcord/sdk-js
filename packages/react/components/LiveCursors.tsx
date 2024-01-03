@@ -1,6 +1,13 @@
 import * as React from 'react';
 import type { FunctionComponent, MutableRefObject } from 'react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useContext,
+} from 'react';
 import { isEqualLocation } from '@cord-sdk/types';
 import type {
   LiveCursorsEventToLocationFn,
@@ -13,7 +20,7 @@ import type {
 
 import { useCordLocation } from '../hooks/useCordLocation';
 import * as user from '../hooks/user';
-import { useCordContext } from '../contexts/CordContext';
+import { CordContext, useCordContext } from '../contexts/CordContext';
 import { debounce } from '../common/lib/debounce';
 import { POSITION_UPDATE_INTERVAL_MS } from './LiveCursors.css';
 import {
@@ -117,7 +124,36 @@ const cordInternal: any = {
   __cordInternal: true,
 };
 
-export function LiveCursors({
+export function LiveCursors(props: LiveCursorsReactComponentProps) {
+  const groupId = props.groupId;
+
+  const { organizationID: tokenOrgID, sdk: cordSDK } = useContext(CordContext);
+
+  if (!cordSDK) {
+    return null;
+  }
+
+  if (!tokenOrgID && !groupId) {
+    console.error('Must specify a groupId');
+    return null;
+  }
+
+  // Only error if the two groups don't match: do allow matching groups for the
+  // purposes of migrations
+  const groupIDSetTwice = tokenOrgID && groupId && tokenOrgID !== groupId;
+
+  if (groupIDSetTwice) {
+    // TODO: link to docs explainer of the switchover
+    console.error(
+      'Must not specify a groupId on the component if the user is signed in with an access token that contains a groupId - choose one or the other',
+    );
+    return null;
+  }
+
+  return <LiveCursorsImpl {...props} />;
+}
+
+export function LiveCursorsImpl({
   location: locationProp,
   groupId,
   showViewerCursor,
