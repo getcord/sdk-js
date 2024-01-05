@@ -203,14 +203,14 @@ export function CordProvider({
       // All screenshotOptions.snake_case props have been deprecated
       // in favour of screenshotOptions.camelCase. We also support
       // even older deprecated props, like `enableScreenshotCapture`
+      const deprecatedEnableScreenshotCapture =
+        enableScreenshotCapture === false ? [] : undefined;
       const backwardsCompatibleScreenshotOptions: SnakeCaseScreenshotOptions = {
         blur: screenshotOptions?.blur ?? blurScreenshots,
         capture_when:
           screenshotOptions?.captureWhen ??
           screenshotOptions?.capture_when ??
-          enableScreenshotCapture === false
-            ? []
-            : undefined,
+          deprecatedEnableScreenshotCapture,
         show_blurred:
           screenshotOptions?.showBlurred ??
           screenshotOptions?.show_blurred ??
