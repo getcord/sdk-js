@@ -13,6 +13,7 @@ export const AddReactionButton = withCord(
   ) {
     return (
       <Button
+        canBeReplaced
         className={classes.addReaction}
         icon="AddEmoji"
         type="button"

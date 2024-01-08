@@ -32,6 +32,7 @@ export const PagePresence = withCord<PagePresenceProps>(
     return (
       <>
         <PresenceFacepile
+          canBeReplaced
           location={location}
           excludeViewer={excludeViewer}
           onlyPresentUsers={onlyPresentUsers}
