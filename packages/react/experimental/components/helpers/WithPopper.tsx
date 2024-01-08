@@ -12,7 +12,7 @@ import { Slot } from '@radix-ui/react-slot';
 import type { PopperPosition } from '../../../types';
 import { usePopperCreator } from '../../../hooks/usePopperCreator';
 import { useClickOutside } from '../../../common/effects/useClickOutside';
-import { useUpdatingRef } from '../../../common/effects/useUpdatingRefs';
+import { useUpdatingRef } from '../../../common/effects/useUpdatingRef';
 import * as classes from '@cord-sdk/react/components/helpers/WithPopper.classnames';
 import { ZINDEX } from '@cord-sdk/react/common/ui/zIndex';
 import { useComposedRefs } from '@cord-sdk/react/common/lib/composeRefs';

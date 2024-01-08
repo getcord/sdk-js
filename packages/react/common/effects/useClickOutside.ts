@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from 'react';
-import { useUpdatingRef } from './useUpdatingRefs';
+import { useUpdatingRef } from './useUpdatingRef';
 
 type Args = {
   capture?: boolean;
