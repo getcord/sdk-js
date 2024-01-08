@@ -51,6 +51,10 @@ export function isDefined<T>(value: T | null | undefined): value is T {
   return value !== null && value !== undefined;
 }
 
+export function isNotNull<T>(value: T | null): value is T {
+  return value !== null;
+}
+
 export function getFileSizeString(size: number) {
   let fileSizeString;
   if (size > 1000000) {
