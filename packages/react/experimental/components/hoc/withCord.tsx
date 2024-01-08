@@ -17,10 +17,12 @@ export default function withCord<T extends Props = Props>(
   WrappedComponent: React.ComponentType<T>,
   componentName: ComponentName,
 ) {
-  return withSDK(
+  const Component = withSDK(
     withReplacement(
       withPortal(withCordClassname(memo(WrappedComponent))),
       componentName,
     ),
   );
+  Component.displayName = componentName;
+  return Component;
 }
