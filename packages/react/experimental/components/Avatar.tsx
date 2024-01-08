@@ -37,7 +37,13 @@ export const Avatar = withCord<React.PropsWithChildren<AvatarProps>>(
       if (!userAvatar || !viewerData) {
         return null;
       }
-      return <AvatarTooltip userData={userAvatar} viewerData={viewerData} canBeReplaced/>;
+      return (
+        <AvatarTooltip
+          userData={userAvatar}
+          viewerData={viewerData}
+          canBeReplaced
+        />
+      );
     }, [userAvatar, viewerData]);
 
     if (!userAvatar) {
