@@ -147,3 +147,24 @@ export type MessageNodeProps<M extends MessageNodeType> = Omit<
   MessageNode<M>,
   'type' | 'children'
 >;
+
+// Styled block nodes are nodes that themselves contain block nodes, rather than
+// block nodes that contain inline nodes only (ie, text).
+const STYLED_BLOCK_TYPES = [
+  MessageNodeType.BULLET,
+  MessageNodeType.NUMBER_BULLET,
+  MessageNodeType.TODO,
+  MessageNodeType.QUOTE,
+] as const;
+
+export type MessageStyledBlockType = (typeof STYLED_BLOCK_TYPES)[number];
+
+export function isStyledBlockType(t: any): t is MessageStyledBlockType {
+  return STYLED_BLOCK_TYPES.includes(t);
+}
+
+export type MessageStyledBlockNode =
+  | MessageBulletNode
+  | MessageNumberBulletNode
+  | MessageTodoNode
+  | MessageQuoteNode;
