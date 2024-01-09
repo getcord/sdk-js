@@ -263,7 +263,7 @@ export const resources = {
       image_modal_copy_link_action: 'Link',
       // The tooltip for the button in the media modal that copies a link to the
       // media
-      image_modal_copy_link_toolitp: 'Click to copy',
+      image_modal_copy_link_tooltip: 'Click to copy',
       // The text shown after a user copies a link in the media modal
       image_modal_copy_link_success: 'Copied to clipboard',
       // The status text shown below a blurred image in the media modal
