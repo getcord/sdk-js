@@ -140,6 +140,7 @@ export const componentAttributes = {
     'thread-id': 'string',
     'thread-name': 'string',
     autofocus: 'boolean',
+    disabled: 'boolean',
     'show-expanded': 'boolean',
     'show-close-button': 'boolean',
     size: 'composer-size',

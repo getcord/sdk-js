@@ -26,6 +26,7 @@ export type ComposerReactComponentProps = ReactPropsWithLocation<{
   threadName?: string;
   threadUrl?: string;
   autofocus?: boolean;
+  disabled?: boolean;
   showExpanded?: boolean;
   showCloseButton?: boolean;
   size?: ComposerSize;
