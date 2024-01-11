@@ -35,6 +35,7 @@ export type ThreadReactComponentProps = PropsWithFlags<
     showHeader?: boolean;
     showPlaceholder?: boolean;
     composerExpanded?: boolean;
+    composerDisabled?: boolean;
     threadOptions?: ThreadOptions;
     groupId?: string;
     onThreadInfoChange?: (

@@ -123,6 +123,7 @@ export const componentAttributes = {
     'show-header': 'boolean',
     'show-placeholder': 'boolean',
     'composer-expanded': 'boolean',
+    'composer-disabled': 'boolean',
     'thread-options': 'json',
     'group-id': 'string',
   },
