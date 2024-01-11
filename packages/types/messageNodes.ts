@@ -79,6 +79,7 @@ export type MessageAnnotationNode = MessageNodeWithChildren & {
 
 export type MessageBulletNode = MessageNodeWithChildren & {
   type: MessageNodeType.BULLET;
+  indent?: number;
 };
 
 export type MessageCodeNode = MessageNodeWithChildren & {
@@ -117,6 +118,7 @@ export type MessageSlackMentionNode = MessageNodeWithChildren & {
 export type MessageNumberBulletNode = MessageNodeWithChildren & {
   type: MessageNodeType.NUMBER_BULLET;
   bulletNumber: number;
+  indent?: number;
 };
 
 export type MessageParagraphNode = MessageNodeWithChildren & {
