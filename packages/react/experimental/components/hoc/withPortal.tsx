@@ -7,7 +7,11 @@ interface Props {
   children?: React.ReactNode;
 }
 
-// High Order Component (HOC) that adds Portal.
+/**
+ * High Order Component (HOC) that adds Portal target.
+ * WrappedComponent must not be a Portal without a specific
+ * `target`.
+ */
 export default function withPortal<T extends Props = Props>(
   WrappedComponent: React.ComponentType<T>,
 ) {

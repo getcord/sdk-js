@@ -6,6 +6,7 @@ import type {
   AvatarTooltipProps,
 } from './Avatar';
 
+import type { OverlayProps } from './Overlay';
 import type { FacepileProps } from './Facepile';
 import type { PresenceFacepileProps } from './PresenceFacepile';
 import type { PagePresenceProps } from './PagePresence';
@@ -23,6 +24,7 @@ export type ReplaceConfigBase = Partial<{
   AddReactionButton: React.ComponentType<GeneralButtonProps>;
   Button: React.ComponentType<GeneralButtonProps>;
   PagePresence: React.ComponentType<PagePresenceProps>;
+  Overlay: React.ComponentType<OverlayProps>;
 }>;
 
 type ReplaceWithin = Partial<{
