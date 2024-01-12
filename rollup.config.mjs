@@ -1,5 +1,6 @@
 import * as path from 'path';
 import * as fs from 'fs';
+import * as url from 'url';
 
 import typescript from 'rollup-plugin-typescript2';
 import copy from 'rollup-plugin-copy';
@@ -7,6 +8,8 @@ import replace from '@rollup/plugin-replace';
 import replaceRE from 'rollup-plugin-re';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
+
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 async function packageBuildConfig(packageName, options = {}) {
   const dirname = path.resolve(__dirname, 'packages', packageName);
