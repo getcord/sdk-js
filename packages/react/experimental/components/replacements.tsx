@@ -11,6 +11,8 @@ import type { FacepileProps } from './Facepile';
 import type { PresenceFacepileProps } from './PresenceFacepile';
 import type { PagePresenceProps } from './PagePresence';
 import type { GeneralButtonProps } from './helpers/Button';
+import type { MessageFilesAttachmentsProps } from './message/MessageFilesAttachments';
+import type { MediaModalProps } from './MediaModal';
 
 export type ReplaceConfig = ReplaceConfigBase & ReplaceWithin;
 
@@ -25,6 +27,8 @@ export type ReplaceConfigBase = Partial<{
   Button: React.ComponentType<GeneralButtonProps>;
   PagePresence: React.ComponentType<PagePresenceProps>;
   Overlay: React.ComponentType<OverlayProps>;
+  MessageFilesAttachments: React.ComponentType<MessageFilesAttachmentsProps>;
+  MediaModal: React.ComponentType<MediaModalProps>;
 }>;
 
 type ReplaceWithin = Partial<{
