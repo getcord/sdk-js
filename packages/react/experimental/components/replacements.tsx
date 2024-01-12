@@ -13,6 +13,7 @@ import type { PagePresenceProps } from './PagePresence';
 import type { GeneralButtonProps } from './helpers/Button';
 import type { MessageFilesAttachmentsProps } from './message/MessageFilesAttachments';
 import type { MediaModalProps } from './MediaModal';
+import type { MessageUserReferenceElementProps } from './message/MessageUserReferenceElement';
 
 export type ReplaceConfig = ReplaceConfigBase & ReplaceWithin;
 
@@ -29,6 +30,7 @@ export type ReplaceConfigBase = Partial<{
   Overlay: React.ComponentType<OverlayProps>;
   MessageFilesAttachments: React.ComponentType<MessageFilesAttachmentsProps>;
   MediaModal: React.ComponentType<MediaModalProps>;
+  MessageUserReferenceElement: React.ComponentType<MessageUserReferenceElementProps>;
 }>;
 
 type ReplaceWithin = Partial<{

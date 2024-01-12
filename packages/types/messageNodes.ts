@@ -170,3 +170,5 @@ export type MessageStyledBlockNode =
   | MessageNumberBulletNode
   | MessageTodoNode
   | MessageQuoteNode;
+
+export type FormatStyle = 'normal' | 'action_message';
