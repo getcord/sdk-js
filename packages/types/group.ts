@@ -1,4 +1,4 @@
-import type { ID } from './core';
+import type { EntityMetadata, ID } from './core';
 
 export interface ServerGroupData {
   /**
@@ -26,6 +26,11 @@ export interface ServerGroupData {
    * If the group has connected to a Slack workspace
    */
   connectedToSlack: boolean;
+
+  /**
+   * Arbitrary key-value pairs that can be used to store additional information.
+   */
+  metadata?: EntityMetadata;
 }
 
 export type ServerUpdateGroup = Partial<

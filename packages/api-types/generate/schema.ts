@@ -263,6 +263,13 @@ export default {
                 'Organization name. Required when creating an organization.',
               type: 'string',
             },
+            metadata: {
+              description:
+                'Arbitrary key-value pairs that can be used to store additional information.',
+              type: 'object',
+              additionalProperties: { type: ['string', 'number', 'boolean'] },
+              propertyOrder: [],
+            },
             status: {
               description:
                 'Whether this organization is active or deleted.  Attempting to log into a\ndeleted organization will fail.',
@@ -292,6 +299,13 @@ export default {
             name: {
               description: 'Group name. Required when creating an group.',
               type: 'string',
+            },
+            metadata: {
+              description:
+                'Arbitrary key-value pairs that can be used to store additional information.',
+              type: 'object',
+              additionalProperties: { type: ['string', 'number', 'boolean'] },
+              propertyOrder: [],
             },
             status: {
               description:
@@ -871,6 +885,13 @@ export default {
           'Organization name. Required when creating an organization.',
         type: 'string',
       },
+      metadata: {
+        description:
+          'Arbitrary key-value pairs that can be used to store additional information.',
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
+      },
       status: {
         description:
           'Whether this organization is active or deleted.  Attempting to log into a\ndeleted organization will fail.',
@@ -885,7 +906,7 @@ export default {
       },
     },
     additionalProperties: false,
-    propertyOrder: ['name', 'status', 'members'],
+    propertyOrder: ['name', 'metadata', 'status', 'members'],
     definitions: {
       ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
     },
@@ -921,6 +942,13 @@ export default {
           'Organization name. Required when creating an organization.',
         type: 'string',
       },
+      metadata: {
+        description:
+          'Arbitrary key-value pairs that can be used to store additional information.',
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
+      },
       status: {
         description:
           'Whether this organization is active or deleted.  Attempting to log into a\ndeleted organization will fail.',
@@ -935,7 +963,7 @@ export default {
       },
     },
     additionalProperties: false,
-    propertyOrder: ['id', 'name', 'status', 'members'],
+    propertyOrder: ['id', 'name', 'metadata', 'status', 'members'],
     required: ['id', 'name'],
     definitions: {
       ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
@@ -949,6 +977,13 @@ export default {
       name: {
         description: 'Group name. Required when creating an group.',
         type: 'string',
+      },
+      metadata: {
+        description:
+          'Arbitrary key-value pairs that can be used to store additional information.',
+        type: 'object',
+        additionalProperties: { type: ['string', 'number', 'boolean'] },
+        propertyOrder: [],
       },
       status: {
         description:
@@ -964,7 +999,7 @@ export default {
       },
     },
     additionalProperties: false,
-    propertyOrder: ['name', 'status', 'members'],
+    propertyOrder: ['name', 'metadata', 'status', 'members'],
     definitions: {
       ID: { minLength: 1, maxLength: 128, type: ['string', 'number'] },
     },
@@ -1946,6 +1981,13 @@ export default {
                 'Organization name. Required when creating an organization.',
               type: 'string',
             },
+            metadata: {
+              description:
+                'Arbitrary key-value pairs that can be used to store additional information.',
+              type: 'object',
+              additionalProperties: { type: ['string', 'number', 'boolean'] },
+              propertyOrder: [],
+            },
             status: {
               description:
                 'Whether this organization is active or deleted.  Attempting to log into a\ndeleted organization will fail.',
@@ -1960,7 +2002,7 @@ export default {
             },
           },
           additionalProperties: false,
-          propertyOrder: ['name', 'status', 'members'],
+          propertyOrder: ['name', 'metadata', 'status', 'members'],
         },
       'Partial<Omit<ServerGroupData,"id"|"members"|"connectedToSlack">&{members?:ID[]|undefined;}>':
         {
@@ -1969,6 +2011,13 @@ export default {
             name: {
               description: 'Group name. Required when creating an group.',
               type: 'string',
+            },
+            metadata: {
+              description:
+                'Arbitrary key-value pairs that can be used to store additional information.',
+              type: 'object',
+              additionalProperties: { type: ['string', 'number', 'boolean'] },
+              propertyOrder: [],
             },
             status: {
               description:
@@ -1984,7 +2033,7 @@ export default {
             },
           },
           additionalProperties: false,
-          propertyOrder: ['name', 'status', 'members'],
+          propertyOrder: ['name', 'metadata', 'status', 'members'],
         },
     },
     $schema: 'http://json-schema.org/draft-07/schema#',

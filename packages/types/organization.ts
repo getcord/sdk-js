@@ -1,4 +1,4 @@
-import type { ID } from './core';
+import type { EntityMetadata, ID } from './core';
 
 /**
  * @deprecated use ServerGroupData instead
@@ -29,6 +29,11 @@ export interface ServerOrganizationData {
    * If the organization has connected to a Slack workspace
    */
   connectedToSlack: boolean;
+
+  /**
+   * Arbitrary key-value pairs that can be used to store additional information.
+   */
+  metadata?: EntityMetadata;
 }
 
 /**
