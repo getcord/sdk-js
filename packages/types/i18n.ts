@@ -308,6 +308,9 @@ export const resources = {
         this_year_format: 'MMM D',
         other_format: 'MMM D, YYYY',
       },
+      // Tool tip for the reactions pill.  Will show what one or more users reacted with.
+      reaction_with_emoji_name_tooltip:
+        '{{users, list(style: narrow)}} reacted with {{emojiName}}',
     },
     // The message_templates namespace is used for translating the body of Cord
     // messages by marking the messages with a translationKey.  See
@@ -528,6 +531,9 @@ export const resources = {
       // The text shown for a non-viewer user when further name context is
       // needed
       other_user_subtitle: '{{user.secondaryDisplayName}}',
+      // Text needed for showing simple first person indication
+      // (i.e. for reactions where you have reacted)
+      viewer_user_short: 'You',
     },
     // Cord's emoji picker is an external library, which doesn't use i18next,
     // nor conforms to Cord's patterns. You can still translate these strings
