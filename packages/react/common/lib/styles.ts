@@ -44,9 +44,4 @@ export const LINK_STYLE: Record<
 > = {
   // Stop link overflowing message
   overflowWrap: 'anywhere',
-  textDecoration: 'none',
-};
-
-export const LINK_HOVER_STYLE: React.CSSProperties = {
-  textDecoration: 'underline',
 };
