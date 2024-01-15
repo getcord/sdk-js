@@ -12,14 +12,7 @@ import type {
   ThreadListFilter,
 } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { logComponentInstantiation } from '../common/util';
 import * as user from '../hooks/user';
 import { useThreadCounts, useThread, useLocationData } from '../hooks/thread';
@@ -27,9 +20,9 @@ import { useExtraClassnames } from '../hooks/useExtraClassnames';
 import * as fonts from '../common/ui/atomicClasses/fonts.css';
 import { MODIFIERS } from '../common/ui/modifiers';
 import { useCallFunctionOnce } from '../common/effects/useCallFunctionOnce';
-import { CordContext } from '../contexts/CordContext';
 import { useCordTranslation } from '../hooks/useCordTranslation';
 import { useEnsureHighlightedThreadVisible } from '../hooks/useEnsureHighlightedThreadVisible';
+import { withGroupIDCheck } from '../common/hoc/withGroupIDCheck';
 import type { ThreadListReactComponentProps } from './ThreadList';
 import classes from './ThreadedComments.css';
 import { Composer } from './Composer';
@@ -91,33 +84,11 @@ export type ThreadedCommentsReactComponentProps = {
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 };
 
-export function ThreadedComments(props: ThreadedCommentsReactComponentProps) {
-  const { sdk: cordSDK, organizationID: tokenOrgID } = useContext(CordContext);
-
-  if (!cordSDK) {
-    return null;
-  }
-
-  if (!tokenOrgID && !props.groupId) {
-    console.error('Must specify a groupId');
-    return null;
-  }
-
-  // Only error if the two groups don't match: do allow matching groups for the
-  // purposes of migrations
-  const groupIDSetTwice =
-    tokenOrgID && props.groupId && tokenOrgID !== props.groupId;
-
-  if (groupIDSetTwice) {
-    // TODO: link to docs explainer of the switchover
-    console.error(
-      'Must not specify a groupId on the component if the user is signed in with an access token that contains a groupId - choose one or the other',
-    );
-    return null;
-  }
-
-  return <ThreadedCommentsImpl {...props} />;
-}
+export const ThreadedComments =
+  withGroupIDCheck<ThreadedCommentsReactComponentProps>(
+    ThreadedCommentsImpl,
+    'ThreadedComments',
+  );
 
 function ThreadedCommentsImpl({
   className,
