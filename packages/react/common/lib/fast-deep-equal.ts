@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-export default function equal(a: any, b: any) {
+function equal(a: any, b: any) {
   if (a === b) {
     return true;
   }
@@ -129,3 +129,4 @@ export default function equal(a: any, b: any) {
   // true if both NaN, false otherwise
   return a !== a && b !== b;
 }
+export const isEqual = equal;

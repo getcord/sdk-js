@@ -1,4 +1,4 @@
-import Sizes from '../../const/Sizes';
+import { Sizes } from '../../const/Sizes';
 import { getFontStyles } from '../../ui/atomicClasses/fonts';
 import { cssVar } from '../../ui/cssVariables';
 import {

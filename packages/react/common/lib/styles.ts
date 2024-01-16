@@ -1,5 +1,5 @@
-import Colors from '../const/Colors';
-import Sizes from '@cord-sdk/react/common/const/Sizes';
+import { Colors } from '../const/Colors';
+import { Sizes } from '@cord-sdk/react/common/const/Sizes';
 import { cssVar } from '@cord-sdk/react/common/ui/cssVariables';
 
 const Fonts = {

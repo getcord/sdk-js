@@ -4,7 +4,7 @@ const OPACITY_33 = '54';
 
 // Please use the full 6-character color syntax, otherwise weird things happen
 // when you try to append opacity modifiers, for example the TRANSLUCENT colors
-const Colors = {
+export const Colors = {
   ALERT_LIGHT: '#FDEFEF',
   ALERT: '#EB5757',
   GREEN: '#71BC8F',
@@ -34,8 +34,6 @@ const Colors = {
   CONTENT_PRIMARY: '#696A6C',
   CONTENT_SECONDARY: '#97979F',
 };
-
-export default Colors;
 
 export type Color = keyof typeof Colors;
 

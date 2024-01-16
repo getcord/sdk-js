@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import Keys from '../const/Keys';
+import { Keys } from '../const/Keys';
 import { useUpdatingRef } from './useUpdatingRef';
 
 export function useEscapeListener(

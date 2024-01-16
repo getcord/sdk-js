@@ -1,4 +1,4 @@
-import Sizes from '../const/Sizes';
+import { Sizes } from '../const/Sizes';
 import { ZINDEX } from './zIndex';
 
 const varCache: { [varName in CSSVariable]?: string } = {};

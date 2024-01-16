@@ -4,7 +4,7 @@ import cx from 'classnames';
 import type { ClientUserData } from '@cord-sdk/types';
 import { CordTrans, useCordTranslation } from '../../hooks/useCordTranslation';
 import { useEscapeListener } from '../../common/effects/useEscapeListener';
-import Keys from '../../common/const/Keys';
+import { Keys } from '../../common/const/Keys';
 import {
   isInlineDisplayableImage,
   isInlineDisplayableVideo,

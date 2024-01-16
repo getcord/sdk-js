@@ -1,7 +1,7 @@
 // Full list of key values:
 // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
 
-const Keys = {
+export const Keys = {
   ARROW_DOWN: 'ArrowDown',
   ARROW_LEFT: 'ArrowLeft',
   ARROW_RIGHT: 'ArrowRight',
@@ -29,5 +29,3 @@ const Keys = {
   I: 'i',
   U: 'u',
 };
-
-export default Keys;

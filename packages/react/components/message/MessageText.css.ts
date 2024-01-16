@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import { globalStyle } from '@vanilla-extract/css';
-import Sizes from '../../common/const/Sizes';
+import { Sizes } from '../../common/const/Sizes';
 import { cordifyClassname } from '../../common/util';
 import { editorStyles } from '../../common/lib/editor/styles';
 

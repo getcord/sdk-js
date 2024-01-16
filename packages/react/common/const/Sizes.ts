@@ -13,7 +13,7 @@ const CHECKBOX_DEFAULT_SIZE_PX = LARGE;
 const MAIN_CHAT_AVATAR_SIZE_PX = XLARGE + AVATAR_BORDER_WIDTH_PX * 2;
 const MAIN_CHAT_AVATAR_MARGIN_RIGHT_PX = MEDIUM;
 
-const Sizes = {
+export const Sizes = {
   // Sidebar
   SIDEBAR_COMPACT_WIDTH: 312, // used when viewport width is <= VIEWPORT_WIDTH_BREAKPOINT
   SIDEBAR_NORMAL_WIDTH: 416, // used when viewport width is > VIEWPORT_WIDTH_BREAKPOINT
@@ -215,8 +215,6 @@ const Sizes = {
   XXLARGE,
   XXXLARGE,
 };
-
-export default Sizes;
 
 export type FontSize =
   | 'xSmall'
