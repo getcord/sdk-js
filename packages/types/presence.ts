@@ -113,13 +113,6 @@ export interface ICordPresenceSDK {
     options?: GetPresentOptions,
   ): Promise<PartialUserLocationData[]>;
 
-  addListener(
-    listener: PresenceListener,
-    matcher: Location,
-    options?: AddListenerOptions,
-  ): ListenerRef;
-  removeListener(index: ListenerRef): boolean;
-
   /**
    * This method allows you to observe users who are
    * [present](https://docs.cord.com/js-apis-and-hooks/presence-api) at a
