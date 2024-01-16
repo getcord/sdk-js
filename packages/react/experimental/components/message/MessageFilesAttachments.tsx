@@ -20,8 +20,8 @@ import { MessageVideoAttachment } from './MessageVideoAttachment';
 import * as classes from '@cord-sdk/react/components/MessageContent.classnames';
 
 export type MessageFilesAttachmentsProps = {
-  user: ClientUserData;
-  createdAt: Date;
+  user?: ClientUserData;
+  createdAt?: Date;
   attachments: MessageAttachment[];
 };
 

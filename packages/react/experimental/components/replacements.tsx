@@ -15,6 +15,7 @@ import type { MessageFilesAttachmentsProps } from './message/MessageFilesAttachm
 import type { MediaModalProps } from './MediaModal';
 import type { MessageUserReferenceElementProps } from './message/MessageUserReferenceElement';
 import type { MessageTextProps } from './message/MessageText';
+import type { MessageContentProps } from './message/MessageContent';
 
 export type ReplaceConfig = ReplaceConfigBase & ReplaceWithin;
 
@@ -33,6 +34,7 @@ export type ReplaceConfigBase = Partial<{
   MediaModal: React.ComponentType<MediaModalProps>;
   MessageUserReferenceElement: React.ComponentType<MessageUserReferenceElementProps>;
   MessageText: React.ComponentType<MessageTextProps>;
+  MessageContent: React.ComponentType<MessageContentProps>;
 }>;
 
 type ReplaceWithin = Partial<{

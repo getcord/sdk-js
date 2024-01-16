@@ -19,7 +19,7 @@ export type MessageTextProps = {
   message: ClientMessageData | null | undefined;
   content: MessageContent | null | undefined;
   wasEdited: boolean;
-  isMessageBeingEdited: boolean;
+  isMessageBeingEdited?: boolean;
   hideAnnotationAttachment: boolean;
   formatStyle?: FormatStyle;
 } & React.HTMLAttributes<HTMLDivElement>;

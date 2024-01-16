@@ -10,8 +10,8 @@ export function useMediaModal({
   createdAt,
 }: {
   medias: MediaModalProps['medias'];
-  user: ClientUserData;
-  createdAt: Date;
+  user?: ClientUserData;
+  createdAt?: Date;
 }): [React.JSX.Element | null, (mediaIndex: number) => void] {
   const [mediaModalProps, setMediaModalProps] =
     useState<MediaModalProps | null>(null);
@@ -23,7 +23,7 @@ export function useMediaModal({
     (mediaIndex: number) => {
       setMediaModalProps({
         initialMediaIndex: mediaIndex,
-        banner: { user, timestamp: createdAt },
+        banner: user && createdAt ? { user, timestamp: createdAt } : null,
         closeModal: handleCloseModal,
         medias,
       });
