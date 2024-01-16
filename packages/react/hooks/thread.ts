@@ -520,8 +520,9 @@ export function useThread(
  * our API. Once it has loaded, your component will re-render and the hook will
  * return an array containing message objects including thread location.
  *
- * Please note that the results are limited to 50 messages. To get more
- * specific results, consider using one or more of the other search options provided.
+ * Please note that the results are limited to 50 messages by default, but you
+ * can use the `limit` option to override that. To get more specific results,
+ * consider using one or more of the other search options provided.
  */
 export function useSearchMessages(
   searchOptions: SearchOptionsType,
@@ -535,6 +536,7 @@ export function useSearchMessages(
     locationOptions,
     timestampRange,
     metadata,
+    limit,
   } = searchOptions;
 
   const inputsMemo = useMemoObject({
@@ -545,6 +547,7 @@ export function useSearchMessages(
     groupID,
     timestampRange,
     metadata,
+    limit,
   });
 
   const { sdk } = useCordContext('useSearchMessages');

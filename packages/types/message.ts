@@ -251,6 +251,11 @@ export interface SearchOptionsType {
    * Optional date objects used to scope search.
    */
   timestampRange?: TimestampRange;
+  /**
+   * Number of messages to return. This will default to 50 if no value is provided
+   * but will be capped at 1000 if a value is provided.
+   */
+  limit?: number;
 }
 
 export interface ServerCreateMessage
