@@ -4,6 +4,7 @@ import type {
   CreateAttachment,
   RemoveAttachment,
   ServerCreateThread,
+  SortDirection,
 } from './thread';
 import type { UploadedFile } from './file';
 
@@ -212,6 +213,7 @@ export interface SearchResultData extends ClientMessageData {
   location: Location;
 }
 
+export type SearchSortByOptions = 'created_timestamp' | 'relevance';
 export interface SearchOptionsType {
   /**
    * The string you want to find in message content.
@@ -256,6 +258,25 @@ export interface SearchOptionsType {
    * but will be capped at 1000 if a value is provided.
    */
   limit?: number;
+  /**
+   * Sort the messages returned based on either their creation timestamp or relevance.
+   * Relevance refers to how closely the provided `textToMatch` string matches the content
+   * of the messages.
+   * Combine this with `sortDirection` to fine-tune the sorting order.
+   *
+   * By default, sorting is performed by `relevance` if `textToMatch` is provided, but will
+   * fallback to `created_timestamp` if it's not.
+   */
+  sortBy?: SearchSortByOptions;
+  /**
+   * Property to control the order in which the messages returned are sorted.
+   * Using `sortBy` value of `relevance` and `sortDirection` of `descending` are the
+   * best options for getting the most relevant results at the top and is the
+   * default sorting criteria.
+   *
+   * The default value for this is 'descending'.
+   */
+  sortDirection?: SortDirection;
 }
 
 export interface ServerCreateMessage

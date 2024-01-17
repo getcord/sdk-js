@@ -537,6 +537,8 @@ export function useSearchMessages(
     timestampRange,
     metadata,
     limit,
+    sortBy,
+    sortDirection,
   } = searchOptions;
 
   const inputsMemo = useMemoObject({
@@ -548,6 +550,8 @@ export function useSearchMessages(
     timestampRange,
     metadata,
     limit,
+    sortBy,
+    sortDirection,
   });
 
   const { sdk } = useCordContext('useSearchMessages');
