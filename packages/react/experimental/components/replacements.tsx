@@ -11,6 +11,10 @@ import type { FacepileProps } from './Facepile';
 import type { PresenceFacepileProps } from './PresenceFacepile';
 import type { PagePresenceProps } from './PagePresence';
 import type { GeneralButtonProps } from './helpers/Button';
+import type {
+  OptionsMenuProps,
+  OptionsMenuTooltipProps,
+} from './menu/OptionsMenu';
 import type { MenuProps } from './menu/Menu';
 import type { MessageFilesAttachmentsProps } from './message/MessageFilesAttachments';
 import type { MediaModalProps } from './MediaModal';
@@ -30,6 +34,8 @@ export type ReplaceConfigBase = Partial<{
   AddReactionButton: React.ComponentType<GeneralButtonProps>;
   Button: React.ComponentType<GeneralButtonProps>;
   PagePresence: React.ComponentType<PagePresenceProps>;
+  OptionsMenu: React.ComponentType<OptionsMenuProps>;
+  OptionsMenuTooltip: React.ComponentType<OptionsMenuTooltipProps>;
   Menu: React.ComponentType<MenuProps>;
   Overlay: React.ComponentType<OverlayProps>;
   MessageFilesAttachments: React.ComponentType<MessageFilesAttachmentsProps>;

@@ -21,4 +21,5 @@ export { PagePresence } from './experimental/components/PagePresence';
 export { AddReactionButton } from './experimental/components/AddReactionButton';
 export { Button } from './experimental/components/helpers/Button';
 export { Menu, type MenuProps } from './experimental/components/menu/Menu';
+export { OptionsMenu } from './experimental/components/menu/OptionsMenu';
 export { MessageContent } from './experimental/components/message/MessageContent';
