@@ -15,7 +15,7 @@ type UnpackedClientAuthTokenPayload = {
   organizationID: string | undefined;
 };
 
-function useUnpackClientAuthTokenPayload(
+export function useUnpackClientAuthTokenPayload(
   clientAuthToken: string | null | undefined,
 ): UnpackedClientAuthTokenPayload {
   return useMemo(() => {
@@ -75,5 +75,3 @@ function useUnpackClientAuthTokenPayload(
     return ret;
   }, [clientAuthToken]);
 }
-
-export default useUnpackClientAuthTokenPayload;
