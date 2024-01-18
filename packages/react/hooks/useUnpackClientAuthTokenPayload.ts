@@ -51,25 +51,28 @@ export function useUnpackClientAuthTokenPayload(
 
     if (
       hasOwnProperty(decodedPayload, 'user_id') &&
-      typeof decodedPayload.user_id === 'string'
+      (typeof decodedPayload.user_id === 'string' ||
+        typeof decodedPayload.user_id === 'number')
     ) {
-      ret.userID = decodedPayload.user_id;
+      ret.userID = decodedPayload.user_id.toString();
     } else {
       console.log('`clientAuthToken` was missing user_id');
     }
 
     if (
       hasOwnProperty(decodedPayload, 'organization_id') &&
-      typeof decodedPayload.organization_id === 'string'
+      (typeof decodedPayload.organization_id === 'string' ||
+        typeof decodedPayload.organization_id === 'number')
     ) {
-      ret.organizationID = decodedPayload.organization_id;
+      ret.organizationID = decodedPayload.organization_id.toString();
     }
 
     if (
       hasOwnProperty(decodedPayload, 'group_id') &&
-      typeof decodedPayload.group_id === 'string'
+      (typeof decodedPayload.group_id === 'string' ||
+        typeof decodedPayload.group_id === 'number')
     ) {
-      ret.organizationID = decodedPayload.group_id;
+      ret.organizationID = decodedPayload.group_id.toString();
     }
 
     return ret;
