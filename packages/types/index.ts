@@ -22,6 +22,7 @@ import type {
 } from './thread';
 import type { ICordUserSDK } from './user';
 import type { ClientMessageData } from './message';
+import type { ICordFileSDK } from './file';
 
 export * from './application';
 export * from './auth';
@@ -256,6 +257,7 @@ export interface ICordSDK {
   activity: ICordActivitySDK;
   thread: ICordThreadSDK;
   notification: ICordNotificationSDK;
+  file: ICordFileSDK;
   experimental: Record<string, never>;
   readonly i18n: i18n;
 }
