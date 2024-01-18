@@ -22,8 +22,7 @@ export const Button = withCord(
     props: GeneralButtonProps,
     ref: React.Ref<HTMLButtonElement>,
   ) {
-    const { buttonAction, icon, children, disabled, className, ...restProps } =
-      props;
+    const { buttonAction, icon, children, className, ...htmlProps } = props;
 
     if (!children && !icon) {
       return null;
@@ -33,12 +32,12 @@ export const Button = withCord(
       <button
         data-cord-button={buttonAction}
         aria-label={buttonAction.replaceAll('-', ' ')}
-        type={'button'}
-        {...restProps}
+        type="button"
+        {...htmlProps}
         className={cx(
           className,
           {
-            [MODIFIERS.disabled]: disabled,
+            [MODIFIERS.disabled]: htmlProps.disabled,
             [classes.icon]: !!icon,
             [classes.text]: !!children,
           },
