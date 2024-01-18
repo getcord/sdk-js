@@ -31,7 +31,7 @@ import type {
   DeleteUserVariables,
   CreateWebhookVariables,
   ClientAuthTokenData,
-} from '../src/typeDefinitions';
+} from '../src/typeDefinitions.ts';
 
 export type Types = {
   CreateApplicationVariables: CreateApplicationVariables;

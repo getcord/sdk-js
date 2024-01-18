@@ -1,5 +1,5 @@
-import { MODIFIERS } from '../../common/ui/modifiers';
-import { cordifyClassname } from '../../common/util';
+import { MODIFIERS } from '../../common/ui/modifiers.ts';
+import { cordifyClassname } from '../../common/util.ts';
 
 export const imageAttachmentContainer = cordifyClassname('image-attachment');
 export const imageAttachment = cordifyClassname('image');

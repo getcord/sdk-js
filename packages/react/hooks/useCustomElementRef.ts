@@ -1,9 +1,9 @@
 import type * as React from 'react';
 import { useCallback } from 'react';
 import type { HTMLCordElement } from '@cord-sdk/types';
-import type { CustomEventsDefinition } from './useCustomEventListener';
-import { useCustomEventListeners } from './useCustomEventListener';
-import { useForwardCustomElementRef } from './useForwardCustomElementRef';
+import type { CustomEventsDefinition } from './useCustomEventListener.ts';
+import { useCustomEventListeners } from './useCustomEventListener.ts';
+import { useForwardCustomElementRef } from './useForwardCustomElementRef.ts';
 
 export function useCustomElementRef<
   Events extends Record<string, unknown[]>,

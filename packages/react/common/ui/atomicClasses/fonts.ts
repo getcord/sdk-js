@@ -1,10 +1,10 @@
-import type { CSSVariable, WithCSSVariableOverrides } from '../cssVariables';
+import type { CSSVariable, WithCSSVariableOverrides } from '../cssVariables.ts';
 import {
   cssVarWithOverride,
   cssValueWithOverride,
   cssVar,
-} from '../cssVariables';
-import type { Styles } from './types';
+} from '../cssVariables.ts';
+import type { Styles } from './types.ts';
 
 export type Font =
   | 'body'

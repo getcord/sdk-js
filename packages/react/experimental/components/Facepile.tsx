@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useMemo, forwardRef } from 'react';
 import cx from 'classnames';
-import { isDefined } from '../../common/util';
-import { useUserData } from '../../hooks/user';
-import withCord from './hoc/withCord';
-import { Avatar } from './Avatar';
-import * as classes from '@cord-sdk/react/components/Facepile.classnames';
+import { isDefined } from '../../common/util.ts';
+import { useUserData } from '../../hooks/user.ts';
+import withCord from './hoc/withCord.tsx';
+import { Avatar } from './Avatar.tsx';
+import * as classes from '@cord-sdk/react/components/Facepile.classnames.ts';
 
 export type FacepileProps = {
   userIDs: string[];

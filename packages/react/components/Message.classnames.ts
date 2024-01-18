@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../common/util';
+import { cordifyClassname } from '../common/util.ts';
 
 export const message = cordifyClassname('message');
 export const authorName = cordifyClassname('author-name');

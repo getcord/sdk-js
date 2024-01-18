@@ -58,34 +58,34 @@ import {
 } from 'phosphor-react';
 
 import * as React from 'react';
-import { ArrowUpIcon as ArrowUp } from '../../common/icons/customIcons/ArrowUpIcon';
-import { ArrowRightIcon as ArrowRight } from '../../common/icons/customIcons/ArrowRightIcon';
-import { HelpIcon as Help } from '../../common/icons/customIcons/HelpIcon';
-import { AddEmojiIcon as AddEmoji } from '../../common/icons/customIcons/AddEmojiIcon';
-import { AnnotationPinIcon as AnnotationPin } from '../../common/icons/customIcons/AnnotationPinIcon';
-import { AssignIcon as Assign } from '../../common/icons/customIcons/AssignIcon';
-import { ChatAddIcon as ChatAdd } from '../../common/icons/customIcons/ChatAddIcon';
-import { CursorIcon as Cursor } from '../../common/icons/customIcons/CursorIcon';
-import { SlackIcon as Slack } from '../../common/icons/customIcons/SlackIcon';
+import { ArrowUpIcon as ArrowUp } from '../../common/icons/customIcons/ArrowUpIcon.tsx';
+import { ArrowRightIcon as ArrowRight } from '../../common/icons/customIcons/ArrowRightIcon.tsx';
+import { HelpIcon as Help } from '../../common/icons/customIcons/HelpIcon.tsx';
+import { AddEmojiIcon as AddEmoji } from '../../common/icons/customIcons/AddEmojiIcon.tsx';
+import { AnnotationPinIcon as AnnotationPin } from '../../common/icons/customIcons/AnnotationPinIcon.tsx';
+import { AssignIcon as Assign } from '../../common/icons/customIcons/AssignIcon.tsx';
+import { ChatAddIcon as ChatAdd } from '../../common/icons/customIcons/ChatAddIcon.tsx';
+import { CursorIcon as Cursor } from '../../common/icons/customIcons/CursorIcon.tsx';
+import { SlackIcon as Slack } from '../../common/icons/customIcons/SlackIcon.tsx';
 // eslint-disable-next-line @cspell/spellchecker
-import { SlackColourIcon as SlackColour } from '../../common/icons/customIcons/SlackColourIcon';
-import { AsanaIcon as Asana } from '../../common/icons/customIcons/AsanaIcon';
-import { LinearIcon as Linear } from '../../common/icons/customIcons/LinearIcon';
-import { JiraIcon as Jira } from '../../common/icons/customIcons/JiraIcon';
-import { MondayIcon as Monday } from '../../common/icons/customIcons/MondayIcon';
-import { stripStyleProps } from '../../common/ui/styleProps';
-import type { UIProps } from '../../common/ui/styleProps';
-import { DownSolidIcon as DownSolid } from '../../common/icons/customIcons/DownSolidIcon';
-import { UpSolidIcon as UpSolid } from '../../common/icons/customIcons/UpSolidIcon';
-import { ClipboardIcon as Clipboard } from '../../common/icons/customIcons/ClipboardIcon';
-import { LauncherIcon as Launcher } from '../../common/icons/customIcons/LauncherIcon';
-import { FaceIcon as Face } from '../../common/icons/customIcons/FaceIcon';
-import { WinkSmileyRectIcon as WinkSmileyRect } from '../../common/icons/customIcons/WinkSmileyRectIcon';
-import { WinkSmileyCircleIcon as WinkSmileyCircle } from '../../common/icons/customIcons/WinkSmileyCircleIcon';
-import { ReturnArrowIcon as ReturnArrow } from '../../common/icons/customIcons/ReturnArrow';
-import { MailUnreadIcon as MailUnread } from '../../common/icons/customIcons/MailUnreadIcon';
+import { SlackColourIcon as SlackColour } from '../../common/icons/customIcons/SlackColourIcon.tsx';
+import { AsanaIcon as Asana } from '../../common/icons/customIcons/AsanaIcon.tsx';
+import { LinearIcon as Linear } from '../../common/icons/customIcons/LinearIcon.tsx';
+import { JiraIcon as Jira } from '../../common/icons/customIcons/JiraIcon.tsx';
+import { MondayIcon as Monday } from '../../common/icons/customIcons/MondayIcon.tsx';
+import { stripStyleProps } from '../../common/ui/styleProps.ts';
+import type { UIProps } from '../../common/ui/styleProps.ts';
+import { DownSolidIcon as DownSolid } from '../../common/icons/customIcons/DownSolidIcon.tsx';
+import { UpSolidIcon as UpSolid } from '../../common/icons/customIcons/UpSolidIcon.tsx';
+import { ClipboardIcon as Clipboard } from '../../common/icons/customIcons/ClipboardIcon.tsx';
+import { LauncherIcon as Launcher } from '../../common/icons/customIcons/LauncherIcon.tsx';
+import { FaceIcon as Face } from '../../common/icons/customIcons/FaceIcon.tsx';
+import { WinkSmileyRectIcon as WinkSmileyRect } from '../../common/icons/customIcons/WinkSmileyRectIcon.tsx';
+import { WinkSmileyCircleIcon as WinkSmileyCircle } from '../../common/icons/customIcons/WinkSmileyCircleIcon.tsx';
+import { ReturnArrowIcon as ReturnArrow } from '../../common/icons/customIcons/ReturnArrow.tsx';
+import { MailUnreadIcon as MailUnread } from '../../common/icons/customIcons/MailUnreadIcon.tsx';
 
-import classes from './Icon.css';
+import classes from './Icon.css.ts';
 
 // Icon names must be unique across PHOSPHOR_ICONS and CORD_ICONS - e.g. can't
 // have an icon called 'Settings' in both

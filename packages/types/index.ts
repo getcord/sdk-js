@@ -6,39 +6,39 @@ import type {
   OrganizationID,
   ThreadID,
   UUID,
-} from './core';
-import type { TranslationResources } from './i18n';
-export { TranslationParameters, TranslationResources } from './i18n';
+} from './core.ts';
+import type { TranslationResources } from './i18n.ts';
+export { TranslationParameters, TranslationResources } from './i18n.ts';
 import type {
   CoreNotificationData,
   ICordNotificationSDK,
-} from './notifications';
-import type { ICordPresenceSDK } from './presence';
+} from './notifications.ts';
+import type { ICordPresenceSDK } from './presence.ts';
 import type {
   ClientCreateMessage,
   ICordActivitySDK,
   ICordThreadSDK,
   ThreadSummary,
-} from './thread';
-import type { ICordUserSDK } from './user';
-import type { ClientMessageData } from './message';
-import type { ICordFileSDK } from './file';
+} from './thread.ts';
+import type { ICordUserSDK } from './user.ts';
+import type { ClientMessageData } from './message.ts';
+import type { ICordFileSDK } from './file.ts';
 
-export * from './application';
-export * from './auth';
-export * from './batch';
-export * from './core';
-export * from './file';
-export * from './group';
-export * from './message';
-export * from './messageNodes';
-export * from './notifications';
-export * from './organization';
-export * from './preferences';
-export * from './presence';
-export * from './thread';
-export * from './user';
-export * from './webhook';
+export * from './application.ts';
+export * from './auth.ts';
+export * from './batch.ts';
+export * from './core.ts';
+export * from './file.ts';
+export * from './group.ts';
+export * from './message.ts';
+export * from './messageNodes.ts';
+export * from './notifications.ts';
+export * from './organization.ts';
+export * from './preferences.ts';
+export * from './presence.ts';
+export * from './thread.ts';
+export * from './user.ts';
+export * from './webhook.ts';
 
 export type Point2D = { x: number; y: number };
 

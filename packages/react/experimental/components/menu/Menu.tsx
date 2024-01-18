@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { forwardRef, useCallback } from 'react';
 import cx from 'classnames';
-import withCord from '../hoc/withCord';
-import * as classes from '../../../components/Menu.css';
+import withCord from '../hoc/withCord.tsx';
+import * as classes from '../../../components/Menu.css.ts';
 
 // We need more than just the `element`, so we can manipulate items more easily
 // including filtering out items or adding more items

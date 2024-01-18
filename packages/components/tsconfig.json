@@ -5,6 +5,8 @@
     "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
     "declaration": true,
     "inlineSourceMap": true
   }

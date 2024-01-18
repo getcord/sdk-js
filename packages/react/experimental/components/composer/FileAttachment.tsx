@@ -2,21 +2,21 @@ import * as React from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import cx from 'classnames';
 
-import { DefaultTooltip, WithTooltip } from '../WithTooltip';
-import { Link } from '../helpers/Link';
-import { ButtonWithUnderline } from '../helpers/ButtonWithUnderline';
-import { SpinnerIcon } from '../../../common/icons/customIcons/SpinnerIcon';
-import { getFileSizeString } from '@cord-sdk/react/common/util';
+import { DefaultTooltip, WithTooltip } from '../WithTooltip.tsx';
+import { Link } from '../helpers/Link.tsx';
+import { ButtonWithUnderline } from '../helpers/ButtonWithUnderline.tsx';
+import { SpinnerIcon } from '../../../common/icons/customIcons/SpinnerIcon.tsx';
+import { getFileSizeString } from '@cord-sdk/react/common/util.ts';
 
-import * as classes from '@cord-sdk/react/components/FileAttachment.classnames';
-import { Icon } from '@cord-sdk/react/components/helpers/Icon';
-import type { IconType } from '@cord-sdk/react/components/helpers/Icon';
+import * as classes from '@cord-sdk/react/components/FileAttachment.classnames.ts';
+import { Icon } from '@cord-sdk/react/components/helpers/Icon.tsx';
+import type { IconType } from '@cord-sdk/react/components/helpers/Icon.tsx';
 import { useCordTranslation } from '@cord-sdk/react';
-import { MODIFIERS } from '@cord-sdk/react/common/ui/modifiers';
+import { MODIFIERS } from '@cord-sdk/react/common/ui/modifiers.ts';
 import {
   fontSmall,
   fontSmallEmphasis,
-} from '@cord-sdk/react/common/ui/atomicClasses/fonts.css';
+} from '@cord-sdk/react/common/ui/atomicClasses/fonts.css.ts';
 
 type Props = {
   mimeType: string;

@@ -3,9 +3,9 @@ import {
   emptyStatePlaceholderContainer,
   emptyStatePlaceholderTitle,
   emptyStatePlaceholderBody,
-} from './EmptyStateWithFacepile.classnames';
-import { cssVar } from '@cord-sdk/react/common/ui/cssVariables';
-export * from './EmptyStateWithFacepile.classnames';
+} from './EmptyStateWithFacepile.classnames.ts';
+import { cssVar } from '@cord-sdk/react/common/ui/cssVariables.ts';
+export * from './EmptyStateWithFacepile.classnames.ts';
 
 globalStyle(`.${emptyStatePlaceholderContainer}`, {
   fontFamily: cssVar('font-family'),

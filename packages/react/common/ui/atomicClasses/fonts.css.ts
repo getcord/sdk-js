@@ -1,6 +1,6 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { cssVar } from '../cssVariables';
-import { cordifyClassname } from '../../util';
+import { cssVar } from '../cssVariables.ts';
+import { cordifyClassname } from '../../util.ts';
 
 export const fontBody = cordifyClassname('font-body');
 globalStyle(`.${fontBody}`, {

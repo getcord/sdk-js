@@ -1,4 +1,4 @@
-import type { NotificationPreferences } from './user';
+import type { NotificationPreferences } from './user.ts';
 
 export type ServerUpdatePreference = {
   /**

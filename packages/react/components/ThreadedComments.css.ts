@@ -1,10 +1,10 @@
 import type { CSSProperties } from '@vanilla-extract/css';
 import { globalStyle } from '@vanilla-extract/css';
-import { cordifyClassname } from '../common/util';
-import { cssVar } from '../common/ui/cssVariables';
-import { getModifiedSelector, MODIFIERS } from '../common/ui/modifiers';
-import * as classes from './ThreadedComments.classnames';
-import { separator } from './helpers/Separator.classnames';
+import { cordifyClassname } from '../common/util.ts';
+import { cssVar } from '../common/ui/cssVariables.ts';
+import { getModifiedSelector, MODIFIERS } from '../common/ui/modifiers.ts';
+import * as classes from './ThreadedComments.classnames.ts';
+import { separator } from './helpers/Separator.classnames.ts';
 export default classes;
 
 const {

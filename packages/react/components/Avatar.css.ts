@@ -1,13 +1,13 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { cordifyClassname } from '../common/util';
-import { base as menuItemBase } from './MenuItem.classnames';
-import { cssVar } from '@cord-sdk/react/common/ui/cssVariables';
-import { getModifiedSelector } from '@cord-sdk/react/common/ui/modifiers';
-import * as classes from '@cord-sdk/react/components/Avatar.classnames';
-import { facepileContainer } from '@cord-sdk/react/components/Facepile.classnames';
-import { pinContainer } from '@cord-sdk/react/components/Pin.classnames';
-import { threadFooterContainer } from '@cord-sdk/react/components/Thread.classnames';
-import { emptyStatePlaceholderContainer } from '@cord-sdk/react/components/helpers/EmptyStateWithFacepile.classnames';
+import { cordifyClassname } from '../common/util.ts';
+import { base as menuItemBase } from './MenuItem.classnames.ts';
+import { cssVar } from '@cord-sdk/react/common/ui/cssVariables.ts';
+import { getModifiedSelector } from '@cord-sdk/react/common/ui/modifiers.ts';
+import * as classes from '@cord-sdk/react/components/Avatar.classnames.ts';
+import { facepileContainer } from '@cord-sdk/react/components/Facepile.classnames.ts';
+import { pinContainer } from '@cord-sdk/react/components/Pin.classnames.ts';
+import { threadFooterContainer } from '@cord-sdk/react/components/Thread.classnames.ts';
+import { emptyStatePlaceholderContainer } from '@cord-sdk/react/components/helpers/EmptyStateWithFacepile.classnames.ts';
 export default classes;
 
 const { avatarContainer, avatarFallback, avatarImage } = classes;

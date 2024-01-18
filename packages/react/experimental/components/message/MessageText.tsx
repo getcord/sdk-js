@@ -6,14 +6,14 @@ import type {
   MessageContent,
   MessageNode,
 } from '@cord-sdk/types';
-import { MessageBulletElement } from '../../../components/message/MessageBulletElement';
-import { EditedMessage } from '../../../components/message/EditedMessage';
-import { getMessageNodeChildren } from '../../../common/lib/messageNode';
-import { PARAGRAPH_STYLE } from '../../../common/lib/styles';
-import { wrapTextNodeWithStyles } from '../editor/render';
-import * as classes from '../../../components/message/MessageText.css';
-import withCord from '../hoc/withCord';
-import { MessageUserReferenceElement } from './MessageUserReferenceElement';
+import { MessageBulletElement } from '../../../components/message/MessageBulletElement.tsx';
+import { EditedMessage } from '../../../components/message/EditedMessage.tsx';
+import { getMessageNodeChildren } from '../../../common/lib/messageNode.ts';
+import { PARAGRAPH_STYLE } from '../../../common/lib/styles.ts';
+import { wrapTextNodeWithStyles } from '../editor/render.tsx';
+import * as classes from '../../../components/message/MessageText.css.ts';
+import withCord from '../hoc/withCord.tsx';
+import { MessageUserReferenceElement } from './MessageUserReferenceElement.tsx';
 
 export type MessageTextProps = {
   message: ClientMessageData | null | undefined;

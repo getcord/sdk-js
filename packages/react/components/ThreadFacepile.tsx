@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { isDefined } from '../common/util';
+import { isDefined } from '../common/util.ts';
 import { Facepile, thread } from '@cord-sdk/react';
 
 export function ThreadFacepile({ threadId }: { threadId: string }) {

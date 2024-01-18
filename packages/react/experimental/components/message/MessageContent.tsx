@@ -4,10 +4,10 @@ import type {
   MessageAttachment,
   MessageContent as MessageContentType,
 } from '@cord-sdk/types';
-import * as classes from '../../../components/MessageContent.classnames';
-import withCord from '../hoc/withCord';
-import { MessageFilesAttachments } from './MessageFilesAttachments';
-import { MessageText } from './MessageText';
+import * as classes from '../../../components/MessageContent.classnames.ts';
+import withCord from '../hoc/withCord.tsx';
+import { MessageFilesAttachments } from './MessageFilesAttachments.tsx';
+import { MessageText } from './MessageText.tsx';
 
 export type MessageContentProps = {
   content: MessageContentType;

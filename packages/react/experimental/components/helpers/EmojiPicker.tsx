@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import 'emoji-picker-element';
-import { WithPopper } from './WithPopper';
+import { WithPopper } from './WithPopper.tsx';
 
 import { useCordTranslation } from '@cord-sdk/react';
-import * as classes from '@cord-sdk/react/components/helpers/EmojiPicker.classnames';
+import * as classes from '@cord-sdk/react/components/helpers/EmojiPicker.classnames.ts';
 
 type EmojiEvent = {
   detail: {

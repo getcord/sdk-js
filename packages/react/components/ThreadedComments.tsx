@@ -13,24 +13,28 @@ import type {
 } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { logComponentInstantiation } from '../common/util';
-import * as user from '../hooks/user';
-import { useThreadCounts, useThread, useLocationData } from '../hooks/thread';
-import { useExtraClassnames } from '../hooks/useExtraClassnames';
-import * as fonts from '../common/ui/atomicClasses/fonts.css';
-import { MODIFIERS } from '../common/ui/modifiers';
-import { useCallFunctionOnce } from '../common/effects/useCallFunctionOnce';
-import { useCordTranslation } from '../hooks/useCordTranslation';
-import { useEnsureHighlightedThreadVisible } from '../hooks/useEnsureHighlightedThreadVisible';
-import { withGroupIDCheck } from '../common/hoc/withGroupIDCheck';
-import type { ThreadListReactComponentProps } from './ThreadList';
-import classes from './ThreadedComments.css';
-import { Composer } from './Composer';
-import { Avatar } from './Avatar';
-import { Facepile } from './Facepile';
-import { Message } from './Message';
-import { Icon } from './helpers/Icon';
-import { EmptyStateWithFacepile } from './helpers/EmptyStateWithFacepile';
+import { logComponentInstantiation } from '../common/util.ts';
+import * as user from '../hooks/user.ts';
+import {
+  useThreadCounts,
+  useThread,
+  useLocationData,
+} from '../hooks/thread.ts';
+import { useExtraClassnames } from '../hooks/useExtraClassnames.ts';
+import * as fonts from '../common/ui/atomicClasses/fonts.css.ts';
+import { MODIFIERS } from '../common/ui/modifiers.ts';
+import { useCallFunctionOnce } from '../common/effects/useCallFunctionOnce.ts';
+import { useCordTranslation } from '../hooks/useCordTranslation.tsx';
+import { useEnsureHighlightedThreadVisible } from '../hooks/useEnsureHighlightedThreadVisible.ts';
+import { withGroupIDCheck } from '../common/hoc/withGroupIDCheck.tsx';
+import type { ThreadListReactComponentProps } from './ThreadList.tsx';
+import classes from './ThreadedComments.css.ts';
+import { Composer } from './Composer.tsx';
+import { Avatar } from './Avatar.tsx';
+import { Facepile } from './Facepile.tsx';
+import { Message } from './Message.tsx';
+import { Icon } from './helpers/Icon.tsx';
+import { EmptyStateWithFacepile } from './helpers/EmptyStateWithFacepile.tsx';
 
 const THREADED_COMMENTS_COMPONENT_NAME = 'CORD-THREADED-COMMENTS';
 

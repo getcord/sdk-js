@@ -9,13 +9,13 @@ import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
-import { useCustomElementRef } from '../hooks/useCustomElementRef';
-import { useCordLocation } from '../hooks/useCordLocation';
+import { useCustomElementRef } from '../hooks/useCustomElementRef.ts';
+import { useCordLocation } from '../hooks/useCordLocation.ts';
 import type {
   ReactPropsWithLocation,
   ReactPropsWithStandardHTMLAttributes,
-} from '../types';
-import { useCustomPropsRef } from '../hooks/useCustomPropsRef';
+} from '../types.ts';
+import { useCustomPropsRef } from '../hooks/useCustomPropsRef.ts';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Sidebar,

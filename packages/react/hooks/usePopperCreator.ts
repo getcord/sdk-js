@@ -8,7 +8,7 @@ import {
 } from '@floating-ui/react-dom';
 import type { Placement } from '@floating-ui/react-dom';
 import { useMemo, useRef } from 'react';
-import type { PopperPosition } from '../types';
+import type { PopperPosition } from '../types.ts';
 
 const DEFAULT_POSITION: PopperPosition = 'top';
 const DEFAULT_OFFSET = 0;

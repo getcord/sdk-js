@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { UUID, UploadedFile } from '@cord-sdk/types';
-import * as classes from '@cord-sdk/react/components/message/MessageVideoAttachment.classnames';
+import * as classes from '@cord-sdk/react/components/message/MessageVideoAttachment.classnames.ts';
 
 type Props = {
   file: Pick<UploadedFile, 'id' | 'url'>;

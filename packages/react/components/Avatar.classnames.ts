@@ -1,5 +1,5 @@
-import { MODIFIERS } from '../common/ui/modifiers';
-import { cordifyClassname } from '../common/util';
+import { MODIFIERS } from '../common/ui/modifiers.ts';
+import { cordifyClassname } from '../common/util.ts';
 
 export const avatarContainer = cordifyClassname('avatar-container');
 export const avatarFallback = cordifyClassname('avatar-fallback');

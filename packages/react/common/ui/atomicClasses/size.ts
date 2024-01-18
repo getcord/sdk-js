@@ -2,8 +2,8 @@ import type {
   CSSVariable,
   SpaceVar,
   WithCSSVariableOverrides,
-} from '../cssVariables';
-import { cssVarWithOverride } from '../cssVariables';
+} from '../cssVariables.ts';
+import { cssVarWithOverride } from '../cssVariables.ts';
 
 export type SizeProps = {
   width?: SpaceVar;

@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../../common/util';
+import { cordifyClassname } from '../../common/util.ts';
 
 export const buttonWithUnderline = cordifyClassname('button-underlined');
 export const buttonText = cordifyClassname('button-text');

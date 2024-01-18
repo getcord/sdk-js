@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../common/util';
+import { cordifyClassname } from '../common/util.ts';
 
 // To avoid circular dependencies between various composer css files we put the classes here.
 

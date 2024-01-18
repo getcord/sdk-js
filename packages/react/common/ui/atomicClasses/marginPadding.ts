@@ -2,9 +2,9 @@ import type {
   CSSVariable,
   SpaceVar,
   WithCSSVariableOverrides,
-} from '../cssVariables';
-import { cssValueWithOverride, cssVar } from '../cssVariables';
-import type { Styles } from './types';
+} from '../cssVariables.ts';
+import { cssValueWithOverride, cssVar } from '../cssVariables.ts';
+import type { Styles } from './types.ts';
 
 type MarginProps = {
   margin?: SpaceVar;

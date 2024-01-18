@@ -11,17 +11,17 @@ import type {
   LiveCursorsEventToLocationFnOptions,
 } from '@cord-sdk/types';
 
-import { useCordLocation } from '../hooks/useCordLocation';
-import * as user from '../hooks/user';
-import { useCordContext } from '../contexts/CordContext';
-import { debounce } from '../common/lib/debounce';
-import { withGroupIDCheck } from '../common/hoc/withGroupIDCheck';
-import { POSITION_UPDATE_INTERVAL_MS } from './LiveCursors.css';
+import { useCordLocation } from '../hooks/useCordLocation.ts';
+import * as user from '../hooks/user.ts';
+import { useCordContext } from '../contexts/CordContext.tsx';
+import { debounce } from '../common/lib/debounce.ts';
+import { withGroupIDCheck } from '../common/hoc/withGroupIDCheck.tsx';
+import { POSITION_UPDATE_INTERVAL_MS } from './LiveCursors.css.ts';
 import {
   LiveCursorsDefaultClick,
   LiveCursorsDefaultCursor,
-} from './LiveCursorsDefaultCursor';
-import type { LiveCursorsCursorProps } from './LiveCursorsDefaultCursor';
+} from './LiveCursorsDefaultCursor.tsx';
+import type { LiveCursorsCursorProps } from './LiveCursorsDefaultCursor.tsx';
 
 export type LiveCursorsReactComponentProps = {
   location?: Location;

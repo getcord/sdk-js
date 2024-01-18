@@ -3,10 +3,10 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import type { Location } from '@cord-sdk/types';
 import { Slot } from '@radix-ui/react-slot';
-import { useDocumentVisibility } from '../../common/effects/useDocumentVisibility';
-import { useCordContext } from '../../contexts/CordContext';
-import { useViewerData } from '../../hooks/user';
-import { throttle } from '../../common/lib/throttle';
+import { useDocumentVisibility } from '../../common/effects/useDocumentVisibility.ts';
+import { useCordContext } from '../../contexts/CordContext.tsx';
+import { useViewerData } from '../../hooks/user.ts';
+import { throttle } from '../../common/lib/throttle.ts';
 
 // Number of seconds that need to pass since a given page has lost
 // focus before we stop considering it the page the user is actively

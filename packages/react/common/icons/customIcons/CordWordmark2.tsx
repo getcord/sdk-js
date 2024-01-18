@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CustomSvgIcon } from '../customIcons/CustomSvgIcon';
+import { CustomSvgIcon } from '../customIcons/CustomSvgIcon.tsx';
 
 type Props = JSX.IntrinsicElements['svg'] & {
   fill?: string;

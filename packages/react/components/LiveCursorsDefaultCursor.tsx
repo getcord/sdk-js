@@ -6,9 +6,9 @@ import type {
   ClientUserData,
   LiveCursorsCursorPosition,
 } from '@cord-sdk/types';
-import * as classes from './LiveCursors.css';
-import { Icon } from './helpers/Icon';
-import { Avatar } from './Avatar';
+import * as classes from './LiveCursors.css.ts';
+import { Icon } from './helpers/Icon.tsx';
+import { Avatar } from './Avatar.tsx';
 
 type CursorPosition = NonNullable<LiveCursorsCursorPosition>;
 

@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../common/util';
+import { cordifyClassname } from '../common/util.ts';
 
 export const pinContainer = cordifyClassname('pin-container');
 export const pinClassnamesDocs = {

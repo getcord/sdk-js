@@ -5,9 +5,9 @@ import type {
   ObserveNotificationSummaryOptions,
 } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
-import { useCordContext } from '../contexts/CordContext';
-import { useMemoObject } from './useMemoObject';
-import { useNotificationSummaryInternal } from './useNotificationSummaryInternal';
+import { useCordContext } from '../contexts/CordContext.tsx';
+import { useMemoObject } from './useMemoObject.ts';
+import { useNotificationSummaryInternal } from './useNotificationSummaryInternal.ts';
 
 /**
  * This method allows you to observe the notification summary for the current

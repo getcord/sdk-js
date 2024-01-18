@@ -10,14 +10,14 @@ import type {
 import {
   isInlineDisplayableImage,
   isInlineDisplayableVideo,
-} from '../../../common/lib/uploads';
-import { isNotNull } from '../../../common/util';
-import withCord from '../hoc/withCord';
-import { useMediaModal } from '../../hooks/useMediaModal';
-import { MessageFileAttachment } from './MessageFileAttachment';
-import { MessageImageAttachment } from './MessageImageAttachment';
-import { MessageVideoAttachment } from './MessageVideoAttachment';
-import * as classes from '@cord-sdk/react/components/MessageContent.classnames';
+} from '../../../common/lib/uploads.ts';
+import { isNotNull } from '../../../common/util.ts';
+import withCord from '../hoc/withCord.tsx';
+import { useMediaModal } from '../../hooks/useMediaModal.tsx';
+import { MessageFileAttachment } from './MessageFileAttachment.tsx';
+import { MessageImageAttachment } from './MessageImageAttachment.tsx';
+import { MessageVideoAttachment } from './MessageVideoAttachment.tsx';
+import * as classes from '@cord-sdk/react/components/MessageContent.classnames.ts';
 
 export type MessageFilesAttachmentsProps = {
   user?: ClientUserData;

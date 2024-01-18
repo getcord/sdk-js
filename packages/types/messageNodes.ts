@@ -1,4 +1,4 @@
-import type { UUID } from './core';
+import type { UUID } from './core.ts';
 
 export enum MessageNodeType {
   ANNOTATION = 'annotation',

@@ -8,8 +8,8 @@ import type {
   NotificationListFilter,
   NotificationWebComponentEvents,
 } from '@cord-sdk/types';
-import type { ReactPropsWithStandardHTMLAttributes } from '../types';
-import { useCustomEventListeners } from '../hooks/useCustomEventListener';
+import type { ReactPropsWithStandardHTMLAttributes } from '../types.ts';
+import { useCustomEventListeners } from '../hooks/useCustomEventListener.ts';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.NotificationList,

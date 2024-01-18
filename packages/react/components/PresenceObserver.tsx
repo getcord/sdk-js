@@ -5,12 +5,12 @@ import {
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 
-import { useCustomEventListeners } from '../hooks/useCustomEventListener';
-import { useCordLocation } from '../hooks/useCordLocation';
+import { useCustomEventListeners } from '../hooks/useCustomEventListener.ts';
+import { useCordLocation } from '../hooks/useCordLocation.ts';
 import type {
   ReactPropsWithLocation,
   ReactPropsWithStandardHTMLAttributes,
-} from '../types';
+} from '../types.ts';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.PresenceObserver,

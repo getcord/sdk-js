@@ -8,13 +8,13 @@ import type {
   NotificationListLauncherWebComponentEvents,
   NotificationWebComponentEvents,
 } from '@cord-sdk/types';
-import { useCustomEventListeners } from '../hooks/useCustomEventListener';
+import { useCustomEventListeners } from '../hooks/useCustomEventListener.ts';
 import type {
   PropsWithFlags,
   ReactPropsWithStandardHTMLAttributes,
-} from '../types';
-import { useComposedRefs } from '../common/lib/composeRefs';
-import type { NotificationListReactComponentProps } from './NotificationList';
+} from '../types.ts';
+import { useComposedRefs } from '../common/lib/composeRefs.ts';
+import type { NotificationListReactComponentProps } from './NotificationList.tsx';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.NotificationListLauncher,

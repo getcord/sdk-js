@@ -6,7 +6,7 @@ import {
 import type {
   ReactPropsWithLocation,
   ReactPropsWithStandardHTMLAttributes,
-} from '../types';
+} from '../types.ts';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.SelectionComments,

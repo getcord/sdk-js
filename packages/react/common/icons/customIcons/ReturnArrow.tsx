@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CustomSvgIcon } from '../customIcons/CustomSvgIcon';
+import { CustomSvgIcon } from '../customIcons/CustomSvgIcon.tsx';
 
 export function ReturnArrowIcon(props: JSX.IntrinsicElements['svg']) {
   return (

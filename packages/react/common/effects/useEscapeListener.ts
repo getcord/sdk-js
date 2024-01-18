@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-import { Keys } from '../const/Keys';
-import { useUpdatingRef } from './useUpdatingRef';
+import { Keys } from '../const/Keys.ts';
+import { useUpdatingRef } from './useUpdatingRef.ts';
 
 export function useEscapeListener(
   onEscape: ((event?: Event) => void) | null | undefined,

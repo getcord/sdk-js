@@ -1,18 +1,21 @@
-import type { WithCSSVariableOverrides } from './cssVariables';
+import type { WithCSSVariableOverrides } from './cssVariables.ts';
 import type {
   BorderRadiusOverride,
   BorderRadiusProps,
-} from './atomicClasses/borderRadius';
+} from './atomicClasses/borderRadius.ts';
 import type {
   ColorProps,
   ColorVariablesOverride,
-} from './atomicClasses/colors';
-import type { FontProps, FontVariablesOverride } from './atomicClasses/fonts';
-import type { MarginAndPaddingProps } from './atomicClasses/marginPadding';
-import type { PositionProps } from './atomicClasses/position';
-import type { ShadowProps } from './atomicClasses/shadows';
-import type { SizeProps, SizeVariablesOverride } from './atomicClasses/size';
-import type { UtilityProps } from './atomicClasses/utility';
+} from './atomicClasses/colors.ts';
+import type {
+  FontProps,
+  FontVariablesOverride,
+} from './atomicClasses/fonts.ts';
+import type { MarginAndPaddingProps } from './atomicClasses/marginPadding.ts';
+import type { PositionProps } from './atomicClasses/position.ts';
+import type { ShadowProps } from './atomicClasses/shadows.ts';
+import type { SizeProps, SizeVariablesOverride } from './atomicClasses/size.ts';
+import type { UtilityProps } from './atomicClasses/utility.ts';
 
 export type AllStyleProps = BorderRadiusProps &
   ColorProps &

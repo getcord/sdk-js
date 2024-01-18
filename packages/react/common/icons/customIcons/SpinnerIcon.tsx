@@ -1,8 +1,8 @@
 import * as React from 'react';
 import cx from 'classnames';
-import { Icon } from '@cord-sdk/react/components/helpers/Icon';
+import { Icon } from '@cord-sdk/react/components/helpers/Icon.tsx';
 
-import classes from '@cord-sdk/react/components/helpers/Icon.css';
+import classes from '@cord-sdk/react/components/helpers/Icon.css.ts';
 
 type Props = {
   size?: 'small' | 'large';

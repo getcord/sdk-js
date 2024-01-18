@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../../common/util';
+import { cordifyClassname } from '../../common/util.ts';
 
 export const container = cordifyClassname('bullet-list-container');
 export const unorderedList = cordifyClassname('unordered');

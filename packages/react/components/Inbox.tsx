@@ -4,11 +4,11 @@ import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
-import { useCustomEventListeners } from '../hooks/useCustomEventListener';
+import { useCustomEventListeners } from '../hooks/useCustomEventListener.ts';
 import type {
   PropsWithFlags,
   ReactPropsWithStandardHTMLAttributes,
-} from '../types';
+} from '../types.ts';
 
 const propsToAttributes = propsToAttributeConverter(componentAttributes.Inbox);
 

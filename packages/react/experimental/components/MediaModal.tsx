@@ -2,25 +2,28 @@ import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
 import type { ClientUserData } from '@cord-sdk/types';
-import { CordTrans, useCordTranslation } from '../../hooks/useCordTranslation';
-import { useEscapeListener } from '../../common/effects/useEscapeListener';
-import { Keys } from '../../common/const/Keys';
+import {
+  CordTrans,
+  useCordTranslation,
+} from '../../hooks/useCordTranslation.tsx';
+import { useEscapeListener } from '../../common/effects/useEscapeListener.ts';
+import { Keys } from '../../common/const/Keys.ts';
 import {
   isInlineDisplayableImage,
   isInlineDisplayableVideo,
-} from '../../common/lib/uploads';
-import { Icon } from '../../components/helpers/Icon';
-import { Button } from './helpers/Button';
-import { DefaultTooltip, WithTooltip } from './WithTooltip';
-import { Overlay } from './Overlay';
-import { MessageVideoAttachment } from './message/MessageVideoAttachment';
-import withCord from './hoc/withCord';
-import * as classes from '@cord-sdk/react/components/MediaModal.classnames';
+} from '../../common/lib/uploads.ts';
+import { Icon } from '../../components/helpers/Icon.tsx';
+import { Button } from './helpers/Button.tsx';
+import { DefaultTooltip, WithTooltip } from './WithTooltip.tsx';
+import { Overlay } from './Overlay.tsx';
+import { MessageVideoAttachment } from './message/MessageVideoAttachment.tsx';
+import withCord from './hoc/withCord.tsx';
+import * as classes from '@cord-sdk/react/components/MediaModal.classnames.ts';
 import {
   colorsPrimary,
   medium,
   colorsSecondary,
-} from '@cord-sdk/react/components/helpers/Button.classnames';
+} from '@cord-sdk/react/components/helpers/Button.classnames.ts';
 
 export type MediaModalProps = {
   medias: {

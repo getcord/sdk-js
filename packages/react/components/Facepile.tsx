@@ -3,7 +3,7 @@ import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
-import type { ReactPropsWithStandardHTMLAttributes } from '../types';
+import type { ReactPropsWithStandardHTMLAttributes } from '../types.ts';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Facepile,

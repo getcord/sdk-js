@@ -1,7 +1,7 @@
-import type { ID } from './core';
-import type { ServerUpdateGroup } from './group';
-import type { ServerUpdateOrganization } from './organization';
-import type { ServerUpdateUser } from './user';
+import type { ID } from './core.ts';
+import type { ServerUpdateGroup } from './group.ts';
+import type { ServerUpdateOrganization } from './organization.ts';
+import type { ServerUpdateUser } from './user.ts';
 
 /**
  * https://docs.cord.com/rest-apis/batch/

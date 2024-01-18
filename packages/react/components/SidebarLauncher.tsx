@@ -7,8 +7,8 @@ import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
-import { useCustomEventListeners } from '../hooks/useCustomEventListener';
-import type { ReactPropsWithStandardHTMLAttributes } from '../types';
+import { useCustomEventListeners } from '../hooks/useCustomEventListener.ts';
+import type { ReactPropsWithStandardHTMLAttributes } from '../types.ts';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.SidebarLauncher,

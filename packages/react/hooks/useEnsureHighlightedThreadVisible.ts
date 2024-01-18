@@ -1,7 +1,7 @@
 import type { ThreadSummary } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useRef } from 'react';
-import type { DisplayResolved } from '../components/ThreadedComments';
+import type { DisplayResolved } from '../components/ThreadedComments.tsx';
 
 export function useEnsureHighlightedThreadVisible({
   maybeThreadToHighlight,

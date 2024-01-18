@@ -57,6 +57,8 @@ async function main() {
       target: ts.ScriptTarget.ES2019,
       moduleResolution: ts.ModuleResolutionKind.NodeJs,
       strictNullChecks: true,
+      noEmit: true,
+      allowImportingTsExtensions: true,
     },
     tsCompilerHost,
   );
@@ -137,7 +139,7 @@ function printTypesFile(typeNames) {
   return `// @generated
 // update typeDefinitions.ts and to re-generate run "node  generate.mjs" in sdk-js/packages/api-types
 
-import type {${typeNames.join(', ')}} from '../src/typeDefinitions';
+import type {${typeNames.join(', ')}} from '../src/typeDefinitions.ts';
   
 export type Types = {${types}};
 `;

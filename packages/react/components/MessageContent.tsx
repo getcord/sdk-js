@@ -4,7 +4,7 @@ import {
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 import type { MessageAttachment } from '@cord-sdk/types';
-import type { ReactPropsWithStandardHTMLAttributes } from '../types';
+import type { ReactPropsWithStandardHTMLAttributes } from '../types.ts';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.MessageContent,

@@ -2,11 +2,11 @@ import * as React from 'react'; // eslint-disable-line @typescript-eslint/consis
 
 import { memo } from 'react';
 
-import type { ComponentName } from '../replacements';
-import withPortal from './withPortal';
-import withSDK from './withSDK';
-import withCordClassname from './withCordClassname';
-import withReplacement from './withReplacement';
+import type { ComponentName } from '../replacements.tsx';
+import withPortal from './withPortal.tsx';
+import withSDK from './withSDK.tsx';
+import withCordClassname from './withCordClassname.tsx';
+import withReplacement from './withReplacement.tsx';
 
 interface Props {
   children?: React.ReactNode;

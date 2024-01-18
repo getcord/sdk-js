@@ -1,12 +1,17 @@
-import type { EntityMetadata, UserID, Location, TimestampRange } from './core';
-import type { PaginationDetails } from './pagination';
+import type {
+  EntityMetadata,
+  UserID,
+  Location,
+  TimestampRange,
+} from './core.ts';
+import type { PaginationDetails } from './pagination.ts';
 import type {
   CreateAttachment,
   RemoveAttachment,
   ServerCreateThread,
   SortDirection,
-} from './thread';
-import type { UploadedFile } from './file';
+} from './thread.ts';
+import type { UploadedFile } from './file.ts';
 
 export type Reaction = {
   /**

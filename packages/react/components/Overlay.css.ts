@@ -1,6 +1,6 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { cordifyClassname } from '../common/util';
-import { ZINDEX } from '../common/ui/zIndex';
+import { cordifyClassname } from '../common/util.ts';
+import { ZINDEX } from '../common/ui/zIndex.ts';
 
 export const SCREENSHOT_TRANSITION_IN_MS = 200;
 

@@ -1,4 +1,4 @@
-import type { ListenerRef, Location, UserID } from './core';
+import type { ListenerRef, Location, UserID } from './core.ts';
 
 export type GetPresentOptions = {
   exclude_durable?: boolean;

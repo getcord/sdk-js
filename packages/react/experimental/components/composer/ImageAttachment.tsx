@@ -1,13 +1,13 @@
 import * as React from 'react';
 import cx from 'classnames';
-import { DefaultTooltip, WithTooltip } from '../WithTooltip';
-import * as classes from '@cord-sdk/react/components/composer/ImageAttachment.classnames';
+import { DefaultTooltip, WithTooltip } from '../WithTooltip.tsx';
+import * as classes from '@cord-sdk/react/components/composer/ImageAttachment.classnames.ts';
 import { useCordTranslation } from '@cord-sdk/react';
-import { SpinnerIcon } from '@cord-sdk/react/common/icons/customIcons/SpinnerIcon';
-import { Icon } from '@cord-sdk/react/components/helpers/Icon';
+import { SpinnerIcon } from '@cord-sdk/react/common/icons/customIcons/SpinnerIcon.tsx';
+import { Icon } from '@cord-sdk/react/components/helpers/Icon.tsx';
 
-import { fontSmall } from '@cord-sdk/react/common/ui/atomicClasses/fonts.css';
-import { MODIFIERS } from '@cord-sdk/react/common/ui/modifiers';
+import { fontSmall } from '@cord-sdk/react/common/ui/atomicClasses/fonts.css.ts';
+import { MODIFIERS } from '@cord-sdk/react/common/ui/modifiers.ts';
 
 type Props = {
   onClick: () => unknown;

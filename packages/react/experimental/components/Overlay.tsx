@@ -2,10 +2,10 @@ import * as React from 'react';
 import cx from 'classnames';
 import { forwardRef } from 'react';
 import type { ForwardedRef } from 'react';
-import * as classes from '../../components/Overlay.css';
-import { Portal } from './Portal';
-import withCord from './hoc/withCord';
-import { imageModalOverlay } from '@cord-sdk/react/components/MediaModal.classnames';
+import * as classes from '../../components/Overlay.css.ts';
+import { Portal } from './Portal.tsx';
+import withCord from './hoc/withCord.tsx';
+import { imageModalOverlay } from '@cord-sdk/react/components/MediaModal.classnames.ts';
 
 export type OverlayProps = React.PropsWithChildren<
   React.HTMLProps<HTMLDivElement>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import { CordContext } from '../../contexts/CordContext';
+import { CordContext } from '../../contexts/CordContext.tsx';
 
 interface Props {
   groupId?: string;

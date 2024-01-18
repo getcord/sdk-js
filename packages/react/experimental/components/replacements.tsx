@@ -4,23 +4,23 @@ import type {
   AvatarFallbackProps,
   AvatarProps,
   AvatarTooltipProps,
-} from './Avatar';
+} from './Avatar.tsx';
 
-import type { OverlayProps } from './Overlay';
-import type { FacepileProps } from './Facepile';
-import type { PresenceFacepileProps } from './PresenceFacepile';
-import type { PagePresenceProps } from './PagePresence';
-import type { GeneralButtonProps } from './helpers/Button';
+import type { OverlayProps } from './Overlay.tsx';
+import type { FacepileProps } from './Facepile.tsx';
+import type { PresenceFacepileProps } from './PresenceFacepile.tsx';
+import type { PagePresenceProps } from './PagePresence.tsx';
+import type { GeneralButtonProps } from './helpers/Button.tsx';
 import type {
   OptionsMenuProps,
   OptionsMenuTooltipProps,
-} from './menu/OptionsMenu';
-import type { MenuProps } from './menu/Menu';
-import type { MessageFilesAttachmentsProps } from './message/MessageFilesAttachments';
-import type { MediaModalProps } from './MediaModal';
-import type { MessageUserReferenceElementProps } from './message/MessageUserReferenceElement';
-import type { MessageTextProps } from './message/MessageText';
-import type { MessageContentProps } from './message/MessageContent';
+} from './menu/OptionsMenu.tsx';
+import type { MenuProps } from './menu/Menu.tsx';
+import type { MessageFilesAttachmentsProps } from './message/MessageFilesAttachments.tsx';
+import type { MediaModalProps } from './MediaModal.tsx';
+import type { MessageUserReferenceElementProps } from './message/MessageUserReferenceElement.tsx';
+import type { MessageTextProps } from './message/MessageText.tsx';
+import type { MessageContentProps } from './message/MessageContent.tsx';
 
 export type ReplaceConfig = ReplaceConfigBase & ReplaceWithin;
 

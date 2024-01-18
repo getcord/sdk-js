@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../../common/util';
+import { cordifyClassname } from '../../common/util.ts';
 
 export const anchor = cordifyClassname('anchor');
 export const noUnderline = cordifyClassname('no-underline');

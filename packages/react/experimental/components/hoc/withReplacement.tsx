@@ -5,12 +5,12 @@ import { useAtomValue } from 'jotai';
 import type { WritableAtom } from 'jotai';
 import { ScopeProvider } from 'jotai-scope';
 import { useHydrateAtoms } from 'jotai/react/utils';
-import { registerComponent, replaceRegistry } from '../replacements';
+import { registerComponent, replaceRegistry } from '../replacements.tsx';
 import type {
   ComponentName,
   ReplaceConfig,
   ReplaceConfigBase,
-} from '../replacements';
+} from '../replacements.tsx';
 
 type Props = {
   /**

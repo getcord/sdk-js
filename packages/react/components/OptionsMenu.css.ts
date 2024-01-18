@@ -1,5 +1,5 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { cordifyClassname } from '../common/util';
+import { cordifyClassname } from '../common/util.ts';
 
 const SHARE_TO_EMAIL_MENU_WIDTH = 190;
 const SLACK_CHANNEL_SELECT_MENU_HEIGHT = 400;

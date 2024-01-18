@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../common/util';
+import { cordifyClassname } from '../common/util.ts';
 
 export const container = cordifyClassname('thread-container');
 export const inlineThread = cordifyClassname('inline-thread');

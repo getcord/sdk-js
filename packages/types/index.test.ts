@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-import { isEqualLocation } from './index';
+import { isEqualLocation } from './index.ts';
 
 describe('isEqualLocation', () => {
   test('undefined behavior', () => {

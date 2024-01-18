@@ -2,11 +2,11 @@ import * as React from 'react';
 import cx from 'classnames';
 import { forwardRef } from 'react';
 
-import { Icon } from '../../../components/helpers/Icon';
-import type { IconType } from '../../../components/helpers/Icon';
-import withCord from '../hoc/withCord';
-import * as classes from '@cord-sdk/react/components/helpers/Button.classnames';
-import { MODIFIERS } from '@cord-sdk/react/common/ui/modifiers';
+import { Icon } from '../../../components/helpers/Icon.tsx';
+import type { IconType } from '../../../components/helpers/Icon.tsx';
+import withCord from '../hoc/withCord.tsx';
+import * as classes from '@cord-sdk/react/components/helpers/Button.classnames.ts';
+import { MODIFIERS } from '@cord-sdk/react/common/ui/modifiers.ts';
 
 type AdditionalButtonProps = {
   buttonAction: string;

@@ -1,7 +1,7 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { cordifyClassname } from '../common/util';
-import { ZINDEX } from '@cord-sdk/react/common/ui/zIndex';
-import { cssVar } from '@cord-sdk/react/common/ui/cssVariables';
+import { cordifyClassname } from '../common/util.ts';
+import { ZINDEX } from '@cord-sdk/react/common/ui/zIndex.ts';
+import { cssVar } from '@cord-sdk/react/common/ui/cssVariables.ts';
 
 export const menu = cordifyClassname('menu');
 globalStyle(`.${menu}`, {

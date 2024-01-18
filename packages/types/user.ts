@@ -7,8 +7,8 @@ import type {
   OrganizationID,
   PaginationParams,
   UserID,
-} from './core';
-import type { PaginationDetails } from './pagination';
+} from './core.ts';
+import type { PaginationDetails } from './pagination.ts';
 
 /**
  * The data associated with a Cord user.

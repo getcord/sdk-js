@@ -1,4 +1,4 @@
-import type { EntityMetadata, ID } from './core';
+import type { EntityMetadata, ID } from './core.ts';
 
 export interface ServerGroupData {
   /**

@@ -6,24 +6,24 @@ export {
   // TODO(flooey): Renamed on 2022-08-31; clean up when all usages are gone
   FloatingThreads as AnchoredThreads,
   FloatingThreadsReactComponentProps as AnchoredThreadsReactComponentProps,
-} from './components/FloatingThreads';
+} from './components/FloatingThreads.tsx';
 
 export {
   SelectionComments,
   SelectionCommentsReactComponentProps,
-} from './components/SelectionComments';
+} from './components/SelectionComments.tsx';
 
 export {
   NotificationList,
   NotificationListReactComponentProps,
-} from './components/NotificationList';
+} from './components/NotificationList.tsx';
 
 export {
   NotificationListLauncher,
   NotificationListLauncherReactComponentProps,
-} from './components/NotificationListLauncher';
+} from './components/NotificationListLauncher.tsx';
 
-export { useThreadSummary as useCordThreadSummary } from './hooks/thread';
+export { useThreadSummary as useCordThreadSummary } from './hooks/thread.ts';
 
-export { Pin, PinReactComponentProps } from './components/Pin';
+export { Pin, PinReactComponentProps } from './components/Pin.tsx';
 // Please DO NOT add anything new here!

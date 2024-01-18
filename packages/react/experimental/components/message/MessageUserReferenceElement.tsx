@@ -4,9 +4,9 @@ import cx from 'classnames';
 
 import type { FormatStyle } from '@cord-sdk/types';
 import { MessageNodeType } from '@cord-sdk/types';
-import * as classes from '../../../components/composer/userReferences/UserReferenceElement.css';
-import { useUserData } from '../../../hooks/user';
-import withCord from '../hoc/withCord';
+import * as classes from '../../../components/composer/userReferences/UserReferenceElement.css.ts';
+import { useUserData } from '../../../hooks/user.ts';
+import withCord from '../hoc/withCord.tsx';
 
 export type MessageUserReferenceElementProps = {
   userID: string;

@@ -1,5 +1,5 @@
-import type {} from './i18next';
-import type { ClientUserData } from './user';
+import type {} from './i18next.d.ts';
+import type { ClientUserData } from './user.ts';
 
 // We follow a few patterns in naming to clarify the context in which a string
 // will be displayed, particularly in adding suffixes to keys.  The common

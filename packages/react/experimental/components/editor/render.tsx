@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { MessageTextNode } from '@cord-sdk/types';
-import * as classes from '../../../components/editor/editor.css';
+import * as classes from '../../../components/editor/editor.css.ts';
 
 export const wrapTextNodeWithStyles = (
   node: JSX.Element,

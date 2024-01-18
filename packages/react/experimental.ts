@@ -1,8 +1,8 @@
 export {
   SelectionComments,
   SelectionCommentsReactComponentProps,
-} from './components/SelectionComments';
-export { ThreadFacepile } from './components/ThreadFacepile';
+} from './components/SelectionComments.tsx';
+export { ThreadFacepile } from './components/ThreadFacepile.tsx';
 
 export {
   Avatar,
@@ -11,15 +11,15 @@ export {
   type AvatarTooltipProps,
   type AvatarFallbackProps,
   type AvatarProps,
-} from './experimental/components/Avatar';
+} from './experimental/components/Avatar.tsx';
 
-export { Replace } from './experimental/components/hoc/withReplacement';
-export { Facepile } from './experimental/components/Facepile';
-export { PresenceFacepile } from './experimental/components/PresenceFacepile';
-export { PresenceObserver } from './experimental/components/PresenceObserver';
-export { PagePresence } from './experimental/components/PagePresence';
-export { AddReactionButton } from './experimental/components/AddReactionButton';
-export { Button } from './experimental/components/helpers/Button';
-export { Menu, type MenuProps } from './experimental/components/menu/Menu';
-export { OptionsMenu } from './experimental/components/menu/OptionsMenu';
-export { MessageContent } from './experimental/components/message/MessageContent';
+export { Replace } from './experimental/components/hoc/withReplacement.tsx';
+export { Facepile } from './experimental/components/Facepile.tsx';
+export { PresenceFacepile } from './experimental/components/PresenceFacepile.tsx';
+export { PresenceObserver } from './experimental/components/PresenceObserver.tsx';
+export { PagePresence } from './experimental/components/PagePresence.tsx';
+export { AddReactionButton } from './experimental/components/AddReactionButton.tsx';
+export { Button } from './experimental/components/helpers/Button.tsx';
+export { Menu, type MenuProps } from './experimental/components/menu/Menu.tsx';
+export { OptionsMenu } from './experimental/components/menu/OptionsMenu.tsx';
+export { MessageContent } from './experimental/components/message/MessageContent.tsx';
