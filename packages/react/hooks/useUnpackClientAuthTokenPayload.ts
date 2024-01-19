@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 // This function determines if X has property Y and does so in a
 // a way that preserves the type information within TypeScript.
@@ -37,7 +38,11 @@ export function useUnpackClientAuthTokenPayload(
 
     let decodedPayload: unknown;
     try {
-      decodedPayload = JSON.parse(atob(payload));
+      // Do NOT use atob or libraries depending on atob here - see PR7924.
+      // jsonwebtoken encodes tokens with base64url rather than standard base64,
+      // which involves a couple of character substitutions.  atob will throw if
+      // it encounters these.
+      decodedPayload = jwtDecode(clientAuthToken);
     } catch (e) {
       console.error('`clientAuthToken` payload did not contain valid JSON');
       console.error(e);
