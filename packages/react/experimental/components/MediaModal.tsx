@@ -64,7 +64,7 @@ export const MediaModal = withCord<React.PropsWithChildren<MediaModalProps>>(
     }, [mediaSrc]);
 
     const showPrev = useCallback(() => {
-      setMediaIndex((prev) => (prev - 1) % medias.length);
+      setMediaIndex((prev) => (medias.length + prev - 1) % medias.length);
     }, [medias.length]);
     const showNext = useCallback(() => {
       setMediaIndex((prev) => (prev + 1) % medias.length);
