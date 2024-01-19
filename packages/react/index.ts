@@ -1,45 +1,34 @@
 import type {} from '@cord-sdk/jsx';
 
-export {
-  CordProvider,
-  CordContext,
-  CordContextValue,
-} from './contexts/CordContext.tsx';
+export type { CordContextValue } from './contexts/CordContext.tsx';
+export { CordProvider, CordContext } from './contexts/CordContext.tsx';
+export type { LiveCursorsReactComponentProps } from './components/LiveCursors.tsx';
 export {
   LiveCursors,
-  LiveCursorsReactComponentProps,
   defaultEventToLocation as liveCursorsDefaultEventToLocation,
   defaultLocationToDocument as liveCursorsDefaultLocationToDocument,
 } from './components/LiveCursors.tsx';
+export type { LiveCursorsCursorProps } from './components/LiveCursorsDefaultCursor.tsx';
 export {
-  LiveCursorsCursorProps,
   LiveCursorsDefaultCursor,
   LiveCursorsDefaultClick,
 } from './components/LiveCursorsDefaultCursor.tsx';
-export {
-  PagePresence,
-  PagePresenceReactComponentProps,
-} from './components/PagePresence.tsx';
-export {
-  PresenceFacepile,
-  PresenceFacepileReactComponentProps,
-} from './components/PresenceFacepile.tsx';
-export {
-  PresenceObserver,
-  PresenceObserverReactComponentProps,
-} from './components/PresenceObserver.tsx';
-export { Sidebar, SidebarReactComponentProps } from './components/Sidebar.tsx';
-export {
-  SidebarLauncher,
-  SidebarLauncherReactComponentProps,
-} from './components/SidebarLauncher.tsx';
-export { Thread, ThreadReactComponentProps } from './components/Thread.tsx';
-export {
-  ThreadList,
-  ThreadListReactComponentProps,
-} from './components/ThreadList.tsx';
+export type { PagePresenceReactComponentProps } from './components/PagePresence.tsx';
+export { PagePresence } from './components/PagePresence.tsx';
+export type { PresenceFacepileReactComponentProps } from './components/PresenceFacepile.tsx';
+export { PresenceFacepile } from './components/PresenceFacepile.tsx';
+export type { PresenceObserverReactComponentProps } from './components/PresenceObserver.tsx';
+export { PresenceObserver } from './components/PresenceObserver.tsx';
+export type { SidebarReactComponentProps } from './components/Sidebar.tsx';
+export { Sidebar } from './components/Sidebar.tsx';
+export type { SidebarLauncherReactComponentProps } from './components/SidebarLauncher.tsx';
+export { SidebarLauncher } from './components/SidebarLauncher.tsx';
+export type { ThreadReactComponentProps } from './components/Thread.tsx';
+export { Thread } from './components/Thread.tsx';
+export type { ThreadListReactComponentProps } from './components/ThreadList.tsx';
+export { ThreadList } from './components/ThreadList.tsx';
 export { useCordContext, useCordLocation } from './hooks/useCordLocation.ts';
-export { PresenceReducerOptions } from './types.ts';
+export type { PresenceReducerOptions } from './types.ts';
 export {
   useCordAnnotationTargetRef,
   useCordAnnotationCaptureHandler,
@@ -47,57 +36,42 @@ export {
   useCordAnnotationRenderer,
 } from './hooks/useCordAnnotationTargetRef.ts';
 export { useCordTranslation, CordTrans } from './hooks/useCordTranslation.tsx';
-export {
-  InboxLauncher,
-  InboxLauncherReactComponentProps,
-} from './components/InboxLauncher.tsx';
-export { Inbox, InboxReactComponentProps } from './components/Inbox.tsx';
-export {
-  FloatingThreads,
+export type { InboxLauncherReactComponentProps } from './components/InboxLauncher.tsx';
+export { InboxLauncher } from './components/InboxLauncher.tsx';
+export type { InboxReactComponentProps } from './components/Inbox.tsx';
+export { Inbox } from './components/Inbox.tsx';
+export type {
   FloatingThreadsReactComponentProps,
-  // TODO(flooey): Renamed on 2022-08-31; clean up when all usages are gone
-  FloatingThreads as AnchoredThreads,
   FloatingThreadsReactComponentProps as AnchoredThreadsReactComponentProps,
 } from './components/FloatingThreads.tsx';
 export {
-  NotificationList,
-  NotificationListReactComponentProps,
-} from './components/NotificationList.tsx';
-export {
-  Notification,
-  NotificationReactComponentProps,
-} from './components/Notification.tsx';
-export {
-  NotificationListLauncher,
-  NotificationListLauncherReactComponentProps,
-} from './components/NotificationListLauncher.tsx';
-export { Avatar, AvatarReactComponentProps } from './components/Avatar.tsx';
-export {
-  ComposerReactComponentProps,
-  Composer,
-} from './components/Composer.tsx';
-export {
-  FacepileReactComponentProps,
-  Facepile,
-} from './components/Facepile.tsx';
-export { MessageReactComponentProps, Message } from './components/Message.tsx';
-export { Pin, PinReactComponentProps } from './components/Pin.tsx';
-export {
-  ThreadedComments,
-  ThreadedCommentsReactComponentProps,
-} from './components/ThreadedComments.tsx';
-export {
-  Timestamp,
-  TimestampReactComponentProps,
-} from './components/Timestamp.tsx';
-export {
-  Reactions,
-  ReactionsReactComponentProps,
-} from './components/Reactions.tsx';
-export {
-  MessageContentReactComponentProps,
-  MessageContent,
-} from './components/MessageContent.tsx';
+  FloatingThreads,
+  FloatingThreads as AnchoredThreads,
+} from './components/FloatingThreads.tsx';
+export type { NotificationListReactComponentProps } from './components/NotificationList.tsx';
+export { NotificationList } from './components/NotificationList.tsx';
+export type { NotificationReactComponentProps } from './components/Notification.tsx';
+export { Notification } from './components/Notification.tsx';
+export type { NotificationListLauncherReactComponentProps } from './components/NotificationListLauncher.tsx';
+export { NotificationListLauncher } from './components/NotificationListLauncher.tsx';
+export type { AvatarReactComponentProps } from './components/Avatar.tsx';
+export { Avatar } from './components/Avatar.tsx';
+export type { ComposerReactComponentProps } from './components/Composer.tsx';
+export { Composer } from './components/Composer.tsx';
+export type { FacepileReactComponentProps } from './components/Facepile.tsx';
+export { Facepile } from './components/Facepile.tsx';
+export type { MessageReactComponentProps } from './components/Message.tsx';
+export { Message } from './components/Message.tsx';
+export type { PinReactComponentProps } from './components/Pin.tsx';
+export { Pin } from './components/Pin.tsx';
+export type { ThreadedCommentsReactComponentProps } from './components/ThreadedComments.tsx';
+export { ThreadedComments } from './components/ThreadedComments.tsx';
+export type { TimestampReactComponentProps } from './components/Timestamp.tsx';
+export { Timestamp } from './components/Timestamp.tsx';
+export type { ReactionsReactComponentProps } from './components/Reactions.tsx';
+export { Reactions } from './components/Reactions.tsx';
+export type { MessageContentReactComponentProps } from './components/MessageContent.tsx';
+export { MessageContent } from './components/MessageContent.tsx';
 
 export * as notification from './hooks/notification.ts';
 export * as presence from './hooks/presence.ts';

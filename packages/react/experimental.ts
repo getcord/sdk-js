@@ -1,7 +1,5 @@
-export {
-  SelectionComments,
-  SelectionCommentsReactComponentProps,
-} from './components/SelectionComments.tsx';
+export type { SelectionCommentsReactComponentProps } from './components/SelectionComments.tsx';
+export { SelectionComments } from './components/SelectionComments.tsx';
 export { ThreadFacepile } from './components/ThreadFacepile.tsx';
 
 export {

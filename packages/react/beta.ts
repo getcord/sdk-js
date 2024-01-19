@@ -1,29 +1,25 @@
 // This file is kept purely for backwards compatibility reasons.
 // Everything here should either be available directly or can be found under experimental.
-export {
-  FloatingThreads,
+export type {
   FloatingThreadsReactComponentProps,
-  // TODO(flooey): Renamed on 2022-08-31; clean up when all usages are gone
-  FloatingThreads as AnchoredThreads,
   FloatingThreadsReactComponentProps as AnchoredThreadsReactComponentProps,
 } from './components/FloatingThreads.tsx';
-
 export {
-  SelectionComments,
-  SelectionCommentsReactComponentProps,
-} from './components/SelectionComments.tsx';
+  FloatingThreads,
+  FloatingThreads as AnchoredThreads,
+} from './components/FloatingThreads.tsx';
 
-export {
-  NotificationList,
-  NotificationListReactComponentProps,
-} from './components/NotificationList.tsx';
+export type { SelectionCommentsReactComponentProps } from './components/SelectionComments.tsx';
+export { SelectionComments } from './components/SelectionComments.tsx';
 
-export {
-  NotificationListLauncher,
-  NotificationListLauncherReactComponentProps,
-} from './components/NotificationListLauncher.tsx';
+export type { NotificationListReactComponentProps } from './components/NotificationList.tsx';
+export { NotificationList } from './components/NotificationList.tsx';
+
+export type { NotificationListLauncherReactComponentProps } from './components/NotificationListLauncher.tsx';
+export { NotificationListLauncher } from './components/NotificationListLauncher.tsx';
 
 export { useThreadSummary as useCordThreadSummary } from './hooks/thread.ts';
 
-export { Pin, PinReactComponentProps } from './components/Pin.tsx';
+export type { PinReactComponentProps } from './components/Pin.tsx';
+export { Pin } from './components/Pin.tsx';
 // Please DO NOT add anything new here!
