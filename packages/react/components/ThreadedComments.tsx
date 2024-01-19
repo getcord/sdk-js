@@ -109,7 +109,7 @@ function ThreadedCommentsImpl({
   showReplies = 'initiallyCollapsed',
   highlightThreadId,
   partialMatch = false,
-  filter,
+  filter: _filter,
   threadMetadata = {},
   displayResolved = 'unresolvedOnly',
   autofocus = false,
@@ -129,13 +129,14 @@ function ThreadedCommentsImpl({
   onComposerClose,
   onSend,
 }: ThreadedCommentsReactComponentProps) {
+  const filterWithGroup = { ..._filter, groupID: propGroupID };
   const { thread: maybeThreadToHighlight } = useThread(
     highlightThreadId ?? '',
     {
       filter: {
         location: { value: location, partialMatch },
         groupID: propGroupID,
-        metadata: filter?.metadata,
+        metadata: filterWithGroup?.metadata,
         // We always need to fetch the thread to highlight, regardless of
         // the resolvedStatus. We then adjust the initial state of
         // ThreadedComments based on the resolvedStatus of that thread.
@@ -159,7 +160,7 @@ function ThreadedCommentsImpl({
 
   const threadCounts = useThreadCounts({
     filter: {
-      ...filter,
+      ...filterWithGroup,
       // We are going to deprecate the location and resolvedStatus from the filter parameter.
       // In the meantime, we don't want anyone specifying their value for this hook.
       // This hook needs to fetch information about the location regardless of
@@ -285,9 +286,11 @@ function ThreadedCommentsImpl({
       groupId={propGroupID}
       location={location}
       partialMatch={partialMatch}
-      filter={filter}
+      filter={filterWithGroup}
       resolvedStatus={
-        filter?.resolvedStatus ? filter?.resolvedStatus : resolvedStatus
+        filterWithGroup?.resolvedStatus
+          ? filterWithGroup?.resolvedStatus
+          : resolvedStatus
       }
       sortBy={sortBy}
       scrollDirection={scrollDirection}
@@ -316,7 +319,7 @@ function ThreadedCommentsImpl({
       key="resolved_list"
       location={location}
       partialMatch={partialMatch}
-      filter={filter}
+      filter={filterWithGroup}
       resolvedStatus={'resolved'}
       highlightThread={maybeThreadToHighlight ?? undefined}
       sortBy={sortBy}
