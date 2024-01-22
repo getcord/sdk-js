@@ -1,4 +1,6 @@
 import type { EntityMetadata, ID } from './core.ts';
+import type { PaginationDetails } from './pagination.ts';
+import type { ServerListUser } from './user.ts';
 
 /**
  * @deprecated use ServerGroupData instead
@@ -79,3 +81,14 @@ export interface ServerGetOrganization extends ServerOrganizationData {}
  */
 export interface ServerListOrganization
   extends Omit<ServerOrganizationData, 'members'> {}
+
+export interface ServerListGroupMember
+  extends Omit<
+    ServerListUser,
+    'short_name' | 'profile_picture_url' | 'first_name' | 'last_name'
+  > {}
+
+export interface ServerListGroupMembers {
+  users: ServerListGroupMember[];
+  pagination: PaginationDetails;
+}
