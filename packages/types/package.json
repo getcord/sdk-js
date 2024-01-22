@@ -1,10 +1,9 @@
 {
   "name": "@cord-sdk/types",
   "description": "Common type declarations for the cord-sdk packages",
-  "version": "1.31.0",
+  "version": "1.31.1",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
-  "type": "module",
   "files": [
     "dist/",
     "!dist/cjs/**/*.d.ts",
@@ -41,5 +40,6 @@
         }
       ]
     }
-  }
+  },
+  "type": "module"
 }
