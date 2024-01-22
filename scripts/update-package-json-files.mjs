@@ -12,14 +12,13 @@ remaining fields are preserved as they are.
 */
 
 import { promises as fs } from 'fs';
-import { promisify } from 'util';
 
 import { glob } from 'glob';
 import prettier from 'prettier';
 
 async function main() {
   const mainPkg = JSON.parse(await fs.readFile('package.json'));
-  const packageJsonFiles = await promisify(glob)('packages/*/package.json');
+  const packageJsonFiles = await glob('packages/*/package.json');
 
   for (const fn of packageJsonFiles) {
     const packageName = /^packages\/(.*)\/package\.json$/.exec(fn)[1];
