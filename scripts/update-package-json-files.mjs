@@ -14,7 +14,7 @@ remaining fields are preserved as they are.
 import { promises as fs } from 'fs';
 import { promisify } from 'util';
 
-import glob from 'glob';
+import { glob } from 'glob';
 import prettier from 'prettier';
 
 async function main() {
