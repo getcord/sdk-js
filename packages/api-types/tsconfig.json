@@ -2,7 +2,7 @@
   "compilerOptions": {
     "typeRoots": ["./node_modules/@types"],
     "target": "es2021",
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "strict": true,
     "esModuleInterop": true,
     "noEmit": true,
