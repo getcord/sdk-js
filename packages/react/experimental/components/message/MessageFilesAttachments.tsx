@@ -44,10 +44,10 @@ export const MessageFilesAttachments = withCord<
           return;
         }
 
-        if (isInlineDisplayableImage(attachment)) {
+        if (isInlineDisplayableImage(attachment.mimeType)) {
           imageFileAttachments.push(attachment);
         } else if (
-          isInlineDisplayableVideo(attachment) &&
+          isInlineDisplayableVideo(attachment.mimeType) &&
           !unsupportedVideoIDs.includes(attachment.id)
         ) {
           videoFileAttachments.push(attachment);

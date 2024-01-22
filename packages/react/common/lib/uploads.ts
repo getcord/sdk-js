@@ -18,10 +18,10 @@ const ALLOWED_INLINE_VIDEO_MIME_TYPES = [
  * Returns whether the given file should be rendered as an inline image.  If
  * false, the file should be rendered as a download link.
  */
-export function isInlineDisplayableImage(file: { mimeType: string }) {
-  return ALLOWED_INLINE_IMAGE_MIME_TYPES.includes(file.mimeType);
+export function isInlineDisplayableImage(mimeType: string) {
+  return ALLOWED_INLINE_IMAGE_MIME_TYPES.includes(mimeType);
 }
 
-export function isInlineDisplayableVideo(file: { mimeType: string }) {
-  return ALLOWED_INLINE_VIDEO_MIME_TYPES.includes(file.mimeType);
+export function isInlineDisplayableVideo(mimeType: string) {
+  return ALLOWED_INLINE_VIDEO_MIME_TYPES.includes(mimeType);
 }

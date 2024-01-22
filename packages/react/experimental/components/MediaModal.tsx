@@ -139,14 +139,14 @@ export const MediaModal = withCord<React.PropsWithChildren<MediaModalProps>>(
           ></Button>
         )}
         <div className={classes.imageContainer}>
-          {isInlineDisplayableImage(media) && (
+          {isInlineDisplayableImage(media.mimeType) && (
             <img
               src={mediaSrc}
               className={classes.image}
               onClick={(e) => e.stopPropagation()}
             />
           )}
-          {isInlineDisplayableVideo(media) && (
+          {isInlineDisplayableVideo(media.mimeType) && (
             <MessageVideoAttachment
               file={media}
               onUnsupportedFormat={(id) => {
