@@ -25,6 +25,7 @@ import type { MediaModalProps } from './MediaModal.tsx';
 import type { MessageUserReferenceElementProps } from './message/MessageUserReferenceElement.tsx';
 import type { MessageTextProps } from './message/MessageText.tsx';
 import type { MessageContentProps } from './message/MessageContent.tsx';
+import type { MenuItemProps } from './menu/MenuItem.tsx';
 
 export type ReplaceConfig = ReplaceConfigBase & ReplaceWithin;
 
@@ -41,6 +42,7 @@ export type ReplaceConfigBase = Partial<{
   OptionsMenu: React.ComponentType<OptionsMenuProps>;
   OptionsMenuTooltip: React.ComponentType<OptionsMenuTooltipProps>;
   Menu: React.ComponentType<MenuProps>;
+  MenuItem: React.ComponentType<MenuItemProps>;
   Overlay: React.ComponentType<OverlayProps>;
   MessageFilesAttachments: React.ComponentType<MessageFilesAttachmentsProps>;
   MediaModal: React.ComponentType<MediaModalProps>;
