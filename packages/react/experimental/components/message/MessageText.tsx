@@ -236,10 +236,6 @@ export function RenderNode({
     case MessageNodeType.TODO:
       // [ONI]-TODO maybe implement?
       return null;
-    case MessageNodeType.SLACK_MENTION:
-      // this should never really be a case because this kind of node doesn't get written to db
-      // but just in case.
-      return <span>@{node.slackUserID}</span>;
     default: {
       // it's probably text
       if (node.text !== undefined) {

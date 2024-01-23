@@ -6,7 +6,6 @@ export enum MessageNodeType {
   CODE = 'code',
   LINK = 'link',
   MENTION = 'mention',
-  SLACK_MENTION = 'slack_mention',
   NUMBER_BULLET = 'number_bullet',
   PARAGRAPH = 'p',
   QUOTE = 'quote',
@@ -21,7 +20,6 @@ type MessageAnyNode =
   | MessageCodeNode
   | MessageLinkNode
   | MessageMentionNode
-  | MessageSlackMentionNode
   | MessageNumberBulletNode
   | MessageParagraphNode
   | MessageQuoteNode
@@ -39,8 +37,6 @@ export type MessageNode<N extends MessageNodeType | undefined | null = null> =
     ? MessageBulletNode
     : N extends MessageNodeType.CODE
     ? MessageCodeNode
-    : N extends MessageNodeType.SLACK_MENTION
-    ? MessageSlackMentionNode
     : N extends MessageNodeType.LINK
     ? MessageLinkNode
     : N extends MessageNodeType.MENTION
@@ -88,11 +84,6 @@ export type MessageAssigneeNode = MessageNodeWithChildren & {
   type: MessageNodeType.ASSIGNEE;
   // defined this way to match MessageMentionNode
   user: { id: UUID };
-};
-
-export type MessageSlackMentionNode = MessageNodeWithChildren & {
-  type: MessageNodeType.SLACK_MENTION;
-  slackUserID: string;
 };
 
 export type MessageNumberBulletNode = MessageNodeWithChildren & {

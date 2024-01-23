@@ -79,13 +79,6 @@ export function createAssigneeNode(userID: UUID, name: string) {
   });
 }
 
-export function createSlackMentionNode(slackUserID: string) {
-  return createMessageNode(MessageNodeType.SLACK_MENTION, {
-    slackUserID,
-    children: [{ text: slackUserID }],
-  });
-}
-
 export function createLinkNode(url: string, text: string) {
   return createMessageNode(MessageNodeType.LINK, {
     url,
