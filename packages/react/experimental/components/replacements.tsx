@@ -1,6 +1,10 @@
 import { atom } from 'jotai';
 import type { WritableAtom } from 'jotai';
 import type {
+  ComposerProps,
+  SendButtonProps,
+} from '../../canary/composer/Composer.js';
+import type {
   AvatarFallbackProps,
   AvatarProps,
   AvatarTooltipProps,
@@ -43,6 +47,8 @@ export type ReplaceConfigBase = Partial<{
   MessageUserReferenceElement: React.ComponentType<MessageUserReferenceElementProps>;
   MessageText: React.ComponentType<MessageTextProps>;
   MessageContent: React.ComponentType<MessageContentProps>;
+  Composer: React.ComponentType<ComposerProps>;
+  SendButton: React.ComponentType<SendButtonProps>;
 }>;
 
 type ReplaceWithin = Partial<{
