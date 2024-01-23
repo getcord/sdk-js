@@ -140,10 +140,6 @@ export function RenderNode({
   formatStyle?: FormatStyle;
 }): JSX.Element | null {
   switch (node.type) {
-    case MessageNodeType.ANNOTATION: {
-      // [ONI]-TODO: Maybe implement?
-      return null;
-    }
     case MessageNodeType.BULLET:
       return (
         <MessageBulletElement key={index} className={node.class}>

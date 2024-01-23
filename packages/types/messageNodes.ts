@@ -1,7 +1,6 @@
 import type { UUID } from './core.ts';
 
 export enum MessageNodeType {
-  ANNOTATION = 'annotation',
   ASSIGNEE = 'assignee',
   BULLET = 'bullet',
   CODE = 'code',
@@ -18,7 +17,6 @@ export enum MessageNodeType {
 export type MessageContent = MessageNode[];
 
 type MessageAnyNode =
-  | MessageAnnotationNode
   | MessageAssigneeNode
   | MessageBulletNode
   | MessageCodeNode
@@ -37,8 +35,6 @@ export type MessageNode<N extends MessageNodeType | undefined | null = null> =
     ? MessageAnyNode
     : N extends undefined
     ? MessageTextNode
-    : N extends MessageNodeType.ANNOTATION
-    ? MessageAnnotationNode
     : N extends MessageNodeType.ASSIGNEE
     ? MessageAssigneeNode
     : N extends MessageNodeType.BULLET
@@ -69,12 +65,6 @@ export type MessageNodeBase = {
 };
 export type MessageNodeWithChildren = MessageNodeBase & {
   children: MessageContent;
-};
-export type MessageAnnotationNode = MessageNodeWithChildren & {
-  type: MessageNodeType.ANNOTATION;
-  annotation: {
-    id: UUID;
-  };
 };
 
 export type MessageBulletNode = MessageNodeWithChildren & {
