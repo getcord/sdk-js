@@ -3,28 +3,35 @@ import cx from 'classnames';
 import * as classes from '@cord-sdk/react/components/composer/BulletElement.classnames.ts';
 
 type Props = {
+  attributes: any;
   children: React.ReactNode;
-} & (
-  | {
-      numberBullet: true;
-      bulletNumber: number;
-    }
-  | {
-      numberBullet?: false;
-      bulletNumber?: undefined;
-    }
-);
+  indent: number;
+  numberBullet?: boolean;
+  bulletNumber?: number;
+};
 
 export const BulletElement = ({
+  attributes,
   children,
   numberBullet,
   bulletNumber,
+  indent,
 }: Props) => {
-  const listItem = (
-    <li value={bulletNumber} className={classes.listItem}>
-      {children}
-    </li>
-  );
+  const listItem =
+    indent <= 0 ? (
+      <li value={bulletNumber} className={classes.listItem} {...attributes}>
+        {children}
+      </li>
+    ) : (
+      <BulletElement
+        numberBullet={numberBullet}
+        bulletNumber={bulletNumber}
+        indent={indent - 1}
+        attributes={attributes}
+      >
+        {children}
+      </BulletElement>
+    );
 
   return (
     <>
@@ -34,13 +41,17 @@ export const BulletElement = ({
           style={{
             // Fix for "all: revert" CSS causing the list numbers to all be "1" in Firefox
             // despite having the right "value" prop on the <li>
-            counterReset: `list-item ${bulletNumber - 1}`,
+            counterReset: `list-item ${(bulletNumber ?? 1) - 1}`,
           }}
+          {...attributes}
         >
           {listItem}
         </ol>
       ) : (
-        <ul className={cx(classes.container, classes.unorderedList)}>
+        <ul
+          className={cx(classes.container, classes.unorderedList)}
+          {...attributes}
+        >
           {listItem}
         </ul>
       )}

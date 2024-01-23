@@ -1,5 +1,6 @@
 import * as React from 'react';
 import type { HTMLProps } from 'react';
+import isHotkey from 'is-hotkey';
 import {
   forwardRef,
   useCallback,
@@ -11,9 +12,9 @@ import {
 import cx from 'classnames';
 import { createEditor } from 'slate';
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react';
+import { withHistory } from 'slate-history';
 import { v4 as uuid } from 'uuid';
 import type { ClientCreateThread, MessageContent } from '@cord-sdk/types';
-import { MessageNodeType } from '@cord-sdk/types';
 import { CordContext } from '../../contexts/CordContext.tsx';
 import { Button } from '../../experimental/components/helpers/Button.tsx';
 import {
@@ -23,33 +24,30 @@ import {
   sendButton,
   small,
 } from '../../components/helpers/Button.classnames.ts';
-import withCord from '../../experimental/components/hoc/withCord.ts';
-import { isEqual } from '../../common/lib/fast-deep-equal.ts';
-import { createMessageNode } from '../../common/lib/messageNode.tsx';
+import withCord from '../../experimental/components/hoc/withCord.tsx';
 import { useCordTranslation } from '../../hooks/useCordTranslation.tsx';
+import { Keys } from '../../common/const/Keys.ts';
 
-// Important not to use this value directly, as Slate gets confused two
-// editors have the same value by reference. This can lead to a bug where
-// onChange fires for multiple editors
-const COMPOSER_EMPTY_VALUE_FOR_COMPARING = createComposerEmptyValue();
-export function createComposerEmptyValue() {
-  return [
-    createMessageNode(MessageNodeType.PARAGRAPH, {
-      children: [{ text: '' }],
-    }),
-  ];
-}
-export function isComposerEmpty(value: MessageContent) {
-  return (
-    isEqual(value, COMPOSER_EMPTY_VALUE_FOR_COMPARING) || isEqual(value, [])
-  );
-}
+import { withQuotes } from './plugins/quotes.ts';
+import { withBullets } from './plugins/bullets.ts';
+import { withHTMLPaste } from './plugins/paste.ts';
+import { renderElement, renderLeaf } from './lib/render.tsx';
+import { onSpace } from './event-handlers/onSpace.ts';
+import { onInlineModifier } from './event-handlers/onInlineModifier.ts';
+import { onDeleteOrBackspace } from './event-handlers/onDeleteOrBackspace.ts';
+import { onArrow } from './event-handlers/onArrowPress.ts';
+import { onTab } from './event-handlers/onTab.ts';
+import { onShiftEnter } from './event-handlers/onShiftEnter.ts';
+import { EditorCommands, HOTKEYS } from './lib/commands.ts';
+import { createComposerEmptyValue, editableStyle } from './lib/util.ts';
+
 export type ComposerProps = {
   value?: MessageContent;
   threadId?: string;
   createThread?: ClientCreateThread;
   placeholder?: string;
 };
+
 export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
   forwardRef(function Composer({
     threadId,
@@ -58,7 +56,11 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
     placeholder,
   }: ComposerProps) {
     const { t } = useCordTranslation('composer');
-    const [editor] = useState(() => withReact(createEditor()));
+    const [editor] = useState(() =>
+      withHTMLPaste(
+        withBullets(withQuotes(withReact(withHistory(createEditor())))),
+      ),
+    );
     const [attachmentsIDs, setAttachmentsIDs] = useState<string[]>([]);
     const { sdk: cord } = useContext(CordContext);
     const attachFileInputRef = useRef<HTMLInputElement>(null);
@@ -102,9 +104,9 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
       });
       handleResetState();
     }, [
+      editor.children,
       cord?.thread,
       threadId,
-      editor.children,
       attachmentsIDs,
       createThread,
       handleResetState,
@@ -132,6 +134,99 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
       attachFileInputRef.current?.click();
     }, []);
 
+    const onKeyDown = useCallback(
+      (event: React.KeyboardEvent) => {
+        for (const hotkey in HOTKEYS) {
+          if (isHotkey.default(hotkey, event)) {
+            event.preventDefault();
+            const mark = HOTKEYS[hotkey];
+            EditorCommands.toggleMark(editor, mark);
+            return;
+          }
+        }
+
+        // Debug dump
+        if (isHotkey.default('ctrl+shift+d', event as any)) {
+          event.preventDefault();
+          // eslint-disable-next-line no-console
+          console.log('Editor content:', editor.children);
+          return;
+        }
+
+        if (event.key === Keys.SPACEBAR) {
+          onSpace(editor, event);
+          return;
+        }
+
+        if (
+          event.key === Keys.BACKTICK ||
+          event.key === Keys.ASTERISK ||
+          event.key === Keys.UNDERSCORE
+        ) {
+          onInlineModifier(editor, event);
+          return;
+        }
+
+        if (event.key === Keys.BACKSPACE || event.key === Keys.DELETE) {
+          onDeleteOrBackspace(editor, event);
+          return;
+        }
+
+        if (
+          !event.shiftKey &&
+          !event.ctrlKey &&
+          !event.metaKey &&
+          (event.key === Keys.ARROW_UP ||
+            event.key === Keys.ARROW_DOWN ||
+            event.key === Keys.ARROW_LEFT ||
+            event.key === Keys.ARROW_RIGHT)
+        ) {
+          onArrow(editor, event);
+          return;
+        }
+
+        if (event.key === Keys.ENTER) {
+          if (event.shiftKey) {
+            onShiftEnter(editor, event);
+            return;
+          } else {
+            event.preventDefault();
+            handleSendMessage();
+          }
+        }
+
+        if (event.key === Keys.TAB) {
+          onTab(editor, event);
+        }
+
+        if (event.key === Keys.ESCAPE) {
+          ReactEditor.blur(editor);
+          // [ONI]-TODO handle stop editing
+        }
+      },
+      [editor, handleSendMessage],
+    );
+
+    // Attach pasted images
+    const handlePaste = useCallback(
+      (e: React.ClipboardEvent) => {
+        const { files } = e.clipboardData;
+
+        if (
+          files &&
+          files.length > 0 &&
+          [...files].every((file) => {
+            const [mime] = file.type.split('/');
+            return mime === 'image';
+          })
+        ) {
+          e.stopPropagation();
+          attachFiles(files).catch(console.warn);
+        }
+      },
+      [attachFiles],
+    );
+
     return (
       <div
         className="cord-component cord-composer"
@@ -150,13 +245,20 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
           initialValue={value ?? createComposerEmptyValue()}
         >
           <Editable
+            // className="cord-editor"
             placeholder={placeholder ?? t('send_message_placeholder')}
             style={{
               outline: 'none',
-              // TODO Properly style this.
+              // [ONI]-TODO Properly style this.
               padding: '0 8px 16px',
+              ...editableStyle,
             }}
+            renderElement={renderElement}
+            renderLeaf={renderLeaf}
+            onKeyDown={onKeyDown}
+            onPaste={handlePaste}
           />
+          {/* [ONI]-TODO Add custom placeholder */}
           <input
             ref={attachFileInputRef}
             type="file"
