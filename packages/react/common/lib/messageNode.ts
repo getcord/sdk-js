@@ -162,10 +162,7 @@ export function getMessageNodeChildren(node: MessageNode) {
 export const textFromNodeRecursive = (node: MessageNode): string => {
   let textArr: Array<string> = [];
 
-  if (
-    isMessageNodeText(node) ||
-    node.type === MessageNodeType.LINK_DEPRECATED
-  ) {
+  if (isMessageNodeText(node)) {
     return node.text;
   }
 

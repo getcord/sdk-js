@@ -160,12 +160,6 @@ export function RenderNode({
           })}
         </pre>
       );
-    case MessageNodeType.LINK_DEPRECATED:
-      return (
-        <a key={index} href={node.url} target="_blank" rel="noreferrer">
-          {node.text}
-        </a>
-      );
     case MessageNodeType.LINK:
       return (
         <a

@@ -4,7 +4,6 @@ export enum MessageNodeType {
   ASSIGNEE = 'assignee',
   BULLET = 'bullet',
   CODE = 'code',
-  LINK_DEPRECATED = 'a',
   LINK = 'link',
   MENTION = 'mention',
   SLACK_MENTION = 'slack_mention',
@@ -20,7 +19,6 @@ type MessageAnyNode =
   | MessageAssigneeNode
   | MessageBulletNode
   | MessageCodeNode
-  | MessageLinkDeprecatedNode
   | MessageLinkNode
   | MessageMentionNode
   | MessageSlackMentionNode
@@ -43,8 +41,6 @@ export type MessageNode<N extends MessageNodeType | undefined | null = null> =
     ? MessageCodeNode
     : N extends MessageNodeType.SLACK_MENTION
     ? MessageSlackMentionNode
-    : N extends MessageNodeType.LINK_DEPRECATED
-    ? MessageLinkDeprecatedNode
     : N extends MessageNodeType.LINK
     ? MessageLinkNode
     : N extends MessageNodeType.MENTION
@@ -74,12 +70,6 @@ export type MessageBulletNode = MessageNodeWithChildren & {
 
 export type MessageCodeNode = MessageNodeWithChildren & {
   type: MessageNodeType.CODE;
-};
-
-export type MessageLinkDeprecatedNode = MessageNodeBase & {
-  type: MessageNodeType.LINK_DEPRECATED;
-  text: string;
-  url: string;
 };
 
 export type MessageLinkNode = MessageNodeWithChildren & {
