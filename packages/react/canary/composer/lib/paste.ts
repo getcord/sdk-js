@@ -7,14 +7,26 @@ import type {
   MessageParagraphNode,
 } from '@cord-sdk/types';
 import { MessageNodeType } from '@cord-sdk/types';
+import { trimStart } from '../../../common/lib/trim.ts';
 import {
   isMessageNodeType,
   createLinkNode,
-  createSlackMentionNode,
 } from '@cord-sdk/react/common/lib/messageNode.ts';
-import { trimStart } from '@cord-sdk/react/common/lib/trim.ts';
 
 const RICH_CONTENT_TAGS = ['BLOCKQUOTE', 'PRE', 'LI'];
+
+export type MessageSlackMentionNode = {
+  type: 'slack_mention';
+  slackUserID: string;
+};
+
+function createSlackMentionNode(slackUserID: string) {
+  return {
+    type: 'slack_mention',
+    slackUserID,
+    children: [{ text: slackUserID }],
+  };
+}
 
 function createElement<
   NodeType extends MessageNodeType,
@@ -40,12 +52,12 @@ function isSlackMention(element: HTMLElement) {
 }
 
 // Recursively deserialize HTML
-export const deserializeElementToMessageContent = (
+export function deserializeElementToMessageContent(
   element: HTMLElement,
   excludeRichContent: boolean,
-): any => {
+): any {
   return deserializeElement(element, excludeRichContent, [], null);
-};
+}
 
 // We can't use Node constants here because this is shared with server-side
 // handling of Slack messages, so create our own constants for them.
@@ -179,8 +191,7 @@ function mergeInlineNodesIntoParagraphs(nodes: MessageContent) {
     const inlineNode =
       !node.type ||
       node.type === MessageNodeType.LINK ||
-      node.type === MessageNodeType.MENTION ||
-      node.type === MessageNodeType.SLACK_MENTION;
+      node.type === MessageNodeType.MENTION;
     if (inlineNode) {
       nodesToMerge.push(node);
     } else {
