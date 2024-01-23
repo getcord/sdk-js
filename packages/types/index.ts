@@ -112,7 +112,7 @@ export type CordSDKOptions = {
    * A set of translations to use in Cord components.  This is an object where
    * the keys are language codes and the values are objects representing
    * translation keys.  See [the detailed guide to customizing Cord's
-   * text](https://docs.cord.com/how-to/translations) for more details.
+   * text](https://docs.cord.com/customization/translations) for more details.
    */
   translations?: Translations;
   /**

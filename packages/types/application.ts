@@ -67,7 +67,7 @@ export interface ApplicationData {
   /**
    * Custom url link contained in email and slack notifications. These notifications are sent when a user is
    * mentioned or thread is shared and by default, the link points to the page where the conversation happened.
-   * For more information, please refer to the [API docs](/how-to/custom-redirect-link)
+   * For more information, please refer to the [API docs](/customization/redirect-link)
    */
   redirectURI: string | null;
   /**

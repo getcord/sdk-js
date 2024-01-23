@@ -314,7 +314,7 @@ export const resources = {
     },
     // The message_templates namespace is used for translating the body of Cord
     // messages by marking the messages with a translationKey.  See
-    // https://docs.cord.com/how-to/translations for more details on message
+    // https://docs.cord.com/customization/translations for more details on message
     // translation.
     message_templates: {
       cord: {
@@ -625,7 +625,7 @@ export type TranslationParameters = {
 export type Translation = {
   /**
    * A translation key that is used to look up the proper translation.  See [the
-   * translations documentation](https://docs.cord.com/how-to/translations) for
+   * translations documentation](https://docs.cord.com/customization/translations) for
    * more information on how translations work.
    */
   key: string;

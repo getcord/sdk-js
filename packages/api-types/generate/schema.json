@@ -20,7 +20,7 @@
         "type": ["null", "string"]
       },
       "redirectURI": {
-        "description": "Custom url link contained in email and slack notifications. These notifications are sent when a user is\nmentioned or thread is shared and by default, the link points to the page where the conversation happened.\nFor more information, please refer to the [API docs](/how-to/custom-redirect-link)",
+        "description": "Custom url link contained in email and slack notifications. These notifications are sent when a user is\nmentioned or thread is shared and by default, the link points to the page where the conversation happened.\nFor more information, please refer to the [API docs](/customization/redirect-link)",
         "type": ["null", "string"]
       }
     },
@@ -102,7 +102,7 @@
         "type": ["null", "string"]
       },
       "redirectURI": {
-        "description": "Custom url link contained in email and slack notifications. These notifications are sent when a user is\nmentioned or thread is shared and by default, the link points to the page where the conversation happened.\nFor more information, please refer to the [API docs](/how-to/custom-redirect-link)",
+        "description": "Custom url link contained in email and slack notifications. These notifications are sent when a user is\nmentioned or thread is shared and by default, the link points to the page where the conversation happened.\nFor more information, please refer to the [API docs](/customization/redirect-link)",
         "type": ["null", "string"]
       }
     },
@@ -424,7 +424,7 @@
         "type": ["null", "string"]
       },
       "translationKey": {
-        "description": "An optional translation key used for this message.  This is useful for\nsystem-generated messages where you might want to translate or customize\nthem at runtime.  See [the translations\ndocumentation](/how-to/translations) for more\ninformation.",
+        "description": "An optional translation key used for this message.  This is useful for\nsystem-generated messages where you might want to translate or customize\nthem at runtime.  See [the translations\ndocumentation](/customization/translations) for more\ninformation.",
         "type": ["null", "string"]
       },
       "skipLinkPreviews": {
@@ -627,7 +627,7 @@
         "type": ["null", "string"]
       },
       "translationKey": {
-        "description": "An optional translation key used for this message.  This is useful for\nsystem-generated messages where you might want to translate or customize\nthem at runtime.  See [the translations\ndocumentation](/how-to/translations) for more\ninformation.",
+        "description": "An optional translation key used for this message.  This is useful for\nsystem-generated messages where you might want to translate or customize\nthem at runtime.  See [the translations\ndocumentation](/customization/translations) for more\ninformation.",
         "type": ["null", "string"]
       },
       "skipLinkPreviews": {

@@ -168,7 +168,7 @@ export interface CoreMessageData {
    * An optional translation key used for this message.  This is useful for
    * system-generated messages where you might want to translate or customize
    * them at runtime.  See [the translations
-   * documentation](https://docs.cord.com/how-to/translations) for more
+   * documentation](https://docs.cord.com/customization/translations) for more
    * information.
    */
   translationKey: string | null;

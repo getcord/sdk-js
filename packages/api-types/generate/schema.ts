@@ -23,7 +23,7 @@ export default {
       },
       redirectURI: {
         description:
-          'Custom url link contained in email and slack notifications. These notifications are sent when a user is\nmentioned or thread is shared and by default, the link points to the page where the conversation happened.\nFor more information, please refer to the [API docs](/how-to/custom-redirect-link)',
+          'Custom url link contained in email and slack notifications. These notifications are sent when a user is\nmentioned or thread is shared and by default, the link points to the page where the conversation happened.\nFor more information, please refer to the [API docs](/customization/redirect-link)',
         type: ['null', 'string'],
       },
     },
@@ -111,7 +111,7 @@ export default {
       },
       redirectURI: {
         description:
-          'Custom url link contained in email and slack notifications. These notifications are sent when a user is\nmentioned or thread is shared and by default, the link points to the page where the conversation happened.\nFor more information, please refer to the [API docs](/how-to/custom-redirect-link)',
+          'Custom url link contained in email and slack notifications. These notifications are sent when a user is\nmentioned or thread is shared and by default, the link points to the page where the conversation happened.\nFor more information, please refer to the [API docs](/customization/redirect-link)',
         type: ['null', 'string'],
       },
     },
@@ -451,7 +451,7 @@ export default {
       },
       translationKey: {
         description:
-          'An optional translation key used for this message.  This is useful for\nsystem-generated messages where you might want to translate or customize\nthem at runtime.  See [the translations\ndocumentation](/how-to/translations) for more\ninformation.',
+          'An optional translation key used for this message.  This is useful for\nsystem-generated messages where you might want to translate or customize\nthem at runtime.  See [the translations\ndocumentation](/customization/translations) for more\ninformation.',
         type: ['null', 'string'],
       },
       skipLinkPreviews: {
@@ -660,7 +660,7 @@ export default {
       },
       translationKey: {
         description:
-          'An optional translation key used for this message.  This is useful for\nsystem-generated messages where you might want to translate or customize\nthem at runtime.  See [the translations\ndocumentation](/how-to/translations) for more\ninformation.',
+          'An optional translation key used for this message.  This is useful for\nsystem-generated messages where you might want to translate or customize\nthem at runtime.  See [the translations\ndocumentation](/customization/translations) for more\ninformation.',
         type: ['null', 'string'],
       },
       skipLinkPreviews: {

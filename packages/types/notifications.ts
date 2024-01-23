@@ -139,7 +139,7 @@ export interface CoreNotificationData {
    * null for notifications you [create through the REST
    * API](https://docs.cord.com/rest-apis/notifications#Create-a-notification).
    * See [the translations
-   * documentation](https://docs.cord.com/how-to/translations) for more
+   * documentation](https://docs.cord.com/customization/translations) for more
    * information.
    */
   headerTranslation: Translation | null;
