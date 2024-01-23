@@ -8,6 +8,7 @@ import type { PresenceReducerOptions } from '../../types.ts';
 import { useLocationData } from '../../hooks/presence.ts';
 import { getUsersAtLocation } from '../../common/lib/presence.ts';
 import { useTime } from '../../common/effects/useTime.tsx';
+import { relativeTimestampString } from '../../common/util.ts';
 import { DefaultTooltip, WithTooltip } from './WithTooltip.tsx';
 import { Avatar } from './Avatar.tsx';
 import withCord from './hoc/withCord.tsx';
@@ -217,13 +218,4 @@ function useFacepileUsers({
     usersDataByUserID,
     viewerID,
   ]);
-}
-
-// TODO: Implement this
-function relativeTimestampString(
-  _lastPresent: Date,
-  _time: number,
-  _relativeT: unknown,
-): string | undefined {
-  return undefined;
 }
