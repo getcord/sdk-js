@@ -4,3 +4,4 @@ import './Menu.css';
 import './MenuItem.css';
 import './message/MessageText.css';
 import './editor/editor.css';
+import './Separator.css';
