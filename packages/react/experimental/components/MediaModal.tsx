@@ -42,7 +42,10 @@ export type MediaModalProps = {
 };
 
 export const MediaModal = withCord<React.PropsWithChildren<MediaModalProps>>(
-  React.forwardRef(function MediaModal(props: MediaModalProps) {
+  React.forwardRef(function MediaModal(
+    props: MediaModalProps,
+    ref: React.ForwardedRef<HTMLDivElement>,
+  ) {
     const { t } = useCordTranslation('message');
     const {
       initialMediaIndex,
@@ -83,7 +86,7 @@ export const MediaModal = withCord<React.PropsWithChildren<MediaModalProps>>(
     }, [showNext, showPrev]);
 
     return (
-      <Overlay onClick={closeModal}>
+      <Overlay onClick={closeModal} ref={ref}>
         <div className={classes.topBanner} onClick={(e) => e.stopPropagation()}>
           {banner && (
             <>
