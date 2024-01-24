@@ -1,3 +1,5 @@
+import type { ClientMessageData } from '@cord-sdk/types';
+
 import dayjs from 'dayjs';
 import Calendar from 'dayjs/plugin/calendar.js';
 dayjs.extend(Calendar);
@@ -74,6 +76,13 @@ export function getFileSizeString(size: number) {
     fileSizeString = size.toString() + ' bytes';
   }
   return fileSizeString;
+}
+
+export function isUserAuthorOfMessage(
+  message: ClientMessageData,
+  userID: string | null | undefined,
+) {
+  return !userID || userID === message.authorID;
 }
 
 export function relativeTimestampString(
