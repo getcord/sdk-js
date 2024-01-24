@@ -260,6 +260,7 @@ export interface ICordSDK {
   file: ICordFileSDK;
   experimental: Record<string, never>;
   readonly i18n: i18n;
+  groupID?: string;
 }
 
 declare global {
