@@ -111,7 +111,9 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
     const popperElement = useMemo(() => {
       switch (menuToShow) {
         case 'actionsMenu':
-          return <Menu canBeReplaced items={menuItems} />;
+          return (
+            <Menu canBeReplaced items={menuItems} closeMenu={handleOnClose} />
+          );
         case 'slackChannelSelectMenu':
           return (
             <div

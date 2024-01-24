@@ -13,6 +13,7 @@ type MenuItem = {
 
 export type MenuProps = {
   items: MenuItem[];
+  closeMenu: () => void;
 } & React.HTMLAttributes<HTMLOListElement>;
 
 export const Menu = withCord<React.PropsWithChildren<MenuProps>>(
