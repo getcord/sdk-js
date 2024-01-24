@@ -6,6 +6,7 @@ import type {
   MessageContent,
   MessageNode,
 } from '@cord-sdk/types';
+import Linkify from 'linkify-react';
 import { MessageBulletElement } from '../../../components/message/MessageBulletElement.tsx';
 import { EditedMessage } from '../../../components/message/EditedMessage.tsx';
 import { getMessageNodeChildren } from '../../../common/lib/messageNode.ts';
@@ -246,13 +247,19 @@ export function RenderNode({
             </React.Fragment>
           );
         }
-        // [ONI]-TODO Use Linkify when available, instead of this span.
         return (
-          <span key={index}>
+          <Linkify
+            key={index}
+            tagName="span"
+            className={node.class}
+            options={{
+              target: '_blank',
+              attributes: linkProps,
+            }}
+          >
             {wrapTextNodeWithStyles(<>{node.text}</>, node)}
-          </span>
+          </Linkify>
         );
-        // );
       } else {
         // but just in case it's not
         return (
@@ -268,3 +275,9 @@ export function RenderNode({
     }
   }
 }
+
+const linkProps = {
+  onClick: (event: MouseEvent) => {
+    event.stopPropagation();
+  },
+};
