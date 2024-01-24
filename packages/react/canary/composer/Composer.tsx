@@ -40,6 +40,7 @@ import { onTab } from './event-handlers/onTab.ts';
 import { onShiftEnter } from './event-handlers/onShiftEnter.ts';
 import { EditorCommands, HOTKEYS } from './lib/commands.ts';
 import { createComposerEmptyValue, editableStyle } from './lib/util.ts';
+import { withEmojis } from './plugins/withEmojis.ts';
 
 export type ComposerProps = {
   value?: MessageContent;
@@ -58,7 +59,9 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
     const { t } = useCordTranslation('composer');
     const [editor] = useState(() =>
       withHTMLPaste(
-        withBullets(withQuotes(withReact(withHistory(createEditor())))),
+        withBullets(
+          withQuotes(withEmojis(withReact(withHistory(createEditor())))),
+        ),
       ),
     );
     const [attachmentsIDs, setAttachmentsIDs] = useState<string[]>([]);

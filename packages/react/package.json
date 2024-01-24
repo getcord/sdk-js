@@ -25,6 +25,7 @@
     "@radix-ui/react-slot": "^1.0.1",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.9",
+    "emoji-js": "^3.8.0",
     "is-hotkey": "^0.2.0",
     "jotai": "^2.6.0",
     "jotai-scope": "^0.4.1",
@@ -45,6 +46,7 @@
   },
   "devDependencies": {
     "@cord-sdk/jsx": "1.31.2",
+    "@types/emoji-js": "^3.5.2",
     "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.17",
     "@types/uuid": "^8.3.0",
