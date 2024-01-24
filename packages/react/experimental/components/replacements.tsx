@@ -27,6 +27,7 @@ import type { MessageTextProps } from './message/MessageText.tsx';
 import type { MessageContentProps } from './message/MessageContent.tsx';
 import type { MenuItemProps } from './menu/MenuItem.tsx';
 import type { SeparatorProps } from './helpers/Separator.tsx';
+import type { MessageActionsProps } from './menu/MessageActions.tsx';
 
 export type ReplaceConfig = ReplaceConfigBase & ReplaceWithin;
 
@@ -50,6 +51,7 @@ export type ReplaceConfigBase = Partial<{
   MessageUserReferenceElement: React.ComponentType<MessageUserReferenceElementProps>;
   MessageText: React.ComponentType<MessageTextProps>;
   MessageContent: React.ComponentType<MessageContentProps>;
+  MessageActions: React.ComponentType<MessageActionsProps>;
   Separator: React.ComponentType<SeparatorProps>;
   Composer: React.ComponentType<ComposerProps>;
   SendButton: React.ComponentType<SendButtonProps>;
