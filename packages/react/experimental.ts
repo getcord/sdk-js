@@ -21,3 +21,8 @@ export { Button } from './experimental/components/helpers/Button.tsx';
 export { Menu, type MenuProps } from './experimental/components/menu/Menu.tsx';
 export { OptionsMenu } from './experimental/components/menu/OptionsMenu.tsx';
 export { MessageContent } from './experimental/components/message/MessageContent.tsx';
+export {
+  Timestamp,
+  TimestampTooltip,
+  type TimestampProps,
+} from './experimental/components/Timestamp.tsx';
