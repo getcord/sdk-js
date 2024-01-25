@@ -15,11 +15,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { logComponentInstantiation } from '../common/util.ts';
 import * as user from '../hooks/user.ts';
-import {
-  useThreadCounts,
-  useThread,
-  useLocationData,
-} from '../hooks/thread.ts';
+import { useThreadCounts, useThread, useThreads } from '../hooks/thread.ts';
 import { useExtraClassnames } from '../hooks/useExtraClassnames.ts';
 import * as fonts from '../common/ui/atomicClasses/fonts.css.ts';
 import { MODIFIERS } from '../common/ui/modifiers.ts';
@@ -423,12 +419,12 @@ function ThreadedCommentsThreadList({
   onComposerClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
-  const { threads, hasMore, loading, fetchMore } = useLocationData(location, {
+  const { threads, hasMore, loading, fetchMore } = useThreads({
     sortBy,
     sortDirection: 'descending',
-    partialMatch,
     filter: {
       ...filter,
+      location: { value: location, partialMatch },
       resolvedStatus,
     },
   });
