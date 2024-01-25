@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useState, forwardRef, useRef, useEffect } from 'react';
 import 'emoji-picker-element';
+import withCord from '../hoc/withCord.tsx';
+import { useComposedRefs } from '../../../common/lib/composeRefs.ts';
 import { WithPopper } from './WithPopper.tsx';
-
 import { useCordTranslation } from '@cord-sdk/react';
 import * as classes from '@cord-sdk/react/components/helpers/EmojiPicker.classnames.ts';
 
@@ -30,64 +31,72 @@ type EmojiButtonRef = {
   i18n?: Record<string, unknown>;
 } & HTMLDivElement;
 
-function EmojiPicker(props: {
+export type EmojiPickerProps = {
   onClose: () => void;
   onClickEmoji: (emoji: string) => void;
-}) {
-  const ref = useRef<EmojiButtonRef | null>(null);
-  const { i18n } = useCordTranslation();
+};
 
-  const addEmoji = useCallback(
-    (event: any) => {
-      const {
-        detail: { unicode: emoji },
-      } = event as EmojiEvent;
+export const EmojiPicker = withCord<React.PropsWithChildren<EmojiPickerProps>>(
+  forwardRef(function EmojiPicker(
+    props: EmojiPickerProps,
+    ref?: React.ForwardedRef<HTMLDivElement>,
+  ) {
+    const innerRef = useRef<EmojiButtonRef | null>(null);
+    const { i18n } = useCordTranslation();
 
-      props.onClickEmoji(emoji);
-      props.onClose();
-    },
-    [props],
-  );
+    const composedRefs = useComposedRefs(ref, innerRef);
+    const addEmoji = useCallback(
+      (event: any) => {
+        const {
+          detail: { unicode: emoji },
+        } = event as EmojiEvent;
+        props.onClickEmoji(emoji);
+        props.onClose();
+      },
+      [props],
+    );
 
-  useEffect(
-    () => ref.current?.shadowRoot?.getElementById('search')?.focus(),
-    [],
-  );
+    useEffect(
+      () => innerRef.current?.shadowRoot?.getElementById('search')?.focus(),
+      [],
+    );
 
-  const handleClick = useCallback((event: MouseEvent) => {
-    event.stopPropagation();
-  }, []);
+    const handleClick = useCallback((event: MouseEvent) => {
+      event.stopPropagation();
+    }, []);
 
-  useEffect(() => {
-    if (!ref.current) {
-      return;
-    }
+    useEffect(() => {
+      if (!innerRef.current) {
+        return;
+      }
 
-    const { current } = ref;
+      const { current } = innerRef;
 
-    // Serve emoji data from our own domain, so that clients CSP
-    // won't block the request.
-    ref.current.dataSource = `https://app.cord.com/static/emoji-data.json`;
+      // Serve emoji data from our own domain, so that clients CSP
+      // won't block the request.
+      innerRef.current.dataSource = `https://app.cord.com/static/emoji-data.json`;
 
-    ref.current.i18n =
-      i18n.getResourceBundle(i18n.language, 'emoji_picker') ??
-      i18n.getResourceBundle('en', 'emoji_picker');
+      innerRef.current.i18n =
+        i18n.getResourceBundle(i18n.language, 'emoji_picker') ??
+        i18n.getResourceBundle('en', 'emoji_picker');
 
-    current.addEventListener('emoji-click', addEmoji);
+      current.addEventListener('emoji-click', addEmoji);
 
-    current.addEventListener('click', handleClick);
+      current.addEventListener('click', handleClick);
 
-    return () => {
-      current.removeEventListener('emoji-click', addEmoji);
-      current.removeEventListener('click', handleClick);
-    };
-  }, [addEmoji, handleClick, i18n, props]);
+      return () => {
+        current.removeEventListener('emoji-click', addEmoji);
+        current.removeEventListener('click', handleClick);
+      };
+    }, [addEmoji, composedRefs, handleClick, i18n, props]);
 
-  return React.createElement('emoji-picker', {
-    ref,
-    class: `light ${classes.emojiPicker}`,
-  });
-}
+    return React.createElement('emoji-picker', {
+      ref: composedRefs,
+      class: `light ${classes.emojiPicker}`,
+    });
+  }),
+  'EmojiPicker',
+);
 
 async function hasIDB() {
   if (typeof indexedDB === 'undefined') {
@@ -165,7 +174,11 @@ export function useEmojiPicker(
     EmojiPicker: (
       <WithPopper
         popperElement={
-          <EmojiPicker onClose={closeEmojiPicker} onClickEmoji={onClickEmoji} />
+          <EmojiPicker
+            onClose={closeEmojiPicker}
+            onClickEmoji={onClickEmoji}
+            canBeReplaced
+          />
         }
         popperElementVisible={showEmojiPicker}
         popperPosition="bottom-end"

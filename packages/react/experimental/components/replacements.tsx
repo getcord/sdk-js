@@ -29,6 +29,9 @@ import type { MenuItemProps } from './menu/MenuItem.tsx';
 import type { SeparatorProps } from './helpers/Separator.tsx';
 import type { MessageActionsProps } from './menu/MessageActions.tsx';
 import type { TimestampProps } from './Timestamp.tsx';
+import type { EmojiPickerProps } from './helpers/EmojiPicker.tsx';
+import type { ReactionsProps } from './Reactions.tsx';
+import type { AddReactionButtonProps } from './AddReactionButton.tsx';
 
 export type ReplaceConfig = ReplaceConfigBase & ReplaceWithin;
 
@@ -39,7 +42,7 @@ export type ReplaceConfigBase = Partial<{
   AvatarTooltip: React.ComponentType<AvatarTooltipProps>;
   Facepile: React.ComponentType<FacepileProps>;
   PresenceFacepile: React.ComponentType<PresenceFacepileProps>;
-  AddReactionButton: React.ComponentType<GeneralButtonProps>;
+  AddReactionButton: React.ComponentType<AddReactionButtonProps>;
   Button: React.ComponentType<GeneralButtonProps>;
   PagePresence: React.ComponentType<PagePresenceProps>;
   OptionsMenu: React.ComponentType<OptionsMenuProps>;
@@ -57,6 +60,8 @@ export type ReplaceConfigBase = Partial<{
   Composer: React.ComponentType<ComposerProps>;
   SendButton: React.ComponentType<SendButtonProps>;
   Timestamp: React.ComponentType<TimestampProps>;
+  EmojiPicker: React.ComponentType<EmojiPickerProps>;
+  Reactions: React.ComponentType<ReactionsProps>;
 }>;
 
 type ReplaceWithin = Partial<{
