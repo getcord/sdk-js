@@ -698,6 +698,7 @@ function CommentsThread({
         [MODIFIERS.noReplies]: !hasReplies,
       })}
       data-cord-thread-id={threadId}
+      data-cord-group-id={threadData?.thread?.groupID}
     >
       {isResolved && (
         <ResolvedThreadHeader
