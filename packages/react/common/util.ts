@@ -1,13 +1,10 @@
+import type { ClientMessageData } from '@cord-sdk/types';
+
 import dayjs from 'dayjs';
 import Calendar from 'dayjs/plugin/calendar.js';
 dayjs.extend(Calendar);
 // eslint-disable-next-line no-restricted-imports
 import type { TFunction } from 'i18next';
-import type {
-  ClientMessageData,
-  Reaction,
-  ThreadSummary,
-} from '@cord-sdk/types';
 
 /**
  * Prepend "cord-" to a classname. Useful mostly to grep all places
@@ -156,39 +153,4 @@ export function absoluteTimestampString(
         ? t('this_year_format')
         : t('other_format'),
   });
-}
-
-export function getUnseenReactions(
-  thread: ThreadSummary,
-  message: ClientMessageData,
-  userID: string | null | undefined,
-) {
-  const threadParticipant = thread.participants.find(
-    (p) => p.userID === userID,
-  );
-
-  return isUserAuthorOfMessage(message, userID)
-    ? message.reactions.filter(
-        (reaction) =>
-          reaction.timestamp >
-            (threadParticipant?.lastSeenTimestamp ?? Infinity) &&
-          reaction.userID !== userID,
-      )
-    : [];
-}
-
-export function isViewerPreviouslyAddedReaction(
-  userID: string,
-  reactions: Reaction[],
-  unicodeReaction: string,
-) {
-  const userReactionSet = !reactions
-    ? new Set()
-    : new Set(
-        reactions
-          .filter((reaction) => reaction.userID === userID)
-          .map((reaction) => reaction.reaction),
-      );
-
-  return userReactionSet.has(unicodeReaction);
 }

@@ -26,5 +26,3 @@ export {
   TimestampTooltip,
   type TimestampProps,
 } from './experimental/components/Timestamp.tsx';
-export { EmojiPicker } from './experimental/components/helpers/EmojiPicker.tsx';
-export { Reactions } from './experimental/components/Reactions.tsx';
