@@ -10,6 +10,7 @@ import type {
   ResolvedStatus,
   SortBy,
   ThreadListFilter,
+  ClientThreadFilter,
 } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -419,36 +420,16 @@ function ThreadedCommentsThreadList({
   onComposerClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
+  const clientThreadFilter = {
+    ...filter,
+    location: { value: location, partialMatch },
+    resolvedStatus,
+  };
   const { threads, hasMore, loading, fetchMore } = useThreads({
     sortBy,
     sortDirection: 'descending',
-    filter: {
-      ...filter,
-      location: { value: location, partialMatch },
-      resolvedStatus,
-    },
+    filter: clientThreadFilter,
   });
-
-  let showHighlightedThread: boolean;
-  switch (resolvedStatus) {
-    case 'resolved': {
-      showHighlightedThread = !!highlightThread?.resolved;
-      break;
-    }
-    case 'unresolved': {
-      showHighlightedThread = !highlightThread?.resolved;
-      break;
-    }
-    case 'any': {
-      showHighlightedThread = true;
-      break;
-    }
-    default: {
-      const _: never = resolvedStatus;
-      showHighlightedThread = false;
-      break;
-    }
-  }
 
   const localThreads = useMemo(() => {
     if (!highlightThread) {
@@ -456,12 +437,12 @@ function ThreadedCommentsThreadList({
     }
 
     const isThreadPresent = threads.find((t) => t.id === highlightThread.id);
-    if (!isThreadPresent && showHighlightedThread) {
+    if (!isThreadPresent) {
       return [...threads, highlightThread];
     }
 
     return threads;
-  }, [highlightThread, showHighlightedThread, threads]);
+  }, [highlightThread, threads]);
 
   // If groupId is not passed as a prop, this will be undefined.  If the user has
   // an org in their token the method will find and use that, so it will still work.
@@ -496,6 +477,7 @@ function ThreadedCommentsThreadList({
       highlightThread={oneThread.id === highlightThread?.id}
       enableFacepileTooltip={enableFacepileTooltip}
       replyComposerExpanded={replyComposerExpanded}
+      filter={clientThreadFilter}
       onMessageClick={onMessageClick}
       onMessageMouseEnter={onMessageMouseEnter}
       onMessageMouseLeave={onMessageMouseLeave}
@@ -626,6 +608,7 @@ function CommentsThread({
   highlightThread,
   enableFacepileTooltip,
   replyComposerExpanded,
+  filter,
   onMessageClick,
   onMessageMouseEnter,
   onMessageMouseLeave,
@@ -644,6 +627,7 @@ function CommentsThread({
   highlightThread: boolean;
   enableFacepileTooltip: boolean;
   replyComposerExpanded?: boolean;
+  filter?: ClientThreadFilter;
   onMessageClick?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseEnter?: (messageInfo: MessageInfo) => unknown;
   onMessageMouseLeave?: (messageInfo: MessageInfo) => unknown;
@@ -656,7 +640,7 @@ function CommentsThread({
   onComposerClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
-  const threadData = useThread(threadId);
+  const threadData = useThread(threadId, { filter });
   const allowReplies = showReplies !== 'alwaysCollapsed';
   const initiallyExpandedReplies = showReplies === 'initiallyExpanded';
   const [showingReplies, setShowingReplies] = useState<boolean>(
