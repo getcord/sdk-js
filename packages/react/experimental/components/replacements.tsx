@@ -4,6 +4,7 @@ import type {
   ComposerProps,
   SendButtonProps,
 } from '../../canary/composer/Composer.js';
+import type { MessageProps } from '../../canary/Message.tsx';
 import type {
   AvatarFallbackProps,
   AvatarProps,
@@ -50,6 +51,7 @@ export type ReplaceConfigBase = Partial<{
   Menu: React.ComponentType<MenuProps>;
   MenuItem: React.ComponentType<MenuItemProps>;
   Overlay: React.ComponentType<OverlayProps>;
+  Message: React.ComponentType<MessageProps>;
   MessageFilesAttachments: React.ComponentType<MessageFilesAttachmentsProps>;
   MediaModal: React.ComponentType<MediaModalProps>;
   MessageUserReferenceElement: React.ComponentType<MessageUserReferenceElementProps>;

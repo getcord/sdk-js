@@ -1,11 +1,9 @@
 import * as React from 'react';
-import type { RefObject } from 'react';
 import { forwardRef, useCallback, useMemo, useState } from 'react';
 import cx from 'classnames';
 
 import type { ClientMessageData } from '@cord-sdk/types';
 import { WithPopper } from '../helpers/WithPopper.tsx';
-import { useIsSlackConnected } from '../../../hooks/useIsSlackConnected.ts';
 import { DefaultTooltip, WithTooltip } from '../WithTooltip.tsx';
 import withCord from '../hoc/withCord.tsx';
 import * as classes from '../../../components/OptionsMenu.css.ts';
@@ -32,7 +30,6 @@ export type OptionsMenuProps = {
   showThreadOptions: boolean;
   showMessageOptions: boolean;
   message?: ClientMessageData;
-  messageRef?: RefObject<HTMLDivElement>;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
@@ -47,15 +44,12 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
       showThreadOptions,
       showMessageOptions,
       message,
-      messageRef,
       onClick,
       ...restProps
     }: OptionsMenuProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     const [menuToShow, setMenuToShow] = useState<MenuTypes>(null);
-
-    const { isOrgConnected } = useIsSlackConnected();
 
     const handleOnClose = useCallback(() => {
       setMenuShowing?.(false);
@@ -86,7 +80,6 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
               closeMenu={handleOnClose}
               threadID={threadID}
               message={message}
-              messageRef={messageRef}
             />
           ),
           name: 'message-actions-menu',
@@ -95,10 +88,8 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
       return items;
     }, [
       handleOnClose,
-      isOrgConnected,
       markThreadAsRead,
       message,
-      messageRef,
       showThreadOptions,
       threadID,
       showMessageOptions,

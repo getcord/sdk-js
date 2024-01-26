@@ -1,6 +1,5 @@
 import * as React from 'react';
 import type { ClientMessageData } from '@cord-sdk/types';
-import type { RefObject } from 'react';
 
 import { useCallback, useMemo } from 'react';
 
@@ -10,28 +9,21 @@ import withCord from '../hoc/withCord.tsx';
 import { Separator } from '../helpers/Separator.tsx';
 import { useViewerData } from '../../../hooks/user.ts';
 import { useThread } from '../../../hooks/thread.ts';
+import { setResolved } from '../../../common/lib/thread.ts';
 import { MenuItem } from './MenuItem.tsx';
 import { useCordTranslation } from '@cord-sdk/react';
 import { Icon } from '@cord-sdk/react/components/helpers/Icon.tsx';
-import { setResolved } from '../../../common/lib/thread.ts';
 
 export type MessageActionsProps = React.PropsWithChildren<{
   closeMenu: () => void;
   threadID: string;
   message: ClientMessageData;
   showSeparator: boolean;
-  messageRef?: RefObject<HTMLDivElement>;
 }>;
 
 export const MessageActions = withCord<MessageActionsProps>(
   React.forwardRef(function MessageActions(
-    {
-      closeMenu,
-      message,
-      threadID,
-      showSeparator,
-      messageRef,
-    }: MessageActionsProps,
+    { closeMenu, message, threadID, showSeparator }: MessageActionsProps,
 
     _ref: React.ForwardedRef<HTMLOListElement>,
   ) {
@@ -47,10 +39,9 @@ export const MessageActions = withCord<MessageActionsProps>(
       setMessageToEditMode({
         message,
         thread,
-        messageRef,
       });
       closeMenu();
-    }, [closeMenu, message, messageRef, setMessageToEditMode, thread]);
+    }, [closeMenu, message, setMessageToEditMode, thread]);
 
     const onDeleteButtonClicked = useCallback(() => {
       deleteMessage(threadID, message.id);
@@ -116,7 +107,7 @@ export const MessageActions = withCord<MessageActionsProps>(
 );
 
 /**
- * @deprecated there likely be no contex,
+ * @deprecated there likely be no context,
  * we may get the function from prop.
  */
 function useSetComposerToEditMode() {
