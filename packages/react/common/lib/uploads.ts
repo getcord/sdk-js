@@ -25,3 +25,11 @@ export function isInlineDisplayableImage(mimeType: string) {
 export function isInlineDisplayableVideo(mimeType: string) {
   return ALLOWED_INLINE_VIDEO_MIME_TYPES.includes(mimeType);
 }
+
+export const readFileAsync = (file: Blob): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });

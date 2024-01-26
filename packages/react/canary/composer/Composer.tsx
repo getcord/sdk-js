@@ -14,7 +14,11 @@ import { createEditor } from 'slate';
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react';
 import { withHistory } from 'slate-history';
 import { v4 as uuid } from 'uuid';
-import type { ClientCreateThread, MessageContent } from '@cord-sdk/types';
+import type {
+  ClientCreateThread,
+  MessageContent,
+  UploadedFile,
+} from '@cord-sdk/types';
 import { CordContext } from '../../contexts/CordContext.tsx';
 import { Button } from '../../experimental/components/helpers/Button.tsx';
 import {
@@ -28,6 +32,8 @@ import withCord from '../../experimental/components/hoc/withCord.tsx';
 import { useCordTranslation } from '../../hooks/useCordTranslation.tsx';
 import { Keys } from '../../common/const/Keys.ts';
 
+import { ComposerFileAttachments } from '../../components/composer/ComposerFileAttachments.tsx';
+import { readFileAsync } from '../../common/lib/uploads.ts';
 import { withQuotes } from './plugins/quotes.ts';
 import { withBullets } from './plugins/bullets.ts';
 import { withHTMLPaste } from './plugins/paste.ts';
@@ -64,7 +70,7 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
         ),
       ),
     );
-    const [attachmentsIDs, setAttachmentsIDs] = useState<string[]>([]);
+    const [attachments, setAttachments] = useState<UploadedFile[]>([]);
     const { sdk: cord } = useContext(CordContext);
     const attachFileInputRef = useRef<HTMLInputElement>(null);
 
@@ -90,7 +96,7 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
     );
 
     const handleResetState = useCallback(() => {
-      setAttachmentsIDs([]);
+      setAttachments([]);
       resetComposerValue();
     }, [resetComposerValue]);
 
@@ -98,7 +104,7 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
       const url = window.location.href;
       void cord?.thread.sendMessage(threadId ?? uuid(), {
         content: editor.children,
-        addAttachments: attachmentsIDs.map((id) => ({ id, type: 'file' })),
+        addAttachments: attachments.map((a) => ({ id: a.id, type: 'file' })),
         createThread: createThread ?? {
           location: { location: url },
           url,
@@ -110,28 +116,54 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
       editor.children,
       cord?.thread,
       threadId,
-      attachmentsIDs,
+      attachments,
       createThread,
       handleResetState,
     ]);
 
     const attachFiles = useCallback(
       async (files: FileList) => {
-        const promises = [];
+        const uploadedFiles: UploadedFile[] = [];
         for (const file of files) {
-          promises.push(
-            cord!.file.uploadFile({
-              name: file.name,
-              blob: file,
-            }),
+          const { id, uploadPromise } = await cord!.file.uploadFile({
+            name: file.name,
+            blob: file,
+          });
+
+          // Let's not wait for the file to be uploaded
+          // before showing something in the UI.
+          // Some time in the future, we'll update the `uploadedState`
+          void uploadPromise.then(
+            () =>
+              setAttachments((prev) =>
+                updateAttachment(prev, file.name, { uploadStatus: 'uploaded' }),
+              ),
+            () =>
+              setAttachments((prev) =>
+                updateAttachment(prev, file.name, { uploadStatus: 'failed' }),
+              ),
           );
+
+          // Before we have the URL to the resource, we can still
+          // show a preview by passing the dataURL to the `img`
+          const dataURL = await readFileAsync(file);
+          uploadedFiles.push({
+            id,
+            name: file.name,
+            url: dataURL,
+            mimeType: file.type,
+            size: file.size,
+            uploadStatus: 'uploading',
+          });
         }
-        void Promise.all(promises).then((newFiles) => {
-          setAttachmentsIDs((prev) => [...prev, ...newFiles.map((f) => f.id)]);
-        });
+        setAttachments((prev) => [...prev, ...uploadedFiles]);
       },
       [cord],
     );
+
+    const handleRemoveAttachment = useCallback((attachmentID: string) => {
+      setAttachments((prev) => prev.filter((a) => a.id !== attachmentID));
+    }, []);
 
     const handleSelectAttachment = useCallback(() => {
       attachFileInputRef.current?.click();
@@ -248,7 +280,7 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
           initialValue={value ?? createComposerEmptyValue()}
         >
           <Editable
-            // className="cord-editor"
+            className="cord-editor"
             placeholder={placeholder ?? t('send_message_placeholder')}
             style={{
               outline: 'none',
@@ -287,6 +319,12 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
             }}
           />
         </Slate>
+        {attachments.length > 0 && (
+          <ComposerFileAttachments
+            attachments={attachments}
+            onRemoveAttachment={handleRemoveAttachment}
+          />
+        )}
         {/* Temporary cord-composer-menu. [ONI]-TODO Fix both styles and DOM structure. */}
         <div
           className="cord-composer-menu"
@@ -339,3 +377,18 @@ export const SendButton = withCord(
   }),
   'SendButton',
 );
+
+function updateAttachment(
+  attachments: UploadedFile[],
+  fileName: string,
+  newState: { uploadStatus: UploadedFile['uploadStatus'] },
+) {
+  const newAttachments = [...attachments];
+  const uploadedFile = newAttachments.find((a) => a.name === fileName);
+  if (uploadedFile) {
+    // [ONI]-TODO this should also set the URL.
+    // Update this when `uploadPromise` returns `url`.
+    uploadedFile.uploadStatus = newState.uploadStatus;
+  }
+  return newAttachments;
+}
