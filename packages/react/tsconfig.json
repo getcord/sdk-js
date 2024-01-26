@@ -3,12 +3,13 @@
     "typeRoots": ["./node_modules/@types"],
     "target": "es2021",
     "moduleResolution": "node16",
+    "module": "node16",
     "strict": true,
     "esModuleInterop": true,
     "noEmit": true,
     "allowImportingTsExtensions": true,
     "declaration": true,
     "jsx": "react",
-    "inlineSourceMap": true
-  }
+    "inlineSourceMap": true,
+  },
 }
