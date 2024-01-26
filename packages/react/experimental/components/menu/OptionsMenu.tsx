@@ -71,12 +71,7 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
               key="thread-actions-menu"
               threadID={threadID}
               closeMenu={handleOnClose}
-              showSlackChannelSelectMenu={() =>
-                setMenuToShow('slackChannelSelectMenu')
-              }
-              showShareToEmailMenu={() => setMenuToShow('shareToEmailMenu')}
               markThreadAsRead={markThreadAsRead}
-              isSlackWorkspaceConnected={isOrgConnected}
             />
           ),
           name: 'thread-actions-menu',

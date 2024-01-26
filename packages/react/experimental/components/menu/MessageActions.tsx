@@ -13,6 +13,7 @@ import { useThread } from '../../../hooks/thread.ts';
 import { MenuItem } from './MenuItem.tsx';
 import { useCordTranslation } from '@cord-sdk/react';
 import { Icon } from '@cord-sdk/react/components/helpers/Icon.tsx';
+import { setResolved } from '../../../common/lib/thread.ts';
 
 export type MessageActionsProps = React.PropsWithChildren<{
   closeMenu: () => void;
@@ -120,12 +121,6 @@ export const MessageActions = withCord<MessageActionsProps>(
  */
 function useSetComposerToEditMode() {
   return (_args: unknown) => {};
-}
-
-async function setResolved(threadID: string, resolved: boolean) {
-  return await window?.CordSDK?.thread.updateThread(threadID, {
-    resolved,
-  });
 }
 
 function deleteMessage(threadID: string, messageID: string) {
