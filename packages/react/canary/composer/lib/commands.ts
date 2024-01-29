@@ -4,6 +4,7 @@ import { ReactEditor } from 'slate-react';
 
 import { MessageNodeType, isStyledBlockType } from '@cord-sdk/types';
 import type {
+  ClientUserData,
   Mark,
   MessageBulletNode,
   MessageNumberBulletNode,
@@ -21,6 +22,7 @@ import {
   createStyledBlockNode,
   createParagraphNode,
   isMessageNodeType,
+  createMentionNode,
 } from '@cord-sdk/react/common/lib/messageNode.ts';
 
 export const HOTKEYS: { [key: string]: Mark } = {
@@ -311,5 +313,17 @@ export const EditorCommands = {
       ReactEditor.focus(editor);
     }
     return { success: true };
+  },
+
+  replaceRangeWithUserReference(
+    editor: Editor,
+    range: Range,
+    user: ClientUserData,
+  ) {
+    Transforms.select(editor, range);
+    const displayName = user.displayName;
+    const userReferenceNode = createMentionNode(user.id, displayName);
+    Transforms.insertNodes(editor, userReferenceNode);
+    Transforms.move(editor);
   },
 };

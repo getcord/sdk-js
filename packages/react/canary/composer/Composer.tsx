@@ -34,6 +34,8 @@ import { Keys } from '../../common/const/Keys.ts';
 
 import { ComposerFileAttachments } from '../../components/composer/ComposerFileAttachments.tsx';
 import { readFileAsync } from '../../common/lib/uploads.ts';
+import { useMentionList } from '../../experimental/components/composer/MentionList.tsx';
+import { WithPopper } from '../../experimental/components/helpers/WithPopper.tsx';
 import { withQuotes } from './plugins/quotes.ts';
 import { withBullets } from './plugins/bullets.ts';
 import { withHTMLPaste } from './plugins/paste.ts';
@@ -47,6 +49,7 @@ import { onShiftEnter } from './event-handlers/onShiftEnter.ts';
 import { EditorCommands, HOTKEYS } from './lib/commands.ts';
 import { createComposerEmptyValue, editableStyle } from './lib/util.ts';
 import { withEmojis } from './plugins/withEmojis.ts';
+import { withUserReferences } from './lib/userReferences.ts';
 
 export type ComposerProps = {
   value?: MessageContent;
@@ -66,7 +69,11 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
     const [editor] = useState(() =>
       withHTMLPaste(
         withBullets(
-          withQuotes(withEmojis(withReact(withHistory(createEditor())))),
+          withQuotes(
+            withUserReferences(
+              withEmojis(withReact(withHistory(createEditor()))),
+            ),
+          ),
         ),
       ),
     );
@@ -82,6 +89,10 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
         editor.onChange();
       }
     }, [editor, value]);
+
+    const mentionList = useMentionList({
+      editor,
+    });
 
     const resetComposerValue = useCallback(
       (newValue?: MessageContent) => {
@@ -188,6 +199,11 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
           return;
         }
 
+        const handled = mentionList.handleKeyDown(event);
+        if (handled) {
+          return;
+        }
+
         if (event.key === Keys.SPACEBAR) {
           onSpace(editor, event);
           return;
@@ -239,7 +255,7 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
           // [ONI]-TODO handle stop editing
         }
       },
-      [editor, handleSendMessage],
+      [editor, handleSendMessage, mentionList],
     );
 
     // Attach pasted images
@@ -262,42 +278,64 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
       [attachFiles],
     );
 
+    const onChange = useCallback(
+      (newValue: MessageContent) => {
+        const empty = !newValue.length;
+        if (empty) {
+          EditorCommands.addParagraph(editor, [0]);
+        }
+        // Update user references when value OR selection changes
+        mentionList.updateUserReferences();
+        // [ONI]-TODO
+        // updateTyping(Node.string(editor).length > 0);
+      },
+      [editor, mentionList],
+    );
+
     return (
-      <div
-        className="cord-component cord-composer"
-        style={{
-          backgroundColor: 'var(--cord-color-base, #FFFFFF)',
-          border:
-            'var(--cord-composer-border, 1px solid var(--cord-color-base-x-strong, #DADCE0))',
-          borderRadius:
-            'var(--cord-composer-border-radius, var(--cord-border-radius-medium, var(--cord-space-3xs, 4px)))',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
+      <WithPopper
+        popperElement={mentionList.Component}
+        popperElementVisible={mentionList.isOpen}
+        popperPosition="top-start"
+        onShouldHide={mentionList.close}
+        popperWidth="full"
       >
-        <Slate
-          editor={editor}
-          initialValue={value ?? createComposerEmptyValue()}
+        <div
+          className="cord-component cord-composer"
+          style={{
+            backgroundColor: 'var(--cord-color-base, #FFFFFF)',
+            border:
+              'var(--cord-composer-border, 1px solid var(--cord-color-base-x-strong, #DADCE0))',
+            borderRadius:
+              'var(--cord-composer-border-radius, var(--cord-border-radius-medium, var(--cord-space-3xs, 4px)))',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
         >
-          <Editable
-            className="cord-editor"
-            placeholder={placeholder ?? t('send_message_placeholder')}
-            style={{
-              outline: 'none',
-              // [ONI]-TODO Properly style this.
-              padding: '0 8px 16px',
-              ...editableStyle,
-            }}
-            renderElement={renderElement}
-            renderLeaf={renderLeaf}
-            onKeyDown={onKeyDown}
-            onPaste={handlePaste}
-          />
-          {/* [ONI]-TODO Add custom placeholder */}
-          <input
-            ref={attachFileInputRef}
-            type="file"
-            accept="audio/*,
+          <Slate
+            editor={editor}
+            initialValue={value ?? createComposerEmptyValue()}
+            onChange={onChange}
+          >
+            <Editable
+              className="cord-editor"
+              placeholder={placeholder ?? t('send_message_placeholder')}
+              style={{
+                outline: 'none',
+                // [ONI]-TODO Properly style this.
+                padding: '0 8px 16px',
+                ...editableStyle,
+              }}
+              renderElement={renderElement}
+              renderLeaf={renderLeaf}
+              onKeyDown={onKeyDown}
+              onPaste={handlePaste}
+            />
+            {/* [ONI]-TODO Add custom placeholder */}
+            <input
+              ref={attachFileInputRef}
+              type="file"
+              accept="audio/*,
                     video/*,
                     image/*,
                     .csv,.txt,
@@ -306,50 +344,51 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
                     .ppt,.pptx,.potx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,
                     .xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
                     "
-            multiple
-            style={{ display: 'none' }}
-            onClick={(event) => event.stopPropagation()}
-            onChange={(e) => {
-              const inputElement = e.target;
-              if (inputElement.files) {
-                void attachFiles(inputElement.files).then(
-                  () => (inputElement.value = ''),
-                );
-              }
-            }}
-          />
-        </Slate>
-        {attachments.length > 0 && (
-          <ComposerFileAttachments
-            attachments={attachments}
-            onRemoveAttachment={handleRemoveAttachment}
-          />
-        )}
-        {/* Temporary cord-composer-menu. [ONI]-TODO Fix both styles and DOM structure. */}
-        <div
-          className="cord-composer-menu"
-          style={{
-            borderTop: '1px solid var(--cord-color-base-x-strong, #DADCE0)',
-            padding:
-              'var(--cord-space-2xs, 8px) var(--cord-space-2xs, 8px) var(--cord-space-none, 0px)',
-          }}
-        >
-          <div className="secondary-buttons">
-            <Button
-              buttonAction="add-attachment"
-              icon="Paperclip"
-              className={cx(colorsTertiary, medium)}
-              onClick={() => {
-                handleSelectAttachment();
-                ReactEditor.focus(editor);
+              multiple
+              style={{ display: 'none' }}
+              onClick={(event) => event.stopPropagation()}
+              onChange={(e) => {
+                const inputElement = e.target;
+                if (inputElement.files) {
+                  void attachFiles(inputElement.files).then(
+                    () => (inputElement.value = ''),
+                  );
+                }
               }}
             />
-          </div>
-          <div className="cord-composer-primary-buttons">
-            <SendButton onClick={handleSendMessage} canBeReplaced />
+          </Slate>
+          {attachments.length > 0 && (
+            <ComposerFileAttachments
+              attachments={attachments}
+              onRemoveAttachment={handleRemoveAttachment}
+            />
+          )}
+          {/* Temporary cord-composer-menu. [ONI]-TODO Fix both styles and DOM structure. */}
+          <div
+            className="cord-composer-menu"
+            style={{
+              borderTop: '1px solid var(--cord-color-base-x-strong, #DADCE0)',
+              padding:
+                'var(--cord-space-2xs, 8px) var(--cord-space-2xs, 8px) var(--cord-space-none, 0px)',
+            }}
+          >
+            <div className="secondary-buttons">
+              <Button
+                buttonAction="add-attachment"
+                icon="Paperclip"
+                className={cx(colorsTertiary, medium)}
+                onClick={() => {
+                  handleSelectAttachment();
+                  ReactEditor.focus(editor);
+                }}
+              />
+            </div>
+            <div className="cord-composer-primary-buttons">
+              <SendButton onClick={handleSendMessage} canBeReplaced />
+            </div>
           </div>
         </div>
-      </div>
+      </WithPopper>
     );
   }),
   'Composer',

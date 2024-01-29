@@ -186,7 +186,7 @@ export function RenderNode({
           key={index}
           className={node.class}
           userID={node.user.id}
-          referencedUserData={[]} //{message?.referencedUserData ?? []}
+          referencedUserData={[]} // [ONI]-TODO {message?.referencedUserData ?? []}
           nodeType={node.type}
           formatStyle={formatStyle}
         />

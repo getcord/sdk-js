@@ -3,6 +3,7 @@ import type { RenderElementProps, RenderLeafProps } from 'slate-react';
 import type { MessageNode, MessageTextNode } from '@cord-sdk/types';
 import { MessageNodeType } from '@cord-sdk/types';
 import { BulletElement } from '../../../components/composer/BulletElement.tsx';
+import { UserReferenceElement } from '../../../experimental/components/composer/UserReferenceElement.tsx';
 import * as classes from '@cord-sdk/react/components/editor/editor.css.ts';
 
 export const wrapTextNodeWithStyles = (
@@ -55,8 +56,15 @@ export const renderElement = ({
 
     case MessageNodeType.MENTION:
     case MessageNodeType.ASSIGNEE:
-      // TODO implement this
-      return <p {...attributes}>{children}</p>;
+      return (
+        <UserReferenceElement
+          userID={element.user.id}
+          elementChildren={element.children}
+          attributes={attributes}
+        >
+          {children}
+        </UserReferenceElement>
+      );
     case MessageNodeType.NUMBER_BULLET: {
       return (
         <BulletElement
@@ -76,7 +84,7 @@ export const renderElement = ({
       return <blockquote {...attributes}>{children}</blockquote>;
     }
     case MessageNodeType.TODO: {
-      // TODO Maybe re-implement
+      // [ONI]-TODO Maybe re-implement
       return <p {...attributes}>{children}</p>;
     }
     default: {
