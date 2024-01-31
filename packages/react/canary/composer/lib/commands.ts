@@ -236,7 +236,7 @@ export const EditorCommands = {
 
   focusAndMoveCursorForward(
     editor: Editor,
-    selection: Range | null,
+    selection: Location | null,
     distance = 1,
   ) {
     ReactEditor.focus(editor);
@@ -262,12 +262,9 @@ export const EditorCommands = {
   },
 
   addText(editor: Editor, selection: Range | null, textToAdd: string) {
-    Transforms.insertNodes(
-      editor,
-      { text: textToAdd },
-      { at: selection?.focus },
-    );
-    this.focusAndMoveCursorForward(editor, selection, textToAdd.length);
+    const insertionPoint = selection?.focus ?? EMPTY_LOCATION.focus;
+    Transforms.insertNodes(editor, { text: textToAdd }, { at: insertionPoint });
+    this.focusAndMoveCursorForward(editor, insertionPoint, textToAdd.length);
   },
 
   addTodo(
