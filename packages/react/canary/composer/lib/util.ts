@@ -185,3 +185,20 @@ export function isComposerEmpty(value: MessageContent) {
     isEqual(value, COMPOSER_EMPTY_VALUE_FOR_COMPARING) || isEqual(value, [])
   );
 }
+
+export function hasComposerOnlyWhiteSpaces(value: MessageContent) {
+  const texts = Node.texts({ children: value } as Node);
+  let doneIterating = false;
+  while (!doneIterating) {
+    const next = texts.next();
+    if (next.done) {
+      doneIterating = true;
+    } else {
+      const [textNode, _path] = next.value;
+      if (textNode.text.trim().length > 0) {
+        return false;
+      }
+    }
+  }
+  return true;
+}

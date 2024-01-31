@@ -10,6 +10,7 @@ import {
   useState,
 } from 'react';
 import cx from 'classnames';
+import type { Descendant } from 'slate';
 import { createEditor } from 'slate';
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react';
 import { withHistory } from 'slate-history';
@@ -47,7 +48,12 @@ import { onArrow } from './event-handlers/onArrowPress.ts';
 import { onTab } from './event-handlers/onTab.ts';
 import { onShiftEnter } from './event-handlers/onShiftEnter.ts';
 import { EditorCommands, HOTKEYS } from './lib/commands.ts';
-import { createComposerEmptyValue, editableStyle } from './lib/util.ts';
+import {
+  createComposerEmptyValue,
+  editableStyle,
+  hasComposerOnlyWhiteSpaces,
+  isComposerEmpty,
+} from './lib/util.ts';
 import { withEmojis } from './plugins/withEmojis.ts';
 import { withUserReferences } from './lib/userReferences.ts';
 
@@ -78,6 +84,8 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
       ),
     );
     const [attachments, setAttachments] = useState<UploadedFile[]>([]);
+    const [{ isValid, isEmpty }, updateComposerState] =
+      useComposerState(attachments);
     const { sdk: cord } = useContext(CordContext);
     const attachFileInputRef = useRef<HTMLInputElement>(null);
 
@@ -112,6 +120,10 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
     }, [resetComposerValue]);
 
     const handleSendMessage = useCallback(() => {
+      if (isEmpty || !isValid) {
+        return;
+      }
+
       const url = window.location.href;
       void cord?.thread.sendMessage(threadId ?? uuid(), {
         content: editor.children,
@@ -125,6 +137,8 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
       handleResetState();
     }, [
       editor.children,
+      isEmpty,
+      isValid,
       cord?.thread,
       threadId,
       attachments,
@@ -288,8 +302,10 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
         mentionList.updateUserReferences();
         // [ONI]-TODO
         // updateTyping(Node.string(editor).length > 0);
+
+        updateComposerState(newValue);
       },
-      [editor, mentionList],
+      [editor, mentionList, updateComposerState],
     );
 
     return (
@@ -384,7 +400,11 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
               />
             </div>
             <div className="cord-composer-primary-buttons">
-              <SendButton onClick={handleSendMessage} canBeReplaced />
+              <SendButton
+                onClick={handleSendMessage}
+                canBeReplaced
+                disabled={isEmpty || !isValid}
+              />
             </div>
           </div>
         </div>
@@ -430,4 +450,27 @@ function updateAttachment(
     uploadedFile.uploadStatus = newState.uploadStatus;
   }
   return newAttachments;
+}
+
+type ComposerState = { isEmpty: boolean; isValid: boolean };
+function useComposerState(
+  attachments: UploadedFile[],
+): [ComposerState, (newValue: Descendant[]) => void] {
+  const [isEmpty, setIsEmpty] = useState(true);
+  const [isValid, setIsValid] = useState(false);
+
+  const updateState = useCallback(
+    (newValue: Descendant[]) => {
+      const composerEmpty = isComposerEmpty(newValue);
+      setIsEmpty(composerEmpty);
+      const hasFilesAttached = attachments.length > 0;
+      const composerHasOnlyWhiteSpaces = hasComposerOnlyWhiteSpaces(newValue);
+      setIsValid(
+        (!composerEmpty && !composerHasOnlyWhiteSpaces) || hasFilesAttached,
+      );
+    },
+    [attachments.length],
+  );
+
+  return [{ isEmpty, isValid }, updateState];
 }
