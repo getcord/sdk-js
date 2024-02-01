@@ -43,6 +43,18 @@ export type ClientCreateFile = {
   blob: Blob;
 };
 
+export type UploadedFileData = {
+  /**
+   * The id of the file when it has successfully been uploaded.
+   */
+  id: string;
+  /**
+   * The URL to download the file.  This is a signed URL that will
+   * expire after 24 hours.
+   */
+  url: string;
+};
+
 export type UploadFileResult = {
   /**
    * The identifier for the file, which can be passed to other APIs to reference
@@ -50,11 +62,10 @@ export type UploadFileResult = {
    */
   id: string;
   /**
-   * A promise that will be fulfilled with the file's ID when the file is
-   * successfully uploaded to the file storage backend or rejected if there is
-   * an error uploading the file.
+   * A promise that will be fulfilled when the file is successfully uploaded to
+   * the file storage backend or rejected if there is an error uploading the file.
    */
-  uploadPromise: Promise<{ id: string }>;
+  uploadPromise: Promise<UploadedFileData>;
 };
 
 export interface ICordFileSDK {
