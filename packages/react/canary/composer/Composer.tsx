@@ -292,6 +292,10 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
       [attachFiles],
     );
 
+    const handleAddAtCharacter = useCallback(() => {
+      EditorCommands.addText(editor, editor.selection, isEmpty ? '@' : ' @');
+    }, [isEmpty, editor]);
+
     const onChange = useCallback(
       (newValue: MessageContent) => {
         const empty = !newValue.length;
@@ -389,6 +393,13 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
             }}
           >
             <div className="secondary-buttons">
+              <Button
+                buttonAction="add-mention"
+                className={cx(colorsTertiary, medium)}
+                icon="At"
+                onClick={handleAddAtCharacter}
+                disabled={mentionList.isOpen}
+              />
               <Button
                 buttonAction="add-attachment"
                 icon="Paperclip"
