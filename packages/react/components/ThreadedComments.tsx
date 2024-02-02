@@ -24,6 +24,7 @@ import { useCallFunctionOnce } from '../common/effects/useCallFunctionOnce.ts';
 import { useCordTranslation } from '../hooks/useCordTranslation.tsx';
 import { useEnsureHighlightedThreadVisible } from '../hooks/useEnsureHighlightedThreadVisible.ts';
 import { withGroupIDCheck } from '../common/hoc/withGroupIDCheck.tsx';
+import { useStoreHighlightedThreads } from '../hooks/useStoreHighlightedThreads.ts';
 import type { ThreadListReactComponentProps } from './ThreadList.tsx';
 import classes from './ThreadedComments.css.ts';
 import { Composer } from './Composer.tsx';
@@ -430,19 +431,24 @@ function ThreadedCommentsThreadList({
     sortDirection: 'descending',
     filter: clientThreadFilter,
   });
+  // The highlightedThreads are used to store any threads highlighted
+  // by ThreadedComments in the current render-cycle
+  const highlightedThreads = useStoreHighlightedThreads({
+    currentHighlightedThread: highlightThread,
+    sortBy,
+  });
 
   const localThreads = useMemo(() => {
-    if (!highlightThread) {
-      return threads;
-    }
+    const existingIdSet = new Set(threads.map((t) => t.id));
+    const newThreads = threads.slice();
 
-    const isThreadPresent = threads.find((t) => t.id === highlightThread.id);
-    if (!isThreadPresent) {
-      return [...threads, highlightThread];
-    }
-
-    return threads;
-  }, [highlightThread, threads]);
+    highlightedThreads.map((t) => {
+      if (!existingIdSet.has(t.id)) {
+        newThreads.push(t);
+      }
+    });
+    return newThreads;
+  }, [threads, highlightedThreads]);
 
   // If groupId is not passed as a prop, this will be undefined.  If the user has
   // an org in their token the method will find and use that, so it will still work.
