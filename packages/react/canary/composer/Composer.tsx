@@ -159,9 +159,12 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
           // before showing something in the UI.
           // Some time in the future, we'll update the `uploadedState`
           void uploadPromise.then(
-            () =>
+            ({ url }) =>
               setAttachments((prev) =>
-                updateAttachment(prev, file.name, { uploadStatus: 'uploaded' }),
+                updateAttachment(prev, file.name, {
+                  uploadStatus: 'uploaded',
+                  url,
+                }),
               ),
             () =>
               setAttachments((prev) =>
@@ -451,14 +454,16 @@ export const SendButton = withCord(
 function updateAttachment(
   attachments: UploadedFile[],
   fileName: string,
-  newState: { uploadStatus: UploadedFile['uploadStatus'] },
+  newState: { uploadStatus: UploadedFile['uploadStatus']; url?: string },
 ) {
   const newAttachments = [...attachments];
   const uploadedFile = newAttachments.find((a) => a.name === fileName);
   if (uploadedFile) {
-    // [ONI]-TODO this should also set the URL.
-    // Update this when `uploadPromise` returns `url`.
     uploadedFile.uploadStatus = newState.uploadStatus;
+
+    if (newState.url) {
+      uploadedFile.url = newState.url;
+    }
   }
   return newAttachments;
 }
