@@ -1,8 +1,9 @@
 import * as React from 'react';
 import cx from 'classnames';
 
-import { forwardRef, useCallback, useContext } from 'react';
-import type { Reaction } from '@cord-sdk/types/message.ts';
+import { forwardRef, useCallback, useContext, useMemo } from 'react';
+import type { ClientMessageData, Reaction } from '@cord-sdk/types/message.ts';
+import type { ThreadSummary } from '@cord-sdk/types/thread.ts';
 import {
   getUnseenReactions,
   isViewerPreviouslyAddedReaction,
@@ -12,7 +13,6 @@ import { useMessage, useThread } from '../../hooks/thread.ts';
 import { AddReactionButton } from './AddReactionButton.tsx';
 import withCord from './hoc/withCord.js';
 import { DefaultTooltip, WithTooltip } from './WithTooltip.tsx';
-import { useEmojiPicker } from './helpers/EmojiPicker.tsx';
 import { ReactionPill } from './message/ReactionPill.tsx';
 import { useCordTranslation, CordContext } from '@cord-sdk/react';
 import * as classes from '@cord-sdk/react/components/Reactions.classnames.ts';
@@ -41,36 +41,16 @@ export const Reactions = withCord<React.PropsWithChildren<ReactionsProps>>(
     const { thread } = useThread(threadId ?? '');
     const message = useMessage(messageId ?? '');
 
-    const { sdk: cordSDK } = useContext(CordContext);
-    const threadSDK = cordSDK?.thread;
-
-    const onAddReaction = useCallback(
-      (unicodeReaction: string) => {
-        if (threadSDK && threadId && messageId) {
-          void threadSDK.updateMessage(threadId, messageId, {
-            addReactions: [unicodeReaction],
-          });
-        }
-      },
-      [messageId, threadId, threadSDK],
-    );
-
-    const onDeleteReaction = useCallback(
-      (unicodeReaction: string) => {
-        if (threadSDK && threadId && messageId) {
-          void threadSDK.updateMessage(threadId, messageId, {
-            removeReactions: [unicodeReaction],
-          });
-        }
-      },
-      [messageId, threadId, threadSDK],
-    );
-
     if (!thread || !message) {
       return (
         <>
           {showAddReactionButton && (
-            <AddReactionButton disabled={true} canBeReplaced />
+            <AddReactionButton
+              onDeleteReaction={() => {}}
+              onAddReaction={() => {}}
+              disabled={true}
+              canBeReplaced
+            />
           )}
         </>
       );
@@ -87,11 +67,11 @@ export const Reactions = withCord<React.PropsWithChildren<ReactionsProps>>(
         ref={ref}
         reactions={message.reactions}
         unseenReactionsUnicode={unseenReactionsUnicode}
-        onAddReaction={onAddReaction}
-        onDeleteReaction={onDeleteReaction}
         showAddReactionButton={showAddReactionButton}
         showReactionList={showReactionList}
         className={className}
+        thread={thread}
+        message={message}
       />
     );
   }),
@@ -101,10 +81,10 @@ export const Reactions = withCord<React.PropsWithChildren<ReactionsProps>>(
 export type ReactionsInnerProps = {
   reactions: Reaction[];
   unseenReactionsUnicode: string[];
-  onDeleteReaction: (unicodeReaction: string) => void;
-  onAddReaction: (unicodeReaction: string) => void;
   showAddReactionButton: boolean;
   showReactionList: boolean;
+  thread: ThreadSummary;
+  message: ClientMessageData;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 type ReactionsInnerPropsWithClassname = ReactionsInnerProps & {
@@ -115,48 +95,53 @@ const ReactionsInner = forwardRef(function ReactionsImpl(
   {
     reactions,
     unseenReactionsUnicode,
-    onDeleteReaction,
-    onAddReaction,
     showAddReactionButton,
     showReactionList,
     className,
+    thread,
+    message,
   }: ReactionsInnerPropsWithClassname,
   ref: React.Ref<HTMLDivElement>,
 ) {
   const viewerData = useViewerData();
 
-  const showAddReactionTooltip = showAddReactionButton && !showReactionList;
+  const usersByReaction = useUsersByReactions(reactions);
+  const { sdk: cordSDK } = useContext(CordContext);
+  const threadSDK = cordSDK?.thread;
 
-  const handleAddReactionClick = useCallback(
+  const onAddReaction = useCallback(
     (unicodeReaction: string) => {
-      if (reactions) {
-        isViewerPreviouslyAddedReaction(
-          viewerData?.id ?? '',
-          reactions,
-          unicodeReaction,
-        )
-          ? onDeleteReaction(unicodeReaction)
-          : onAddReaction(unicodeReaction);
+      if (threadSDK && thread.id && message.id) {
+        void threadSDK.updateMessage(thread.id, message.id, {
+          addReactions: [unicodeReaction],
+        });
       }
     },
-    [reactions, onAddReaction, onDeleteReaction, viewerData?.id],
+    [message.id, thread.id, threadSDK],
   );
 
-  const addReactionElement = showAddReactionTooltip ? (
-    <WithTooltip tooltip={<AddReactionsButtonTooltip />}>
-      <AddReactionButton disabled={false} canBeReplaced />
-    </WithTooltip>
-  ) : (
-    <AddReactionButton disabled={false} canBeReplaced />
+  const onDeleteReaction = useCallback(
+    (unicodeReaction: string) => {
+      if (threadSDK && thread.id && message.id) {
+        void threadSDK.updateMessage(thread.id, message.id, {
+          removeReactions: [unicodeReaction],
+        });
+      }
+    },
+    [message.id, thread.id, threadSDK],
   );
 
-  const { EmojiPicker } = useEmojiPicker(
-    addReactionElement,
-    handleAddReactionClick,
-  );
-
-  const usersByReaction = useUsersByReactions(reactions);
-
+  const addReactionButton = useMemo(() => {
+    return (
+      <WithTooltip tooltip={<AddReactionsButtonTooltip />}>
+        <AddReactionButton
+          onAddReaction={onAddReaction}
+          onDeleteReaction={onDeleteReaction}
+          messageId={message.id}
+        />
+      </WithTooltip>
+    );
+  }, [message.id, onAddReaction, onDeleteReaction]);
   return (
     <div className={cx(classes.reactionsContainer, className)} ref={ref}>
       {showReactionList ? (
@@ -176,10 +161,10 @@ const ReactionsInner = forwardRef(function ReactionsImpl(
               )}
             />
           ))}
-          {showAddReactionButton && EmojiPicker}
+          {showAddReactionButton && addReactionButton}
         </div>
       ) : (
-        showAddReactionButton && EmojiPicker
+        showAddReactionButton && addReactionButton
       )}
     </div>
   );

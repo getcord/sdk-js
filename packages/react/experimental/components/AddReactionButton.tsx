@@ -1,7 +1,11 @@
 import * as React from 'react';
 import cx from 'classnames';
 
-import { forwardRef } from 'react';
+import { forwardRef, useCallback } from 'react';
+import { isViewerPreviouslyAddedReaction } from '../../common/util.ts';
+import { useViewerData } from '../../hooks/user.ts';
+import { useMessage } from '../../hooks/thread.ts';
+import { useEmojiPicker } from './helpers/EmojiPicker.tsx';
 import { Button } from './helpers/Button.tsx';
 import type { GeneralButtonProps } from './helpers/Button.tsx';
 
@@ -9,20 +13,50 @@ import withCord from './hoc/withCord.tsx';
 import * as classes from '@cord-sdk/react/components/Reactions.classnames.ts';
 import * as buttonClasses from '@cord-sdk/react/components/helpers/Button.classnames.ts';
 
-export type AddReactionButtonProps = Omit<GeneralButtonProps, 'buttonAction'>;
+export type AddReactionButtonProps = {
+  messageId?: string;
+  onDeleteReaction: (unicodeReaction: string) => void;
+  onAddReaction: (unicodeReaction: string) => void;
+} & Omit<GeneralButtonProps, 'buttonAction'>;
 
 export const AddReactionButton = withCord(
   forwardRef(function AddReactionButton(
     props: AddReactionButtonProps,
     ref?: React.ForwardedRef<HTMLButtonElement>,
   ) {
-    const { className, ...restProps } = props;
+    const {
+      className,
+      messageId,
+      onAddReaction,
+      onDeleteReaction,
+      ...restProps
+    } = props;
     // [ONI]-TODO If `WithTooltip` was inside this component, when
     // devs replaced it, they would have to add their own tooltip.
     // If `WithTooltip` was the parent of this component, when devs
     // replaced it, they would have to make sure to pass refs and props
     // correctly for the tooltip to work.
-    return (
+
+    const viewerData = useViewerData();
+    const message = useMessage(messageId ?? '');
+    const reactions = message?.reactions;
+    const handleAddReactionClick = useCallback(
+      (unicodeReaction: string) => {
+        if (!reactions) {
+          return;
+        }
+        isViewerPreviouslyAddedReaction(
+          viewerData?.id ?? '',
+          reactions,
+          unicodeReaction,
+        )
+          ? onDeleteReaction(unicodeReaction)
+          : onAddReaction(unicodeReaction);
+      },
+      [reactions, onAddReaction, onDeleteReaction, viewerData?.id],
+    );
+
+    const addReactionElement = (
       <Button
         canBeReplaced
         className={cx(
@@ -38,6 +72,12 @@ export const AddReactionButton = withCord(
         ref={ref}
       />
     );
+    const { EmojiPicker } = useEmojiPicker(
+      addReactionElement,
+      handleAddReactionClick,
+    );
+
+    return <>{EmojiPicker}</>;
   }),
   'AddReactionButton',
 );
