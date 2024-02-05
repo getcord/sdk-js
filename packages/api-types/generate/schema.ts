@@ -1796,7 +1796,11 @@ export default {
     description: 'https://docs.cord.com/rest-apis/users/',
     type: 'object',
     properties: {
-      limit: { description: 'Number of users to return.', type: 'number' },
+      limit: {
+        description:
+          'Number of users to return.\nThe default limit is set to 1000.',
+        type: 'number',
+      },
       token: {
         description:
           'Pagination token. This is returned in the `pagination` object of a previous response.',

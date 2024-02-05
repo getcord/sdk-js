@@ -505,6 +505,7 @@ export interface ServerListUsers {
 export type ServerListUserParameters = {
   /**
    * Number of users to return.
+   * The default limit is set to 1000.
    */
   limit?: number;
 

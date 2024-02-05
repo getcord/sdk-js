@@ -1714,7 +1714,7 @@
     "type": "object",
     "properties": {
       "limit": {
-        "description": "Number of users to return.",
+        "description": "Number of users to return.\nThe default limit is set to 1000.",
         "type": "number"
       },
       "token": {
