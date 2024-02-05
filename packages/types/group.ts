@@ -1,4 +1,6 @@
 import type { EntityMetadata, ID } from './core.ts';
+import type { PaginationDetails } from './pagination.ts';
+import type { ServerListUser } from './user.ts';
 
 export interface ServerGroupData {
   /**
@@ -57,3 +59,27 @@ export interface ServerUpdateGroupMembers {
 export interface ServerGetGroup extends ServerGroupData {}
 
 export interface ServerListGroup extends Omit<ServerGroupData, 'members'> {}
+
+export interface ServerListGroupMember
+  extends Omit<
+    ServerListUser,
+    'short_name' | 'profile_picture_url' | 'first_name' | 'last_name'
+  > {}
+
+export interface ServerListGroupMembers {
+  users: ServerListGroupMember[];
+  pagination: PaginationDetails;
+}
+
+export type ServerListGroupMembersParameters = {
+  /**
+   * Number of group members to return.
+   * The default limit is set to 1000.
+   */
+  limit?: number;
+
+  /**
+   * Pagination token. This is returned in the `pagination` object of a previous response.
+   */
+  token?: string;
+};
