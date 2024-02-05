@@ -5,6 +5,7 @@ import type {
   SendButtonProps,
 } from '../../canary/composer/Composer.js';
 import type { MessageProps } from '../../canary/Message.tsx';
+import type { ThreadHeaderProps, ThreadProps } from '../../canary/Thread.tsx';
 import type {
   AvatarFallbackProps,
   AvatarProps,
@@ -64,6 +65,8 @@ export type ReplaceConfigBase = Partial<{
   Timestamp: React.ComponentType<TimestampProps>;
   EmojiPicker: React.ComponentType<EmojiPickerProps>;
   Reactions: React.ComponentType<ReactionsProps>;
+  Thread: React.ComponentType<ThreadProps>;
+  ThreadHeader: React.ComponentType<ThreadHeaderProps>;
 }>;
 
 type ReplaceWithin = Partial<{
