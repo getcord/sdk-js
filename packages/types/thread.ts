@@ -986,9 +986,8 @@ export interface ICordThreadSDK {
   setSubscribed(threadID: ThreadID, subscribed: boolean): Promise<true>;
 
   /**
-   * Mark whether the whole thread, i.e. all the messages in the thread, are seen
-   * or unseen for the current user.  This does not affect whether the user is
-   * subscribed to the thread or not.
+   * Mark entire threads as seen or unseen for the current user.  This does not
+   * affect whether the user is subscribed to the thread or not.
    * @example Overview
    * ```
    * // To mark a thread as unseen
@@ -997,13 +996,32 @@ export interface ICordThreadSDK {
    * // To mark a thread as seen
    * await window.CordSDK.thread.setSeen('my-awesome-thread-id', true);
    * ```
-   * @param threadID - The ID of the thread.
-   *
-   * @param seen - Whether the thread should now be seen (true) or unseen (false).
+   * @param threadID - The ID of the thread to operate on.
+   * @param seen - Whether the thread should now be seen (true) or unseen
+   * (false).
    * @returns A promise that resolves to `true` if the operation succeeded or
    * rejects if it failed.
    */
   setSeen(threadID: ThreadID, seen: boolean): Promise<true>;
+
+  /**
+   * Mark entire threads as seen or unseen for the current user.  This does not
+   * affect whether the user is subscribed to the thread or not.
+   * @example Overview
+   * ```
+   * // To mark threads as unseen
+   * await window.CordSDK.thread.setSeen({ metadata: {archived: true} }, false);
+   *
+   * // To mark threads as seen
+   * await window.CordSDK.thread.setSeen({ metadata: {archived: true} }, true);
+   * ```
+   * @param filter - The set of threads to operate on.
+   * @param seen - Whether the threads should now be seen (true) or unseen
+   * (false).
+   * @returns A promise that resolves to `true` if the operation succeeded or
+   * rejects if it failed.
+   */
+  setSeen(filter: ClientThreadFilter, seen: boolean): Promise<true>;
 
   /**
    * Create a new empty thread i.e. a thread without messages.
