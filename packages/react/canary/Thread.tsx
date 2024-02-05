@@ -4,8 +4,10 @@ import cx from 'classnames';
 
 import type { ClientThreadData } from '@cord-sdk/types/thread.ts';
 import withCord from '../experimental/components/hoc/withCord.tsx';
-import { Button, OptionsMenu } from '../experimental.ts';
 import { threadHeader } from '../components/Thread.classnames.ts';
+import { Button, OptionsMenu } from '../experimental.ts';
+import { Composer } from './composer/Composer.tsx';
+import { Message } from './Message.tsx';
 
 export type ThreadProps = {
   thread?: ClientThreadData;
@@ -19,15 +21,34 @@ export const Thread = withCord<React.PropsWithChildren<ThreadProps>>(
     className,
     ...restProps
   }: ThreadProps) {
+    const threadData = thread?.thread;
+    const messages = thread?.messages ?? [];
+
     return (
       <div {...restProps} className={cx(className, 'cord-component-thread')}>
         {showHeader && (
           <ThreadHeader
             canBeReplaced
-            threadID={thread?.thread?.id}
-            showContextMenu={true}
+            threadID={threadData?.id}
+            showContextMenu={messages.length > 0}
           />
         )}
+        <div>
+          {messages.length > 0 &&
+            threadData?.id &&
+            messages.map((message) => {
+              return (
+                <Message
+                  className="cord-message"
+                  key={message.id}
+                  threadID={threadData.id}
+                  message={message}
+                  canBeReplaced
+                ></Message>
+              );
+            })}
+        </div>
+        <Composer threadId={threadData?.id} canBeReplaced />
       </div>
     );
   }),
