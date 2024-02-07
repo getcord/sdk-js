@@ -18,7 +18,7 @@ import prettier from 'prettier';
 
 async function main() {
   const mainPkg = JSON.parse(await fs.readFile('package.json'));
-  const packageJsonFiles = await glob('packages/*/package.json');
+  const packageJsonFiles = await glob('packages/*/package.json', { posix: true });
 
   for (const fn of packageJsonFiles) {
     const packageName = /^packages\/(.*)\/package\.json$/.exec(fn)[1];
