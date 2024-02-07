@@ -126,10 +126,17 @@ export type FilterParameters = {
   metadata?: EntityMetadata;
 
   /**
+   * @deprecated Use groupID instead.
    * Return only threads [belonging to this
    * organization](https://docs.cord.com/reference/permissions).
    */
   organizationID?: string;
+
+  /**
+   * Return only threads [belonging to this
+   * group](https://docs.cord.com/reference/permissions).
+   */
+  groupID?: string;
 
   /**
    * Return only threads with a "first message timestamp" within this range. The

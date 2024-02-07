@@ -1325,6 +1325,11 @@ export default {
             additionalProperties: { type: ['string', 'number', 'boolean'] },
             propertyOrder: [],
           },
+          groupID: {
+            description:
+              'Return only threads [belonging to this\ngroup](/reference/permissions).',
+            type: 'string',
+          },
           firstMessageTimestamp: {
             description:
               'Return only threads with a "first message timestamp" within this range. The\n"first message timestamp" of a thread is the timestamp when the first\nmessage in the thread was created. (This is typically when the thread was\ncreated.)',
@@ -1372,6 +1377,7 @@ export default {
         propertyOrder: [
           'location',
           'metadata',
+          'groupID',
           'firstMessageTimestamp',
           'mostRecentMessageTimestamp',
         ],
