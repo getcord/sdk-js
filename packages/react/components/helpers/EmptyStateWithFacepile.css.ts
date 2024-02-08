@@ -1,10 +1,10 @@
 import { globalStyle } from '@vanilla-extract/css';
+import { cssVar } from '../../common/ui/cssVariables.ts';
 import {
   emptyStatePlaceholderContainer,
   emptyStatePlaceholderTitle,
   emptyStatePlaceholderBody,
 } from './EmptyStateWithFacepile.classnames.ts';
-import { cssVar } from '@cord-sdk/react/common/ui/cssVariables.ts';
 export * from './EmptyStateWithFacepile.classnames.ts';
 
 globalStyle(`.${emptyStatePlaceholderContainer}`, {

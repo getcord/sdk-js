@@ -4,7 +4,7 @@ import type { MessageNode, MessageTextNode } from '@cord-sdk/types';
 import { MessageNodeType } from '@cord-sdk/types';
 import { BulletElement } from '../../../components/composer/BulletElement.tsx';
 import { UserReferenceElement } from '../../../experimental/components/composer/UserReferenceElement.tsx';
-import * as classes from '@cord-sdk/react/components/editor/editor.css.ts';
+import * as classes from '../../../components/editor/editor.css.ts';
 
 export const wrapTextNodeWithStyles = (
   node: JSX.Element,

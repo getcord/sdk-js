@@ -7,9 +7,9 @@ import cx from 'classnames';
 import { usePopperCreator } from '../../hooks/usePopperCreator.ts';
 import type { PopperPosition } from '../../types.ts';
 import * as classes from '../../components/Tooltip.css.ts';
-import { Portal } from '@cord-sdk/react/experimental/components/Portal.tsx';
-import { useComposedRefs } from '@cord-sdk/react/common/lib/composeRefs.ts';
-import { fontSmallLight } from '@cord-sdk/react/common/ui/atomicClasses/fonts.css.ts';
+import { useComposedRefs } from '../../common/lib/composeRefs.ts';
+import { fontSmallLight } from '../../common/ui/atomicClasses/fonts.css.ts';
+import { Portal } from './Portal.tsx';
 
 const DEFAULT_POSITION: PopperPosition = 'top';
 const DEFAULT_OFFSET = 2;

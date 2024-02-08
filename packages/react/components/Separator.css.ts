@@ -1,8 +1,7 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { cssVar } from '@cord-sdk/react/common/ui/cssVariables.ts';
-import { menu } from '@cord-sdk/react/components/Menu.css.ts';
-import * as classes from '@cord-sdk/react/components/helpers/Separator.classnames.ts';
-export default classes;
+import { cssVar } from '../common/ui/cssVariables.ts';
+import { menu } from './Menu.css.ts';
+import * as classes from './helpers/Separator.classnames.ts';
 
 const { separator } = classes;
 

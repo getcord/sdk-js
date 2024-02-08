@@ -1,10 +1,10 @@
 import { globalStyle } from '@vanilla-extract/css';
 
-import { cssVar } from '@cord-sdk/react/common/ui/cssVariables.ts';
+import { cssVar } from '../../common/ui/cssVariables.ts';
 import {
   composerContainer,
   attachmentsContainer,
-} from '@cord-sdk/react/components/Composer.classnames.ts';
+} from '../Composer.classnames.ts';
 
 export default { attachmentsContainer };
 

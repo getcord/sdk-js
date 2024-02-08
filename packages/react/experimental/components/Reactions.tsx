@@ -10,13 +10,13 @@ import {
 } from '../../common/util.js';
 import { useUsersByReactions } from '../../common/effects/useUsersByReactions.ts';
 import { useMessage, useThread } from '../../hooks/thread.ts';
+import { useCordTranslation, CordContext } from '../../index.ts';
+import * as classes from '../../components/Reactions.classnames.ts';
+import { useViewerData } from '../../hooks/user.ts';
 import { AddReactionButton } from './AddReactionButton.tsx';
 import withCord from './hoc/withCord.js';
 import { DefaultTooltip, WithTooltip } from './WithTooltip.tsx';
 import { ReactionPill } from './message/ReactionPill.tsx';
-import { useCordTranslation, CordContext } from '@cord-sdk/react';
-import * as classes from '@cord-sdk/react/components/Reactions.classnames.ts';
-import { useViewerData } from '@cord-sdk/react/hooks/user.ts';
 
 export type ReactionsProps = {
   threadId?: string;

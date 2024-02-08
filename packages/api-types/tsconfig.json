@@ -8,6 +8,6 @@
     "noEmit": true,
     "allowImportingTsExtensions": true,
     "declaration": true,
-    "inlineSourceMap": true
-  }
+    "inlineSourceMap": true,
+  },
 }

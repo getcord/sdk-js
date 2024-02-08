@@ -9,7 +9,7 @@ import {
   isLastBlockInStyledBlock,
   isCodeBlock,
 } from '../lib/util.ts';
-import { isMessageNodeType } from '@cord-sdk/react/common/lib/messageNode.ts';
+import { isMessageNodeType } from '../../../common/lib/messageNode.ts';
 
 // Add/remove extra text nodes when moving down/up from annotations/quotes but no space
 export function onShiftEnter(editor: Editor, event: React.KeyboardEvent) {

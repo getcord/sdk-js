@@ -1,6 +1,6 @@
 import { globalStyle } from '@vanilla-extract/css';
 import { cordifyClassname } from '../../util.ts';
-import { cssVar } from '@cord-sdk/react/common/ui/cssVariables.ts';
+import { cssVar } from '../cssVariables.ts';
 
 export const iconSmall = cordifyClassname('icon-small');
 globalStyle(`.${iconSmall}`, {

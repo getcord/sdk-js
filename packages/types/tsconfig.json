@@ -9,6 +9,6 @@
     "allowImportingTsExtensions": true,
     "declaration": true,
     "jsx": "react",
-    "inlineSourceMap": true
-  }
+    "inlineSourceMap": true,
+  },
 }

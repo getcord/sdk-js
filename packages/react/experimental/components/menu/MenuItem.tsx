@@ -5,13 +5,13 @@ import cx from 'classnames';
 import type { Avatar } from '../Avatar.tsx';
 import * as classes from '../../../components/MenuItem.css.ts';
 import withCord from '../hoc/withCord.tsx';
-import { Icon } from '@cord-sdk/react/components/helpers/Icon.tsx';
-import type { IconType } from '@cord-sdk/react/components/helpers/Icon.tsx';
-import type { ColorVar } from '@cord-sdk/react/common/ui/cssVariables.ts';
-import type { Font } from '@cord-sdk/react/common/ui/atomicClasses/fonts.ts';
-import { fontBody } from '@cord-sdk/react/common/ui/atomicClasses/fonts.css.ts';
+import { Icon } from '../../../components/helpers/Icon.tsx';
+import type { IconType } from '../../../components/helpers/Icon.tsx';
+import type { ColorVar } from '../../../common/ui/cssVariables.ts';
+import type { Font } from '../../../common/ui/atomicClasses/fonts.ts';
+import { fontBody } from '../../../common/ui/atomicClasses/fonts.css.ts';
 
-import { MODIFIERS } from '@cord-sdk/react/common/ui/modifiers.ts';
+import { MODIFIERS } from '../../../common/ui/modifiers.ts';
 
 type LeftItem = React.ReactElement<typeof Avatar | typeof Icon>;
 

@@ -1,14 +1,14 @@
 import { globalStyle } from '@vanilla-extract/css';
 
-import { addSpaceVars, cssVar } from '@cord-sdk/react/common/ui/cssVariables.ts';
-import { getModifiedSelector } from '@cord-sdk/react/common/ui/modifiers.ts';
+import { addSpaceVars, cssVar } from '../common/ui/cssVariables.ts';
+import { getModifiedSelector } from '../common/ui/modifiers.ts';
 import {
   base,
   label,
   listItemContainer,
   subtitle,
   textOnly,
-} from '@cord-sdk/react/components/MenuItem.classnames.ts';
+} from './MenuItem.classnames.ts';
 
 export { base, label, listItemContainer, subtitle, textOnly };
 

@@ -3,9 +3,9 @@ import { useMemo, forwardRef } from 'react';
 import cx from 'classnames';
 import { isDefined } from '../../common/util.ts';
 import { useUserData } from '../../hooks/user.ts';
+import * as classes from '../../components/Facepile.classnames.ts';
 import withCord from './hoc/withCord.tsx';
 import { Avatar } from './Avatar.tsx';
-import * as classes from '@cord-sdk/react/components/Facepile.classnames.ts';
 
 export type FacepileProps = {
   userIDs: string[];

@@ -1,7 +1,7 @@
 import type { Location } from 'slate';
 import { Editor } from 'slate';
 import EmojiConverter from 'emoji-js';
-import { findLastIndex } from '@cord-sdk/react/common/lib/findLast.ts';
+import { findLastIndex } from '../../../common/lib/findLast.ts';
 
 const emoji = new EmojiConverter();
 

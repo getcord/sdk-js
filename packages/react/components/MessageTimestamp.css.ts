@@ -1,12 +1,9 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { timestamp } from '@cord-sdk/react/components/Timestamp.classnames.ts';
+import { cssVar } from '../common/ui/cssVariables.ts';
+import { getModifiedSelector, MODIFIERS } from '../common/ui/modifiers.ts';
+import { timestamp } from './Timestamp.classnames.ts';
 export { timestamp };
-import { cssVar } from '@cord-sdk/react/common/ui/cssVariables.ts';
-import {
-  getModifiedSelector,
-  MODIFIERS,
-} from '@cord-sdk/react/common/ui/modifiers.ts';
-import { notificationContainer } from '@cord-sdk/react/components/Notification.classnames.ts';
+import { notificationContainer } from './Notification.classnames.ts';
 
 globalStyle(`.${timestamp}`, {
   display: 'flex',

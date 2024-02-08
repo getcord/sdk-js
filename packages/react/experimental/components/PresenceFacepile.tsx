@@ -9,10 +9,10 @@ import { useLocationData } from '../../hooks/presence.ts';
 import { getUsersAtLocation } from '../../common/lib/presence.ts';
 import { useTime } from '../../common/effects/useTime.tsx';
 import { relativeTimestampString } from '../../common/util.ts';
+import * as classes from '../../components/Facepile.classnames.ts';
 import { DefaultTooltip, WithTooltip } from './WithTooltip.tsx';
 import { Avatar } from './Avatar.tsx';
 import withCord from './hoc/withCord.tsx';
-import * as classes from '@cord-sdk/react/components/Facepile.classnames.ts';
 
 const DEFAULT_NUM_OF_AVATARS = 5;
 

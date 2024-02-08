@@ -1,6 +1,6 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { cordifyClassname } from '@cord-sdk/react/common/util.ts';
-import { cssVar } from '@cord-sdk/react/common/ui/cssVariables.ts';
+import { cordifyClassname } from '../../common/util.ts';
+import { cssVar } from '../../common/ui/cssVariables.ts';
 
 export const editedMessageTag = cordifyClassname('edited-message-tag');
 globalStyle(`.${editedMessageTag}`, {

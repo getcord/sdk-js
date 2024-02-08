@@ -6,12 +6,12 @@ import {
   isStartOfBlock,
   isCodeBlock,
 } from '../lib/util.ts';
-import { isEqual } from '@cord-sdk/react/common/lib/fast-deep-equal.ts';
-import { Keys } from '@cord-sdk/react/common/const/Keys.ts';
+import { isEqual } from '../../../common/lib/fast-deep-equal.ts';
+import { Keys } from '../../../common/const/Keys.ts';
 import {
   createMessageNode,
   isMessageNodeType,
-} from '@cord-sdk/react/common/lib/messageNode.ts';
+} from '../../../common/lib/messageNode.ts';
 
 export function onDeleteOrBackspace(
   editor: Editor,

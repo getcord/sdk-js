@@ -4,8 +4,8 @@ import cx from 'classnames';
 
 import type { MessageContent } from '@cord-sdk/types/messageNodes.ts';
 import { useUserData } from '../../../hooks/user.ts';
-import * as classes from '@cord-sdk/react/components/composer/userReferences/UserReferenceElement.css.ts';
-import { MODIFIERS } from '@cord-sdk/react/common/ui/modifiers.ts';
+import * as classes from '../../../components/composer/userReferences/UserReferenceElement.css.ts';
+import { MODIFIERS } from '../../../common/ui/modifiers.ts';
 
 type Props = React.PropsWithChildren<{
   attributes: any;

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import cx from 'classnames';
-import { useCordTranslation } from '@cord-sdk/react';
-import { fontSmallLight } from '@cord-sdk/react/common/ui/atomicClasses/fonts.css.ts';
-import { editedMessageTag } from '@cord-sdk/react/components/message/EditedMessage.css.ts';
+import { useCordTranslation } from '../../index.ts';
+import { fontSmallLight } from '../../common/ui/atomicClasses/fonts.css.ts';
+import { editedMessageTag } from '../../components/message/EditedMessage.css.ts';
 
 type Props = {
   as: 'p' | 'span';

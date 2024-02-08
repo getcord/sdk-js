@@ -13,17 +13,17 @@ import type {
   UUID,
 } from '@cord-sdk/types';
 import {
+  createStyledBlockNode,
+  createParagraphNode,
+  isMessageNodeType,
+  createMentionNode,
+} from '../../../common/lib/messageNode.ts';
+import {
   isStyledBlock,
   isStartOfBlock,
   isStyledBlockEmpty,
   isEmptyParagraph,
 } from './util.ts';
-import {
-  createStyledBlockNode,
-  createParagraphNode,
-  isMessageNodeType,
-  createMentionNode,
-} from '@cord-sdk/react/common/lib/messageNode.ts';
 
 export const HOTKEYS: { [key: string]: Mark } = {
   'mod+b': 'bold',

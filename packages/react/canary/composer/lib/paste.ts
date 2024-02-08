@@ -11,7 +11,7 @@ import { trimStart } from '../../../common/lib/trim.ts';
 import {
   isMessageNodeType,
   createLinkNode,
-} from '@cord-sdk/react/common/lib/messageNode.ts';
+} from '../../../common/lib/messageNode.ts';
 
 const RICH_CONTENT_TAGS = ['BLOCKQUOTE', 'PRE', 'LI'];
 

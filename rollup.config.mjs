@@ -66,6 +66,7 @@ async function packageBuildConfig(packageName, options = {}) {
           assetFileNames({ name }) {
             return name?.replace(/^packages\/react\//, '') ?? '';
           },
+          inlineDynamicImports: true,
         },
         {
           file: path.resolve(dirname, pkg.module),
@@ -74,6 +75,7 @@ async function packageBuildConfig(packageName, options = {}) {
           assetFileNames({ name }) {
             return name?.replace(/^packages\/react\//, '') ?? '';
           },
+          inlineDynamicImports: true,
         },
       ],
     },
@@ -100,7 +102,13 @@ async function rollupConfig() {
     packageBuildConfig('types'),
     packageBuildConfig('components'),
     packageBuildConfig('jsx'),
-    packageBuildConfig('react'),
+    packageBuildConfig('react', {
+      extraExternal: [
+        'fake-indexeddb/lib/FDBKeyRange',
+        'dayjs/plugin/calendar.js',
+        'jotai/react/utils',
+      ],
+    }),
     packageBuildConfig('server'),
     packageBuildConfig('api-types', {
       extraCopyTargets: [

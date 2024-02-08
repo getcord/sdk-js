@@ -2,9 +2,9 @@ import * as React from 'react';
 import type { UUID, UploadedFile } from '@cord-sdk/types';
 import { FileAttachment } from '../../experimental/components/composer/FileAttachment.tsx';
 import { ImageAttachment } from '../../experimental/components/composer/ImageAttachment.tsx';
-import { useCordTranslation } from '@cord-sdk/react';
-import { isInlineDisplayableImage } from '@cord-sdk/react/common/lib/uploads.ts';
-import { Icon } from '@cord-sdk/react/components/helpers/Icon.tsx';
+import { useCordTranslation } from '../../index.ts';
+import { isInlineDisplayableImage } from '../../common/lib/uploads.ts';
+import { Icon } from '../helpers/Icon.tsx';
 
 type Props = {
   attachment: UploadedFile;

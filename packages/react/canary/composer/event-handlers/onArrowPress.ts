@@ -4,7 +4,7 @@ import type { MessageNode, MessageTextNode } from '@cord-sdk/types';
 import { EditorCommands } from '../lib/commands.ts';
 import { Keys } from '../../../common/const/Keys.ts';
 import { isQuote } from '../lib/util.ts';
-import { isMessageNodeText } from '@cord-sdk/react/common/lib/messageNode.ts';
+import { isMessageNodeText } from '../../../common/lib/messageNode.ts';
 
 // Add/remove extra text nodes when moving down/up from annotations/quotes but no space
 export function onArrow(editor: Editor, event: React.KeyboardEvent) {

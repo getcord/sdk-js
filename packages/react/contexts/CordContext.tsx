@@ -15,7 +15,7 @@ import type {
   CordSDKOptions,
   CaptureScreenshotEvent,
 } from '@cord-sdk/types';
-import { useUnpackClientAuthTokenPayload } from '@cord-sdk/react/hooks/useUnpackClientAuthTokenPayload.ts';
+import { useUnpackClientAuthTokenPayload } from '../hooks/useUnpackClientAuthTokenPayload.ts';
 
 declare const CORD_REACT_PACKAGE_VERSION: string;
 

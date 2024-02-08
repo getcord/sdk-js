@@ -1,6 +1,6 @@
 import { Colors } from '../const/Colors.ts';
-import { Sizes } from '@cord-sdk/react/common/const/Sizes.ts';
-import { cssVar } from '@cord-sdk/react/common/ui/cssVariables.ts';
+import { Sizes } from '../const/Sizes.ts';
+import { cssVar } from '../ui/cssVariables.ts';
 
 const Fonts = {
   CODE: 'monospace',

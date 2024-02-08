@@ -7,11 +7,10 @@ import type { ClientUserData, ViewerUserData } from '@cord-sdk/types';
 import { MODIFIERS } from '../../common/ui/modifiers.ts';
 import { cordifyClassname, getStableColorPalette } from '../../common/util.ts';
 import classes from '../../components/Avatar.css.ts';
+import { useCordTranslation } from '../../index.ts';
+import { useViewerData, useUserData } from '../../hooks/user.ts';
 import { WithTooltip, DefaultTooltip } from './WithTooltip.tsx';
 import withCord from './hoc/withCord.tsx';
-import { useCordTranslation } from '@cord-sdk/react';
-
-import { useViewerData, useUserData } from '@cord-sdk/react/hooks/user.ts';
 
 export type AvatarProps = {
   userId: string;

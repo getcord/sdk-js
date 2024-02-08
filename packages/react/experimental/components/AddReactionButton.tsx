@@ -5,13 +5,13 @@ import { forwardRef, useCallback } from 'react';
 import { isViewerPreviouslyAddedReaction } from '../../common/util.ts';
 import { useViewerData } from '../../hooks/user.ts';
 import { useMessage } from '../../hooks/thread.ts';
+import * as classes from '../../components/Reactions.classnames.ts';
+import * as buttonClasses from '../../components/helpers/Button.classnames.ts';
 import { useEmojiPicker } from './helpers/EmojiPicker.tsx';
 import { Button } from './helpers/Button.tsx';
 import type { GeneralButtonProps } from './helpers/Button.tsx';
 
 import withCord from './hoc/withCord.tsx';
-import * as classes from '@cord-sdk/react/components/Reactions.classnames.ts';
-import * as buttonClasses from '@cord-sdk/react/components/helpers/Button.classnames.ts';
 
 export type AddReactionButtonProps = {
   messageId?: string;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
-import * as classes from '@cord-sdk/react/components/composer/BulletElement.classnames.ts';
+import * as classes from '../composer/BulletElement.classnames.ts';
 
 type Props = {
   children: JSX.Element[];

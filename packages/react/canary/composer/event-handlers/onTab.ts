@@ -3,7 +3,7 @@ import type { Editor } from 'slate';
 import { Transforms, Range, Path } from 'slate';
 import { EditorCommands } from '../lib/commands.ts';
 import { isIndentable, isStartOfBlock } from '../lib/util.ts';
-import { MAX_BULLET_INDENT } from '@cord-sdk/react/common/lib/messageNode.ts';
+import { MAX_BULLET_INDENT } from '../../../common/lib/messageNode.ts';
 
 export function onTab(editor: Editor, event: React.KeyboardEvent) {
   const { selection } = editor;

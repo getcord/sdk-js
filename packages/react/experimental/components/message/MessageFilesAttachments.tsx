@@ -14,10 +14,10 @@ import {
 import { isNotNull } from '../../../common/util.ts';
 import withCord from '../hoc/withCord.tsx';
 import { useMediaModal } from '../../hooks/useMediaModal.tsx';
+import * as classes from '../../../components/MessageContent.classnames.ts';
 import { MessageFileAttachment } from './MessageFileAttachment.tsx';
 import { MessageImageAttachment } from './MessageImageAttachment.tsx';
 import { MessageVideoAttachment } from './MessageVideoAttachment.tsx';
-import * as classes from '@cord-sdk/react/components/MessageContent.classnames.ts';
 
 export type MessageFilesAttachmentsProps = {
   user?: ClientUserData;

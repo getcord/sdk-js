@@ -13,17 +13,17 @@ import {
   isInlineDisplayableVideo,
 } from '../../common/lib/uploads.ts';
 import { Icon } from '../../components/helpers/Icon.tsx';
+import * as classes from '../../components/MediaModal.classnames.ts';
+import {
+  colorsPrimary,
+  medium,
+  colorsSecondary,
+} from '../../components/helpers/Button.classnames.ts';
 import { Button } from './helpers/Button.tsx';
 import { DefaultTooltip, WithTooltip } from './WithTooltip.tsx';
 import { Overlay } from './Overlay.tsx';
 import { MessageVideoAttachment } from './message/MessageVideoAttachment.tsx';
 import withCord from './hoc/withCord.tsx';
-import * as classes from '@cord-sdk/react/components/MediaModal.classnames.ts';
-import {
-  colorsPrimary,
-  medium,
-  colorsSecondary,
-} from '@cord-sdk/react/components/helpers/Button.classnames.ts';
 
 export type MediaModalProps = {
   medias: {

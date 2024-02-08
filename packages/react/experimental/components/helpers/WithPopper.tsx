@@ -13,9 +13,9 @@ import type { PopperPosition } from '../../../types.ts';
 import { usePopperCreator } from '../../../hooks/usePopperCreator.ts';
 import { useClickOutside } from '../../../common/effects/useClickOutside.ts';
 import { useUpdatingRef } from '../../../common/effects/useUpdatingRef.ts';
-import * as classes from '@cord-sdk/react/components/helpers/WithPopper.classnames.ts';
-import { ZINDEX } from '@cord-sdk/react/common/ui/zIndex.ts';
-import { useComposedRefs } from '@cord-sdk/react/common/lib/composeRefs.ts';
+import * as classes from '../../../components/helpers/WithPopper.classnames.ts';
+import { ZINDEX } from '../../../common/ui/zIndex.ts';
+import { useComposedRefs } from '../../../common/lib/composeRefs.ts';
 
 const DEFAULT_POSITION: PopperPosition = 'top';
 

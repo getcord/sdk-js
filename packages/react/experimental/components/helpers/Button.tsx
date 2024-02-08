@@ -5,8 +5,8 @@ import { forwardRef } from 'react';
 import { Icon } from '../../../components/helpers/Icon.tsx';
 import type { IconType } from '../../../components/helpers/Icon.tsx';
 import withCord from '../hoc/withCord.tsx';
-import * as classes from '@cord-sdk/react/components/helpers/Button.classnames.ts';
-import { MODIFIERS } from '@cord-sdk/react/common/ui/modifiers.ts';
+import * as classes from '../../../components/helpers/Button.classnames.ts';
+import { MODIFIERS } from '../../../common/ui/modifiers.ts';
 
 type AdditionalButtonProps = {
   buttonAction: string;

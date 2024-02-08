@@ -6,17 +6,17 @@ import { DefaultTooltip, WithTooltip } from '../WithTooltip.tsx';
 import { Link } from '../helpers/Link.tsx';
 import { ButtonWithUnderline } from '../helpers/ButtonWithUnderline.tsx';
 import { SpinnerIcon } from '../../../common/icons/customIcons/SpinnerIcon.tsx';
-import { getFileSizeString } from '@cord-sdk/react/common/util.ts';
+import { getFileSizeString } from '../../../common/util.ts';
 
-import * as classes from '@cord-sdk/react/components/FileAttachment.classnames.ts';
-import { Icon } from '@cord-sdk/react/components/helpers/Icon.tsx';
-import type { IconType } from '@cord-sdk/react/components/helpers/Icon.tsx';
-import { useCordTranslation } from '@cord-sdk/react';
-import { MODIFIERS } from '@cord-sdk/react/common/ui/modifiers.ts';
+import * as classes from '../../../components/FileAttachment.classnames.ts';
+import { Icon } from '../../../components/helpers/Icon.tsx';
+import type { IconType } from '../../../components/helpers/Icon.tsx';
+import { useCordTranslation } from '../../../index.ts';
+import { MODIFIERS } from '../../../common/ui/modifiers.ts';
 import {
   fontSmall,
   fontSmallEmphasis,
-} from '@cord-sdk/react/common/ui/atomicClasses/fonts.css.ts';
+} from '../../../common/ui/atomicClasses/fonts.css.ts';
 
 type Props = {
   mimeType: string;

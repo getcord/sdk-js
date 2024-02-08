@@ -5,7 +5,7 @@ import { isBullet, isIndentable } from '../lib/util.ts';
 import {
   MAX_BULLET_INDENT,
   isMessageNodeType,
-} from '@cord-sdk/react/common/lib/messageNode.ts';
+} from '../../../common/lib/messageNode.ts';
 
 export function withBullets(editor: Editor) {
   const { normalizeNode } = editor;

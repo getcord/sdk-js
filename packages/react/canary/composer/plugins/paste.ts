@@ -7,7 +7,7 @@ import {
   deserializeElementToMessageContent,
   cleanPastedNodes,
 } from '../lib/paste.ts';
-import { convertStructuredMessageToText } from '@cord-sdk/react/common/lib/messageNode.ts';
+import { convertStructuredMessageToText } from '../../../common/lib/messageNode.ts';
 
 export const withHTMLPaste = (editor: Editor) => {
   const { insertData, insertText, isInline } = editor;

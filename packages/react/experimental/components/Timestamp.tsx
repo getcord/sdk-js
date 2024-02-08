@@ -7,14 +7,14 @@ import cx from 'classnames';
 import type { TFunction } from 'i18next';
 import { timestamp } from '../../components/MessageTimestamp.css.ts';
 import { useCordTranslation } from '../../hooks/useCordTranslation.tsx';
-import { DefaultTooltip, WithTooltip } from './WithTooltip.tsx';
+import { fontSmallLight } from '../../common/ui/atomicClasses/fonts.css.ts';
+import { useTime } from '../../common/effects/useTime.tsx';
 import {
   absoluteTimestampString,
   relativeTimestampString,
-} from '@cord-sdk/react/common/util.ts';
-import { fontSmallLight } from '@cord-sdk/react/common/ui/atomicClasses/fonts.css.ts';
-import { useTime } from '@cord-sdk/react/common/effects/useTime.tsx';
-import withCord from '@cord-sdk/react/experimental/components/hoc/withCord.tsx';
+} from '../../common/util.ts';
+import { DefaultTooltip, WithTooltip } from './WithTooltip.tsx';
+import withCord from './hoc/withCord.tsx';
 
 export type TimestampProps = {
   // the string value is a date string with the format YYYY-MM-DDTHH:mm:ss.sssZ

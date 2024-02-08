@@ -10,9 +10,9 @@ import { Separator } from '../helpers/Separator.tsx';
 import { useViewerData } from '../../../hooks/user.ts';
 import { useThread } from '../../../hooks/thread.ts';
 import { setResolved } from '../../../common/lib/thread.ts';
+import { useCordTranslation } from '../../../index.ts';
+import { Icon } from '../../../components/helpers/Icon.tsx';
 import { MenuItem } from './MenuItem.tsx';
-import { useCordTranslation } from '@cord-sdk/react';
-import { Icon } from '@cord-sdk/react/components/helpers/Icon.tsx';
 
 export type MessageActionsProps = React.PropsWithChildren<{
   closeMenu: () => void;
