@@ -6,13 +6,13 @@ export default {
     properties: {
       emailSettings: { $ref: '#/definitions/Partial<EmailSettings>' },
       name: {
-        description: 'Name of the application',
+        description: 'Name of the project',
         minLength: 1,
         type: 'string',
       },
       iconURL: {
         description:
-          'URL for the application icon. It should be a square image of 256x256. This\nwill be used as the avatar for messages and emails coming from your\napplication.  If not specified, the Cord logo will be used.',
+          'URL for the project icon. It should be a square image of 256x256. This\nwill be used as the avatar for messages and emails coming from your\nproject.  If not specified, the Cord logo will be used.',
         format: 'uri',
         type: ['null', 'string'],
       },
@@ -42,7 +42,7 @@ export default {
         properties: {
           name: {
             description:
-              "Name to show in both the subject and the body of the email.\nDefaults to your application's name.",
+              "Name to show in both the subject and the body of the email.\nDefaults to your project's name.",
             type: ['null', 'string'],
           },
           imageURL: {
@@ -52,7 +52,7 @@ export default {
           },
           sender: {
             description:
-              'Email from which notifications for your service will be sent from.\nThis will use the provided name for your application to default to `<applicationname>-notifications@cord.fyi`.',
+              'Email from which notifications for your service will be sent from.\nThis will use the provided name for your project to default to `<projectname>-notifications@cord.fyi`.',
             format: 'email',
             type: ['null', 'string'],
           },
@@ -94,13 +94,13 @@ export default {
     properties: {
       emailSettings: { $ref: '#/definitions/Partial<EmailSettings>' },
       name: {
-        description: 'Name of the application',
+        description: 'Name of the project',
         minLength: 1,
         type: 'string',
       },
       iconURL: {
         description:
-          'URL for the application icon. It should be a square image of 256x256. This\nwill be used as the avatar for messages and emails coming from your\napplication.  If not specified, the Cord logo will be used.',
+          'URL for the project icon. It should be a square image of 256x256. This\nwill be used as the avatar for messages and emails coming from your\nproject.  If not specified, the Cord logo will be used.',
         format: 'uri',
         type: ['null', 'string'],
       },
@@ -129,7 +129,7 @@ export default {
         properties: {
           name: {
             description:
-              "Name to show in both the subject and the body of the email.\nDefaults to your application's name.",
+              "Name to show in both the subject and the body of the email.\nDefaults to your project's name.",
             type: ['null', 'string'],
           },
           imageURL: {
@@ -139,7 +139,7 @@ export default {
           },
           sender: {
             description:
-              'Email from which notifications for your service will be sent from.\nThis will use the provided name for your application to default to `<applicationname>-notifications@cord.fyi`.',
+              'Email from which notifications for your service will be sent from.\nThis will use the provided name for your project to default to `<projectname>-notifications@cord.fyi`.',
             format: 'email',
             type: ['null', 'string'],
           },
@@ -181,7 +181,7 @@ export default {
     properties: {
       secret: {
         description:
-          'Secret key of the application that you want to delete. This can be found\nwithin the Cord Console.',
+          'Secret key of the project that you want to delete. This can be found\nwithin the Cord Console.',
         minLength: 1,
         type: 'string',
       },

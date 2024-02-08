@@ -36,6 +36,7 @@ export * from './notifications.ts';
 export * from './organization.ts';
 export * from './preferences.ts';
 export * from './presence.ts';
+export * from './project.ts';
 export * from './thread.ts';
 export * from './user.ts';
 export * from './webhook.ts';
