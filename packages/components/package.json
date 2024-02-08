@@ -1,7 +1,7 @@
 {
   "name": "@cord-sdk/components",
   "description": "Structured information about the Cord web components",
-  "version": "1.31.2",
+  "version": "1.32.0",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
   "files": [
@@ -19,7 +19,7 @@
     "directory": "packages/components"
   },
   "dependencies": {
-    "@cord-sdk/types": "1.31.2"
+    "@cord-sdk/types": "1.32.0"
   },
   "devDependencies": {
     "rollup": "^2.70.1",
