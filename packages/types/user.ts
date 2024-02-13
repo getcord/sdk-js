@@ -402,13 +402,12 @@ export interface ICordUserSDK {
    * Using the `searchQuery` will filter users by what their name start with.
    * If no options are passed, a list of users will be returned.
    * @example Overview
-   *
-   * // Will return a list of users with names beginning with 'al'
    * ```javascript
+   * // Will return a list of users with names beginning with 'al'
    * await window.CordSDK.user.searchUsers({ searchQuery: 'al', groupID: 'my-group-id'}));
    * ```
    * @returns A promise that resolves to into an object with `users` which
-   * is a list of users in the group.
+   * is a list of users in the group. This is a one time return.
    */
   searchUsers(options?: SearchUsersOptions): Promise<SearchUsersResult>;
 }

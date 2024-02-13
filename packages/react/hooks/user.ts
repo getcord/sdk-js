@@ -248,8 +248,8 @@ export function useGroupMembers(
  * If no options are passed, a list of users will be returned.
  * @example Overview
  *
- * // Will return a list of users starting with 'al';
  * ```javascript
+ * // Will return a list of users starting with 'al';
  * import { user } from '@cord-sdk/react';
  *
  * const searchResults = useSearchUsers({ searchQuery: 'al' });
