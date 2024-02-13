@@ -1,5 +1,28 @@
 import { useMemo } from 'react';
-import { jwtDecode } from 'jwt-decode';
+import { decode } from 'js-base64';
+
+export function parseJWT(jwt: string): {
+  header: Record<string, any>;
+  payload: Record<string, any>;
+} {
+  let parsed;
+  try {
+    const segments = jwt.split('.');
+    const [header, payload] = segments.slice(0, 2).map((s) => {
+      // decode supports both normal and URL-safe base64
+      const decoded = JSON.parse(decode(s));
+      if (Object.prototype.toString.call(decoded).slice(8, -1) !== 'Object') {
+        throw new Error('Parsed decoded segment is not an object');
+      }
+      return decoded;
+    });
+    parsed = { header, payload };
+  } catch (e) {
+    throw new Error(`Error parsing JWT ${e}`);
+  }
+
+  return parsed;
+}
 
 // This function determines if X has property Y and does so in a
 // a way that preserves the type information within TypeScript.
@@ -42,7 +65,7 @@ export function useUnpackClientAuthTokenPayload(
       // jsonwebtoken encodes tokens with base64url rather than standard base64,
       // which involves a couple of character substitutions.  atob will throw if
       // it encounters these.
-      decodedPayload = jwtDecode(clientAuthToken);
+      decodedPayload = parseJWT(clientAuthToken).payload;
     } catch (e) {
       console.error('`clientAuthToken` payload did not contain valid JSON');
       console.error(e);
