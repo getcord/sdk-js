@@ -170,6 +170,25 @@ export type DisconnectSlackWorkspaceOptions = {
   groupID?: string;
 };
 
+/**
+ * Options for the `searchUsers` function
+ */
+export type SearchUsersOptions = {
+  /**
+   * The string to match the start of a user's name.
+   */
+  searchQuery?: string;
+  /**
+   * The group to search within. The viewer must be a member of the
+   * group in order to receive its data.
+   */
+  groupID?: string;
+};
+
+export type SearchUsersResult = {
+  users: ClientUserData[];
+};
+
 export interface ICordUserSDK {
   /**
    * This method allows you to set notification preferences for the current viewer.
@@ -377,6 +396,21 @@ export interface ICordUserSDK {
   disconnectSlackWorkspace(
     options?: DisconnectSlackWorkspaceOptions,
   ): Promise<boolean>;
+
+  /**
+   * This method allows searching for users with various options.
+   * Using the `searchQuery` will filter users by what their name start with.
+   * If no options are passed, a list of users will be returned.
+   * @example Overview
+   *
+   * // Will return a list of users with names beginning with 'al'
+   * ```javascript
+   * await window.CordSDK.user.searchUsers({ searchQuery: 'al', groupID: 'my-group-id'}));
+   * ```
+   * @returns A promise that resolves to into an object with `users` which
+   * is a list of users in the group.
+   */
+  searchUsers(options?: SearchUsersOptions): Promise<SearchUsersResult>;
 }
 
 export interface ServerUserData {

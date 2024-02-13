@@ -5,6 +5,8 @@ import type {
   ObserveGroupMembersOptions,
   ObserveOrgMembersOptions,
   OrgMembersData,
+  SearchUsersOptions,
+  SearchUsersResult,
   ViewerUserData,
 } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
@@ -238,6 +240,60 @@ export function useGroupMembers(
   }, [userSDK, optionsMemo]);
 
   return { groupMembers, loading, hasMore, fetchMore };
+}
+
+/**
+ * This method allows searching for users with various options.
+ * Using the `searchQuery` will filter users by what their name start with.
+ * If no options are passed, a list of users will be returned.
+ * @example Overview
+ *
+ * // Will return a list of users starting with 'al';
+ * ```javascript
+ * import { user } from '@cord-sdk/react';
+ *
+ * const searchResults = useSearchUsers({ searchQuery: 'al' });
+ *
+ * return (
+ *   <div>
+ *      {!searchResults && "Loading..."}
+ *      {searchResults &&
+ *        searchResults.users.map((user) => (
+ *          <div key={user.id}>
+ *            <p>User name: {user.name}</p>
+ *           </div>
+ *        ))}
+ *   </div>
+ * );
+ * ```
+ * @returns A promise that resolves to into an object with `users` which
+ * is a list of users in the group. This is a one time return.
+ */
+export function useSearchUsers(
+  options: SearchUsersOptions = {},
+): SearchUsersResult | undefined {
+  const { sdk } = useCordContext('user.searchUsers');
+  const userSDK = sdk?.user;
+
+  const [data, setData] = useState<SearchUsersResult | undefined>(undefined);
+  const { searchQuery, groupID } = options;
+
+  const inputsMemo = useMemoObject({
+    searchQuery,
+    groupID: groupID ?? sdk?.groupID,
+  });
+
+  useEffect(() => {
+    if (!userSDK) {
+      return;
+    }
+    userSDK
+      .searchUsers(inputsMemo)
+      .then((result) => setData(result))
+      .catch((error) => console.log(error));
+  }, [inputsMemo, userSDK]);
+
+  return data;
 }
 
 /*
