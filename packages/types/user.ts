@@ -492,12 +492,31 @@ export interface ServerUserData {
  */
 export type ServerUpdateUser = Partial<
   Omit<ServerUserData, 'id' | 'createdTimestamp'>
->;
+> & {
+  /**
+   * A list of group IDs this user should be made a member of.  It is an error
+   * to specify a group that doesn't exist or one that is also being removed in
+   * the same call.  It is not an error to add a user to a group they're already
+   * a member of.
+   */
+  addGroups?: GroupID[];
+
+  /**
+   * A list of group IDs this user should stop being a member of.  It is an
+   * error to specify a group that doesn't exist or one that is also being added
+   * in the same call.  It is not an error to remove a user from a group they
+   * are not a member of.
+   */
+  removeGroups?: GroupID[];
+};
 
 /**
  * @deprecated type for deprecated api route
  */
-export type ServerCreateUser = ServerUpdateUser &
+export type ServerCreateUser = Omit<
+  ServerUpdateUser,
+  'addGroups' | 'removeGroups'
+> &
   Required<Pick<ServerUserData, 'id'>>;
 
 /**

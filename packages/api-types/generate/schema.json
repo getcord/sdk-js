@@ -185,130 +185,99 @@
         "description": "List of user objects. Every object must include the id field. If the user\nalready exists, all other fields are optional and only updated when\npresent. If the user does not already exist, fields are required as\ndescribed in the [Create or update a\nuser](/rest-apis/users#Create-or-update-a-user)\nAPI.",
         "maxItems": 10000,
         "type": "array",
-        "items": {
-          "additionalProperties": false,
-          "type": "object",
-          "properties": {
-            "name": {
-              "description": "Full user name",
-              "type": ["null", "string"]
-            },
-            "metadata": {
-              "description": "Arbitrary key-value pairs that can be used to store additional information.",
-              "type": "object",
-              "additionalProperties": {
-                "type": ["string", "number", "boolean"]
-              },
-              "propertyOrder": []
-            },
-            "status": { "enum": ["active", "deleted"], "type": "string" },
-            "email": {
-              "description": "Email address",
-              "format": "email",
-              "type": ["null", "string"]
-            },
-            "shortName": {
-              "description": "Short user name. In most cases, this will be preferred over name when set.",
-              "type": ["null", "string"]
-            },
-            "short_name": { "type": ["null", "string"] },
-            "profilePictureURL": {
-              "description": "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
-              "format": "uri",
-              "type": ["null", "string"]
-            },
-            "profile_picture_url": {
-              "description": "Alias for profilePictureURL. This field is deprecated.",
-              "format": "uri",
-              "type": ["null", "string"]
-            },
-            "first_name": {
-              "description": "User's first name. This field is deprecated and has no effect.",
-              "type": ["null", "string"]
-            },
-            "last_name": {
-              "description": "User's last name. This field is deprecated and has no effect.",
-              "type": ["null", "string"]
-            },
-            "id": { "$ref": "#/definitions/ID" }
-          },
-          "required": ["id"]
-        }
+        "items": { "$ref": "#/definitions/BatchUpdateUser" }
       },
       "organizations": {
         "maxItems": 1000,
         "type": "array",
-        "items": {
-          "additionalProperties": false,
-          "type": "object",
-          "properties": {
-            "name": {
-              "description": "Organization name. Required when creating an organization.",
-              "type": "string"
-            },
-            "metadata": {
-              "description": "Arbitrary key-value pairs that can be used to store additional information.",
-              "type": "object",
-              "additionalProperties": {
-                "type": ["string", "number", "boolean"]
-              },
-              "propertyOrder": []
-            },
-            "status": {
-              "description": "Whether this organization is active or deleted.  Attempting to log into a\ndeleted organization will fail.",
-              "enum": ["active", "deleted"],
-              "type": "string"
-            },
-            "members": {
-              "description": "List of partner-specific IDs of the users who are members of this organization.\nThis will replace the existing members.",
-              "type": "array",
-              "items": { "$ref": "#/definitions/ID" }
-            },
-            "id": { "$ref": "#/definitions/ID" }
-          },
-          "required": ["id"]
-        }
+        "items": { "$ref": "#/definitions/BatchUpdateGroup" }
       },
       "groups": {
         "description": "List of group objects. Every object must include the id field. If\nthe group already exists, all other fields are optional and only\nupdated when present. If the group does not already exist, fields\nare required as described in the [Create or update a\ngroup](/rest-apis/groups/#create-or-update-a-group)\nAPI.",
         "maxItems": 1000,
         "type": "array",
-        "items": {
-          "additionalProperties": false,
-          "type": "object",
-          "properties": {
-            "name": {
-              "description": "Group name. Required when creating an group.",
-              "type": "string"
-            },
-            "metadata": {
-              "description": "Arbitrary key-value pairs that can be used to store additional information.",
-              "type": "object",
-              "additionalProperties": {
-                "type": ["string", "number", "boolean"]
-              },
-              "propertyOrder": []
-            },
-            "status": {
-              "description": "Whether this group is active or deleted.  Attempting to log into a\ndeleted group will fail.",
-              "enum": ["active", "deleted"],
-              "type": "string"
-            },
-            "members": {
-              "description": "List of partner-specific IDs of the users who are members of this group.\nThis will replace the existing members.",
-              "type": "array",
-              "items": { "$ref": "#/definitions/ID" }
-            },
-            "id": { "$ref": "#/definitions/ID" }
-          },
-          "required": ["id"]
-        }
+        "items": { "$ref": "#/definitions/BatchUpdateGroup" }
       }
     },
     "additionalProperties": false,
     "propertyOrder": ["users", "organizations", "groups"],
     "definitions": {
-      "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] }
+      "BatchUpdateUser": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Full user name",
+            "type": ["null", "string"]
+          },
+          "metadata": {
+            "description": "Arbitrary key-value pairs that can be used to store additional information.",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "number", "boolean"] },
+            "propertyOrder": []
+          },
+          "status": { "enum": ["active", "deleted"], "type": "string" },
+          "email": {
+            "description": "Email address",
+            "format": "email",
+            "type": ["null", "string"]
+          },
+          "shortName": {
+            "description": "Short user name. In most cases, this will be preferred over name when set.",
+            "type": ["null", "string"]
+          },
+          "short_name": { "type": ["null", "string"] },
+          "profilePictureURL": {
+            "description": "This must be a valid URL, which means it needs to follow the usual URL\nformatting and encoding rules. For example, any space character will need\nto be encoded as `%20`. We recommend using your programming language's\nstandard URL encoding function, such as `encodeURI` in Javascript.",
+            "format": "uri",
+            "type": ["null", "string"]
+          },
+          "profile_picture_url": {
+            "description": "Alias for profilePictureURL. This field is deprecated.",
+            "format": "uri",
+            "type": ["null", "string"]
+          },
+          "first_name": {
+            "description": "User's first name. This field is deprecated and has no effect.",
+            "type": ["null", "string"]
+          },
+          "last_name": {
+            "description": "User's last name. This field is deprecated and has no effect.",
+            "type": ["null", "string"]
+          },
+          "id": { "$ref": "#/definitions/ID" }
+        },
+        "required": ["id"]
+      },
+      "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] },
+      "BatchUpdateGroup": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Group name. Required when creating an group.",
+            "type": "string"
+          },
+          "metadata": {
+            "description": "Arbitrary key-value pairs that can be used to store additional information.",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "number", "boolean"] },
+            "propertyOrder": []
+          },
+          "status": {
+            "description": "Whether this group is active or deleted.  Attempting to log into a\ndeleted group will fail.",
+            "enum": ["active", "deleted"],
+            "type": "string"
+          },
+          "members": {
+            "description": "List of partner-specific IDs of the users who are members of this group.\nThis will replace the existing members.",
+            "type": "array",
+            "items": { "$ref": "#/definitions/ID" }
+          },
+          "id": { "$ref": "#/definitions/ID" }
+        },
+        "required": ["id"]
+      }
     },
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
@@ -1345,6 +1314,16 @@
       "last_name": {
         "description": "User's last name. This field is deprecated and has no effect.",
         "type": ["null", "string"]
+      },
+      "addGroups": {
+        "description": "A list of group IDs this user should be made a member of.  It is an error\nto specify a group that doesn't exist or one that is also being removed in\nthe same call.  It is not an error to add a user to a group they're already\na member of.",
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "removeGroups": {
+        "description": "A list of group IDs this user should stop being a member of.  It is an\nerror to specify a group that doesn't exist or one that is also being added\nin the same call.  It is not an error to remove a user from a group they\nare not a member of.",
+        "type": "array",
+        "items": { "type": "string" }
       }
     },
     "additionalProperties": false,
@@ -1358,7 +1337,9 @@
       "profilePictureURL",
       "profile_picture_url",
       "first_name",
-      "last_name"
+      "last_name",
+      "addGroups",
+      "removeGroups"
     ],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
@@ -1817,7 +1798,7 @@
       },
       "user_details": {
         "description": "If present, update’s the user’s details, or creates a user with those\ndetails if the user_id is new to Cord. This is an object that contains the\nsame fields as the [user management REST\nendpoint](/rest-apis/users/)",
-        "$ref": "#/definitions/Partial<Omit<ServerUserData,\"id\"|\"createdTimestamp\">>"
+        "$ref": "#/definitions/ServerUpdateUser"
       },
       "organization_details": {
         "$ref": "#/definitions/Partial<Omit<ServerOrganizationData,\"id\"|\"members\"|\"connectedToSlack\">&{members?:ID[]|undefined;}>"
@@ -1839,7 +1820,9 @@
     "required": ["app_id", "user_id"],
     "definitions": {
       "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] },
-      "Partial<Omit<ServerUserData,\"id\"|\"createdTimestamp\">>": {
+      "ServerUpdateUser": {
+        "description": "https://docs.cord.com/rest-apis/users/",
+        "additionalProperties": false,
         "type": "object",
         "properties": {
           "name": {
@@ -1880,21 +1863,18 @@
           "last_name": {
             "description": "User's last name. This field is deprecated and has no effect.",
             "type": ["null", "string"]
+          },
+          "addGroups": {
+            "description": "A list of group IDs this user should be made a member of.  It is an error\nto specify a group that doesn't exist or one that is also being removed in\nthe same call.  It is not an error to add a user to a group they're already\na member of.",
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "removeGroups": {
+            "description": "A list of group IDs this user should stop being a member of.  It is an\nerror to specify a group that doesn't exist or one that is also being added\nin the same call.  It is not an error to remove a user from a group they\nare not a member of.",
+            "type": "array",
+            "items": { "type": "string" }
           }
-        },
-        "additionalProperties": false,
-        "propertyOrder": [
-          "name",
-          "metadata",
-          "status",
-          "email",
-          "shortName",
-          "short_name",
-          "profilePictureURL",
-          "profile_picture_url",
-          "first_name",
-          "last_name"
-        ]
+        }
       },
       "Partial<Omit<ServerOrganizationData,\"id\"|\"members\"|\"connectedToSlack\">&{members?:ID[]|undefined;}>": {
         "type": "object",
