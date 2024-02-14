@@ -134,7 +134,7 @@ async function polyfillIDB() {
   // @ts-ignore the fact that we don't have types;
   const fakeIndexedDB = await import('fake-indexeddb');
   // @ts-ignore the fact that we don't have types;
-  const fakeIDBKeyRange = await import('fake-indexeddb/lib/FDBKeyRange');
+  const fakeIDBKeyRange = await import('fake-indexeddb/lib/FDBKeyRange.js');
 
   // Can't override the indexedDB global, but we can monkey-patch it
   const IDBFactoryFnToOverride: Array<keyof IDBFactory> = [

@@ -104,7 +104,7 @@ async function rollupConfig() {
     packageBuildConfig('jsx'),
     packageBuildConfig('react', {
       extraExternal: [
-        'fake-indexeddb/lib/FDBKeyRange',
+        'fake-indexeddb/lib/FDBKeyRange.js',
         'dayjs/plugin/calendar.js',
         'jotai/react/utils',
       ],
