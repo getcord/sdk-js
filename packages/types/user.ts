@@ -79,6 +79,10 @@ export interface ViewerUserData extends ClientUserData {
    * If the group is connected to a Slack workspace
    */
   groupIsSlackConnected: boolean;
+  /**
+   * The group ids the user is currently a member of.
+   */
+  groups: GroupID[];
 }
 
 export type SingleUserUpdateCallback = (user: ClientUserData | null) => unknown;
