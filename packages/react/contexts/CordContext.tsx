@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+// eslint-disable-next-line no-restricted-imports
+import type { i18n } from 'i18next';
 
 import type {
   AnnotationMode,
@@ -18,6 +20,15 @@ import type {
 import { useUnpackClientAuthTokenPayload } from '../hooks/useUnpackClientAuthTokenPayload.ts';
 
 declare const CORD_REACT_PACKAGE_VERSION: string;
+
+// To avoid having to depend on i18next in @cord-sdk/types just for typing, we
+// declare the field in this module, where we already depend on i18next.
+declare module '@cord-sdk/types' {
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  interface ICordSDK {
+    readonly i18n: i18n;
+  }
+}
 
 export type CordContextValue = {
   sdk: ICordSDK | null;

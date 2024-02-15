@@ -1,4 +1,3 @@
-import type { i18n } from 'i18next';
 import type {
   GroupID,
   Location,
@@ -260,7 +259,6 @@ export interface ICordSDK {
   notification: ICordNotificationSDK;
   file: ICordFileSDK;
   experimental: Record<string, never>;
-  readonly i18n: i18n;
   groupID?: string;
 }
 
