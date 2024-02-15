@@ -89,3 +89,5 @@ export {
   useLocationSummary as useCordThreadActivitySummary,
   useThreadSummary as useCordThreadSummary,
 } from './hooks/thread.ts';
+
+export { UNDO_DELETE_MESSAGE_TIMEOUT_SECONDS } from './common/const/Timing.ts';
