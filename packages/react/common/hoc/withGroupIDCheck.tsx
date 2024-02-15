@@ -24,7 +24,7 @@ export function withGroupIDCheck<T extends Props>(
 
     if (!cordSDK.groupID && !props.groupId) {
       console.error(`${componentName}: Must specify a groupId`);
-      (cordSDK as InternalCordSDK).logEvent('sdk-group-id-error', {
+      (cordSDK as any as InternalCordSDK).logEvent('sdk-group-id-error', {
         componentName,
       });
       return null;
@@ -39,7 +39,7 @@ export function withGroupIDCheck<T extends Props>(
       console.error(
         `${componentName}: Must not specify a groupId on the component if the user is signed in with an access token that contains a groupId - choose one or the other. \n For more information please refer to https://docs.cord.com/reference/authentication/removing-group-from-token`,
       );
-      (cordSDK as InternalCordSDK).logEvent('sdk-group-id-error', {
+      (cordSDK as any as InternalCordSDK).logEvent('sdk-group-id-error', {
         propGroupID: props.groupId,
         groupID: cordSDK.groupID,
         componentName,
