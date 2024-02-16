@@ -7,7 +7,7 @@ export * from './group.ts';
 export * from './message.ts';
 export * from './notifications.ts';
 export * from './preferences.ts';
-export * from './ project.ts';
+export * from './project.ts';
 export * from './org.ts';
 export * from './presence.ts';
 export * from './thread.ts';
