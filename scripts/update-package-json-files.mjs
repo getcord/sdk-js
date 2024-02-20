@@ -18,7 +18,9 @@ import prettier from 'prettier';
 
 async function main() {
   const mainPkg = JSON.parse(await fs.readFile('package.json'));
-  const packageJsonFiles = await glob('packages/*/package.json', { posix: true });
+  const packageJsonFiles = await glob('packages/*/package.json', {
+    posix: true,
+  });
 
   for (const fn of packageJsonFiles) {
     const packageName = /^packages\/(.*)\/package\.json$/.exec(fn)[1];
@@ -34,7 +36,7 @@ async function main() {
     pkg['files'] = ['dist/', '!dist/cjs/**/*.d.ts', 'LICENSE', 'README.md'];
     pkg['main'] = 'dist/cjs/index.js';
     pkg['module'] = 'dist/mjs/index.js';
-    pkg['types'] = 'dist/mjs/index.d.ts';
+    pkg['types'] = 'dist/mjs/types/index.d.ts';
     pkg['repository'] = {
       type: 'git',
       url: 'https://github.com/getcord/sdk-js.git',
