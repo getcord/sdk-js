@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../util.ts';
+import { cordifyClassname } from '../util.js';
 
 export const MODIFIERS = {
   active: cordifyClassname('active'),

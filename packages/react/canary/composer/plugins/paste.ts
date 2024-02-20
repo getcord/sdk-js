@@ -2,12 +2,12 @@ import { Transforms, Node as SlateNode, Editor, Range } from 'slate';
 import * as linkify from 'linkifyjs';
 import { MessageNodeType } from '@cord-sdk/types';
 import type { MessageLinkNode } from '@cord-sdk/types';
-import { isCodeBlock } from '../lib/util.ts';
+import { isCodeBlock } from '../lib/util.js';
 import {
   deserializeElementToMessageContent,
   cleanPastedNodes,
-} from '../lib/paste.ts';
-import { convertStructuredMessageToText } from '../../../common/lib/messageNode.ts';
+} from '../lib/paste.js';
+import { convertStructuredMessageToText } from '../../../common/lib/messageNode.js';
 
 export const withHTMLPaste = (editor: Editor) => {
   const { insertData, insertText, isInline } = editor;

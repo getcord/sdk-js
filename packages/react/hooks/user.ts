@@ -10,8 +10,8 @@ import type {
   ViewerUserData,
 } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
-import { useCordContext } from '../contexts/CordContext.tsx';
-import { useMemoObject } from './useMemoObject.ts';
+import { useCordContext } from '../contexts/CordContext.js';
+import { useMemoObject } from './useMemoObject.js';
 
 function sameIDs(left: string | string[], right: string | string[]): boolean {
   if (Array.isArray(left)) {

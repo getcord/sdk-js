@@ -2,13 +2,13 @@ import type {
   ColorVar,
   CSSVariable,
   WithCSSVariableOverrides,
-} from '../cssVariables.ts';
+} from '../cssVariables.js';
 import {
   cssValueWithOverride,
   cssVarWithOverride,
   cssVar,
-} from '../cssVariables.ts';
-import type { Styles } from './types.ts';
+} from '../cssVariables.js';
+import type { Styles } from './types.js';
 
 type ColorProp = 'backgroundColor' | 'borderColor' | 'color';
 type HoverColorProp = `${ColorProp}Hover`;

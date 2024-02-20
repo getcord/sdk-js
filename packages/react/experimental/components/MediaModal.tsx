@@ -5,25 +5,25 @@ import type { ClientUserData } from '@cord-sdk/types';
 import {
   CordTrans,
   useCordTranslation,
-} from '../../hooks/useCordTranslation.tsx';
-import { useEscapeListener } from '../../common/effects/useEscapeListener.ts';
-import { Keys } from '../../common/const/Keys.ts';
+} from '../../hooks/useCordTranslation.js';
+import { useEscapeListener } from '../../common/effects/useEscapeListener.js';
+import { Keys } from '../../common/const/Keys.js';
 import {
   isInlineDisplayableImage,
   isInlineDisplayableVideo,
-} from '../../common/lib/uploads.ts';
-import { Icon } from '../../components/helpers/Icon.tsx';
-import * as classes from '../../components/MediaModal.classnames.ts';
+} from '../../common/lib/uploads.js';
+import { Icon } from '../../components/helpers/Icon.js';
+import * as classes from '../../components/MediaModal.classnames.js';
 import {
   colorsPrimary,
   medium,
   colorsSecondary,
-} from '../../components/helpers/Button.classnames.ts';
-import { Button } from './helpers/Button.tsx';
-import { DefaultTooltip, WithTooltip } from './WithTooltip.tsx';
-import { Overlay } from './Overlay.tsx';
-import { MessageVideoAttachment } from './message/MessageVideoAttachment.tsx';
-import withCord from './hoc/withCord.tsx';
+} from '../../components/helpers/Button.classnames.js';
+import { Button } from './helpers/Button.js';
+import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
+import { Overlay } from './Overlay.js';
+import { MessageVideoAttachment } from './message/MessageVideoAttachment.js';
+import withCord from './hoc/withCord.js';
 
 export type MediaModalProps = {
   medias: {

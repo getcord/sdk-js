@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { isDefined } from '../common/util.ts';
-import { Facepile, thread } from '../index.ts';
+import { isDefined } from '../common/util.js';
+import { Facepile, thread } from '../index.js';
 
 export function ThreadFacepile({ threadId }: { threadId: string }) {
   const threadSummary = thread.useThreadSummary(threadId);

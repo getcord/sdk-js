@@ -4,12 +4,12 @@ import type { Placement } from '@floating-ui/react-dom';
 import { Slot } from '@radix-ui/react-slot';
 import cx from 'classnames';
 
-import { usePopperCreator } from '../../hooks/usePopperCreator.ts';
-import type { PopperPosition } from '../../types.ts';
-import * as classes from '../../components/Tooltip.css.ts';
-import { useComposedRefs } from '../../common/lib/composeRefs.ts';
-import { fontSmallLight } from '../../common/ui/atomicClasses/fonts.css.ts';
-import { Portal } from './Portal.tsx';
+import { usePopperCreator } from '../../hooks/usePopperCreator.js';
+import type { PopperPosition } from '../../types.js';
+import * as classes from '../../components/Tooltip.css.js';
+import { useComposedRefs } from '../../common/lib/composeRefs.js';
+import { fontSmallLight } from '../../common/ui/atomicClasses/fonts.css.js';
+import { Portal } from './Portal.js';
 
 const DEFAULT_POSITION: PopperPosition = 'top';
 const DEFAULT_OFFSET = 2;

@@ -4,13 +4,13 @@ import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import cx from 'classnames';
 
 import type { ClientUserData, ViewerUserData } from '@cord-sdk/types';
-import { MODIFIERS } from '../../common/ui/modifiers.ts';
-import { cordifyClassname, getStableColorPalette } from '../../common/util.ts';
-import classes from '../../components/Avatar.css.ts';
-import { useCordTranslation } from '../../index.ts';
-import { useViewerData, useUserData } from '../../hooks/user.ts';
-import { WithTooltip, DefaultTooltip } from './WithTooltip.tsx';
-import withCord from './hoc/withCord.tsx';
+import { MODIFIERS } from '../../common/ui/modifiers.js';
+import { cordifyClassname, getStableColorPalette } from '../../common/util.js';
+import classes from '../../components/Avatar.css.js';
+import { useCordTranslation } from '../../index.js';
+import { useViewerData, useUserData } from '../../hooks/user.js';
+import { WithTooltip, DefaultTooltip } from './WithTooltip.js';
+import withCord from './hoc/withCord.js';
 
 export type AvatarProps = {
   userId: string;

@@ -1,4 +1,4 @@
-import type { UserID } from './core.ts';
+import type { UserID } from './core.js';
 
 export interface UploadedFile {
   /**

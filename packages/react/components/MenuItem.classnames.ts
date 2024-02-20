@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../common/util.ts';
+import { cordifyClassname } from '../common/util.js';
 
 export const base = cordifyClassname('menu-item-button');
 export const listItemContainer = cordifyClassname('menu-item');

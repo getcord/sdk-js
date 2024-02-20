@@ -1,9 +1,9 @@
 import type * as React from 'react';
 import type { Editor } from 'slate';
 import { Transforms, Range, Path } from 'slate';
-import { EditorCommands } from '../lib/commands.ts';
-import { isIndentable, isStartOfBlock } from '../lib/util.ts';
-import { MAX_BULLET_INDENT } from '../../../common/lib/messageNode.ts';
+import { EditorCommands } from '../lib/commands.js';
+import { isIndentable, isStartOfBlock } from '../lib/util.js';
+import { MAX_BULLET_INDENT } from '../../../common/lib/messageNode.js';
 
 export function onTab(editor: Editor, event: React.KeyboardEvent) {
   const { selection } = editor;

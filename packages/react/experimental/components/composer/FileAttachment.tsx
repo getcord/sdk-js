@@ -2,21 +2,21 @@ import * as React from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import cx from 'classnames';
 
-import { DefaultTooltip, WithTooltip } from '../WithTooltip.tsx';
-import { Link } from '../helpers/Link.tsx';
-import { ButtonWithUnderline } from '../helpers/ButtonWithUnderline.tsx';
-import { SpinnerIcon } from '../../../common/icons/customIcons/SpinnerIcon.tsx';
-import { getFileSizeString } from '../../../common/util.ts';
+import { DefaultTooltip, WithTooltip } from '../WithTooltip.js';
+import { Link } from '../helpers/Link.js';
+import { ButtonWithUnderline } from '../helpers/ButtonWithUnderline.js';
+import { SpinnerIcon } from '../../../common/icons/customIcons/SpinnerIcon.js';
+import { getFileSizeString } from '../../../common/util.js';
 
-import * as classes from '../../../components/FileAttachment.classnames.ts';
-import { Icon } from '../../../components/helpers/Icon.tsx';
-import type { IconType } from '../../../components/helpers/Icon.tsx';
-import { useCordTranslation } from '../../../index.ts';
-import { MODIFIERS } from '../../../common/ui/modifiers.ts';
+import * as classes from '../../../components/FileAttachment.classnames.js';
+import { Icon } from '../../../components/helpers/Icon.js';
+import type { IconType } from '../../../components/helpers/Icon.js';
+import { useCordTranslation } from '../../../index.js';
+import { MODIFIERS } from '../../../common/ui/modifiers.js';
 import {
   fontSmall,
   fontSmallEmphasis,
-} from '../../../common/ui/atomicClasses/fonts.css.ts';
+} from '../../../common/ui/atomicClasses/fonts.css.js';
 
 type Props = {
   mimeType: string;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 
 import type { UploadedFile } from '@cord-sdk/types';
-import { ImageAttachment } from '../composer/ImageAttachment.tsx';
+import { ImageAttachment } from '../composer/ImageAttachment.js';
 
 type Props = {
   file: UploadedFile;

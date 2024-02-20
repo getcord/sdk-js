@@ -3,16 +3,16 @@ import type { ClientMessageData } from '@cord-sdk/types';
 
 import { useCallback, useMemo } from 'react';
 
-import { isUserAuthorOfMessage } from '../../../common/util.ts';
+import { isUserAuthorOfMessage } from '../../../common/util.js';
 
-import withCord from '../hoc/withCord.tsx';
-import { Separator } from '../helpers/Separator.tsx';
-import { useViewerData } from '../../../hooks/user.ts';
-import { useThread } from '../../../hooks/thread.ts';
-import { setResolved } from '../../../common/lib/thread.ts';
-import { useCordTranslation } from '../../../index.ts';
-import { Icon } from '../../../components/helpers/Icon.tsx';
-import { MenuItem } from './MenuItem.tsx';
+import withCord from '../hoc/withCord.js';
+import { Separator } from '../helpers/Separator.js';
+import { useViewerData } from '../../../hooks/user.js';
+import { useThread } from '../../../hooks/thread.js';
+import { setResolved } from '../../../common/lib/thread.js';
+import { useCordTranslation } from '../../../index.js';
+import { Icon } from '../../../components/helpers/Icon.js';
+import { MenuItem } from './MenuItem.js';
 
 export type MessageActionsProps = React.PropsWithChildren<{
   closeMenu: () => void;

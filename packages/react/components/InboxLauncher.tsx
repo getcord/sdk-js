@@ -7,9 +7,9 @@ import {
   componentAttributes,
   propsToAttributeConverter,
 } from '@cord-sdk/components';
-import { useCustomEventListeners } from '../hooks/useCustomEventListener.ts';
-import type { ReactPropsWithStandardHTMLAttributes } from '../types.ts';
-import type { InboxSharedReactComponentProps } from './Inbox.tsx';
+import { useCustomEventListeners } from '../hooks/useCustomEventListener.js';
+import type { ReactPropsWithStandardHTMLAttributes } from '../types.js';
+import type { InboxSharedReactComponentProps } from './Inbox.js';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.InboxLauncher,

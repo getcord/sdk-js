@@ -14,9 +14,9 @@ import type {
   PropsWithFlags,
   ReactPropsWithLocation,
   ReactPropsWithStandardHTMLAttributes,
-} from '../types.ts';
-import { useCustomElementRef } from '../hooks/useCustomElementRef.ts';
-import { useCustomPropsRef } from '../hooks/useCustomPropsRef.ts';
+} from '../types.js';
+import { useCustomElementRef } from '../hooks/useCustomElementRef.js';
+import { useCustomPropsRef } from '../hooks/useCustomPropsRef.js';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.FloatingThreads,

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import type { UUID, UploadedFile } from '@cord-sdk/types';
-import { FileAttachment } from '../../experimental/components/composer/FileAttachment.tsx';
-import { ImageAttachment } from '../../experimental/components/composer/ImageAttachment.tsx';
-import { useCordTranslation } from '../../index.ts';
-import { isInlineDisplayableImage } from '../../common/lib/uploads.ts';
-import { Icon } from '../helpers/Icon.tsx';
+import { FileAttachment } from '../../experimental/components/composer/FileAttachment.js';
+import { ImageAttachment } from '../../experimental/components/composer/ImageAttachment.js';
+import { useCordTranslation } from '../../index.js';
+import { isInlineDisplayableImage } from '../../common/lib/uploads.js';
+import { Icon } from '../helpers/Icon.js';
 
 type Props = {
   attachment: UploadedFile;

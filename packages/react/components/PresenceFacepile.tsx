@@ -8,12 +8,12 @@ import {
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 
-import { useCustomEventListeners } from '../hooks/useCustomEventListener.ts';
-import { useCordLocation } from '../hooks/useCordLocation.ts';
+import { useCustomEventListeners } from '../hooks/useCustomEventListener.js';
+import { useCordLocation } from '../hooks/useCordLocation.js';
 import type {
   PresenceReducerOptions,
   ReactPropsWithStandardHTMLAttributes,
-} from '../types.ts';
+} from '../types.js';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.PresenceFacepile,

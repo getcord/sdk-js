@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CustomSvgIcon } from '../customIcons/CustomSvgIcon.tsx';
+import { CustomSvgIcon } from '../customIcons/CustomSvgIcon.js';
 
 export function WinkSmileyCircleIcon(props: JSX.IntrinsicElements['svg']) {
   return (

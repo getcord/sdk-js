@@ -1,11 +1,11 @@
 import { Transforms, Element, Editor, Path, Node } from 'slate';
 import { MessageNodeType } from '@cord-sdk/types';
 import type { MessageNumberBulletNode } from '@cord-sdk/types';
-import { isBullet, isIndentable } from '../lib/util.ts';
+import { isBullet, isIndentable } from '../lib/util.js';
 import {
   MAX_BULLET_INDENT,
   isMessageNodeType,
-} from '../../../common/lib/messageNode.ts';
+} from '../../../common/lib/messageNode.js';
 
 export function withBullets(editor: Editor) {
   const { normalizeNode } = editor;

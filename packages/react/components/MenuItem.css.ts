@@ -1,14 +1,14 @@
 import { globalStyle } from '@vanilla-extract/css';
 
-import { addSpaceVars, cssVar } from '../common/ui/cssVariables.ts';
-import { getModifiedSelector } from '../common/ui/modifiers.ts';
+import { addSpaceVars, cssVar } from '../common/ui/cssVariables.js';
+import { getModifiedSelector } from '../common/ui/modifiers.js';
 import {
   base,
   label,
   listItemContainer,
   subtitle,
   textOnly,
-} from './MenuItem.classnames.ts';
+} from './MenuItem.classnames.js';
 
 export { base, label, listItemContainer, subtitle, textOnly };
 

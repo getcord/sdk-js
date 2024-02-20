@@ -1,9 +1,9 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { cssVar } from '../common/ui/cssVariables.ts';
-import { getModifiedSelector, MODIFIERS } from '../common/ui/modifiers.ts';
-import { timestamp } from './Timestamp.classnames.ts';
+import { cssVar } from '../common/ui/cssVariables.js';
+import { getModifiedSelector, MODIFIERS } from '../common/ui/modifiers.js';
+import { timestamp } from './Timestamp.classnames.js';
 export { timestamp };
-import { notificationContainer } from './Notification.classnames.ts';
+import { notificationContainer } from './Notification.classnames.js';
 
 globalStyle(`.${timestamp}`, {
   display: 'flex',

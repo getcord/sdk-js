@@ -1,10 +1,10 @@
 import { globalStyle, keyframes } from '@vanilla-extract/css';
-import { cssVar } from '../../common/ui/cssVariables.ts';
-import { getModifiedSelector } from '../../common/ui/modifiers.ts';
-import { resolvedThreadHeader } from '../ThreadedComments.classnames.ts';
-import { button } from './Button.classnames.ts';
-import * as classes from './Icon.classnames.ts';
-import { emptyStateContainer } from './EmptyStateWithIcon.classnames.ts';
+import { cssVar } from '../../common/ui/cssVariables.js';
+import { getModifiedSelector } from '../../common/ui/modifiers.js';
+import { resolvedThreadHeader } from '../ThreadedComments.classnames.js';
+import { button } from './Button.classnames.js';
+import * as classes from './Icon.classnames.js';
+import { emptyStateContainer } from './EmptyStateWithIcon.classnames.js';
 
 export default classes;
 

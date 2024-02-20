@@ -4,8 +4,8 @@ import {
   CORD_ANNOTATION_LOCATION_DATA_ATTRIBUTE,
   locationJson,
 } from '@cord-sdk/types';
-import { useCordContext } from '../contexts/CordContext.tsx';
-import { useMemoizedLocation } from './useMemoizedLocation.ts';
+import { useCordContext } from '../contexts/CordContext.js';
+import { useMemoizedLocation } from './useMemoizedLocation.js';
 
 const doNothing = () => {};
 

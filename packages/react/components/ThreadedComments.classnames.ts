@@ -1,5 +1,5 @@
-import { cordifyClassname } from '../common/util.ts';
-import * as emptyStateClasses from './helpers/EmptyStateWithFacepile.classnames.ts';
+import { cordifyClassname } from '../common/util.js';
+import * as emptyStateClasses from './helpers/EmptyStateWithFacepile.classnames.js';
 
 export const comments = cordifyClassname('threaded-comments');
 export const unresolvedOnly = cordifyClassname(

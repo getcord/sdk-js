@@ -1,6 +1,6 @@
 import { MessageNodeType } from '@cord-sdk/types';
 import { Transforms, Element, Editor } from 'slate';
-import { isQuote } from '../lib/util.ts';
+import { isQuote } from '../lib/util.js';
 
 export function withQuotes(editor: Editor) {
   const { normalizeNode } = editor;

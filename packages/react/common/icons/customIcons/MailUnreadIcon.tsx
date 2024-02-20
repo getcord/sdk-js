@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CustomSvgIcon } from './CustomSvgIcon.tsx';
+import { CustomSvgIcon } from './CustomSvgIcon.js';
 
 // Taken from https://github.com/microsoft/fluentui-system-icons (MIT license),
 // this is mailUnread16Regular.

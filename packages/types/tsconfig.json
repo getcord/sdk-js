@@ -2,13 +2,15 @@
   "compilerOptions": {
     "typeRoots": ["./node_modules/@types"],
     "target": "es2021",
+    "module": "es2020",
     "moduleResolution": "node16",
     "strict": true,
     "esModuleInterop": true,
-    "noEmit": true,
-    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "emitDeclarationOnly": true,
     "declaration": true,
-    "jsx": "react",
+    "declarationDir": "./types",
     "inlineSourceMap": true,
   },
+  "exclude": ["./dist/"],
 }

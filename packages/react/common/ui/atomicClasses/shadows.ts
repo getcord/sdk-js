@@ -1,5 +1,5 @@
-import type { ShadowVar } from '../cssVariables.ts';
-import { cssVar } from '../cssVariables.ts';
+import type { ShadowVar } from '../cssVariables.js';
+import { cssVar } from '../cssVariables.js';
 
 export type ShadowProps = {
   shadow?: ShadowVar;

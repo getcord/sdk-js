@@ -20,9 +20,9 @@ import type {
   ThreadsData,
 } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
-import { useCordContext } from '../contexts/CordContext.tsx';
-import { useMemoizedLocation } from './useMemoizedLocation.ts';
-import { useMemoObject } from './useMemoObject.ts';
+import { useCordContext } from '../contexts/CordContext.js';
+import { useMemoizedLocation } from './useMemoizedLocation.js';
+import { useMemoObject } from './useMemoObject.js';
 
 /**
  * This method allows you to observe summary information about a

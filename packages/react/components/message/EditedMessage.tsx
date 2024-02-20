@@ -1,8 +1,8 @@
 import * as React from 'react';
 import cx from 'classnames';
-import { useCordTranslation } from '../../index.ts';
-import { fontSmallLight } from '../../common/ui/atomicClasses/fonts.css.ts';
-import { editedMessageTag } from '../../components/message/EditedMessage.css.ts';
+import { useCordTranslation } from '../../index.js';
+import { fontSmallLight } from '../../common/ui/atomicClasses/fonts.css.js';
+import { editedMessageTag } from '../../components/message/EditedMessage.css.js';
 
 type Props = {
   as: 'p' | 'span';

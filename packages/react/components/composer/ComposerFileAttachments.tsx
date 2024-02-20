@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import type { UUID, UploadedFile } from '@cord-sdk/types';
-import classes from './ComposerFileAttachments.css.ts';
-import { ComposerFileAttachment } from './ComposerFileAttachment.tsx';
+import classes from './ComposerFileAttachments.css.js';
+import { ComposerFileAttachment } from './ComposerFileAttachment.js';
 
 export function ComposerFileAttachments({
   attachments,

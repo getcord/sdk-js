@@ -3,16 +3,16 @@ import { forwardRef, useCallback, useMemo, useState } from 'react';
 import cx from 'classnames';
 
 import type { ClientMessageData } from '@cord-sdk/types';
-import { WithPopper } from '../helpers/WithPopper.tsx';
-import { DefaultTooltip, WithTooltip } from '../WithTooltip.tsx';
-import withCord from '../hoc/withCord.tsx';
-import * as classes from '../../../components/OptionsMenu.css.ts';
-import { useCordTranslation } from '../../../index.ts';
-import { Menu } from './Menu.tsx';
-import { MessageActions } from './MessageActions.tsx';
-import { ShareToEmailMenu } from './ShareToEmailMenu.tsx';
-import { SlackChannelsMenu } from './SlackChannelsMenu.tsx';
-import { ThreadActions } from './ThreadActions.tsx';
+import { WithPopper } from '../helpers/WithPopper.js';
+import { DefaultTooltip, WithTooltip } from '../WithTooltip.js';
+import withCord from '../hoc/withCord.js';
+import * as classes from '../../../components/OptionsMenu.css.js';
+import { useCordTranslation } from '../../../index.js';
+import { Menu } from './Menu.js';
+import { MessageActions } from './MessageActions.js';
+import { ShareToEmailMenu } from './ShareToEmailMenu.js';
+import { SlackChannelsMenu } from './SlackChannelsMenu.js';
+import { ThreadActions } from './ThreadActions.js';
 
 type MenuTypes =
   | 'actionsMenu'

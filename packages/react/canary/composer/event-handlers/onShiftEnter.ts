@@ -1,15 +1,15 @@
 import type { Editor } from 'slate';
 import { Range, Transforms, Path, Node, Text } from 'slate';
 import { MessageNodeType } from '@cord-sdk/types';
-import { EditorCommands } from '../lib/commands.ts';
+import { EditorCommands } from '../lib/commands.js';
 import {
   isStyledBlockEmpty,
   isBullet,
   isEmptyParagraph,
   isLastBlockInStyledBlock,
   isCodeBlock,
-} from '../lib/util.ts';
-import { isMessageNodeType } from '../../../common/lib/messageNode.ts';
+} from '../lib/util.js';
+import { isMessageNodeType } from '../../../common/lib/messageNode.js';
 
 // Add/remove extra text nodes when moving down/up from annotations/quotes but no space
 export function onShiftEnter(editor: Editor, event: React.KeyboardEvent) {

@@ -1,7 +1,7 @@
-import type { ID } from './core.ts';
-import type { ServerUpdateGroup } from './group.ts';
-import type { ServerUpdateOrganization } from './organization.ts';
-import type { ServerUpdateUser } from './user.ts';
+import type { ID } from './core.js';
+import type { ServerUpdateGroup } from './group.js';
+import type { ServerUpdateOrganization } from './organization.js';
+import type { ServerUpdateUser } from './user.js';
 
 /**
  * https://docs.cord.com/reference/authentication/

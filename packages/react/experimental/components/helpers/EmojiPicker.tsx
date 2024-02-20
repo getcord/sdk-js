@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useCallback, useState, forwardRef, useRef, useEffect } from 'react';
-import withCord from '../hoc/withCord.tsx';
-import { useComposedRefs } from '../../../common/lib/composeRefs.ts';
-import { useCordTranslation } from '../../../index.ts';
-import * as classes from '../../../components/helpers/EmojiPicker.classnames.ts';
-import { WithPopper } from './WithPopper.tsx';
+import withCord from '../hoc/withCord.js';
+import { useComposedRefs } from '../../../common/lib/composeRefs.js';
+import { useCordTranslation } from '../../../index.js';
+import * as classes from '../../../components/helpers/EmojiPicker.classnames.js';
+import { WithPopper } from './WithPopper.js';
 
 type EmojiEvent = {
   detail: {

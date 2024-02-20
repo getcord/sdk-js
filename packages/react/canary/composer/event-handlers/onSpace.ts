@@ -1,9 +1,9 @@
 import { MessageNodeType } from '@cord-sdk/types';
 import type * as React from 'react';
 import { Element, Editor, Node, Transforms, Text, Range, Path } from 'slate';
-import { isMessageNodeType } from '../../../common/lib/messageNode.ts';
-import type { EditorShortcut } from '../lib/commands.ts';
-import { EDITOR_SHORTCUTS, EditorCommands } from '../lib/commands.ts';
+import { isMessageNodeType } from '../../../common/lib/messageNode.js';
+import type { EditorShortcut } from '../lib/commands.js';
+import { EDITOR_SHORTCUTS, EditorCommands } from '../lib/commands.js';
 
 export function onSpace(editor: Editor, event: React.KeyboardEvent) {
   const { selection } = editor;

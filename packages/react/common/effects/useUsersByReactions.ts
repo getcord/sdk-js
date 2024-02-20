@@ -1,5 +1,5 @@
 import type { ClientUserData, Reaction } from '@cord-sdk/types';
-import { useUserData, useViewerData } from '../../hooks/user.ts';
+import { useUserData, useViewerData } from '../../hooks/user.js';
 
 export function useUsersByReactions(reactions: Reaction[] | undefined): {
   [reaction: string]: ClientUserData[];

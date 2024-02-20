@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
 
-import typescript from 'rollup-plugin-typescript2';
+import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
 import replace from '@rollup/plugin-replace';
 import replaceRE from 'rollup-plugin-re';

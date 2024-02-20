@@ -1,13 +1,13 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { cordifyClassname } from '../common/util.ts';
-import { cssVar } from '../common/ui/cssVariables.ts';
-import { getModifiedSelector } from '../common/ui/modifiers.ts';
-import * as classes from './Avatar.classnames.ts';
-import { facepileContainer } from './Facepile.classnames.ts';
-import { pinContainer } from './Pin.classnames.ts';
-import { threadFooterContainer } from './Thread.classnames.ts';
-import { emptyStatePlaceholderContainer } from './helpers/EmptyStateWithFacepile.classnames.ts';
-import { base as menuItemBase } from './MenuItem.classnames.ts';
+import { cordifyClassname } from '../common/util.js';
+import { cssVar } from '../common/ui/cssVariables.js';
+import { getModifiedSelector } from '../common/ui/modifiers.js';
+import * as classes from './Avatar.classnames.js';
+import { facepileContainer } from './Facepile.classnames.js';
+import { pinContainer } from './Pin.classnames.js';
+import { threadFooterContainer } from './Thread.classnames.js';
+import { emptyStatePlaceholderContainer } from './helpers/EmptyStateWithFacepile.classnames.js';
+import { base as menuItemBase } from './MenuItem.classnames.js';
 export default classes;
 
 const { avatarContainer, avatarFallback, avatarImage } = classes;

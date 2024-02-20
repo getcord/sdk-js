@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CustomSvgIcon } from '../customIcons/CustomSvgIcon.tsx';
+import { CustomSvgIcon } from '../customIcons/CustomSvgIcon.js';
 
 // This svg is used as the pin icon e.g. in a button to start an annotation, not
 // as the actual pin which goes on the page

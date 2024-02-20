@@ -1,8 +1,8 @@
 import * as React from 'react';
 import cx from 'classnames';
-import { Icon } from '../../../components/helpers/Icon.tsx';
+import { Icon } from '../../../components/helpers/Icon.js';
 
-import classes from '../../../components/helpers/Icon.css.ts';
+import classes from '../../../components/helpers/Icon.css.js';
 
 type Props = {
   size?: 'small' | 'large';

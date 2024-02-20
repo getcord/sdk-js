@@ -2,16 +2,16 @@ import * as React from 'react';
 
 import { forwardRef } from 'react';
 import cx from 'classnames';
-import type { Avatar } from '../Avatar.tsx';
-import * as classes from '../../../components/MenuItem.css.ts';
-import withCord from '../hoc/withCord.tsx';
-import { Icon } from '../../../components/helpers/Icon.tsx';
-import type { IconType } from '../../../components/helpers/Icon.tsx';
-import type { ColorVar } from '../../../common/ui/cssVariables.ts';
-import type { Font } from '../../../common/ui/atomicClasses/fonts.ts';
-import { fontBody } from '../../../common/ui/atomicClasses/fonts.css.ts';
+import type { Avatar } from '../Avatar.js';
+import * as classes from '../../../components/MenuItem.css.js';
+import withCord from '../hoc/withCord.js';
+import { Icon } from '../../../components/helpers/Icon.js';
+import type { IconType } from '../../../components/helpers/Icon.js';
+import type { ColorVar } from '../../../common/ui/cssVariables.js';
+import type { Font } from '../../../common/ui/atomicClasses/fonts.js';
+import { fontBody } from '../../../common/ui/atomicClasses/fonts.css.js';
 
-import { MODIFIERS } from '../../../common/ui/modifiers.ts';
+import { MODIFIERS } from '../../../common/ui/modifiers.js';
 
 type LeftItem = React.ReactElement<typeof Avatar | typeof Icon>;
 

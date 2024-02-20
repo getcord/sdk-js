@@ -139,7 +139,7 @@ function printTypesFile(typeNames) {
   return `// @generated
 // update typeDefinitions.ts and to re-generate run "node  generate.mjs" in sdk-js/packages/api-types
 
-import type {${typeNames.join(', ')}} from '../src/typeDefinitions.ts';
+import type {${typeNames.join(', ')}} from '../src/typeDefinitions.js';
   
 export type Types = {${types}};
 `;

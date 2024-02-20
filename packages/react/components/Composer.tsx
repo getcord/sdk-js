@@ -9,13 +9,13 @@ import type {
   ComposerWebComponentEvents,
   EntityMetadata,
 } from '@cord-sdk/types';
-import { useCordLocation } from '../hooks/useCordLocation.ts';
+import { useCordLocation } from '../hooks/useCordLocation.js';
 import type {
   ReactPropsWithLocation,
   ReactPropsWithStandardHTMLAttributes,
-} from '../types.ts';
-import { useCustomEventListeners } from '../hooks/useCustomEventListener.ts';
-import { useCustomPropsRef } from '../hooks/useCustomPropsRef.ts';
+} from '../types.js';
+import { useCustomEventListeners } from '../hooks/useCustomEventListener.js';
+import { useCustomPropsRef } from '../hooks/useCustomPropsRef.js';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Composer,

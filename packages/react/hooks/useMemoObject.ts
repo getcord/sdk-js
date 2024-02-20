@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { isEqual as libIsEqual } from '../common/lib/fast-deep-equal.ts';
+import { isEqual as libIsEqual } from '../common/lib/fast-deep-equal.js';
 
 /**
  * Returns a memoized version of the given complex JS object (such as an array

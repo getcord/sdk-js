@@ -7,11 +7,11 @@ import type {
   MessageParagraphNode,
 } from '@cord-sdk/types';
 import { MessageNodeType } from '@cord-sdk/types';
-import { trimStart } from '../../../common/lib/trim.ts';
+import { trimStart } from '../../../common/lib/trim.js';
 import {
   isMessageNodeType,
   createLinkNode,
-} from '../../../common/lib/messageNode.ts';
+} from '../../../common/lib/messageNode.js';
 
 const RICH_CONTENT_TAGS = ['BLOCKQUOTE', 'PRE', 'LI'];
 

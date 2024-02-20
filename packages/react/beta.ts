@@ -3,23 +3,23 @@
 export type {
   FloatingThreadsReactComponentProps,
   FloatingThreadsReactComponentProps as AnchoredThreadsReactComponentProps,
-} from './components/FloatingThreads.tsx';
+} from './components/FloatingThreads.js';
 export {
   FloatingThreads,
   FloatingThreads as AnchoredThreads,
-} from './components/FloatingThreads.tsx';
+} from './components/FloatingThreads.js';
 
-export type { SelectionCommentsReactComponentProps } from './components/SelectionComments.tsx';
-export { SelectionComments } from './components/SelectionComments.tsx';
+export type { SelectionCommentsReactComponentProps } from './components/SelectionComments.js';
+export { SelectionComments } from './components/SelectionComments.js';
 
-export type { NotificationListReactComponentProps } from './components/NotificationList.tsx';
-export { NotificationList } from './components/NotificationList.tsx';
+export type { NotificationListReactComponentProps } from './components/NotificationList.js';
+export { NotificationList } from './components/NotificationList.js';
 
-export type { NotificationListLauncherReactComponentProps } from './components/NotificationListLauncher.tsx';
-export { NotificationListLauncher } from './components/NotificationListLauncher.tsx';
+export type { NotificationListLauncherReactComponentProps } from './components/NotificationListLauncher.js';
+export { NotificationListLauncher } from './components/NotificationListLauncher.js';
 
-export { useThreadSummary as useCordThreadSummary } from './hooks/thread.ts';
+export { useThreadSummary as useCordThreadSummary } from './hooks/thread.js';
 
-export type { PinReactComponentProps } from './components/Pin.tsx';
-export { Pin } from './components/Pin.tsx';
+export type { PinReactComponentProps } from './components/Pin.js';
+export { Pin } from './components/Pin.js';
 // Please DO NOT add anything new here!

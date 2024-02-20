@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import type { ICordSDK } from '@cord-sdk/types/index.ts';
-import { CordContext } from '../../contexts/CordContext.tsx';
+import type { ICordSDK } from '@cord-sdk/types/index.js';
+import { CordContext } from '../../contexts/CordContext.js';
 
 interface Props {
   groupId?: string;

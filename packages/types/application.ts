@@ -3,7 +3,7 @@ import type {
   ServerCreateProject,
   ServerDeleteProject,
   ServerUpdateProject,
-} from './project.ts';
+} from './project.js';
 
 /**
  * @deprecated use ProjectData instead

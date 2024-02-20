@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { isEqualLocation } from '@cord-sdk/types';
 import type { Location } from '@cord-sdk/types';
 
-import { useCordContext as useCordReactContext } from '../contexts/CordContext.tsx';
+import { useCordContext as useCordReactContext } from '../contexts/CordContext.js';
 
 export function useCordLocation(newLocation?: Location) {
   const { location, setLocation } = useCordReactContext('useCordLocation');

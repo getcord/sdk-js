@@ -1,5 +1,5 @@
 import type { UserLocationData, ClientUserData } from '@cord-sdk/types';
-import { isDefined } from '../util.ts';
+import { isDefined } from '../util.js';
 
 export type PresenceUser = {
   user: ClientUserData;

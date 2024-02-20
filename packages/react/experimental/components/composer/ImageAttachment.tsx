@@ -1,13 +1,13 @@
 import * as React from 'react';
 import cx from 'classnames';
-import { DefaultTooltip, WithTooltip } from '../WithTooltip.tsx';
-import * as classes from '../../../components/composer/ImageAttachment.classnames.ts';
-import { useCordTranslation } from '../../../index.ts';
-import { SpinnerIcon } from '../../../common/icons/customIcons/SpinnerIcon.tsx';
-import { Icon } from '../../../components/helpers/Icon.tsx';
+import { DefaultTooltip, WithTooltip } from '../WithTooltip.js';
+import * as classes from '../../../components/composer/ImageAttachment.classnames.js';
+import { useCordTranslation } from '../../../index.js';
+import { SpinnerIcon } from '../../../common/icons/customIcons/SpinnerIcon.js';
+import { Icon } from '../../../components/helpers/Icon.js';
 
-import { fontSmall } from '../../../common/ui/atomicClasses/fonts.css.ts';
-import { MODIFIERS } from '../../../common/ui/modifiers.ts';
+import { fontSmall } from '../../../common/ui/atomicClasses/fonts.css.js';
+import { MODIFIERS } from '../../../common/ui/modifiers.js';
 
 type Props = {
   onClick: () => unknown;

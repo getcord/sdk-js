@@ -5,16 +5,16 @@ import cx from 'classnames';
 
 // eslint-disable-next-line no-restricted-imports
 import type { TFunction } from 'i18next';
-import { timestamp } from '../../components/MessageTimestamp.css.ts';
-import { useCordTranslation } from '../../hooks/useCordTranslation.tsx';
-import { fontSmallLight } from '../../common/ui/atomicClasses/fonts.css.ts';
-import { useTime } from '../../common/effects/useTime.tsx';
+import { timestamp } from '../../components/MessageTimestamp.css.js';
+import { useCordTranslation } from '../../hooks/useCordTranslation.js';
+import { fontSmallLight } from '../../common/ui/atomicClasses/fonts.css.js';
+import { useTime } from '../../common/effects/useTime.js';
 import {
   absoluteTimestampString,
   relativeTimestampString,
-} from '../../common/util.ts';
-import { DefaultTooltip, WithTooltip } from './WithTooltip.tsx';
-import withCord from './hoc/withCord.tsx';
+} from '../../common/util.js';
+import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
+import withCord from './hoc/withCord.js';
 
 export type TimestampProps = {
   // the string value is a date string with the format YYYY-MM-DDTHH:mm:ss.sssZ

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import type { UploadedFile } from '@cord-sdk/types';
-import { FileAttachment } from '../composer/FileAttachment.tsx';
-import { useCordTranslation } from '../../../index.ts';
-import * as classes from '../../../components/message/MessageFileAttachment.classnames.ts';
+import { FileAttachment } from '../composer/FileAttachment.js';
+import { useCordTranslation } from '../../../index.js';
+import * as classes from '../../../components/message/MessageFileAttachment.classnames.js';
 
 type Props = {
   file: UploadedFile;

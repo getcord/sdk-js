@@ -7,14 +7,14 @@ import type {
   MessageNode,
 } from '@cord-sdk/types';
 import Linkify from 'linkify-react';
-import { MessageBulletElement } from '../../../components/message/MessageBulletElement.tsx';
-import { EditedMessage } from '../../../components/message/EditedMessage.tsx';
-import { getMessageNodeChildren } from '../../../common/lib/messageNode.ts';
-import { PARAGRAPH_STYLE } from '../../../common/lib/styles.ts';
-import { wrapTextNodeWithStyles } from '../editor/render.tsx';
-import * as classes from '../../../components/message/MessageText.css.ts';
-import withCord from '../hoc/withCord.tsx';
-import { MessageUserReferenceElement } from './MessageUserReferenceElement.tsx';
+import { MessageBulletElement } from '../../../components/message/MessageBulletElement.js';
+import { EditedMessage } from '../../../components/message/EditedMessage.js';
+import { getMessageNodeChildren } from '../../../common/lib/messageNode.js';
+import { PARAGRAPH_STYLE } from '../../../common/lib/styles.js';
+import { wrapTextNodeWithStyles } from '../editor/render.js';
+import * as classes from '../../../components/message/MessageText.css.js';
+import withCord from '../hoc/withCord.js';
+import { MessageUserReferenceElement } from './MessageUserReferenceElement.js';
 
 export type MessageTextProps = {
   message: ClientMessageData | null | undefined;

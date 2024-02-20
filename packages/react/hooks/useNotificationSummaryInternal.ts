@@ -4,7 +4,7 @@ import type {
   NotificationListFilter,
   NotificationSummary,
 } from '@cord-sdk/types';
-import { useMemoObject } from './useMemoObject.ts';
+import { useMemoObject } from './useMemoObject.js';
 
 export function useNotificationSummaryInternal(
   notificationSDK: ICordNotificationSDK | undefined,

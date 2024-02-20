@@ -2,10 +2,10 @@ import * as React from 'react';
 import { useSelected, useFocused } from 'slate-react';
 import cx from 'classnames';
 
-import type { MessageContent } from '@cord-sdk/types/messageNodes.ts';
-import { useUserData } from '../../../hooks/user.ts';
-import * as classes from '../../../components/composer/userReferences/UserReferenceElement.css.ts';
-import { MODIFIERS } from '../../../common/ui/modifiers.ts';
+import type { MessageContent } from '@cord-sdk/types/messageNodes.js';
+import { useUserData } from '../../../hooks/user.js';
+import * as classes from '../../../components/composer/userReferences/UserReferenceElement.css.js';
+import { MODIFIERS } from '../../../common/ui/modifiers.js';
 
 type Props = React.PropsWithChildren<{
   attributes: any;

@@ -7,9 +7,9 @@ import type { MessageWebComponentEvents } from '@cord-sdk/types';
 import type {
   PropsWithRef,
   ReactPropsWithStandardHTMLAttributes,
-} from '../types.ts';
-import { useCustomEventListeners } from '../hooks/useCustomEventListener.ts';
-import { useComposedRefs } from '../common/lib/composeRefs.ts';
+} from '../types.js';
+import { useCustomEventListeners } from '../hooks/useCustomEventListener.js';
+import { useComposedRefs } from '../common/lib/composeRefs.js';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Message,

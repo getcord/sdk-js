@@ -4,36 +4,36 @@ import type {
   ComposerProps,
   SendButtonProps,
 } from '../../canary/composer/Composer.js';
-import type { MessageProps } from '../../canary/Message.tsx';
-import type { ThreadHeaderProps, ThreadProps } from '../../canary/Thread.tsx';
+import type { MessageProps } from '../../canary/Message.js';
+import type { ThreadHeaderProps, ThreadProps } from '../../canary/Thread.js';
 import type {
   AvatarFallbackProps,
   AvatarProps,
   AvatarTooltipProps,
-} from './Avatar.tsx';
+} from './Avatar.js';
 
-import type { OverlayProps } from './Overlay.tsx';
-import type { FacepileProps } from './Facepile.tsx';
-import type { PresenceFacepileProps } from './PresenceFacepile.tsx';
-import type { PagePresenceProps } from './PagePresence.tsx';
-import type { GeneralButtonProps } from './helpers/Button.tsx';
+import type { OverlayProps } from './Overlay.js';
+import type { FacepileProps } from './Facepile.js';
+import type { PresenceFacepileProps } from './PresenceFacepile.js';
+import type { PagePresenceProps } from './PagePresence.js';
+import type { GeneralButtonProps } from './helpers/Button.js';
 import type {
   OptionsMenuProps,
   OptionsMenuTooltipProps,
-} from './menu/OptionsMenu.tsx';
-import type { MenuProps } from './menu/Menu.tsx';
-import type { MessageFilesAttachmentsProps } from './message/MessageFilesAttachments.tsx';
-import type { MediaModalProps } from './MediaModal.tsx';
-import type { MessageUserReferenceElementProps } from './message/MessageUserReferenceElement.tsx';
-import type { MessageTextProps } from './message/MessageText.tsx';
-import type { MessageContentProps } from './message/MessageContent.tsx';
-import type { MenuItemProps } from './menu/MenuItem.tsx';
-import type { SeparatorProps } from './helpers/Separator.tsx';
-import type { MessageActionsProps } from './menu/MessageActions.tsx';
-import type { TimestampProps } from './Timestamp.tsx';
-import type { EmojiPickerProps } from './helpers/EmojiPicker.tsx';
-import type { ReactionsProps } from './Reactions.tsx';
-import type { AddReactionButtonProps } from './AddReactionButton.tsx';
+} from './menu/OptionsMenu.js';
+import type { MenuProps } from './menu/Menu.js';
+import type { MessageFilesAttachmentsProps } from './message/MessageFilesAttachments.js';
+import type { MediaModalProps } from './MediaModal.js';
+import type { MessageUserReferenceElementProps } from './message/MessageUserReferenceElement.js';
+import type { MessageTextProps } from './message/MessageText.js';
+import type { MessageContentProps } from './message/MessageContent.js';
+import type { MenuItemProps } from './menu/MenuItem.js';
+import type { SeparatorProps } from './helpers/Separator.js';
+import type { MessageActionsProps } from './menu/MessageActions.js';
+import type { TimestampProps } from './Timestamp.js';
+import type { EmojiPickerProps } from './helpers/EmojiPicker.js';
+import type { ReactionsProps } from './Reactions.js';
+import type { AddReactionButtonProps } from './AddReactionButton.js';
 
 export type ReplaceConfig = ReplaceConfigBase & ReplaceWithin;
 

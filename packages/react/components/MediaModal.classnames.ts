@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../common/util.ts';
+import { cordifyClassname } from '../common/util.js';
 
 export const topBanner = cordifyClassname('image-modal-top-banner');
 export const bannerText = cordifyClassname('banner-text');

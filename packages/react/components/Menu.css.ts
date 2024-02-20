@@ -1,7 +1,7 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { cordifyClassname } from '../common/util.ts';
-import { ZINDEX } from '../common/ui/zIndex.ts';
-import { cssVar } from '../common/ui/cssVariables.ts';
+import { cordifyClassname } from '../common/util.js';
+import { ZINDEX } from '../common/ui/zIndex.js';
+import { cssVar } from '../common/ui/cssVariables.js';
 
 export const menu = cordifyClassname('menu');
 globalStyle(`.${menu}`, {

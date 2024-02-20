@@ -2,7 +2,7 @@ import * as React from 'react';
 import type { AnchorHTMLAttributes } from 'react';
 import { forwardRef } from 'react';
 import cx from 'classnames';
-import * as classes from '../../../components/helpers/Link.classnames.ts';
+import * as classes from '../../../components/helpers/Link.classnames.js';
 
 export type LinkProps = React.PropsWithChildren<
   AnchorHTMLAttributes<HTMLAnchorElement>

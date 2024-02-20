@@ -1,7 +1,7 @@
 import { Range, Editor, Transforms } from 'slate';
 import type { Mark } from '@cord-sdk/types';
 import { MARKS } from '@cord-sdk/types';
-import { EditorCommands } from '../lib/commands.ts';
+import { EditorCommands } from '../lib/commands.js';
 
 const ALLOWED_PREFIX_CHARS = [' ', '\n', '*', '_', '`'];
 

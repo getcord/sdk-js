@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { useCallback } from 'react';
-import { PortalContextProvider } from '../../contexts/PortalContext.tsx';
+import { PortalContextProvider } from '../../contexts/PortalContext.js';
 
 interface Props {
   children?: React.ReactNode;

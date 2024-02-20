@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../common/util.ts';
+import { cordifyClassname } from '../common/util.js';
 
 export const fileContainer = cordifyClassname('file-attachment-container');
 export const fileName = cordifyClassname('file-name');

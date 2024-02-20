@@ -1,10 +1,10 @@
 import { globalStyle } from '@vanilla-extract/css';
 
-import { cssVar } from '../../common/ui/cssVariables.ts';
+import { cssVar } from '../../common/ui/cssVariables.js';
 import {
   composerContainer,
   attachmentsContainer,
-} from '../Composer.classnames.ts';
+} from '../Composer.classnames.js';
 
 export default { attachmentsContainer };
 

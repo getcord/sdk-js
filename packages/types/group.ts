@@ -1,6 +1,6 @@
-import type { EntityMetadata, ID } from './core.ts';
-import type { PaginationDetails } from './pagination.ts';
-import type { ServerListUser } from './user.ts';
+import type { EntityMetadata, ID } from './core.js';
+import type { PaginationDetails } from './pagination.js';
+import type { ServerListUser } from './user.js';
 
 export interface ServerGroupData {
   /**

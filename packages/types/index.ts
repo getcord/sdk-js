@@ -5,40 +5,40 @@ import type {
   OrganizationID,
   ThreadID,
   UUID,
-} from './core.ts';
-import type { TranslationResources } from './i18n.ts';
-export type { TranslationParameters, TranslationResources } from './i18n.ts';
+} from './core.js';
+import type { TranslationResources } from './i18n.js';
+export type { TranslationParameters, TranslationResources } from './i18n.js';
 import type {
   CoreNotificationData,
   ICordNotificationSDK,
-} from './notifications.ts';
-import type { ICordPresenceSDK } from './presence.ts';
+} from './notifications.js';
+import type { ICordPresenceSDK } from './presence.js';
 import type {
   ClientCreateMessage,
   ICordActivitySDK,
   ICordThreadSDK,
   ThreadSummary,
-} from './thread.ts';
-import type { ICordUserSDK } from './user.ts';
-import type { ClientMessageData } from './message.ts';
-import type { ICordFileSDK } from './file.ts';
+} from './thread.js';
+import type { ICordUserSDK } from './user.js';
+import type { ClientMessageData } from './message.js';
+import type { ICordFileSDK } from './file.js';
 
-export * from './application.ts';
-export * from './auth.ts';
-export * from './batch.ts';
-export * from './core.ts';
-export * from './file.ts';
-export * from './group.ts';
-export * from './message.ts';
-export * from './messageNodes.ts';
-export * from './notifications.ts';
-export * from './organization.ts';
-export * from './preferences.ts';
-export * from './presence.ts';
-export * from './project.ts';
-export * from './thread.ts';
-export * from './user.ts';
-export * from './webhook.ts';
+export * from './application.js';
+export * from './auth.js';
+export * from './batch.js';
+export * from './core.js';
+export * from './file.js';
+export * from './group.js';
+export * from './message.js';
+export * from './messageNodes.js';
+export * from './notifications.js';
+export * from './organization.js';
+export * from './preferences.js';
+export * from './presence.js';
+export * from './project.js';
+export * from './thread.js';
+export * from './user.js';
+export * from './webhook.js';
 
 export type Point2D = { x: number; y: number };
 

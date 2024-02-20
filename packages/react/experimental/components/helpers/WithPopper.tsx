@@ -9,13 +9,13 @@ import { forwardRef, useEffect, useRef } from 'react';
 import type { Placement } from '@floating-ui/react-dom';
 
 import { Slot } from '@radix-ui/react-slot';
-import type { PopperPosition } from '../../../types.ts';
-import { usePopperCreator } from '../../../hooks/usePopperCreator.ts';
-import { useClickOutside } from '../../../common/effects/useClickOutside.ts';
-import { useUpdatingRef } from '../../../common/effects/useUpdatingRef.ts';
-import * as classes from '../../../components/helpers/WithPopper.classnames.ts';
-import { ZINDEX } from '../../../common/ui/zIndex.ts';
-import { useComposedRefs } from '../../../common/lib/composeRefs.ts';
+import type { PopperPosition } from '../../../types.js';
+import { usePopperCreator } from '../../../hooks/usePopperCreator.js';
+import { useClickOutside } from '../../../common/effects/useClickOutside.js';
+import { useUpdatingRef } from '../../../common/effects/useUpdatingRef.js';
+import * as classes from '../../../components/helpers/WithPopper.classnames.js';
+import { ZINDEX } from '../../../common/ui/zIndex.js';
+import { useComposedRefs } from '../../../common/lib/composeRefs.js';
 
 const DEFAULT_POSITION: PopperPosition = 'top';
 

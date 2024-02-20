@@ -1,4 +1,4 @@
-import type { SortBy, ThreadSummary } from '@cord-sdk/types/thread.ts';
+import type { SortBy, ThreadSummary } from '@cord-sdk/types/thread.js';
 
 export function sortThreads(threads: ThreadSummary[], sortBy: SortBy) {
   switch (sortBy) {

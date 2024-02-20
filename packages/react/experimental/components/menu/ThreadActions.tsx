@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { useThread } from '../../../hooks/thread.ts';
-import { useCordTranslation } from '../../../hooks/useCordTranslation.tsx';
-import { Icon } from '../../../components/helpers/Icon.tsx';
-import { useToast } from '../../hooks/useToast.tsx';
-import { useViewerData } from '../../../hooks/user.ts';
-import { setResolved, setSubscribed } from '../../../common/lib/thread.ts';
-import { MenuItem } from './MenuItem.tsx';
+import { useThread } from '../../../hooks/thread.js';
+import { useCordTranslation } from '../../../hooks/useCordTranslation.js';
+import { Icon } from '../../../components/helpers/Icon.js';
+import { useToast } from '../../hooks/useToast.js';
+import { useViewerData } from '../../../hooks/user.js';
+import { setResolved, setSubscribed } from '../../../common/lib/thread.js';
+import { MenuItem } from './MenuItem.js';
 
 export type ThreadActionsProps = {
   closeMenu: () => void;
@@ -70,7 +70,7 @@ export function ThreadActions({
           onClick={(event) => {
             event.stopPropagation();
             showToastPopup?.(t('resolve_action_success'));
-            setResolved(threadID, true);
+            void setResolved(threadID, true);
             markThreadAsRead?.(threadID);
             closeMenu();
           }}

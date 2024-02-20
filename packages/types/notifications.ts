@@ -3,10 +3,10 @@ import type {
   ListenerRef,
   PaginationParams,
   Location,
-} from './core.ts';
-import type { ClientUserData } from './user.ts';
-import type { CoreMessageData } from './message.ts';
-import type { Translation } from './i18n.ts';
+} from './core.js';
+import type { ClientUserData } from './user.js';
+import type { CoreMessageData } from './message.js';
+import type { Translation } from './i18n.js';
 
 export type NotificationSummary = {
   unread: number;

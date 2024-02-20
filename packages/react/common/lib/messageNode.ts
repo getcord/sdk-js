@@ -13,7 +13,7 @@ import type {
   MessageTodoNode,
   UUID,
 } from '@cord-sdk/types';
-import { trimStart, trimEnd } from './trim.ts';
+import { trimStart, trimEnd } from './trim.js';
 
 export const MAX_BULLET_INDENT = 4;
 

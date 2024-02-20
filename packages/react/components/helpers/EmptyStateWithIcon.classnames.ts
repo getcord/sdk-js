@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../../common/util.ts';
+import { cordifyClassname } from '../../common/util.js';
 
 export const emptyStateContainer = cordifyClassname(
   'empty-state-placeholder-with-icon',

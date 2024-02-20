@@ -1,4 +1,4 @@
-import type { UUID } from './core.ts';
+import type { UUID } from './core.js';
 
 export enum MessageNodeType {
   ASSIGNEE = 'assignee',

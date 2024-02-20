@@ -12,13 +12,13 @@ import type {
   MessageStyledBlockNode,
   MessageTodoNode,
 } from '@cord-sdk/types';
-import { Keys } from '../../../common/const/Keys.ts';
-import { isEqual } from '../../../common/lib/fast-deep-equal.ts';
+import { Keys } from '../../../common/const/Keys.js';
+import { isEqual } from '../../../common/lib/fast-deep-equal.js';
 import {
   createMessageNode,
   isMessageNodeType,
-} from '../../../common/lib/messageNode.ts';
-import { EditorCommands } from './commands.ts';
+} from '../../../common/lib/messageNode.js';
+import { EditorCommands } from './commands.js';
 
 export function isEmptyParagraph(node: Node): node is MessageParagraphNode {
   return Boolean(

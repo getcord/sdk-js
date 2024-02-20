@@ -1,6 +1,6 @@
-import type { SortBy, ThreadSummary } from '@cord-sdk/types/thread.ts';
+import type { SortBy, ThreadSummary } from '@cord-sdk/types/thread.js';
 import { useEffect, useState } from 'react';
-import { sortThreads } from '../common/lib/sortThreads.ts';
+import { sortThreads } from '../common/lib/sortThreads.js';
 
 export function useStoreHighlightedThreads({
   currentHighlightedThread,

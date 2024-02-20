@@ -1,6 +1,6 @@
-export type { SelectionCommentsReactComponentProps } from './components/SelectionComments.tsx';
-export { SelectionComments } from './components/SelectionComments.tsx';
-export { ThreadFacepile } from './components/ThreadFacepile.tsx';
+export type { SelectionCommentsReactComponentProps } from './components/SelectionComments.js';
+export { SelectionComments } from './components/SelectionComments.js';
+export { ThreadFacepile } from './components/ThreadFacepile.js';
 
 export {
   Avatar,
@@ -9,22 +9,22 @@ export {
   type AvatarTooltipProps,
   type AvatarFallbackProps,
   type AvatarProps,
-} from './experimental/components/Avatar.tsx';
+} from './experimental/components/Avatar.js';
 
-export { Replace } from './experimental/components/hoc/withReplacement.tsx';
-export { Facepile } from './experimental/components/Facepile.tsx';
-export { PresenceFacepile } from './experimental/components/PresenceFacepile.tsx';
-export { PresenceObserver } from './experimental/components/PresenceObserver.tsx';
-export { PagePresence } from './experimental/components/PagePresence.tsx';
-export { AddReactionButton } from './experimental/components/AddReactionButton.tsx';
-export { Button } from './experimental/components/helpers/Button.tsx';
-export { Menu, type MenuProps } from './experimental/components/menu/Menu.tsx';
-export { OptionsMenu } from './experimental/components/menu/OptionsMenu.tsx';
-export { MessageContent } from './experimental/components/message/MessageContent.tsx';
+export { Replace } from './experimental/components/hoc/withReplacement.js';
+export { Facepile } from './experimental/components/Facepile.js';
+export { PresenceFacepile } from './experimental/components/PresenceFacepile.js';
+export { PresenceObserver } from './experimental/components/PresenceObserver.js';
+export { PagePresence } from './experimental/components/PagePresence.js';
+export { AddReactionButton } from './experimental/components/AddReactionButton.js';
+export { Button } from './experimental/components/helpers/Button.js';
+export { Menu, type MenuProps } from './experimental/components/menu/Menu.js';
+export { OptionsMenu } from './experimental/components/menu/OptionsMenu.js';
+export { MessageContent } from './experimental/components/message/MessageContent.js';
 export {
   Timestamp,
   TimestampTooltip,
   type TimestampProps,
-} from './experimental/components/Timestamp.tsx';
-export { EmojiPicker } from './experimental/components/helpers/EmojiPicker.tsx';
-export { Reactions } from './experimental/components/Reactions.tsx';
+} from './experimental/components/Timestamp.js';
+export { EmojiPicker } from './experimental/components/helpers/EmojiPicker.js';
+export { Reactions } from './experimental/components/Reactions.js';

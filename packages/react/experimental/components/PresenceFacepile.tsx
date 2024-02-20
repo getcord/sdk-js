@@ -2,17 +2,17 @@ import * as React from 'react';
 import { useMemo, forwardRef } from 'react';
 import cx from 'classnames';
 import type { UserLocationData, ClientUserData } from '@cord-sdk/types';
-import { useUserData, useViewerData } from '../../hooks/user.ts';
-import { useCordTranslation } from '../../hooks/useCordTranslation.tsx';
-import type { PresenceReducerOptions } from '../../types.ts';
-import { useLocationData } from '../../hooks/presence.ts';
-import { getUsersAtLocation } from '../../common/lib/presence.ts';
-import { useTime } from '../../common/effects/useTime.tsx';
-import { relativeTimestampString } from '../../common/util.ts';
-import * as classes from '../../components/Facepile.classnames.ts';
-import { DefaultTooltip, WithTooltip } from './WithTooltip.tsx';
-import { Avatar } from './Avatar.tsx';
-import withCord from './hoc/withCord.tsx';
+import { useUserData, useViewerData } from '../../hooks/user.js';
+import { useCordTranslation } from '../../hooks/useCordTranslation.js';
+import type { PresenceReducerOptions } from '../../types.js';
+import { useLocationData } from '../../hooks/presence.js';
+import { getUsersAtLocation } from '../../common/lib/presence.js';
+import { useTime } from '../../common/effects/useTime.js';
+import { relativeTimestampString } from '../../common/util.js';
+import * as classes from '../../components/Facepile.classnames.js';
+import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
+import { Avatar } from './Avatar.js';
+import withCord from './hoc/withCord.js';
 
 const DEFAULT_NUM_OF_AVATARS = 5;
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useContext } from 'react';
 import { createPortal } from 'react-dom';
-import { PortalContext } from '../contexts/PortalContext.tsx';
+import { PortalContext } from '../contexts/PortalContext.js';
 
 export function Portal({
   children,

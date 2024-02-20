@@ -2,9 +2,9 @@ import * as React from 'react';
 import { forwardRef, useCallback, useContext } from 'react';
 import cx from 'classnames';
 import type { MessageContent as MessageContentType } from '@cord-sdk/types';
-import type { ClientMessageData } from '@cord-sdk/types/message.ts';
-import withCord from '../experimental/components/hoc/withCord.tsx';
-import * as classes from '../components/Message.classnames.ts';
+import type { ClientMessageData } from '@cord-sdk/types/message.js';
+import withCord from '../experimental/components/hoc/withCord.js';
+import * as classes from '../components/Message.classnames.js';
 
 import {
   Avatar,
@@ -14,9 +14,9 @@ import {
   Timestamp,
   AddReactionButton,
   Reactions,
-} from '../experimental.ts';
-import { Icon } from '../components/helpers/Icon.tsx';
-import { CordContext } from '../contexts/CordContext.tsx';
+} from '../experimental.js';
+import { Icon } from '../components/helpers/Icon.js';
+import { CordContext } from '../contexts/CordContext.js';
 
 export type MessageProps = {
   message: ClientMessageData;

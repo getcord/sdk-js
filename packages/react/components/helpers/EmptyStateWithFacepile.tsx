@@ -1,8 +1,8 @@
 import * as React from 'react';
 import cx from 'classnames';
 
-import { Facepile } from '../Facepile.tsx';
-import * as classes from './EmptyStateWithFacepile.css.ts';
+import { Facepile } from '../Facepile.js';
+import * as classes from './EmptyStateWithFacepile.css.js';
 
 type Props = {
   users: string[];

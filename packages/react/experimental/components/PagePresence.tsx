@@ -3,9 +3,9 @@ import * as React from 'react';
 import { forwardRef } from 'react';
 import type { Location } from '@cord-sdk/types';
 
-import { PresenceObserver } from '../../components/PresenceObserver.tsx';
-import withCord from './hoc/withCord.tsx';
-import { PresenceFacepile } from './PresenceFacepile.tsx';
+import { PresenceObserver } from '../../components/PresenceObserver.js';
+import withCord from './hoc/withCord.js';
+import { PresenceFacepile } from './PresenceFacepile.js';
 
 export type PagePresenceProps = {
   location: Location;

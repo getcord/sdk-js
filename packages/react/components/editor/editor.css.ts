@@ -1,7 +1,7 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { cordifyClassname } from '../../common/util.ts';
-import { Sizes } from '../../common/const/Sizes.ts';
-import { CODE_STYLE } from '../../common/lib/styles.ts';
+import { cordifyClassname } from '../../common/util.js';
+import { Sizes } from '../../common/const/Sizes.js';
+import { CODE_STYLE } from '../../common/lib/styles.js';
 
 export const inlineCode = cordifyClassname('inline-code');
 globalStyle(`.${inlineCode}`, {

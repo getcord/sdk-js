@@ -2,9 +2,9 @@ import type {
   BorderRadiusVar,
   CSSVariable,
   WithCSSVariableOverrides,
-} from '../cssVariables.ts';
-import { cssVarWithOverride } from '../cssVariables.ts';
-import type { Styles } from './types.ts';
+} from '../cssVariables.js';
+import { cssVarWithOverride } from '../cssVariables.js';
+import type { Styles } from './types.js';
 
 export type BorderRadiusProps = {
   borderRadius?: BorderRadiusVar;

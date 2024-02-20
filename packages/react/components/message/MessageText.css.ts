@@ -1,8 +1,8 @@
 import type { CSSProperties } from 'react';
 import { globalStyle } from '@vanilla-extract/css';
-import { Sizes } from '../../common/const/Sizes.ts';
-import { cordifyClassname } from '../../common/util.ts';
-import { editorStyles } from '../../common/lib/editor/styles.ts';
+import { Sizes } from '../../common/const/Sizes.js';
+import { cordifyClassname } from '../../common/util.js';
+import { editorStyles } from '../../common/lib/editor/styles.js';
 
 export const messageText = cordifyClassname('message-text');
 globalStyle(`.${messageText}`, {

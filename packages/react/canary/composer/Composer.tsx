@@ -20,42 +20,42 @@ import type {
   MessageContent,
   UploadedFile,
 } from '@cord-sdk/types';
-import { CordContext } from '../../contexts/CordContext.tsx';
-import { Button } from '../../experimental/components/helpers/Button.tsx';
+import { CordContext } from '../../contexts/CordContext.js';
+import { Button } from '../../experimental/components/helpers/Button.js';
 import {
   colorsPrimary,
   colorsTertiary,
   medium,
   sendButton,
   small,
-} from '../../components/helpers/Button.classnames.ts';
-import withCord from '../../experimental/components/hoc/withCord.tsx';
-import { useCordTranslation } from '../../hooks/useCordTranslation.tsx';
-import { Keys } from '../../common/const/Keys.ts';
+} from '../../components/helpers/Button.classnames.js';
+import withCord from '../../experimental/components/hoc/withCord.js';
+import { useCordTranslation } from '../../hooks/useCordTranslation.js';
+import { Keys } from '../../common/const/Keys.js';
 
-import { ComposerFileAttachments } from '../../components/composer/ComposerFileAttachments.tsx';
-import { readFileAsync } from '../../common/lib/uploads.ts';
-import { useMentionList } from '../../experimental/components/composer/MentionList.tsx';
-import { WithPopper } from '../../experimental/components/helpers/WithPopper.tsx';
-import { withQuotes } from './plugins/quotes.ts';
-import { withBullets } from './plugins/bullets.ts';
-import { withHTMLPaste } from './plugins/paste.ts';
-import { renderElement, renderLeaf } from './lib/render.tsx';
-import { onSpace } from './event-handlers/onSpace.ts';
-import { onInlineModifier } from './event-handlers/onInlineModifier.ts';
-import { onDeleteOrBackspace } from './event-handlers/onDeleteOrBackspace.ts';
-import { onArrow } from './event-handlers/onArrowPress.ts';
-import { onTab } from './event-handlers/onTab.ts';
-import { onShiftEnter } from './event-handlers/onShiftEnter.ts';
-import { EditorCommands, HOTKEYS } from './lib/commands.ts';
+import { ComposerFileAttachments } from '../../components/composer/ComposerFileAttachments.js';
+import { readFileAsync } from '../../common/lib/uploads.js';
+import { useMentionList } from '../../experimental/components/composer/MentionList.js';
+import { WithPopper } from '../../experimental/components/helpers/WithPopper.js';
+import { withQuotes } from './plugins/quotes.js';
+import { withBullets } from './plugins/bullets.js';
+import { withHTMLPaste } from './plugins/paste.js';
+import { renderElement, renderLeaf } from './lib/render.js';
+import { onSpace } from './event-handlers/onSpace.js';
+import { onInlineModifier } from './event-handlers/onInlineModifier.js';
+import { onDeleteOrBackspace } from './event-handlers/onDeleteOrBackspace.js';
+import { onArrow } from './event-handlers/onArrowPress.js';
+import { onTab } from './event-handlers/onTab.js';
+import { onShiftEnter } from './event-handlers/onShiftEnter.js';
+import { EditorCommands, HOTKEYS } from './lib/commands.js';
 import {
   createComposerEmptyValue,
   editableStyle,
   hasComposerOnlyWhiteSpaces,
   isComposerEmpty,
-} from './lib/util.ts';
-import { withEmojis } from './plugins/withEmojis.ts';
-import { withUserReferences } from './lib/userReferences.ts';
+} from './lib/util.js';
+import { withEmojis } from './plugins/withEmojis.js';
+import { withUserReferences } from './lib/userReferences.js';
 
 export type ComposerProps = {
   value?: MessageContent;

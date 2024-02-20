@@ -2,9 +2,9 @@ import * as React from 'react';
 import type { RenderElementProps, RenderLeafProps } from 'slate-react';
 import type { MessageNode, MessageTextNode } from '@cord-sdk/types';
 import { MessageNodeType } from '@cord-sdk/types';
-import { BulletElement } from '../../../components/composer/BulletElement.tsx';
-import { UserReferenceElement } from '../../../experimental/components/composer/UserReferenceElement.tsx';
-import * as classes from '../../../components/editor/editor.css.ts';
+import { BulletElement } from '../../../components/composer/BulletElement.js';
+import { UserReferenceElement } from '../../../experimental/components/composer/UserReferenceElement.js';
+import * as classes from '../../../components/editor/editor.css.js';
 
 export const wrapTextNodeWithStyles = (
   node: JSX.Element,

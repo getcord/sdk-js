@@ -4,8 +4,8 @@ import {
   propsToAttributeConverter,
 } from '@cord-sdk/components';
 import type { NotificationWebComponentEvents } from '@cord-sdk/types';
-import type { ReactPropsWithStandardHTMLAttributes } from '../types.ts';
-import { useCustomEventListeners } from '../hooks/useCustomEventListener.ts';
+import type { ReactPropsWithStandardHTMLAttributes } from '../types.js';
+import { useCustomEventListeners } from '../hooks/useCustomEventListener.js';
 
 const propsToAttributes = propsToAttributeConverter(
   componentAttributes.Notification,

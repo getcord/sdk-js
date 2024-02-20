@@ -2,12 +2,12 @@ import * as React from 'react';
 import { forwardRef } from 'react';
 import cx from 'classnames';
 
-import type { ClientThreadData } from '@cord-sdk/types/thread.ts';
-import withCord from '../experimental/components/hoc/withCord.tsx';
-import { threadHeader } from '../components/Thread.classnames.ts';
-import { Button, OptionsMenu } from '../experimental.ts';
-import { Composer } from './composer/Composer.tsx';
-import { Message } from './Message.tsx';
+import type { ClientThreadData } from '@cord-sdk/types/thread.js';
+import withCord from '../experimental/components/hoc/withCord.js';
+import { threadHeader } from '../components/Thread.classnames.js';
+import { Button, OptionsMenu } from '../experimental.js';
+import { Composer } from './composer/Composer.js';
+import { Message } from './Message.js';
 
 export type ThreadProps = {
   thread?: ClientThreadData;

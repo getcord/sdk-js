@@ -2,21 +2,21 @@ import * as React from 'react';
 import cx from 'classnames';
 
 import { forwardRef, useCallback, useContext, useMemo } from 'react';
-import type { ClientMessageData, Reaction } from '@cord-sdk/types/message.ts';
-import type { ThreadSummary } from '@cord-sdk/types/thread.ts';
+import type { ClientMessageData, Reaction } from '@cord-sdk/types/message.js';
+import type { ThreadSummary } from '@cord-sdk/types/thread.js';
 import {
   getUnseenReactions,
   isViewerPreviouslyAddedReaction,
 } from '../../common/util.js';
-import { useUsersByReactions } from '../../common/effects/useUsersByReactions.ts';
-import { useMessage, useThread } from '../../hooks/thread.ts';
-import { useCordTranslation, CordContext } from '../../index.ts';
-import * as classes from '../../components/Reactions.classnames.ts';
-import { useViewerData } from '../../hooks/user.ts';
-import { AddReactionButton } from './AddReactionButton.tsx';
+import { useUsersByReactions } from '../../common/effects/useUsersByReactions.js';
+import { useMessage, useThread } from '../../hooks/thread.js';
+import { useCordTranslation, CordContext } from '../../index.js';
+import * as classes from '../../components/Reactions.classnames.js';
+import { useViewerData } from '../../hooks/user.js';
+import { AddReactionButton } from './AddReactionButton.js';
 import withCord from './hoc/withCord.js';
-import { DefaultTooltip, WithTooltip } from './WithTooltip.tsx';
-import { ReactionPill } from './message/ReactionPill.tsx';
+import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
+import { ReactionPill } from './message/ReactionPill.js';
 
 export type ReactionsProps = {
   threadId?: string;

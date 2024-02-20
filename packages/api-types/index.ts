@@ -1,5 +1,5 @@
-export * from './src/typeDefinitions.ts';
+export * from './src/typeDefinitions.js';
 
-export { default as schema } from './generate/schema.ts';
+export { default as schema } from './generate/schema.js';
 
-export type { Types } from './generate/types.ts';
+export type { Types } from './generate/types.js';

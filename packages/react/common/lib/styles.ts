@@ -1,6 +1,6 @@
-import { Colors } from '../const/Colors.ts';
-import { Sizes } from '../const/Sizes.ts';
-import { cssVar } from '../ui/cssVariables.ts';
+import { Colors } from '../const/Colors.js';
+import { Sizes } from '../const/Sizes.js';
+import { cssVar } from '../ui/cssVariables.js';
 
 const Fonts = {
   CODE: 'monospace',

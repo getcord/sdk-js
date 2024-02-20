@@ -1,6 +1,6 @@
 import type { Element, Editor } from 'slate';
 import { Range, Node, Text } from 'slate';
-import { isUserReferenceNode } from './util.ts';
+import { isUserReferenceNode } from './util.js';
 
 export const withUserReferences = <T extends Editor>(editor: T): T => {
   const { isInline, isVoid } = editor;

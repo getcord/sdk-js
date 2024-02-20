@@ -1,4 +1,4 @@
-import type { EntityMetadata, ID } from './core.ts';
+import type { EntityMetadata, ID } from './core.js';
 
 /**
  * @deprecated use ServerGroupData instead

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useCallback, useState } from 'react';
 import type { ClientUserData } from '@cord-sdk/types';
-import { MediaModal } from '../components/MediaModal.tsx';
-import type { MediaModalProps } from '../components/MediaModal.tsx';
+import { MediaModal } from '../components/MediaModal.js';
+import type { MediaModalProps } from '../components/MediaModal.js';
 
 export function useMediaModal({
   medias,

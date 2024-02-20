@@ -1,9 +1,9 @@
 import { globalStyle, keyframes } from '@vanilla-extract/css';
-import { cordifyClassname } from '../common/util.ts';
-import { cssVar } from '../common/ui/cssVariables.ts';
-import { ZINDEX } from '../common/ui/zIndex.ts';
-import * as avatarClasses from './Avatar.classnames.ts';
-import * as classes from './LiveCursors.classnames.ts';
+import { cordifyClassname } from '../common/util.js';
+import { cssVar } from '../common/ui/cssVariables.js';
+import { ZINDEX } from '../common/ui/zIndex.js';
+import * as avatarClasses from './Avatar.classnames.js';
+import * as classes from './LiveCursors.classnames.js';
 
 export const { cursor, icon, label, name } = classes;
 

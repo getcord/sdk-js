@@ -1,5 +1,5 @@
-import { cordifyClassname } from '../../common/util.ts';
-export { icon as buttonIcon } from './Icon.classnames.ts';
+import { cordifyClassname } from '../../common/util.js';
+export { icon as buttonIcon } from './Icon.classnames.js';
 
 export const button = cordifyClassname('button');
 export const buttonLabel = cordifyClassname('button-label');

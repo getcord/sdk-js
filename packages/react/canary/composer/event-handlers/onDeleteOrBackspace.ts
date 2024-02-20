@@ -1,17 +1,17 @@
 import { Element, Editor, Range, Node, Transforms, Path } from 'slate';
 import { MessageNodeType } from '@cord-sdk/types';
-import { EditorCommands } from '../lib/commands.ts';
+import { EditorCommands } from '../lib/commands.js';
 import {
   deleteVoidNodeOnPressDelete,
   isStartOfBlock,
   isCodeBlock,
-} from '../lib/util.ts';
-import { isEqual } from '../../../common/lib/fast-deep-equal.ts';
-import { Keys } from '../../../common/const/Keys.ts';
+} from '../lib/util.js';
+import { isEqual } from '../../../common/lib/fast-deep-equal.js';
+import { Keys } from '../../../common/const/Keys.js';
 import {
   createMessageNode,
   isMessageNodeType,
-} from '../../../common/lib/messageNode.ts';
+} from '../../../common/lib/messageNode.js';
 
 export function onDeleteOrBackspace(
   editor: Editor,

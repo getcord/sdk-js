@@ -3,10 +3,10 @@ import { forwardRef } from 'react';
 import type { HTMLAttributes } from 'react';
 import cx from 'classnames';
 
-import * as classes from '../../../components/helpers/ButtonWithUnderline.classnames.ts';
-import type { IconType } from '../../../components/helpers/Icon.tsx';
-import { Icon } from '../../../components/helpers/Icon.tsx';
-import { Button } from './Button.tsx';
+import * as classes from '../../../components/helpers/ButtonWithUnderline.classnames.js';
+import type { IconType } from '../../../components/helpers/Icon.js';
+import { Icon } from '../../../components/helpers/Icon.js';
+import { Button } from './Button.js';
 
 type ButtonWithUnderlineProps = {
   /** This helps writing CSS selectors to target the right buttons */

@@ -3,11 +3,11 @@ import * as React from 'react';
 import EmojiConverter from 'emoji-js';
 
 import type { ClientUserData } from '@cord-sdk/types';
-import { DefaultTooltip, WithTooltip } from '../WithTooltip.tsx';
-import * as fonts from '../../../common/ui/atomicClasses/fonts.css.ts';
-import { MODIFIERS } from '../../../common/ui/modifiers.ts';
-import * as classes from '../../../components/Reactions.classnames.ts';
-import { useCordTranslation } from '../../../hooks/useCordTranslation.tsx';
+import { DefaultTooltip, WithTooltip } from '../WithTooltip.js';
+import * as fonts from '../../../common/ui/atomicClasses/fonts.css.js';
+import { MODIFIERS } from '../../../common/ui/modifiers.js';
+import * as classes from '../../../components/Reactions.classnames.js';
+import { useCordTranslation } from '../../../hooks/useCordTranslation.js';
 
 type ReactionPillProps = {
   unicodeReaction: string;

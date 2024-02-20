@@ -1,6 +1,6 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { cordifyClassname } from '../../util.ts';
-import { cssVar } from '../cssVariables.ts';
+import { cordifyClassname } from '../../util.js';
+import { cssVar } from '../cssVariables.js';
 
 export const iconSmall = cordifyClassname('icon-small');
 globalStyle(`.${iconSmall}`, {

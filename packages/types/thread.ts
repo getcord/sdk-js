@@ -9,15 +9,15 @@ import type {
   PaginationParams,
   ThreadID,
   UserID,
-} from './core.ts';
+} from './core.js';
 import type {
   ClientMessageData,
   CoreMessageData,
   MessageCallback,
   SearchOptionsType,
   SearchResultData,
-} from './message.ts';
-import type { PaginationDetails } from './pagination.ts';
+} from './message.js';
+import type { PaginationDetails } from './pagination.js';
 
 /**
  * Options for the `observeLocationSummary` function in the Thread API.

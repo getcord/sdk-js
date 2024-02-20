@@ -1,11 +1,11 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { cssVar } from '../../common/ui/cssVariables.ts';
+import { cssVar } from '../../common/ui/cssVariables.js';
 import {
   emptyStatePlaceholderContainer,
   emptyStatePlaceholderTitle,
   emptyStatePlaceholderBody,
-} from './EmptyStateWithFacepile.classnames.ts';
-export * from './EmptyStateWithFacepile.classnames.ts';
+} from './EmptyStateWithFacepile.classnames.js';
+export * from './EmptyStateWithFacepile.classnames.js';
 
 globalStyle(`.${emptyStatePlaceholderContainer}`, {
   fontFamily: cssVar('font-family'),

@@ -2,16 +2,16 @@ import * as React from 'react';
 import cx from 'classnames';
 
 import { forwardRef, useCallback } from 'react';
-import { isViewerPreviouslyAddedReaction } from '../../common/util.ts';
-import { useViewerData } from '../../hooks/user.ts';
-import { useMessage } from '../../hooks/thread.ts';
-import * as classes from '../../components/Reactions.classnames.ts';
-import * as buttonClasses from '../../components/helpers/Button.classnames.ts';
-import { useEmojiPicker } from './helpers/EmojiPicker.tsx';
-import { Button } from './helpers/Button.tsx';
-import type { GeneralButtonProps } from './helpers/Button.tsx';
+import { isViewerPreviouslyAddedReaction } from '../../common/util.js';
+import { useViewerData } from '../../hooks/user.js';
+import { useMessage } from '../../hooks/thread.js';
+import * as classes from '../../components/Reactions.classnames.js';
+import * as buttonClasses from '../../components/helpers/Button.classnames.js';
+import { useEmojiPicker } from './helpers/EmojiPicker.js';
+import { Button } from './helpers/Button.js';
+import type { GeneralButtonProps } from './helpers/Button.js';
 
-import withCord from './hoc/withCord.tsx';
+import withCord from './hoc/withCord.js';
 
 export type AddReactionButtonProps = {
   messageId?: string;

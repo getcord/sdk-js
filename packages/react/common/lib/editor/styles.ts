@@ -1,6 +1,6 @@
-import { Sizes } from '../../const/Sizes.ts';
-import { getFontStyles } from '../../ui/atomicClasses/fonts.ts';
-import { cssVar } from '../../ui/cssVariables.ts';
+import { Sizes } from '../../const/Sizes.js';
+import { getFontStyles } from '../../ui/atomicClasses/fonts.js';
+import { cssVar } from '../../ui/cssVariables.js';
 import {
   BOLD_STYLE,
   ITALIC_STYLE,
@@ -8,7 +8,7 @@ import {
   CODE_STYLE,
   QUOTE_STYLE,
   LINK_STYLE,
-} from '../styles.ts';
+} from '../styles.js';
 
 export const editorStyles: Record<
   string | number,

@@ -1,7 +1,7 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { cssVar } from '../common/ui/cssVariables.ts';
-import { menu } from './Menu.css.ts';
-import * as classes from './helpers/Separator.classnames.ts';
+import { cssVar } from '../common/ui/cssVariables.js';
+import { menu } from './Menu.css.js';
+import * as classes from './helpers/Separator.classnames.js';
 
 const { separator } = classes;
 

@@ -1,5 +1,5 @@
-import { Sizes } from '../const/Sizes.ts';
-import { ZINDEX } from './zIndex.ts';
+import { Sizes } from '../const/Sizes.js';
+import { ZINDEX } from './zIndex.js';
 
 const varCache: { [varName in CSSVariable]?: string } = {};
 

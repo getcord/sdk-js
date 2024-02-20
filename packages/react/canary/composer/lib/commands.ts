@@ -17,13 +17,13 @@ import {
   createParagraphNode,
   isMessageNodeType,
   createMentionNode,
-} from '../../../common/lib/messageNode.ts';
+} from '../../../common/lib/messageNode.js';
 import {
   isStyledBlock,
   isStartOfBlock,
   isStyledBlockEmpty,
   isEmptyParagraph,
-} from './util.ts';
+} from './util.js';
 
 export const HOTKEYS: { [key: string]: Mark } = {
   'mod+b': 'bold',

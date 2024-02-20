@@ -2,11 +2,11 @@ import * as React from 'react';
 import cx from 'classnames';
 import { forwardRef } from 'react';
 
-import { Icon } from '../../../components/helpers/Icon.tsx';
-import type { IconType } from '../../../components/helpers/Icon.tsx';
-import withCord from '../hoc/withCord.tsx';
-import * as classes from '../../../components/helpers/Button.classnames.ts';
-import { MODIFIERS } from '../../../common/ui/modifiers.ts';
+import { Icon } from '../../../components/helpers/Icon.js';
+import type { IconType } from '../../../components/helpers/Icon.js';
+import withCord from '../hoc/withCord.js';
+import * as classes from '../../../components/helpers/Button.classnames.js';
+import { MODIFIERS } from '../../../common/ui/modifiers.js';
 
 type AdditionalButtonProps = {
   buttonAction: string;
