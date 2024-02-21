@@ -2,7 +2,7 @@ import * as React from 'react';
 import { forwardRef } from 'react';
 import cx from 'classnames';
 
-import type { ClientThreadData } from '@cord-sdk/types/thread.js';
+import type { ClientThreadData } from '@cord-sdk/types';
 import withCord from '../experimental/components/hoc/withCord.js';
 import { threadHeader } from '../components/Thread.classnames.js';
 import { Button, OptionsMenu } from '../experimental.js';

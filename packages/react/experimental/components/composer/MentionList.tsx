@@ -1,4 +1,4 @@
-import type { ClientUserData } from '@cord-sdk/types/user.js';
+import type { ClientUserData } from '@cord-sdk/types';
 import type { CSSProperties } from 'react';
 import * as React from 'react';
 import { useEffect, useRef, useMemo, useState, useCallback } from 'react';

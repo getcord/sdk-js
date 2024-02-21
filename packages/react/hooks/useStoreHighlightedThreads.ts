@@ -1,4 +1,4 @@
-import type { SortBy, ThreadSummary } from '@cord-sdk/types/thread.js';
+import type { SortBy, ThreadSummary } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { sortThreads } from '../common/lib/sortThreads.js';
 

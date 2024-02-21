@@ -2,8 +2,11 @@ import * as React from 'react';
 import cx from 'classnames';
 
 import { forwardRef, useCallback, useContext, useMemo } from 'react';
-import type { ClientMessageData, Reaction } from '@cord-sdk/types/message.js';
-import type { ThreadSummary } from '@cord-sdk/types/thread.js';
+import type {
+  ClientMessageData,
+  Reaction,
+  ThreadSummary,
+} from '@cord-sdk/types';
 import {
   getUnseenReactions,
   isViewerPreviouslyAddedReaction,
