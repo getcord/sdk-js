@@ -107,8 +107,13 @@ export const resources = {
       // The text shown when sharing a thread to Slack and there are no public
       // channels in the Slack workspace the user has linked to
       share_via_slack_no_channels: 'No public channels found',
+      // The text shown when sharing a thread to Slack fails for an unknown reason
+      share_via_slack_action_failure:
+        'Error sharing to Slack, please try again',
       // The text of the menu item that shares a thread by email
       share_via_email_action: 'Share via email',
+      // The text shown after sharing a thread to email succeeds
+      share_via_email_action_success: 'Shared to {{email}}',
       // The warning text shown to inform the user that when sharing a thread by
       // email, a screenshot will be sent with the email
       share_via_email_screenshot_warning:
