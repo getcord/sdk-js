@@ -41,7 +41,10 @@ export const Timestamp = withCord<React.PropsWithChildren<TimestampProps>>(
 
     const date = useMemo(() => new Date(value), [value]);
 
-    const absoluteTimestamp = useMemo(() => date.toLocaleString(), [date]);
+    const absoluteTimestamp = useMemo(
+      () => absoluteT('tooltip', { date }),
+      [date, absoluteT],
+    );
 
     const displayString = useMemo(
       () =>

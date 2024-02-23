@@ -312,6 +312,7 @@ export const resources = {
         next_week_format: 'MMM D',
         this_year_format: 'MMM D',
         other_format: 'MMM D, YYYY',
+        tooltip: '{{date, datetime(dateStyle: short; timeStyle: medium)}}',
       },
       // Tool tip for the reactions pill.  Will show what one or more users reacted with.
       reaction_with_emoji_name_tooltip:
