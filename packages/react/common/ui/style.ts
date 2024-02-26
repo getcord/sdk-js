@@ -1,16 +1,14 @@
 import type { GlobalStyleRule, CSSProperties } from '@vanilla-extract/css';
-import {
-  globalStyle as defaultGlobalStyle,
-  keyframes,
-} from '@vanilla-extract/css';
+import { globalStyle as defaultGlobalStyle } from '@vanilla-extract/css';
+export { globalStyle as defaultGlobalStyle } from '@vanilla-extract/css';
+export { keyframes } from '@vanilla-extract/css';
 import { cordifyClassname } from '../util.js';
 
 export type { CSSProperties };
-export { globalStyle, defaultGlobalStyle, keyframes };
 
 export const CORD_COMPONENT_BASE_CLASS = 'cord-component';
 export const CORD_V3 = cordifyClassname('v3');
-function globalStyle(selector: string, rule: GlobalStyleRule) {
+export function globalStyle(selector: string, rule: GlobalStyleRule) {
   // We are wrapping `selector` in a `:where()`, and `:where(*::<pseudo-element>)`
   // is *not* a valid selector.
   if (selector.includes('::')) {
