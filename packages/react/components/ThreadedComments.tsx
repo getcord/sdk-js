@@ -25,6 +25,7 @@ import { useCordTranslation } from '../hooks/useCordTranslation.js';
 import { useEnsureHighlightedThreadVisible } from '../hooks/useEnsureHighlightedThreadVisible.js';
 import { withGroupIDCheck } from '../common/hoc/withGroupIDCheck.js';
 import { useStoreHighlightedThreads } from '../hooks/useStoreHighlightedThreads.js';
+import { CORD_COMPONENT_BASE_CLASS, CORD_V3 } from '../common/ui/style.js';
 import type { ThreadListReactComponentProps } from './ThreadList.js';
 import classes from './ThreadedComments.css.js';
 import { Composer } from './Composer.js';
@@ -345,10 +346,16 @@ function ThreadedCommentsImpl({
 
   return (
     <div
-      className={cx(classes.comments, className, {
-        [classes.unresolvedOnly]: displayResolved === 'unresolvedOnly',
-        [classes.resolvedOnly]: displayResolved === 'resolvedOnly',
-      })}
+      className={cx(
+        CORD_COMPONENT_BASE_CLASS,
+        CORD_V3,
+        classes.comments,
+        className,
+        {
+          [classes.unresolvedOnly]: displayResolved === 'unresolvedOnly',
+          [classes.resolvedOnly]: displayResolved === 'resolvedOnly',
+        },
+      )}
     >
       {resolvedStatusTabs}
       {composerOnTop && showComposer && composer}

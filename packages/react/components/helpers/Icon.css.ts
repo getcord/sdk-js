@@ -1,4 +1,7 @@
-import { globalStyle, keyframes } from '@vanilla-extract/css';
+import {
+  defaultGlobalStyle as globalStyle,
+  keyframes,
+} from '../../common/ui/style.js';
 import { cssVar } from '../../common/ui/cssVariables.js';
 import { getModifiedSelector } from '../../common/ui/modifiers.js';
 import { resolvedThreadHeader } from '../ThreadedComments.classnames.js';

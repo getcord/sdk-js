@@ -1,4 +1,4 @@
-import { globalStyle } from '@vanilla-extract/css';
+import { globalStyle } from '../../common/ui/style.js';
 import { cssVar } from '../../common/ui/cssVariables.js';
 import {
   emptyStatePlaceholderContainer,
