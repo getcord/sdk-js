@@ -413,6 +413,16 @@ export const resources = {
         this_year_format: 'MMM D, YYYY',
         other_format: 'MMM D, YYYY',
       },
+      absolute_timestamp: {
+        today_format: 'h:mm A',
+        yesterday_format: 'MMM D',
+        last_week_format: 'MMM D',
+        tomorrow_format: 'MMM D',
+        next_week_format: 'MMM D',
+        this_year_format: 'MMM D',
+        other_format: 'MMM D, YYYY',
+        tooltip: '{{date, datetime(dateStyle: short; timeStyle: medium)}}',
+      },
     },
     // The message_templates namespace is used for translating the body of Cord
     // notifications.
