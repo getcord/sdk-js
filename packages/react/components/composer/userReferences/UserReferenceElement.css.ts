@@ -1,4 +1,4 @@
-import { globalStyle } from '../../../common/ui/style.js';
+import { globalStyle } from '@vanilla-extract/css';
 import { cssVar } from '../../../common/ui/cssVariables.js';
 import { MODIFIERS } from '../../../common/ui/modifiers.js';
 import * as classes from './UserReferenceElement.classnames.js';

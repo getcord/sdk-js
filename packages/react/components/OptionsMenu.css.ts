@@ -1,8 +1,4 @@
-import {
-  CORD_V3,
-  defaultGlobalStyle,
-  globalStyle,
-} from '../common/ui/style.js';
+import { globalStyle } from '@vanilla-extract/css';
 import { cordifyClassname } from '../common/util.js';
 
 const SHARE_TO_EMAIL_MENU_WIDTH = 190;
@@ -28,8 +24,8 @@ globalStyle(`.${slackChannelSelectMenuContainer}`, {
   maxWidth: SLACK_CHANNEL_SELECT_MENU_WIDTH,
 });
 
-defaultGlobalStyle(
-  `:where(.cord-component-sidebar.${CORD_V3} .${optionsMenu}) .${slackChannelSelectMenuContainer}`,
+globalStyle(
+  `:where(.cord-component-sidebar .${optionsMenu}) .${slackChannelSelectMenuContainer}`,
   {
     overflow: 'hidden',
   },

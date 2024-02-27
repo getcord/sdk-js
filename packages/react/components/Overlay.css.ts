@@ -1,4 +1,4 @@
-import { globalStyle } from '../common/ui/style.js';
+import { globalStyle } from '@vanilla-extract/css';
 import { cordifyClassname } from '../common/util.js';
 import { ZINDEX } from '../common/ui/zIndex.js';
 

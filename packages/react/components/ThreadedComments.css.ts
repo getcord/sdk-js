@@ -1,9 +1,5 @@
-import type { CSSProperties } from '../common/ui/style.js';
-import {
-  CORD_V3,
-  defaultGlobalStyle,
-  globalStyle,
-} from '../common/ui/style.js';
+import type { CSSProperties } from '@vanilla-extract/css';
+import { globalStyle } from '@vanilla-extract/css';
 import { cordifyClassname } from '../common/util.js';
 import { cssVar } from '../common/ui/cssVariables.js';
 import { getModifiedSelector, MODIFIERS } from '../common/ui/modifiers.js';
@@ -29,7 +25,7 @@ const {
   viewerAvatarWithComposer,
 } = classes;
 
-defaultGlobalStyle(`:where(.${CORD_V3}).${comments}`, {
+globalStyle(`.${comments}`, {
   position: 'relative', // Make sure toasts appear inside `comments`
   width: '320px',
   border: `1px solid ${cssVar('color-base-x-strong')}`,
@@ -60,19 +56,16 @@ globalStyle(`.${threadList}`, {
 
 // By setting a fixed width, we are ensuring that
 // the scrollbar is always present
-defaultGlobalStyle(`:where(.${CORD_V3}) .${threadList}::-webkit-scrollbar`, {
+globalStyle(`.${threadList}::-webkit-scrollbar`, {
   width: '10px',
 });
 
-defaultGlobalStyle(
-  `:where(.${CORD_V3}) .${threadList}::-webkit-scrollbar-thumb`,
-  {
-    backgroundColor: cssVar('color-base-x-strong'),
-    borderRadius: cssVar('border-radius-large'),
-    // Preventing the scrollbar thumb from becoming too small
-    minHeight: '28px',
-  },
-);
+globalStyle(`.${threadList}::-webkit-scrollbar-thumb`, {
+  backgroundColor: cssVar('color-base-x-strong'),
+  borderRadius: cssVar('border-radius-large'),
+  // Preventing the scrollbar thumb from becoming too small
+  minHeight: '28px',
+});
 
 globalStyle(`.${thread}`, {
   display: 'flex',
@@ -164,10 +157,10 @@ globalStyle(
 );
 
 const threadOrThreadListButton = [
-  `:where(.${CORD_V3}).${comments} :where(.${threadList} > button)`,
-  `:where(.${CORD_V3}).${comments} :where(.${thread} > button)`,
+  `.${comments} :where(.${threadList} > button)`,
+  `.${comments} :where(.${thread} > button)`,
 ];
-defaultGlobalStyle(threadOrThreadListButton.join(', '), {
+globalStyle(threadOrThreadListButton.join(', '), {
   alignItems: 'center',
   background: 'none',
   border: 'none',
@@ -197,39 +190,27 @@ globalStyle(`.${expandResolvedButton}:hover`, {
   textDecoration: 'underline',
 });
 
-defaultGlobalStyle(
-  `:where(.${CORD_V3}).${comments} :where(button.${expandReplies})`,
-  {
-    padding: `${cssVar('space-2xs')} calc(${cssVar('space-l')} + ${cssVar(
-      'space-2xs',
-    )})`,
-    color: cssVar('color-brand-primary'),
-    '--cord-facepile-avatar-size': cssVar('space-m'),
-  } as CSSProperties,
-);
+globalStyle(`.${comments} :where(button.${expandReplies})`, {
+  padding: `${cssVar('space-2xs')} calc(${cssVar('space-l')} + ${cssVar(
+    'space-2xs',
+  )})`,
+  color: cssVar('color-brand-primary'),
+  '--cord-facepile-avatar-size': cssVar('space-m'),
+} as CSSProperties);
 
-defaultGlobalStyle(
-  `:where(.${CORD_V3}).${comments} :where(.${MODIFIERS.unseen})`,
-  {
-    color: cssVar('color-notification'),
-  },
-);
-defaultGlobalStyle(
-  `:where(.${CORD_V3}).${comments} :where(.${MODIFIERS.unseen}):hover`,
-  {
-    backgroundColor: cssVar('color-notification-background'),
-  },
-);
+globalStyle(`.${comments} :where(.${MODIFIERS.unseen})`, {
+  color: cssVar('color-notification'),
+});
+globalStyle(`.${comments} :where(.${MODIFIERS.unseen}):hover`, {
+  backgroundColor: cssVar('color-notification-background'),
+});
 
-defaultGlobalStyle(
-  `:where(.${CORD_V3}).${comments} :where(.cord-component-facepile)`,
-  {
-    display: 'contents',
-    lineHeight: cssVar('line-height-body'),
-  },
-);
-defaultGlobalStyle(
-  `:where(.${CORD_V3}).${comments} :where(.${MODIFIERS.unseen} .cord-component-facepile)::before`,
+globalStyle(`.${comments} :where(.cord-component-facepile)`, {
+  display: 'contents',
+  lineHeight: cssVar('line-height-body'),
+});
+globalStyle(
+  `.${comments} :where(.${MODIFIERS.unseen} .cord-component-facepile)::before`,
   {
     background: cssVar('color-notification'),
     borderRadius: '50%',
@@ -247,65 +228,47 @@ globalStyle(`.${repliesContainer}`, {
   flexDirection: 'column',
 });
 
-defaultGlobalStyle(
-  `:where(.${CORD_V3}).${comments} :where(button.${hideReplies})`,
-  {
-    color: cssVar('color-content-primary'),
-    padding: cssVar('space-2xs'),
-    paddingLeft: `calc(${cssVar('space-l')} + ${cssVar('space-2xs')})`,
-  },
-);
+globalStyle(`.${comments} :where(button.${hideReplies})`, {
+  color: cssVar('color-content-primary'),
+  padding: cssVar('space-2xs'),
+  paddingLeft: `calc(${cssVar('space-l')} + ${cssVar('space-2xs')})`,
+});
 
-defaultGlobalStyle(
-  `:where(.${CORD_V3}).${comments} :where(button.${showMore})`,
-  {
-    color: cssVar('color-content-primary'),
-    padding: cssVar('space-2xs'),
-    marginLeft: cssVar('space-2xs'),
-  },
-);
-defaultGlobalStyle(
-  `:where(.${CORD_V3}).${comments} :where(button.${showMore})::before`,
-  {
-    display: 'block',
-    content: '',
-    // We need to hardcode the width of the horizontal line to make
-    // sure that the "Show more" text correctly aligns
-    width: '10px',
-    borderTop: `1px solid ${cssVar('color-base-x-strong')}`,
-  },
-);
-defaultGlobalStyle(
-  `:where(.${CORD_V3}).${comments} :where(button.${showMore})::after`,
-  {
-    display: 'block',
-    content: '',
-    flexGrow: 1,
-    borderTop: `1px solid ${cssVar('color-base-x-strong')}`,
-  },
-);
+globalStyle(`.${comments} :where(button.${showMore})`, {
+  color: cssVar('color-content-primary'),
+  padding: cssVar('space-2xs'),
+  marginLeft: cssVar('space-2xs'),
+});
+globalStyle(`.${comments} :where(button.${showMore})::before`, {
+  display: 'block',
+  content: '',
+  // We need to hardcode the width of the horizontal line to make
+  // sure that the "Show more" text correctly aligns
+  width: '10px',
+  borderTop: `1px solid ${cssVar('color-base-x-strong')}`,
+});
+globalStyle(`.${comments} :where(button.${showMore})::after`, {
+  display: 'block',
+  content: '',
+  flexGrow: 1,
+  borderTop: `1px solid ${cssVar('color-base-x-strong')}`,
+});
 
-defaultGlobalStyle(
-  `:where(.${CORD_V3}).${comments} :where(.cord-component-composer)`,
-  {
-    flexGrow: '1',
-  },
-);
+globalStyle(`.${comments} :where(.cord-component-composer)`, {
+  flexGrow: '1',
+});
 
-defaultGlobalStyle(
-  `:where(.${CORD_V3}).${comments} :where(.${viewerAvatarWithComposer})`,
-  {
-    display: 'flex',
-    gap: cssVar('space-2xs'),
-    padding: `${cssVar('space-2xs')} ${cssVar('space-3xs')} ${cssVar(
-      'space-2xs',
-    )} ${cssVar('space-2xs')}`,
-    marginLeft: `calc(${cssVar('space-l')} + ${cssVar('space-2xs')})`,
-  },
-);
+globalStyle(`.${comments} :where(.${viewerAvatarWithComposer})`, {
+  display: 'flex',
+  gap: cssVar('space-2xs'),
+  padding: `${cssVar('space-2xs')} ${cssVar('space-3xs')} ${cssVar(
+    'space-2xs',
+  )} ${cssVar('space-2xs')}`,
+  marginLeft: `calc(${cssVar('space-l')} + ${cssVar('space-2xs')})`,
+});
 
-defaultGlobalStyle(
-  `:where(.${CORD_V3}).${comments} :where(.${viewerAvatarWithComposer} > .cord-component-avatar)`,
+globalStyle(
+  `.${comments} :where(.${viewerAvatarWithComposer} > .cord-component-avatar)`,
   {
     marginTop: '10px',
     '--cord-facepile-avatar-size': cssVar('space-l'),
@@ -315,8 +278,8 @@ defaultGlobalStyle(
 // when showing only unresolved threads, we don't want to let users resolve
 // a thread, since they will have no way to access it. So we hide all elements
 // that can resolve.
-defaultGlobalStyle(
-  `:where(.${CORD_V3}):where(.${unresolvedOnly}.${comments}) [data-cord-menu-item="thread-resolve"]`,
+globalStyle(
+  `:where(.${unresolvedOnly}.${comments}) [data-cord-menu-item="thread-resolve"]`,
   {
     display: 'none',
   },
@@ -332,8 +295,8 @@ const hideOnResolvedOnly = [
 // When showing only resolved threads, we don't want to let users unresolve a thread
 // since they will have no way to access it. So we hide all elements
 // that can unresolve.
-defaultGlobalStyle(
-  `:where(.${CORD_V3}):where(.${comments}.${resolvedOnly}) :is(` +
+globalStyle(
+  `:where(.${comments}.${resolvedOnly}) :is(` +
     hideOnResolvedOnly.join(', ') +
     `)`,
   {

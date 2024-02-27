@@ -1,4 +1,4 @@
-import { defaultGlobalStyle as globalStyle } from '../style.js';
+import { globalStyle } from '@vanilla-extract/css';
 import { cordifyClassname } from '../../util.js';
 import { cssVar } from '../cssVariables.js';
 
