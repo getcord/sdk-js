@@ -33,6 +33,7 @@ import withCord from '../../experimental/components/hoc/withCord.js';
 import { useCordTranslation } from '../../hooks/useCordTranslation.js';
 import { Keys } from '../../common/const/Keys.js';
 
+import { ComposerFileAttachments } from '../../components/composer/ComposerFileAttachments.js';
 import { useMentionList } from '../../experimental/components/composer/MentionList.js';
 import { WithPopper } from '../../experimental/components/helpers/WithPopper.js';
 import type { CustomEditor } from '../../slateCustom.js';
@@ -55,6 +56,9 @@ import {
 } from './lib/util.js';
 import { withEmojis } from './plugins/withEmojis.js';
 import { withUserReferences } from './lib/userReferences.js';
+import { AddAttachmentsButton } from './AddAttachments.js';
+import { useAttachments } from './useAttachments.js';
+import { useUploadFileToCord } from './useUploadFileToCord.js';
 
 export type SendComposerProps = {
   initialValue?: MessageContent;
@@ -113,26 +117,33 @@ export type ComposerProps = {
   isEmpty: boolean;
   isValid: boolean;
   placeholder?: string;
+  attachments: UploadedFile[];
+  upsertAttachment: (attachment: Partial<UploadedFile>) => void;
+  removeAttachment: (attachmentID: string) => void;
+  onPaste: (e: React.ClipboardEvent) => void;
 };
 
 type UseComposerProps = {
-  onSubmit?: (
-    message: MessageContent,
-    // attachments: unknown[],
-    // metadata: object,
-    // reactions: string[],
-    // whatelse: unknown,
-  ) => void;
+  onSubmit?: (message: MessageContent) => void;
   onCancel?: () => void;
   onChange?: (message: MessageContent) => void;
+  onResetState?: () => void;
   initialValue?: MessageContent;
   placeholder?: string;
+  isAlreadyValid: boolean; // TODO rename
+};
+
+type UseComposerWithAttachmentsProps = Omit<
+  UseComposerProps,
+  'onSubmit' | 'isAlreadyValid'
+> & {
+  onSubmit?: (message: MessageContent, attachments: UploadedFile[]) => void;
 };
 
 export function useEditComposer(props: EditComposerProps) {
   const { threadId, messageId } = props;
   const { sdk: cord } = useContext(CordContext);
-  const editMessage = useCallback(
+  const onSubmit = useCallback(
     (content: MessageNode[]) => {
       void cord?.thread.updateMessage(threadId, messageId, {
         content,
@@ -142,20 +153,18 @@ export function useEditComposer(props: EditComposerProps) {
     },
     [cord?.thread, messageId, threadId],
   );
-  return useComposer({ ...props, onSubmit: editMessage });
+  return useComposerWithAttachments({ ...props, onSubmit });
 }
 
 function useSendComposer(props: SendComposerProps) {
   const { threadId, createThread } = props;
   const { sdk: cord } = useContext(CordContext);
   const onSubmit = useCallback(
-    (content: MessageNode[]) => {
-      onSubmit?.(content);
+    (content: MessageNode[], attachments: UploadedFile[]) => {
       const url = window.location.href;
       void cord?.thread.sendMessage(threadId ?? uuid(), {
         content,
-        // TODO deal with attachments
-        // addAttachments: attachments.map((a) => ({ id: a.id, type: 'file' })),
+        addAttachments: attachments.map((a) => ({ id: a.id, type: 'file' })),
         createThread: createThread ?? {
           location: { location: url },
           url,
@@ -165,15 +174,68 @@ function useSendComposer(props: SendComposerProps) {
     },
     [cord?.thread, createThread, threadId],
   );
-  return useComposer({ ...props, onSubmit });
+  return useComposerWithAttachments({ ...props, onSubmit });
+}
+
+function useComposerWithAttachments(props: UseComposerWithAttachmentsProps) {
+  const { attachments, upsertAttachment, removeAttachment, resetAttachments } =
+    useAttachments(); // TODO what happens on edit?
+
+  const { onSubmit, ...rest } = props;
+  const simpleComposer = useComposer({
+    ...rest,
+    onSubmit: (message) => {
+      onSubmit?.(message, attachments);
+    },
+    onResetState: () => {
+      props.onResetState?.();
+      resetAttachments();
+    },
+    isAlreadyValid: attachments.length > 0,
+  });
+  const attachFiles = useUploadFileToCord(upsertAttachment);
+
+  const onPaste = useCallback(
+    (e: React.ClipboardEvent) => {
+      const { files } = e.clipboardData;
+      const allFilesAreImages =
+        files &&
+        files.length > 0 &&
+        [...files].every((file) => {
+          const [mime] = file.type.split('/');
+          return mime === 'image';
+        });
+      if (allFilesAreImages) {
+        e.stopPropagation();
+        attachFiles(files).catch(console.warn);
+      }
+    },
+    [attachFiles],
+  );
+
+  return {
+    ...simpleComposer,
+    onPaste,
+    attachments,
+    removeAttachment,
+    upsertAttachment,
+  };
 }
 
 /*
  * Hooks that create state and logic for simple composer that only deals with message content.
  */
 function useComposer(props: UseComposerProps) {
-  const { initialValue, onSubmit } = props;
-  const [{ isValid, isEmpty }, updateComposerState] = useComposerState([]); // TODO deal with attachment (attachments);
+  const {
+    initialValue,
+    onSubmit,
+    onResetState,
+    isAlreadyValid,
+    onChange: onChangeProp,
+    ...rest
+  } = props;
+  const [{ isValid, isEmpty }, updateComposerState] =
+    useComposerState(isAlreadyValid);
 
   // TODO maybe should be a prop
   const [editor] = useState(() =>
@@ -187,6 +249,7 @@ function useComposer(props: UseComposerProps) {
       ),
     ),
   );
+
   const resetComposerValue = useCallback(
     (newValue?: MessageContent) => {
       const point = { path: [0, 0], offset: 0 };
@@ -208,29 +271,20 @@ function useComposer(props: UseComposerProps) {
   }, [editor, initialValue]);
 
   const handleResetState = useCallback(() => {
-    // TODO deal with attachments, somewhere else
-    // setAttachments([]);
+    onResetState?.();
     resetComposerValue();
-  }, [resetComposerValue]);
+  }, [resetComposerValue, onResetState]);
 
   const handleSubmitMessage = useCallback(
     (overrideMessage?: MessageNode[]) => {
-      console.log('handleSubmitMessage', onSubmit);
-      if (isEmpty || !isValid) {
-        console.log(
-          'handleSubmitMessage',
-          'isEmpty',
-          isEmpty,
-          'isValid',
-          isValid,
-        );
+      if (!isValid) {
         return;
       }
 
       onSubmit?.(overrideMessage ?? editor.children);
       handleResetState();
     },
-    [editor.children, onSubmit, isEmpty, isValid, handleResetState],
+    [editor.children, onSubmit, isValid, handleResetState],
   );
 
   const onChange = useCallback(
@@ -244,27 +298,29 @@ function useComposer(props: UseComposerProps) {
       // mentionList.updateUserReferences();
       // [ONI]-TODO
       // updateTyping(Node.string(editor).length > 0);
-
       updateComposerState(newValue);
+      onChangeProp?.(newValue);
     },
-    [editor, updateComposerState],
+    [editor, onChangeProp, updateComposerState],
   );
   return {
     onSubmit: handleSubmitMessage,
     onChange,
-    onCancel: () => {},
+    onCancel: () => {}, // TODO fix typing
     editor,
     isEmpty,
     initialValue,
     isValid,
-  } satisfies ComposerProps;
+    ...rest,
+  }; //satisfies ComposerProps; TODO FIX
 }
 
 export const Composer = (props: SendComposerProps) => {
   return <RawComposer canBeReplaced {...useSendComposer(props)} />;
 };
-export const EditComposer = (props: EditComposerProps) => {
-  return <RawComposer canBeReplaced {...useEditComposer(props)} />;
+export const EditComposer = (_props: EditComposerProps) => {
+  return <div></div>;
+  // return <RawComposer canBeReplaced {...useEditComposer(props)} />;
 };
 
 export const RawComposer = withCord<React.PropsWithChildren<ComposerProps>>(
@@ -276,66 +332,17 @@ export const RawComposer = withCord<React.PropsWithChildren<ComposerProps>>(
     isEmpty,
     initialValue,
     isValid,
+    attachments,
+    removeAttachment,
+    upsertAttachment,
+    onPaste,
   }: ComposerProps) {
     const { t } = useCordTranslation('composer');
-    // const [attachments, setAttachments] = useState<UploadedFile[]>([]);
-    // const attachFileInputRef = useRef<HTMLInputElement>(null);
 
     // TODO deal with this
     const mentionList = useMentionList({
       editor,
     });
-
-    // const attachFiles = useCallback(
-    //   async (files: FileList) => {
-    //     const uploadedFiles: UploadedFile[] = [];
-    //     for (const file of files) {
-    //       const { id, uploadPromise } = await cord!.file.uploadFile({
-    //         name: file.name,
-    //         blob: file,
-    //       });
-
-    //       // Let's not wait for the file to be uploaded
-    //       // before showing something in the UI.
-    //       // Some time in the future, we'll update the `uploadedState`
-    //       void uploadPromise.then(
-    //         ({ url }) =>
-    //           setAttachments((prev) =>
-    //             updateAttachment(prev, file.name, {
-    //               uploadStatus: 'uploaded',
-    //               url,
-    //             }),
-    //           ),
-    //         () =>
-    //           setAttachments((prev) =>
-    //             updateAttachment(prev, file.name, { uploadStatus: 'failed' }),
-    //           ),
-    //       );
-
-    //       // Before we have the URL to the resource, we can still
-    //       // show a preview by passing the dataURL to the `img`
-    //       const dataURL = await readFileAsync(file);
-    //       uploadedFiles.push({
-    //         id,
-    //         name: file.name,
-    //         url: dataURL,
-    //         mimeType: file.type,
-    //         size: file.size,
-    //         uploadStatus: 'uploading',
-    //       });
-    //     }
-    //     setAttachments((prev) => [...prev, ...uploadedFiles]);
-    //   },
-    //   [cord],
-    // );
-
-    // const handleRemoveAttachment = useCallback((attachmentID: string) => {
-    //   setAttachments((prev) => prev.filter((a) => a.id !== attachmentID));
-    // }, []);
-
-    // const handleSelectAttachment = useCallback(() => {
-    //   attachFileInputRef.current?.click();
-    // }, []);
 
     const onKeyDown = useCallback(
       (event: React.KeyboardEvent) => {
@@ -416,33 +423,10 @@ export const RawComposer = withCord<React.PropsWithChildren<ComposerProps>>(
       [editor, onSubmit, mentionList],
     );
 
-    // Attach pasted images
-    const handlePaste = useCallback(
-      (e: React.ClipboardEvent) => {
-        const { files } = e.clipboardData;
-
-        if (
-          files &&
-          files.length > 0 &&
-          [...files].every((file) => {
-            const [mime] = file.type.split('/');
-            return mime === 'image';
-          })
-        ) {
-          e.stopPropagation();
-          // TODO attachFiles(files)
-          // attachFiles(files).catch(console.warn);
-        }
-      },
-      [
-        /*attachFiles*/
-      ],
-    );
-
     const handleAddAtCharacter = useCallback(() => {
       EditorCommands.addText(editor, editor.selection, isEmpty ? '@' : ' @');
     }, [isEmpty, editor]);
-
+    console.log('empty', isEmpty, 'valid', isValid);
     return (
       <WithPopper
         popperElement={mentionList.Component}
@@ -480,40 +464,16 @@ export const RawComposer = withCord<React.PropsWithChildren<ComposerProps>>(
               renderElement={renderElement}
               renderLeaf={renderLeaf}
               onKeyDown={onKeyDown}
-              onPaste={handlePaste}
+              onPaste={onPaste}
             />
             {/* [ONI]-TODO Add custom placeholder */}
-            {/* <input */}
-            {/*   ref={attachFileInputRef} */}
-            {/*   type="file" */}
-            {/*   accept="audio/*, */}
-            {/*         video/*, */}
-            {/*         image/*, */}
-            {/*         .csv,.txt, */}
-            {/*         .pdf,application/pdf, */}
-            {/*         .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, */}
-            {/*         .ppt,.pptx,.potx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation, */}
-            {/*         .xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet */}
-            {/*         " */}
-            {/*   multiple */}
-            {/*   style={{ display: 'none' }} */}
-            {/*   onClick={(event) => event.stopPropagation()} */}
-            {/*   onChange={(e) => { */}
-            {/*     const inputElement = e.target; */}
-            {/*     if (inputElement.files) { */}
-            {/*       void attachFiles(inputElement.files).then( */}
-            {/*         () => (inputElement.value = ''), */}
-            {/*       ); */}
-            {/*     } */}
-            {/*   }} */}
-            {/* /> */}
           </Slate>
-          {/* {attachments.length > 0 && ( */}
-          {/*   <ComposerFileAttachments */}
-          {/*     attachments={attachments} */}
-          {/*     onRemoveAttachment={handleRemoveAttachment} */}
-          {/*   /> */}
-          {/* )} */}
+          {attachments.length > 0 && (
+            <ComposerFileAttachments
+              attachments={attachments}
+              onRemoveAttachment={removeAttachment}
+            />
+          )}
           {/* Temporary cord-composer-menu. [ONI]-TODO Fix both styles and DOM structure. */}
           <div
             className="cord-composer-menu"
@@ -531,21 +491,16 @@ export const RawComposer = withCord<React.PropsWithChildren<ComposerProps>>(
                 onClick={handleAddAtCharacter}
                 disabled={mentionList.isOpen}
               />
-              {/* <Button */}
-              {/*   buttonAction="add-attachment" */}
-              {/*   icon="Paperclip" */}
-              {/*   className={cx(colorsTertiary, medium)} */}
-              {/*   onClick={() => { */}
-              {/*     handleSelectAttachment(); */}
-              {/*     ReactEditor.focus(editor); */}
-              {/*   }} */}
-              {/* /> */}
+              <AddAttachmentsButton
+                editor={editor}
+                editAttachment={upsertAttachment}
+              />
             </div>
             <div className="cord-composer-primary-buttons">
               <SendButton
                 onClick={() => onSubmit(editor.children)}
                 canBeReplaced
-                disabled={isEmpty || !isValid}
+                disabled={!isValid}
               />
             </div>
           </div>
@@ -579,42 +534,19 @@ export const SendButton = withCord(
   'SendButton',
 );
 
-// function updateAttachment(
-//   attachments: UploadedFile[],
-//   fileName: string,
-//   newState: { uploadStatus: UploadedFile['uploadStatus']; url?: string },
-// ) {
-//   const newAttachments = [...attachments];
-//   const uploadedFile = newAttachments.find((a) => a.name === fileName);
-//   if (uploadedFile) {
-//     uploadedFile.uploadStatus = newState.uploadStatus;
-
-//     if (newState.url) {
-//       uploadedFile.url = newState.url;
-//     }
-//   }
-//   return newAttachments;
-// }
-
 type ComposerState = { isEmpty: boolean; isValid: boolean };
 function useComposerState(
-  attachments: UploadedFile[],
+  isAlreadyValid: boolean,
 ): [ComposerState, (newValue: Descendant[]) => void] {
   const [isEmpty, setIsEmpty] = useState(true);
   const [isValid, setIsValid] = useState(false);
 
-  const updateState = useCallback(
-    (newValue: Descendant[]) => {
-      const composerEmpty = isComposerEmpty(newValue);
-      setIsEmpty(composerEmpty);
-      const hasFilesAttached = attachments.length > 0;
-      const composerHasOnlyWhiteSpaces = hasComposerOnlyWhiteSpaces(newValue);
-      setIsValid(
-        (!composerEmpty && !composerHasOnlyWhiteSpaces) || hasFilesAttached,
-      );
-    },
-    [attachments.length],
-  );
+  const updateState = useCallback((newValue: Descendant[]) => {
+    const composerEmpty = isComposerEmpty(newValue);
+    setIsEmpty(composerEmpty);
+    const composerHasOnlyWhiteSpaces = hasComposerOnlyWhiteSpaces(newValue);
+    setIsValid(!composerEmpty && !composerHasOnlyWhiteSpaces);
+  }, []);
 
-  return [{ isEmpty, isValid }, updateState];
+  return [{ isEmpty, isValid: isValid || isAlreadyValid }, updateState];
 }
