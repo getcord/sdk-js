@@ -164,12 +164,14 @@ export interface CoreThreadData {
 
   /**
    * The number of messages in this thread that were sent by users (i.e., not action messages).
+   * Deleted messages are excluded from this count.
    */
   userMessages: number;
 
   /**
-   * The number of action messages sent in this thread. An example is the
-   * message that appears when a thread is resolved.
+   * The number of action messages sent in this thread. An example is the message that appears
+   * when a thread is resolved.
+   * Deleted messages are excluded from this count.
    */
   actionMessages: number;
 
