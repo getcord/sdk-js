@@ -70,6 +70,33 @@ export type EditComposerProps = {
   placeholder?: string;
 };
 
+/*
+ * Convenience hook to add onBeforeSubmit and onAfterSubmit to the onSubmit
+ */
+export function useOnBeforeAfterSubmit({
+  onBeforeSubmit,
+  onAfterSubmit,
+  onSubmit,
+  ...rest
+}: {
+  onSubmit: (message: MessageContent) => void;
+  onBeforeSubmit?: (message: MessageContent) => MessageContent;
+  onAfterSubmit?: (message: MessageContent) => void;
+}) {
+  const onSubmitWithBeforeAfter = useCallback(
+    (message: MessageContent) => {
+      const newMessage = onBeforeSubmit?.(message) ?? message;
+      onSubmit(newMessage);
+      onAfterSubmit?.(newMessage);
+    },
+    [onBeforeSubmit, onAfterSubmit, onSubmit],
+  );
+  return { ...rest, onSubmit: onSubmitWithBeforeAfter };
+}
+//
+// Wrapper SendComposer, internally call useSendComposer
+// Wrapper EditComposer, intermally call useEditComposer
+
 export type ComposerProps = {
   // value: MessageContent;
   onSubmit: (
@@ -105,7 +132,7 @@ type UseComposerProps = {
 export function useEditComposer(props: EditComposerProps) {
   const { threadId, messageId } = props;
   const { sdk: cord } = useContext(CordContext);
-  const onSubmit = useCallback(
+  const editMessage = useCallback(
     (content: MessageNode[]) => {
       void cord?.thread.updateMessage(threadId, messageId, {
         content,
@@ -115,7 +142,7 @@ export function useEditComposer(props: EditComposerProps) {
     },
     [cord?.thread, messageId, threadId],
   );
-  return useComposer({ ...props, onSubmit });
+  return useComposer({ ...props, onSubmit: editMessage });
 }
 
 function useSendComposer(props: SendComposerProps) {
@@ -123,6 +150,7 @@ function useSendComposer(props: SendComposerProps) {
   const { sdk: cord } = useContext(CordContext);
   const onSubmit = useCallback(
     (content: MessageNode[]) => {
+      onSubmit?.(content);
       const url = window.location.href;
       void cord?.thread.sendMessage(threadId ?? uuid(), {
         content,
@@ -185,14 +213,25 @@ function useComposer(props: UseComposerProps) {
     resetComposerValue();
   }, [resetComposerValue]);
 
-  const handleSubmitMessage = useCallback(() => {
-    if (isEmpty || !isValid) {
-      return;
-    }
+  const handleSubmitMessage = useCallback(
+    (overrideMessage?: MessageNode[]) => {
+      console.log('handleSubmitMessage', onSubmit);
+      if (isEmpty || !isValid) {
+        console.log(
+          'handleSubmitMessage',
+          'isEmpty',
+          isEmpty,
+          'isValid',
+          isValid,
+        );
+        return;
+      }
 
-    onSubmit?.(editor.children);
-    handleResetState();
-  }, [editor.children, onSubmit, isEmpty, isValid, handleResetState]);
+      onSubmit?.(overrideMessage ?? editor.children);
+      handleResetState();
+    },
+    [editor.children, onSubmit, isEmpty, isValid, handleResetState],
+  );
 
   const onChange = useCallback(
     (newValue: MessageContent) => {
