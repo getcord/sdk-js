@@ -48,7 +48,7 @@ export const Thread = withCord<React.PropsWithChildren<ThreadProps>>(
               );
             })}
         </div>
-        <Composer threadId={threadData?.id} canBeReplaced />
+        <Composer threadId={threadData?.id} />
       </div>
     );
   }),
