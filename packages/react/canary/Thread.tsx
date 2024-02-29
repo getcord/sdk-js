@@ -85,6 +85,7 @@ export const ThreadHeader = withCord<ThreadHeaderProps>(
             showThreadOptions={true}
             showMessageOptions={false}
             canBeReplaced
+            setEditing={() => {}}
           />
         )}
         <Button

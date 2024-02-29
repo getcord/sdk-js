@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { forwardRef, useCallback, useContext } from 'react';
+import { forwardRef, useCallback, useContext, useState } from 'react';
 import cx from 'classnames';
 import type {
   MessageContent as MessageContentType,
   ClientMessageData,
+  MessageNode,
 } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as classes from '../../components/Message.classnames.js';
@@ -19,6 +20,8 @@ import {
 } from '../../experimental.js';
 import { Icon } from '../../components/helpers/Icon.js';
 import { CordContext } from '../../contexts/CordContext.js';
+import { useEditComposer, RawComposer } from '../composer/Composer.js';
+import { EditorCommands } from '../composer/lib/commands.js';
 
 export type MessageProps = {
   message: ClientMessageData;
@@ -31,6 +34,7 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
   ) {
     const { sdk: cordSDK } = useContext(CordContext);
     const threadSDK = cordSDK?.thread;
+    const [isEditing, setIsEditing] = useState(false);
     const onAddReaction = useCallback(
       (unicodeReaction: string) => {
         if (threadSDK && threadID && message.id) {
@@ -52,6 +56,33 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
       },
       [message.id, threadID, threadSDK],
     );
+    const editorProps = useEditComposer({
+      initialValue: message.content as MessageNode[],
+      messageId: message.id,
+      threadId: threadID,
+    });
+    const setEditing = (editing: Parameters<typeof setIsEditing>[0]) => {
+      setIsEditing(editing);
+      if (editing) {
+        setTimeout(() => {
+          EditorCommands.focusAndMoveCursorToEndOfText(editorProps.editor);
+        }, 0);
+      }
+    };
+    console.log('editorProps', editorProps);
+    if (isEditing) {
+      // return { messageEditor };
+      return (
+        <RawComposer
+          {...editorProps}
+          onSubmit={(content: MessageNode[]) => {
+            console.log('onSubmit', content);
+            editorProps.onSubmit(content);
+            setIsEditing(false);
+          }}
+        />
+      );
+    }
     return (
       <MessageLayout
         ref={ref}
@@ -87,6 +118,7 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
             }
             showThreadOptions
             showMessageOptions
+            setEditing={setEditing}
           />
         }
         emojiPicker={

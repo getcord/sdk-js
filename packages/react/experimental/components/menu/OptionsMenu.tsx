@@ -30,6 +30,7 @@ export type OptionsMenuProps = {
   showThreadOptions: boolean;
   showMessageOptions: boolean;
   message?: ClientMessageData;
+  setEditing: React.Dispatch<React.SetStateAction<boolean>>;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
@@ -45,6 +46,7 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
       showMessageOptions,
       message,
       onClick,
+      setEditing,
       ...restProps
     }: OptionsMenuProps,
     ref: React.ForwardedRef<HTMLDivElement>,
@@ -80,6 +82,7 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
               closeMenu={handleOnClose}
               threadID={threadID}
               message={message}
+              setEditing={setEditing}
             />
           ),
           name: 'message-actions-menu',
@@ -93,6 +96,7 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
       showThreadOptions,
       threadID,
       showMessageOptions,
+      setEditing,
     ]);
     const popperElement = useMemo(() => {
       switch (menuToShow) {

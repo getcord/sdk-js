@@ -19,11 +19,18 @@ export type MessageActionsProps = React.PropsWithChildren<{
   threadID: string;
   message: ClientMessageData;
   showSeparator: boolean;
+  setEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }>;
 
 export const MessageActions = withCord<MessageActionsProps>(
   React.forwardRef(function MessageActions(
-    { closeMenu, message, threadID, showSeparator }: MessageActionsProps,
+    {
+      closeMenu,
+      message,
+      threadID,
+      setEditing,
+      showSeparator,
+    }: MessageActionsProps,
 
     _ref: React.ForwardedRef<HTMLOListElement>,
   ) {
@@ -33,15 +40,11 @@ export const MessageActions = withCord<MessageActionsProps>(
 
     const { thread } = useThread(threadID);
 
-    // [ONI]-TODO implement, we should get this from prop
-    const setMessageToEditMode = useSetComposerToEditMode();
     const onEditButtonClicked = useCallback(() => {
-      setMessageToEditMode({
-        message,
-        thread,
-      });
+      console.log('onEditButtonClicked');
+      setEditing(true);
       closeMenu();
-    }, [closeMenu, message, setMessageToEditMode, thread]);
+    }, [closeMenu, setEditing]);
 
     const onDeleteButtonClicked = useCallback(() => {
       deleteMessage(threadID, message.id);
@@ -105,14 +108,6 @@ export const MessageActions = withCord<MessageActionsProps>(
   }),
   'MessageActions',
 );
-
-/**
- * @deprecated there likely be no context,
- * we may get the function from prop.
- */
-function useSetComposerToEditMode() {
-  return (_args: unknown) => {};
-}
 
 function deleteMessage(threadID: string, messageID: string) {
   void window?.CordSDK?.thread.updateMessage(threadID, messageID, {
