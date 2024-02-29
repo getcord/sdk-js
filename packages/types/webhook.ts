@@ -29,7 +29,11 @@ export interface ThreadMessageAddedWebhookPayload {
    */
   organizationID: string;
   groupID: string;
+  /**
+   * @deprecated use projectID instead.
+   */
   applicationID: UUID; // exception: this one will be moved to higher level (see postEvent)
+  projectID: UUID; // exception: this one will be moved to higher level (see postEvent)
   author: ClientUserData;
   content: object[];
   plaintext: string;
@@ -74,9 +78,13 @@ export interface WebhookWrapperProperties<T extends WebhookTypes> {
    */
   timestamp: string;
   /**
-   * The ID for the application this event belongs to.
+   * @deprecated use projectID instead.
    */
   applicationID: string;
+  /**
+   * The ID for the project this event belongs to.
+   */
+  projectID: string;
   /**
    * The body of the event, which will vary depending on event type.
    * See https://docs.cord.com/reference/events-webhook#Events-2 for more

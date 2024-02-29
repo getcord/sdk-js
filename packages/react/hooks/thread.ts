@@ -89,7 +89,7 @@ export function useLocationSummary(
 }
 
 /**
- * This API allows you to observe the count of all the threads in an application
+ * This API allows you to observe the count of all the threads in a project
  * that are visible to the current user.
  *
  * @example Overview

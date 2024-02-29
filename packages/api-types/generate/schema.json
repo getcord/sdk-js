@@ -1022,6 +1022,184 @@
     "required": ["location"],
     "$schema": "http://json-schema.org/draft-07/schema#"
   },
+  "CreateProjectVariables": {
+    "description": "https://docs.cord.com/rest-apis/applications/",
+    "type": "object",
+    "properties": {
+      "emailSettings": { "$ref": "#/definitions/Partial<EmailSettings>" },
+      "name": {
+        "description": "Name of the project",
+        "minLength": 1,
+        "type": "string"
+      },
+      "iconURL": {
+        "description": "URL for the project icon. It should be a square image of 256x256. This\nwill be used as the avatar for messages and emails coming from your\nproject.  If not specified, the Cord logo will be used.",
+        "format": "uri",
+        "type": ["null", "string"]
+      },
+      "eventWebhookURL": {
+        "description": "The URL that the events webhook is sent to",
+        "format": "uri",
+        "type": ["null", "string"]
+      },
+      "redirectURI": {
+        "description": "Custom url link contained in email and slack notifications. These notifications are sent when a user is\nmentioned or thread is shared and by default, the link points to the page where the conversation happened.\nFor more information, please refer to the [API docs](/customization/redirect-link)",
+        "type": ["null", "string"]
+      }
+    },
+    "additionalProperties": false,
+    "propertyOrder": [
+      "emailSettings",
+      "name",
+      "iconURL",
+      "eventWebhookURL",
+      "redirectURI"
+    ],
+    "required": ["name"],
+    "definitions": {
+      "Partial<EmailSettings>": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Name to show in both the subject and the body of the email.\nDefaults to your project's name.",
+            "type": ["null", "string"]
+          },
+          "imageURL": {
+            "description": "URL for your logo image. The default for this is the Cord logo.",
+            "type": ["null", "string"]
+          },
+          "sender": {
+            "description": "Email from which notifications for your service will be sent from.\nThis will use the provided name for your project to default to `<projectname>-notifications@cord.fyi`.",
+            "format": "email",
+            "type": ["null", "string"]
+          },
+          "logoConfig": {
+            "description": "Customization for your logo size. Providing either a height (maximum 120) or\nwidth (maximum 240) will result in the image being proportionally resized to\nfit in a container of that size. The default value is `{\"width\": 140}`.",
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "width": { "minimum": 0, "maximum": 240, "type": "number" }
+                },
+                "additionalProperties": false,
+                "propertyOrder": ["width"],
+                "required": ["width"]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "height": { "minimum": 0, "maximum": 120, "type": "number" }
+                },
+                "additionalProperties": false,
+                "propertyOrder": ["height"],
+                "required": ["height"]
+              },
+              { "type": "null" }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": ["name", "imageURL", "sender", "logoConfig"]
+      }
+    },
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "UpdateProjectVariables": {
+    "description": "https://docs.cord.com/rest-apis/applications/",
+    "type": "object",
+    "properties": {
+      "emailSettings": { "$ref": "#/definitions/Partial<EmailSettings>" },
+      "name": {
+        "description": "Name of the project",
+        "minLength": 1,
+        "type": "string"
+      },
+      "iconURL": {
+        "description": "URL for the project icon. It should be a square image of 256x256. This\nwill be used as the avatar for messages and emails coming from your\nproject.  If not specified, the Cord logo will be used.",
+        "format": "uri",
+        "type": ["null", "string"]
+      },
+      "eventWebhookURL": {
+        "description": "The URL that the events webhook is sent to",
+        "format": "uri",
+        "type": ["null", "string"]
+      },
+      "redirectURI": {
+        "description": "Custom url link contained in email and slack notifications. These notifications are sent when a user is\nmentioned or thread is shared and by default, the link points to the page where the conversation happened.\nFor more information, please refer to the [API docs](/customization/redirect-link)",
+        "type": ["null", "string"]
+      }
+    },
+    "additionalProperties": false,
+    "propertyOrder": [
+      "emailSettings",
+      "name",
+      "iconURL",
+      "eventWebhookURL",
+      "redirectURI"
+    ],
+    "definitions": {
+      "Partial<EmailSettings>": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Name to show in both the subject and the body of the email.\nDefaults to your project's name.",
+            "type": ["null", "string"]
+          },
+          "imageURL": {
+            "description": "URL for your logo image. The default for this is the Cord logo.",
+            "type": ["null", "string"]
+          },
+          "sender": {
+            "description": "Email from which notifications for your service will be sent from.\nThis will use the provided name for your project to default to `<projectname>-notifications@cord.fyi`.",
+            "format": "email",
+            "type": ["null", "string"]
+          },
+          "logoConfig": {
+            "description": "Customization for your logo size. Providing either a height (maximum 120) or\nwidth (maximum 240) will result in the image being proportionally resized to\nfit in a container of that size. The default value is `{\"width\": 140}`.",
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "width": { "minimum": 0, "maximum": 240, "type": "number" }
+                },
+                "additionalProperties": false,
+                "propertyOrder": ["width"],
+                "required": ["width"]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "height": { "minimum": 0, "maximum": 120, "type": "number" }
+                },
+                "additionalProperties": false,
+                "propertyOrder": ["height"],
+                "required": ["height"]
+              },
+              { "type": "null" }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "propertyOrder": ["name", "imageURL", "sender", "logoConfig"]
+      }
+    },
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "DeleteProjectVariables": {
+    "description": "https://docs.cord.com/rest-apis/applications/",
+    "type": "object",
+    "properties": {
+      "secret": {
+        "description": "Secret key of the project that you want to delete. This can be found\nwithin the Cord Console.",
+        "minLength": 1,
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "propertyOrder": ["secret"],
+    "required": ["secret"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
   "CreateThreadVariables": {
     "description": "https://docs.cord.com/rest-apis/threads/",
     "type": "object",
@@ -1776,8 +1954,9 @@
     "additionalProperties": true,
     "type": "object",
     "properties": {
-      "app_id": {
-        "description": "Your app ID",
+      "app_id": { "format": "uuid", "type": "string" },
+      "project_id": {
+        "description": "Your project ID",
         "format": "uuid",
         "type": "string"
       },
@@ -1810,6 +1989,7 @@
     },
     "propertyOrder": [
       "app_id",
+      "project_id",
       "user_id",
       "organization_id",
       "group_id",
@@ -1817,7 +1997,7 @@
       "organization_details",
       "group_details"
     ],
-    "required": ["app_id", "user_id"],
+    "required": ["user_id"],
     "definitions": {
       "ID": { "minLength": 1, "maxLength": 128, "type": ["string", "number"] },
       "ServerUpdateUser": {

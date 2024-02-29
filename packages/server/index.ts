@@ -4,9 +4,9 @@ import type { ClientAuthTokenData } from '@cord-sdk/api-types';
 export type { ClientAuthTokenData };
 
 export function getClientAuthToken(
-  app_id: string,
-  app_secret: string,
-  payload: Omit<ClientAuthTokenData, 'app_id'>,
+  project_id: string,
+  project_secret: string,
+  payload: Omit<ClientAuthTokenData, 'app_id' | 'project_id'>,
 ): string {
   if (!payload || !payload.user_id) {
     // You can't get here in TS -- it's a TS type error -- but not everyone uses
@@ -19,14 +19,17 @@ export function getClientAuthToken(
     );
   }
 
-  return jwt.sign({ ...payload, app_id }, app_secret, {
+  return jwt.sign({ ...payload, project_id }, project_secret, {
     algorithm: 'HS512',
     expiresIn: '1 min',
   });
 }
 
-export function getServerAuthToken(app_id: string, app_secret: string): string {
-  return jwt.sign({ app_id }, app_secret, {
+export function getServerAuthToken(
+  project_id: string,
+  project_secret: string,
+): string {
+  return jwt.sign({ app_id: project_id }, project_secret, {
     algorithm: 'HS512',
     expiresIn: '1 min',
   });

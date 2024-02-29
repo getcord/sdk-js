@@ -685,7 +685,7 @@ export interface ICordThreadSDK {
   unobserveLocationSummary(ref: ListenerRef): boolean;
 
   /**
-   * This API allows you to observe the count of all the threads in an application
+   * This API allows you to observe the count of all the threads in a project
    * that are visible to the current user.
    *
    * @example Overview
@@ -772,7 +772,7 @@ export interface ICordThreadSDK {
   unobserveLocationData(ref: ListenerRef): boolean;
 
   /**
-   * This API allows you to observe threads data within your application, that are
+   * This API allows you to observe threads data within your project, that are
    * visible to the current user, including live updates. You can use the available
    * filter options to fine tune the threads returned.
    *

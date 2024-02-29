@@ -19,6 +19,9 @@ import type {
   UpdatePlatformGroupMembersVariables,
   UpdateUserPreferenceVariables,
   UpdateUserPresenceVariables,
+  CreateProjectVariables,
+  UpdateProjectVariables,
+  DeleteProjectVariables,
   CreateThreadVariables,
   UpdateThreadVariables,
   ListThreadQueryParameters,
@@ -51,6 +54,9 @@ export type Types = {
   UpdatePlatformGroupMembersVariables: UpdatePlatformGroupMembersVariables;
   UpdateUserPreferenceVariables: UpdateUserPreferenceVariables;
   UpdateUserPresenceVariables: UpdateUserPresenceVariables;
+  CreateProjectVariables: CreateProjectVariables;
+  UpdateProjectVariables: UpdateProjectVariables;
+  DeleteProjectVariables: DeleteProjectVariables;
   CreateThreadVariables: CreateThreadVariables;
   UpdateThreadVariables: UpdateThreadVariables;
   ListThreadQueryParameters: ListThreadQueryParameters;

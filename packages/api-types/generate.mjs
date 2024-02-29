@@ -14,6 +14,7 @@ const TYPE_DEFINITION_FILES = [
   'group',
   'preferences',
   'presence',
+  'project',
   'thread',
   'typeDefinitions',
   'user',

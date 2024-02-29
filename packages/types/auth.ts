@@ -9,10 +9,15 @@ import type { ServerUpdateUser } from './user.js';
  */
 export interface ClientAuthTokenData {
   /**
-   * Your app ID
+   * @deprecated - use project_id instead
    * @format uuid
    */
-  app_id: string;
+  app_id?: string;
+  /**
+   * Your project ID
+   * @format uuid
+   */
+  project_id?: string;
   /**
    * The ID for the user
    */

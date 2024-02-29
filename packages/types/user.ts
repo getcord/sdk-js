@@ -15,7 +15,7 @@ import type { PaginationDetails } from './pagination.js';
  */
 export interface ClientUserData {
   /**
-   * The user's ID.  This is unique within an application.
+   * The user's ID.  This is unique within a project.
    */
   id: UserID;
   /**
