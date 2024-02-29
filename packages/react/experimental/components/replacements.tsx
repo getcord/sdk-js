@@ -4,7 +4,10 @@ import type {
   SendComposerProps,
   SendButtonProps,
 } from '../../canary/composer/Composer.js';
-import type { MessageLayoutProps, MessageProps } from '../../canary/Message.js';
+import type {
+  MessageLayoutProps,
+  MessageProps,
+} from '../../canary/message/Message.js';
 import type { ThreadHeaderProps, ThreadProps } from '../../canary/Thread.js';
 import type {
   AvatarFallbackProps,

@@ -7,7 +7,7 @@ import withCord from '../experimental/components/hoc/withCord.js';
 import { threadHeader } from '../components/Thread.classnames.js';
 import { Button, OptionsMenu } from '../experimental.js';
 import { Composer } from './composer/Composer.js';
-import { Message } from './Message.js';
+import { Message } from './message/Message.js';
 
 export type ThreadProps = {
   thread?: ClientThreadData;

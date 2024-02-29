@@ -5,8 +5,8 @@ import type {
   MessageContent as MessageContentType,
   ClientMessageData,
 } from '@cord-sdk/types';
-import withCord from '../experimental/components/hoc/withCord.js';
-import * as classes from '../components/Message.classnames.js';
+import withCord from '../../experimental/components/hoc/withCord.js';
+import * as classes from '../../components/Message.classnames.js';
 
 import {
   Avatar,
@@ -16,9 +16,9 @@ import {
   Timestamp,
   AddReactionButton,
   Reactions,
-} from '../experimental.js';
-import { Icon } from '../components/helpers/Icon.js';
-import { CordContext } from '../contexts/CordContext.js';
+} from '../../experimental.js';
+import { Icon } from '../../components/helpers/Icon.js';
+import { CordContext } from '../../contexts/CordContext.js';
 
 export type MessageProps = {
   message: ClientMessageData;
