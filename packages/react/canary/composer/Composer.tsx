@@ -62,9 +62,13 @@ export type SendComposerProps = {
   createThread?: ClientCreateThread;
   placeholder?: string;
 };
-//
-// Wrapper SendComposer, internally call useSendComposer
-// Wrapper EditComposer, intermally call useEditComposer
+
+export type EditComposerProps = {
+  initialValue?: MessageContent;
+  threadId: string;
+  messageId: string;
+  placeholder?: string;
+};
 
 export type ComposerProps = {
   // value: MessageContent;
@@ -98,27 +102,21 @@ type UseComposerProps = {
   placeholder?: string;
 };
 
-// function useEditComposer(props: EditComposerProps) {
-//   const { threadId, messageId } = props;
-//   const { sdk: cord } = useContext(CordContext);
-//   const onSubmit = useCallback(
-//     (content: MessageNode[]) => {
-//       const url = window.location.href;
-//       void cord?.thread.updateMessage(threadId, messageId, {
-//         content,
-//         // TODO deal with attachments
-//         // addAttachments: attachments.map((a) => ({ id: a.id, type: 'file' })),
-//         createThread: createThread ?? {
-//           location: { location: url },
-//           url,
-//           name: document.title,
-//         },
-//       });
-//     },
-//     [cord?.thread, createThread, threadId],
-//   );
-//   return useComposer({ ...props, onSubmit });
-// }
+export function useEditComposer(props: EditComposerProps) {
+  const { threadId, messageId } = props;
+  const { sdk: cord } = useContext(CordContext);
+  const onSubmit = useCallback(
+    (content: MessageNode[]) => {
+      void cord?.thread.updateMessage(threadId, messageId, {
+        content,
+        // TODO deal with attachments
+        // addAttachments: attachments.map((a) => ({ id: a.id, type: 'file' })),
+      });
+    },
+    [cord?.thread, messageId, threadId],
+  );
+  return useComposer({ ...props, onSubmit });
+}
 
 function useSendComposer(props: SendComposerProps) {
   const { threadId, createThread } = props;
@@ -225,6 +223,9 @@ function useComposer(props: UseComposerProps) {
 
 export const Composer = (props: SendComposerProps) => {
   return <RawComposer canBeReplaced {...useSendComposer(props)} />;
+};
+export const EditComposer = (props: EditComposerProps) => {
+  return <RawComposer canBeReplaced {...useEditComposer(props)} />;
 };
 
 export const RawComposer = withCord<React.PropsWithChildren<ComposerProps>>(
