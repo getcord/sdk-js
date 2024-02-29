@@ -1084,7 +1084,7 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   CreateProjectVariables: {
-    description: 'https://docs.cord.com/rest-apis/applications/',
+    description: 'https://docs.cord.com/rest-apis/projects/',
     type: 'object',
     properties: {
       emailSettings: { $ref: '#/definitions/Partial<EmailSettings>' },
@@ -1172,7 +1172,7 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   UpdateProjectVariables: {
-    description: 'https://docs.cord.com/rest-apis/applications/',
+    description: 'https://docs.cord.com/rest-apis/projects/',
     type: 'object',
     properties: {
       emailSettings: { $ref: '#/definitions/Partial<EmailSettings>' },
@@ -1259,7 +1259,7 @@ export default {
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
   DeleteProjectVariables: {
-    description: 'https://docs.cord.com/rest-apis/applications/',
+    description: 'https://docs.cord.com/rest-apis/projects/',
     type: 'object',
     properties: {
       secret: {
