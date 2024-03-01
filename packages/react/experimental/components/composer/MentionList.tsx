@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react';
 import * as React from 'react';
 import { useEffect, useRef, useMemo, useState, useCallback } from 'react';
 import type { Editor } from 'slate';
-import { Range } from 'slate';
+import { Range, Node, Text } from 'slate';
 import type { FixedSizeList } from 'react-window';
 import { FixedSizeList as List } from 'react-window';
 import { ReactEditor } from 'slate-react';
@@ -12,21 +12,23 @@ import { useCordTranslation } from '../../../index.js';
 import { Avatar } from '../Avatar.js';
 import { Menu } from '../menu/Menu.js';
 import { MenuItem } from '../menu/MenuItem.js';
-import { useGroupMembers, useViewerData } from '../../../hooks/user.js';
+import { useSearchUsers, useViewerData } from '../../../hooks/user.js';
 import { EditorCommands } from '../../../canary/composer/lib/commands.js';
 import { getUserReferenceSearchParameters } from '../../../canary/composer/lib/userReferences.js';
 import { Keys } from '../../../common/const/Keys.js';
+import { isUserReferenceNode } from '../../../canary/composer/lib/util.js';
 
 const ROW_HEIGHT = 40;
 const MAX_ROWS_TO_SHOW = 5;
 
 export function useMentionList({ editor }: { editor: Editor }) {
-  // [ONI]-TODO Once available, use public API to filter users, rather
-  // than showing all `groupMembers` in the list.
-  const { groupMembers } = useGroupMembers();
   const viewer = useViewerData();
+  const searchResults = useSearchUsers({
+    searchQuery: getSearchQuery(editor),
+    groupID: viewer?.groupID ?? undefined,
+  });
   const { usersToShow: users } = getUserReferenceSuggestions({
-    allUsers: groupMembers,
+    allUsers: searchResults?.users ?? [],
     excludedIDs: [],
     maxCount: 40,
     visitors: [],
@@ -80,7 +82,11 @@ export function useMentionList({ editor }: { editor: Editor }) {
     }
   }, [closeUserReferences, editor]);
 
-  const isOpen = !!userReferenceRange;
+  const isOpen = Boolean(
+    userReferenceRange &&
+      searchResults?.users &&
+      searchResults.users?.length > 0,
+  );
 
   /**
    * Returns `true` if the event was handled. Useful to e.g.
@@ -122,17 +128,27 @@ export function useMentionList({ editor }: { editor: Editor }) {
           return true;
         }
 
-        // [ONI]-TODO If only one available user in the mention list,
-        // insert the mention.
-        // case Keys.SPACEBAR: {
-        // return true;
-        // }
+        case Keys.SPACEBAR: {
+          if (searchResults?.users.length === 1) {
+            event.preventDefault();
+            insertUserReference();
+
+            return true;
+          }
+          return false;
+        }
 
         default:
           return false;
       }
     },
-    [insertUserReference, isOpen, selectNext, selectPrev],
+    [
+      searchResults?.users.length,
+      insertUserReference,
+      isOpen,
+      selectNext,
+      selectPrev,
+    ],
   );
 
   return {
@@ -301,3 +317,71 @@ const getUserReferenceSuggestions = ({
 
   return { usersToShow, unshownUserCount };
 };
+
+const ALLOWED_CHARACTERS_BEFORE_REFERENCE = [' ', '\n', '('];
+function getSearchQuery(editor: Editor): string | undefined {
+  // 1. I should be able to type @ and see a list of *all* suggestions
+  // 2. I should be able to start a message with a reference
+  // 3. I should be able to type an email address without being prompted for the references
+  // 4. I should be able to type a person's full name including spaces in the reference autocomplete
+  // 5. I should be able to send a message with a reference that didn't match anyone
+  // 6. I should be able to escape reference mode even though what I'm typing looks like a reference
+
+  const { selection } = editor;
+  if (!selection || !Range.isCollapsed(selection)) {
+    // we're either not focused or in text selection mode
+    return undefined;
+  }
+  // Don't show menu if already a user reference node
+  if (isUserReferenceNode(Node.parent(editor, selection.anchor.path))) {
+    return undefined;
+  }
+
+  const [currentPosition] = Range.edges(selection);
+  const selectedOffset = currentPosition.offset;
+  const currentNode = Node.get(editor, currentPosition.path);
+  const currentText = Text.isText(currentNode) && currentNode.text;
+  if (!currentText) {
+    return undefined;
+  }
+
+  let userReferenceStartOffset = -1;
+  const selectedCharIndex = selectedOffset - 1;
+
+  let wordCount = 0;
+
+  // This code is looping back from the current/cursor position in the composer, until
+  // it finds the beginning of a mention (@), which it marks as the start of a
+  // potential search.  The search itself is the text between that position in the
+  // composer and the current/cursor position
+  for (let i = selectedCharIndex; i >= 0; i--) {
+    const char = currentText[i];
+    const prevChar: string | undefined = currentText[i - 1];
+
+    if (char === ' ') {
+      wordCount++;
+    }
+    // We do allow one space, to enable searching for e.g. "James Bond", but not two.
+    // Other tools allow 4-5 spaces (e.g. Slack). We could tweak this behavior.
+    const twoConsecutiveSpaces = char === ' ' && prevChar === ' ';
+    if (twoConsecutiveSpaces || (prevChar === '@' && char === ' ')) {
+      break;
+    }
+    if (!prevChar || ALLOWED_CHARACTERS_BEFORE_REFERENCE.includes(prevChar)) {
+      if (char === '@') {
+        userReferenceStartOffset = i;
+        break;
+      }
+    }
+    // Don't keep querying on an ever-growing sentence
+    if (wordCount >= 4) {
+      break;
+    }
+  }
+
+  if (userReferenceStartOffset < 0) {
+    return undefined;
+  }
+
+  return currentText.slice(userReferenceStartOffset + 1, selectedOffset);
+}
