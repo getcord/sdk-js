@@ -426,7 +426,7 @@ export const RawComposer = withCord<React.PropsWithChildren<ComposerProps>>(
     const handleAddAtCharacter = useCallback(() => {
       EditorCommands.addText(editor, editor.selection, isEmpty ? '@' : ' @');
     }, [isEmpty, editor]);
-    console.log('empty', isEmpty, 'valid', isValid);
+
     return (
       <WithPopper
         popperElement={mentionList.Component}
