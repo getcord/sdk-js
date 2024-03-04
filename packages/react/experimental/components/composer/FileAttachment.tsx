@@ -19,6 +19,7 @@ import {
 } from '../../../common/ui/atomicClasses/fonts.css.js';
 
 type Props = {
+  id: string;
   mimeType: string;
   fileName: string;
   fileSize: number;
@@ -31,6 +32,7 @@ type Props = {
 };
 
 export function FileAttachment({
+  id,
   mimeType,
   fileName,
   onButtonClick,
@@ -101,6 +103,7 @@ export function FileAttachment({
         className={cx(classes.fileContainer, className, fontSmall, {
           [MODIFIERS.error]: !!showErrorState,
         })}
+        data-cord-message-attachment-id={id}
       >
         {!uploading ? (
           <Icon

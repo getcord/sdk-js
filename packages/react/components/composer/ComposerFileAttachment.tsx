@@ -20,6 +20,7 @@ export function ComposerFileAttachment({ attachment, onFileRemoved }: Props) {
   if (isInlineDisplayableImage(mimeType)) {
     return (
       <ImageAttachment
+        id={id}
         url={url}
         uploading={uploading}
         onClick={() => onFileRemoved(id)}
@@ -31,6 +32,7 @@ export function ComposerFileAttachment({ attachment, onFileRemoved }: Props) {
 
   return (
     <FileAttachment
+      id={id}
       mimeType={mimeType}
       fileName={name}
       uploading={uploading}

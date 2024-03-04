@@ -17,6 +17,7 @@ export function MessageVideoAttachment({ file, onUnsupportedFormat }: Props) {
       className={classes.videoAttachmentContainer}
       controls
       preload="metadata"
+      data-cord-message-attachment-id={file.id}
     >
       <source src={file.url} onError={(_e) => onUnsupportedFormat(file.id)} />
     </video>

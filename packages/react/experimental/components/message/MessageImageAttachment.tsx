@@ -10,7 +10,7 @@ type Props = {
 };
 export function MessageImageAttachment({ onClick, file }: Props) {
   const [fileDownloadFailed, setFileDownloadFailed] = useState(false);
-  const { url, name } = file;
+  const { url, name, id } = file;
 
   const uploadState = file.uploadStatus;
 
@@ -23,6 +23,7 @@ export function MessageImageAttachment({ onClick, file }: Props) {
 
   return (
     <ImageAttachment
+      id={id}
       uploading={uploadState === 'uploading'}
       url={url}
       onClick={onClick}

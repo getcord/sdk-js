@@ -20,6 +20,7 @@ export function MessageFileAttachment({ file }: Props) {
 
   return (
     <FileAttachment
+      id={file.id}
       className={classes.documentAttachment}
       mimeType={mimeType}
       fileName={name}

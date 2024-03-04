@@ -10,6 +10,7 @@ import { fontSmall } from '../../../common/ui/atomicClasses/fonts.css.js';
 import { MODIFIERS } from '../../../common/ui/modifiers.js';
 
 type Props = {
+  id: string;
   onClick: () => unknown;
   uploading: boolean;
   url?: string;
@@ -21,6 +22,7 @@ type Props = {
 };
 
 export function ImageAttachment({
+  id,
   onClick,
   uploading,
   url,
@@ -33,7 +35,10 @@ export function ImageAttachment({
   const { t } = useCordTranslation('message');
   if (showErrorState) {
     return (
-      <div className={cx(classes.imageAttachmentContainer, MODIFIERS.error)}>
+      <div
+        className={cx(classes.imageAttachmentContainer, MODIFIERS.error)}
+        data-cord-message-attachment-id={id}
+      >
         <Icon name="WarningCircle" size="large" color="content-primary" />
         <p className={cx(classes.errorMessage, fontSmall)}>
           {t('unable_to_display_image')}
@@ -51,6 +56,7 @@ export function ImageAttachment({
         className={cx(className, classes.imageAttachmentContainer, {
           [classes.loading]: uploading,
         })}
+        data-cord-message-attachment-id={id}
       >
         <img
           src={url}
