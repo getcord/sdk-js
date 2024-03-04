@@ -112,6 +112,10 @@ export const resources = {
         'Error sharing to Slack, please try again',
       // The text of the menu item that shares a thread by email
       share_via_email_action: 'Share via email',
+      // The text of the button that shares a thread by email
+      share_via_email_button_action: '$t(share_via_email_action)',
+      // The text of the header for the email sharing dialog
+      share_via_email_header: '$t(share_via_email_action)',
       // The text shown after sharing a thread to email succeeds
       share_via_email_action_success: 'Shared to {{email}}',
       // The warning text shown to inform the user that when sharing a thread by
