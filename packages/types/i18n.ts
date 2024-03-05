@@ -288,6 +288,17 @@ export const resources = {
       // The dayjs date format string used to display the date in the media
       // modal header
       image_modal_header_date_format: 'D MMM [at] h:mm A',
+      // The tooltip for a set of message reactions.
+      reaction_with_emoji_name_tooltip_one:
+        '{{users, list(style: narrow)}} reacted with {{emojiName}}',
+      reaction_with_emoji_name_tooltip_other:
+        '{{users, list(style: narrow)}} reacted with {{emojiName}}',
+      // The tooltip for a set of message reactions where the viewer is one of
+      // the users that reacted.
+      reaction_with_emoji_name_including_viewer_tooltip_one:
+        '{{users, list(style: narrow)}} reacted with {{emojiName}}',
+      reaction_with_emoji_name_including_viewer_tooltip_other:
+        '{{users, list(style: narrow)}} reacted with {{emojiName}}',
       // The strings used to display a relative timestamp on a message
       timestamp: {
         in_less_than_a_minute: 'in less than a minute',
@@ -318,9 +329,6 @@ export const resources = {
         other_format: 'MMM D, YYYY',
         tooltip: '{{date, datetime(dateStyle: short; timeStyle: medium)}}',
       },
-      // Tool tip for the reactions pill.  Will show what one or more users reacted with.
-      reaction_with_emoji_name_tooltip:
-        '{{users, list(style: narrow)}} reacted with {{emojiName}}',
     },
     // The message_templates namespace is used for translating the body of Cord
     // messages by marking the messages with a translationKey.  See

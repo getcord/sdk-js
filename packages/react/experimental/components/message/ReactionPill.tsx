@@ -92,15 +92,21 @@ export const ReactionPillTooltip = ({
   emoji.colons_mode = true;
 
   if (isViewerReaction) {
-    namesOfUsersWhoReactedArray.splice(0, 1, 'You');
+    namesOfUsersWhoReactedArray.splice(0, 1, userT('viewer_user_short'));
   }
 
   return (
     <DefaultTooltip
-      label={t('reaction_with_emoji_name_tooltip', {
-        users: namesOfUsersWhoReactedArray,
-        emojiName: emoji.replace_unified(unicodeReaction),
-      })}
+      label={t(
+        isViewerReaction
+          ? 'reaction_with_emoji_name_including_viewer_tooltip'
+          : 'reaction_with_emoji_name_tooltip',
+        {
+          users: namesOfUsersWhoReactedArray,
+          emojiName: emoji.replace_unified(unicodeReaction),
+          count: namesOfUsersWhoReactedArray.length,
+        },
+      )}
     />
   );
 };
