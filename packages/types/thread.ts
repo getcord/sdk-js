@@ -790,7 +790,7 @@ export interface ICordThreadSDK {
    *       console.log(`Total threads: ${counts.total} and unread threads: ${counts.unread}`)
    *      }
    *     threads.forEach((thread) =>
-   *       console.log(\`Thread \${thread.id} has \${thread.total} messages!\`)
+   *       console.log(`Thread ${thread.id} has ${thread.total} messages!`)
    *     );
    *     if (!loading && hasMore && threads.length < 25) {
    *       // Get the first 25 threads, 10 at a time.
