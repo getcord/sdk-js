@@ -15,17 +15,19 @@ export type ThreadProps = {
 } & React.HtmlHTMLAttributes<HTMLDivElement>;
 
 export const Thread = withCord<React.PropsWithChildren<ThreadProps>>(
-  forwardRef(function Thread({
-    showHeader = false,
-    thread,
-    className,
-    ...restProps
-  }: ThreadProps) {
+  forwardRef(function Thread(
+    { showHeader = false, thread, className, ...restProps }: ThreadProps,
+    ref: React.ForwardedRef<HTMLDivElement>,
+  ) {
     const threadData = thread?.thread;
     const messages = thread?.messages ?? [];
 
     return (
-      <div {...restProps} className={cx(className, 'cord-component-thread')}>
+      <div
+        ref={ref}
+        {...restProps}
+        className={cx(className, 'cord-component-thread')}
+      >
         {showHeader && (
           <ThreadHeader
             canBeReplaced

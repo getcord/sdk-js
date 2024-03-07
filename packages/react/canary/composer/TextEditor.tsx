@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useState } from 'react';
+import type { ForwardedRef } from 'react';
 
 import { Slate, Editable, withReact } from 'slate-react';
 import { createEditor } from 'slate';
@@ -42,20 +43,24 @@ export type TextEditorProps = {
   placeholder?: string;
 };
 export const TextEditor = withCord<React.PropsWithChildren<TextEditorProps>>(
-  function TextEditor({
-    className,
-    editor,
-    initialValue,
-    onChange,
-    placeholder,
-    onKeyDown,
-    onPaste,
-    style,
-    onSubmit,
-    onFocus,
-    onBlur,
-    onClick,
-  }: TextEditorProps) {
+  forwardRef(function TextEditor(
+    {
+      className,
+      editor,
+      initialValue,
+      onChange,
+      placeholder,
+      onKeyDown,
+      onPaste,
+      style,
+      onSubmit,
+      onFocus,
+      onBlur,
+      onClick,
+    }: TextEditorProps,
+    // withCord needs a `ref` at the moment, but slate does not accept any
+    _ref: ForwardedRef<HTMLElement>,
+  ) {
     const { t } = useCordTranslation('composer');
     const onKeyDownWithOnSubmit = useCallback(
       (event: React.KeyboardEvent) => {
@@ -110,7 +115,7 @@ export const TextEditor = withCord<React.PropsWithChildren<TextEditorProps>>(
         {/* [ONI]-TODO Add custom placeholder */}
       </Slate>
     );
-  },
+  }),
   'TextEditor',
 );
 

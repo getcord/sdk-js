@@ -28,3 +28,4 @@ export {
 } from './experimental/components/Timestamp.js';
 export { EmojiPicker } from './experimental/components/helpers/EmojiPicker.js';
 export { Reactions } from './experimental/components/Reactions.js';
+export { Thread } from './canary/Thread.js';

@@ -280,20 +280,23 @@ export const Composer = (props: SendComposerProps) => {
 };
 
 export const RawComposer = withCord<React.PropsWithChildren<ComposerProps>>(
-  forwardRef(function RawComposer({
-    placeholder,
-    editor,
-    onSubmit,
-    onKeyDown,
-    onChange,
-    isEmpty,
-    initialValue,
-    isValid,
-    attachments,
-    removeAttachment,
-    upsertAttachment,
-    onPaste,
-  }: ComposerProps) {
+  forwardRef(function RawComposer(
+    {
+      placeholder,
+      editor,
+      onSubmit,
+      onKeyDown,
+      onChange,
+      isEmpty,
+      initialValue,
+      isValid,
+      attachments,
+      removeAttachment,
+      upsertAttachment,
+      onPaste,
+    }: ComposerProps,
+    ref: React.ForwardedRef<HTMLElement>,
+  ) {
     // TODO deal with this
     const mentionList = useMentionList({
       editor,
@@ -328,6 +331,7 @@ export const RawComposer = withCord<React.PropsWithChildren<ComposerProps>>(
         popperWidth="full"
       >
         <ComposerLayout
+          ref={ref}
           canBeReplaced
           textEditor={
             <TextEditor
