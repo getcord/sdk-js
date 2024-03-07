@@ -298,6 +298,22 @@ export const RawComposer = withCord<React.PropsWithChildren<ComposerProps>>(
     const mentionList = useMentionList({
       editor,
     });
+    const handleKeyDownAndMention = useCallback(
+      (args: Parameters<typeof onKeyDown>[0]) => {
+        if (mentionList.handleKeyDown(args.event)) {
+          return;
+        }
+        onKeyDown(args);
+      },
+      [mentionList, onKeyDown],
+    );
+    const onChangeWithMention = useCallback(
+      (args: Parameters<typeof onChange>[0]) => {
+        mentionList.updateUserReferences();
+        onChange(args);
+      },
+      [mentionList, onChange],
+    );
 
     const handleAddAtCharacter = useCallback(() => {
       EditorCommands.addText(editor, editor.selection, isEmpty ? '@' : ' @');
@@ -318,12 +334,12 @@ export const RawComposer = withCord<React.PropsWithChildren<ComposerProps>>(
               canBeReplaced
               className="cord-editor"
               placeholder={placeholder}
-              editor={editor}
+              editor={mentionList.editor}
               initialValue={initialValue}
               onPaste={onPaste}
-              onChange={onChange}
+              onChange={onChangeWithMention}
               onSubmit={onSubmit}
-              onKeyDown={onKeyDown}
+              onKeyDown={handleKeyDownAndMention}
             />
           }
           attachments={

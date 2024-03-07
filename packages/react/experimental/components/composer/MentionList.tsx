@@ -14,14 +14,18 @@ import { Menu } from '../menu/Menu.js';
 import { MenuItem } from '../menu/MenuItem.js';
 import { useSearchUsers, useViewerData } from '../../../hooks/user.js';
 import { EditorCommands } from '../../../canary/composer/lib/commands.js';
-import { getUserReferenceSearchParameters } from '../../../canary/composer/lib/userReferences.js';
+import {
+  getUserReferenceSearchParameters,
+  withUserReferences,
+} from '../../../canary/composer/lib/userReferences.js';
 import { Keys } from '../../../common/const/Keys.js';
 import { isUserReferenceNode } from '../../../canary/composer/lib/util.js';
 
 const ROW_HEIGHT = 40;
 const MAX_ROWS_TO_SHOW = 5;
 
-export function useMentionList({ editor }: { editor: Editor }) {
+export function useMentionList({ editor: originalEditor }: { editor: Editor }) {
+  const [editor] = useState(() => withUserReferences(originalEditor));
   const viewer = useViewerData();
   const searchResults = useSearchUsers({
     searchQuery: getSearchQuery(editor),
@@ -169,6 +173,7 @@ export function useMentionList({ editor }: { editor: Editor }) {
     insertUserReference,
     close: closeUserReferences,
     handleKeyDown,
+    editor,
   };
 }
 
