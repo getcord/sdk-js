@@ -75,9 +75,9 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
       return (
         <RawComposer
           {...editorProps}
-          onSubmit={(content: MessageNode[]) => {
+          onSubmit={({ content }: { content: MessageNode[] }) => {
             console.log('onSubmit', content);
-            editorProps.onSubmit(content);
+            editorProps.onSubmit({ content });
             setIsEditing(false);
           }}
         />

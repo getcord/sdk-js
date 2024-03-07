@@ -4,6 +4,7 @@ import type {
   SendComposerProps,
   SendButtonProps,
 } from '../../canary/composer/Composer.js';
+import type { TextEditorProps } from '../../canary/composer/TextEditor.js';
 import type {
   MessageLayoutProps,
   MessageProps,
@@ -65,6 +66,7 @@ export type ReplaceConfigBase = Partial<{
   MessageActions: React.ComponentType<MessageActionsProps>;
   Separator: React.ComponentType<SeparatorProps>;
   Composer: React.ComponentType<SendComposerProps>;
+  TextEditor: React.ComponentType<TextEditorProps>;
   SendButton: React.ComponentType<SendButtonProps>;
   Timestamp: React.ComponentType<TimestampProps>;
   EmojiPicker: React.ComponentType<EmojiPickerProps>;
