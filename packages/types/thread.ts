@@ -577,7 +577,20 @@ export type RemoveFileAttachment = {
   id: string;
 };
 
-export type RemoveAttachment = RemoveFileAttachment;
+export type RemoveLinkPreviewAttachment = {
+  /**
+   * The type of attachment to remove.  This is `link_preview` for link preview attachments.
+   */
+  type: 'link_preview';
+  /**
+   * The ID of the link preview attachment to remove.
+   */
+  id: string;
+};
+
+export type RemoveAttachment =
+  | RemoveLinkPreviewAttachment
+  | RemoveFileAttachment;
 
 export interface ClientCreateMessage
   // Pick the required properties

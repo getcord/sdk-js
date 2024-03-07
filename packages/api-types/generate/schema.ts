@@ -556,24 +556,7 @@ export default {
         description:
           "The attachments you want to remove from this message.  Removing an\nattachment that doesn't exist has no effect and won't return an error.\nAttempting to add and remove the same attachment in one request is an\nerror.",
         type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            type: {
-              description:
-                'The type of attachment to remove.  This is `file` for file attachments.',
-              type: 'string',
-              const: 'file',
-            },
-            id: {
-              description: 'The ID of the file attachment to remove.',
-              type: 'string',
-            },
-          },
-          additionalProperties: false,
-          propertyOrder: ['type', 'id'],
-          required: ['id', 'type'],
-        },
+        items: { $ref: '#/definitions/RemoveAttachment' },
       },
       type: {
         description:
@@ -704,6 +687,46 @@ export default {
         additionalProperties: false,
         propertyOrder: ['reaction', 'userID'],
         required: ['reaction', 'userID'],
+      },
+      RemoveAttachment: {
+        anyOf: [
+          {
+            type: 'object',
+            properties: {
+              type: {
+                description:
+                  'The type of attachment to remove.  This is `file` for file attachments.',
+                type: 'string',
+                const: 'file',
+              },
+              id: {
+                description: 'The ID of the file attachment to remove.',
+                type: 'string',
+              },
+            },
+            additionalProperties: false,
+            propertyOrder: ['type', 'id'],
+            required: ['id', 'type'],
+          },
+          {
+            type: 'object',
+            properties: {
+              type: {
+                description:
+                  'The type of attachment to remove.  This is `link_preview` for link preview attachments.',
+                type: 'string',
+                const: 'link_preview',
+              },
+              id: {
+                description: 'The ID of the link preview attachment to remove.',
+                type: 'string',
+              },
+            },
+            additionalProperties: false,
+            propertyOrder: ['type', 'id'],
+            required: ['id', 'type'],
+          },
+        ],
       },
       ServerAddReactions: {
         additionalProperties: false,
