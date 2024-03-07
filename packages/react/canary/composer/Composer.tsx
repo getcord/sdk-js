@@ -78,23 +78,41 @@ type UseComposerWithAttachmentsProps = Omit<
   UseTextEditorProps,
   'onSubmit' | 'isAlreadyValid'
 > & {
+  initialAttachments?: UploadedFile[];
   onSubmit?: (e: {
     content: MessageContent;
     attachments: UploadedFile[];
   }) => void;
 };
 
-export function useEditSubmit(messageId: string, threadId: string) {
+export function useEditSubmit(
+  messageId: string,
+  threadId: string,
+  initialAttachments?: UploadedFile[],
+) {
   const { sdk: cord } = useContext(CordContext);
   const onSubmit = useCallback(
-    ({ content }: { content: MessageNode[]; attachments: UploadedFile[] }) => {
+    ({
+      content,
+      attachments,
+    }: {
+      content: MessageNode[];
+      attachments: UploadedFile[];
+    }) => {
+      const oldAttachmentIDs = new Set(initialAttachments?.map((a) => a.id));
+      const newAttachmentIDs = new Set(attachments?.map((a) => a.id));
       void cord?.thread.updateMessage(threadId, messageId, {
         content,
-        // ONI-TODO deal with attachments
-        // addAttachments: attachments.map((a) => ({ id: a.id, type: 'file' })),
+        addAttachments: attachments
+          .filter((a) => !oldAttachmentIDs.has(a.id))
+          .map((a) => ({ id: a.id, type: 'file' })),
+        removeAttachments:
+          initialAttachments
+            ?.filter((a) => !newAttachmentIDs.has(a.id))
+            .map((a) => ({ id: a.id, type: 'file' })) ?? [],
       });
     },
-    [cord?.thread, messageId, threadId],
+    [cord?.thread, messageId, threadId, initialAttachments],
   );
   return onSubmit;
 }
@@ -129,8 +147,9 @@ function useSendComposer(props: SendComposerProps) {
 export function useComposerWithAttachments(
   props: UseComposerWithAttachmentsProps,
 ) {
+  const { initialAttachments } = props;
   const { attachments, upsertAttachment, removeAttachment, resetAttachments } =
-    useAttachments(); // TODO what happens on edit?
+    useAttachments(initialAttachments); // TODO what happens on edit?
 
   const { onSubmit, ...rest } = props;
   const simpleComposer = useTextEditor({
@@ -250,6 +269,7 @@ export function useComposerWithAttachments(
     onPaste,
     onKeyDown,
     attachments,
+    initialAttachments,
     removeAttachment,
     upsertAttachment,
   };

@@ -62,7 +62,11 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
       [message.id, threadID, threadSDK],
     );
 
-    const editSubmit = useEditSubmit(message.id, threadID);
+    const editSubmit = useEditSubmit(
+      message.id,
+      threadID,
+      message.attachments as UploadedFile[],
+    );
     const submitAndClose = ({
       content,
       attachments,
@@ -75,6 +79,7 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
     };
     const editorProps = useComposerWithAttachments({
       initialValue: message.content as MessageNode[],
+      initialAttachments: message.attachments as UploadedFile[],
       onSubmit: submitAndClose,
     });
 

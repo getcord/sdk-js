@@ -1,8 +1,10 @@
 import type { UploadedFile } from '@cord-sdk/types';
 import { useCallback, useState } from 'react';
 
-export function useAttachments() {
-  const [attachments, setAttachments] = useState<UploadedFile[]>([]);
+export function useAttachments(initialAttachments?: UploadedFile[]) {
+  const [attachments, setAttachments] = useState<UploadedFile[]>(
+    initialAttachments ?? [],
+  );
 
   const upsertAttachment = useCallback(
     (attachment: Partial<UploadedFile>) => {
@@ -29,7 +31,13 @@ export function useAttachments() {
     setAttachments([]);
   }, [setAttachments]);
 
-  return { attachments, upsertAttachment, removeAttachment, resetAttachments };
+  return {
+    attachments,
+    upsertAttachment,
+    removeAttachment,
+    resetAttachments,
+    initialAttachments,
+  };
 }
 
 function updateAttachment(
@@ -37,6 +45,7 @@ function updateAttachment(
   attachment: Partial<UploadedFile>,
 ): UploadedFile[] | null {
   const newAttachments = [...attachments];
+  // ONI-TODO:This is wrong. An already uploaded image may have the same name.
   const uploadedFile = newAttachments.find((a) => a.name === attachment.name);
   if (!uploadedFile) {
     return null;
