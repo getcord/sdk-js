@@ -14,6 +14,8 @@ interface InternalCordSDK extends ICordSDK {
 export function withGroupIDCheck<T extends Props>(
   WrappedComponent: React.ComponentType<T>,
   componentName: string,
+  enforceCheck: (props: T) => boolean = () => true,
+  additionalErrorText?: string,
 ) {
   const Component = (props: T) => {
     const { sdk: cordSDK } = useContext(CordContext);
@@ -22,8 +24,14 @@ export function withGroupIDCheck<T extends Props>(
       return null;
     }
 
+    if (!enforceCheck(props)) {
+      return <WrappedComponent {...props} />;
+    }
+
     if (!cordSDK.groupID && !props.groupId) {
-      console.error(`${componentName}: Must specify a groupId`);
+      console.error(
+        `${componentName}: Must specify a groupId. ${additionalErrorText}`,
+      );
       (cordSDK as any as InternalCordSDK).logEvent('sdk-group-id-error', {
         componentName,
       });

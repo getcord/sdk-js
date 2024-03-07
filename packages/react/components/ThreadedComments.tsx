@@ -13,7 +13,14 @@ import type {
   ClientThreadFilter,
 } from '@cord-sdk/types';
 import type { Dispatch, SetStateAction } from 'react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { logComponentInstantiation } from '../common/util.js';
 import * as user from '../hooks/user.js';
 import { useThreadCounts, useThread, useThreads } from '../hooks/thread.js';
@@ -25,6 +32,7 @@ import { useCordTranslation } from '../hooks/useCordTranslation.js';
 import { useEnsureHighlightedThreadVisible } from '../hooks/useEnsureHighlightedThreadVisible.js';
 import { withGroupIDCheck } from '../common/hoc/withGroupIDCheck.js';
 import { useStoreHighlightedThreads } from '../hooks/useStoreHighlightedThreads.js';
+import { CordContext } from '../contexts/CordContext.js';
 import type { ThreadListReactComponentProps } from './ThreadList.js';
 import classes from './ThreadedComments.css.js';
 import { Composer } from './Composer.js';
@@ -90,6 +98,12 @@ export const ThreadedComments =
   withGroupIDCheck<ThreadedCommentsReactComponentProps>(
     ThreadedCommentsImpl,
     'ThreadedComments',
+    // We allow ThreadedComments to load threads from all of a user's groups so
+    // long as the new thread composer is not shown at the bottom of the
+    // component.  This is because it then can't create new threads, and so there
+    // is no issue of which group new threads should belong to.
+    (props) => props.composerPosition !== 'none',
+    'This component must have a groupId prop unless the composerPosition prop is set to "none". This is so that it is clear which group new threads should belong to.',
   );
 
 function ThreadedCommentsImpl({
@@ -365,7 +379,7 @@ function ThreadedCommentsImpl({
 function ThreadedCommentsThreadList({
   location,
   partialMatch = false,
-  groupId,
+  groupId: propGroupID,
   filter,
   resolvedStatus,
   sortBy = 'first_message_timestamp',
@@ -450,9 +464,19 @@ function ThreadedCommentsThreadList({
     return newThreads;
   }, [threads, highlightedThreads]);
 
-  // If groupId is not passed as a prop, this will be undefined.  If the user has
-  // an org in their token the method will find and use that, so it will still work.
-  const { groupMembers } = user.useGroupMembers({ groupID: groupId });
+  const { sdk: cordSDK } = useContext(CordContext);
+  const viewerData = user.useViewerData();
+
+  // This is a bit convoluted.  There are 3 scenarios:
+  // 1) The group is passed as a prop, because there is no group in the token, or
+  // 2) The group is in the token, or
+  // 3) The group is not passed as a prop OR in the token - this is only allowed
+  // to happen if the new thread composer is not shown (composerPosition = none).
+  // In this case we can just choose (arbitrarily) the first group that the user
+  // is a member of.
+  const groupID = propGroupID ?? cordSDK?.groupID ?? viewerData?.groups?.[0];
+
+  const { groupMembers } = user.useGroupMembers({ groupID });
   const { t } = useCordTranslation('threaded_comments');
 
   const dispatchLoadingEvent = useCallFunctionOnce(onLoading);
