@@ -5,6 +5,8 @@ import type {
   SendButtonProps,
 } from '../../canary/composer/Composer.js';
 import type { TextEditorProps } from '../../canary/composer/TextEditor.js';
+import type { ComposerLayoutProps } from '../../canary/composer/ComposerLayout.js';
+import type { ToolbarLayoutProps } from '../../canary/composer/ToolbarLayout.js';
 import type {
   MessageLayoutProps,
   MessageProps,
@@ -66,6 +68,8 @@ export type ReplaceConfigBase = Partial<{
   MessageActions: React.ComponentType<MessageActionsProps>;
   Separator: React.ComponentType<SeparatorProps>;
   Composer: React.ComponentType<SendComposerProps>;
+  ComposerLayout: React.ComponentType<ComposerLayoutProps>;
+  ToolbarLayout: React.ComponentType<ToolbarLayoutProps>;
   TextEditor: React.ComponentType<TextEditorProps>;
   SendButton: React.ComponentType<SendButtonProps>;
   Timestamp: React.ComponentType<TimestampProps>;

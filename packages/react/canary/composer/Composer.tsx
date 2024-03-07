@@ -39,6 +39,7 @@ import { useAttachments } from './useAttachments.js';
 import { useUploadFileToCord } from './useUploadFileToCord.js';
 import { TextEditor, useTextEditor } from './TextEditor.js';
 import type { UseTextEditorProps } from './TextEditor.js';
+import { ComposerLayout } from './ComposerLayout.js';
 
 export type SendComposerProps = {
   initialValue?: MessageContent;
@@ -293,66 +294,53 @@ export const RawComposer = withCord<React.PropsWithChildren<ComposerProps>>(
         onShouldHide={mentionList.close}
         popperWidth="full"
       >
-        <div
-          className="cord-component cord-composer"
-          style={{
-            backgroundColor: 'var(--cord-color-base, #FFFFFF)',
-            border:
-              'var(--cord-composer-border, 1px solid var(--cord-color-base-x-strong, #DADCE0))',
-            borderRadius:
-              'var(--cord-composer-border-radius, var(--cord-border-radius-medium, var(--cord-space-3xs, 4px)))',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <TextEditor
-            canBeReplaced
-            className="cord-editor"
-            placeholder={placeholder}
-            editor={editor}
-            initialValue={initialValue}
-            onPaste={onPaste}
-            onChange={onChange}
-            onSubmit={onSubmit}
-            onKeyDown={onKeyDown}
-          />
-          {attachments.length > 0 && (
-            <ComposerFileAttachments
-              attachments={attachments}
-              onRemoveAttachment={removeAttachment}
+        <ComposerLayout
+          canBeReplaced
+          textEditor={
+            <TextEditor
+              canBeReplaced
+              className="cord-editor"
+              placeholder={placeholder}
+              editor={editor}
+              initialValue={initialValue}
+              onPaste={onPaste}
+              onChange={onChange}
+              onSubmit={onSubmit}
+              onKeyDown={onKeyDown}
             />
-          )}
-          {/* Temporary cord-composer-menu. [ONI]-TODO Fix both styles and DOM structure. */}
-          <div
-            className="cord-composer-menu"
-            style={{
-              borderTop: '1px solid var(--cord-color-base-x-strong, #DADCE0)',
-              padding:
-                'var(--cord-space-2xs, 8px) var(--cord-space-2xs, 8px) var(--cord-space-none, 0px)',
-            }}
-          >
-            <div className="secondary-buttons">
-              <Button
-                buttonAction="add-mention"
-                className={cx(colorsTertiary, medium)}
-                icon="At"
-                onClick={handleAddAtCharacter}
-                disabled={mentionList.isOpen}
+          }
+          attachments={
+            attachments.length > 0 ? (
+              <ComposerFileAttachments
+                attachments={attachments}
+                onRemoveAttachment={removeAttachment}
               />
-              <AddAttachmentsButton
-                editor={editor}
-                editAttachment={upsertAttachment}
-              />
-            </div>
-            <div className="cord-composer-primary-buttons">
-              <SendButton
-                onClick={() => onSubmit({ content: editor.children })}
-                canBeReplaced
-                disabled={!isValid}
-              />
-            </div>
-          </div>
-        </div>
+            ) : null
+          }
+          addMention={
+            <Button
+              buttonAction="add-mention"
+              className={cx(colorsTertiary, medium)}
+              icon="At"
+              onClick={handleAddAtCharacter}
+              disabled={mentionList.isOpen}
+            />
+          }
+          addAttachment={
+            <AddAttachmentsButton
+              editor={editor}
+              editAttachment={upsertAttachment}
+            />
+          }
+          sendButton={
+            <SendButton
+              onClick={() => onSubmit({ content: editor.children })}
+              canBeReplaced
+              disabled={!isValid}
+            />
+          }
+          cancelButton={null}
+        />
       </WithPopper>
     );
   }),
