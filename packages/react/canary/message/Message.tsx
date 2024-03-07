@@ -74,6 +74,7 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
       // return { messageEditor };
       return (
         <RawComposer
+          canBeReplaced
           {...editorProps}
           onSubmit={({ content }: { content: MessageNode[] }) => {
             console.log('onSubmit', content);

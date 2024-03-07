@@ -1,8 +1,8 @@
 import { atom } from 'jotai';
 import type { WritableAtom } from 'jotai';
 import type {
-  SendComposerProps,
   SendButtonProps,
+  ComposerProps,
 } from '../../canary/composer/Composer.js';
 import type { TextEditorProps } from '../../canary/composer/TextEditor.js';
 import type { ComposerLayoutProps } from '../../canary/composer/ComposerLayout.js';
@@ -67,10 +67,10 @@ export type ReplaceConfigBase = Partial<{
   MessageContent: React.ComponentType<MessageContentProps>;
   MessageActions: React.ComponentType<MessageActionsProps>;
   Separator: React.ComponentType<SeparatorProps>;
-  Composer: React.ComponentType<SendComposerProps>;
+  Composer: React.ComponentType<ComposerProps>;
   ComposerLayout: React.ComponentType<ComposerLayoutProps>;
-  ToolbarLayout: React.ComponentType<ToolbarLayoutProps>;
   TextEditor: React.ComponentType<TextEditorProps>;
+  ToolbarLayout: React.ComponentType<ToolbarLayoutProps>;
   SendButton: React.ComponentType<SendButtonProps>;
   Timestamp: React.ComponentType<TimestampProps>;
   EmojiPicker: React.ComponentType<EmojiPickerProps>;
