@@ -286,7 +286,7 @@ export interface ICordNotificationSDK {
    *       console.log('Loading...');
    *     }
    *     notifications.forEach((notification) =>
-   *       console.log(\`Got notification \${notification.id}!\`),
+   *       console.log(`Got notification ${notification.id}!`),
    *     );
    *     if (!loading && hasMore && notifications.length < 25) {
    *       // Get the first 25 notifications, 10 at a time.
