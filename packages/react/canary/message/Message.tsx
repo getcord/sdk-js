@@ -5,6 +5,7 @@ import type {
   MessageContent as MessageContentType,
   ClientMessageData,
   MessageNode,
+  UploadedFile,
 } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as classes from '../../components/Message.classnames.js';
@@ -20,7 +21,11 @@ import {
 } from '../../experimental.js';
 import { Icon } from '../../components/helpers/Icon.js';
 import { CordContext } from '../../contexts/CordContext.js';
-import { useEditComposer, RawComposer } from '../composer/Composer.js';
+import {
+  RawComposer,
+  useEditSubmit,
+  useComposerWithAttachments,
+} from '../composer/Composer.js';
 import { EditorCommands } from '../composer/lib/commands.js';
 
 export type MessageProps = {
@@ -56,11 +61,23 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
       },
       [message.id, threadID, threadSDK],
     );
-    const editorProps = useEditComposer({
+
+    const editSubmit = useEditSubmit(message.id, threadID);
+    const submitAndClose = ({
+      content,
+      attachments,
+    }: {
+      content: MessageNode[];
+      attachments: UploadedFile[];
+    }) => {
+      editSubmit({ content, attachments });
+      setIsEditing(false);
+    };
+    const editorProps = useComposerWithAttachments({
       initialValue: message.content as MessageNode[],
-      messageId: message.id,
-      threadId: threadID,
+      onSubmit: submitAndClose,
     });
+
     const setEditing = (editing: Parameters<typeof setIsEditing>[0]) => {
       setIsEditing(editing);
       if (editing) {
@@ -69,21 +86,11 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
         }, 0);
       }
     };
-    console.log('editorProps', editorProps);
+
     if (isEditing) {
-      // return { messageEditor };
-      return (
-        <RawComposer
-          canBeReplaced
-          {...editorProps}
-          onSubmit={({ content }: { content: MessageNode[] }) => {
-            console.log('onSubmit', content);
-            editorProps.onSubmit({ content });
-            setIsEditing(false);
-          }}
-        />
-      );
+      return <RawComposer canBeReplaced {...editorProps} />;
     }
+
     return (
       <MessageLayout
         ref={ref}

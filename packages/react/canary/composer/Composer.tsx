@@ -84,20 +84,19 @@ type UseComposerWithAttachmentsProps = Omit<
   }) => void;
 };
 
-export function useEditComposer(props: EditComposerProps) {
-  const { threadId, messageId } = props;
+export function useEditSubmit(messageId: string, threadId: string) {
   const { sdk: cord } = useContext(CordContext);
   const onSubmit = useCallback(
     ({ content }: { content: MessageNode[]; attachments: UploadedFile[] }) => {
       void cord?.thread.updateMessage(threadId, messageId, {
         content,
-        // TODO deal with attachments
+        // ONI-TODO deal with attachments
         // addAttachments: attachments.map((a) => ({ id: a.id, type: 'file' })),
       });
     },
     [cord?.thread, messageId, threadId],
   );
-  return useComposerWithAttachments({ ...props, onSubmit });
+  return onSubmit;
 }
 
 function useSendComposer(props: SendComposerProps) {
@@ -127,7 +126,9 @@ function useSendComposer(props: SendComposerProps) {
   return useComposerWithAttachments({ ...props, onSubmit });
 }
 
-function useComposerWithAttachments(props: UseComposerWithAttachmentsProps) {
+export function useComposerWithAttachments(
+  props: UseComposerWithAttachmentsProps,
+) {
   const { attachments, upsertAttachment, removeAttachment, resetAttachments } =
     useAttachments(); // TODO what happens on edit?
 
@@ -256,10 +257,6 @@ function useComposerWithAttachments(props: UseComposerWithAttachmentsProps) {
 
 export const Composer = (props: SendComposerProps) => {
   return <RawComposer canBeReplaced {...useSendComposer(props)} />;
-};
-export const EditComposer = (_props: EditComposerProps) => {
-  return <div></div>;
-  // return <RawComposer canBeReplaced {...useEditComposer(props)} />;
 };
 
 export const RawComposer = withCord<React.PropsWithChildren<ComposerProps>>(
