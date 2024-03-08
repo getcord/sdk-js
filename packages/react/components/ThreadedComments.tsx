@@ -678,6 +678,7 @@ function CommentsThread({
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
   const threadData = useThread(threadId, { filter });
+  const viewerData = user.useViewerData();
   const allowReplies = showReplies !== 'alwaysCollapsed';
   const initiallyExpandedReplies = showReplies === 'initiallyExpanded';
   const [showingReplies, setShowingReplies] = useState<boolean>(
@@ -713,6 +714,8 @@ function CommentsThread({
         [MODIFIERS.highlighted]: highlightThread,
         [MODIFIERS.resolved]: isResolved,
         [MODIFIERS.noReplies]: !hasReplies,
+        [MODIFIERS.subscribed]:
+          viewerData?.id && threadSummary.subscribers.includes(viewerData?.id),
       })}
       data-cord-thread-id={threadId}
       data-cord-group-id={threadData?.thread?.groupID}
