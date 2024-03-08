@@ -35,6 +35,10 @@ export type EmailSettings = {
         height: number;
       }
     | null;
+  /**
+   * Whether you want your users to receive notification emails. The default value is true.
+   */
+  enableEmailNotifications: boolean;
 };
 
 export interface ProjectData {

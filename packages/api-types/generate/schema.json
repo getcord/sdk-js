@@ -73,10 +73,20 @@
               },
               { "type": "null" }
             ]
+          },
+          "enableEmailNotifications": {
+            "description": "Whether you want your users to receive notification emails. The default value is true.",
+            "type": "boolean"
           }
         },
         "additionalProperties": false,
-        "propertyOrder": ["name", "imageURL", "sender", "logoConfig"]
+        "propertyOrder": [
+          "name",
+          "imageURL",
+          "sender",
+          "logoConfig",
+          "enableEmailNotifications"
+        ]
       }
     },
     "$schema": "http://json-schema.org/draft-07/schema#"
@@ -154,10 +164,20 @@
               },
               { "type": "null" }
             ]
+          },
+          "enableEmailNotifications": {
+            "description": "Whether you want your users to receive notification emails. The default value is true.",
+            "type": "boolean"
           }
         },
         "additionalProperties": false,
-        "propertyOrder": ["name", "imageURL", "sender", "logoConfig"]
+        "propertyOrder": [
+          "name",
+          "imageURL",
+          "sender",
+          "logoConfig",
+          "enableEmailNotifications"
+        ]
       }
     },
     "$schema": "http://json-schema.org/draft-07/schema#"
@@ -1118,10 +1138,20 @@
               },
               { "type": "null" }
             ]
+          },
+          "enableEmailNotifications": {
+            "description": "Whether you want your users to receive notification emails. The default value is true.",
+            "type": "boolean"
           }
         },
         "additionalProperties": false,
-        "propertyOrder": ["name", "imageURL", "sender", "logoConfig"]
+        "propertyOrder": [
+          "name",
+          "imageURL",
+          "sender",
+          "logoConfig",
+          "enableEmailNotifications"
+        ]
       }
     },
     "$schema": "http://json-schema.org/draft-07/schema#"
@@ -1199,10 +1229,20 @@
               },
               { "type": "null" }
             ]
+          },
+          "enableEmailNotifications": {
+            "description": "Whether you want your users to receive notification emails. The default value is true.",
+            "type": "boolean"
           }
         },
         "additionalProperties": false,
-        "propertyOrder": ["name", "imageURL", "sender", "logoConfig"]
+        "propertyOrder": [
+          "name",
+          "imageURL",
+          "sender",
+          "logoConfig",
+          "enableEmailNotifications"
+        ]
       }
     },
     "$schema": "http://json-schema.org/draft-07/schema#"
