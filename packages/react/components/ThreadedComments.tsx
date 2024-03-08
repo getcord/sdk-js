@@ -435,6 +435,8 @@ function ThreadedCommentsThreadList({
   onComposerClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
+  const [groupMemberIDs, setGroupMemberIDs] = useState<string[]>([]);
+
   const clientThreadFilter = {
     ...filter,
     location: { value: location, partialMatch },
@@ -476,7 +478,6 @@ function ThreadedCommentsThreadList({
   // is a member of.
   const groupID = propGroupID ?? cordSDK?.groupID ?? viewerData?.groups?.[0];
 
-  const { groupMembers } = user.useGroupMembers({ groupID });
   const { t } = useCordTranslation('threaded_comments');
 
   const dispatchLoadingEvent = useCallFunctionOnce(onLoading);
@@ -541,9 +542,15 @@ function ThreadedCommentsThreadList({
 
   return (
     <>
+      {groupID && (
+        <GroupMemberFetcher
+          groupID={groupID}
+          setGroupMemberIDs={setGroupMemberIDs}
+        />
+      )}
       {showPlaceholder && threads.length === 0 && !loading && (
         <EmptyStateWithFacepile
-          users={groupMembers?.map((p) => p.id) ?? []}
+          users={groupMemberIDs}
           titlePlaceholder={titlePlaceholder}
           bodyPlaceholder={bodyPlaceholder}
         />
@@ -1013,4 +1020,24 @@ function ResolvedThreadHeader({
       </button>
     </div>
   );
+}
+
+// In its own component to handle the situation where groupID is undefined
+// because the viewer data hasn't loaded yet (as passing undefined will result
+// in an error in useGroupMembers, and we can't skip the hook call because that
+// disobeys React's hooks rules)
+function GroupMemberFetcher({
+  groupID,
+  setGroupMemberIDs,
+}: {
+  groupID: string;
+  setGroupMemberIDs: React.Dispatch<React.SetStateAction<string[]>>;
+}) {
+  const { groupMembers } = user.useGroupMembers({ groupID });
+
+  useEffect(() => {
+    setGroupMemberIDs(groupMembers.map((member) => member.id));
+  }, [groupMembers, setGroupMemberIDs]);
+
+  return null;
 }
