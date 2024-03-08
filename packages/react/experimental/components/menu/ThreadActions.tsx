@@ -44,7 +44,7 @@ export function ThreadActions({
         />
       )}
       <MenuItem
-        menuItemAction={'thread-subscribe'}
+        menuItemAction={subscribed ? 'thread-unsubscribe' : 'thread-subscribe'}
         label={t(subscribed ? 'unsubscribe_action' : 'subscribe_action')}
         leftItem={
           <Icon name={subscribed ? 'BellSlash' : 'Bell'} size="large" />
