@@ -460,6 +460,13 @@ export type ObserveThreadsOptions = ThreadSortOptions & {
    * An object that can be used to filter the threads returned.
    */
   filter?: ClientThreadFilter;
+  /**
+   * The number of threads to fetch first. Once these are returned
+   * you can use the `fetchMore` property to get additional threads.
+   *
+   * The default for this is 10, and has a limit of 1000.
+   */
+  initialFetchCount?: number;
 };
 
 export type LocationData = PaginationParams & {
