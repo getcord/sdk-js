@@ -329,6 +329,7 @@ export interface ThreadObserverOptions {
 export type ObserveThreadSummaryOptions = ThreadObserverOptions;
 export type ObserveThreadDataOptions = ThreadObserverOptions;
 
+export type ViewerThreadStatus = 'subscribed';
 export type ResolvedStatus = 'any' | 'resolved' | 'unresolved';
 export type LocationFilterOptions = {
   /**
@@ -366,6 +367,12 @@ export type ThreadListFilter = {
    * If unset, defaults to `unresolved`.
    */
   resolvedStatus?: ResolvedStatus;
+  /**
+   * The status of the viewer in this thread.  If multiple statuses are
+   * supplied, a thread will match the filter if the viewer has any of those
+   * statuses.
+   */
+  viewer?: ViewerThreadStatus | ViewerThreadStatus[];
 };
 
 export interface ClientThreadFilter
