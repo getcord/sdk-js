@@ -6,11 +6,8 @@ import { ToolbarLayout } from './ToolbarLayout.js';
 
 export type ComposerLayoutProps = {
   textEditor: JSX.Element;
-  attachments: JSX.Element | null;
-  addMention: JSX.Element | null;
-  addAttachment: JSX.Element | null;
-  sendButton: JSX.Element | null;
-  cancelButton: JSX.Element | null;
+  toolbarItems?: { name: string; element: JSX.Element | null }[];
+  extraChildren?: { name: string; element: JSX.Element | null }[];
 };
 export const ComposerLayout = withCord<
   React.PropsWithChildren<ComposerLayoutProps>
@@ -19,15 +16,18 @@ export const ComposerLayout = withCord<
     props: ComposerLayoutProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
-    const { addAttachment, addMention, sendButton, cancelButton } = props;
-    const toolbarItems = useMemo(() => {
-      return [
-        { name: 'addMention', element: addMention },
-        { name: 'addAttachment', element: addAttachment },
-        { name: 'sendButton', element: sendButton },
-        { name: 'cancelButton', element: cancelButton },
-      ];
-    }, [addMention, addAttachment, sendButton, cancelButton]);
+    const { toolbarItems, extraChildren } = props;
+    const attachments = useMemo(
+      () => extraChildren?.find((item) => item.name === 'attachments')?.element,
+      [extraChildren],
+    );
+    const extra = useMemo(
+      () =>
+        extraChildren
+          ?.filter((item) => item.name !== 'attachments')
+          .map((item) => item.element),
+      [extraChildren],
+    );
     return (
       <div
         ref={ref}
@@ -43,9 +43,10 @@ export const ComposerLayout = withCord<
         }}
       >
         {props.textEditor}
-        {props.attachments}
+        {attachments}
 
         <ToolbarLayout canBeReplaced items={toolbarItems} />
+        {extra}
       </div>
     );
   }),

@@ -5,7 +5,7 @@ import withCord from '../../experimental/components/hoc/withCord.js';
 
 const PRIMARY = ['sendButton', 'cancelButton'];
 export type ToolbarLayoutProps = {
-  items: { name: string; element: JSX.Element | null }[];
+  items?: { name: string; element: JSX.Element | null }[];
 };
 export const ToolbarLayout = withCord<
   React.PropsWithChildren<ToolbarLayoutProps>
@@ -14,7 +14,7 @@ export const ToolbarLayout = withCord<
     props: ToolbarLayoutProps,
     ref: ForwardedRef<HTMLDivElement>,
   ) {
-    const { items } = props;
+    const { items = [] } = props;
 
     const primaryButtons = useMemo(() => {
       return items

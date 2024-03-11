@@ -4,8 +4,6 @@ import cx from 'classnames';
 import type {
   MessageContent as MessageContentType,
   ClientMessageData,
-  MessageNode,
-  UploadedFile,
 } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as classes from '../../components/Message.classnames.js';
@@ -21,11 +19,7 @@ import {
 } from '../../experimental.js';
 import { Icon } from '../../components/helpers/Icon.js';
 import { CordContext } from '../../contexts/CordContext.js';
-import {
-  RawComposer,
-  useEditSubmit,
-  useComposerWithAttachments,
-} from '../composer/Composer.js';
+import { useEditComposer, CordComposer } from '../composer/Composer.js';
 import { EditorCommands } from '../composer/lib/commands.js';
 
 export type MessageProps = {
@@ -61,39 +55,39 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
       },
       [message.id, threadID, threadSDK],
     );
-
-    const editSubmit = useEditSubmit(
-      message.id,
-      threadID,
-      message.attachments as UploadedFile[],
-    );
-    const submitAndClose = ({
-      content,
-      attachments,
-    }: {
-      content: MessageNode[];
-      attachments: UploadedFile[];
-    }) => {
-      editSubmit({ content, attachments });
-      setIsEditing(false);
-    };
-    const editorProps = useComposerWithAttachments({
-      initialValue: message.content as MessageNode[],
-      initialAttachments: message.attachments as UploadedFile[],
-      onSubmit: submitAndClose,
+    const editorProps = useEditComposer({
+      threadId: threadID,
+      messageId: message.id,
+      initialValue: message,
     });
-
-    const setEditing = (editing: Parameters<typeof setIsEditing>[0]) => {
-      setIsEditing(editing);
-      if (editing) {
-        setTimeout(() => {
-          EditorCommands.focusAndMoveCursorToEndOfText(editorProps.editor);
-        }, 0);
-      }
-    };
+    const setEditing = useCallback(
+      (editing: Parameters<typeof setIsEditing>[0]) => {
+        setIsEditing(editing);
+        if (editing) {
+          setTimeout(() => {
+            EditorCommands.focusAndMoveCursorToEndOfText(editorProps.editor);
+          }, 0);
+        }
+      },
+      [editorProps.editor],
+    );
+    const onEditSubmit = useCallback(
+      (arg: { message: Partial<ClientMessageData> }) => {
+        editorProps.onSubmit(arg);
+        setEditing(false);
+      },
+      [editorProps, setEditing],
+    );
 
     if (isEditing) {
-      return <RawComposer canBeReplaced {...editorProps} />;
+      return (
+        <CordComposer
+          canBeReplaced
+          {...editorProps}
+          onSubmit={onEditSubmit}
+          onResetState={() => setIsEditing(false)}
+        />
+      );
     }
 
     return (

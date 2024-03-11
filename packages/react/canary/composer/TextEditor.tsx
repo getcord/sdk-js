@@ -7,7 +7,7 @@ import { createEditor } from 'slate';
 import type { Descendant } from 'slate';
 import { withHistory } from 'slate-history';
 
-import type { MessageContent, MessageNode } from '@cord-sdk/types';
+import type { MessageContent } from '@cord-sdk/types';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
 import type { CustomEditor } from '../../slateCustom.js';
@@ -32,11 +32,7 @@ export type TextEditorProps = {
   initialValue?: MessageContent;
   onChange: ({ content }: { content: MessageContent }) => void;
   onPaste: ({ event }: { event: React.ClipboardEvent }) => void;
-  onKeyDown: (arg: {
-    event: React.KeyboardEvent;
-    onSubmit?: (arg: { content: MessageContent }) => void;
-  }) => void;
-  onSubmit?: (arg: { content: MessageContent }) => void;
+  onKeyDown: (arg: { event: React.KeyboardEvent }) => void;
   onFocus?: (arg: { event: React.FocusEvent }) => void;
   onBlur?: (arg: { event: React.FocusEvent }) => void;
   onClick?: (arg: { event: React.MouseEvent }) => void;
@@ -53,7 +49,6 @@ export const TextEditor = withCord<React.PropsWithChildren<TextEditorProps>>(
       onKeyDown,
       onPaste,
       style,
-      onSubmit,
       onFocus,
       onBlur,
       onClick,
@@ -62,11 +57,11 @@ export const TextEditor = withCord<React.PropsWithChildren<TextEditorProps>>(
     _ref: ForwardedRef<HTMLElement>,
   ) {
     const { t } = useCordTranslation('composer');
-    const onKeyDownWithOnSubmit = useCallback(
+    const onSlateKeyDown = useCallback(
       (event: React.KeyboardEvent) => {
-        onKeyDown({ event, onSubmit });
+        onKeyDown({ event });
       },
-      [onKeyDown, onSubmit],
+      [onKeyDown],
     );
     const onSlateChange = useCallback(
       (content: MessageContent) => onChange({ content }),
@@ -106,7 +101,7 @@ export const TextEditor = withCord<React.PropsWithChildren<TextEditorProps>>(
           }}
           renderElement={renderElement}
           renderLeaf={renderLeaf}
-          onKeyDown={onKeyDownWithOnSubmit}
+          onKeyDown={onSlateKeyDown}
           onPaste={onSlatePaste}
           onFocus={onSlateFocus}
           onBlur={onSlateBlur}
@@ -120,10 +115,7 @@ export const TextEditor = withCord<React.PropsWithChildren<TextEditorProps>>(
 );
 
 export type UseTextEditorProps = {
-  onSubmit?: (arg: { content: MessageContent }) => void;
-  onCancel?: () => void;
   onChange?: (arg: { content: MessageContent }) => void;
-  onResetState?: () => void;
   initialValue?: MessageContent;
   placeholder?: string;
   isValid?: (isTextValid: boolean) => boolean; // TODO rename
@@ -135,8 +127,6 @@ export type UseTextEditorProps = {
 export function useTextEditor(props: UseTextEditorProps) {
   const {
     initialValue,
-    onSubmit,
-    onResetState,
     isValid: isAlreadyValid,
     onChange: onChangeProp,
     ...rest
@@ -154,7 +144,7 @@ export function useTextEditor(props: UseTextEditorProps) {
     ),
   );
 
-  const resetComposerValue = useCallback(
+  const resetEditor = useCallback(
     (newValue?: MessageContent) => {
       const point = { path: [0, 0], offset: 0 };
       editor.selection = { anchor: point, focus: point };
@@ -162,6 +152,7 @@ export function useTextEditor(props: UseTextEditorProps) {
       editor.children = newValue?.length
         ? newValue
         : createComposerEmptyValue();
+      editor.onChange();
     },
     [editor],
   );
@@ -173,23 +164,6 @@ export function useTextEditor(props: UseTextEditorProps) {
       editor.onChange();
     }
   }, [editor, initialValue]);
-
-  const handleResetState = useCallback(() => {
-    onResetState?.();
-    resetComposerValue();
-  }, [resetComposerValue, onResetState]);
-
-  const handleSubmitMessage = useCallback(
-    ({ content: overrideMessage }: { content?: MessageNode[] }) => {
-      if (!isValid) {
-        return;
-      }
-
-      onSubmit?.({ content: overrideMessage ?? editor.children });
-      handleResetState();
-    },
-    [editor.children, onSubmit, isValid, handleResetState],
-  );
 
   const onChange = useCallback(
     ({ content: newValue }: { content: MessageContent }) => {
@@ -206,13 +180,12 @@ export function useTextEditor(props: UseTextEditorProps) {
   );
 
   return {
-    onSubmit: handleSubmitMessage,
     onChange,
-    onCancel: () => {}, // TODO fix typing
     editor,
     isEmpty,
     initialValue,
     isValid,
+    onResetState: resetEditor,
     ...rest,
   }; //satisfies ComposerProps; TODO FIX
 }

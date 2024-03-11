@@ -6,7 +6,7 @@ import type { ClientThreadData } from '@cord-sdk/types';
 import withCord from '../experimental/components/hoc/withCord.js';
 import { threadHeader } from '../components/Thread.classnames.js';
 import { Button, OptionsMenu } from '../experimental.js';
-import { Composer } from './composer/Composer.js';
+import { SendComposer } from './composer/Composer.js';
 import { Message } from './message/Message.js';
 
 export type ThreadProps = {
@@ -50,7 +50,7 @@ export const Thread = withCord<React.PropsWithChildren<ThreadProps>>(
               );
             })}
         </div>
-        <Composer threadId={threadData?.id} />
+        <SendComposer threadId={threadData?.id} />
       </div>
     );
   }),

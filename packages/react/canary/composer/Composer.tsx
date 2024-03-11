@@ -1,30 +1,25 @@
 import * as React from 'react';
 import type { HTMLProps } from 'react';
 import isHotkey from 'is-hotkey';
-import { forwardRef, useCallback, useContext } from 'react';
+import { forwardRef, useCallback, useMemo } from 'react';
 import cx from 'classnames';
 import { ReactEditor } from 'slate-react';
-import { v4 as uuid } from 'uuid';
 import type {
   ClientCreateThread,
+  ClientMessageData,
+  MessageAttachment,
   MessageContent,
-  MessageNode,
-  UploadedFile,
+  MessageFileAttachment,
 } from '@cord-sdk/types';
-import { CordContext } from '../../contexts/CordContext.js';
 import { Button } from '../../experimental/components/helpers/Button.js';
 import {
   colorsPrimary,
-  colorsTertiary,
-  medium,
   sendButton,
   small,
 } from '../../components/helpers/Button.classnames.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { Keys } from '../../common/const/Keys.js';
 
-import { ComposerFileAttachments } from '../../components/composer/ComposerFileAttachments.js';
-import { useMentionList } from '../../experimental/components/composer/MentionList.js';
 import { WithPopper } from '../../experimental/components/helpers/WithPopper.js';
 import type { CustomEditor } from '../../slateCustom.js';
 import { onSpace } from './event-handlers/onSpace.js';
@@ -34,165 +29,212 @@ import { onArrow } from './event-handlers/onArrowPress.js';
 import { onTab } from './event-handlers/onTab.js';
 import { onShiftEnter } from './event-handlers/onShiftEnter.js';
 import { EditorCommands, HOTKEYS } from './lib/commands.js';
-import { AddAttachmentsButton } from './AddAttachments.js';
-import { useAttachments } from './useAttachments.js';
-import { useUploadFileToCord } from './useUploadFileToCord.js';
+import { useAddAttachmentToComposer } from './useAttachments.js';
 import { TextEditor, useTextEditor } from './TextEditor.js';
 import type { UseTextEditorProps } from './TextEditor.js';
 import { ComposerLayout } from './ComposerLayout.js';
+import { useCreateSubmit, useEditSubmit } from './useSubmit.js';
+import { useAddMentionToComposer } from './useMentionList.js';
+
+const EMPTY_ATTACHMENTS: MessageAttachment[] = [];
 
 export type SendComposerProps = {
-  initialValue?: MessageContent;
+  initialValue?: Partial<ClientMessageData>;
   threadId?: string;
   createThread?: ClientCreateThread;
   placeholder?: string;
+  onBeforeSubmit?: (arg: {
+    message: Partial<ClientMessageData>;
+  }) => { message: Partial<ClientMessageData> } | null;
+  onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
 };
 
 export type EditComposerProps = {
-  initialValue?: MessageContent;
+  initialValue?: Partial<ClientMessageData>;
   threadId: string;
   messageId: string;
   placeholder?: string;
+  onBeforeSubmit?: (arg: {
+    message: Partial<ClientMessageData>;
+  }) => { message: Partial<ClientMessageData> } | null;
+  onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
+};
+export type CordComposerProps = {
+  initialValue?: Partial<ClientMessageData>;
+  placeholder?: string;
+  onBeforeSubmit?: (arg: {
+    message: Partial<ClientMessageData>;
+  }) => { message: Partial<ClientMessageData> } | null;
+  onSubmit: (arg: { message: Partial<ClientMessageData> }) => void;
+  onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
 };
 
 export type ComposerProps = {
-  onSubmit: (arg: { content: MessageContent }) => void;
-  onCancel: () => void;
+  onSubmit: (arg: { message: Partial<ClientMessageData> }) => void;
+  // TODO-ONI add cancel button
+  // onCancel: () => void;
   onChange: (event: { content: MessageContent }) => void;
   onKeyDown: (event: {
     event: React.KeyboardEvent;
-    onSubmit?: (arg: { content: MessageContent }) => void;
-  }) => void;
+  }) => boolean | undefined | void;
+  onResetState: () => void;
+  onPaste: (e: { event: React.ClipboardEvent }) => void;
+  initialValue?: Partial<ClientMessageData>;
+  value: Partial<Omit<ClientMessageData, 'content'>>;
   editor: CustomEditor;
-  initialValue?: MessageContent;
   isEmpty: boolean;
   isValid: boolean;
   placeholder?: string;
-  attachments: UploadedFile[];
-  upsertAttachment: (attachment: Partial<UploadedFile>) => void;
-  removeAttachment: (attachmentID: string) => void;
-  onPaste: (e: { event: React.ClipboardEvent }) => void;
+  toolbarItems?: { name: string; element: JSX.Element | null }[];
+  extraChildren?: { name: string; element: JSX.Element | null }[];
+  popperElement?: JSX.Element;
+  popperElementVisible?: boolean;
+  popperOnShouldHide?: () => void;
 };
 
-type UseComposerWithAttachmentsProps = Omit<
-  UseTextEditorProps,
-  'onSubmit' | 'isAlreadyValid'
-> & {
-  initialAttachments?: UploadedFile[];
-  onSubmit?: (e: {
-    content: MessageContent;
-    attachments: UploadedFile[];
-  }) => void;
+export function useEditComposer(props: EditComposerProps): ComposerProps {
+  const onSubmit = useEditSubmit(props);
+  return useCordComposer({ ...props, onSubmit });
+}
+
+export function useSendComposer(props: SendComposerProps): ComposerProps {
+  const onSubmit = useCreateSubmit(props);
+  return useCordComposer({ ...props, onSubmit });
+}
+
+export const SendComposer = (props: SendComposerProps) => {
+  return <CordComposer canBeReplaced {...useSendComposer(props)} />;
+};
+export const EditComposer = (props: EditComposerProps) => {
+  return <CordComposer canBeReplaced {...useEditComposer(props)} />;
 };
 
-export function useEditSubmit(
-  messageId: string,
-  threadId: string,
-  initialAttachments?: UploadedFile[],
-) {
-  const { sdk: cord } = useContext(CordContext);
-  const onSubmit = useCallback(
-    ({
-      content,
-      attachments,
-    }: {
-      content: MessageNode[];
-      attachments: UploadedFile[];
-    }) => {
-      const oldAttachmentIDs = new Set(initialAttachments?.map((a) => a.id));
-      const newAttachmentIDs = new Set(attachments?.map((a) => a.id));
-      void cord?.thread.updateMessage(threadId, messageId, {
-        content,
-        addAttachments: attachments
-          .filter((a) => !oldAttachmentIDs.has(a.id))
-          .map((a) => ({ id: a.id, type: 'file' })),
-        removeAttachments:
-          initialAttachments
-            ?.filter((a) => !newAttachmentIDs.has(a.id))
-            .map((a) => ({ id: a.id, type: 'file' })) ?? [],
-      });
-    },
-    [cord?.thread, messageId, threadId, initialAttachments],
-  );
-  return onSubmit;
-}
+export function useCordComposer(props: CordComposerProps): ComposerProps {
+  const { onSubmit, initialValue, onAfterSubmit, onBeforeSubmit } = props;
+  const initialAttachments =
+    initialValue?.attachments as MessageFileAttachment[];
 
-function useSendComposer(props: SendComposerProps) {
-  const { threadId, createThread } = props;
-  const { sdk: cord } = useContext(CordContext);
-  const onSubmit = useCallback(
-    ({
-      content,
-      attachments,
-    }: {
-      content: MessageNode[];
-      attachments: UploadedFile[];
-    }) => {
-      const url = window.location.href;
-      void cord?.thread.sendMessage(threadId ?? uuid(), {
-        content,
-        addAttachments: attachments.map((a) => ({ id: a.id, type: 'file' })),
-        createThread: createThread ?? {
-          location: { location: url },
-          url,
-          name: document.title,
-        },
-      });
-    },
-    [cord?.thread, createThread, threadId],
-  );
-  return useComposerWithAttachments({ ...props, onSubmit });
-}
-
-export function useComposerWithAttachments(
-  props: UseComposerWithAttachmentsProps,
-) {
-  const { initialAttachments } = props;
-  const { attachments, upsertAttachment, removeAttachment, resetAttachments } =
-    useAttachments(initialAttachments); // TODO what happens on edit?
-
-  const { onSubmit, ...rest } = props;
-  const simpleComposer = useTextEditor({
-    ...rest,
-    onSubmit: ({ content }) => {
-      onSubmit?.({ content, attachments });
-    },
-    onResetState: () => {
-      props.onResetState?.();
-      resetAttachments();
-    },
-    isValid: (isTextValid: boolean) => isTextValid || attachments.length > 0,
+  const base = useComposer({
+    ...props,
+    initialValue: props.initialValue?.content as MessageContent | undefined,
   });
-  const { editor } = simpleComposer;
-  const attachFiles = useUploadFileToCord(upsertAttachment);
+  const { editor, isEmpty } = base;
+  const attachmentsProps = useAddAttachmentToComposer({
+    initialAttachments: initialAttachments ?? EMPTY_ATTACHMENTS,
+    editor,
+  });
+  const mentionProps = useAddMentionToComposer({
+    editor,
+    isEmpty,
+  });
+
+  const onChange = useCallback(
+    (args: { content: MessageContent }) => {
+      base.onChange(args);
+      mentionProps.onChange?.(args);
+    },
+    [base, mentionProps],
+  );
+
+  const onKeyDown = useCallback(
+    (args: { event: React.KeyboardEvent }) => {
+      const prevent = mentionProps.onKeyDown?.(args);
+      if (prevent) {
+        return prevent;
+      }
+      return base.onKeyDown(args);
+    },
+    [base, mentionProps],
+  );
 
   const onPaste = useCallback(
-    ({ event }: { event: React.ClipboardEvent }) => {
-      const { files } = event.clipboardData;
-      const allFilesAreImages =
-        files &&
-        files.length > 0 &&
-        [...files].every((file) => {
-          const [mime] = file.type.split('/');
-          return mime === 'image';
-        });
-      if (allFilesAreImages) {
-        event.stopPropagation();
-        attachFiles(files).catch(console.warn);
-      }
+    (args: { event: React.ClipboardEvent }) => {
+      attachmentsProps.onPaste?.(args);
+      base.onPaste(args);
     },
-    [attachFiles],
+    [base, attachmentsProps],
   );
 
-  const onTextSubmit = simpleComposer.onSubmit;
+  const extraChildren = useMemo(
+    () => [
+      ...(attachmentsProps.extraChildren ?? []),
+      ...(base.extraChildren ?? []),
+    ],
+    [base.extraChildren, attachmentsProps.extraChildren],
+  );
+
+  const toolbarItems = useMemo(
+    () => [
+      ...(mentionProps.toolbarItems ?? []),
+      ...(attachmentsProps.toolbarItems ?? []),
+      ...(base.toolbarItems ?? []),
+    ],
+    [
+      base.toolbarItems,
+      mentionProps.toolbarItems,
+      attachmentsProps.toolbarItems,
+    ],
+  );
+
+  const value = useMemo(
+    () =>
+      ({
+        attachments: attachmentsProps.attachments as MessageAttachment[],
+      }) satisfies Partial<ClientMessageData>,
+    [attachmentsProps.attachments],
+  );
+
+  const isValid = base.isValid || attachmentsProps.isValid;
+
+  const onSubmitWithBeforeAndAfter = useCallback(
+    (args: { message: Partial<ClientMessageData> }) => {
+      let message: null | Partial<ClientMessageData> = args.message;
+      if (!isValid) {
+        return;
+      }
+      if (onBeforeSubmit) {
+        message = onBeforeSubmit({ message })?.message ?? null;
+        if (message === null) {
+          return;
+        }
+      }
+      onSubmit({ message });
+      onAfterSubmit?.(args);
+    },
+    [onSubmit, onBeforeSubmit, onAfterSubmit, isValid],
+  );
+
+  const onResetState = useCallback(() => {
+    base.onResetState();
+    attachmentsProps.onResetState();
+  }, [base, attachmentsProps]);
+
+  return {
+    ...base,
+    extraChildren,
+    isValid,
+    toolbarItems,
+    onSubmit: onSubmitWithBeforeAndAfter,
+    editor: mentionProps.editor,
+    onChange,
+    onResetState,
+    onKeyDown,
+    isEmpty,
+    onPaste,
+    popperElement: mentionProps.popperElement,
+    popperElementVisible: mentionProps.popperElementVisible,
+    popperOnShouldHide: mentionProps.popperOnShouldHide,
+    initialValue,
+    value,
+  };
+}
+export function useComposer(
+  props: UseTextEditorProps,
+): Omit<ComposerProps, 'onSubmit'> {
+  const simpleComposer = useTextEditor(props);
+  const { editor } = simpleComposer;
   const onKeyDown = useCallback(
-    ({
-      event,
-      onSubmitOverride,
-    }: {
-      event: React.KeyboardEvent;
-      onSubmitOverride?: ({ content }: { content: MessageContent }) => void;
-    }) => {
+    ({ event }: { event: React.KeyboardEvent }) => {
       for (const hotkey in HOTKEYS) {
         if (isHotkey.default(hotkey, event)) {
           event.preventDefault();
@@ -246,9 +288,6 @@ export function useComposerWithAttachments(
         if (event.shiftKey) {
           onShiftEnter(editor, event);
           return;
-        } else {
-          event.preventDefault();
-          (onSubmitOverride ?? onTextSubmit)({ content: editor.children });
         }
       }
 
@@ -259,130 +298,185 @@ export function useComposerWithAttachments(
       if (event.key === Keys.ESCAPE) {
         ReactEditor.blur(editor);
         // [ONI]-TODO handle stop editing
+        // likely call onBlur from props
       }
     },
-    [editor, onTextSubmit],
+    [editor],
   );
 
+  const value = useMemo(
+    () => ({}) satisfies Partial<Omit<ClientMessageData, 'content'>>,
+    [],
+  );
+  const initialValue = useMemo(
+    () =>
+      ({
+        content: simpleComposer.initialValue as MessageContent,
+      }) satisfies Partial<ClientMessageData>,
+    [simpleComposer.initialValue],
+  );
   return {
     ...simpleComposer,
-    onPaste,
     onKeyDown,
-    attachments,
-    initialAttachments,
-    removeAttachment,
-    upsertAttachment,
+    initialValue,
+    value,
+    onPaste: () => {},
   };
 }
 
-export const Composer = (props: SendComposerProps) => {
-  return <RawComposer canBeReplaced {...useSendComposer(props)} />;
-};
-
-export const RawComposer = withCord<React.PropsWithChildren<ComposerProps>>(
-  forwardRef(function RawComposer(
-    {
-      placeholder,
-      editor,
-      onSubmit,
-      onKeyDown,
-      onChange,
-      isEmpty,
-      initialValue,
-      isValid,
-      attachments,
-      removeAttachment,
-      upsertAttachment,
-      onPaste,
-    }: ComposerProps,
+export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
+  forwardRef(function CordComposer(
+    props: ComposerProps,
     ref: React.ForwardedRef<HTMLElement>,
   ) {
-    // TODO deal with this
-    const mentionList = useMentionList({
+    const {
       editor,
-    });
-    const handleKeyDownAndMention = useCallback(
-      (args: Parameters<typeof onKeyDown>[0]) => {
-        if (mentionList.handleKeyDown(args.event)) {
-          return;
-        }
-        onKeyDown(args);
-      },
-      [mentionList, onKeyDown],
-    );
-    const onChangeWithMention = useCallback(
-      (args: Parameters<typeof onChange>[0]) => {
-        mentionList.updateUserReferences();
-        onChange(args);
-      },
-      [mentionList, onChange],
-    );
-
-    const handleAddAtCharacter = useCallback(() => {
-      EditorCommands.addText(editor, editor.selection, isEmpty ? '@' : ' @');
-    }, [isEmpty, editor]);
-
-    return (
-      <WithPopper
-        popperElement={mentionList.Component}
-        popperElementVisible={mentionList.isOpen}
-        popperPosition="top-start"
-        onShouldHide={mentionList.close}
-        popperWidth="full"
-      >
-        <ComposerLayout
-          ref={ref}
-          canBeReplaced
-          textEditor={
-            <TextEditor
-              canBeReplaced
-              className="cord-editor"
-              placeholder={placeholder}
-              editor={mentionList.editor}
-              initialValue={initialValue}
-              onPaste={onPaste}
-              onChange={onChangeWithMention}
-              onSubmit={onSubmit}
-              onKeyDown={handleKeyDownAndMention}
-            />
-          }
-          attachments={
-            attachments.length > 0 ? (
-              <ComposerFileAttachments
-                attachments={attachments}
-                onRemoveAttachment={removeAttachment}
-              />
-            ) : null
-          }
-          addMention={
-            <Button
-              buttonAction="add-mention"
-              className={cx(colorsTertiary, medium)}
-              icon="At"
-              onClick={handleAddAtCharacter}
-              disabled={mentionList.isOpen}
-            />
-          }
-          addAttachment={
-            <AddAttachmentsButton
-              editor={editor}
-              editAttachment={upsertAttachment}
-            />
-          }
-          sendButton={
+      initialValue,
+      value,
+      onSubmit,
+      onResetState,
+      isValid,
+      onKeyDown,
+      toolbarItems,
+      ...rest
+    } = props;
+    const toolbarItemsWithDefault = useMemo(() => {
+      return [
+        ...(toolbarItems ?? []),
+        {
+          name: 'sendButton',
+          element: (
             <SendButton
-              onClick={() => onSubmit({ content: editor.children })}
+              onClick={() => {
+                onSubmit({
+                  message: {
+                    ...initialValue,
+                    ...value,
+                    content: editor.children,
+                  },
+                });
+                onResetState();
+              }}
               canBeReplaced
               disabled={!isValid}
             />
+          ),
+        },
+      ];
+    }, [
+      editor.children,
+      onSubmit,
+      onResetState,
+      isValid,
+      toolbarItems,
+      initialValue,
+      value,
+    ]);
+
+    const onKeyDownWithSubmit = useCallback(
+      (arg: { event: React.KeyboardEvent }) => {
+        const preventDefault = onKeyDown(arg);
+        if (preventDefault) {
+          return true;
+        }
+        const { event } = arg;
+        if (event.key === Keys.ENTER) {
+          if (!event.shiftKey) {
+            event.preventDefault();
+            if (!isValid) {
+              return true;
+            }
+            onSubmit({
+              message: {
+                ...initialValue,
+                ...value,
+                content: editor.children,
+              },
+            });
+            onResetState();
+            return true;
           }
-          cancelButton={null}
-        />
-      </WithPopper>
+        }
+        return false;
+      },
+      [
+        isValid,
+        onSubmit,
+        onResetState,
+        editor.children,
+        onKeyDown,
+        initialValue,
+        value,
+      ],
+    );
+
+    return (
+      <BaseComposer
+        ref={ref}
+        {...rest}
+        isValid={isValid}
+        editor={editor}
+        onKeyDown={onKeyDownWithSubmit}
+        toolbarItems={toolbarItemsWithDefault}
+        initialValue={initialValue}
+      />
     );
   }),
   'Composer',
 );
+
+// We remove 'value, because it is in `editor.children`, no need to have more than one source of truth
+// There is no send button, and no submit on enter, in the BaseComposer.
+type BaseComposerProps = Omit<
+  ComposerProps,
+  'onSubmit' | 'onResetState' | 'value'
+>;
+
+const BaseComposer = forwardRef(function BaseComposer(
+  {
+    placeholder,
+    editor,
+    initialValue,
+    onPaste,
+    onKeyDown,
+    onChange,
+    toolbarItems,
+    extraChildren,
+    popperElement,
+    popperElementVisible,
+    popperOnShouldHide,
+  }: BaseComposerProps,
+  ref: React.ForwardedRef<HTMLElement>,
+) {
+  return (
+    <WithPopper
+      popperElement={popperElement ?? null}
+      popperElementVisible={popperElementVisible ?? false}
+      popperPosition="top-start"
+      onShouldHide={popperOnShouldHide}
+      popperWidth="full"
+    >
+      <ComposerLayout
+        ref={ref}
+        canBeReplaced
+        textEditor={
+          <TextEditor
+            canBeReplaced
+            className="cord-editor"
+            placeholder={placeholder}
+            editor={editor}
+            initialValue={initialValue?.content as MessageContent | undefined}
+            onPaste={onPaste}
+            onChange={onChange}
+            onKeyDown={onKeyDown}
+          />
+        }
+        extraChildren={extraChildren}
+        toolbarItems={toolbarItems}
+      />
+    </WithPopper>
+  );
+});
 
 export type SendButtonProps = {
   onClick: () => void;

@@ -30,4 +30,12 @@ export { EmojiPicker } from './experimental/components/helpers/EmojiPicker.js';
 export { Reactions } from './experimental/components/Reactions.js';
 export { Thread } from './canary/Thread.js';
 export { Message, type MessageProps } from './canary/message/Message.js';
-export { Composer, type ComposerProps } from './canary/composer/Composer.js';
+export {
+  SendComposer,
+  EditComposer,
+  CordComposer,
+  SendButton,
+  type SendButtonProps,
+  type CordComposerProps,
+  type ComposerProps,
+} from './canary/composer/Composer.js';
