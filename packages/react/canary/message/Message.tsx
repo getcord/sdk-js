@@ -121,7 +121,11 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
             message={message}
             threadID={threadID}
             button={
-              <Button buttonAction="show-message-options" type="button">
+              <Button
+                buttonAction="show-message-options"
+                type="button"
+                canBeReplaced
+              >
                 <Icon name="DotsThree" size="large" />
               </Button>
             }
