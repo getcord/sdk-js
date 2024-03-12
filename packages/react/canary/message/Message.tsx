@@ -21,11 +21,13 @@ import { Icon } from '../../components/helpers/Icon.js';
 import { CordContext } from '../../contexts/CordContext.js';
 import { useEditComposer, CordComposer } from '../composer/Composer.js';
 import { EditorCommands } from '../composer/lib/commands.js';
+import type { StyleProps } from '../types.js';
 
 export type MessageProps = {
   message: ClientMessageData;
   threadID: string;
-} & React.HTMLAttributes<HTMLDivElement>;
+} & StyleProps;
+
 export const Message = withCord<React.PropsWithChildren<MessageProps>>(
   forwardRef(function Message(
     { message, threadID, ...restProps }: MessageProps,

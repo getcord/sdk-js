@@ -20,6 +20,7 @@ import {
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { Keys } from '../../common/const/Keys.js';
 
+import type { StyleProps } from '../types.js';
 import { WithPopper } from '../../experimental/components/helpers/WithPopper.js';
 import type { CustomEditor } from '../../slateCustom.js';
 import { onSpace } from './event-handlers/onSpace.js';
@@ -47,7 +48,7 @@ export type SendComposerProps = {
     message: Partial<ClientMessageData>;
   }) => { message: Partial<ClientMessageData> } | null;
   onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
-};
+} & StyleProps;
 
 export type EditComposerProps = {
   initialValue?: Partial<ClientMessageData>;
@@ -58,7 +59,8 @@ export type EditComposerProps = {
     message: Partial<ClientMessageData>;
   }) => { message: Partial<ClientMessageData> } | null;
   onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
-};
+} & StyleProps;
+
 export type CordComposerProps = {
   initialValue?: Partial<ClientMessageData>;
   placeholder?: string;
@@ -90,7 +92,7 @@ export type ComposerProps = {
   popperElement?: JSX.Element;
   popperElementVisible?: boolean;
   popperOnShouldHide?: () => void;
-};
+} & StyleProps;
 
 export function useEditComposer(props: EditComposerProps): ComposerProps {
   const onSubmit = useEditSubmit(props);
@@ -445,6 +447,8 @@ const BaseComposer = forwardRef(function BaseComposer(
     popperElement,
     popperElementVisible,
     popperOnShouldHide,
+    className,
+    style,
   }: BaseComposerProps,
   ref: React.ForwardedRef<HTMLElement>,
 ) {
@@ -473,6 +477,8 @@ const BaseComposer = forwardRef(function BaseComposer(
         }
         extraChildren={extraChildren}
         toolbarItems={toolbarItems}
+        className={className}
+        style={style}
       />
     </WithPopper>
   );
