@@ -80,6 +80,9 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
       },
       [editorProps, setEditing],
     );
+    const onCancel = useCallback(() => {
+      setIsEditing(false);
+    }, []);
 
     if (isEditing) {
       return (
@@ -88,6 +91,7 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
           {...editorProps}
           onSubmit={onEditSubmit}
           onResetState={() => setIsEditing(false)}
+          onCancel={onCancel}
         />
       );
     }

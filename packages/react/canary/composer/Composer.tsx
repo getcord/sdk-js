@@ -48,6 +48,7 @@ export type SendComposerProps = {
     message: Partial<ClientMessageData>;
   }) => { message: Partial<ClientMessageData> } | null;
   onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
+  onCancel?: () => void;
 } & StyleProps;
 
 export type EditComposerProps = {
@@ -59,6 +60,7 @@ export type EditComposerProps = {
     message: Partial<ClientMessageData>;
   }) => { message: Partial<ClientMessageData> } | null;
   onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
+  onCancel?: () => void;
 } & StyleProps;
 
 export type CordComposerProps = {
@@ -69,6 +71,7 @@ export type CordComposerProps = {
   }) => { message: Partial<ClientMessageData> } | null;
   onSubmit: (arg: { message: Partial<ClientMessageData> }) => void;
   onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
+  onCancel?: () => void;
 };
 
 export type ComposerProps = {
@@ -79,6 +82,7 @@ export type ComposerProps = {
   onKeyDown: (event: {
     event: React.KeyboardEvent;
   }) => boolean | undefined | void;
+  onCancel?: () => void;
   onResetState: () => void;
   onPaste: (e: { event: React.ClipboardEvent }) => void;
   initialValue?: Partial<ClientMessageData>;
@@ -336,6 +340,7 @@ export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
       initialValue,
       value,
       onSubmit,
+      onCancel,
       onResetState,
       isValid,
       onKeyDown,
@@ -375,7 +380,7 @@ export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
       value,
     ]);
 
-    const onKeyDownWithSubmit = useCallback(
+    const onKeyDownWithSubmitAndCancel = useCallback(
       (arg: { event: React.KeyboardEvent }) => {
         const preventDefault = onKeyDown(arg);
         if (preventDefault) {
@@ -399,11 +404,15 @@ export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
             return true;
           }
         }
+        if (event.key === Keys.ESCAPE) {
+          return onCancel?.();
+        }
         return false;
       },
       [
         isValid,
         onSubmit,
+        onCancel,
         onResetState,
         editor.children,
         onKeyDown,
@@ -418,7 +427,7 @@ export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
         {...rest}
         isValid={isValid}
         editor={editor}
-        onKeyDown={onKeyDownWithSubmit}
+        onKeyDown={onKeyDownWithSubmitAndCancel}
         toolbarItems={toolbarItemsWithDefault}
         initialValue={initialValue}
       />
