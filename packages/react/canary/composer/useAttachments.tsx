@@ -57,8 +57,7 @@ function updateAttachment(
   attachment: Partial<MessageFileAttachment>,
 ): MessageFileAttachment[] | null {
   const newAttachments = [...attachments];
-  // ONI-TODO:This is wrong. An already uploaded image may have the same name.
-  const uploadedFile = newAttachments.find((a) => a.name === attachment.name);
+  const uploadedFile = newAttachments.find((a) => a.id === attachment.id);
   if (!uploadedFile) {
     return null;
   }

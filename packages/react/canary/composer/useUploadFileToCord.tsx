@@ -22,12 +22,14 @@ export function useUploadFileToCord(
         void uploadPromise.then(
           ({ url }) =>
             editAttachment({
+              id,
               name: file.name,
               uploadStatus: 'uploaded',
               url,
             }),
           () =>
             editAttachment({
+              id,
               name: file.name,
               uploadStatus: 'failed',
             }),
