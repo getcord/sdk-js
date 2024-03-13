@@ -24,12 +24,18 @@ import { isUserReferenceNode } from '../../../canary/composer/lib/util.js';
 const ROW_HEIGHT = 40;
 const MAX_ROWS_TO_SHOW = 5;
 
-export function useMentionList({ editor: originalEditor }: { editor: Editor }) {
+export function useMentionList({
+  editor: originalEditor,
+  groupID,
+}: {
+  editor: Editor;
+  groupID: string;
+}) {
   const [editor] = useState(() => withUserReferences(originalEditor));
   const viewer = useViewerData();
   const searchResults = useSearchUsers({
     searchQuery: getSearchQuery(editor),
-    groupID: viewer?.groupID ?? undefined,
+    groupID,
   });
   const { usersToShow: users } = getUserReferenceSuggestions({
     allUsers: searchResults?.users ?? [],
@@ -67,6 +73,7 @@ export function useMentionList({ editor: originalEditor }: { editor: Editor }) {
       );
       setUserReferenceRange(undefined);
       editor.insertText(' ');
+      console.log(editor);
       ReactEditor.focus(editor);
     }
   }, [users, selectedUserReferenceIndex, userReferenceRange, editor]);

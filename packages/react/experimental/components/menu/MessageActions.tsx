@@ -41,7 +41,6 @@ export const MessageActions = withCord<MessageActionsProps>(
     const { thread } = useThread(threadID);
 
     const onEditButtonClicked = useCallback(() => {
-      console.log('onEditButtonClicked');
       setEditing(true);
       closeMenu();
     }, [closeMenu, setEditing]);

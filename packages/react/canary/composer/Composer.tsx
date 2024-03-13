@@ -36,6 +36,7 @@ import type { UseTextEditorProps } from './TextEditor.js';
 import { ComposerLayout } from './ComposerLayout.js';
 import { useCreateSubmit, useEditSubmit } from './useSubmit.js';
 import { useAddMentionToComposer } from './useMentionList.js';
+import { thread } from '@cord-sdk/react';
 
 const EMPTY_ATTACHMENTS: MessageAttachment[] = [];
 
@@ -72,6 +73,7 @@ export type CordComposerProps = {
   onSubmit: (arg: { message: Partial<ClientMessageData> }) => void;
   onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
   onCancel?: () => void;
+  groupID: string;
 };
 
 export type ComposerProps = {
@@ -96,16 +98,29 @@ export type ComposerProps = {
   popperElement?: JSX.Element;
   popperElementVisible?: boolean;
   popperOnShouldHide?: () => void;
+  groupID: string;
 } & StyleProps;
 
 export function useEditComposer(props: EditComposerProps): ComposerProps {
   const onSubmit = useEditSubmit(props);
-  return useCordComposer({ ...props, onSubmit });
+  const { thread: threadData } = thread.useThread(props.threadId);
+
+  return useCordComposer({
+    ...props,
+    onSubmit,
+    groupID: threadData?.groupID ?? '',
+  });
 }
 
 export function useSendComposer(props: SendComposerProps): ComposerProps {
   const onSubmit = useCreateSubmit(props);
-  return useCordComposer({ ...props, onSubmit });
+  const { thread: threadData } = thread.useThread(props.threadId ?? '');
+
+  return useCordComposer({
+    ...props,
+    onSubmit,
+    groupID: props.createThread?.groupID ?? threadData?.groupID ?? '',
+  });
 }
 
 export const SendComposer = (props: SendComposerProps) => {
@@ -116,7 +131,8 @@ export const EditComposer = (props: EditComposerProps) => {
 };
 
 export function useCordComposer(props: CordComposerProps): ComposerProps {
-  const { onSubmit, initialValue, onAfterSubmit, onBeforeSubmit } = props;
+  const { onSubmit, initialValue, onAfterSubmit, onBeforeSubmit, groupID } =
+    props;
   const initialAttachments =
     initialValue?.attachments as MessageFileAttachment[];
 
@@ -132,6 +148,7 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
   const mentionProps = useAddMentionToComposer({
     editor,
     isEmpty,
+    groupID,
   });
 
   const onChange = useCallback(
@@ -232,11 +249,12 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
     popperOnShouldHide: mentionProps.popperOnShouldHide,
     initialValue,
     value,
+    groupID,
   };
 }
 export function useComposer(
   props: UseTextEditorProps,
-): Omit<ComposerProps, 'onSubmit'> {
+): Omit<ComposerProps, 'onSubmit' | 'groupID'> {
   const simpleComposer = useTextEditor(props);
   const { editor } = simpleComposer;
   const onKeyDown = useCallback(

@@ -12,7 +12,7 @@ import { EditorCommands } from './lib/commands.js';
 import type { ComposerProps } from './Composer.js';
 
 export function useAddMentionToComposer(
-  options: Pick<ComposerProps, 'editor' | 'isEmpty'>,
+  options: Pick<ComposerProps, 'editor' | 'isEmpty' | 'groupID'>,
 ): Pick<
   ComposerProps,
   | 'toolbarItems'
@@ -23,9 +23,10 @@ export function useAddMentionToComposer(
   | 'popperElementVisible'
   | 'popperOnShouldHide'
 > {
-  const { editor, isEmpty } = options;
+  const { editor, isEmpty, groupID } = options;
   const mentionList = useMentionList({
     editor,
+    groupID,
   });
   const onKeyDown = useCallback(
     (args: { event: React.KeyboardEvent }) => {
