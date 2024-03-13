@@ -22,6 +22,8 @@ import { CordContext } from '../../contexts/CordContext.js';
 import { useEditComposer, CordComposer } from '../composer/Composer.js';
 import { EditorCommands } from '../composer/lib/commands.js';
 import type { StyleProps } from '../types.js';
+import { useUserData } from '../../hooks/user.js';
+import { Username } from './Username.js';
 
 export type MessageProps = {
   message: ClientMessageData;
@@ -84,6 +86,8 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
       setIsEditing(false);
     }, []);
 
+    const authorData = useUserData(message.authorID);
+
     if (isEditing) {
       return (
         <CordComposer
@@ -112,6 +116,7 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
             canBeReplaced
           />
         }
+        authorName={<Username canBeReplaced userData={authorData} />}
         timestamp={
           <Timestamp
             canBeReplaced
@@ -168,6 +173,7 @@ export type MessageLayoutProps = {
   timestamp: JSX.Element;
   optionsMenu: JSX.Element;
   reactions: JSX.Element;
+  authorName: JSX.Element;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 /**
@@ -189,12 +195,14 @@ export const MessageLayout = withCord<MessageLayoutProps>(
       emojiPicker,
       messageContent,
       reactions,
+      authorName,
       className,
       ...restProps
     } = props;
     return (
       <div {...restProps} className={cx(className, classes.message)} ref={ref}>
         {avatar}
+        {authorName}
         {timestamp}
         <div className={classes.optionsMenuTrigger}>
           <div className="cord-message-options-buttons">

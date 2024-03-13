@@ -13,6 +13,10 @@ import type {
 } from '../../canary/message/Message.js';
 import type { ThreadHeaderProps, ThreadProps } from '../../canary/Thread.js';
 import type {
+  UsernameProps,
+  UsernameTooltipProps,
+} from '../../canary/message/Username.js';
+import type {
   AvatarFallbackProps,
   AvatarProps,
   AvatarTooltipProps,
@@ -77,6 +81,8 @@ export type ReplaceConfigBase = Partial<{
   Reactions: React.ComponentType<ReactionsProps>;
   Thread: React.ComponentType<ThreadProps>;
   ThreadHeader: React.ComponentType<ThreadHeaderProps>;
+  Username: React.ComponentType<UsernameProps>;
+  UsernameTooltip: React.ComponentType<UsernameTooltipProps>;
 }>;
 
 type ReplaceWithin = Partial<{

@@ -6,3 +6,4 @@ import './message/MessageText.css';
 import './editor/editor.css';
 import './Separator.css';
 import './MessageTimestamp.css';
+import './../canary/message/Username.css';
