@@ -1,8 +1,6 @@
 import * as React from 'react';
-import type { HTMLProps } from 'react';
 import isHotkey from 'is-hotkey';
 import { forwardRef, useCallback, useMemo } from 'react';
-import cx from 'classnames';
 import { ReactEditor } from 'slate-react';
 import type {
   ClientCreateThread,
@@ -11,12 +9,6 @@ import type {
   MessageContent,
   MessageFileAttachment,
 } from '@cord-sdk/types';
-import { Button } from '../../experimental/components/helpers/Button.js';
-import {
-  colorsPrimary,
-  sendButton,
-  small,
-} from '../../components/helpers/Button.classnames.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { Keys } from '../../common/const/Keys.js';
 
@@ -36,6 +28,7 @@ import type { UseTextEditorProps } from './TextEditor.js';
 import { ComposerLayout } from './ComposerLayout.js';
 import { useCreateSubmit, useEditSubmit } from './hooks/useSubmit.js';
 import { useAddMentionToComposer } from './hooks/useMentionList.js';
+import { SendButton } from './SendButton.js';
 import { thread } from '@cord-sdk/react';
 
 const EMPTY_ATTACHMENTS: MessageAttachment[] = [];
@@ -510,26 +503,3 @@ const BaseComposer = forwardRef(function BaseComposer(
     </WithPopper>
   );
 });
-
-export type SendButtonProps = {
-  onClick: () => void;
-} & HTMLProps<HTMLButtonElement>;
-export const SendButton = withCord(
-  forwardRef(function SendButton(
-    { onClick, className, ...restProps }: SendButtonProps,
-    ref: React.ForwardedRef<HTMLButtonElement>,
-  ) {
-    return (
-      <Button
-        className={cx(className, sendButton, colorsPrimary, small)}
-        buttonAction="send-message"
-        onClick={onClick}
-        icon="ArrowRight"
-        {...restProps}
-        type="button"
-        ref={ref}
-      />
-    );
-  }),
-  'SendButton',
-);

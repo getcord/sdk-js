@@ -34,8 +34,11 @@ export {
   SendComposer,
   EditComposer,
   CordComposer,
-  SendButton,
-  type SendButtonProps,
   type CordComposerProps,
   type ComposerProps,
 } from './canary/composer/Composer.js';
+
+export {
+  SendButton,
+  type SendButtonProps,
+} from './canary/composer/SendButton.js';
