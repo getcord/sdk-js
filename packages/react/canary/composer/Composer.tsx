@@ -30,12 +30,12 @@ import { onArrow } from './event-handlers/onArrowPress.js';
 import { onTab } from './event-handlers/onTab.js';
 import { onShiftEnter } from './event-handlers/onShiftEnter.js';
 import { EditorCommands, HOTKEYS } from './lib/commands.js';
-import { useAddAttachmentToComposer } from './useAttachments.js';
+import { useAddAttachmentToComposer } from './hooks/useAttachments.js';
 import { TextEditor, useTextEditor } from './TextEditor.js';
 import type { UseTextEditorProps } from './TextEditor.js';
 import { ComposerLayout } from './ComposerLayout.js';
-import { useCreateSubmit, useEditSubmit } from './useSubmit.js';
-import { useAddMentionToComposer } from './useMentionList.js';
+import { useCreateSubmit, useEditSubmit } from './hooks/useSubmit.js';
+import { useAddMentionToComposer } from './hooks/useMentionList.js';
 import { thread } from '@cord-sdk/react';
 
 const EMPTY_ATTACHMENTS: MessageAttachment[] = [];

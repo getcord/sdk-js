@@ -8,7 +8,7 @@ import type {
   MessageFileAttachment,
 } from '@cord-sdk/types';
 
-import { CordContext } from '../../contexts/CordContext.js';
+import { CordContext } from '../../../contexts/CordContext.js';
 
 const EMPTY_ATTACHMENTS: MessageAttachment[] = [];
 

@@ -1,7 +1,7 @@
 import type { UploadedFile } from '@cord-sdk/types';
 import { useCallback, useContext } from 'react';
-import { readFileAsync } from '../../common/lib/uploads.js';
-import { CordContext } from '../../contexts/CordContext.js';
+import { readFileAsync } from '../../../common/lib/uploads.js';
+import { CordContext } from '../../../contexts/CordContext.js';
 
 export function useUploadFileToCord(
   editAttachment: (attachment: Partial<UploadedFile>) => void,

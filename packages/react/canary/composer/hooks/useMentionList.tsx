@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { useCallback, useMemo } from 'react';
 import cx from 'classnames';
-import { Button } from '../../experimental/components/helpers/Button.js';
+import { Button } from '../../../experimental/components/helpers/Button.js';
 import {
   colorsTertiary,
   medium,
-} from '../../components/helpers/Button.classnames.js';
+} from '../../../components/helpers/Button.classnames.js';
 
-import { useMentionList } from '../../experimental/components/composer/MentionList.js';
-import { EditorCommands } from './lib/commands.js';
-import type { ComposerProps } from './Composer.js';
+import { useMentionList } from '../../../experimental/components/composer/MentionList.js';
+import { EditorCommands } from '../lib/commands.js';
+import type { ComposerProps } from '../Composer.js';
 
 export function useAddMentionToComposer(
   options: Pick<ComposerProps, 'editor' | 'isEmpty' | 'groupID'>,

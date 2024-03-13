@@ -8,7 +8,7 @@ import {
   medium,
 } from '../../components/helpers/Button.classnames.js';
 import type { CustomEditor } from '../../slateCustom.js';
-import { useUploadFileToCord } from './useUploadFileToCord.js';
+import { useUploadFileToCord } from './hooks/useUploadFileToCord.js';
 
 export const AddAttachmentsButton = ({
   editAttachment,

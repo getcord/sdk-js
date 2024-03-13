@@ -2,11 +2,11 @@ import * as React from 'react';
 import type { MessageFileAttachment } from '@cord-sdk/types';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { ComposerFileAttachments } from '../../components/composer/ComposerFileAttachments.js';
-import type { CustomEditor } from '../../slateCustom.js';
-import { AddAttachmentsButton } from './AddAttachments.js';
+import { ComposerFileAttachments } from '../../../components/composer/ComposerFileAttachments.js';
+import type { CustomEditor } from '../../../slateCustom.js';
+import { AddAttachmentsButton } from '../AddAttachments.js';
+import type { ComposerProps } from '../Composer.js';
 import { useUploadFileToCord } from './useUploadFileToCord.js';
-import type { ComposerProps } from './Composer.js';
 
 const EMPTY_ARRAY: MessageFileAttachment[] = [];
 
