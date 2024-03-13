@@ -334,7 +334,7 @@ export interface ThreadObserverOptions {
 export type ObserveThreadSummaryOptions = ThreadObserverOptions;
 export type ObserveThreadDataOptions = ThreadObserverOptions;
 
-export type ViewerThreadStatus = 'subscribed';
+export type ViewerThreadStatus = 'subscribed' | 'mentioned';
 export type ResolvedStatus = 'any' | 'resolved' | 'unresolved';
 export type LocationFilterOptions = {
   /**
