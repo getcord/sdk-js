@@ -208,6 +208,11 @@ export interface CoreThreadData {
   repliers: UserID[];
 
   /**
+   * All of the users who were mentioned in a message in this thread.
+   */
+  mentioned: UserID[];
+
+  /**
    * Authors of any message of type `action_message` in this thread's replies, including
    * automatically generated messages from resolving or unresolving the thread.
    */
@@ -554,6 +559,7 @@ export interface ClientCreateThread
         | 'resolved'
         | 'resolvedTimestamp'
         | 'participants'
+        | 'mentioned'
         | 'repliers'
         | 'actionMessageRepliers'
         | 'typing'
@@ -1218,6 +1224,7 @@ export type ServerUpdateThread = Partial<
     | 'repliers'
     | 'actionMessageRepliers'
     | 'subscribers'
+    | 'mentioned'
   > & {
     /**
      * Certain changes to the thread may post a message into the thread -- in
@@ -1273,6 +1280,7 @@ export interface ServerCreateThread
         | 'resolved'
         | 'resolvedTimestamp'
         | 'participants'
+        | 'mentioned'
         | 'repliers'
         | 'actionMessageRepliers'
         | 'typing'
