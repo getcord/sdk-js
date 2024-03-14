@@ -16,7 +16,12 @@ export { Facepile } from './experimental/components/Facepile.js';
 export { PresenceFacepile } from './experimental/components/PresenceFacepile.js';
 export { PresenceObserver } from './experimental/components/PresenceObserver.js';
 export { PagePresence } from './experimental/components/PagePresence.js';
-export { AddReactionButton } from './experimental/components/AddReactionButton.js';
+export {
+  ReactionPickButton,
+  AddReactionToMessageButton,
+  type ReactionPickButtonProps,
+  type AddReactionToMessageButtonProps,
+} from './experimental/components/ReactionPickButton.js';
 export { Button } from './experimental/components/helpers/Button.js';
 export { Menu, type MenuProps } from './experimental/components/menu/Menu.js';
 export { OptionsMenu } from './experimental/components/menu/OptionsMenu.js';

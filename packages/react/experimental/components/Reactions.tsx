@@ -1,7 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 
-import { forwardRef, useCallback, useContext, useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 import type {
   ClientMessageData,
   Reaction,
@@ -13,10 +13,13 @@ import {
 } from '../../common/util.js';
 import { useUsersByReactions } from '../../common/effects/useUsersByReactions.js';
 import { useMessage, useThread } from '../../hooks/thread.js';
-import { useCordTranslation, CordContext } from '../../index.js';
+import { useCordTranslation } from '../../index.js';
 import * as classes from '../../components/Reactions.classnames.js';
 import { useViewerData } from '../../hooks/user.js';
-import { AddReactionButton } from './AddReactionButton.js';
+import {
+  AddReactionToMessageButton,
+  useAddRemoveReaction,
+} from './ReactionPickButton.js';
 import withCord from './hoc/withCord.js';
 import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
 import { ReactionPill } from './message/ReactionPill.js';
@@ -48,11 +51,10 @@ export const Reactions = withCord<React.PropsWithChildren<ReactionsProps>>(
       return (
         <>
           {showAddReactionButton && (
-            <AddReactionButton
-              onDeleteReaction={() => {}}
-              onAddReaction={() => {}}
+            <AddReactionToMessageButton
+              threadID={threadId}
+              messageID={messageId}
               disabled={true}
-              canBeReplaced
             />
           )}
         </>
@@ -109,42 +111,21 @@ const ReactionsInner = forwardRef(function ReactionsImpl(
   const viewerData = useViewerData();
 
   const usersByReaction = useUsersByReactions(reactions);
-  const { sdk: cordSDK } = useContext(CordContext);
-  const threadSDK = cordSDK?.thread;
-
-  const onAddReaction = useCallback(
-    (unicodeReaction: string) => {
-      if (threadSDK && thread.id && message.id) {
-        void threadSDK.updateMessage(thread.id, message.id, {
-          addReactions: [unicodeReaction],
-        });
-      }
-    },
-    [message.id, thread.id, threadSDK],
-  );
-
-  const onDeleteReaction = useCallback(
-    (unicodeReaction: string) => {
-      if (threadSDK && thread.id && message.id) {
-        void threadSDK.updateMessage(thread.id, message.id, {
-          removeReactions: [unicodeReaction],
-        });
-      }
-    },
-    [message.id, thread.id, threadSDK],
-  );
+  const { onAddReaction, onDeleteReaction } = useAddRemoveReaction({
+    threadID: thread.id,
+    messageID: message.id,
+  });
 
   const addReactionButton = useMemo(() => {
     return (
       <WithTooltip tooltip={<AddReactionsButtonTooltip />}>
-        <AddReactionButton
-          onAddReaction={onAddReaction}
-          onDeleteReaction={onDeleteReaction}
-          messageId={message.id}
+        <AddReactionToMessageButton
+          messageID={message.id}
+          threadID={thread.id}
         />
       </WithTooltip>
     );
-  }, [message.id, onAddReaction, onDeleteReaction]);
+  }, [message.id, thread.id]);
   return (
     <div className={cx(classes.reactionsContainer, className)} ref={ref}>
       {showReactionList ? (

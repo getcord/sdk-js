@@ -41,7 +41,7 @@ import type { MessageActionsProps } from './menu/MessageActions.js';
 import type { TimestampProps } from './Timestamp.js';
 import type { EmojiPickerProps } from './helpers/EmojiPicker.js';
 import type { ReactionsProps } from './Reactions.js';
-import type { AddReactionButtonProps } from './AddReactionButton.js';
+import type { ReactionPickButtonProps } from './ReactionPickButton.js';
 
 export type ReplaceConfig = ReplaceConfigBase & ReplaceWithin;
 
@@ -52,7 +52,7 @@ export type ReplaceConfigBase = Partial<{
   AvatarTooltip: React.ComponentType<AvatarTooltipProps>;
   Facepile: React.ComponentType<FacepileProps>;
   PresenceFacepile: React.ComponentType<PresenceFacepileProps>;
-  AddReactionButton: React.ComponentType<AddReactionButtonProps>;
+  ReactionButton: React.ComponentType<ReactionPickButtonProps>;
   Button: React.ComponentType<GeneralButtonProps>;
   PagePresence: React.ComponentType<PagePresenceProps>;
   OptionsMenu: React.ComponentType<OptionsMenuProps>;

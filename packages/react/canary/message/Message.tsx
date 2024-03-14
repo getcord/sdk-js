@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { forwardRef, useCallback, useContext, useState } from 'react';
+import { forwardRef, useCallback, useState } from 'react';
 import cx from 'classnames';
 import type {
   MessageContent as MessageContentType,
@@ -14,15 +14,14 @@ import {
   MessageContent,
   OptionsMenu,
   Timestamp,
-  AddReactionButton,
   Reactions,
 } from '../../experimental.js';
 import { Icon } from '../../components/helpers/Icon.js';
-import { CordContext } from '../../contexts/CordContext.js';
 import { useEditComposer, CordComposer } from '../composer/Composer.js';
 import { EditorCommands } from '../composer/lib/commands.js';
 import type { StyleProps } from '../types.js';
 import { useUserData } from '../../hooks/user.js';
+import { AddReactionToMessageButton } from '../../experimental/components/ReactionPickButton.js';
 import { Username } from './Username.js';
 
 export type MessageProps = {
@@ -35,30 +34,8 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
     { message, threadID, ...restProps }: MessageProps,
     ref: React.ForwardedRef<HTMLElement>,
   ) {
-    const { sdk: cordSDK } = useContext(CordContext);
-    const threadSDK = cordSDK?.thread;
     const [isEditing, setIsEditing] = useState(false);
-    const onAddReaction = useCallback(
-      (unicodeReaction: string) => {
-        if (threadSDK && threadID && message.id) {
-          void threadSDK.updateMessage(threadID, message.id, {
-            addReactions: [unicodeReaction],
-          });
-        }
-      },
-      [message.id, threadID, threadSDK],
-    );
 
-    const onDeleteReaction = useCallback(
-      (unicodeReaction: string) => {
-        if (threadSDK && threadID && message.id) {
-          void threadSDK.updateMessage(threadID, message.id, {
-            removeReactions: [unicodeReaction],
-          });
-        }
-      },
-      [message.id, threadID, threadSDK],
-    );
     const editorProps = useEditComposer({
       threadId: threadID,
       messageId: message.id,
@@ -144,11 +121,9 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
           />
         }
         emojiPicker={
-          <AddReactionButton
-            canBeReplaced
-            messageId={message.id}
-            onAddReaction={onAddReaction}
-            onDeleteReaction={onDeleteReaction}
+          <AddReactionToMessageButton
+            messageID={message.id}
+            threadID={threadID}
           />
         }
         reactions={
