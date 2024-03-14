@@ -13,7 +13,7 @@ const propsToAttributes = propsToAttributeConverter(
 export type MessageContentReactComponentProps = {
   content?: object[] | null | undefined;
   attachments?: MessageAttachment[];
-  edited: boolean;
+  edited?: boolean;
 };
 
 export function MessageContent(
