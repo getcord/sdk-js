@@ -7,6 +7,7 @@ import type {
 } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as classes from '../../components/Message.classnames.js';
+import * as buttonClasses from '../../components/helpers/Button.classnames.js';
 
 import {
   Avatar,
@@ -16,7 +17,6 @@ import {
   Timestamp,
   Reactions,
 } from '../../experimental.js';
-import { Icon } from '../../components/helpers/Icon.js';
 import { useEditComposer, CordComposer } from '../composer/Composer.js';
 import { EditorCommands } from '../composer/lib/commands.js';
 import type { StyleProps } from '../types.js';
@@ -110,10 +110,10 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
               <Button
                 buttonAction="show-message-options"
                 type="button"
+                icon="DotsThree"
+                className={buttonClasses.small}
                 canBeReplaced
-              >
-                <Icon name="DotsThree" size="large" />
-              </Button>
+              />
             }
             showThreadOptions
             showMessageOptions
