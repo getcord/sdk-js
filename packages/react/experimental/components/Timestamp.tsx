@@ -72,7 +72,7 @@ export const Timestamp = withCord<React.PropsWithChildren<TimestampProps>>(
   'Timestamp',
 );
 
-type TimestampTooltipProps = {
+export type TimestampTooltipProps = {
   label: string;
 };
 
