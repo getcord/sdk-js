@@ -132,7 +132,7 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
             messageId={message.id}
             threadId={threadID}
             showReactionList
-            showAddReactionButton
+            showAddReactionButton={message.reactions.length > 0}
           />
         }
         {...restProps}
