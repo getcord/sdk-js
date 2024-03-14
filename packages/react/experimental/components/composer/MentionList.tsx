@@ -1,11 +1,9 @@
 import type { ClientUserData } from '@cord-sdk/types';
 import type { CSSProperties } from 'react';
 import * as React from 'react';
-import { useEffect, useRef, useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import type { Editor } from 'slate';
 import { Range, Node, Text } from 'slate';
-import type { FixedSizeList } from 'react-window';
-import { FixedSizeList as List } from 'react-window';
 import { ReactEditor } from 'slate-react';
 import { userReferenceSuggestionsMenu } from '../../../components/Composer.classnames.js';
 import { useCordTranslation } from '../../../index.js';
@@ -201,12 +199,6 @@ function MentionList({
   setUserReferenceIndex,
   onSuggestionClicked,
 }: MentionListProps) {
-  const listRef = useRef<FixedSizeList>(null);
-
-  useEffect(() => {
-    listRef.current?.scrollToItem(selectedIndex);
-  }, [selectedIndex]);
-
   const userMentionRowProps: UserMentionRowProps = useMemo(
     () => ({
       users,
@@ -224,16 +216,21 @@ function MentionList({
         {
           name: 'mention-list',
           element: (
-            <List
-              ref={listRef}
-              height={Math.min(users.length, MAX_ROWS_TO_SHOW) * ROW_HEIGHT}
-              itemSize={ROW_HEIGHT}
-              width="100%"
-              itemCount={users.length}
-              itemData={userMentionRowProps}
+            <div
+            // [ONI-TODO] Virtualize this list, and show all users.
+            // See #8484
             >
-              {UserMentionRow}
-            </List>
+              {users.slice(0, MAX_ROWS_TO_SHOW).map((user, i) => {
+                return (
+                  <UserMentionRow
+                    key={user.id}
+                    data={userMentionRowProps}
+                    index={i}
+                    style={{ height: ROW_HEIGHT }}
+                  />
+                );
+              })}
+            </div>
           ),
         },
       ]}
