@@ -267,6 +267,12 @@ export const EditorCommands = {
     this.focusAndMoveCursorForward(editor, insertionPoint, textToAdd.length);
   },
 
+  addEmoji(editor: Editor, selection: Range | null, emoji: string) {
+    const insertionPoint = selection?.focus ?? EMPTY_LOCATION.focus;
+    Transforms.insertNodes(editor, { text: emoji }, { at: insertionPoint });
+    this.focusAndMoveCursorForward(editor, insertionPoint);
+  },
+
   addTodo(
     editor: Editor,
     selection: Range | null,

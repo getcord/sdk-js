@@ -49,8 +49,8 @@ export const EmojiPicker = withCord<React.PropsWithChildren<EmojiPickerProps>>(
         const {
           detail: { unicode: emoji },
         } = event as EmojiEvent;
-        props.onClickEmoji(emoji);
         props.onClose();
+        props.onClickEmoji(emoji);
       },
       [props],
     );

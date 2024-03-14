@@ -9,10 +9,12 @@ import type {
   MessageContent,
   MessageFileAttachment,
 } from '@cord-sdk/types';
+import * as buttonClasses from '../../components/helpers/Button.classnames.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { Keys } from '../../common/const/Keys.js';
 
 import type { StyleProps } from '../types.js';
+import { ReactionPickButton } from '../../experimental.js';
 import { WithPopper } from '../../experimental/components/helpers/WithPopper.js';
 import type { CustomEditor } from '../../slateCustom.js';
 import { onSpace } from './event-handlers/onSpace.js';
@@ -358,9 +360,25 @@ export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
       toolbarItems,
       ...rest
     } = props;
+
+    const insertEmoji = useCallback(
+      (emoji: string) => {
+        EditorCommands.addEmoji(editor, editor.selection, emoji);
+      },
+      [editor],
+    );
     const toolbarItemsWithDefault = useMemo(() => {
       return [
         ...(toolbarItems ?? []),
+        {
+          name: 'addEmoji',
+          element: (
+            <ReactionPickButton
+              className={buttonClasses.colorsTertiary}
+              onReactionClick={insertEmoji}
+            />
+          ),
+        },
         {
           name: 'sendButton',
           element: (
@@ -385,6 +403,7 @@ export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
       editor.children,
       onSubmit,
       onResetState,
+      insertEmoji,
       isValid,
       toolbarItems,
       initialValue,
