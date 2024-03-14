@@ -7,6 +7,7 @@ import type {
   MessageID,
   OrganizationID,
   PaginationParams,
+  ResolvedStatus,
   ThreadID,
   UserID,
 } from './core.js';
@@ -335,7 +336,6 @@ export type ObserveThreadSummaryOptions = ThreadObserverOptions;
 export type ObserveThreadDataOptions = ThreadObserverOptions;
 
 export type ViewerThreadStatus = 'subscribed' | 'mentioned';
-export type ResolvedStatus = 'any' | 'resolved' | 'unresolved';
 export type LocationFilterOptions = {
   /**
    * The [Location](https://docs.cord.com/reference/location) of the threads.

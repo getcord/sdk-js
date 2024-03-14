@@ -113,6 +113,8 @@ export type TimestampRange = {
   to?: Date;
 };
 
+export type ResolvedStatus = 'any' | 'resolved' | 'unresolved';
+
 export type FilterParameters = {
   /**
    * Return only threads at this location.
@@ -158,4 +160,13 @@ export type FilterParameters = {
    * Return only threads created by this user.
    */
   authorID?: string;
+
+  /**
+   * If set to `resolved`, only resolved threads will be returned. If set to `unresolved`,
+   * only unresolved threads will be returned. If set to `any`, both resolved and
+   * unresolved threads will be returned.
+   *
+   * If unset, defaults to `any`.
+   */
+  resolvedStatus?: ResolvedStatus;
 };

@@ -517,6 +517,7 @@ export default {
             additionalProperties: { type: ['string', 'number', 'boolean'] },
             propertyOrder: [],
           },
+          resolved: { type: 'boolean' },
           organizationID: {
             description: 'The organization ID this thread is in.',
             type: 'string',
@@ -525,7 +526,6 @@ export default {
             description: 'The group ID this thread is in.',
             type: 'string',
           },
-          resolved: { type: 'boolean' },
           extraClassnames: {
             description:
               'An optional space separated list of classnames to add to the thread.',
@@ -543,9 +543,9 @@ export default {
           'url',
           'name',
           'metadata',
+          'resolved',
           'organizationID',
           'groupID',
-          'resolved',
           'extraClassnames',
           'addSubscribers',
         ],
@@ -1601,6 +1601,12 @@ export default {
             additionalProperties: false,
             propertyOrder: ['from', 'to'],
           },
+          resolvedStatus: {
+            description:
+              'If set to `resolved`, only resolved threads will be returned. If set to `unresolved`,\nonly unresolved threads will be returned. If set to `any`, both resolved and\nunresolved threads will be returned.\n\nIf unset, defaults to `any`.',
+            enum: ['any', 'resolved', 'unresolved'],
+            type: 'string',
+          },
         },
         additionalProperties: false,
         propertyOrder: [
@@ -1609,6 +1615,7 @@ export default {
           'groupID',
           'firstMessageTimestamp',
           'mostRecentMessageTimestamp',
+          'resolvedStatus',
         ],
       },
     },
