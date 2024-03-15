@@ -143,3 +143,8 @@ export {
   type UsernameProps,
   type UsernameTooltipProps,
 } from './canary/message/Username.js';
+
+export {
+  WithPopper,
+  type WithPopperProps,
+} from './experimental/components/helpers/WithPopper.js';

@@ -19,7 +19,7 @@ import { useComposedRefs } from '../../../common/lib/composeRefs.js';
 
 const DEFAULT_POSITION: PopperPosition = 'top';
 
-type Props = PropsWithChildren<
+export type WithPopperProps = PropsWithChildren<
   {
     popperElement: JSX.Element | null;
     popperElementVisible: boolean;
@@ -42,7 +42,7 @@ export const WithPopper = forwardRef(function WithPopper(
     withBlockingOverlay = false,
     offset = 0,
     ...divProps
-  }: Props,
+  }: WithPopperProps,
   ref: ForwardedRef<unknown>,
 ) {
   const {
