@@ -110,7 +110,7 @@ async function rollupConfig() {
         /dayjs\/locale\/.*[.]js/,
       ],
     }),
-    packageBuildConfig('server'),
+    packageBuildConfig('server', { extraExternal: ['crypto'] }),
     packageBuildConfig('api-types', {
       extraCopyTargets: [
         // Copy the generated schema.json into the dist folder
