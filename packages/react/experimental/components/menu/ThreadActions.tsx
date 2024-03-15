@@ -33,6 +33,7 @@ export function ThreadActions({
     <>
       {!!markThreadAsRead && (
         <MenuItem
+          canBeReplaced
           menuItemAction={'thread-mark-as-read'}
           leftItem={<Icon name="Archive" size="large" />}
           label={t('mark_as_read_action')}
@@ -44,6 +45,7 @@ export function ThreadActions({
         />
       )}
       <MenuItem
+        canBeReplaced
         menuItemAction={subscribed ? 'thread-unsubscribe' : 'thread-subscribe'}
         label={t(subscribed ? 'unsubscribe_action' : 'subscribe_action')}
         leftItem={
@@ -64,6 +66,7 @@ export function ThreadActions({
       />
       {!thread.resolved && (
         <MenuItem
+          canBeReplaced
           menuItemAction={'thread-resolve'}
           label={t('resolve_action')}
           leftItem={<Icon name="CheckCircle" size="large" />}

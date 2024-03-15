@@ -21,6 +21,7 @@ export const SendButton = withCord(
   ) {
     return (
       <Button
+        canBeReplaced
         className={cx(className, sendButton, colorsPrimary, small)}
         buttonAction="send-message"
         onClick={onClick}

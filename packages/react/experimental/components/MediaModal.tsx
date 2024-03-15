@@ -86,7 +86,7 @@ export const MediaModal = withCord<React.PropsWithChildren<MediaModalProps>>(
     }, [showNext, showPrev]);
 
     return (
-      <Overlay onClick={closeModal} ref={ref}>
+      <Overlay onClick={closeModal} ref={ref} canBeReplaced>
         <div className={classes.topBanner} onClick={(e) => e.stopPropagation()}>
           {banner && (
             <>
@@ -111,6 +111,7 @@ export const MediaModal = withCord<React.PropsWithChildren<MediaModalProps>>(
                 tooltip={<CopyLinkTooltip isClicked={copyButtonClicked} />}
               >
                 <Button
+                  canBeReplaced
                   icon="LinkSimple"
                   buttonAction="copy-image-link"
                   className={cx(colorsSecondary, medium)}
@@ -122,6 +123,7 @@ export const MediaModal = withCord<React.PropsWithChildren<MediaModalProps>>(
               </WithTooltip>
 
               <Button
+                canBeReplaced
                 buttonAction="close-image-modal"
                 className={cx(colorsSecondary, medium)}
                 icon="X"
@@ -132,6 +134,7 @@ export const MediaModal = withCord<React.PropsWithChildren<MediaModalProps>>(
         </div>
         {medias.length > 1 && (
           <Button
+            canBeReplaced
             className={cx(colorsPrimary, medium)}
             buttonAction="show-previous-image"
             onClick={(e) => {
@@ -163,6 +166,7 @@ export const MediaModal = withCord<React.PropsWithChildren<MediaModalProps>>(
         </div>
         {medias.length > 1 && (
           <Button
+            canBeReplaced
             buttonAction="show-next-image"
             className={cx(colorsPrimary, medium)}
             onClick={(e) => {

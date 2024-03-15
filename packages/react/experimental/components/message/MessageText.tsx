@@ -183,6 +183,7 @@ export function RenderNode({
     case MessageNodeType.ASSIGNEE:
       return (
         <MessageUserReferenceElement
+          canBeReplaced
           key={index}
           className={node.class}
           userID={node.user.id}

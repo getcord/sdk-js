@@ -51,6 +51,7 @@ export function useAddMentionToComposer(
         name: 'addMention',
         element: (
           <Button
+            canBeReplaced
             buttonAction="add-mention"
             className={cx(colorsTertiary, medium)}
             icon="At"

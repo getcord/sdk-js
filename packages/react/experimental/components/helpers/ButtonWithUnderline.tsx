@@ -32,6 +32,7 @@ export const ButtonWithUnderline = forwardRef(function ButtonWithUnderline(
 ) {
   return (
     <Button
+      canBeReplaced
       ref={ref}
       buttonAction={buttonAction}
       onClick={onClick}

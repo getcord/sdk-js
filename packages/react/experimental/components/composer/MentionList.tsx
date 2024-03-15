@@ -211,6 +211,7 @@ function MentionList({
 
   return (
     <Menu
+      canBeReplaced
       className={userReferenceSuggestionsMenu}
       items={[
         {
@@ -274,9 +275,10 @@ const UserMentionRow = React.memo(function UserMentionRow({
 
   return (
     <MenuItem
+      canBeReplaced
       menuItemAction={`user-mention-${user.id}`}
       style={style}
-      leftItem={<Avatar userId={user.id} />}
+      leftItem={<Avatar canBeReplaced userId={user.id} />}
       label={viewer?.id === user.id ? viewerDisplayName : otherDisplayName}
       subtitle={subtitle}
       onClick={(event: React.MouseEvent) => {

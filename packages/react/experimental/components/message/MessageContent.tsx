@@ -29,12 +29,13 @@ export const MessageContent = withCord<
     return (
       <div className={cx(classes.messageContent, className)} ref={ref}>
         <MessageText
+          canBeReplaced
           message={undefined}
           content={content}
           wasEdited={edited}
           hideAnnotationAttachment
         />
-        <MessageFilesAttachments attachments={attachments} />
+        <MessageFilesAttachments attachments={attachments} canBeReplaced />
       </div>
     );
   }),

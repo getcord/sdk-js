@@ -78,6 +78,7 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
         items.push({
           element: (
             <MessageActions
+              canBeReplaced
               showSeparator={showThreadOptions}
               closeMenu={handleOnClose}
               threadID={threadID}
@@ -154,7 +155,7 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
 
     return (
       <WithTooltip
-        tooltip={<OptionsMenuTooltip />}
+        tooltip={<OptionsMenuTooltip canBeReplaced />}
         tooltipDisabled={menuVisible || disableTooltip}
         ref={ref}
         {...restProps}

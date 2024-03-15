@@ -28,6 +28,7 @@ export const AddAttachmentsButton = ({
   return (
     <>
       <Button
+        canBeReplaced
         buttonAction="add-attachment"
         icon="Paperclip"
         className={cx(colorsTertiary, medium)}

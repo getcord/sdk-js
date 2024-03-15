@@ -374,6 +374,7 @@ export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
           name: 'addEmoji',
           element: (
             <ReactionPickButton
+              canBeReplaced
               className={buttonClasses.colorsTertiary}
               onReactionClick={insertEmoji}
             />
