@@ -27,13 +27,14 @@ export function useMentionList({
   groupID,
 }: {
   editor: Editor;
-  groupID: string;
+  groupID: string | undefined;
 }) {
   const [editor] = useState(() => withUserReferences(originalEditor));
   const viewer = useViewerData();
   const searchResults = useSearchUsers({
     searchQuery: getSearchQuery(editor),
     groupID,
+    skip: !groupID,
   });
   const { usersToShow: users } = getUserReferenceSuggestions({
     allUsers: searchResults?.users ?? [],

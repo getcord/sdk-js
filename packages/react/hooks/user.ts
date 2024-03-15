@@ -243,6 +243,16 @@ export function useGroupMembers(
 }
 
 /**
+ * Options for the `searchUsers` function in React
+ */
+export type ReactSearchUsersOptions = SearchUsersOptions & {
+  /**
+   * When set to true, prevents the execution of any operations within the hook.
+   */
+  skip?: boolean;
+};
+
+/**
  * This method allows searching for users with various options.
  * Using the `searchQuery` will filter users by what their name start with.
  * If no options are passed, a list of users will be returned.
@@ -270,28 +280,32 @@ export function useGroupMembers(
  * is a list of users in the group. This is a one time return.
  */
 export function useSearchUsers(
-  options: SearchUsersOptions = {},
+  options: ReactSearchUsersOptions = {},
 ): SearchUsersResult | undefined {
   const { sdk } = useCordContext('user.searchUsers');
   const userSDK = sdk?.user;
 
   const [data, setData] = useState<SearchUsersResult | undefined>(undefined);
-  const { searchQuery, groupID } = options;
+  const { searchQuery, groupID, skip } = options;
 
   const inputsMemo = useMemoObject({
     searchQuery,
     groupID: groupID ?? sdk?.groupID,
   });
 
+  if (!skip && !inputsMemo.groupID) {
+    throw new Error('groupID not provided');
+  }
+
   useEffect(() => {
-    if (!userSDK) {
+    if (!userSDK || skip) {
       return;
     }
     userSDK
       .searchUsers(inputsMemo)
       .then((result) => setData(result))
       .catch((error) => console.log(error));
-  }, [inputsMemo, userSDK]);
+  }, [inputsMemo, userSDK, skip]);
 
   return data;
 }

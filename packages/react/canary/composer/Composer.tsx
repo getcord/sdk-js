@@ -68,7 +68,7 @@ export type CordComposerProps = {
   onSubmit: (arg: { message: Partial<ClientMessageData> }) => void;
   onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
   onCancel?: () => void;
-  groupID: string;
+  groupID: string | undefined;
 };
 
 export type ComposerProps = {
@@ -93,7 +93,7 @@ export type ComposerProps = {
   popperElement?: JSX.Element;
   popperElementVisible?: boolean;
   popperOnShouldHide?: () => void;
-  groupID: string;
+  groupID: string | undefined;
 } & StyleProps;
 
 export function useEditComposer(props: EditComposerProps): ComposerProps {
@@ -103,18 +103,18 @@ export function useEditComposer(props: EditComposerProps): ComposerProps {
   return useCordComposer({
     ...props,
     onSubmit,
-    groupID: threadData?.groupID ?? '',
+    groupID: threadData?.groupID,
   });
 }
 
 export function useSendComposer(props: SendComposerProps): ComposerProps {
   const onSubmit = useCreateSubmit(props);
-  const { thread: threadData } = thread.useThread(props.threadId ?? '');
+  const { thread: threadData } = thread.useThread(props.threadId!);
 
   return useCordComposer({
     ...props,
     onSubmit,
-    groupID: props.createThread?.groupID ?? threadData?.groupID ?? '',
+    groupID: threadData?.groupID ?? props.createThread?.groupID,
   });
 }
 
