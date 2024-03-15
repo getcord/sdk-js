@@ -1,6 +1,11 @@
 import { createHmac } from 'crypto';
 import * as jwt from 'jsonwebtoken';
-import type { ClientAuthTokenData } from '@cord-sdk/types';
+import type {
+  ClientAuthTokenData,
+  ThreadMessageAddedWebhookPayload,
+  NotificationCreatedWebhookPayload,
+  URLVerificationWebhookPayload,
+} from '@cord-sdk/types';
 
 export type { ClientAuthTokenData };
 
@@ -17,9 +22,16 @@ export type GetServerAuthTokenOptions = CommonAuthTokenOptions;
 
 export type GetApplicationManagementAuthTokenOptions = CommonAuthTokenOptions;
 
+export type WebhookPayload =
+  | ThreadMessageAddedWebhookPayload
+  | NotificationCreatedWebhookPayload
+  | URLVerificationWebhookPayload;
+
 export type WebhookRequest = {
   header(name: string): string;
-  body: string;
+  body: {
+    type: string;
+  };
 };
 
 export function getClientAuthToken(
@@ -138,4 +150,27 @@ export function tryValidateWebhookSignature(
   }
 
   return true;
+}
+
+/**
+ * Takes a request payload, and returns a typed object for handling
+ * Cord webhook notifications.
+ * @param requestPayload Request payload from a webhook request. Should have
+ * a similar structure to express style request object.
+ * @returns A typed  object to support handling webhook events. See:
+ * https://docs.cord.com/reference/events-webhook
+ */
+export function parseEventPayload(
+  requestPayload: WebhookRequest,
+): WebhookPayload {
+  switch (requestPayload.body.type) {
+    case 'thread-message-added':
+      return requestPayload.body as unknown as ThreadMessageAddedWebhookPayload;
+    case 'notification-created':
+      return requestPayload.body as unknown as NotificationCreatedWebhookPayload;
+    case 'url-verification':
+      return requestPayload.body as unknown as URLVerificationWebhookPayload;
+    default:
+      throw 'unknown webhook request type.';
+  }
 }
