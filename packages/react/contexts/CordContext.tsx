@@ -18,6 +18,7 @@ import type {
   CaptureScreenshotEvent,
 } from '@cord-sdk/types';
 import { useUnpackClientAuthTokenPayload } from '../hooks/useUnpackClientAuthTokenPayload.js';
+import { addTranslations, createI18n } from '../common/i18n.js';
 
 declare const CORD_REACT_PACKAGE_VERSION: string;
 
@@ -32,6 +33,7 @@ declare module '@cord-sdk/types' {
 
 export type CordContextValue = {
   sdk: ICordSDK | null;
+  i18n: i18n | undefined;
   location: Location | undefined;
   setLocation: (location: Location | undefined) => unknown;
   // True only if the `useContext(CordContext)` call is within the context provider.
@@ -52,6 +54,7 @@ try {
 
 export const CordContext = React.createContext<CordContextValue>({
   sdk: null,
+  i18n: undefined,
   location: undefined,
   setLocation: () => undefined,
   hasProvider: false,
@@ -104,6 +107,25 @@ type ScreenshotOptions = {
   captureWhen?: CaptureScreenshotEvent[];
   showScreenshot?: boolean;
 };
+
+// The bootstrapI18n is mostly here to support SSR.  If the SDK object doesn't
+// exist (for instance, because we're server-side rendering components and have
+// never loaded the script), we'll create an i18n so that we can do translations
+// of components.  This variable will be cleared as soon as the SDK is available
+// and initialized for the first time, at which point we'll use the SDK's i18n
+// object.
+let bootstrapI18n: i18n | undefined = undefined;
+
+function getBootstrapI18n(
+  translations: Translations | undefined,
+  language = 'en',
+) {
+  if (!bootstrapI18n) {
+    bootstrapI18n = createI18n();
+    addTranslations(bootstrapI18n, translations, language);
+  }
+  return bootstrapI18n;
+}
 
 export function CordProvider({
   clientAuthToken,
@@ -253,6 +275,7 @@ export function CordProvider({
           beforeMessageCreate,
         })
         .then(() => {
+          bootstrapI18n = undefined;
           setLastInitialized(Date.now());
         });
     }
@@ -289,6 +312,7 @@ export function CordProvider({
   const value = useMemo<CordContextValue>(
     () => ({
       sdk: initialized ? sdk : null,
+      i18n: initialized ? sdk?.i18n : getBootstrapI18n(translations, language),
       location,
       setLocation,
       hasProvider: true,
@@ -298,10 +322,11 @@ export function CordProvider({
       organizationID,
     }),
     [
-      sdk,
       initialized,
+      sdk,
+      translations,
+      language,
       location,
-      setLocation,
       lastInitialized,
       clientAuthToken,
       userID,

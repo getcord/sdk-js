@@ -13,11 +13,11 @@ export const useCordTranslation: typeof useTranslation =
     const cordContext = useContext(CordContext);
     return useTranslation(ns, {
       ...options,
-      i18n: options?.i18n ?? cordContext.sdk?.i18n,
+      i18n: options?.i18n ?? cordContext.i18n,
     });
   };
 
 export const CordTrans: typeof Trans = function CordTrans(props) {
   const cordContext = useContext(CordContext);
-  return <Trans {...props} i18n={props.i18n ?? cordContext.sdk?.i18n}></Trans>;
+  return <Trans {...props} i18n={props.i18n ?? cordContext.i18n}></Trans>;
 };

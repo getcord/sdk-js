@@ -22,6 +22,7 @@ import type {
 import type { ICordUserSDK } from './user.js';
 import type { ClientMessageData } from './message.js';
 import type { ICordFileSDK } from './file.js';
+export { resources as translationResources } from './i18n.js';
 
 export * from './application.js';
 export * from './auth.js';

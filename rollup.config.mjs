@@ -107,6 +107,7 @@ async function rollupConfig() {
         'fake-indexeddb/lib/FDBKeyRange.js',
         'dayjs/plugin/calendar.js',
         'jotai/react/utils',
+        /dayjs\/locale\/.*[.]js/,
       ],
     }),
     packageBuildConfig('server'),
