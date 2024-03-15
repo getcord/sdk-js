@@ -53,6 +53,7 @@ export const MessageActions = withCord<MessageActionsProps>(
       () =>
         thread?.resolved ? (
           <MenuItem
+            canBeReplaced
             menuItemAction={'message-edit-resolved'}
             label={t('edit_resolved_action')}
             leftItem={<Icon name="PencilSimpleLine" size="large" />}
@@ -65,6 +66,7 @@ export const MessageActions = withCord<MessageActionsProps>(
           />
         ) : (
           <MenuItem
+            canBeReplaced
             menuItemAction={'message-edit'}
             label={t('edit_action')}
             leftItem={<Icon name="PencilSimpleLine" size="large" />}
@@ -87,10 +89,11 @@ export const MessageActions = withCord<MessageActionsProps>(
       <>
         {showActionButtons && (
           <>
-            {showSeparator && <Separator />}
+            {showSeparator && <Separator canBeReplaced />}
             {EditMenuItem}
             {!thread?.resolved && (
               <MenuItem
+                canBeReplaced
                 menuItemAction={'message-delete'}
                 label={t('delete_action')}
                 leftItem={<Icon name="Trash" size="large" />}
