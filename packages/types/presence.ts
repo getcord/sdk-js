@@ -108,10 +108,6 @@ export type PresenceUpdateCallback = (present: UserLocationData[]) => unknown;
 
 export interface ICordPresenceSDK {
   setPresent(location: Location, options?: SetPresentOptions): Promise<true>;
-  getPresent(
-    matcher: Location,
-    options?: GetPresentOptions,
-  ): Promise<PartialUserLocationData[]>;
 
   /**
    * This method allows you to observe users who are
