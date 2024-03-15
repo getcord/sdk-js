@@ -22,6 +22,7 @@ import { EditorCommands } from '../composer/lib/commands.js';
 import type { StyleProps } from '../types.js';
 import { useUserData } from '../../hooks/user.js';
 import { AddReactionToMessageButton } from '../../experimental/components/ReactionPickButton.js';
+import { useExtraClassnames } from '../../hooks/useExtraClassnames.js';
 import { Username } from './Username.js';
 
 export type MessageProps = {
@@ -31,7 +32,7 @@ export type MessageProps = {
 
 export const Message = withCord<React.PropsWithChildren<MessageProps>>(
   forwardRef(function Message(
-    { message, threadID, ...restProps }: MessageProps,
+    { message, threadID, className, ...restProps }: MessageProps,
     ref: React.ForwardedRef<HTMLElement>,
   ) {
     const [isEditing, setIsEditing] = useState(false);
@@ -64,6 +65,7 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
     }, []);
 
     const authorData = useUserData(message.authorID);
+    const metaCordClasses = useExtraClassnames(message.extraClassnames);
 
     if (isEditing) {
       return (
@@ -81,6 +83,7 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
       <MessageLayout
         ref={ref}
         canBeReplaced
+        className={cx(className, metaCordClasses)}
         avatar={<Avatar canBeReplaced userId={message.authorID} />}
         messageContent={
           <MessageContent

@@ -44,6 +44,7 @@ export function useEditSubmit(args: UseEditSubmit) {
           initialFileAttachments
             ?.filter((a) => !newAttachmentIDs.has(a.id))
             .map((a) => ({ id: a.id, type: 'file' })) ?? [],
+        extraClassnames: message.extraClassnames,
       });
     },
     [cord?.thread, messageId, threadId, initialAttachments],
@@ -71,6 +72,7 @@ export function useCreateSubmit(args: UseCreateSubmit) {
           id: a.id,
           type: 'file',
         })),
+        extraClassnames: message.extraClassnames,
         createThread: createThread ?? {
           location: { location: url },
           url,
