@@ -45,9 +45,11 @@ export type CordContextValue = {
 
 let shouldLogLoadingTime = false;
 let overrideCordScriptUrl: string | null = null;
+let overrideCordReactCssUrl: string | null = null;
 try {
   shouldLogLoadingTime = !!localStorage.getItem('__cord_log_loading_times__');
   overrideCordScriptUrl = localStorage.getItem('__cord_override_script_url__');
+  overrideCordReactCssUrl = localStorage.getItem('__cord_override_css_url__');
 } catch {
   // localStorage for some reason not available
 }
@@ -219,6 +221,25 @@ export function CordProvider({
       `https://app.cord.com/sdk/v1/sdk.latest.js`;
     scriptTag.addEventListener('load', onLoad);
     document.head.appendChild(scriptTag);
+
+    if (!document.querySelector('link#cord-react')) {
+      const stylesheetTag = document.createElement('link');
+      stylesheetTag.rel = 'stylesheet';
+      stylesheetTag.id = 'cord-react';
+      if (overrideCordReactCssUrl) {
+        stylesheetTag.href = overrideCordReactCssUrl;
+      } else {
+        const origin = cordScriptUrl
+          ? new URL(cordScriptUrl).origin
+          : 'https://app.cord.com';
+        const isNpmPackage = !isNaN(parseInt(CORD_REACT_PACKAGE_VERSION));
+        const cssHref = isNpmPackage
+          ? `${origin}/sdk/css/${CORD_REACT_PACKAGE_VERSION}/react-${CORD_REACT_PACKAGE_VERSION}.css`
+          : `${origin}/sdk/css/cord-react.css`;
+        stylesheetTag.href = cssHref;
+      }
+      document.head.appendChild(stylesheetTag);
+    }
 
     if (shouldLogLoadingTime) {
       scriptInjectedRef.current = Date.now();
