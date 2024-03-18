@@ -24,6 +24,7 @@ import { useUserData } from '../../hooks/user.js';
 import { AddReactionToMessageButton } from '../../experimental/components/ReactionPickButton.js';
 import { useExtraClassnames } from '../../hooks/useExtraClassnames.js';
 import { Username } from './Username.js';
+import { MessageTombstoneWrapper } from './MessageTombstone.js';
 
 export type MessageProps = {
   message: ClientMessageData;
@@ -77,6 +78,10 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
           onCancel={onCancel}
         />
       );
+    }
+
+    if (message.deletedTimestamp) {
+      return <MessageTombstoneWrapper message={message} />;
     }
 
     return (

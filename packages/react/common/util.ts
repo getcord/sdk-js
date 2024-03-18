@@ -8,6 +8,7 @@ import type {
   Reaction,
   ThreadSummary,
 } from '@cord-sdk/types';
+import { UNDO_DELETE_MESSAGE_TIMEOUT_SECONDS } from './const/Timing.js';
 
 /**
  * Prepend "cord-" to a classname. Useful mostly to grep all places
@@ -86,6 +87,12 @@ export function isUserAuthorOfMessage(
   userID: string | null | undefined,
 ) {
   return !userID || userID === message.authorID;
+}
+
+export function canUndoMessageDelete(date: Date, now: number): boolean {
+  // Checks whether a message should have the undo button after deleting a message
+  const secondsSinceDeleted = (now - date.getTime()) / 1000;
+  return secondsSinceDeleted <= UNDO_DELETE_MESSAGE_TIMEOUT_SECONDS;
 }
 
 export function relativeTimestampString(

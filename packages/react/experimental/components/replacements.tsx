@@ -14,6 +14,7 @@ import type {
   UsernameProps,
   UsernameTooltipProps,
 } from '../../canary/message/Username.js';
+import type { MessageTombstoneProps } from '../../canary/message/MessageTombstone.js';
 import type {
   AvatarFallbackProps,
   AvatarProps,
@@ -68,6 +69,7 @@ export type ReplaceConfigBase = Partial<{
   MessageText: React.ComponentType<MessageTextProps>;
   MessageContent: React.ComponentType<MessageContentProps>;
   MessageActions: React.ComponentType<MessageActionsProps>;
+  MessageTombstone: React.ComponentType<MessageTombstoneProps>;
   Separator: React.ComponentType<SeparatorProps>;
   Composer: React.ComponentType<ComposerProps>;
   ComposerLayout: React.ComponentType<ComposerLayoutProps>;

@@ -148,3 +148,8 @@ export {
   WithPopper,
   type WithPopperProps,
 } from './experimental/components/helpers/WithPopper.js';
+
+export {
+  MessageTombstone,
+  type MessageTombstoneProps,
+} from './canary/message/MessageTombstone.js';
