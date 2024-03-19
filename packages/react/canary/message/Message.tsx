@@ -96,8 +96,7 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
             // content is merged with HTMLAttributes<HTMLDivElement>['content']
             content={message.content as MessageContentType & string}
             attachments={message.attachments}
-            // [ONI]-TODO: implement
-            edited={false}
+            edited={!!message.updatedTimestamp}
             canBeReplaced
           />
         }
