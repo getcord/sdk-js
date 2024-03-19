@@ -819,8 +819,11 @@ function CollapsedReplies({
   // We are including only user messages in the reply count,
   // as it doesn't make sense to count action messages such as
   // "User X resolved this thread".
-  // Then, the number of replies is one less than the total number of messages.
-  const replyCount = threadSummary.userMessages - 1;
+  // Then, the number of replies is one less than the total number of messages
+  // unless the first message is deleted in which case all user messages are replies
+  const replyCount =
+    threadSummary.userMessages -
+    (threadSummary.firstMessage?.deletedTimestamp ? 0 : 1);
   const hasReplies = replyCount > 0;
   const allRepliers = Array.from(
     new Set([
