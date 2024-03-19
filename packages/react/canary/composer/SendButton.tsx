@@ -10,9 +10,9 @@ import {
   small,
 } from '../../components/helpers/Button.classnames.js';
 
-export type SendButtonProps = {
+export interface SendButtonProps extends HTMLProps<HTMLButtonElement> {
   onClick: () => void;
-} & HTMLProps<HTMLButtonElement>;
+}
 
 export const SendButton = withCord(
   forwardRef(function SendButton(

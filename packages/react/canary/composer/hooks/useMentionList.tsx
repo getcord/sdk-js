@@ -9,7 +9,7 @@ import {
 
 import { useMentionList } from '../../../experimental/components/composer/MentionList.js';
 import { EditorCommands } from '../lib/commands.js';
-import type { ComposerProps } from '../Composer.js';
+import type { ComposerProps } from '../../../experimental/types.js';
 
 export function useAddMentionToComposer(
   options: Pick<ComposerProps, 'editor' | 'isEmpty' | 'groupID'>,

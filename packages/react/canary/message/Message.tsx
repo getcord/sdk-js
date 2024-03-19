@@ -19,7 +19,7 @@ import {
 } from '../../experimental.js';
 import { useEditComposer, CordComposer } from '../composer/Composer.js';
 import { EditorCommands } from '../composer/lib/commands.js';
-import type { StyleProps } from '../types.js';
+import type { StyleProps } from '../../experimental/types.js';
 import { useUserData } from '../../hooks/user.js';
 import { AddReactionToMessageButton } from '../../experimental/components/ReactionPickButton.js';
 import { useExtraClassnames } from '../../hooks/useExtraClassnames.js';

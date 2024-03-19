@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 import type { WritableAtom } from 'jotai';
-import type { ComposerProps } from '../../canary/composer/Composer.js';
+import type { ComposerProps } from '../../experimental/types.js';
 import type { TextEditorProps } from '../../canary/composer/TextEditor.js';
 import type { ComposerLayoutProps } from '../../canary/composer/ComposerLayout.js';
 import type { ToolbarLayoutProps } from '../../canary/composer/ToolbarLayout.js';

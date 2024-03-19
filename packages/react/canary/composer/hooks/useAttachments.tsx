@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ComposerFileAttachments } from '../../../components/composer/ComposerFileAttachments.js';
 import type { CustomEditor } from '../../../slateCustom.js';
 import { AddAttachmentsButton } from '../AddAttachments.js';
-import type { ComposerProps } from '../Composer.js';
+import type { ComposerProps } from '../../../experimental/types.js';
 import { useUploadFileToCord } from './useUploadFileToCord.js';
 
 const EMPTY_ARRAY: MessageFileAttachment[] = [];

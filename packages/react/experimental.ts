@@ -2,6 +2,8 @@ export type { SelectionCommentsReactComponentProps } from './components/Selectio
 export { SelectionComments } from './components/SelectionComments.js';
 export { ThreadFacepile } from './components/ThreadFacepile.js';
 
+export * from './experimental/types.js';
+
 export {
   Avatar,
   AvatarTooltip,
@@ -108,8 +110,6 @@ export {
   SendComposer,
   EditComposer,
   CordComposer,
-  type CordComposerProps,
-  type ComposerProps,
 } from './canary/composer/Composer.js';
 
 export {
@@ -127,10 +127,8 @@ export {
   type ToolbarLayoutProps,
 } from './canary/composer/ToolbarLayout.js';
 
-export {
-  SendButton,
-  type SendButtonProps,
-} from './canary/composer/SendButton.js';
+export type { SendButtonProps } from './canary/composer/SendButton.js';
+export { SendButton } from './canary/composer/SendButton.js';
 
 export {
   Overlay,

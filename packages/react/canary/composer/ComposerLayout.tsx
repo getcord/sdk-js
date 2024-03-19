@@ -3,11 +3,12 @@ import { forwardRef, useMemo } from 'react';
 import cx from 'classnames';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
-import type { StyleProps } from '../types.js';
+import type { StyleProps } from '../../experimental/types.js';
 import {
   composerContainer,
   expanded,
 } from '../../components/Composer.classnames.js';
+
 import { ToolbarLayout } from './ToolbarLayout.js';
 
 export type ComposerLayoutProps = {

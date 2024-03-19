@@ -10,7 +10,7 @@ import {
   DefaultTooltip,
   WithTooltip,
 } from '../../experimental/components/WithTooltip.js';
-import type { StyleProps } from '../types.js';
+import type { StyleProps } from '../../experimental/types.js';
 
 export type UsernameProps = {
   userData?: ClientUserData | null;

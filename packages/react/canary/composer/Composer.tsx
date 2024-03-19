@@ -3,7 +3,6 @@ import isHotkey from 'is-hotkey';
 import { forwardRef, useCallback, useMemo } from 'react';
 import { ReactEditor } from 'slate-react';
 import type {
-  ClientCreateThread,
   ClientMessageData,
   MessageAttachment,
   MessageContent,
@@ -13,10 +12,14 @@ import * as buttonClasses from '../../components/helpers/Button.classnames.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { Keys } from '../../common/const/Keys.js';
 
-import type { StyleProps } from '../types.js';
+import type {
+  ComposerProps,
+  CordComposerProps,
+  EditComposerProps,
+  SendComposerProps,
+} from '../../experimental/types.js';
 import { ReactionPickButton } from '../../experimental.js';
 import { WithPopper } from '../../experimental/components/helpers/WithPopper.js';
-import type { CustomEditor } from '../../slateCustom.js';
 import { onSpace } from './event-handlers/onSpace.js';
 import { onInlineModifier } from './event-handlers/onInlineModifier.js';
 import { onDeleteOrBackspace } from './event-handlers/onDeleteOrBackspace.js';
@@ -34,67 +37,6 @@ import { SendButton } from './SendButton.js';
 import { thread } from '@cord-sdk/react';
 
 const EMPTY_ATTACHMENTS: MessageAttachment[] = [];
-
-export type SendComposerProps = {
-  initialValue?: Partial<ClientMessageData>;
-  threadId?: string;
-  createThread?: ClientCreateThread;
-  placeholder?: string;
-  onBeforeSubmit?: (arg: {
-    message: Partial<ClientMessageData>;
-  }) => { message: Partial<ClientMessageData> } | null;
-  onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
-  onCancel?: () => void;
-} & StyleProps;
-
-export type EditComposerProps = {
-  initialValue?: Partial<ClientMessageData>;
-  threadId: string;
-  messageId: string;
-  placeholder?: string;
-  onBeforeSubmit?: (arg: {
-    message: Partial<ClientMessageData>;
-  }) => { message: Partial<ClientMessageData> } | null;
-  onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
-  onCancel?: () => void;
-} & StyleProps;
-
-export type CordComposerProps = {
-  initialValue?: Partial<ClientMessageData>;
-  placeholder?: string;
-  onBeforeSubmit?: (arg: {
-    message: Partial<ClientMessageData>;
-  }) => { message: Partial<ClientMessageData> } | null;
-  onSubmit: (arg: { message: Partial<ClientMessageData> }) => void;
-  onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
-  onCancel?: () => void;
-  groupID: string | undefined;
-};
-
-export type ComposerProps = {
-  onSubmit: (arg: { message: Partial<ClientMessageData> }) => void;
-  // TODO-ONI add cancel button
-  // onCancel: () => void;
-  onChange: (event: { content: MessageContent }) => void;
-  onKeyDown: (event: {
-    event: React.KeyboardEvent;
-  }) => boolean | undefined | void;
-  onCancel?: () => void;
-  onResetState: () => void;
-  onPaste: (e: { event: React.ClipboardEvent }) => void;
-  initialValue?: Partial<ClientMessageData>;
-  value: Partial<Omit<ClientMessageData, 'content'>>;
-  editor: CustomEditor;
-  isEmpty: boolean;
-  isValid: boolean;
-  placeholder?: string;
-  toolbarItems?: { name: string; element: JSX.Element | null }[];
-  extraChildren?: { name: string; element: JSX.Element | null }[];
-  popperElement?: JSX.Element;
-  popperElementVisible?: boolean;
-  popperOnShouldHide?: () => void;
-  groupID: string | undefined;
-} & StyleProps;
 
 export function useEditComposer(props: EditComposerProps): ComposerProps {
   const onSubmit = useEditSubmit(props);
