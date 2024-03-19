@@ -1,7 +1,7 @@
 {
   "name": "@cord-sdk/server",
   "description": "Server-side portion of the Cord SDK",
-  "version": "1.36.1",
+  "version": "1.36.2",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
   "files": [
@@ -22,7 +22,7 @@
     "jsonwebtoken": "^9.0.0"
   },
   "devDependencies": {
-    "@cord-sdk/types": "1.36.1",
+    "@cord-sdk/types": "1.36.2",
     "@types/jsonwebtoken": "^8.5.9",
     "typescript": "~5.1.6"
   },
