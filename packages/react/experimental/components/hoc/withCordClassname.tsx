@@ -18,7 +18,9 @@ export default function withCordClassname<T extends Props>(
       return (
         <WrappedComponent
           ref={ref}
-          className={cx('cord-component', className)}
+          className={cx(className, {
+            'cord-component': !className?.includes('cord-component'),
+          })}
           {...(restProps as T)}
         />
       );

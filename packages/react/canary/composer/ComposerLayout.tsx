@@ -4,6 +4,10 @@ import cx from 'classnames';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
 import type { StyleProps } from '../types.js';
+import {
+  composerContainer,
+  expanded,
+} from '../../components/Composer.classnames.js';
 import { ToolbarLayout } from './ToolbarLayout.js';
 
 export type ComposerLayoutProps = {
@@ -33,12 +37,7 @@ export const ComposerLayout = withCord<
     return (
       <div
         ref={ref}
-        className={cx(
-          'cord-component',
-          'cord-composer',
-          'cord-expanded',
-          className,
-        )}
+        className={cx(composerContainer, expanded, className)}
         style={
           style || {
             backgroundColor: 'var(--cord-color-base, #FFFFFF)',
