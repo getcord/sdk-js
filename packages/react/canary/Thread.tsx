@@ -41,7 +41,6 @@ export const Thread = withCord<React.PropsWithChildren<ThreadProps>>(
             messages.map((message) => {
               return (
                 <Message
-                  className="cord-message"
                   key={message.id}
                   threadID={threadData.id}
                   message={message}
