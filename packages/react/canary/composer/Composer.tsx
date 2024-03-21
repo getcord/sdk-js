@@ -159,7 +159,7 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
         }
       }
       onSubmit({ message });
-      onAfterSubmit?.(args);
+      onAfterSubmit?.({ message });
     },
     [onSubmit, onBeforeSubmit, onAfterSubmit, isValid],
   );
