@@ -6,6 +6,7 @@ import type {
 } from '@cord-sdk/types';
 import * as classes from '../../../components/MessageContent.classnames.js';
 import withCord from '../hoc/withCord.js';
+import type { StyleProps } from '../../types.js';
 import { MessageFilesAttachments } from './MessageFilesAttachments.js';
 import { MessageText } from './MessageText.js';
 
@@ -13,7 +14,7 @@ export type MessageContentProps = {
   content: MessageContentType;
   attachments: MessageAttachment[];
   edited: boolean;
-} & React.HTMLAttributes<HTMLDivElement>;
+} & StyleProps;
 
 export const MessageContent = withCord<
   React.PropsWithChildren<MessageContentProps>

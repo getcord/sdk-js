@@ -92,9 +92,7 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
         avatar={<Avatar canBeReplaced userId={message.authorID} />}
         messageContent={
           <MessageContent
-            // [ONI]-TODO: fix type in MessageContent and below
-            // content is merged with HTMLAttributes<HTMLDivElement>['content']
-            content={message.content as MessageContentType & string}
+            content={message.content as MessageContentType}
             attachments={message.attachments}
             edited={!!message.updatedTimestamp}
             canBeReplaced
