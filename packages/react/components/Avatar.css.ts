@@ -145,11 +145,23 @@ globalStyle(getModifiedSelector('present', ` .${avatarFallback}`), {
   opacity: 1,
 });
 
-globalStyle(`.${avatarImage}`, {
-  display: 'block',
-  objectFit: 'cover',
-  width: '100%',
-});
+globalStyle(
+  `:not(${getModifiedSelector(
+    'error',
+    `.${avatarContainer}`,
+  )}) .${avatarImage}`,
+  {
+    display: 'block',
+    objectFit: 'cover',
+    width: '100%',
+  },
+);
+globalStyle(
+  getModifiedSelector('error', `.${avatarContainer} .${avatarImage}`),
+  {
+    display: 'none',
+  },
+);
 globalStyle(getModifiedSelector('notPresent', ` .${avatarImage}`), {
   opacity: 0.5,
 });

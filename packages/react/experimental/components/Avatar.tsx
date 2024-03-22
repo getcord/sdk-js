@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
+import { forwardRef, useMemo, useRef, useCallback } from 'react';
+import { useSyncExternalStore } from 'use-sync-external-store/shim/index.js';
 
 import cx from 'classnames';
 
@@ -19,6 +20,54 @@ export type AvatarProps = {
   isAbsent?: boolean;
 };
 
+function useImageStatus(
+  imageRef: React.RefObject<HTMLImageElement>,
+  imageUrl: string | null,
+) {
+  const getSnapshot = useCallback(() => {
+    if (!imageUrl) {
+      return 'error';
+    }
+    if (imageRef && imageRef.current) {
+      if (imageRef.current.naturalWidth === 0 && imageRef.current.complete) {
+        return 'error';
+      }
+      if (imageRef.current.complete) {
+        return 'loaded';
+      }
+    }
+    return 'loading';
+  }, [imageRef, imageUrl]);
+
+  const getServerSnapshot = useCallback(() => 'loaded', []);
+
+  const subscribe = useCallback(
+    (cb: () => void) => {
+      if (imageRef?.current) {
+        imageRef.current.addEventListener('load', cb);
+        imageRef.current.addEventListener('error', cb);
+      }
+      return () => {
+        if (imageRef?.current) {
+          imageRef.current?.removeEventListener('load', cb);
+          imageRef.current?.removeEventListener('error', cb);
+        }
+      };
+    },
+    // we do want subscribe to run when the url changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [imageRef, imageUrl],
+  );
+
+  const status = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot,
+  );
+
+  return status;
+}
+
 export const Avatar = withCord<React.PropsWithChildren<AvatarProps>>(
   React.forwardRef(function Avatar(
     {
@@ -36,13 +85,7 @@ export const Avatar = withCord<React.PropsWithChildren<AvatarProps>>(
       if (!userAvatar || !viewerData) {
         return null;
       }
-      return (
-        <AvatarTooltip
-          userData={userAvatar}
-          viewerData={viewerData}
-          canBeReplaced
-        />
-      );
+      return <AvatarTooltip userData={userAvatar} viewerData={viewerData} />;
     }, [userAvatar, viewerData]);
 
     if (!userAvatar) {
@@ -86,68 +129,35 @@ const AvatarInner = forwardRef(function AvatarImpl(
   ref: React.Ref<HTMLDivElement>,
 ) {
   const { displayName, name, id, profilePictureURL } = user;
-  const [imageStatus, setImageStatus] = useState<
-    'loading' | 'loaded' | 'error'
-  >(() => {
-    if (!profilePictureURL) {
-      return 'error';
-    }
-    return 'loading';
-  });
-
-  const mountedRef = useRef(false);
-  useEffect(() => {
-    // Run this effect when profile picture url changes but not on mount
-    if (mountedRef.current) {
-      setImageStatus('loading');
-    } else {
-      mountedRef.current = true;
-    }
-  }, [profilePictureURL]);
+  const imageRef = useRef<HTMLImageElement>(null);
+  const status = useImageStatus(imageRef, profilePictureURL);
 
   const avatarPalette = useMemo(() => getStableColorPalette(id), [id]);
 
-  return imageStatus !== 'error' ? (
+  return (
     <div
       {...restProps}
       ref={ref}
       className={cx(classes.avatarContainer, className, {
         [MODIFIERS.present]: !isAbsent,
         [MODIFIERS.notPresent]: isAbsent,
-        [MODIFIERS.loading]: imageStatus === 'loading',
+        [MODIFIERS.loading]: status === 'loading',
+        [`${cordifyClassname('color-palette')}-${avatarPalette}`]:
+          status === 'error',
+        [MODIFIERS.error]: status === 'error',
       })}
       data-cy="cord-avatar"
       data-cord-user-id={id}
       data-cord-user-name={name}
     >
       <img
+        ref={imageRef}
         className={classes.avatarImage}
         draggable={false}
         alt={displayName}
-        onError={() => {
-          setImageStatus('error');
-        }}
-        onLoad={() => setImageStatus('loaded')}
         src={profilePictureURL!}
       />
-    </div>
-  ) : (
-    <div
-      className={cx(
-        classes.avatarContainer,
-        className,
-        [`${cordifyClassname('color-palette')}-${avatarPalette}`],
-        {
-          [MODIFIERS.present]: !isAbsent,
-          [MODIFIERS.notPresent]: isAbsent,
-        },
-      )}
-      {...restProps}
-      ref={ref}
-      data-cord-user-id={id}
-      data-cord-user-name={name}
-    >
-      <AvatarFallback userData={user} canBeReplaced />
+      {status === 'error' && <AvatarFallback userData={user} canBeReplaced />}
     </div>
   );
 });
