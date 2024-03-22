@@ -75,12 +75,11 @@ export {
   type ThreadProps,
   type ThreadHeaderProps,
 } from './canary/Thread.js';
+export { Message, type MessageProps } from './canary/message/Message.js';
 export {
-  Message,
   MessageLayout,
-  type MessageProps,
   type MessageLayoutProps,
-} from './canary/message/Message.js';
+} from './canary/message/MessageLayout.js';
 export {
   MessageFilesAttachments,
   type MessageFilesAttachmentsProps,
