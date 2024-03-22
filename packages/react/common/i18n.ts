@@ -5,12 +5,12 @@ import dayjs from 'dayjs';
 import type { i18n } from 'i18next';
 // eslint-disable-next-line no-restricted-imports
 import { createInstance } from 'i18next';
-// eslint-disable-next-line no-restricted-imports
-import { initReactI18next } from 'react-i18next';
 import { ALL_LOCALES } from './dayjs.js';
 
 export function createI18n() {
-  const i18n = createInstance({
+  const i18n = createInstance();
+
+  void i18n.init({
     resources: translationResources,
     lng: 'en', // Use language 'en' if none other specified
     fallbackLng: 'en', // Use the string from 'en' if the specified language doesn't have one
@@ -19,8 +19,6 @@ export function createI18n() {
       escapeValue: false,
     },
   });
-
-  void i18n.use(initReactI18next).init();
 
   return i18n;
 }
