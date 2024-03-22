@@ -64,7 +64,7 @@ export function ImageAttachment({
           onError={onImageError}
         />
         <div className={classes.overlay}>
-          <SpinnerIcon size="large" className={cx(classes.loadingIcon, {})} />
+          <SpinnerIcon size="large" className={classes.loadingIcon} />
           {onHoverElement && (
             <div className={classes.onHoverElement}>{onHoverElement}</div>
           )}

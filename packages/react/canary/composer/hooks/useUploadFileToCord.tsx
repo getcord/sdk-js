@@ -4,7 +4,9 @@ import { readFileAsync } from '../../../common/lib/uploads.js';
 import { CordContext } from '../../../contexts/CordContext.js';
 
 export function useUploadFileToCord(
-  editAttachment: (attachment: Partial<UploadedFile>) => void,
+  editAttachment: (
+    attachment: UploadedFile | Omit<UploadedFile, 'url'>,
+  ) => void,
 ) {
   const { sdk: cord } = useContext(CordContext);
 
@@ -26,12 +28,16 @@ export function useUploadFileToCord(
               name: file.name,
               uploadStatus: 'uploaded',
               url,
+              mimeType: file.type,
+              size: file.size,
             }),
           () =>
             editAttachment({
               id,
               name: file.name,
               uploadStatus: 'failed',
+              mimeType: file.type,
+              size: file.size,
             }),
         );
 

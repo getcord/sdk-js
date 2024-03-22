@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { MessageFileAttachment } from '@cord-sdk/types';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { ComposerFileAttachments } from '../../../components/composer/ComposerFileAttachments.js';
 import type { CustomEditor } from '../../../slateCustom.js';
@@ -14,6 +14,8 @@ export function useAttachments(initialAttachments?: MessageFileAttachment[]) {
   const [attachments, setAttachments] = useState<MessageFileAttachment[]>(
     initialAttachments ?? [],
   );
+  const cancelledAttachmentsIDs = useRef<string[]>([]);
+
   useEffect(() => {
     setAttachments(initialAttachments ?? EMPTY_ARRAY);
   }, [initialAttachments]);
@@ -21,27 +23,34 @@ export function useAttachments(initialAttachments?: MessageFileAttachment[]) {
   const upsertAttachment = useCallback(
     (attachment: Partial<MessageFileAttachment>) => {
       setAttachments((prev) => {
-        return (
-          updateAttachment(prev, attachment) ?? [
-            ...prev,
-            attachment as MessageFileAttachment,
-          ]
-        );
+        const updatedAttachments = updateAttachment(prev, attachment);
+        if (updatedAttachments) {
+          return updatedAttachments;
+        }
+
+        if (
+          attachment.id &&
+          cancelledAttachmentsIDs.current.includes(attachment.id)
+        ) {
+          return prev;
+        }
+
+        // Optimistically show `attachment`, which hasn't finished
+        // uploading, and has not been cancelled.
+        return [...prev, attachment as MessageFileAttachment];
       });
     },
-    [setAttachments],
+    [],
   );
 
-  const removeAttachment = useCallback(
-    (attachmentID: string) => {
-      setAttachments((prev) => prev.filter((a) => a.id !== attachmentID));
-    },
-    [setAttachments],
-  );
+  const removeAttachment = useCallback((attachmentID: string) => {
+    cancelledAttachmentsIDs.current.push(attachmentID);
+    setAttachments((prev) => prev.filter((a) => a.id !== attachmentID));
+  }, []);
 
   const resetAttachments = useCallback(() => {
     setAttachments(initialAttachments ?? []);
-  }, [setAttachments, initialAttachments]);
+  }, [initialAttachments]);
 
   return {
     attachments,
@@ -58,6 +67,7 @@ function updateAttachment(
 ): MessageFileAttachment[] | null {
   const newAttachments = [...attachments];
   const uploadedFile = newAttachments.find((a) => a.id === attachment.id);
+  // User might have removed the attachment;
   if (!uploadedFile) {
     return null;
   }
