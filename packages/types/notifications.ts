@@ -358,6 +358,21 @@ export interface ICordNotificationSDK {
   markAllAsRead(options?: MarkAllNotificationsAsReadOptions): Promise<void>;
 
   /**
+   * Delete a notification
+   *
+   * @example Overview
+   * ```javascript
+   * window.CordSDK.notification.delete('my-awesome-notification-id');
+   * ```
+   *
+   * @param notificationID - The ID of the notification to delete.
+   *
+   * @returns A promise that resolves to `true` if the operation succeeded or
+   * rejects if it failed.
+   */
+  delete(notificationID: string): Promise<true>;
+
+  /**
    * @deprecated Renamed to unobserveSummary.
    */
   unobserveNotificationSummary(
