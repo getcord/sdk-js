@@ -25,6 +25,7 @@ import { AddReactionToMessageButton } from '../../experimental/components/Reacti
 import { useExtraClassnames } from '../../hooks/useExtraClassnames.js';
 import { Username } from './Username.js';
 import { MessageTombstoneWrapper } from './MessageTombstone.js';
+import { ActionMessage } from './ActionMessage.js';
 
 export type MessageProps = {
   message: ClientMessageData;
@@ -82,6 +83,17 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
 
     if (message.deletedTimestamp) {
       return <MessageTombstoneWrapper message={message} />;
+    }
+
+    if (message.type === 'action_message') {
+      return (
+        <ActionMessage
+          message={message}
+          canBeReplaced
+          className={cx(className, metaCordClasses)}
+          {...restProps}
+        />
+      );
     }
 
     return (

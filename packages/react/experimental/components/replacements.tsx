@@ -13,6 +13,7 @@ import type {
   UsernameTooltipProps,
 } from '../../canary/message/Username.js';
 import type { MessageTombstoneProps } from '../../canary/message/MessageTombstone.js';
+import type { ActionMessageProps } from '../../canary/message/ActionMessage.js';
 import type {
   AvatarFallbackProps,
   AvatarProps,
@@ -81,6 +82,7 @@ export type ReplaceConfigBase = Partial<{
   ThreadHeader: React.ComponentType<ThreadHeaderProps>;
   Username: React.ComponentType<UsernameProps>;
   UsernameTooltip: React.ComponentType<UsernameTooltipProps>;
+  ActionMessage: React.ComponentType<ActionMessageProps>;
 }>;
 
 type ReplaceWithin = Partial<{
