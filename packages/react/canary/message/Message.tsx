@@ -22,10 +22,12 @@ import { EditorCommands } from '../composer/lib/commands.js';
 import type { StyleProps } from '../../experimental/types.js';
 import { useUserData } from '../../hooks/user.js';
 import { AddReactionToMessageButton } from '../../experimental/components/ReactionPickButton.js';
+import { useComposedRefs } from '../../common/lib/composeRefs.js';
 import { useExtraClassnames } from '../../hooks/useExtraClassnames.js';
 import { Username } from './Username.js';
 import { MessageTombstoneWrapper } from './MessageTombstone.js';
 import { ActionMessage } from './ActionMessage.js';
+import { useMessageSeenObserver } from './hooks/useMessageSeenObserver.js';
 
 export type MessageProps = {
   message: ClientMessageData;
@@ -69,6 +71,12 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
     const authorData = useUserData(message.authorID);
     const metaCordClasses = useExtraClassnames(message.extraClassnames);
 
+    const messageObserverRef = useMessageSeenObserver(message);
+    const composedRef = useComposedRefs<Element | null>(
+      ref,
+      messageObserverRef,
+    );
+
     if (isEditing) {
       return (
         <CordComposer
@@ -98,7 +106,7 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
 
     return (
       <MessageLayout
-        ref={ref}
+        ref={composedRef}
         canBeReplaced
         className={cx(className, metaCordClasses)}
         avatar={<Avatar canBeReplaced userId={message.authorID} />}
