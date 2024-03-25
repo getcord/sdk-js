@@ -20,10 +20,11 @@ import {
 import { useEditComposer, CordComposer } from '../composer/Composer.js';
 import { EditorCommands } from '../composer/lib/commands.js';
 import type { StyleProps } from '../../experimental/types.js';
-import { useUserData } from '../../hooks/user.js';
+import { useUserData, useViewerData } from '../../hooks/user.js';
 import { AddReactionToMessageButton } from '../../experimental/components/ReactionPickButton.js';
 import { useComposedRefs } from '../../common/lib/composeRefs.js';
 import { useExtraClassnames } from '../../hooks/useExtraClassnames.js';
+import { MODIFIERS } from '../../common/ui/modifiers.js';
 import { Username } from './Username.js';
 import { MessageTombstoneWrapper } from './MessageTombstone.js';
 import { ActionMessage } from './ActionMessage.js';
@@ -77,6 +78,8 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
       messageObserverRef,
     );
 
+    const viewerData = useViewerData();
+
     if (isEditing) {
       return (
         <CordComposer
@@ -108,7 +111,11 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
       <MessageLayout
         ref={composedRef}
         canBeReplaced
-        className={cx(className, metaCordClasses)}
+        className={cx(className, metaCordClasses, {
+          [MODIFIERS.noReactions]: message.reactions?.length === 0,
+          [MODIFIERS.unseen]: !message.seen,
+          [MODIFIERS.fromViewer]: viewerData?.id === message.authorID,
+        })}
         avatar={<Avatar canBeReplaced userId={message.authorID} />}
         messageContent={
           <MessageContent
