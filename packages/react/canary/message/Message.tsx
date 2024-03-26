@@ -116,6 +116,7 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
           [MODIFIERS.unseen]: !message.seen,
           [MODIFIERS.fromViewer]: viewerData?.id === message.authorID,
         })}
+        message={message}
         avatar={<Avatar canBeReplaced userId={message.authorID} />}
         messageContent={
           <MessageContent

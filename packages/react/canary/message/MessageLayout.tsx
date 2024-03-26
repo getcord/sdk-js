@@ -2,10 +2,12 @@ import * as React from 'react';
 import { forwardRef } from 'react';
 import cx from 'classnames';
 
+import type { ClientMessageData } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as classes from '../../components/Message.classnames.js';
 
 export type MessageLayoutProps = {
+  message: ClientMessageData;
   messageContent: JSX.Element;
   avatar: JSX.Element;
   emojiPicker: JSX.Element;
@@ -28,6 +30,7 @@ export const MessageLayout = withCord<MessageLayoutProps>(
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     const {
+      message,
       avatar,
       timestamp,
       optionsMenu,
@@ -40,7 +43,13 @@ export const MessageLayout = withCord<MessageLayoutProps>(
     } = props;
 
     return (
-      <div {...restProps} className={cx(className, classes.message)} ref={ref}>
+      <div
+        {...restProps}
+        className={cx(className, classes.message)}
+        ref={ref}
+        data-cord-message-id={message.id}
+        data-cord-thread-id={message.threadID}
+      >
         {avatar}
         {authorName}
         {timestamp}

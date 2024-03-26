@@ -32,7 +32,12 @@ export const MessageTombstone = withCord<
     const author = useUserData(message.authorID);
 
     return (
-      <div className={cx(classes.message, MODIFIERS.deleted)} ref={ref}>
+      <div
+        className={cx(classes.message, MODIFIERS.deleted)}
+        ref={ref}
+        data-cord-message-id={message.id}
+        data-cord-thread-id={message.threadID}
+      >
         <Trash className={cx(iconLarge, classes.deletedIcon)} />
         <div className={cx(classes.deletedMessageText, fontSmall)}>
           {t('deleted_message', { user: author })}

@@ -34,6 +34,8 @@ export const ActionMessage = withCord<
         className={cx(className, messageClasses.message, MODIFIERS.action)}
         ref={ref}
         style={style}
+        data-cord-message-id={message.id}
+        data-cord-thread-id={message.threadID}
       >
         {message.iconURL && (
           <img

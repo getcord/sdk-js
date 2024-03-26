@@ -27,6 +27,7 @@ export const Thread = withCord<React.PropsWithChildren<ThreadProps>>(
         ref={ref}
         {...restProps}
         className={cx(className, 'cord-component-thread')}
+        data-cord-thread-id={threadData?.id}
       >
         {showHeader && (
           <ThreadHeader
