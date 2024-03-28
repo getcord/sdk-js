@@ -14,6 +14,8 @@ import type {
 } from '../../canary/message/Username.js';
 import type { MessageTombstoneProps } from '../../canary/message/MessageTombstone.js';
 import type { ActionMessageProps } from '../../canary/message/ActionMessage.js';
+import type { ResolvedThreadComposerProps } from '../../canary/composer/ResolvedThreadComposer.js';
+import type { ReopenThreadButtonProps } from '../../canary/composer/ReopenThreadButton.js';
 import type {
   AvatarFallbackProps,
   AvatarProps,
@@ -83,6 +85,8 @@ export type ReplaceConfigBase = Partial<{
   Username: React.ComponentType<UsernameProps>;
   UsernameTooltip: React.ComponentType<UsernameTooltipProps>;
   ActionMessage: React.ComponentType<ActionMessageProps>;
+  ResolvedThreadComposer: React.ComponentType<ResolvedThreadComposerProps>;
+  ReopenThreadButton: React.ComponentType<ReopenThreadButtonProps>;
 }>;
 
 type ReplaceWithin = Partial<{

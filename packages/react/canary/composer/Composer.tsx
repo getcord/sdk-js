@@ -20,9 +20,10 @@ import type {
 } from '../../experimental/types.js';
 import { ReactionPickButton } from '../../experimental.js';
 import { WithPopper } from '../../experimental/components/helpers/WithPopper.js';
+import { thread as ThreadSDK } from '../../index.js';
+import { onDeleteOrBackspace } from './event-handlers/onDeleteOrBackspace.js';
 import { onSpace } from './event-handlers/onSpace.js';
 import { onInlineModifier } from './event-handlers/onInlineModifier.js';
-import { onDeleteOrBackspace } from './event-handlers/onDeleteOrBackspace.js';
 import { onArrow } from './event-handlers/onArrowPress.js';
 import { onTab } from './event-handlers/onTab.js';
 import { onShiftEnter } from './event-handlers/onShiftEnter.js';
@@ -31,16 +32,16 @@ import { useAddAttachmentToComposer } from './hooks/useAttachments.js';
 import { TextEditor, useTextEditor } from './TextEditor.js';
 import type { UseTextEditorProps } from './TextEditor.js';
 import { ComposerLayout } from './ComposerLayout.js';
+import { ResolvedThreadComposer } from './ResolvedThreadComposer.js';
 import { useCreateSubmit, useEditSubmit } from './hooks/useSubmit.js';
 import { useAddMentionToComposer } from './hooks/useMentionList.js';
 import { SendButton } from './SendButton.js';
-import { thread } from '@cord-sdk/react';
 
 const EMPTY_ATTACHMENTS: MessageAttachment[] = [];
 
 export function useEditComposer(props: EditComposerProps): ComposerProps {
   const onSubmit = useEditSubmit(props);
-  const { thread: threadData } = thread.useThread(props.threadId);
+  const { thread: threadData } = ThreadSDK.useThread(props.threadId);
 
   return useCordComposer({
     ...props,
@@ -51,7 +52,7 @@ export function useEditComposer(props: EditComposerProps): ComposerProps {
 
 export function useSendComposer(props: SendComposerProps): ComposerProps {
   const onSubmit = useCreateSubmit(props);
-  const { thread: threadData } = thread.useThread(props.threadId!);
+  const { thread: threadData } = ThreadSDK.useThread(props.threadId!);
 
   return useCordComposer({
     ...props,
@@ -61,10 +62,29 @@ export function useSendComposer(props: SendComposerProps): ComposerProps {
 }
 
 export const SendComposer = (props: SendComposerProps) => {
-  return <CordComposer canBeReplaced {...useSendComposer(props)} />;
+  const threadData = ThreadSDK.useThread(props.threadId!);
+  const resolved = threadData.thread?.resolved;
+
+  const cordComposerProps = useSendComposer(props);
+
+  if (resolved) {
+    return <ResolvedThreadComposer thread={threadData} canBeReplaced />;
+  }
+
+  return <CordComposer canBeReplaced {...cordComposerProps} />;
 };
+
 export const EditComposer = (props: EditComposerProps) => {
-  return <CordComposer canBeReplaced {...useEditComposer(props)} />;
+  const threadData = ThreadSDK.useThread(props.threadId);
+  const resolved = threadData.thread?.resolved;
+
+  const cordComposerProps = useEditComposer(props);
+
+  if (resolved) {
+    return <ResolvedThreadComposer thread={threadData} canBeReplaced />;
+  }
+
+  return <CordComposer canBeReplaced {...cordComposerProps} />;
 };
 
 export function useCordComposer(props: CordComposerProps): ComposerProps {
