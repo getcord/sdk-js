@@ -4,6 +4,8 @@ export { ThreadFacepile } from './components/ThreadFacepile.js';
 
 export * from './experimental/types.js';
 
+export type { ReplaceConfig } from './experimental/components/replacements.js';
+
 export {
   Avatar,
   AvatarTooltip,
