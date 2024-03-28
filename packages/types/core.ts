@@ -27,6 +27,19 @@ export type Location = { [key: string]: string | number | boolean };
 // For backwards compatibility, will be removed along with the deprecated context prop
 export type Context = Location;
 
+export type LocationFilterOptions = {
+  /**
+   * The [Location](https://docs.cord.com/reference/location) of the threads.
+   */
+  value: Location;
+  /**
+   * If `true`, perform [partial matching](https://docs.cord.com/reference/location#Partial-Matching)
+   * on the specified location. If `false`, fetch information for only exactly the
+   * location specified.
+   */
+  partialMatch: boolean;
+};
+
 // Fast comparison of two Locations
 export function isEqualLocation(
   a: Location | undefined,
@@ -117,9 +130,13 @@ export type ResolvedStatus = 'any' | 'resolved' | 'unresolved';
 
 export type FilterParameters = {
   /**
-   * Return only threads at this location.
+   * The [Location](https://docs.cord.com/reference/location) of the threads.
+   * This can either be just the location value or an object with a value for
+   * both the location and partialMatch properties.
+   *
+   * The value for partialMatch will default to false if only location is provided.
    */
-  location?: Location;
+  location?: Location | LocationFilterOptions;
 
   /**
    * Return only objects containing these metadata keys and values. (Metadata is

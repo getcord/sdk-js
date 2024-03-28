@@ -3,6 +3,7 @@ import type {
   ListenerRef,
   PaginationParams,
   Location,
+  LocationFilterOptions,
 } from './core.js';
 import type { ClientUserData } from './user.js';
 import type { CoreMessageData } from './message.js';
@@ -207,7 +208,7 @@ export type NotificationListFilter = {
    * This will be the location of the thread containing the message which
    * prompted the notification.
    */
-  location?: Location;
+  location?: Location | LocationFilterOptions;
   /**
    * @deprecated use groupID instead
    */

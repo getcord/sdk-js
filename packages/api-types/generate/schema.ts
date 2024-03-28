@@ -1542,10 +1542,37 @@ export default {
         type: 'object',
         properties: {
           location: {
-            description: 'Return only threads at this location.',
-            type: 'object',
-            additionalProperties: { type: ['string', 'number', 'boolean'] },
-            propertyOrder: [],
+            description:
+              'The [Location](/reference/location) of the threads.\nThis can either be just the location value or an object with a value for\nboth the location and partialMatch properties.\n\nThe value for partialMatch will default to false if only location is provided.',
+            anyOf: [
+              {
+                type: 'object',
+                additionalProperties: { type: ['string', 'number', 'boolean'] },
+                propertyOrder: [],
+              },
+              {
+                type: 'object',
+                properties: {
+                  value: {
+                    description:
+                      'The [Location](/reference/location) of the threads.',
+                    type: 'object',
+                    additionalProperties: {
+                      type: ['string', 'number', 'boolean'],
+                    },
+                    propertyOrder: [],
+                  },
+                  partialMatch: {
+                    description:
+                      'If `true`, perform [partial matching](/reference/location#Partial-Matching)\non the specified location. If `false`, fetch information for only exactly the\nlocation specified.',
+                    type: 'boolean',
+                  },
+                },
+                additionalProperties: false,
+                propertyOrder: ['value', 'partialMatch'],
+                required: ['partialMatch', 'value'],
+              },
+            ],
           },
           metadata: {
             description:

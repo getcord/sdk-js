@@ -4,6 +4,7 @@ import type {
   GroupID,
   ListenerRef,
   Location,
+  LocationFilterOptions,
   MessageID,
   OrganizationID,
   PaginationParams,
@@ -336,18 +337,7 @@ export type ObserveThreadSummaryOptions = ThreadObserverOptions;
 export type ObserveThreadDataOptions = ThreadObserverOptions;
 
 export type ViewerThreadStatus = 'subscribed' | 'mentioned';
-export type LocationFilterOptions = {
-  /**
-   * The [Location](https://docs.cord.com/reference/location) of the threads.
-   */
-  value: Location;
-  /**
-   * If `true`, perform [partial matching](https://docs.cord.com/reference/location#Partial-Matching)
-   * on the specified location. If `false`, fetch information for only exactly the
-   * location specified.
-   */
-  partialMatch: boolean;
-};
+
 export type ThreadListFilter = {
   /**
    * The value for a `metadata` entry should be an object representing the
