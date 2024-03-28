@@ -40,6 +40,8 @@ export type LocationFilterOptions = {
   partialMatch: boolean;
 };
 
+export type ViewerThreadStatus = 'subscribed' | 'mentioned';
+
 // Fast comparison of two Locations
 export function isEqualLocation(
   a: Location | undefined,
@@ -186,4 +188,11 @@ export type FilterParameters = {
    * If unset, defaults to `any`.
    */
   resolvedStatus?: ResolvedStatus;
+
+  /**
+   * The status of the viewer in this thread.  If multiple statuses are
+   * supplied, a thread will match the filter if the viewer has any of those
+   * statuses.
+   */
+  viewer?: ViewerThreadStatus | ViewerThreadStatus[];
 };

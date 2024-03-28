@@ -11,6 +11,7 @@ import type {
   ResolvedStatus,
   ThreadID,
   UserID,
+  ViewerThreadStatus,
 } from './core.js';
 import type {
   ClientMessageData,
@@ -335,8 +336,6 @@ export interface ThreadObserverOptions {
 
 export type ObserveThreadSummaryOptions = ThreadObserverOptions;
 export type ObserveThreadDataOptions = ThreadObserverOptions;
-
-export type ViewerThreadStatus = 'subscribed' | 'mentioned';
 
 export type ThreadListFilter = {
   /**
@@ -1288,7 +1287,7 @@ export interface ServerCreateThread
 }
 
 export interface ServerListThreadFilter
-  extends Omit<FilterParameters, 'organizationID' | 'authorID'> {}
+  extends Omit<FilterParameters, 'organizationID' | 'authorID' | 'viewer'> {}
 
 export type ServerListThreadParameters = {
   /**
