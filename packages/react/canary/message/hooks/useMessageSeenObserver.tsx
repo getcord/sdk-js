@@ -242,8 +242,9 @@ function getUnseenReactions(
     : [];
 }
 
-function clearNotificationsForMessage(_seenThreadID: string) {
-  // TODO we don't have this API yet
+function clearNotificationsForMessage(messageID: string) {
+  window.CordSDK &&
+    void window.CordSDK.notification.markAllAsRead({ filter: { messageID } });
 }
 
 function markThreadSeen(seenThreadID: string) {

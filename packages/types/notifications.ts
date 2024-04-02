@@ -197,7 +197,7 @@ export type NotificationListFilter = {
   /**
    * An arbitrary JSON object specified when the notification is created.
    * The value for a `metadata` entry should be an object representing the
-   * metadata key/value to filter on.  For example, to show only notifications
+   * metadata key/value to filter on.  For example, to filter only notifications
    * with the metadata key of `"category"` set to `"sales"`, set the filter
    * to `{ metadata: { category: "sales" } }`.
    */
@@ -217,6 +217,10 @@ export type NotificationListFilter = {
    * The group to which the message that prompted the notification belongs.
    */
   groupID?: string;
+  /**
+   * The message that prompted the notification.
+   */
+  messageID?: string;
 };
 
 export interface ObserveNotificationSummaryOptions {
