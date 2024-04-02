@@ -43,7 +43,6 @@ export const Thread = withCord<React.PropsWithChildren<ThreadProps>>(
               return (
                 <Message
                   key={message.id}
-                  threadID={threadData.id}
                   message={message}
                   canBeReplaced
                 ></Message>

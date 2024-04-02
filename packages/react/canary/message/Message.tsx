@@ -32,18 +32,17 @@ import { useMessageSeenObserver } from './hooks/useMessageSeenObserver.js';
 
 export type MessageProps = {
   message: ClientMessageData;
-  threadID: string;
 } & StyleProps;
 
 export const Message = withCord<React.PropsWithChildren<MessageProps>>(
   forwardRef(function Message(
-    { message, threadID, className, ...restProps }: MessageProps,
+    { message, className, ...restProps }: MessageProps,
     ref: React.ForwardedRef<HTMLElement>,
   ) {
     const [isEditing, setIsEditing] = useState(false);
 
     const editorProps = useEditComposer({
-      threadId: threadID,
+      threadId: message.threadID,
       messageId: message.id,
       initialValue: message,
     });
@@ -138,7 +137,7 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
           <OptionsMenu
             canBeReplaced
             message={message}
-            threadID={threadID}
+            threadID={message.threadID}
             button={
               <Button
                 buttonAction="show-message-options"
@@ -155,14 +154,14 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
         emojiPicker={
           <AddReactionToMessageButton
             messageID={message.id}
-            threadID={threadID}
+            threadID={message.threadID}
           />
         }
         reactions={
           <Reactions
             canBeReplaced
             messageId={message.id}
-            threadId={threadID}
+            threadId={message.threadID}
             showReactionList
             showAddReactionButton={message.reactions.length > 0}
           />
