@@ -142,7 +142,6 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
             button={
               <Button
                 buttonAction="show-message-options"
-                type="button"
                 icon="DotsThree"
                 className={buttonClasses.small}
                 canBeReplaced

@@ -38,7 +38,6 @@ export const ReactionPickButton = withCord<ReactionPickButtonProps>(
           canBeReplaced
           className={cx(className, classes.addReaction, buttonClasses.small)}
           icon="AddEmoji"
-          type="button"
           {...restProps}
           buttonAction="select-emoji"
           ref={ref}

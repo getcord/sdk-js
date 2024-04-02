@@ -7,22 +7,31 @@ import type { IconType } from '../../../components/helpers/Icon.js';
 import withCord from '../hoc/withCord.js';
 import * as classes from '../../../components/helpers/Button.classnames.js';
 import { MODIFIERS } from '../../../common/ui/modifiers.js';
+import type { StyleProps } from '../../../experimental.js';
 
-type AdditionalButtonProps = {
-  buttonAction: string;
-  type?: 'submit' | 'reset' | 'button';
-  icon?: IconType | URL;
+export type CommonButtonProps = {
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
+  onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
+  onFocus?: React.FocusEventHandler<HTMLButtonElement>;
+  onBlur?: React.FocusEventHandler<HTMLButtonElement>;
+  children?: React.ReactNode;
+  id?: string;
 };
 
-export type GeneralButtonProps = AdditionalButtonProps &
-  React.HTMLProps<HTMLButtonElement>;
+export type GeneralButtonProps = {
+  buttonAction: string;
+  icon?: IconType | URL;
+} & StyleProps &
+  CommonButtonProps;
 
-export const Button = withCord(
+export const Button = withCord<React.PropsWithChildren<GeneralButtonProps>>(
   forwardRef(function Button(
     props: GeneralButtonProps,
     ref: React.Ref<HTMLButtonElement>,
   ) {
-    const { buttonAction, icon, children, className, ...htmlProps } = props;
+    const { buttonAction, icon, children, className, ...otherProps } = props;
 
     if (!children && !icon) {
       return null;
@@ -33,11 +42,11 @@ export const Button = withCord(
         data-cord-button={buttonAction}
         aria-label={buttonAction.replaceAll('-', ' ')}
         type="button"
-        {...htmlProps}
+        {...otherProps}
         className={cx(
           className,
           {
-            [MODIFIERS.disabled]: htmlProps.disabled,
+            [MODIFIERS.disabled]: otherProps.disabled,
             [classes.icon]: !!icon,
             [classes.text]: !!children,
           },
