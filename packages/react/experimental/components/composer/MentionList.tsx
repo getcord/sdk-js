@@ -7,7 +7,7 @@ import { Range, Node, Text } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { userReferenceSuggestionsMenu } from '../../../components/Composer.classnames.js';
 import { useCordTranslation } from '../../../index.js';
-import { Avatar } from '../Avatar.js';
+import { Avatar } from '../avatar/Avatar.js';
 import { Menu } from '../menu/Menu.js';
 import { MenuItem } from '../menu/MenuItem.js';
 import { useSearchUsers, useViewerData } from '../../../hooks/user.js';

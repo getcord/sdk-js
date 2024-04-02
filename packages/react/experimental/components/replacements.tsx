@@ -1,6 +1,11 @@
 import { atom } from 'jotai';
 import type { WritableAtom } from 'jotai';
-import type { ComposerProps } from '../../experimental/types.js';
+import type {
+  ComposerProps,
+  AvatarProps,
+  AvatarFallbackProps,
+  AvatarTooltipProps,
+} from '../../experimental/types.js';
 import type { TextEditorProps } from '../../canary/composer/TextEditor.js';
 import type { ComposerLayoutProps } from '../../canary/composer/ComposerLayout.js';
 import type { ToolbarLayoutProps } from '../../canary/composer/ToolbarLayout.js';
@@ -16,12 +21,6 @@ import type { MessageTombstoneProps } from '../../canary/message/MessageTombston
 import type { ActionMessageProps } from '../../canary/message/ActionMessage.js';
 import type { ResolvedThreadComposerProps } from '../../canary/composer/ResolvedThreadComposer.js';
 import type { ReopenThreadButtonProps } from '../../canary/composer/ReopenThreadButton.js';
-import type {
-  AvatarFallbackProps,
-  AvatarProps,
-  AvatarTooltipProps,
-} from './Avatar.js';
-
 import type { OverlayProps } from './Overlay.js';
 import type { FacepileProps } from './Facepile.js';
 import type { PresenceFacepileProps } from './PresenceFacepile.js';

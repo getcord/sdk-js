@@ -11,7 +11,7 @@ import { useTime } from '../../common/effects/useTime.js';
 import { relativeTimestampString } from '../../common/util.js';
 import * as classes from '../../components/Facepile.classnames.js';
 import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
-import { Avatar } from './Avatar.js';
+import { Avatar } from './avatar/Avatar.js';
 import withCord from './hoc/withCord.js';
 
 const DEFAULT_NUM_OF_AVATARS = 5;

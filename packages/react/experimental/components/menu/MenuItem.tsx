@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { forwardRef } from 'react';
 import cx from 'classnames';
-import type { Avatar } from '../Avatar.js';
+import type { Avatar } from '../avatar/Avatar.js';
 import * as classes from '../../../components/MenuItem.css.js';
 import withCord from '../hoc/withCord.js';
 import { Icon } from '../../../components/helpers/Icon.js';

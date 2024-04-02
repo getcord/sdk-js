@@ -1,7 +1,9 @@
 import type {
   ClientCreateThread,
   ClientMessageData,
+  ClientUserData,
   MessageContent,
+  ViewerUserData,
 } from '@cord-sdk/types';
 import type { CustomEditor } from '../slateCustom.js';
 
@@ -69,4 +71,27 @@ export type CordComposerProps = {
   onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
   onCancel?: () => void;
   groupID: string | undefined;
+};
+export interface AvatarProps extends StyleProps {
+  /**
+   * ID of the user whose avatar is to be displayed.
+   */
+  userId: string;
+  /**
+   * Whether to enable tooltip on the avatar.
+   */
+  enableTooltip?: boolean;
+  /**
+   * Whether the user is absent.
+   */
+  isAbsent?: boolean;
+}
+
+export type AvatarTooltipProps = {
+  viewerData: ViewerUserData;
+  userData: ClientUserData;
+};
+
+export type AvatarFallbackProps = {
+  userData: ClientUserData;
 };

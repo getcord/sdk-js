@@ -5,7 +5,7 @@ import { isDefined } from '../../common/util.js';
 import { useUserData } from '../../hooks/user.js';
 import * as classes from '../../components/Facepile.classnames.js';
 import withCord from './hoc/withCord.js';
-import { Avatar } from './Avatar.js';
+import { Avatar } from './avatar/Avatar.js';
 
 export type FacepileProps = {
   userIDs: string[];

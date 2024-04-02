@@ -6,14 +6,9 @@ export * from './experimental/types.js';
 
 export type { ReplaceConfig } from './experimental/components/replacements.js';
 
-export {
-  Avatar,
-  AvatarTooltip,
-  AvatarFallback,
-  type AvatarTooltipProps,
-  type AvatarFallbackProps,
-  type AvatarProps,
-} from './experimental/components/Avatar.js';
+export { Avatar } from './experimental/components/avatar/Avatar.js';
+export { AvatarFallback } from './experimental/components/avatar/AvatarFallback.js';
+export { AvatarTooltip } from './experimental/components/avatar/AvatarTooltip.js';
 
 export { Replace } from './experimental/components/hoc/withReplacement.js';
 export {

@@ -4,21 +4,18 @@ import { useSyncExternalStore } from 'use-sync-external-store/shim/index.js';
 
 import cx from 'classnames';
 
-import type { ClientUserData, ViewerUserData } from '@cord-sdk/types';
-import { MODIFIERS } from '../../common/ui/modifiers.js';
-import { cordifyClassname, getStableColorPalette } from '../../common/util.js';
-import classes from '../../components/Avatar.css.js';
-import { useCordTranslation } from '../../index.js';
-import { useViewerData, useUserData } from '../../hooks/user.js';
-import { WithTooltip, DefaultTooltip } from './WithTooltip.js';
-import withCord from './hoc/withCord.js';
-
-export type AvatarProps = {
-  userId: string;
-  enableTooltip?: boolean;
-  className?: string;
-  isAbsent?: boolean;
-};
+import type { ClientUserData } from '@cord-sdk/types';
+import { MODIFIERS } from '../../../common/ui/modifiers.js';
+import {
+  cordifyClassname,
+  getStableColorPalette,
+} from '../../../common/util.js';
+import classes from '../../../components/Avatar.css.js';
+import { useViewerData, useUserData } from '../../../hooks/user.js';
+import { AvatarFallback, AvatarTooltip } from '../../../experimental.js';
+import type { AvatarProps } from '../../../experimental.js';
+import { WithTooltip } from '../WithTooltip.js';
+import withCord from '../hoc/withCord.js';
 
 function useImageStatus(
   imageRef: React.RefObject<HTMLImageElement>,
@@ -131,7 +128,6 @@ const AvatarInner = forwardRef(function AvatarImpl(
   const { displayName, name, id, profilePictureURL } = user;
   const imageRef = useRef<HTMLImageElement>(null);
   const status = useImageStatus(imageRef, profilePictureURL);
-
   const avatarPalette = useMemo(() => getStableColorPalette(id), [id]);
 
   return (
@@ -161,55 +157,3 @@ const AvatarInner = forwardRef(function AvatarImpl(
     </div>
   );
 });
-
-export type AvatarFallbackProps = {
-  userData: ClientUserData;
-};
-
-export const AvatarFallback = withCord<
-  React.PropsWithChildren<AvatarFallbackProps>
->(
-  forwardRef(function AvatarFallback(
-    { userData: user }: AvatarFallbackProps,
-    ref: React.ForwardedRef<HTMLDivElement>,
-  ) {
-    const { displayName } = user;
-    return (
-      <div ref={ref} className={classes.avatarFallback}>
-        {displayName[0].toUpperCase()}
-      </div>
-    );
-  }),
-  'AvatarFallback',
-);
-
-export type AvatarTooltipProps = {
-  viewerData: ViewerUserData;
-  userData: ClientUserData;
-};
-
-export const AvatarTooltip = withCord<
-  React.PropsWithChildren<AvatarTooltipProps>
->(
-  forwardRef(function AvatarTooltip(
-    { viewerData, userData, ...restProps }: AvatarTooltipProps,
-    _ref: React.ForwardedRef<HTMLDivElement>,
-  ) {
-    const { t } = useCordTranslation('user');
-    if (!userData || !viewerData) {
-      return null;
-    }
-    return (
-      <DefaultTooltip
-        label={t(
-          viewerData?.id === userData.id ? 'viewer_user' : 'other_user',
-          {
-            user: userData,
-          },
-        )}
-        {...restProps}
-      />
-    );
-  }),
-  'AvatarTooltip',
-);
