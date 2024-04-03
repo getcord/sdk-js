@@ -665,6 +665,23 @@ export interface ClientUpdateMessage
   removeAttachments?: RemoveAttachment[];
 }
 
+export type ShareThreadViaEmail = {
+  /**
+   * Sharing a thread via email will include the first and last message of the thread,
+   * and a screenshot of the page.
+   */
+  method: 'email';
+  /**
+   * Email address the thread will be shared to.
+   */
+  email: string;
+};
+
+/**
+ * Options to share a thread.
+ */
+export type ShareThreadOptions = ShareThreadViaEmail;
+
 export interface ICordThreadSDK {
   /**
    * This method allows you to observe summary information about a
@@ -1087,6 +1104,23 @@ export interface ICordThreadSDK {
    * rejects if it failed.
    */
   updateThread(threadID: ThreadID, data: ClientUpdateThread): Promise<true>;
+
+  /**
+   * Shares the most recent message, including a link to the thread, via email.
+   * @example Overview
+   * ```javascript
+   * await window.CordSDK.thread.shareThread('my-awesome-thread-id', {
+   *   method: 'email',
+   *   email: 'example@email.com',
+   * });
+   * ```
+   * @param threadID - The ID of the thread to share.
+   * @param options - Options to configure how to share a thread.
+   *
+   * @returns A promise that resolves to `true` if the operation succeeded or
+   * rejects if it failed.
+   */
+  shareThread(threadID: ThreadID, options: ShareThreadOptions): Promise<true>;
 
   /**
    * Add a new message to a thread.  The message will be authored by the current
