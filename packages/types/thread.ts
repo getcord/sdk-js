@@ -677,10 +677,25 @@ export type ShareThreadViaEmail = {
   email: string;
 };
 
+export type ShareThreadToSlack = {
+  /**
+   * When you share a thread on Slack, it copies the thread to the chosen Slack channel.
+   * This includes any new messages added to the thread on Slack or Cord.
+   * To share a thread on Slack, the group needs to be linked to a Slack Workspace
+   * and can be connected using the [connectToSlack](https://docs.cord.com/js-apis-and-hooks/user-api/connectToSlack) method.
+   * Also, when you share a thread to a Slack channel, a Cord Slack bot is added automatically to that channel.
+   */
+  method: 'slack';
+  /**
+   * The slack channel ID the thread will be shared to.
+   */
+  channelID: string;
+};
+
 /**
  * Options to share a thread.
  */
-export type ShareThreadOptions = ShareThreadViaEmail;
+export type ShareThreadOptions = ShareThreadViaEmail | ShareThreadToSlack;
 
 export interface ICordThreadSDK {
   /**
