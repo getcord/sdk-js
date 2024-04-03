@@ -22,6 +22,7 @@ export interface SendComposerProps extends StyleProps {
   }) => { message: Partial<ClientMessageData> } | null;
   onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
   onCancel?: () => void;
+  autofocus?: boolean;
 }
 
 export interface EditComposerProps extends StyleProps {
@@ -34,6 +35,7 @@ export interface EditComposerProps extends StyleProps {
   }) => { message: Partial<ClientMessageData> } | null;
   onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
   onCancel?: () => void;
+  autofocus?: boolean;
 }
 
 export interface ComposerProps extends StyleProps {
@@ -59,6 +61,7 @@ export interface ComposerProps extends StyleProps {
   popperElementVisible?: boolean;
   popperOnShouldHide?: () => void;
   groupID: string | undefined;
+  autofocus?: boolean;
 }
 
 export type CordComposerProps = {

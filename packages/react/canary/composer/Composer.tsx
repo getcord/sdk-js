@@ -1,6 +1,6 @@
 import * as React from 'react';
 import isHotkey from 'is-hotkey';
-import { forwardRef, useCallback, useMemo } from 'react';
+import { forwardRef, useCallback, useEffect, useMemo } from 'react';
 import { ReactEditor } from 'slate-react';
 import type {
   ClientMessageData,
@@ -320,6 +320,7 @@ export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
       isValid,
       onKeyDown,
       toolbarItems,
+      autofocus,
       ...rest
     } = props;
 
@@ -329,6 +330,13 @@ export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
       },
       [editor],
     );
+
+    useEffect(() => {
+      if (autofocus) {
+        EditorCommands.focusAndMoveCursorToEndOfText(editor);
+      }
+    }, [editor, autofocus]);
+
     const toolbarItemsWithDefault = useMemo(() => {
       return [
         ...(toolbarItems ?? []),
