@@ -72,7 +72,7 @@ export {
   type ThreadProps,
   type ThreadHeaderProps,
 } from './canary/Thread.js';
-export { Message, type MessageProps } from './canary/message/Message.js';
+export { Message } from './canary/message/Message.js';
 export {
   MessageLayout,
   type MessageLayoutProps,

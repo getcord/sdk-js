@@ -7,10 +7,16 @@ import type {
 } from '@cord-sdk/types';
 import type { CustomEditor } from '../slateCustom.js';
 
-export type StyleProps = Pick<
-  React.HTMLAttributes<HTMLDivElement>,
-  'style' | 'className'
->;
+export interface StyleProps {
+  /**
+   * Passes the style of the wrapper component.
+   */
+  style?: React.HTMLAttributes<HTMLDivElement>['style'];
+  /**
+   * Any classes to be added to the wrapper component.
+   */
+  className?: React.HTMLAttributes<HTMLDivElement>['className'];
+}
 
 export interface SendComposerProps extends StyleProps {
   initialValue?: Partial<ClientMessageData>;
@@ -75,6 +81,14 @@ export type CordComposerProps = {
   onCancel?: () => void;
   groupID: string | undefined;
 };
+
+export type MessageProps = {
+  /**
+   * Contains the data of the message to be displayed.
+   */
+  message: ClientMessageData;
+} & StyleProps;
+
 export interface AvatarProps extends StyleProps {
   /**
    * ID of the user whose avatar is to be displayed.

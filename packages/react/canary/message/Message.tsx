@@ -19,8 +19,8 @@ import {
 } from '../../experimental.js';
 import { useEditComposer, CordComposer } from '../composer/Composer.js';
 import { EditorCommands } from '../composer/lib/commands.js';
-import type { StyleProps } from '../../experimental/types.js';
 import { useUserData, useViewerData } from '../../hooks/user.js';
+import type { MessageProps } from '../../experimental.js';
 import { AddReactionToMessageButton } from '../../experimental/components/ReactionPickButton.js';
 import { useComposedRefs } from '../../common/lib/composeRefs.js';
 import { useExtraClassnames } from '../../hooks/useExtraClassnames.js';
@@ -29,10 +29,6 @@ import { Username } from './Username.js';
 import { MessageTombstoneWrapper } from './MessageTombstone.js';
 import { ActionMessage } from './ActionMessage.js';
 import { useMessageSeenObserver } from './hooks/useMessageSeenObserver.js';
-
-export type MessageProps = {
-  message: ClientMessageData;
-} & StyleProps;
 
 export const Message = withCord<React.PropsWithChildren<MessageProps>>(
   forwardRef(function Message(

@@ -2,6 +2,7 @@ import { atom } from 'jotai';
 import type { WritableAtom } from 'jotai';
 import type {
   ComposerProps,
+  MessageProps,
   AvatarProps,
   AvatarFallbackProps,
   AvatarTooltipProps,
@@ -9,7 +10,6 @@ import type {
 import type { TextEditorProps } from '../../canary/composer/TextEditor.js';
 import type { ComposerLayoutProps } from '../../canary/composer/ComposerLayout.js';
 import type { ToolbarLayoutProps } from '../../canary/composer/ToolbarLayout.js';
-import type { MessageProps } from '../../canary/message/Message.js';
 import type { MessageLayoutProps } from '../../canary/message/MessageLayout.js';
 import type { ThreadHeaderProps, ThreadProps } from '../../canary/Thread.js';
 import type { SendButtonProps } from '../../canary/composer/SendButton.js';
