@@ -47,7 +47,7 @@ export interface ThreadMessageAddedWebhookPayload {
 }
 
 // Need to be split out to help the docs type extraction script
-export interface WebhookMessage extends Omit<CoreMessageData, 'authorID'> {
+export interface WebhookMessage extends CoreMessageData {
   author: ClientUserData;
 }
 
