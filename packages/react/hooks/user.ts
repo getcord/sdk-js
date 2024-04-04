@@ -286,11 +286,13 @@ export function useSearchUsers(
   const userSDK = sdk?.user;
 
   const [data, setData] = useState<SearchUsersResult | undefined>(undefined);
-  const { searchQuery, groupID, skip } = options;
+  const { searchQuery, groupID, skip, sortBy, sortDirection } = options;
 
   const inputsMemo = useMemoObject({
     searchQuery,
     groupID: groupID ?? sdk?.groupID,
+    sortBy,
+    sortDirection,
   });
 
   if (!skip && !inputsMemo.groupID) {

@@ -174,6 +174,15 @@ export type DisconnectSlackWorkspaceOptions = {
   groupID?: string;
 };
 
+export type SearchUsersSortByLocation = {
+  type: 'location';
+  location: Location;
+};
+
+export type SearchUsersSortBy = SearchUsersSortByLocation;
+
+export type SearchUsersSortDirection = 'ascending' | 'descending';
+
 /**
  * Options for the `searchUsers` function
  */
@@ -187,6 +196,29 @@ export type SearchUsersOptions = {
    * group in order to receive its data.
    */
   groupID?: string;
+  /**
+   * Sort users in order of when they visited the location.
+   */
+  sortBy?: SearchUsersSortBy;
+  /**
+   * This option controls the direction that `sortBy`
+   * sorts. Combined with `sortBy`, it determines
+   * which searched users are "first".
+   *
+   * It's a string enum which can have one of the following
+   * values:
+   *
+   * `ascending`: sort users who have not visited the location first in the list,
+   * followed by those who visited a long time ago, followed by those who visited
+   * recently.
+   *
+   * `descending`: sort users who have recently visited the location first in the
+   * list, followed by those who visited a long time ago, followed by those who
+   * have not visited the location at all.
+   *
+   * If unset, defaults to `descending`.
+   */
+  sortDirection?: SearchUsersSortDirection;
 };
 
 export type SearchUsersResult = {
