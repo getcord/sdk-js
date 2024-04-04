@@ -19,27 +19,89 @@ export interface StyleProps {
 }
 
 export interface SendComposerProps extends StyleProps {
+  /**
+   * The initial value of the composer.
+   */
   initialValue?: Partial<ClientMessageData>;
+  /**
+   * An [arbitrary string](/reference/identifiers) that uniquely identifies a
+   * thread. Messages sent will go to the provided thread ID. If the thread does not exist,
+   * then the createThread prop should be passed.
+   *
+   * *Warning!*
+   * An important restriction of working with thread identifiers
+   * is that they must be unique across your entire application.
+   * You can't use the same thread identifier in two separate
+   * groups. This is an intentional limitation imposed by Cord.
+   */
   threadId?: string;
+  /**
+   * An object containing the data of the thread to be created. If a threadID
+   * is passed, this object will be ignored.
+   */
   createThread?: ClientCreateThread;
+  /**
+   * Text to be displayed as a placeholder in the composer.
+   */
   placeholder?: string;
+  /**
+   * Callback invoked before the message is sent. It receives the message data
+   * as an argument and should return the modified message data. If the callback
+   * returns `null`, the message will not be sent.
+   */
   onBeforeSubmit?: (arg: {
     message: Partial<ClientMessageData>;
   }) => { message: Partial<ClientMessageData> } | null;
+  /**
+   * Callback invoked after the message is sent.
+   */
   onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
+  /**
+   * Callback invoked when the user clicks on the cancel button in the composer.
+   */
   onCancel?: () => void;
   autofocus?: boolean;
 }
 
 export interface EditComposerProps extends StyleProps {
+  /**
+   * The initial value of the composer.
+   */
   initialValue?: Partial<ClientMessageData>;
+  /**
+   * An [arbitrary string](/reference/identifiers) that uniquely identifies a
+   * thread.
+   *
+   * *Warning!*
+   * An important restriction of working with thread identifiers
+   * is that they must be unique across your entire application.
+   * You can't use the same thread identifier in two separate
+   * groups. This is an intentional limitation imposed by Cord.
+   */
   threadId: string;
+  /**
+   * The id of the message to be edited.
+   */
   messageId: string;
+  /**
+   * Text to be displayed as a placeholder in the composer.
+   */
   placeholder?: string;
+  /**
+   * Callback invoked before the message is sent. It receives the message data
+   * as an argument and should return the modified message data. If the callback
+   * returns `null`, the message will not be sent.
+   */
   onBeforeSubmit?: (arg: {
     message: Partial<ClientMessageData>;
   }) => { message: Partial<ClientMessageData> } | null;
+  /**
+   * Callback invoked after the message is sent.
+   */
   onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
+  /**
+   * Callback invoked when the user clicks on the cancel button in the composer.
+   */
   onCancel?: () => void;
   autofocus?: boolean;
 }
