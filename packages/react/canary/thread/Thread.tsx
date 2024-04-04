@@ -3,11 +3,12 @@ import { forwardRef } from 'react';
 import cx from 'classnames';
 
 import type { ClientThreadData } from '@cord-sdk/types';
-import withCord from '../experimental/components/hoc/withCord.js';
-import { threadHeader } from '../components/Thread.classnames.js';
-import { Button, OptionsMenu } from '../experimental.js';
-import { SendComposer } from './composer/Composer.js';
-import { Message } from './message/Message.js';
+import withCord from '../../experimental/components/hoc/withCord.js';
+import { threadHeader } from '../../components/Thread.classnames.js';
+import { Button, OptionsMenu } from '../../experimental.js';
+import { SendComposer } from '../composer/Composer.js';
+import { Message } from '../message/Message.js';
+import { ThreadSeenBy, ThreadSeenByWrapper } from './ThreadSeenBy.js';
 
 export type ThreadProps = {
   thread?: ClientThreadData;
@@ -49,6 +50,12 @@ export const Thread = withCord<React.PropsWithChildren<ThreadProps>>(
               );
             })}
         </div>
+        {threadData && threadData.lastMessage && (
+          <ThreadSeenByWrapper
+            participants={threadData.participants}
+            message={threadData.lastMessage}
+          />
+        )}
         <SendComposer threadId={threadData?.id} />
       </div>
     );

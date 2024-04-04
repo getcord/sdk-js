@@ -41,3 +41,6 @@ export const loadOlderMessages = cordifyClassname(
 
 // WrapperThread
 export const clickableThread = cordifyClassname('clickable-thread');
+
+// SeenBy
+export const threadSeenBy = cordifyClassname('thread-seen-by-container');

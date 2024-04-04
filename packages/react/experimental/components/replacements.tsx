@@ -11,7 +11,10 @@ import type { TextEditorProps } from '../../canary/composer/TextEditor.js';
 import type { ComposerLayoutProps } from '../../canary/composer/ComposerLayout.js';
 import type { ToolbarLayoutProps } from '../../canary/composer/ToolbarLayout.js';
 import type { MessageLayoutProps } from '../../canary/message/MessageLayout.js';
-import type { ThreadHeaderProps, ThreadProps } from '../../canary/Thread.js';
+import type {
+  ThreadHeaderProps,
+  ThreadProps,
+} from '../../canary/thread/Thread.js';
 import type { SendButtonProps } from '../../canary/composer/SendButton.js';
 import type {
   UsernameProps,
@@ -22,6 +25,7 @@ import type { ActionMessageProps } from '../../canary/message/ActionMessage.js';
 import type { ResolvedThreadComposerProps } from '../../canary/composer/ResolvedThreadComposer.js';
 import type { CloseComposerButtonProps } from '../../canary/composer/CloseComposerButton.js';
 import type { ReopenThreadButtonProps } from '../../canary/composer/ReopenThreadButton.js';
+import type { ThreadSeenByProps } from '../../canary/thread/ThreadSeenBy.js';
 import type { OverlayProps } from './Overlay.js';
 import type { FacepileProps } from './Facepile.js';
 import type { PresenceFacepileProps } from './PresenceFacepile.js';
@@ -49,45 +53,46 @@ export type ReplaceConfig = ReplaceConfigBase & ReplaceWithin;
 
 export type ReplaceConfigBase = Partial<{
   Replace: React.ComponentType<object>;
+  ActionMessage: React.ComponentType<ActionMessageProps>;
   Avatar: React.ComponentType<AvatarProps>;
   AvatarFallback: React.ComponentType<AvatarFallbackProps>;
   AvatarTooltip: React.ComponentType<AvatarTooltipProps>;
-  Facepile: React.ComponentType<FacepileProps>;
-  PresenceFacepile: React.ComponentType<PresenceFacepileProps>;
-  ReactionButton: React.ComponentType<ReactionPickButtonProps>;
   Button: React.ComponentType<GeneralButtonProps>;
-  PagePresence: React.ComponentType<PagePresenceProps>;
-  OptionsMenu: React.ComponentType<OptionsMenuProps>;
-  OptionsMenuTooltip: React.ComponentType<OptionsMenuTooltipProps>;
-  Menu: React.ComponentType<MenuProps>;
-  MenuItem: React.ComponentType<MenuItemProps>;
-  Overlay: React.ComponentType<OverlayProps>;
-  Message: React.ComponentType<MessageProps>;
-  MessageLayout: React.ComponentType<MessageLayoutProps>;
-  MessageFilesAttachments: React.ComponentType<MessageFilesAttachmentsProps>;
-  MediaModal: React.ComponentType<MediaModalProps>;
-  MessageUserReferenceElement: React.ComponentType<MessageUserReferenceElementProps>;
-  MessageText: React.ComponentType<MessageTextProps>;
-  MessageContent: React.ComponentType<MessageContentProps>;
-  MessageActions: React.ComponentType<MessageActionsProps>;
-  MessageTombstone: React.ComponentType<MessageTombstoneProps>;
-  Separator: React.ComponentType<SeparatorProps>;
+  CloseComposerButton: React.ComponentType<CloseComposerButtonProps>;
   Composer: React.ComponentType<ComposerProps>;
   ComposerLayout: React.ComponentType<ComposerLayoutProps>;
-  TextEditor: React.ComponentType<TextEditorProps>;
-  ToolbarLayout: React.ComponentType<ToolbarLayoutProps>;
-  SendButton: React.ComponentType<SendButtonProps>;
-  Timestamp: React.ComponentType<TimestampProps>;
   EmojiPicker: React.ComponentType<EmojiPickerProps>;
+  Facepile: React.ComponentType<FacepileProps>;
+  MediaModal: React.ComponentType<MediaModalProps>;
+  Menu: React.ComponentType<MenuProps>;
+  MenuItem: React.ComponentType<MenuItemProps>;
+  Message: React.ComponentType<MessageProps>;
+  MessageActions: React.ComponentType<MessageActionsProps>;
+  MessageContent: React.ComponentType<MessageContentProps>;
+  MessageFilesAttachments: React.ComponentType<MessageFilesAttachmentsProps>;
+  MessageLayout: React.ComponentType<MessageLayoutProps>;
+  MessageText: React.ComponentType<MessageTextProps>;
+  MessageTombstone: React.ComponentType<MessageTombstoneProps>;
+  MessageUserReferenceElement: React.ComponentType<MessageUserReferenceElementProps>;
+  OptionsMenu: React.ComponentType<OptionsMenuProps>;
+  OptionsMenuTooltip: React.ComponentType<OptionsMenuTooltipProps>;
+  Overlay: React.ComponentType<OverlayProps>;
+  PagePresence: React.ComponentType<PagePresenceProps>;
+  PresenceFacepile: React.ComponentType<PresenceFacepileProps>;
+  ReactionButton: React.ComponentType<ReactionPickButtonProps>;
   Reactions: React.ComponentType<ReactionsProps>;
+  ReopenThreadButton: React.ComponentType<ReopenThreadButtonProps>;
+  ResolvedThreadComposer: React.ComponentType<ResolvedThreadComposerProps>;
+  SendButton: React.ComponentType<SendButtonProps>;
+  Separator: React.ComponentType<SeparatorProps>;
+  TextEditor: React.ComponentType<TextEditorProps>;
   Thread: React.ComponentType<ThreadProps>;
   ThreadHeader: React.ComponentType<ThreadHeaderProps>;
+  ThreadSeenBy: React.ComponentType<ThreadSeenByProps>;
+  Timestamp: React.ComponentType<TimestampProps>;
+  ToolbarLayout: React.ComponentType<ToolbarLayoutProps>;
   Username: React.ComponentType<UsernameProps>;
   UsernameTooltip: React.ComponentType<UsernameTooltipProps>;
-  ActionMessage: React.ComponentType<ActionMessageProps>;
-  ResolvedThreadComposer: React.ComponentType<ResolvedThreadComposerProps>;
-  ReopenThreadButton: React.ComponentType<ReopenThreadButtonProps>;
-  CloseComposerButton: React.ComponentType<CloseComposerButtonProps>;
 }>;
 
 type ReplaceWithin = Partial<{

@@ -140,6 +140,14 @@ export type ThreadParticipant = {
    * participant's information).
    */
   userID: UserID | null;
+
+  /**
+   * The display name of the participant. Can be null if the current viewer no
+   * longer shares a [group](https://docs.cord.com/rest-apis/groups)
+   * with this participant (and therefore can no longer access that
+   * participant's information).
+   */
+  displayName: string | null;
 };
 
 export interface CoreThreadData {

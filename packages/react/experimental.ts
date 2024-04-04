@@ -71,7 +71,9 @@ export {
   ThreadHeader,
   type ThreadProps,
   type ThreadHeaderProps,
-} from './canary/Thread.js';
+} from './canary/thread/Thread.js';
+export type { ThreadSeenByProps } from './canary/thread/ThreadSeenBy.js';
+export { ThreadSeenBy } from './canary/thread/ThreadSeenBy.js';
 export { Message } from './canary/message/Message.js';
 export {
   MessageLayout,
