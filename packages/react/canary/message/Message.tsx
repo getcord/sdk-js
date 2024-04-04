@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { forwardRef, useCallback, useState } from 'react';
 import cx from 'classnames';
-import type {
-  MessageContent as MessageContentType,
-  ClientMessageData,
-} from '@cord-sdk/types';
+import type { MessageContent as MessageContentType } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as buttonClasses from '../../components/helpers/Button.classnames.js';
 
@@ -17,8 +14,7 @@ import {
   Reactions,
   MessageLayout,
 } from '../../experimental.js';
-import { useEditComposer, CordComposer } from '../composer/Composer.js';
-import { EditorCommands } from '../composer/lib/commands.js';
+import { EditComposer } from '../composer/Composer.js';
 import { useUserData, useViewerData } from '../../hooks/user.js';
 import type { MessageProps } from '../../experimental.js';
 import { AddReactionToMessageButton } from '../../experimental/components/ReactionPickButton.js';
@@ -37,29 +33,6 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
   ) {
     const [isEditing, setIsEditing] = useState(false);
 
-    const editorProps = useEditComposer({
-      threadId: message.threadID,
-      messageId: message.id,
-      initialValue: message,
-    });
-    const setEditing = useCallback(
-      (editing: Parameters<typeof setIsEditing>[0]) => {
-        setIsEditing(editing);
-        if (editing) {
-          setTimeout(() => {
-            EditorCommands.focusAndMoveCursorToEndOfText(editorProps.editor);
-          }, 0);
-        }
-      },
-      [editorProps.editor],
-    );
-    const onEditSubmit = useCallback(
-      (arg: { message: Partial<ClientMessageData> }) => {
-        editorProps.onSubmit(arg);
-        setEditing(false);
-      },
-      [editorProps, setEditing],
-    );
     const onCancel = useCallback(() => {
       setIsEditing(false);
     }, []);
@@ -77,12 +50,15 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
 
     if (isEditing) {
       return (
-        <CordComposer
-          canBeReplaced
-          {...editorProps}
-          onSubmit={onEditSubmit}
-          onResetState={() => setIsEditing(false)}
+        <EditComposer
+          messageId={message.id}
+          threadId={message.threadID}
+          initialValue={message}
+          onAfterSubmit={() => {
+            setIsEditing(false);
+          }}
           onCancel={onCancel}
+          autofocus
         />
       );
     }
@@ -144,7 +120,7 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
             }
             showThreadOptions
             showMessageOptions
-            setEditing={setEditing}
+            setEditing={setIsEditing}
           />
         }
         emojiPicker={
