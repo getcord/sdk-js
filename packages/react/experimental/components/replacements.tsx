@@ -20,6 +20,7 @@ import type {
 import type { MessageTombstoneProps } from '../../canary/message/MessageTombstone.js';
 import type { ActionMessageProps } from '../../canary/message/ActionMessage.js';
 import type { ResolvedThreadComposerProps } from '../../canary/composer/ResolvedThreadComposer.js';
+import type { CloseComposerButtonProps } from '../../canary/composer/CloseComposerButton.js';
 import type { ReopenThreadButtonProps } from '../../canary/composer/ReopenThreadButton.js';
 import type { OverlayProps } from './Overlay.js';
 import type { FacepileProps } from './Facepile.js';
@@ -86,6 +87,7 @@ export type ReplaceConfigBase = Partial<{
   ActionMessage: React.ComponentType<ActionMessageProps>;
   ResolvedThreadComposer: React.ComponentType<ResolvedThreadComposerProps>;
   ReopenThreadButton: React.ComponentType<ReopenThreadButtonProps>;
+  CloseComposerButton: React.ComponentType<CloseComposerButtonProps>;
 }>;
 
 type ReplaceWithin = Partial<{

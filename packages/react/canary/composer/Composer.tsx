@@ -36,6 +36,7 @@ import { ResolvedThreadComposer } from './ResolvedThreadComposer.js';
 import { useCreateSubmit, useEditSubmit } from './hooks/useSubmit.js';
 import { useAddMentionToComposer } from './hooks/useMentionList.js';
 import { SendButton } from './SendButton.js';
+import { CloseComposerButton } from './CloseComposerButton.js';
 
 const EMPTY_ATTACHMENTS: MessageAttachment[] = [];
 
@@ -78,13 +79,31 @@ export const EditComposer = (props: EditComposerProps) => {
   const threadData = ThreadSDK.useThread(props.threadId);
   const resolved = threadData.thread?.resolved;
 
+  const closeComposerButtonToolbarItem = useMemo(() => {
+    return [
+      {
+        name: 'cancelButton',
+        element: <CloseComposerButton canBeReplaced onClick={props.onCancel} />,
+      },
+    ];
+  }, [props]);
+
   const cordComposerProps = useEditComposer(props);
 
   if (resolved) {
     return <ResolvedThreadComposer thread={threadData} canBeReplaced />;
   }
 
-  return <CordComposer canBeReplaced {...cordComposerProps} />;
+  return (
+    <CordComposer
+      canBeReplaced
+      {...cordComposerProps}
+      toolbarItems={[
+        ...(cordComposerProps.toolbarItems ?? []),
+        ...closeComposerButtonToolbarItem,
+      ]}
+    />
+  );
 };
 
 export function useCordComposer(props: CordComposerProps): ComposerProps {
