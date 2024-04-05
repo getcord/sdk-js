@@ -4,10 +4,7 @@ import cx from 'classnames';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
 import type { StyleProps } from '../../experimental/types.js';
-import {
-  composerContainer,
-  expanded,
-} from '../../components/Composer.classnames.js';
+import classes from '../composer/Composer.css.js';
 
 import { ToolbarLayout } from './ToolbarLayout.js';
 
@@ -38,18 +35,8 @@ export const ComposerLayout = withCord<
     return (
       <div
         ref={ref}
-        className={cx(composerContainer, expanded, className)}
-        style={
-          style || {
-            backgroundColor: 'var(--cord-color-base, #FFFFFF)',
-            border:
-              'var(--cord-composer-border, 1px solid var(--cord-color-base-x-strong, #DADCE0))',
-            borderRadius:
-              'var(--cord-composer-border-radius, var(--cord-border-radius-medium, var(--cord-space-3xs, 4px)))',
-            display: 'flex',
-            flexDirection: 'column',
-          }
-        }
+        className={cx(classes.composerContainer, classes.expanded, className)}
+        style={style}
       >
         {props.textEditor}
         {attachments}

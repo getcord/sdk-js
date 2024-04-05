@@ -14,7 +14,7 @@ export function globalStyle(selector: string, rule: GlobalStyleRule) {
   if (selector.includes('::')) {
     throw new Error(
       `Cannot use pseudo selector with \`globalStyle\`. 
-      Please use \`defaultGlobalStyle\` and prepend CORD_V4 manually
+      Please use \`defaultGlobalStyle\` and prepend CORD_V2 manually
       Selector: ${selector}`,
     );
   }

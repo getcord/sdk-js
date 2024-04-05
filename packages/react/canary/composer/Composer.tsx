@@ -37,6 +37,7 @@ import { useCreateSubmit, useEditSubmit } from './hooks/useSubmit.js';
 import { useAddMentionToComposer } from './hooks/useMentionList.js';
 import { SendButton } from './SendButton.js';
 import { CloseComposerButton } from './CloseComposerButton.js';
+import classes from './Composer.css.js';
 
 const EMPTY_ATTACHMENTS: MessageAttachment[] = [];
 
@@ -495,7 +496,7 @@ const BaseComposer = forwardRef(function BaseComposer(
         textEditor={
           <TextEditor
             canBeReplaced
-            className="cord-editor"
+            className={classes.editor}
             placeholder={placeholder}
             editor={editor}
             initialValue={initialValue?.content as MessageContent | undefined}
