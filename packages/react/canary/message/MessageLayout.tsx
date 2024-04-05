@@ -54,7 +54,7 @@ export const MessageLayout = withCord<MessageLayoutProps>(
         {authorName}
         {timestamp}
         <div className={classes.optionsMenuTrigger}>
-          <div className="cord-message-options-buttons">
+          <div className={classes.messageOptionsButtons}>
             {optionsMenu}
             {emojiPicker}
           </div>

@@ -11,6 +11,9 @@ export const deletedIcon = cordifyClassname('deleted-icon');
 export const deletedMultipleMessages = cordifyClassname(
   'deleted-multiple-messages',
 );
+export const messageOptionsButtons = cordifyClassname(
+  'message-options-buttons',
+);
 
 export const messageClassnamesDocs = {
   [message]:
