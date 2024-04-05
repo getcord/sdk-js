@@ -3,9 +3,9 @@ import { forwardRef } from 'react';
 import type { HTMLAttributes } from 'react';
 import cx from 'classnames';
 
-import * as classes from '../../../components/helpers/ButtonWithUnderline.classnames.js';
 import type { IconType } from '../../../components/helpers/Icon.js';
 import { Icon } from '../../../components/helpers/Icon.js';
+import classes from './ButtonWithUnderline.css.js';
 import { Button } from './Button.js';
 
 type ButtonWithUnderlineProps = {

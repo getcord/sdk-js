@@ -4,7 +4,7 @@ import type {
   MessageAttachment,
   MessageContent as MessageContentType,
 } from '@cord-sdk/types';
-import * as classes from '../../../components/MessageContent.classnames.js';
+import classes from '../../../components/MessageContent.css.js';
 import withCord from '../hoc/withCord.js';
 import type { StyleProps } from '../../types.js';
 import { MessageFilesAttachments } from './MessageFilesAttachments.js';

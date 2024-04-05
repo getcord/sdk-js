@@ -3,7 +3,7 @@ import { useCallback, useState, forwardRef, useRef, useEffect } from 'react';
 import withCord from '../hoc/withCord.js';
 import { useComposedRefs } from '../../../common/lib/composeRefs.js';
 import { useCordTranslation } from '../../../index.js';
-import * as classes from '../../../components/helpers/EmojiPicker.classnames.js';
+import classes from '../../../components/helpers/EmojiPicker.css.js';
 import { WithPopper } from './WithPopper.js';
 
 type EmojiEvent = {

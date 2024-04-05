@@ -8,7 +8,7 @@ import { ButtonWithUnderline } from '../helpers/ButtonWithUnderline.js';
 import { SpinnerIcon } from '../../../common/icons/customIcons/SpinnerIcon.js';
 import { getFileSizeString } from '../../../common/util.js';
 
-import * as classes from '../../../components/FileAttachment.classnames.js';
+import * as classes from '../../../components/FileAttachment.css.js';
 import { Icon } from '../../../components/helpers/Icon.js';
 import type { IconType } from '../../../components/helpers/Icon.js';
 import { useCordTranslation } from '../../../index.js';

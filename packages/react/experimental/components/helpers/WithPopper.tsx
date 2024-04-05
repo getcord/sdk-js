@@ -13,7 +13,7 @@ import type { PopperPosition } from '../../../types.js';
 import { usePopperCreator } from '../../../hooks/usePopperCreator.js';
 import { useClickOutside } from '../../../common/effects/useClickOutside.js';
 import { useUpdatingRef } from '../../../common/effects/useUpdatingRef.js';
-import * as classes from '../../../components/helpers/WithPopper.classnames.js';
+import classes from '../../../components/helpers/WithPopper.css.js';
 import { ZINDEX } from '../../../common/ui/zIndex.js';
 import { useComposedRefs } from '../../../common/lib/composeRefs.js';
 

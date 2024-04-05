@@ -14,7 +14,7 @@ import {
 import { useUsersByReactions } from '../../common/effects/useUsersByReactions.js';
 import { useMessage, useThread } from '../../hooks/thread.js';
 import { useCordTranslation } from '../../index.js';
-import * as classes from '../../components/Reactions.classnames.js';
+import classes from '../../components/Reactions.css.js';
 import { useViewerData } from '../../hooks/user.js';
 import {
   AddReactionToMessageButton,

@@ -3,7 +3,7 @@ import { useMemo, forwardRef } from 'react';
 import cx from 'classnames';
 import { isDefined } from '../../common/util.js';
 import { useUserData } from '../../hooks/user.js';
-import * as classes from '../../components/Facepile.classnames.js';
+import classes from '../../components/Facepile.css.js';
 import withCord from './hoc/withCord.js';
 import { Avatar } from './avatar/Avatar.js';
 

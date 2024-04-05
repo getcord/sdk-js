@@ -1,7 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 import { DefaultTooltip, WithTooltip } from '../WithTooltip.js';
-import * as classes from '../../../components/composer/ImageAttachment.classnames.js';
+import * as classes from '../../../components/composer/ImageAttachment.css.js';
 import { useCordTranslation } from '../../../index.js';
 import { SpinnerIcon } from '../../../common/icons/customIcons/SpinnerIcon.js';
 import { Icon } from '../../../components/helpers/Icon.js';

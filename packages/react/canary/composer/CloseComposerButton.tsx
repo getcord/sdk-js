@@ -4,11 +4,7 @@ import cx from 'classnames';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { Button } from '../../experimental.js';
 import type { StyleProps } from '../../experimental.js';
-import {
-  closeButton,
-  colorsSecondary,
-  small,
-} from '../../components/helpers/Button.classnames.js';
+import classes from '../../experimental/components/helpers/Button.css.js';
 import type { CommonButtonProps } from '../../experimental/components/helpers/Button.js';
 
 export interface CloseComposerButtonProps
@@ -25,7 +21,12 @@ export const CloseComposerButton = withCord<
     return (
       <Button
         canBeReplaced
-        className={cx(className, closeButton, colorsSecondary, small)}
+        className={cx(
+          className,
+          classes.closeButton,
+          classes.colorsSecondary,
+          classes.small,
+        )}
         buttonAction="close-composer"
         onClick={onClick}
         icon="X"

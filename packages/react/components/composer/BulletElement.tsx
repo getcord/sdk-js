@@ -1,6 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
-import * as classes from './BulletElement.classnames.js';
+import * as classes from './BulletElement.css.js';
 
 type Props = {
   attributes: any;

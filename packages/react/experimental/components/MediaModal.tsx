@@ -13,7 +13,7 @@ import {
   isInlineDisplayableVideo,
 } from '../../common/lib/uploads.js';
 import { Icon } from '../../components/helpers/Icon.js';
-import * as classes from '../../components/MediaModal.classnames.js';
+import * as classes from '../../components/MediaModal.css.js';
 import {
   colorsPrimary,
   medium,
