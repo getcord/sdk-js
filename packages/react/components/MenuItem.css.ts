@@ -1,4 +1,4 @@
-import { globalStyle } from '@vanilla-extract/css';
+import { globalStyle } from '../common/ui/style.js';
 
 import { addSpaceVars, cssVar } from '../common/ui/cssVariables.js';
 import { getModifiedSelector } from '../common/ui/modifiers.js';

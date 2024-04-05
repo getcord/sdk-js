@@ -1,4 +1,8 @@
-import { globalStyle } from '@vanilla-extract/css';
+import {
+  CORD_V2,
+  defaultGlobalStyle,
+  globalStyle,
+} from '../common/ui/style.js';
 import { cordifyClassname } from '../common/util.js';
 import { cssVar } from '../common/ui/cssVariables.js';
 import { getModifiedSelector } from '../common/ui/modifiers.js';
@@ -32,8 +36,8 @@ globalStyle(
     width: `calc(${cssVar('annotation-pin-size')} * 0.8)`,
   },
 );
-globalStyle(
-  `:where(:host(cord-settings), .cord-component-settings) .${avatarContainer}`,
+defaultGlobalStyle(
+  `:where(:host(cord-settings), .cord-component-settings.${CORD_V2}) .${avatarContainer}`,
   {
     height: cssVar('space-4xl'),
     width: cssVar('space-4xl'),
@@ -44,7 +48,7 @@ globalStyle(`:host(cord-message) .${avatarContainer}`, {
   gridArea: 'avatar',
   marginTop: cssVar('space-3xs'),
 });
-globalStyle(`cord-message .${avatarContainer}`, {
+defaultGlobalStyle(`cord-message:where(.${CORD_V2}) .${avatarContainer}`, {
   gridArea: 'avatar',
   marginTop: cssVar('space-3xs'),
 });
@@ -57,17 +61,20 @@ globalStyle(`:where(.${pinContainer}) .${avatarContainer}`, {
 globalStyle(`:where(.${pinContainer}) .${avatarFallback}`, {
   fontSize: `calc(${cssVar('annotation-pin-size')} * 0.8 * 0.5 )`,
 });
-globalStyle(
-  `:where(.cord-component-avatar, .cord-component-facepile, .cord-component-presence-facepile) .${avatarContainer}`,
+defaultGlobalStyle(
+  `:where(.${CORD_V2}):where(.cord-component-avatar, .cord-component-facepile, .cord-component-presence-facepile) .${avatarContainer}`,
   {
     height: cssVar('facepile-avatar-size'),
     width: cssVar('facepile-avatar-size'),
   },
 );
-globalStyle(`:where(.cord-component-page-presence) .${avatarContainer}`, {
-  height: cssVar('page-presence-avatar-size'),
-  width: cssVar('page-presence-avatar-size'),
-});
+defaultGlobalStyle(
+  `:where(.${CORD_V2}.cord-component-page-presence) .${avatarContainer}`,
+  {
+    height: cssVar('page-presence-avatar-size'),
+    width: cssVar('page-presence-avatar-size'),
+  },
+);
 globalStyle(getModifiedSelector('loading', `.${avatarContainer}`), {
   visibility: 'hidden',
 });
@@ -79,17 +86,12 @@ globalStyle(`:where(.${facepileContainer}) .${avatarContainer}`, {
   )}`,
   position: 'relative',
 });
-globalStyle(
-  `.${facepileContainer} > :where(.${avatarContainer}:last-child),
-.${facepileContainer} :where(.cord-component-avatar:last-child .${avatarContainer})`,
-  {
-    boxShadow: 'none',
-  },
-);
+globalStyle(`.${facepileContainer} > :where(.${avatarContainer}:last-child)`, {
+  boxShadow: 'none',
+});
 
 globalStyle(
-  `.${facepileContainer} > :where(.${avatarContainer}:not(:first-child)), 
-  .${facepileContainer} :where(.cord-component-avatar:not(:first-child) .${avatarContainer})`,
+  `.${facepileContainer} > :where(.${avatarContainer}:not(:first-child))`,
   {
     marginLeft: `calc(${cssVar('facepile-avatar-overlap')} * -1)`,
   },
@@ -97,23 +99,25 @@ globalStyle(
 // This is needed for the "cutout" effect of our overlapping avatars.
 // Specifically, since we set opacity 0.5 to "non present" users, we
 // need a solid white background to avoid semi-transparent avatars getting mixed.
-globalStyle(`:where(.${facepileContainer}) .${avatarContainer}::after`, {
-  content: '',
-  width: '100%',
-  height: '100%',
-  background: cssVar('facepile-background-color'),
-  display: 'block',
-  position: 'absolute',
-  zIndex: '-1',
-});
+defaultGlobalStyle(
+  `:where(.${CORD_V2}) :where(.${facepileContainer}) .${avatarContainer}::after`,
+  {
+    content: '',
+    width: '100%',
+    height: '100%',
+    background: cssVar('facepile-background-color'),
+    display: 'block',
+    position: 'absolute',
+    zIndex: '-1',
+  },
+);
 const AVATAR_MAX_ZINDEX = 20;
 // Our facepile has overlapping Avatars. We need zIndex to achieve
 // the nice overlap + crop effect. We use a class rather than inline
 // styles because it's easier for devs to override.
 for (let i = 1; i < AVATAR_MAX_ZINDEX; i++) {
   globalStyle(
-    `.${facepileContainer} > :where(.${avatarContainer}:nth-child(${i})), 
-    .${facepileContainer} :where(.cord-component-avatar:nth-child(${i}))`,
+    `.${facepileContainer} > :where(.${avatarContainer}:nth-child(${i}))`,
     {
       position: 'relative', // Allow zIndex, needed because we overlap avatars
       zIndex: AVATAR_MAX_ZINDEX - i,

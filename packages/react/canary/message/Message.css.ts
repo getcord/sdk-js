@@ -1,6 +1,11 @@
-import { globalStyle } from '@vanilla-extract/css';
 import { cssVar } from '../../common/ui/cssVariables.js';
 import { MODIFIERS, getModifiedSelector } from '../../common/ui/modifiers.js';
+import {
+  CORD_COMPONENT_BASE_CLASS,
+  CORD_V2,
+  defaultGlobalStyle,
+  globalStyle,
+} from '../../common/ui/style.js';
 import * as classes from '../../components/Message.classnames.js';
 export * from '../../components/Message.classnames.js';
 
@@ -16,23 +21,26 @@ const {
 
 const BULLET_CHARACTER = '\\2022';
 
-globalStyle(`.${message}`, {
-  backgroundColor: cssVar('color-base'),
-  borderRadius: cssVar('border-radius-medium'),
-  position: 'relative',
-  padding: `${cssVar('space-3xs')} ${cssVar('space-3xs')} ${cssVar(
-    'space-2xs',
-  )} ${cssVar('space-2xs')} `,
-  display: 'grid',
-  gridTemplateColumns: `20px auto auto auto 1fr auto`,
-  gridTemplateRows: `24px auto auto`,
-  gridGap: `${cssVar('space-3xs')} ${cssVar('space-2xs')}`,
-  alignItems: 'center',
-  gridTemplateAreas: `
+defaultGlobalStyle(
+  `:where(.${CORD_COMPONENT_BASE_CLASS}.${CORD_V2}).${message}`,
+  {
+    backgroundColor: cssVar('color-base'),
+    borderRadius: cssVar('border-radius-medium'),
+    position: 'relative',
+    padding: `${cssVar('space-3xs')} ${cssVar('space-3xs')} ${cssVar(
+      'space-2xs',
+    )} ${cssVar('space-2xs')} `,
+    display: 'grid',
+    gridTemplateColumns: `20px auto auto auto 1fr auto`,
+    gridTemplateRows: `24px auto auto`,
+    gridGap: `${cssVar('space-3xs')} ${cssVar('space-2xs')}`,
+    alignItems: 'center',
+    gridTemplateAreas: `
     "avatar authorName timestamp sentViaIcon . optionsMenu"
     ". messageContent messageContent messageContent messageContent optionsMenu"
     ". reactions reactions reactions reactions ."`,
-});
+  },
+);
 
 globalStyle(getModifiedSelector('noReactions', `.${message}`), {
   gridTemplateRows: '24px auto',
@@ -41,13 +49,25 @@ globalStyle(getModifiedSelector('noReactions', `.${message}`), {
     ". messageContent messageContent messageContent messageContent optionsMenu"`,
 });
 
-globalStyle(getModifiedSelector('resolved', ` .${message}`), {
-  backgroundColor: 'inherit',
-});
+defaultGlobalStyle(
+  getModifiedSelector(
+    'resolved',
+    ` :where(.${CORD_COMPONENT_BASE_CLASS}.${CORD_V2}).${message}`,
+  ),
+  {
+    backgroundColor: 'inherit',
+  },
+);
 
-globalStyle(getModifiedSelector('highlighted', ` .${message}`), {
-  backgroundColor: 'inherit',
-});
+defaultGlobalStyle(
+  getModifiedSelector(
+    'highlighted',
+    ` :where(.${CORD_COMPONENT_BASE_CLASS}.${CORD_V2}).${message}`,
+  ),
+  {
+    backgroundColor: 'inherit',
+  },
+);
 
 const actionMessage = {
   color: cssVar('color-content-primary'),
@@ -59,12 +79,18 @@ globalStyle(
   `.${message}:where(.${MODIFIERS.action}, .${MODIFIERS.deleted})`,
   actionMessage,
 );
-globalStyle(getModifiedSelector('editing', `.${message}`), {
-  gridTemplateRows: 'auto',
-  gridTemplateColumns: '20px auto',
-  gridTemplateAreas: `"avatar messageContent"`,
-  alignItems: 'start',
-});
+globalStyle(
+  getModifiedSelector(
+    'editing',
+    `:where(.${CORD_COMPONENT_BASE_CLASS}.${CORD_V2}).${message}`,
+  ),
+  {
+    gridTemplateRows: 'auto',
+    gridTemplateColumns: '20px auto',
+    gridTemplateAreas: `"avatar messageContent"`,
+    alignItems: 'start',
+  },
+);
 
 globalStyle(`.${authorName}`, {
   alignSelf: 'baseline',
@@ -98,11 +124,14 @@ globalStyle(`.${undoDeleteButton}`, {
   cursor: 'pointer',
   display: 'inline-block',
 });
-globalStyle(`.${undoDeleteButton}::before`, {
-  content: BULLET_CHARACTER,
-  color: cssVar('color-content-primary'),
-  margin: `0 ${cssVar('space-3xs')}`,
-});
+defaultGlobalStyle(
+  `:where(.${CORD_COMPONENT_BASE_CLASS}.${CORD_V2}) .${undoDeleteButton}::before`,
+  {
+    content: BULLET_CHARACTER,
+    color: cssVar('color-content-primary'),
+    margin: `0 ${cssVar('space-3xs')}`,
+  },
+);
 
 globalStyle(`.${deletedMessageText}`, {
   textOverflow: 'ellipsis',

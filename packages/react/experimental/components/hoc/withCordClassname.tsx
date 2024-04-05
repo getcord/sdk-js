@@ -1,5 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
+import { CORD_V2 } from '../../../common/ui/style.js';
 
 type Props = {
   children?: React.ReactNode;
@@ -20,6 +21,7 @@ export default function withCordClassname<T extends Props>(
           ref={ref}
           className={cx(className, {
             'cord-component': !className?.includes('cord-component'),
+            [CORD_V2]: !className?.includes(CORD_V2),
           })}
           {...(restProps as T)}
         />

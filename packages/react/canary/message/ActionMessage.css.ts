@@ -1,8 +1,8 @@
-import { globalStyle } from '@vanilla-extract/css';
 import { cordifyClassname } from '../../common/util.js';
 import { MODIFIERS } from '../../common/ui/modifiers.js';
 import { cssVar } from '../../common/ui/cssVariables.js';
 import { message } from '../../components/Message.classnames.js';
+import { globalStyle } from '../../common/ui/style.js';
 
 export const actionMessageIcon = cordifyClassname('action-message-icon');
 globalStyle(`:where(.${message}.${MODIFIERS.action}) .${actionMessageIcon}`, {
