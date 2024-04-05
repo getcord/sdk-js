@@ -1,4 +1,3 @@
-import './ThreadedComments.css';
 import './composer/userReferences/UserReferenceElement.css';
 import './Menu.css';
 import './MenuItem.css';

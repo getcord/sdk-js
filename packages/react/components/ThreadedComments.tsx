@@ -34,7 +34,7 @@ import { withGroupIDCheck } from '../common/hoc/withGroupIDCheck.js';
 import { useStoreHighlightedThreads } from '../hooks/useStoreHighlightedThreads.js';
 import { CordContext } from '../contexts/CordContext.js';
 import type { ThreadListReactComponentProps } from './ThreadList.js';
-import classes from './ThreadedComments.css.js';
+import * as classes from './ThreadedComments.classnames.js';
 import { Composer } from './Composer.js';
 import { Avatar } from './Avatar.js';
 import { Facepile } from './Facepile.js';

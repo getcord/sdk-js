@@ -6,7 +6,7 @@ import type {
   ClientUserData,
   LiveCursorsCursorPosition,
 } from '@cord-sdk/types';
-import * as classes from './LiveCursors.css.js';
+import * as classes from './LiveCursors.classnames.js';
 import { Icon } from './helpers/Icon.js';
 import { Avatar } from './Avatar.js';
 

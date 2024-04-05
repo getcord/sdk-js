@@ -16,12 +16,13 @@ import * as user from '../hooks/user.js';
 import { useCordContext } from '../contexts/CordContext.js';
 import { debounce } from '../common/lib/debounce.js';
 import { withGroupIDCheck } from '../common/hoc/withGroupIDCheck.js';
-import { POSITION_UPDATE_INTERVAL_MS } from './LiveCursors.css.js';
 import {
   LiveCursorsDefaultClick,
   LiveCursorsDefaultCursor,
 } from './LiveCursorsDefaultCursor.js';
 import type { LiveCursorsCursorProps } from './LiveCursorsDefaultCursor.js';
+
+export const POSITION_UPDATE_INTERVAL_MS = 100;
 
 export type LiveCursorsReactComponentProps = {
   location?: Location;

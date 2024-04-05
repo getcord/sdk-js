@@ -4,6 +4,8 @@ export const cursor = cordifyClassname('live-cursors-cursor');
 export const icon = cordifyClassname('live-cursors-icon');
 export const label = cordifyClassname('live-cursors-label');
 export const name = cordifyClassname('live-cursors-name');
+export const colorPalette = cordifyClassname('color-palette');
+export const cursorClick = cordifyClassname('live-cursors-click');
 
 export const liveCursorsClassnamesDocs = {
   [cursor]:
