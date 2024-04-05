@@ -9,6 +9,11 @@ import replaceRE from 'rollup-plugin-re';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
 
+// Disable sourcemaps because we aren't including the source code in the NPM package,
+// so the source maps refer to files that don't exist, which causes errors with create-react-app.
+// The source maps aren't very useful without the source files anyway.
+const INCLUDE_SOURCEMAP = false;
+
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 async function packageBuildConfig(packageName, options = {}) {
@@ -62,7 +67,7 @@ async function packageBuildConfig(packageName, options = {}) {
         {
           file: path.resolve(dirname, pkg.main),
           format: 'cjs',
-          sourcemap: true,
+          sourcemap: INCLUDE_SOURCEMAP,
           assetFileNames({ name }) {
             return name?.replace(/^packages\/react\//, '') ?? '';
           },
@@ -71,7 +76,7 @@ async function packageBuildConfig(packageName, options = {}) {
         {
           file: path.resolve(dirname, pkg.module),
           format: 'es',
-          sourcemap: true,
+          sourcemap: INCLUDE_SOURCEMAP,
           assetFileNames({ name }) {
             return name?.replace(/^packages\/react\//, '') ?? '';
           },
