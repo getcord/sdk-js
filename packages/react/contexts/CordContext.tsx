@@ -238,7 +238,7 @@ export function CordProvider({
           : `${origin}/sdk/css/cord-react.css`;
         stylesheetTag.href = cssHref;
       }
-      document.head.appendChild(stylesheetTag);
+      document.head.insertAdjacentElement('afterbegin', stylesheetTag);
     }
 
     if (shouldLogLoadingTime) {

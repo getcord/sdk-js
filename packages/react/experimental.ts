@@ -1,3 +1,8 @@
+// The CSS reset must be imported first, as we rely on CSS order rather
+// than specificity; because both reset and styles are 0,1,0 to make
+// developers' life easier.
+import './reset.css.js';
+
 export type { SelectionCommentsReactComponentProps } from './components/SelectionComments.js';
 export { SelectionComments } from './components/SelectionComments.js';
 export { ThreadFacepile } from './components/ThreadFacepile.js';
