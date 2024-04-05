@@ -8,7 +8,8 @@ import { threadHeader } from '../../components/Thread.classnames.js';
 import { Button, OptionsMenu } from '../../experimental.js';
 import { SendComposer } from '../composer/Composer.js';
 import { Message } from '../message/Message.js';
-import { ThreadSeenBy, ThreadSeenByWrapper } from './ThreadSeenBy.js';
+import * as classes from '../Thread.css.js';
+import { ThreadSeenByWrapper } from './ThreadSeenBy.js';
 
 export type ThreadProps = {
   thread?: ClientThreadData;
@@ -27,7 +28,7 @@ export const Thread = withCord<React.PropsWithChildren<ThreadProps>>(
       <div
         ref={ref}
         {...restProps}
-        className={cx(className, 'cord-component-thread')}
+        className={cx(className, classes.thread)}
         data-cord-thread-id={threadData?.id}
       >
         {showHeader && (
