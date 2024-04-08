@@ -4,23 +4,28 @@ import cx from 'classnames';
 
 import type { ClientThreadData } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
+import {
+  Message,
+  SendComposer,
+  Button,
+  OptionsMenu,
+} from '../../experimental.js';
+import type { StyleProps } from '../../experimental.js';
 import { threadHeader } from '../../components/Thread.classnames.js';
-import { Button, OptionsMenu } from '../../experimental.js';
-import { SendComposer } from '../composer/Composer.js';
-import { Message } from '../message/Message.js';
 import * as classes from '../Thread.css.js';
 import { ThreadSeenByWrapper } from './ThreadSeenBy.js';
 
 export type ThreadProps = {
   thread?: ClientThreadData;
   showHeader?: boolean;
-} & React.HtmlHTMLAttributes<HTMLDivElement>;
+} & StyleProps;
 
 export const Thread = withCord<React.PropsWithChildren<ThreadProps>>(
   forwardRef(function Thread(
-    { showHeader = false, thread, className, ...restProps }: ThreadProps,
+    props: ThreadProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
+    const { showHeader = false, thread, className, ...restProps } = props;
     const threadData = thread?.thread;
     const messages = thread?.messages ?? [];
 
@@ -43,11 +48,7 @@ export const Thread = withCord<React.PropsWithChildren<ThreadProps>>(
             threadData?.id &&
             messages.map((message) => {
               return (
-                <Message
-                  key={message.id}
-                  message={message}
-                  canBeReplaced
-                ></Message>
+                <Message key={message.id} message={message} canBeReplaced />
               );
             })}
         </div>

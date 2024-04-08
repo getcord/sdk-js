@@ -4,6 +4,7 @@ import { forwardRef } from 'react';
 import type { Location } from '@cord-sdk/types';
 
 import { PresenceObserver } from '../../components/PresenceObserver.js';
+import type { StyleProps } from '../../experimental.js';
 import withCord from './hoc/withCord.js';
 import { PresenceFacepile } from './PresenceFacepile.js';
 
@@ -14,9 +15,11 @@ export type PagePresenceProps = {
   excludeViewer?: boolean;
   onlyPresentUsers?: boolean;
   groupId?: string;
-} & React.HTMLAttributes<HTMLDivElement>;
+} & StyleProps;
 
-export const PagePresence = withCord<PagePresenceProps>(
+export const PagePresence = withCord<
+  React.PropsWithChildren<PagePresenceProps>
+>(
   forwardRef(function PagePresence(
     {
       location,

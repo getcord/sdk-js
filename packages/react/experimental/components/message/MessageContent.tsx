@@ -20,7 +20,7 @@ export const MessageContent = withCord<
   React.PropsWithChildren<MessageContentProps>
 >(
   React.forwardRef(function MessageContent(
-    { content, attachments, edited, className }: MessageContentProps,
+    { content, attachments, edited, className, ...rest }: MessageContentProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     if (!content) {
@@ -28,7 +28,11 @@ export const MessageContent = withCord<
     }
 
     return (
-      <div className={cx(classes.messageContent, className)} ref={ref}>
+      <div
+        className={cx(classes.messageContent, className)}
+        ref={ref}
+        {...rest}
+      >
         <MessageText
           canBeReplaced
           message={undefined}

@@ -7,15 +7,18 @@ import { MessageNodeType } from '@cord-sdk/types';
 import * as classes from '../../../components/composer/userReferences/UserReferenceElement.css.js';
 import { useUserData } from '../../../hooks/user.js';
 import withCord from '../hoc/withCord.js';
+import type { StyleProps } from '../../../experimental.js';
 
 export type MessageUserReferenceElementProps = {
   userID: string;
   referencedUserData: { id: string; name: string | null }[];
   nodeType: MessageNodeType.ASSIGNEE | MessageNodeType.MENTION;
   formatStyle: FormatStyle;
-} & React.HTMLProps<HTMLSpanElement>;
+} & StyleProps;
 
-export const MessageUserReferenceElement = withCord(
+export const MessageUserReferenceElement = withCord<
+  React.PropsWithChildren<MessageUserReferenceElementProps>
+>(
   React.forwardRef(function MessageUserReferenceElement(
     {
       userID,

@@ -16,6 +16,7 @@ import { useMessage, useThread } from '../../hooks/thread.js';
 import { useCordTranslation } from '../../index.js';
 import classes from '../../components/Reactions.css.js';
 import { useViewerData } from '../../hooks/user.js';
+import type { StyleProps } from '../../experimental.js';
 import {
   AddReactionToMessageButton,
   useAddRemoveReaction,
@@ -90,11 +91,7 @@ export type ReactionsInnerProps = {
   showReactionList: boolean;
   thread: ThreadSummary;
   message: ClientMessageData;
-} & React.HTMLAttributes<HTMLDivElement>;
-
-type ReactionsInnerPropsWithClassname = ReactionsInnerProps & {
-  className?: string;
-};
+} & StyleProps;
 
 const ReactionsInner = forwardRef(function ReactionsImpl(
   {
@@ -105,7 +102,8 @@ const ReactionsInner = forwardRef(function ReactionsImpl(
     className,
     thread,
     message,
-  }: ReactionsInnerPropsWithClassname,
+    ...rest
+  }: ReactionsInnerProps,
   ref: React.Ref<HTMLDivElement>,
 ) {
   const viewerData = useViewerData();
@@ -127,7 +125,11 @@ const ReactionsInner = forwardRef(function ReactionsImpl(
     );
   }, [message.id, thread.id]);
   return (
-    <div className={cx(classes.reactionsContainer, className)} ref={ref}>
+    <div
+      className={cx(classes.reactionsContainer, className)}
+      ref={ref}
+      {...rest}
+    >
       {showReactionList ? (
         <div className={classes.reactionList}>
           {Object.entries(usersByReaction).map(([unicodeReaction, users]) => (

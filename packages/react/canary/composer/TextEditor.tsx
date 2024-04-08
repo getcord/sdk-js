@@ -12,6 +12,7 @@ import type { MessageContent } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import type { CustomEditor } from '../../slateCustom.js';
 import { useCordTranslation } from '../../hooks/useCordTranslation.js';
+import type { StyleProps } from '../../experimental.js';
 import { withQuotes } from './plugins/quotes.js';
 import { withBullets } from './plugins/bullets.js';
 import { withHTMLPaste } from './plugins/paste.js';
@@ -26,8 +27,6 @@ import {
 import { EditorCommands } from './lib/commands.js';
 
 export type TextEditorProps = {
-  className?: string;
-  style?: React.CSSProperties;
   editor: CustomEditor;
   initialValue?: MessageContent;
   onChange: ({ content }: { content: MessageContent }) => void;
@@ -37,7 +36,7 @@ export type TextEditorProps = {
   onBlur?: (arg: { event: React.FocusEvent }) => void;
   onClick?: (arg: { event: React.MouseEvent }) => void;
   placeholder?: string;
-};
+} & StyleProps;
 export const TextEditor = withCord<React.PropsWithChildren<TextEditorProps>>(
   forwardRef(function TextEditor(
     {

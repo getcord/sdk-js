@@ -1,14 +1,17 @@
 import * as React from 'react';
 import { forwardRef, useMemo } from 'react';
 import type { ForwardedRef } from 'react';
+import cx from 'classnames';
+
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as composerClasses from '../../components/Composer.classnames.js';
+import type { StyleProps } from '../../experimental.js';
 import { composerToolbar } from './ToolbarLayout.css.js';
 
 const PRIMARY = ['sendButton', 'cancelButton'];
 export type ToolbarLayoutProps = {
   items?: { name: string; element: JSX.Element | null }[];
-};
+} & StyleProps;
 export const ToolbarLayout = withCord<
   React.PropsWithChildren<ToolbarLayoutProps>
 >(
@@ -16,7 +19,7 @@ export const ToolbarLayout = withCord<
     props: ToolbarLayoutProps,
     ref: ForwardedRef<HTMLDivElement>,
   ) {
-    const { items = [] } = props;
+    const { items = [], style, className } = props;
 
     const primaryButtons = useMemo(() => {
       return items
@@ -34,7 +37,7 @@ export const ToolbarLayout = withCord<
     }, [items]);
 
     return (
-      <div ref={ref} className={composerToolbar}>
+      <div ref={ref} className={cx(className, composerToolbar)} style={style}>
         <div className={composerClasses.secondaryButtonsGroup}>
           {secondaryButtons}
         </div>

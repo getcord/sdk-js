@@ -1,4 +1,6 @@
 import * as React from 'react';
+import cx from 'classnames';
+
 import { MessageNodeType } from '@cord-sdk/types';
 import type {
   ClientMessageData,
@@ -35,12 +37,19 @@ export const MessageText = withCord<React.PropsWithChildren<MessageTextProps>>(
       isMessageBeingEdited,
       hideAnnotationAttachment,
       formatStyle,
+      className,
+      style,
     }: MessageTextProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     const showEditMessage = wasEdited || isMessageBeingEdited;
     return (
-      <div dir="auto" className={classes.messageText} ref={ref}>
+      <div
+        dir="auto"
+        className={cx(className, classes.messageText)}
+        ref={ref}
+        style={style}
+      >
         {content && (
           <RenderedContent
             nodes={content}
