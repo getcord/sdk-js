@@ -159,3 +159,8 @@ export {
   ErrorFallback,
   type ErrorFallbackProps,
 } from './experimental/components/ErrorFallback.js';
+
+export {
+  MentionList,
+  type MentionListProps,
+} from './experimental/components/composer/MentionList.js';

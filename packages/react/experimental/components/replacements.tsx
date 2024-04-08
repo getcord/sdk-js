@@ -49,6 +49,7 @@ import type { EmojiPickerProps } from './helpers/EmojiPicker.js';
 import type { ReactionsProps } from './Reactions.js';
 import type { ReactionPickButtonProps } from './ReactionPickButton.js';
 import type { ErrorFallbackProps } from './ErrorFallback.js';
+import type { MentionListProps } from './composer/MentionList.js';
 
 export type ReplaceConfig = ReplaceConfigBase & ReplaceWithin;
 
@@ -65,6 +66,7 @@ export type ReplaceConfigBase = Partial<{
   ErrorFallback: React.ComponentType<ErrorFallbackProps>;
   Facepile: React.ComponentType<FacepileProps>;
   MediaModal: React.ComponentType<MediaModalProps>;
+  MentionList: React.ComponentType<MentionListProps>;
   Menu: React.ComponentType<MenuProps>;
   MenuItem: React.ComponentType<MenuItemProps>;
   Message: React.ComponentType<MessageProps>;

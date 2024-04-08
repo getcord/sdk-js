@@ -1,7 +1,7 @@
 import type { ClientUserData } from '@cord-sdk/types';
 import type { CSSProperties } from 'react';
 import * as React from 'react';
-import { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback, forwardRef } from 'react';
 import type { Editor } from 'slate';
 import { Range, Node, Text } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -18,6 +18,7 @@ import {
 } from '../../../canary/composer/lib/userReferences.js';
 import { Keys } from '../../../common/const/Keys.js';
 import { isUserReferenceNode } from '../../../canary/composer/lib/util.js';
+import withCord from '../hoc/withCord.js';
 
 const ROW_HEIGHT = 40;
 const MAX_ROWS_TO_SHOW = 5;
@@ -164,6 +165,7 @@ export function useMentionList({
   return {
     Component: (
       <MentionList
+        canBeReplaced
         key={users.length}
         users={users}
         selectedIndex={selectedUserReferenceIndex}
@@ -183,7 +185,7 @@ export function useMentionList({
   };
 }
 
-type MentionListProps = {
+export type MentionListProps = {
   users: ClientUserData[];
   selectedIndex: number;
   setUserReferenceIndex: (index: number) => void;
@@ -192,56 +194,63 @@ type MentionListProps = {
   unshownUserCountLine?: React.ReactElement<typeof MenuItem> | null;
 };
 
-function MentionList({
-  users,
-  selectedIndex,
-  unshownUserCountLine,
-  closeMenu,
-  setUserReferenceIndex,
-  onSuggestionClicked,
-}: MentionListProps) {
-  const userMentionRowProps: UserMentionRowProps = useMemo(
-    () => ({
+export const MentionList = withCord<React.PropsWithChildren<MentionListProps>>(
+  forwardRef(function MentionList(
+    {
       users,
       selectedIndex,
+      unshownUserCountLine,
+      closeMenu,
       setUserReferenceIndex,
       onSuggestionClicked,
-    }),
-    [onSuggestionClicked, selectedIndex, setUserReferenceIndex, users],
-  );
+    }: MentionListProps,
+    ref: React.ForwardedRef<HTMLElement>,
+  ) {
+    const userMentionRowProps: UserMentionRowProps = useMemo(
+      () => ({
+        users,
+        selectedIndex,
+        setUserReferenceIndex,
+        onSuggestionClicked,
+      }),
+      [onSuggestionClicked, selectedIndex, setUserReferenceIndex, users],
+    );
 
-  return (
-    <Menu
-      canBeReplaced
-      className={userReferenceSuggestionsMenu}
-      items={[
-        {
-          name: 'mention-list',
-          element: (
-            <div
-            // [ONI-TODO] Virtualize this list, and show all users.
-            // See #8484
-            >
-              {users.slice(0, MAX_ROWS_TO_SHOW).map((user, i) => {
-                return (
-                  <UserMentionRow
-                    key={user.id}
-                    data={userMentionRowProps}
-                    index={i}
-                    style={{ height: ROW_HEIGHT }}
-                  />
-                );
-              })}
-            </div>
-          ),
-        },
-      ]}
-      closeMenu={closeMenu}
-    >
-      {unshownUserCountLine ?? null}
-    </Menu>
-  );
-}
+    return (
+      <Menu
+        ref={ref}
+        canBeReplaced
+        className={userReferenceSuggestionsMenu}
+        items={[
+          {
+            name: 'mention-list',
+            element: (
+              <div
+              // [ONI-TODO] Virtualize this list, and show all users.
+              // See #8484
+              >
+                {users.slice(0, MAX_ROWS_TO_SHOW).map((user, i) => {
+                  return (
+                    <UserMentionRow
+                      key={user.id}
+                      data={userMentionRowProps}
+                      index={i}
+                      style={{ height: ROW_HEIGHT }}
+                    />
+                  );
+                })}
+              </div>
+            ),
+          },
+        ]}
+        closeMenu={closeMenu}
+      >
+        {unshownUserCountLine ?? null}
+      </Menu>
+    );
+  }),
+  'MentionList',
+);
 
 type UserMentionRowProps = Pick<
   MentionListProps,
