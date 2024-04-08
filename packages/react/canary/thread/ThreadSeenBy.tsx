@@ -10,9 +10,9 @@ import {
 import { useViewerData } from '../../hooks/user.js';
 import { useCordTranslation } from '../../hooks/useCordTranslation.js';
 import { fontSmallLight } from '../../common/ui/atomicClasses/fonts.css.js';
-import { threadSeenBy } from '../../components/Thread.classnames.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import type { StyleProps } from '../../experimental.js';
+import * as classes from './ThreadSeenBy.css.js';
 
 const DEFAULT_NUM_OF_NAMES_TO_SHOW = 3; // After which we'll show "and X others";
 
@@ -99,6 +99,7 @@ export const ThreadSeenBy = withCord<
   ) {
     const {
       viewers,
+      className,
       getSeenByDisplayLabel,
       message: _message,
       ...otherProps
@@ -124,7 +125,7 @@ export const ThreadSeenBy = withCord<
       return (
         <WithTooltip tooltip={<DefaultTooltip label={tooltip} />}>
           <div
-            className={cx(threadSeenBy, fontSmallLight)}
+            className={cx(className, classes.threadSeenBy, fontSmallLight)}
             ref={ref}
             {...otherProps}
           >
@@ -135,7 +136,7 @@ export const ThreadSeenBy = withCord<
     }
     return (
       <div
-        className={cx(threadSeenBy, fontSmallLight)}
+        className={cx(className, classes.threadSeenBy, fontSmallLight)}
         ref={ref}
         {...otherProps}
       >
