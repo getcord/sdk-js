@@ -48,11 +48,11 @@ import type { TimestampProps } from './Timestamp.js';
 import type { EmojiPickerProps } from './helpers/EmojiPicker.js';
 import type { ReactionsProps } from './Reactions.js';
 import type { ReactionPickButtonProps } from './ReactionPickButton.js';
+import type { ErrorFallbackProps } from './ErrorFallback.js';
 
 export type ReplaceConfig = ReplaceConfigBase & ReplaceWithin;
 
 export type ReplaceConfigBase = Partial<{
-  Replace: React.ComponentType<object>;
   ActionMessage: React.ComponentType<ActionMessageProps>;
   Avatar: React.ComponentType<AvatarProps>;
   AvatarFallback: React.ComponentType<AvatarFallbackProps>;
@@ -62,6 +62,7 @@ export type ReplaceConfigBase = Partial<{
   Composer: React.ComponentType<ComposerProps>;
   ComposerLayout: React.ComponentType<ComposerLayoutProps>;
   EmojiPicker: React.ComponentType<EmojiPickerProps>;
+  ErrorFallback: React.ComponentType<ErrorFallbackProps>;
   Facepile: React.ComponentType<FacepileProps>;
   MediaModal: React.ComponentType<MediaModalProps>;
   Menu: React.ComponentType<MenuProps>;
@@ -82,6 +83,7 @@ export type ReplaceConfigBase = Partial<{
   ReactionButton: React.ComponentType<ReactionPickButtonProps>;
   Reactions: React.ComponentType<ReactionsProps>;
   ReopenThreadButton: React.ComponentType<ReopenThreadButtonProps>;
+  Replace: React.ComponentType<object>;
   ResolvedThreadComposer: React.ComponentType<ResolvedThreadComposerProps>;
   SendButton: React.ComponentType<SendButtonProps>;
   Separator: React.ComponentType<SeparatorProps>;

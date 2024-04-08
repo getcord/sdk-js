@@ -154,3 +154,8 @@ export {
   MessageTombstone,
   type MessageTombstoneProps,
 } from './canary/message/MessageTombstone.js';
+
+export {
+  ErrorFallback,
+  type ErrorFallbackProps,
+} from './experimental/components/ErrorFallback.js';

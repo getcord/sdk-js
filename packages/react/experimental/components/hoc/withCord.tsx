@@ -4,6 +4,7 @@ import { memo } from 'react';
 
 import type { ComponentName } from '../replacements.js';
 import withPortal from './withPortal.js';
+import withErrorBoundary from './withErrorBoundary.js';
 import withCordClassname from './withCordClassname.js';
 import withReplacement from './withReplacement.js';
 
@@ -17,7 +18,7 @@ export default function withCord<T extends Props = Props>(
   componentName: ComponentName,
 ) {
   const Component = withReplacement(
-    withPortal(withCordClassname(memo(WrappedComponent))),
+    withPortal(withCordClassname(withErrorBoundary(memo(WrappedComponent)))),
     componentName,
   );
   Component.displayName = componentName;
