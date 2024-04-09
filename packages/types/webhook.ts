@@ -72,7 +72,7 @@ export interface WebhookWrapperProperties<T extends WebhookTypes> {
    * on the event type.  See https://docs.cord.com/reference/events-webhook#Events-2
    * for more detail about the body of each event type.
    */
-  type: string;
+  type: T;
   /**
    * The time at which this event was sent.
    */

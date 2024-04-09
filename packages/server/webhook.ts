@@ -1,78 +1,86 @@
 import { createHmac } from 'crypto';
-import type {
-  ThreadMessageAddedWebhookPayload,
-  NotificationCreatedWebhookPayload,
-  URLVerificationWebhookPayload,
-} from '@cord-sdk/types';
+import type { WebhookWrapperProperties, WebhookTypes } from '@cord-sdk/types';
 
-export type WebhookPayload =
-  | ThreadMessageAddedWebhookPayload
-  | NotificationCreatedWebhookPayload
-  | URLVerificationWebhookPayload;
-
-export type WebhookRequest = {
-  header(name: string): string;
-  body: {
-    type: string;
-  };
+type ValidateWebhookOptions = {
+  /**
+   * The maximum age of a webhook request (as determined by the timestamp
+   * encoded in it) to accept.  By default, this is set to 5 minutes.
+   */
+  acceptAgeSeconds?: number;
 };
 
 /**
  * Will validate the signature of the webhook request to ensure the source of
- * the request is Cord, and can be trusted.  Will throw an exception if there
- * are any problems with the request validation.
- * @param requestPayload The raw request payload. The object must have a header
- * function that will fetch header properties for the request, and a body
- * property that is the raw payload from the webhook request. See the node express
- * request format for a compatible implementation. Note the body must be
- * the data from the raw request request payload, without performing JSON deserialization.
+ * the request is Cord and can be trusted.  Will throw an exception if there are
+ * any problems with the request validation.
+ * @param body The raw request body.  This must be exactly the bytes sent in the
+ * body of the request, without JSON deserialization or any other modification.
+ * For example, use the `raw` middleware from the `body-parser` library for
+ * Express or the `request.text()` function in NextJS.
+ * @param cordTimestamp The contents of the `X-Cord-Timestamp` header from the
+ * request.
+ * @param cordSignature The contents of the `X-Cord-Signature` header from the
+ * request.
  * @param projectSecret The project secret.  This is used to validate the
- * request body using the cord signature proof.  Details can be found here:
+ * request body using the Cord signature proof.  Details can be found here:
  * https://docs.cord.com/reference/events-webhook
+ * @param options Options to customize how the validity checking is done.  By
+ * default, the maximum accepted age is 5 minutes.
  */
 export function validateWebhookSignature(
-  requestPayload: WebhookRequest,
+  body: string,
+  cordTimestamp: string | null | undefined,
+  cordSignature: string | null | undefined,
   projectSecret: string,
+  options: ValidateWebhookOptions = {},
 ) {
-  const cordTimestamp = Number(requestPayload.header('X-Cord-Timestamp'));
-  const cordSignature = requestPayload.header('X-Cord-Signature');
-
-  if (
-    Number.isNaN(cordTimestamp) ||
-    Math.abs(Date.now() - cordTimestamp) > 1000 * 60 * 5
-  ) {
-    throw new Error('Notification timestamp invalid or too old.');
+  if (!cordSignature) {
+    throw new Error('Webhook signature is missing');
   }
-  const bodyString = JSON.stringify(requestPayload.body);
-  const verifyStr = cordTimestamp + ':' + bodyString;
+  if (!cordTimestamp) {
+    throw new Error('Webhook signature timestamp is missing');
+  }
+  const acceptAgeSeconds = options.acceptAgeSeconds ?? 60 * 5;
+  if (
+    Number.isNaN(Number(cordTimestamp)) ||
+    Math.abs(Date.now() - Number(cordTimestamp)) > 1000 * acceptAgeSeconds
+  ) {
+    throw new Error('Webhook signature timestamp invalid or too old.');
+  }
+  const verifyStr = cordTimestamp + ':' + body;
   const hmac = createHmac('sha256', projectSecret);
   hmac.update(verifyStr);
   const incomingSignature = hmac.digest('base64');
 
   if (cordSignature !== incomingSignature) {
-    throw new Error('Unable to verify signature');
+    throw new Error('Unable to verify webhook signature');
   }
 }
 
 /**
  * Will validate the signature of the webhook request to ensure the source of
- * the request is Cord, and can be trusted.  Will return false if there
- * are any problems with the request validation.
- * @param requestPayload The raw request payload. The object must have a header
- * function that will fetch header properties for the request, and a body
- * property that is the raw payload from the webhook request. See the node express
- * request format for a compatible implementation. Note the body must be
- * the data from the raw request request payload, without performing JSON deserialization.
+ * the request is Cord, and can be trusted.  Will return false if there are any
+ * problems with the request validation.
+ * @param body The raw request body.  This must be exactly the bytes sent in the
+ * body of the request, without JSON deserialization or any other modification.
+ * For example, use the `raw` middleware from the `body-parser` library for
+ * Express or the `request.text()` function in NextJS.
+ * @param cordTimestamp The contents of the `X-Cord-Timestamp` header from the
+ * request.
+ * @param cordSignature The contents of the `X-Cord-Signature` header from the
+ * request.
  * @param projectSecret The project secret.  This is used to validate the
  * request body using the cord signature proof.  Details can be found here:
  * https://docs.cord.com/reference/events-webhook
  */
 export function tryValidateWebhookSignature(
-  requestPayload: WebhookRequest,
+  body: string,
+  timestamp: string | null | undefined,
+  signature: string | null | undefined,
   clientSecret: string,
 ) {
   try {
-    validateWebhookSignature(requestPayload, clientSecret);
+    validateWebhookSignature(body, timestamp, signature, clientSecret);
   } catch (e) {
     return false;
   }
@@ -81,24 +89,27 @@ export function tryValidateWebhookSignature(
 }
 
 /**
- * Takes a request payload, and returns a typed object for handling
- * Cord webhook notifications.
- * @param requestPayload Request payload from a webhook request. Should have
- * a similar structure to express style request object.
- * @returns A typed  object to support handling webhook events. See:
+ * Takes a raw request body, and returns a typed object for handling
+ * Cord webhook events.
+ * @param body The raw request body.  This must be exactly the bytes sent in the
+ * body of the request, without JSON deserialization or any other modification.
+ * For example, use the `raw` middleware from the `body-parser` library for
+ * Express or the `request.text()` function in NextJS.
+ * @returns A typed object to support handling webhook events. See:
  * https://docs.cord.com/reference/events-webhook
  */
-export function parseEventPayload(
-  requestPayload: WebhookRequest,
-): WebhookPayload {
-  switch (requestPayload.body.type) {
+export function parseWebhookBody<T extends WebhookTypes>(
+  body: string,
+): WebhookWrapperProperties<T> {
+  const payload: WebhookWrapperProperties<T> = JSON.parse(body);
+  switch (payload.type) {
     case 'thread-message-added':
-      return requestPayload.body as unknown as ThreadMessageAddedWebhookPayload;
+      return payload;
     case 'notification-created':
-      return requestPayload.body as unknown as NotificationCreatedWebhookPayload;
+      return payload;
     case 'url-verification':
-      return requestPayload.body as unknown as URLVerificationWebhookPayload;
+      return payload;
     default:
-      throw 'unknown webhook request type.';
+      throw new Error('Unknown webhook request type.');
   }
 }
