@@ -5,14 +5,14 @@ import cx from 'classnames';
 import type { ClientThreadData } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import {
-  Message,
-  SendComposer,
   Button,
   OptionsMenu,
+  Message,
+  SendComposer,
 } from '../../experimental.js';
+import classes from '../Thread.css.js';
 import type { StyleProps } from '../../experimental.js';
-import { threadHeader } from '../../components/Thread.classnames.js';
-import * as classes from '../Thread.css.js';
+import * as buttonClasses from '../../components/helpers/Button.classnames.js';
 import { ThreadSeenByWrapper } from './ThreadSeenBy.js';
 
 export type ThreadProps = {
@@ -81,7 +81,11 @@ export const ThreadHeader = withCord<ThreadHeaderProps>(
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     return (
-      <div {...restProps} ref={ref} className={cx(className, threadHeader)}>
+      <div
+        {...restProps}
+        ref={ref}
+        className={cx(className, classes.threadHeader)}
+      >
         {showContextMenu && threadID && (
           <OptionsMenu
             button={
@@ -102,7 +106,7 @@ export const ThreadHeader = withCord<ThreadHeaderProps>(
           canBeReplaced
           buttonAction="close-thread"
           icon="X"
-          className="secondary-buttons"
+          className={buttonClasses.colorsSecondary}
         />
       </div>
     );

@@ -4,10 +4,11 @@ import {
   defaultGlobalStyle,
   globalStyle,
 } from '../common/ui/style.js';
-import { cordifyClassname } from '../common/util.js';
-import { threadHeader } from '../components/Thread.classnames.js';
+import * as classes from '../components/Thread.classnames.js';
+export default classes;
 
-export const thread = cordifyClassname('thread');
+const { threadHeader, thread } = classes;
+
 defaultGlobalStyle(`:where(.${CORD_V2}).${thread}`, {
   backgroundColor: cssVar('color-base'),
   overflow: 'hidden',

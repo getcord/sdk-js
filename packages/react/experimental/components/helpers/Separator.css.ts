@@ -1,7 +1,8 @@
-import { globalStyle } from '../common/ui/style.js';
-import { cssVar } from '../common/ui/cssVariables.js';
-import { menu } from './Menu.css.js';
-import * as classes from './helpers/Separator.classnames.js';
+import { globalStyle } from '../../../common/ui/style.js';
+import { cssVar } from '../../../common/ui/cssVariables.js';
+import { menu } from '../../../components/Menu.css.js';
+import * as classes from '../../../components/helpers/Separator.classnames.js';
+export default classes;
 
 const { separator } = classes;
 

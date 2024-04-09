@@ -7,7 +7,7 @@ import { CordContext } from '../../index.js';
 import { isViewerPreviouslyAddedReaction } from '../../common/util.js';
 import { useViewerData } from '../../hooks/user.js';
 import { useMessage } from '../../hooks/thread.js';
-import * as classes from '../../components/Reactions.classnames.js';
+import classes from '../../components/Reactions.css.js';
 import * as buttonClasses from '../../components/helpers/Button.classnames.js';
 import { useEmojiPicker } from './helpers/EmojiPicker.js';
 import { Button } from './helpers/Button.js';

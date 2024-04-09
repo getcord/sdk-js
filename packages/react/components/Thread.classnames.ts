@@ -1,5 +1,7 @@
 import { cordifyClassname } from '../common/util.js';
 
+export const thread = cordifyClassname('thread');
+
 export const container = cordifyClassname('thread-container');
 export const inlineThread = cordifyClassname('inline-thread');
 

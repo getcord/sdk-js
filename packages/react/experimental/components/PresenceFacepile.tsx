@@ -9,7 +9,7 @@ import { useLocationData } from '../../hooks/presence.js';
 import { getUsersAtLocation } from '../../common/lib/presence.js';
 import { useTime } from '../../common/effects/useTime.js';
 import { relativeTimestampString } from '../../common/util.js';
-import * as classes from '../../components/Facepile.classnames.js';
+import classes from '../../components/Facepile.css.js';
 import type { StyleProps } from '../../experimental.js';
 import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
 import { Avatar } from './avatar/Avatar.js';
