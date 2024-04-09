@@ -1,10 +1,10 @@
-import { cssVar } from '../common/ui/cssVariables.js';
+import { cssVar } from '../../common/ui/cssVariables.js';
 import {
   CORD_V2,
   defaultGlobalStyle,
   globalStyle,
-} from '../common/ui/style.js';
-import * as classes from '../components/Thread.classnames.js';
+} from '../../common/ui/style.js';
+import * as classes from '../../components/Thread.classnames.js';
 export default classes;
 
 const { threadHeader, thread } = classes;

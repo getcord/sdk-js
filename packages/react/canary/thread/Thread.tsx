@@ -10,9 +10,9 @@ import {
   Message,
   SendComposer,
 } from '../../experimental.js';
-import classes from '../Thread.css.js';
 import type { StyleProps } from '../../experimental.js';
 import * as buttonClasses from '../../components/helpers/Button.classnames.js';
+import classes from './Thread.css.js';
 import { ThreadSeenByWrapper } from './ThreadSeenBy.js';
 
 export type ThreadProps = {
