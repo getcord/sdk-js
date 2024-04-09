@@ -92,6 +92,8 @@ export const Message = withCord<React.PropsWithChildren<MessageProps>>(
         messageContent={
           <MessageContent
             content={message.content as MessageContentType}
+            createdAt={message.createdTimestamp}
+            userData={authorData}
             attachments={message.attachments}
             edited={!!message.updatedTimestamp}
             canBeReplaced

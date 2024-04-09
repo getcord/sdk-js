@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
 import type { ClientUserData } from '@cord-sdk/types';
+import dayjs from 'dayjs';
 import {
   CordTrans,
   useCordTranslation,
@@ -95,13 +96,12 @@ export const MediaModal = withCord<React.PropsWithChildren<MediaModalProps>>(
                 <CordTrans
                   t={t}
                   i18nKey={'image_modal_attachment_header'}
-                  // TODO This can be put in when dayjs gets fixed.
-                  // values={{
-                  //   user: userToUserData(banner.user),
-                  //   date: dayjs(banner.timestamp).format(
-                  //     t('image_modal_header_date_format'),
-                  //   ),
-                  // }}
+                  values={{
+                    user: banner.user,
+                    date: dayjs(banner.timestamp).format(
+                      t('image_modal_header_date_format'),
+                    ),
+                  }}
                   components={{
                     datespan: <span className={classes.bannerDate} />,
                   }}

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 import type {
+  ClientUserData,
   MessageAttachment,
   MessageContent as MessageContentType,
 } from '@cord-sdk/types';
@@ -14,13 +15,23 @@ export type MessageContentProps = {
   content: MessageContentType;
   attachments: MessageAttachment[];
   edited: boolean;
+  userData?: ClientUserData | null;
+  createdAt?: Date;
 } & StyleProps;
 
 export const MessageContent = withCord<
   React.PropsWithChildren<MessageContentProps>
 >(
   React.forwardRef(function MessageContent(
-    { content, attachments, edited, className, ...rest }: MessageContentProps,
+    {
+      content,
+      createdAt,
+      attachments,
+      edited,
+      className,
+      userData,
+      ...rest
+    }: MessageContentProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     if (!content) {
@@ -40,7 +51,12 @@ export const MessageContent = withCord<
           wasEdited={edited}
           hideAnnotationAttachment
         />
-        <MessageFilesAttachments attachments={attachments} canBeReplaced />
+        <MessageFilesAttachments
+          attachments={attachments}
+          canBeReplaced
+          userData={userData}
+          createdAt={createdAt}
+        />
       </div>
     );
   }),

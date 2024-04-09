@@ -20,8 +20,8 @@ import { MessageImageAttachment } from './MessageImageAttachment.js';
 import { MessageVideoAttachment } from './MessageVideoAttachment.js';
 
 export type MessageFilesAttachmentsProps = {
-  user?: ClientUserData;
-  createdAt?: Date;
+  userData: ClientUserData | null | undefined;
+  createdAt: Date | undefined;
   attachments: MessageAttachment[];
 };
 
@@ -29,7 +29,7 @@ export const MessageFilesAttachments = withCord<
   React.PropsWithChildren<MessageFilesAttachmentsProps>
 >(
   forwardRef(function MessageFilesAttachments(
-    { attachments, user, createdAt }: MessageFilesAttachmentsProps,
+    { attachments, userData, createdAt }: MessageFilesAttachmentsProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     const [unsupportedVideoIDs, setUnsupportedVideoIDs] = useState<UUID[]>([]);
@@ -78,7 +78,7 @@ export const MessageFilesAttachments = withCord<
 
     const [mediaModal, openMediaModal] = useMediaModal({
       medias: [...imageFiles, ...videoFiles],
-      user,
+      user: userData,
       createdAt,
     });
 

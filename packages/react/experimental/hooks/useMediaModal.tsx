@@ -10,7 +10,7 @@ export function useMediaModal({
   createdAt,
 }: {
   medias: MediaModalProps['medias'];
-  user?: ClientUserData;
+  user: ClientUserData | null | undefined;
   createdAt?: Date;
 }): [React.JSX.Element | null, (mediaIndex: number) => void] {
   const [mediaModalProps, setMediaModalProps] =
