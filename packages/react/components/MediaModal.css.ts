@@ -8,7 +8,11 @@ import {
   caption,
 } from '../components/MediaModal.classnames.js';
 import { cssVar } from '../common/ui/cssVariables.js';
-import { globalStyle } from '../common/ui/style.js';
+import {
+  CORD_V2,
+  defaultGlobalStyle,
+  globalStyle,
+} from '../common/ui/style.js';
 
 export {
   topBanner,
@@ -52,7 +56,7 @@ globalStyle(`:where(.${topBanner} .${bannerText}) .${bannerDate}`, {
   color: cssVar('color-content-primary'),
 });
 
-globalStyle(`.${imageModalOverlay}`, {
+defaultGlobalStyle(`:where(.${CORD_V2}).${imageModalOverlay}`, {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

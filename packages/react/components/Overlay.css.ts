@@ -1,11 +1,11 @@
-import { globalStyle } from '../common/ui/style.js';
+import { CORD_V2, defaultGlobalStyle } from '../common/ui/style.js';
 import { cordifyClassname } from '../common/util.js';
 import { ZINDEX } from '../common/ui/zIndex.js';
 
 export const SCREENSHOT_TRANSITION_IN_MS = 200;
 
 export const overlay = cordifyClassname('overlay');
-globalStyle(`.${overlay}`, {
+defaultGlobalStyle(`:where(.${CORD_V2}).${overlay}`, {
   backdropFilter: 'blur(3px)',
   backgroundColor: 'rgba(0, 0, 0, 0.66)',
   bottom: 0,
