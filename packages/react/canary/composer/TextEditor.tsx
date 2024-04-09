@@ -20,7 +20,6 @@ import { withEmojis } from './plugins/withEmojis.js';
 import { renderElement, renderLeaf } from './lib/render.js';
 import {
   createComposerEmptyValue,
-  editableStyle,
   hasComposerOnlyWhiteSpaces,
   isComposerEmpty,
 } from './lib/util.js';
@@ -90,14 +89,8 @@ export const TextEditor = withCord<React.PropsWithChildren<TextEditorProps>>(
       >
         <Editable
           className={className}
+          style={style}
           placeholder={placeholder ?? t('send_message_placeholder')}
-          style={{
-            outline: 'none',
-            // [ONI]-TODO Properly style this.
-            padding: '0 8px 16px',
-            ...editableStyle,
-            ...style,
-          }}
           renderElement={renderElement}
           renderLeaf={renderLeaf}
           onKeyDown={onSlateKeyDown}

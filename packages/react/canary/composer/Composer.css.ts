@@ -9,6 +9,7 @@ import { getModifiedSelector } from '../../common/ui/modifiers.js';
 
 import * as classes from '../../components/Composer.classnames.js';
 import { editorStyles } from '../../common/lib/editor/styles.js';
+import { editableStyle } from './lib/util.js';
 export default classes;
 
 const { composerContainer, composerErrorMessage, editor } = classes;
@@ -50,5 +51,9 @@ defaultGlobalStyle(`:where(.${CORD_V2}).${composerContainer}:focus-within`, {
 
 globalStyle(`.${composerContainer} .${editor}`, {
   ...editorStyles,
+  ...editableStyle,
+  paddingRight: cssVar('space-s'),
+  paddingLeft: cssVar('space-s'),
+  paddingBottom: cssVar('space-m'),
   outline: 'none',
 });
