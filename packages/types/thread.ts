@@ -1179,6 +1179,8 @@ export interface ICordThreadSDK {
    *   }
    * );
    * ```
+   * @deprecated The argument 'threadID' in this function has been deprecated in
+   * favor of using just the 'messageID' and 'data'.
    * @param threadID - The ID of the thread containing the message.
    * @param messageID - The ID of the message to update.
    * @param data - The data values to update.  Any omitted values will be left
@@ -1191,6 +1193,26 @@ export interface ICordThreadSDK {
     messageID: MessageID,
     data: ClientUpdateMessage,
   ): Promise<true>;
+
+  /**
+   * Update the content or properties of an existing message.  This can only be
+   * used to modify messages created by the current viewer.
+   * @example Overview
+   * ```javascript
+   * await window.CordSDK.thread.updateMessage(
+   *   'message-42',
+   *   {
+   *     content: [{ type: 'p', children: [{ text: 'An updated message content' }]}],
+   *   }
+   * );
+   * ```
+   * @param messageID - The ID of the message to update.
+   * @param data - The data values to update.  Any omitted values will be left
+   * at their current values.
+   * @returns A promise that resolves to `true` if the operation succeeded or
+   * rejects if it failed.
+   */
+  updateMessage(messageID: MessageID, data: ClientUpdateMessage): Promise<true>;
 
   /**
    * This method allows you search for messages by content.
