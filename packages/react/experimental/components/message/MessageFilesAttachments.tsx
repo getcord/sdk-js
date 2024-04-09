@@ -14,7 +14,7 @@ import {
 import { isNotNull } from '../../../common/util.js';
 import withCord from '../hoc/withCord.js';
 import { useMediaModal } from '../../hooks/useMediaModal.js';
-import * as classes from '../../../components/MessageContent.classnames.js';
+import classes from './MessageFilesAttachments.css.js';
 import { MessageFileAttachment } from './MessageFileAttachment.js';
 import { MessageImageAttachment } from './MessageImageAttachment.js';
 import { MessageVideoAttachment } from './MessageVideoAttachment.js';
