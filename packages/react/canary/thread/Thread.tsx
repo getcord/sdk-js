@@ -10,60 +10,71 @@ import {
   Message,
   SendComposer,
 } from '../../experimental.js';
-import type { StyleProps } from '../../experimental.js';
+import type { StyleProps, WithByIDComponent } from '../../experimental.js';
 import * as buttonClasses from '../../components/helpers/Button.classnames.js';
+import { useThread } from '../../hooks/thread.js';
 import classes from './Thread.css.js';
 import { ThreadSeenByWrapper } from './ThreadSeenBy.js';
 
-export type ThreadProps = {
-  thread?: ClientThreadData;
+type CommonThreadProps = {
   showHeader?: boolean;
 } & StyleProps;
 
-export const Thread = withCord<React.PropsWithChildren<ThreadProps>>(
-  forwardRef(function Thread(
-    props: ThreadProps,
-    ref: React.ForwardedRef<HTMLDivElement>,
-  ) {
-    const { showHeader = false, thread, className, ...restProps } = props;
-    const threadData = thread?.thread;
-    const messages = thread?.messages ?? [];
+export type ThreadByIDProps = {
+  threadID: string;
+} & CommonThreadProps;
 
-    return (
-      <div
-        ref={ref}
-        {...restProps}
-        className={cx(className, classes.thread)}
-        data-cord-thread-id={threadData?.id}
-      >
-        {showHeader && (
-          <ThreadHeader
-            canBeReplaced
-            threadID={threadData?.id}
-            showContextMenu={messages.length > 0}
-          />
-        )}
-        <div>
-          {messages.length > 0 &&
-            threadData?.id &&
-            messages.map((message) => {
-              return (
-                <Message key={message.id} message={message} canBeReplaced />
-              );
-            })}
-        </div>
-        {threadData && threadData.lastMessage && (
-          <ThreadSeenByWrapper
-            participants={threadData.participants}
-            message={threadData.lastMessage}
-          />
-        )}
-        <SendComposer threadId={threadData?.id} />
-      </div>
-    );
-  }),
-  'Thread',
-);
+export type ThreadProps = {
+  thread?: ClientThreadData;
+} & CommonThreadProps;
+
+export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
+  Object.assign(
+    withCord<React.PropsWithChildren<ThreadProps>>(
+      forwardRef(function Thread(
+        { showHeader = false, thread, className, ...restProps }: ThreadProps,
+        ref: React.ForwardedRef<HTMLDivElement>,
+      ) {
+        const threadData = thread?.thread;
+        const messages = thread?.messages ?? [];
+
+        return (
+          <div
+            ref={ref}
+            {...restProps}
+            className={cx(className, classes.thread)}
+            data-cord-thread-id={threadData?.id}
+          >
+            {showHeader && (
+              <ThreadHeader
+                canBeReplaced
+                threadID={threadData?.id}
+                showContextMenu={messages.length > 0}
+              />
+            )}
+            <div>
+              {messages.length > 0 &&
+                threadData?.id &&
+                messages.map((message) => {
+                  return (
+                    <Message key={message.id} message={message} canBeReplaced />
+                  );
+                })}
+            </div>
+            {threadData && threadData.lastMessage && (
+              <ThreadSeenByWrapper
+                participants={threadData.participants}
+                message={threadData.lastMessage}
+              />
+            )}
+            <SendComposer threadId={threadData?.id} />
+          </div>
+        );
+      }),
+      'Thread',
+    ),
+    { ByID: ThreadByID },
+  );
 
 export type ThreadHeaderProps = {
   showContextMenu?: boolean;
@@ -113,3 +124,14 @@ export const ThreadHeader = withCord<ThreadHeaderProps>(
   }),
   'ThreadHeader',
 );
+
+function ThreadByID(props: ThreadByIDProps) {
+  const { threadID, ...restProps } = props;
+  const thread = useThread(threadID);
+
+  if (!thread) {
+    return null;
+  }
+
+  return <Thread thread={thread} {...restProps} canBeReplaced />;
+}

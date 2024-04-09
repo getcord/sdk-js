@@ -6,6 +6,17 @@ import type {
   ViewerUserData,
 } from '@cord-sdk/types';
 import type { CustomEditor } from '../slateCustom.js';
+import type { ReplacementProps } from './components/hoc/withReplacement.js';
+
+export type WithByID<T> = {
+  ByID: React.ComponentType<T>;
+};
+
+export interface WithByIDComponent<T, U>
+  extends WithByID<U>,
+    React.ForwardRefExoticComponent<
+      T & React.RefAttributes<HTMLElement> & ReplacementProps
+    > {}
 
 export interface StyleProps {
   /**
@@ -144,12 +155,14 @@ export type CordComposerProps = {
   groupID: string | undefined;
 };
 
+export type CommonMessageProps = StyleProps;
+
 export type MessageProps = {
   /**
    * Contains the data of the message to be displayed.
    */
   message: ClientMessageData;
-} & StyleProps;
+} & CommonMessageProps;
 
 export interface AvatarProps extends StyleProps {
   /**

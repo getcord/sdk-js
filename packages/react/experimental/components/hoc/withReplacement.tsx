@@ -12,7 +12,7 @@ import type {
   ReplaceConfigBase,
 } from '../replacements.js';
 
-type Props = {
+export type ReplacementProps = {
   /**
    * Replacement config for components under this one.
    */
@@ -43,7 +43,7 @@ function isValidReplaceKey(
 // TODO explain the above better if possible.
 // We are using jotai to avoid extra re-render and for convenience.
 export default function withReplacement<
-  T extends React.PropsWithChildren<Props>,
+  T extends React.PropsWithChildren<ReplacementProps>,
 >(WrappedComponent: React.ComponentType<T>, name: ComponentName) {
   // We need to register it that way instead of hard coding to avoid circular dependencies.
   // This works because it happens at import time, outside of React lifecycle.
@@ -53,7 +53,7 @@ export default function withReplacement<
     WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
   const ComponentWithWrapper = React.forwardRef(
-    (props: T & Props, ref: React.ForwardedRef<HTMLElement>) => {
+    (props: T & ReplacementProps, ref: React.ForwardedRef<HTMLElement>) => {
       const { replace, canBeReplaced, ...restProps } = props;
 
       const configFromAboveAtom = replaceRegistry.get(name);
