@@ -100,11 +100,6 @@ export {
   type MessageTextProps,
 } from './experimental/components/message/MessageText.js';
 
-export {
-  MessageActions,
-  type MessageActionsProps,
-} from './experimental/components/menu/MessageActions.js';
-
 export { Separator } from './experimental/components/helpers/Separator.js';
 export {
   SendComposer,

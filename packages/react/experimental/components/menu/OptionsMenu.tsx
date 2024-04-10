@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { forwardRef, useCallback, useMemo, useState } from 'react';
-import cx from 'classnames';
 
 import type { ClientMessageData } from '@cord-sdk/types';
-import { WithPopper } from '../helpers/WithPopper.js';
-import { DefaultTooltip, WithTooltip } from '../WithTooltip.js';
+import { DefaultTooltip } from '../WithTooltip.js';
 import withCord from '../hoc/withCord.js';
+import type { StyleProps } from '../../../experimental/types.js';
 import * as classes from '../../../components/OptionsMenu.css.js';
 import { useCordTranslation } from '../../../index.js';
-import { Menu } from './Menu.js';
-import { MessageActions } from './MessageActions.js';
+import { MenuButton } from './Menu.js';
+import type { MenuProps } from './Menu.js';
+import { useMessageActions } from './MessageActions.js';
 import { ShareToEmailMenu } from './ShareToEmailMenu.js';
 import { SlackChannelsMenu } from './SlackChannelsMenu.js';
-import { ThreadActions } from './ThreadActions.js';
+import { useThreadActions } from './ThreadActions.js';
 
 type MenuTypes =
   | 'actionsMenu'
@@ -24,158 +24,169 @@ export type OptionsMenuProps = {
   threadID: string;
   button: JSX.Element;
   disableTooltip?: boolean;
-  getClassName?: (menuVisible: boolean) => string;
   markThreadAsRead?: (threadID: string) => void;
-  setMenuShowing?: (state: boolean) => void;
   showThreadOptions: boolean;
   showMessageOptions: boolean;
   message?: ClientMessageData;
   setEditing: React.Dispatch<React.SetStateAction<boolean>>;
-} & React.HTMLAttributes<HTMLDivElement>;
+} & StyleProps;
 
 export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
   forwardRef(function OptionsMenu(
-    {
+    props: OptionsMenuProps,
+    _ref: React.ForwardedRef<HTMLDivElement>,
+  ) {
+    const {
       threadID,
       button,
-      disableTooltip = false,
-      getClassName,
-      markThreadAsRead,
-      setMenuShowing,
       showThreadOptions,
       showMessageOptions,
       message,
-      onClick,
       setEditing,
-      ...restProps
-    }: OptionsMenuProps,
-    ref: React.ForwardedRef<HTMLDivElement>,
-  ) {
+    } = props;
     const [menuToShow, setMenuToShow] = useState<MenuTypes>(null);
+    const [menuVisible, setMenuVisible] = useState(false);
+    const { t } = useCordTranslation('message');
 
     const handleOnClose = useCallback(() => {
-      setMenuShowing?.(false);
+      setMenuVisible(false);
       setMenuToShow(null);
-    }, [setMenuShowing]);
+    }, [setMenuVisible, setMenuToShow]);
 
-    const menuItems = useMemo(() => {
-      const items = [];
-      if (showThreadOptions) {
-        items.push({
-          element: (
-            <ThreadActions
-              key="thread-actions-menu"
-              threadID={threadID}
-              closeMenu={handleOnClose}
-              markThreadAsRead={markThreadAsRead}
-            />
-          ),
-          name: 'thread-actions-menu',
+    const handleOnShow = useCallback(() => {
+      setMenuToShow((prev) => (prev ? null : 'actionsMenu'));
+      setMenuVisible(true);
+    }, [setMenuVisible, setMenuToShow]);
+
+    const handleSetMenuVisible = useCallback(
+      (visible: boolean) => {
+        setMenuVisible(() => {
+          if (visible) {
+            handleOnShow();
+          } else {
+            handleOnClose();
+          }
+          return visible;
         });
-      }
-
-      if (!!message && !!showMessageOptions) {
-        items.push({
-          element: (
-            <MessageActions
-              canBeReplaced
-              showSeparator={showThreadOptions}
-              closeMenu={handleOnClose}
-              threadID={threadID}
-              message={message}
-              setEditing={setEditing}
-            />
-          ),
-          name: 'message-actions-menu',
-        });
-      }
-      return items;
-    }, [
-      handleOnClose,
-      markThreadAsRead,
-      message,
-      showThreadOptions,
-      threadID,
-      showMessageOptions,
-      setEditing,
-    ]);
-    const popperElement = useMemo(() => {
-      switch (menuToShow) {
-        case 'actionsMenu':
-          return (
-            <Menu canBeReplaced items={menuItems} closeMenu={handleOnClose} />
-          );
-        case 'slackChannelSelectMenu':
-          return (
-            <div
-              key="slack-channel-menu"
-              className={classes.slackChannelSelectMenuContainer}
-            >
-              <SlackChannelsMenu
-                onBackButtonClick={() => setMenuToShow('actionsMenu')}
-                onClose={handleOnClose}
-                threadID={threadID}
-              />
-            </div>
-          );
-        case 'shareToEmailMenu':
-          return (
-            <div
-              key="share-to-email-menu"
-              className={classes.shareToEmailMenuContainer}
-            >
-              <ShareToEmailMenu
-                threadID={threadID}
-                onBackButtonClick={() => setMenuToShow('actionsMenu')}
-                onClose={handleOnClose}
-              />
-            </div>
-          );
-        default:
-          return null;
-      }
-    }, [menuToShow, threadID, handleOnClose, menuItems]);
-
-    const onClickHandler = useCallback(
-      (event: React.MouseEvent<HTMLDivElement>) => {
-        event.stopPropagation();
-        setMenuToShow((prev) => (prev ? null : 'actionsMenu'));
-        setMenuShowing?.(true);
-        onClick?.(event);
       },
-      [onClick, setMenuShowing],
+      [handleOnClose, handleOnShow, setMenuVisible],
     );
 
-    const menuVisible = Boolean(menuToShow);
+    const actionsMenuItems = useOptionsMenuActionsItems({
+      threadID,
+      showThreadOptions,
+      showMessageOptions,
+      handleOnClose,
+      message,
+      setEditing,
+    });
 
-    const hideMenu = useCallback(() => {
-      setMenuToShow(null);
-      setMenuShowing?.(false);
-    }, [setMenuShowing]);
+    const menuItems = useMemo(() => {
+      switch (menuToShow) {
+        case 'slackChannelSelectMenu':
+          return [
+            {
+              name: 'slack-channel-menu',
+              element: (
+                <div
+                  key="slack-channel-menu"
+                  className={classes.slackChannelSelectMenuContainer}
+                >
+                  <SlackChannelsMenu
+                    onBackButtonClick={() => setMenuToShow('actionsMenu')}
+                    onClose={handleOnClose}
+                    threadID={threadID}
+                  />
+                </div>
+              ),
+            },
+          ];
+        case 'shareToEmailMenu':
+          return [
+            {
+              name: 'share-to-email-menu',
+              element: (
+                <div
+                  key="share-to-email-menu"
+                  className={classes.shareToEmailMenuContainer}
+                >
+                  <ShareToEmailMenu
+                    threadID={threadID}
+                    onBackButtonClick={() => setMenuToShow('actionsMenu')}
+                    onClose={handleOnClose}
+                  />
+                </div>
+              ),
+            },
+          ];
+        default:
+          return actionsMenuItems;
+      }
+    }, [menuToShow, threadID, handleOnClose, actionsMenuItems]);
 
+    const buttonLabel = t('message_options_tooltip');
     return (
-      <WithTooltip
-        tooltip={<OptionsMenuTooltip canBeReplaced />}
-        tooltipDisabled={menuVisible || disableTooltip}
-        ref={ref}
-        {...restProps}
-      >
-        <WithPopper
-          className={cx(classes.optionsMenu, getClassName?.(menuVisible))}
-          popperElement={popperElement}
-          popperElementVisible={menuVisible}
-          popperPosition="bottom-end"
-          onShouldHide={hideMenu}
-          onClick={onClickHandler}
-          withBlockingOverlay={true}
-        >
-          {button}
-        </WithPopper>
-      </WithTooltip>
+      <MenuButton
+        menuVisible={menuVisible}
+        menuItems={menuItems}
+        buttonTooltipLabel={buttonLabel}
+        button={button}
+        setMenuVisible={handleSetMenuVisible}
+      />
     );
   }),
   'OptionsMenu',
 );
+
+type UseOptionsMenuItems = {
+  threadID: string;
+  markThreadAsRead?: (threadID: string) => void;
+  showMessageOptions: boolean;
+  showThreadOptions: boolean;
+  message?: ClientMessageData;
+  setEditing: React.Dispatch<React.SetStateAction<boolean>>;
+  handleOnClose: () => void;
+};
+export function useOptionsMenuActionsItems({
+  threadID,
+  setEditing,
+  markThreadAsRead,
+  message,
+  showMessageOptions,
+  showThreadOptions,
+  handleOnClose,
+}: UseOptionsMenuItems) {
+  const threadActions = useThreadActions({
+    closeMenu: handleOnClose,
+    threadID,
+    markThreadAsRead,
+  });
+
+  const messageActions = useMessageActions({
+    showSeparator: showThreadOptions,
+    closeMenu: handleOnClose,
+    threadID: threadID,
+    message: message,
+    setEditing: setEditing,
+  });
+  return useMemo(() => {
+    const items: MenuProps['items'] = [];
+    if (showThreadOptions) {
+      items.push(...threadActions);
+    }
+
+    if (!!message && !!showMessageOptions) {
+      items.push(...messageActions);
+    }
+    return items;
+  }, [
+    message,
+    showThreadOptions,
+    showMessageOptions,
+    threadActions,
+    messageActions,
+  ]);
+}
 
 export type OptionsMenuTooltipProps = object;
 export const OptionsMenuTooltip = withCord<OptionsMenuTooltipProps>(
