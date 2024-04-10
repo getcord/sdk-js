@@ -24,10 +24,7 @@ export {
   PresenceFacepile,
   type PresenceFacepileProps,
 } from './experimental/components/PresenceFacepile.js';
-export {
-  PresenceObserver,
-  type PresenceObserverReactComponentProps,
-} from './experimental/components/PresenceObserver.js';
+export { PresenceObserver } from './experimental/components/PresenceObserver.js';
 export {
   PagePresence,
   type PagePresenceProps,

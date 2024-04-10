@@ -7,6 +7,7 @@ import { useDocumentVisibility } from '../../common/effects/useDocumentVisibilit
 import { useCordContext } from '../../contexts/CordContext.js';
 import { useViewerData } from '../../hooks/user.js';
 import { throttle } from '../../common/lib/throttle.js';
+import type { PresenceObserverReactComponentProps } from '../../experimental.js';
 
 // Number of seconds that need to pass since a given page has lost
 // focus before we stop considering it the page the user is actively
@@ -16,16 +17,6 @@ const PAGE_PRESENCE_LOSS_TTL_SECONDS = 30;
 const PRESENCE_UPDATE_INTERVAL_MS = (PAGE_PRESENCE_LOSS_TTL_SECONDS * 1000) / 2;
 // The minimum period between durable presence updates
 const DURABLE_PRESENCE_THROTTLE_MS = 60 * 1000; // 1 minute
-
-export type PresenceObserverReactComponentProps = React.PropsWithChildren<{
-  location: Location;
-  observeDocument?: boolean;
-  durable?: boolean;
-  presentEvents?: string[];
-  absentEvents?: string[];
-  groupId?: string;
-  onChange?: (newValue: boolean) => unknown;
-}>;
 
 export function PresenceObserver({
   location,
