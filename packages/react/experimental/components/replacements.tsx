@@ -35,7 +35,7 @@ import type {
   OptionsMenuProps,
   OptionsMenuTooltipProps,
 } from './menu/OptionsMenu.js';
-import type { MenuProps } from './menu/Menu.js';
+import type { MenuButtonProps, MenuProps } from './menu/Menu.js';
 import type { MessageFilesAttachmentsProps } from './message/MessageFilesAttachments.js';
 import type { MediaModalProps } from './MediaModal.js';
 import type { MessageUserReferenceElementProps } from './message/MessageUserReferenceElement.js';
@@ -68,6 +68,7 @@ export type ReplaceConfigBase = Partial<{
   MediaModal: React.ComponentType<MediaModalProps>;
   MentionList: React.ComponentType<MentionListProps>;
   Menu: React.ComponentType<MenuProps>;
+  MenuButton: React.ComponentType<MenuButtonProps>;
   MenuItem: React.ComponentType<MenuItemProps>;
   Message: React.ComponentType<MessageProps>;
   MessageActions: React.ComponentType<MessageActionsProps>;
