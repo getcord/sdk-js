@@ -126,7 +126,10 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
                   <Button
                     buttonAction="show-message-options"
                     icon="DotsThree"
-                    className={buttonClasses.small}
+                    className={cx(
+                      buttonClasses.small,
+                      buttonClasses.colorsSecondary,
+                    )}
                     canBeReplaced
                   />
                 }

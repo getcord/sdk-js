@@ -104,6 +104,7 @@ export const ThreadHeader = withCord<ThreadHeaderProps>(
                 canBeReplaced
                 buttonAction="show-thread-options"
                 icon="DotsThree"
+                className={buttonClasses.colorsSecondary}
               ></Button>
             }
             threadID={threadID}
