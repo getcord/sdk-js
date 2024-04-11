@@ -36,7 +36,7 @@ export interface AddListenerOptions {
 export type PresenceListener = (update: PartialUserLocationData) => void;
 
 /**
- * Options for the `observeLocationData` function in the Presence API.
+ * Options for the `observePresence` function in the Presence API.
  */
 export interface ObservePresenceOptions {
   /**
@@ -116,7 +116,7 @@ export interface ICordPresenceSDK {
    * live updates.
    * @example Overview
    * ```javascript
-   * const ref = window.CordSDK.presence.observeLocationData(
+   * const ref = window.CordSDK.presence.observePresence(
    *   { page: "https://cord.com", block: "id123" },
    *   (present) => present.forEach(
    *     (d) => console.log(`${d.id} is present!`)
@@ -124,7 +124,7 @@ export interface ICordPresenceSDK {
    *   { exclude_durable: true },
    * );
    * // ... Later, when updates are no longer needed ...
-   * window.CordSDK.presence.unobserveLocationData(ref);
+   * window.CordSDK.presence.unobservePresence(ref);
    * ```
    * @param location - The [location](https://docs.cord.com/reference/location)
    * to fetch presence information for.
@@ -133,8 +133,18 @@ export interface ICordPresenceSDK {
    * passed to the callback is an array of objects. Each object will contain the
    * fields described under "Available Data" above.
    * @param options - Options that control which presence records are returned.
-   * @returns A reference number which can be passed to `unobserveLocationData`
+   * @returns A reference number which can be passed to `unobservePresence`
    * to stop observing location data.
+   */
+  observePresence(
+    location: Location,
+    callback: PresenceUpdateCallback,
+    options?: ObservePresenceOptions,
+  ): ListenerRef;
+  unobservePresence(ref: ListenerRef): boolean;
+
+  /**
+   * @deprecated Renamed to `observePresence`.
    */
   observeLocationData(
     location: Location,

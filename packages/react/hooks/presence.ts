@@ -15,7 +15,7 @@ import { useMemoObject } from './useMemoObject.js';
  * @example Overview
  * ```javascript
  * import { presence } from '@cord-sdk/react';
- * const present = presence.useLocationData(
+ * const present = presence.usePresence(
  *   { page: "https://cord.com", block: "id123" },
  *   { exclude_durable: true },
  * );
@@ -34,11 +34,11 @@ import { useMemoObject } from './useMemoObject.js';
  * above. The component will automatically re-render if any of the data changes,
  * i.e., this data is always "live".
  */
-export function useLocationData(
+export function usePresence(
   location: Location,
   options: ObservePresenceOptions = {},
 ): Array<UserLocationData> | undefined {
-  const { sdk } = useCordContext('presence.useLocationData');
+  const { sdk } = useCordContext('presence.usePresence');
   const presenceSDK = sdk?.presence;
 
   const optionsMemo = useMemoObject(options);
@@ -50,7 +50,7 @@ export function useLocationData(
     if (!presenceSDK) {
       return;
     }
-    const ref = presenceSDK.observeLocationData(
+    const ref = presenceSDK.observePresence(
       locationMemo,
       (data) => {
         setPresenceData(data);
@@ -59,9 +59,11 @@ export function useLocationData(
     );
 
     return () => {
-      presenceSDK.unobserveLocationData(ref);
+      presenceSDK.unobservePresence(ref);
     };
   }, [presenceSDK, locationMemo, optionsMemo]);
 
   return presenceData;
 }
+
+export { usePresence as useLocationData };

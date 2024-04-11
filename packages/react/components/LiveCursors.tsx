@@ -241,7 +241,7 @@ function getLiveCursorsProps(
     .filter((id) => cursorPositions[id] && users[id])
     .map((id) => ({
       user: users[id]!,
-      pos: cursorPositions[id]!,
+      pos: cursorPositions[id],
     }));
 }
 
@@ -452,7 +452,7 @@ function useUserCursors(
     // Partial match listen for presence updates at baseLocation. See comment
     // above the definition of baseLocation in the main component for an
     // overview of how this works.
-    const locationDataListenerRef = presenceSDK.observeLocationData(
+    const locationDataListenerRef = presenceSDK.observePresence(
       baseLocation,
       async (data) => {
         data.forEach(({ id, ephemeral }) => {
@@ -473,7 +473,7 @@ function useUserCursors(
     );
 
     return () => {
-      presenceSDK.unobserveLocationData(locationDataListenerRef);
+      presenceSDK.unobservePresence(locationDataListenerRef);
     };
   }, [
     locationToDocument,

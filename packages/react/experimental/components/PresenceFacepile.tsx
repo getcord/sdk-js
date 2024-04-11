@@ -5,7 +5,7 @@ import type { UserLocationData, ClientUserData } from '@cord-sdk/types';
 import { useUserData, useViewerData } from '../../hooks/user.js';
 import { useCordTranslation } from '../../hooks/useCordTranslation.js';
 import type { PresenceReducerOptions } from '../../types.js';
-import { useLocationData } from '../../hooks/presence.js';
+import { usePresence } from '../../hooks/presence.js';
 import { getUsersAtLocation } from '../../common/lib/presence.js';
 import { useTime } from '../../common/effects/useTime.js';
 import { relativeTimestampString } from '../../common/util.js';
@@ -45,7 +45,7 @@ export const PresenceFacepile = withCord<
     ref?: React.ForwardedRef<HTMLDivElement>,
   ) {
     const viewer = useViewerData();
-    const presenceData = useLocationData(
+    const presenceData = usePresence(
       location ?? { location: window.location.href },
       { partial_match: partialMatch },
     );
