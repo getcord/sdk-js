@@ -83,7 +83,7 @@ export * as experimental from './experimental.js';
 // --- Exports kept for backwards-compat only:
 
 export * as beta from './beta.js';
-export { useSummary as useCordNotificationSummary } from './hooks/notification.js';
+export { useNotificationCounts as useCordNotificationSummary } from './hooks/notification.js';
 export { useLocationData as useCordPresentUsers } from './hooks/presence.js';
 export {
   useLocationSummary as useCordThreadActivitySummary,

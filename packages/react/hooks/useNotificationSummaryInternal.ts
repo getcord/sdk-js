@@ -6,7 +6,7 @@ import type {
 } from '@cord-sdk/types';
 import { useMemoObject } from './useMemoObject.js';
 
-export function useNotificationSummaryInternal(
+export function useNotificationCountsInternal(
   notificationSDK: ICordNotificationSDK | undefined,
   isCordInternalCall: boolean,
   filter?: NotificationListFilter | undefined,
@@ -19,7 +19,7 @@ export function useNotificationSummaryInternal(
       return;
     }
 
-    const listenerRef = notificationSDK.observeSummary(setSummary, {
+    const listenerRef = notificationSDK.observeNotificationCounts(setSummary, {
       filter: filterMemo,
       ...{
         __cordInternal: isCordInternalCall,
@@ -27,7 +27,7 @@ export function useNotificationSummaryInternal(
     });
 
     return () => {
-      notificationSDK.unobserveSummary(listenerRef);
+      notificationSDK.unobserveNotificationCounts(listenerRef);
     };
   }, [notificationSDK, isCordInternalCall, filterMemo]);
 

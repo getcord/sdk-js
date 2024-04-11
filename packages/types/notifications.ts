@@ -10,6 +10,9 @@ import type { CoreMessageData } from './message.js';
 import type { Translation } from './i18n.js';
 
 export type NotificationSummary = {
+  /**
+   * The number of notifications that the current user hasn't seen yet.
+   */
   unread: number;
 };
 
@@ -249,45 +252,60 @@ export interface MarkAllNotificationsAsReadOptions {
 
 export interface ICordNotificationSDK {
   /**
-   * This method allows you to observe the notification summary for the current
-   * user, including live updates.
+   * This method allows you to observe the count of unread notifications for the
+   * current user, including live updates.
    *
    * @example Overview
    * ```javascript
-   * const ref = window.CordSDK.notification.observeSummary(
-   *   (summary) => {
-   *        console.log("Unread notifications", summary.unread);
+   * const ref = window.CordSDK.notification.observeNotificationCounts(
+   *   (counts) => {
+   *        console.log("Unread notifications", counts.unread);
    *   },
    *   { filter: {
-   *         metadata: { flavor: 'minty'},
-   *         location: {page: 'bookmarks'} 
+   *         metadata: { flavor: 'minty' },
+   *         location: { page: 'bookmarks' },
    *         groupID: 'group123',
    *    }}
    * );
    * ```
    *
-   * @param callback - This callback will be called once with the current notification summary,
-                    and then again every time the data changes. The argument passed to the callback is an
-                    object which will contain the fields described under "Available Data" above..
+   * @param callback - This callback will be called once with the current
+                    notification counts, and then again every time the data
+                    changes. The argument passed to the callback is an object
+                    which will contain the fields described under "Available
+                    Data" above..
    *
    * @param options
    *
-   * @returns A reference number which can be passed to unobserveSummary
-   *  to stop observing notification summary information.
+   * @returns A reference number which can be passed to
+   *  `unobserveNotificationCounts` to stop observing notification count
+   *  information.
+   */
+  observeNotificationCounts(
+    callback: NotificationSummaryUpdateCallback,
+    options?: ObserveNotificationSummaryOptions,
+  ): ListenerRef;
+  unobserveNotificationCounts(ref: ListenerRef): boolean;
+
+  /**
+   * @deprecated Renamed to `observeNotificationCounts`
    */
   observeSummary(
     callback: NotificationSummaryUpdateCallback,
     options?: ObserveNotificationSummaryOptions,
   ): ListenerRef;
+  /**
+   * @deprecated Renamed to `unobserveNotificationCounts`
+   */
   unobserveSummary(ref: ListenerRef): boolean;
 
   /**
-   * This method allows you to observe the full notification data for the current
-   * user, including live updates.
+   * This method allows you to observe the available notifications for the
+   * current user, including live updates.
    *
    * @example Overview
    * ```javascript
-   * const ref = window.CordSDK.notification.observeData(
+   * const ref = window.CordSDK.notification.observeNotifications(
    *   ({ notifications, loading, hasMore, fetchMore }) => {
    *     console.log('Got a notifications data update:');
    *     if (loading) {
@@ -306,19 +324,31 @@ export interface ICordNotificationSDK {
    * ```
    *
    * @param callback - This callback will be called once with the current
-   * notification data, and then again every time the data changes. The argument
+   * notifications, and then again every time the data changes. The argument
    * passed to the callback is an object which will contain the fields described
    * under "Available Data" above.
    *
    * @param options - Miscellaneous options.
    *
-   * @returns A reference number which can be passed to `unobserveData` to stop
-   * observing notification data information.
+   * @returns A reference number which can be passed to `unobserveNotifications`
+   * to stop observing notifications.
+   */
+  observeNotifications(
+    callback: NotificationDataUpdateCallback,
+    options?: ObserveNotificationDataOptions,
+  ): ListenerRef;
+  unobserveNotifications(ref: ListenerRef): boolean;
+
+  /**
+   * @deprecated Renamed to `observeNotifications`
    */
   observeData(
     callback: NotificationDataUpdateCallback,
     options?: ObserveNotificationDataOptions,
   ): ListenerRef;
+  /**
+   * @deprecated Renamed to `unobserveNotifications`
+   */
   unobserveData(ref: ListenerRef): boolean;
 
   /**

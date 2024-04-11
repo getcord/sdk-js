@@ -7,7 +7,7 @@ import type {
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext.js';
 import { useMemoObject } from './useMemoObject.js';
-import { useNotificationSummaryInternal } from './useNotificationSummaryInternal.js';
+import { useNotificationCountsInternal } from './useNotificationSummaryInternal.js';
 
 /**
  * This method allows you to observe the notification summary for the current
@@ -15,40 +15,36 @@ import { useNotificationSummaryInternal } from './useNotificationSummaryInternal
  *
   @example Overview
 * ```javascript
-*   import { notification } from '@cord-sdk/react';
-*   const summary = notification.useSummary({
-*         filter: {
-*             metadata: { flavor: 'minty'},
-*             location: {page: 'bookmarks'} 
-*             organizationID: 'org123',
-*          },
-*       });
+* import { notification } from '@cord-sdk/react';
+* const counts = notification.useNotificationCounts({
+*       filter: {
+*           metadata: { flavor: 'minty' },
+*           location: { page: 'bookmarks' },
+*           groupID: 'group123',
+*        },
+*     });
 *
-*   return (
-*     <div>
-*        {!summary && "Loading..."}
-*        {summary && (
-*          <p>Unread notifications: {summary.unread}</p>
-*         )}
-*     </div>
-*    );
+* return (
+*   <div>
+*      {!counts && "Loading..."}
+*      {counts && (
+*        <p>Unread notifications: {counts.unread}</p>
+*       )}
+*   </div>
+*  );
 * ```
 * @param options
 *
 * @returns A reference number which can be passed to unobserveSummary
 *  to stop observing notification summary information.
  */
-export function useSummary(
+export function useNotificationCounts(
   options?: ObserveNotificationSummaryOptions,
 ): NotificationSummary | null {
-  const { sdk } = useCordContext('useSummary');
+  const { sdk } = useCordContext('useNotificationCounts');
   const notificationSDK = sdk?.notification;
 
-  return useNotificationSummaryInternal(
-    notificationSDK,
-    false,
-    options?.filter,
-  );
+  return useNotificationCountsInternal(notificationSDK, false, options?.filter);
 }
 
 const emptyNotificationData: ClientNotificationData = {
@@ -65,7 +61,7 @@ const emptyNotificationData: ClientNotificationData = {
  * @example Overview
  * ```javascript
  * import { notification } from '@cord-sdk/react';
- * const { notifications, loading, hasMore, fetchMore } = notification.useData(
+ * const { notifications, loading, hasMore, fetchMore } = notification.useNotifications(
  *   filter: { metadata: { flavor: 'minty' } } },
  * );
  * return (
@@ -90,12 +86,12 @@ const emptyNotificationData: ClientNotificationData = {
  * "Available Data" above. The component will automatically re-render if any of
  * the data changes, i.e., this data is always "live".
  */
-export function useData(
+export function useNotifications(
   options?: ObserveNotificationDataOptions,
 ): ClientNotificationData {
   const [data, setData] = useState<ClientNotificationData | null>(null);
 
-  const { sdk } = useCordContext('useData');
+  const { sdk } = useCordContext('useNotifications');
   const notificationSDK = sdk?.notification;
   const optionsMemo = useMemoObject(options);
 
@@ -104,12 +100,15 @@ export function useData(
       return;
     }
 
-    const key = notificationSDK.observeData(setData, optionsMemo);
+    const key = notificationSDK.observeNotifications(setData, optionsMemo);
 
     return () => {
-      notificationSDK.unobserveData(key);
+      notificationSDK.unobserveNotifications(key);
     };
   }, [notificationSDK, optionsMemo]);
 
   return data ?? emptyNotificationData;
 }
+
+// Old names for backwards compatibility
+export { useNotifications as useData, useNotificationCounts as useSummary };
