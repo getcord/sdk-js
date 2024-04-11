@@ -217,10 +217,6 @@ export type NotificationListFilter = {
    * The group to which the message that prompted the notification belongs.
    */
   groupID?: string;
-  /**
-   * The message that prompted the notification.
-   */
-  messageID?: string;
 };
 
 export interface ObserveNotificationSummaryOptions {
@@ -237,11 +233,18 @@ export interface ObserveNotificationDataOptions {
   filter?: NotificationListFilter;
 }
 
+export type MarkAllNotificationsAsReadFilter = NotificationListFilter & {
+  /**
+   * The message that prompted the notification.
+   */
+  messageID?: string;
+};
+
 export interface MarkAllNotificationsAsReadOptions {
   /**
    * An object that can be used to filter the notifications marked as read.
    */
-  filter?: NotificationListFilter;
+  filter?: MarkAllNotificationsAsReadFilter;
 }
 
 export interface ICordNotificationSDK {
