@@ -17,12 +17,12 @@ export interface ServerGroupData {
    * Whether this group is active or deleted.  Attempting to log into a
    * deleted group will fail.
    */
-  status?: 'active' | 'deleted';
+  status: 'active' | 'deleted';
 
   /**
    * List of partner-specific IDs of the users who are members of this group
    */
-  members?: ID[];
+  members: ID[];
 
   /**
    * If the group has connected to a Slack workspace
@@ -32,7 +32,7 @@ export interface ServerGroupData {
   /**
    * Arbitrary key-value pairs that can be used to store additional information.
    */
-  metadata?: EntityMetadata;
+  metadata: EntityMetadata;
 }
 
 export type ServerUpdateGroup = Partial<

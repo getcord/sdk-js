@@ -18,12 +18,12 @@ export interface ServerOrganizationData {
    * Whether this organization is active or deleted.  Attempting to log into a
    * deleted organization will fail.
    */
-  status?: 'active' | 'deleted';
+  status: 'active' | 'deleted';
 
   /**
    * List of partner-specific IDs of the users who are members of this organization
    */
-  members?: ID[];
+  members: ID[];
 
   /**
    * If the organization has connected to a Slack workspace
@@ -33,7 +33,7 @@ export interface ServerOrganizationData {
   /**
    * Arbitrary key-value pairs that can be used to store additional information.
    */
-  metadata?: EntityMetadata;
+  metadata: EntityMetadata;
 }
 
 /**
@@ -66,8 +66,11 @@ export interface ServerUpdateOrganizationMembers {
 /**
  * @deprecated type for deprecated api route
  */
-export interface ServerCreateOrganization
-  extends Omit<ServerOrganizationData, 'connectedToSlack'> {}
+export type ServerCreateOrganization = Omit<
+  ServerOrganizationData,
+  'connectedToSlack' | 'status' | 'members' | 'metadata'
+> &
+  Partial<Pick<ServerOrganizationData, 'status' | 'members' | 'metadata'>>;
 
 /**
  * @deprecated use ServerGetGroup instead
