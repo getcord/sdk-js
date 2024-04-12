@@ -6,7 +6,6 @@ import type {
   ClientMessageData,
   MessageAttachment,
   MessageContent,
-  MessageFileAttachment,
 } from '@cord-sdk/types';
 import * as buttonClasses from '../../components/helpers/Button.classnames.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
@@ -21,6 +20,7 @@ import type {
 import { ReactionPickButton } from '../../experimental.js';
 import { WithPopper } from '../../experimental/components/helpers/WithPopper.js';
 import { thread as ThreadSDK, useCordTranslation } from '../../index.js';
+import { isMessageFileAttachment } from '../../common/lib/isMessageFileAttachment.js';
 import { onDeleteOrBackspace } from './event-handlers/onDeleteOrBackspace.js';
 import { onSpace } from './event-handlers/onSpace.js';
 import { onInlineModifier } from './event-handlers/onInlineModifier.js';
@@ -38,8 +38,6 @@ import { useAddMentionToComposer } from './hooks/useMentionList.js';
 import { SendButton } from './SendButton.js';
 import { CloseComposerButton } from './CloseComposerButton.js';
 import classes from './Composer.css.js';
-
-const EMPTY_ATTACHMENTS: MessageAttachment[] = [];
 
 export function useEditComposer(props: EditComposerProps): ComposerProps {
   const onSubmit = useEditSubmit(props);
@@ -119,16 +117,18 @@ export const EditComposer = (props: EditComposerProps) => {
 export function useCordComposer(props: CordComposerProps): ComposerProps {
   const { onSubmit, initialValue, onAfterSubmit, onBeforeSubmit, groupID } =
     props;
-  const initialAttachments =
-    initialValue?.attachments as MessageFileAttachment[];
 
   const base = useComposer({
     ...props,
     initialValue: props.initialValue?.content as MessageContent | undefined,
   });
   const { editor, isEmpty } = base;
+  const initialMessageFileAttachments = useMemo(
+    () => initialValue?.attachments?.filter(isMessageFileAttachment) ?? [],
+    [initialValue?.attachments],
+  );
   const attachmentsProps = useAddAttachmentToComposer({
-    initialAttachments: initialAttachments ?? EMPTY_ATTACHMENTS,
+    initialAttachments: initialMessageFileAttachments,
     editor,
   });
   const mentionProps = useAddMentionToComposer({

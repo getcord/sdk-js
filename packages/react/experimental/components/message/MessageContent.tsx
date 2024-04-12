@@ -5,9 +5,11 @@ import type {
   MessageAttachment,
   MessageContent as MessageContentType,
 } from '@cord-sdk/types';
+import { useMemo } from 'react';
 import classes from '../../../components/MessageContent.css.js';
 import withCord from '../hoc/withCord.js';
 import type { StyleProps } from '../../types.js';
+import { isMessageFileAttachment } from '../../../common/lib/isMessageFileAttachment.js';
 import { MessageFilesAttachments } from './MessageFilesAttachments.js';
 import { MessageText } from './MessageText.js';
 
@@ -34,6 +36,11 @@ export const MessageContent = withCord<
     }: MessageContentProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
+    const filesAttachments = useMemo(
+      () => attachments.filter(isMessageFileAttachment),
+      [attachments],
+    );
+
     if (!content) {
       return null;
     }
@@ -52,7 +59,7 @@ export const MessageContent = withCord<
           hideAnnotationAttachment
         />
         <MessageFilesAttachments
-          attachments={attachments}
+          attachments={filesAttachments}
           canBeReplaced
           userData={userData}
           createdAt={createdAt}
