@@ -16,13 +16,14 @@ export default classes;
 
 const { avatarContainer, avatarFallback, avatarImage } = classes;
 
-globalStyle(`.${avatarContainer}`, {
+defaultGlobalStyle(`:where(.${CORD_V2}).${avatarContainer}`, {
   borderRadius: cssVar('avatar-border-radius'),
   cursor: 'default',
   height: '20px',
   overflow: 'hidden',
   width: '20px',
 });
+
 globalStyle(`:where(.${threadFooterContainer}) .${avatarContainer}`, {
   height: cssVar('space-m'),
   width: cssVar('space-m'),

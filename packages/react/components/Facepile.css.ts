@@ -1,4 +1,8 @@
-import { globalStyle } from '../common/ui/style.js';
+import {
+  globalStyle,
+  defaultGlobalStyle,
+  CORD_V2,
+} from '../common/ui/style.js';
 import { cssVar } from '../common/ui/cssVariables.js';
 import { getModifiedSelector } from '../common/ui/modifiers.js';
 import { cordifyClassname } from '../common/util.js';
@@ -12,7 +16,7 @@ const { facepileContainer, otherUsers, otherUsersPlaceholder } = classes;
 /**
  * Base styles
  */
-globalStyle(`.${facepileContainer}`, {
+defaultGlobalStyle(`:where(.${CORD_V2}).${facepileContainer}`, {
   alignItems: 'center',
   display: 'flex',
   flexDirection: 'row',
