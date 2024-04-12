@@ -39,7 +39,12 @@ export {
   Button,
   type GeneralButtonProps,
 } from './experimental/components/helpers/Button.js';
-export { Menu, type MenuProps } from './experimental/components/menu/Menu.js';
+export {
+  Menu,
+  type MenuProps,
+  MenuButton,
+  type MenuButtonProps,
+} from './experimental/components/menu/Menu.js';
 export {
   MenuItem,
   type MenuItemProps,
