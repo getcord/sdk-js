@@ -288,7 +288,7 @@ const UserMentionRow = React.memo(function UserMentionRow({
       canBeReplaced
       menuItemAction={`user-mention-${user.id}`}
       style={style}
-      leftItem={<Avatar canBeReplaced userId={user.id} />}
+      leftItem={<Avatar canBeReplaced user={user} />}
       label={viewer?.id === user.id ? viewerDisplayName : otherDisplayName}
       subtitle={subtitle}
       onClick={(event: React.MouseEvent) => {

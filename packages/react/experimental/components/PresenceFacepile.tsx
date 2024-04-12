@@ -81,7 +81,7 @@ export const PresenceFacepile = withCord<
             }
             key={user.id}
           >
-            <Avatar userId={user.id} isAbsent={!isPresent} canBeReplaced />
+            <Avatar user={user} isAbsent={!isPresent} canBeReplaced />
           </WithTooltip>
         ))}
 

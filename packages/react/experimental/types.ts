@@ -9,8 +9,10 @@ import type {
 import type { CustomEditor } from '../slateCustom.js';
 import type { ReplacementProps } from './components/hoc/withReplacement.js';
 
+export type ByID<T> = T & React.RefAttributes<HTMLElement> & ReplacementProps;
+
 export type WithByID<T> = {
-  ByID: React.ComponentType<T>;
+  ByID: React.ComponentType<ByID<T>>;
 };
 
 export interface WithByIDComponent<T, U>
@@ -165,11 +167,7 @@ export type MessageProps = {
   message: ClientMessageData;
 } & CommonMessageProps;
 
-export interface AvatarProps extends StyleProps {
-  /**
-   * ID of the user whose avatar is to be displayed.
-   */
-  userId: string;
+export interface CommonAvatarProps extends StyleProps {
   /**
    * Whether to enable tooltip on the avatar.
    */
@@ -178,6 +176,12 @@ export interface AvatarProps extends StyleProps {
    * Whether the user is absent.
    */
   isAbsent?: boolean;
+}
+export interface AvatarProps extends CommonAvatarProps {
+  /**
+   * Data of the user whose avatar is to be displayed.
+   */
+  user: ClientUserData;
 }
 
 export type AvatarTooltipProps = {

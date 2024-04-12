@@ -13,7 +13,12 @@ import {
 import classes from '../../../components/Avatar.css.js';
 import { useViewerData, useUserData } from '../../../hooks/user.js';
 import { AvatarFallback, AvatarTooltip } from '../../../experimental.js';
-import type { AvatarProps } from '../../../experimental.js';
+import type {
+  AvatarProps,
+  ByID,
+  CommonAvatarProps,
+  WithByIDComponent,
+} from '../../../experimental.js';
 import { WithTooltip } from '../WithTooltip.js';
 import withCord from '../hoc/withCord.js';
 
@@ -65,61 +70,64 @@ function useImageStatus(
   return status;
 }
 
-export const Avatar = withCord<React.PropsWithChildren<AvatarProps>>(
-  React.forwardRef(function Avatar(
-    {
-      userId,
-      enableTooltip = false,
-      className,
-      isAbsent,
-      ...restProps
-    }: AvatarProps,
-    ref?: React.ForwardedRef<HTMLDivElement>,
-  ) {
-    const viewerData = useViewerData();
-    const userAvatar = useUserData(userId);
-    const tooltip = useMemo(() => {
-      if (!userAvatar || !viewerData) {
-        return null;
-      }
-      return (
-        <AvatarTooltip
-          userData={userAvatar}
-          viewerData={viewerData}
-          canBeReplaced
-        />
-      );
-    }, [userAvatar, viewerData]);
-
-    if (!userAvatar) {
-      return null;
-    }
-    return (
-      <>
-        {enableTooltip ? (
-          <WithTooltip tooltip={tooltip}>
-            <AvatarInner
-              ref={ref}
-              user={userAvatar}
-              className={className}
-              isAbsent={isAbsent}
-              {...restProps}
+export const Avatar: WithByIDComponent<AvatarProps, AvatarByIDProps> =
+  Object.assign(
+    withCord<React.PropsWithChildren<AvatarProps>>(
+      React.forwardRef(function Avatar(
+        {
+          user,
+          enableTooltip = false,
+          className,
+          isAbsent,
+          ...restProps
+        }: AvatarProps,
+        ref?: React.ForwardedRef<HTMLDivElement>,
+      ) {
+        const viewerData = useViewerData();
+        const tooltip = useMemo(() => {
+          if (!user || !viewerData) {
+            return null;
+          }
+          return (
+            <AvatarTooltip
+              userData={user}
+              viewerData={viewerData}
+              canBeReplaced
             />
-          </WithTooltip>
-        ) : (
-          <AvatarInner
-            ref={ref}
-            user={userAvatar}
-            className={className}
-            isAbsent={isAbsent}
-            {...restProps}
-          />
-        )}
-      </>
-    );
-  }),
-  'Avatar',
-);
+          );
+        }, [user, viewerData]);
+
+        if (!user) {
+          return null;
+        }
+        return (
+          <>
+            {enableTooltip ? (
+              <WithTooltip tooltip={tooltip}>
+                <AvatarInner
+                  ref={ref}
+                  user={user}
+                  className={className}
+                  isAbsent={isAbsent}
+                  {...restProps}
+                />
+              </WithTooltip>
+            ) : (
+              <AvatarInner
+                ref={ref}
+                user={user}
+                className={className}
+                isAbsent={isAbsent}
+                {...restProps}
+              />
+            )}
+          </>
+        );
+      }),
+      'Avatar',
+    ),
+    { ByID: AvatarByID },
+  );
 
 export type AvatarInnerProps = {
   user: ClientUserData;
@@ -163,3 +171,18 @@ const AvatarInner = forwardRef(function AvatarImpl(
     </div>
   );
 });
+
+interface AvatarByIDProps extends CommonAvatarProps {
+  userID: string;
+}
+
+function AvatarByID(props: ByID<AvatarByIDProps>) {
+  const { userID, ...restProps } = props;
+  const user = useUserData(userID);
+
+  if (!user) {
+    return null;
+  }
+
+  return <Avatar user={user} {...restProps} canBeReplaced />;
+}

@@ -10,7 +10,11 @@ import {
   Message,
   SendComposer,
 } from '../../experimental.js';
-import type { StyleProps, WithByIDComponent } from '../../experimental.js';
+import type {
+  StyleProps,
+  WithByIDComponent,
+  ByID,
+} from '../../experimental.js';
 import * as buttonClasses from '../../components/helpers/Button.classnames.js';
 import { useThread } from '../../hooks/thread.js';
 import classes from './Thread.css.js';
@@ -126,7 +130,7 @@ export const ThreadHeader = withCord<ThreadHeaderProps>(
   'ThreadHeader',
 );
 
-function ThreadByID(props: ThreadByIDProps) {
+function ThreadByID(props: ByID<ThreadByIDProps>) {
   const { threadID, ...restProps } = props;
   const thread = useThread(threadID);
 

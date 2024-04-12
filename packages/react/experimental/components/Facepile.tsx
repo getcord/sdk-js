@@ -30,11 +30,10 @@ export const Facepile = withCord<React.PropsWithChildren<FacepileProps>>(
     return (
       <div className={cx(classes.facepileContainer, className)} ref={ref}>
         {userIDs.map((userID) => (
-          <Avatar
+          <Avatar.ByID
             key={userID}
-            userId={userID}
+            userID={userID}
             enableTooltip={enableTooltip}
-            canBeReplaced
           />
         ))}
       </div>

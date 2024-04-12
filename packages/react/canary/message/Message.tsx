@@ -17,6 +17,7 @@ import {
 import { EditComposer } from '../composer/Composer.js';
 import { useUserData, useViewerData } from '../../hooks/user.js';
 import type {
+  ByID,
   CommonMessageProps,
   MessageProps,
   WithByIDComponent,
@@ -98,7 +99,7 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
               [MODIFIERS.fromViewer]: viewerData?.id === message.authorID,
             })}
             message={message}
-            avatar={<Avatar canBeReplaced userId={message.authorID} />}
+            avatar={<Avatar.ByID canBeReplaced userID={message.authorID} />}
             messageContent={
               <MessageContent
                 content={message.content as MessageContentType}
@@ -161,7 +162,7 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
     ),
     { ByID: MessageByID },
   );
-function MessageByID(props: MessageByIDProps) {
+function MessageByID(props: ByID<MessageByIDProps>) {
   const { messageID, ...restProps } = props;
   const message = useMessage(messageID);
 
