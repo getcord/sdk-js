@@ -26,6 +26,8 @@ export const resources = {
       send_message_placeholder: 'Add a comment...',
       // The placeholder for sending a message to a thread with messages in it
       reply_placeholder: 'Reply...',
+      // The placeholder for editing a message
+      edit_message_placeholder: 'Edit message...',
       // The tooltip for the "mention someone" menu button
       mention_someone_tooltip: 'Mention someone',
       // The text of the button that starts an annotation

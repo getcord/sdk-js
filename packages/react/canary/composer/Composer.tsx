@@ -20,7 +20,7 @@ import type {
 } from '../../experimental/types.js';
 import { ReactionPickButton } from '../../experimental.js';
 import { WithPopper } from '../../experimental/components/helpers/WithPopper.js';
-import { thread as ThreadSDK } from '../../index.js';
+import { thread as ThreadSDK, useCordTranslation } from '../../index.js';
 import { onDeleteOrBackspace } from './event-handlers/onDeleteOrBackspace.js';
 import { onSpace } from './event-handlers/onSpace.js';
 import { onInlineModifier } from './event-handlers/onInlineModifier.js';
@@ -66,6 +66,7 @@ export function useSendComposer(props: SendComposerProps): ComposerProps {
 export const SendComposer = (props: SendComposerProps) => {
   const threadData = ThreadSDK.useThread(props.threadId!);
   const resolved = threadData.thread?.resolved;
+  const { t } = useCordTranslation('composer');
 
   const cordComposerProps = useSendComposer(props);
 
@@ -73,12 +74,19 @@ export const SendComposer = (props: SendComposerProps) => {
     return <ResolvedThreadComposer thread={threadData} canBeReplaced />;
   }
 
-  return <CordComposer canBeReplaced {...cordComposerProps} />;
+  return (
+    <CordComposer
+      canBeReplaced
+      {...cordComposerProps}
+      placeholder={t('send_message_placeholder')}
+    />
+  );
 };
 
 export const EditComposer = (props: EditComposerProps) => {
   const threadData = ThreadSDK.useThread(props.threadId);
   const resolved = threadData.thread?.resolved;
+  const { t } = useCordTranslation('composer');
 
   const closeComposerButtonToolbarItem = useMemo(() => {
     return [
@@ -103,6 +111,7 @@ export const EditComposer = (props: EditComposerProps) => {
         ...(cordComposerProps.toolbarItems ?? []),
         ...closeComposerButtonToolbarItem,
       ]}
+      placeholder={t('edit_message_placeholder')}
     />
   );
 };
