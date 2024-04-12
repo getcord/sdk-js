@@ -1,63 +1,7 @@
 import cx from 'classnames';
 
-import {
-  Archive,
-  ArrowBendDownRight,
-  ArrowCircleUpRight,
-  ArrowSquareOut,
-  ArrowsInSimple,
-  At,
-  Bell,
-  BellSlash,
-  CaretLeft,
-  CaretRight,
-  Chats,
-  ChatText,
-  Check,
-  Checks,
-  CheckCircle,
-  CheckSquare,
-  CircleNotch,
-  Code,
-  Copy,
-  DotsThree,
-  EnvelopeSimple,
-  Export,
-  EyeSlash,
-  Faders,
-  File,
-  FileAudio,
-  FileCsv,
-  FileDoc,
-  FilePdf,
-  FileText,
-  FileVideo,
-  FileXls,
-  FileZip,
-  Gear,
-  Hash,
-  ImageSquare,
-  LinkSimple,
-  MagnifyingGlass,
-  MicrosoftWordLogo,
-  MegaphoneSimple,
-  Moon,
-  Paperclip,
-  PencilSimpleLine,
-  Question,
-  Smiley,
-  Square,
-  Sun,
-  TextAa,
-  Trash,
-  Tray,
-  UserCirclePlus,
-  Users,
-  WarningCircle,
-  X,
-} from 'phosphor-react';
-
 import * as React from 'react';
+import type { Icon as PhosphorIcon } from '@phosphor-icons/react';
 import { ArrowUpIcon as ArrowUp } from '../../common/icons/customIcons/ArrowUpIcon.js';
 import { ArrowRightIcon as ArrowRight } from '../../common/icons/customIcons/ArrowRightIcon.js';
 import { HelpIcon as Help } from '../../common/icons/customIcons/HelpIcon.js';
@@ -84,66 +28,12 @@ import { WinkSmileyRectIcon as WinkSmileyRect } from '../../common/icons/customI
 import { WinkSmileyCircleIcon as WinkSmileyCircle } from '../../common/icons/customIcons/WinkSmileyCircleIcon.js';
 import { ReturnArrowIcon as ReturnArrow } from '../../common/icons/customIcons/ReturnArrow.js';
 import { MailUnreadIcon as MailUnread } from '../../common/icons/customIcons/MailUnreadIcon.js';
+import { UNTYPED_PHOSPHOR_ICONS } from './PhosphorIcons.js';
 
 import classes from './Icon.css.js';
 
-// Icon names must be unique across PHOSPHOR_ICONS and CORD_ICONS - e.g. can't
-// have an icon called 'Settings' in both
-const PHOSPHOR_ICONS = {
-  Archive,
-  ArrowBendDownRight,
-  ArrowCircleUpRight,
-  ArrowSquareOut,
-  ArrowsInSimple,
-  At,
-  Bell,
-  BellSlash,
-  CaretLeft,
-  CaretRight,
-  Chats,
-  ChatText,
-  Check,
-  Checks,
-  CheckCircle,
-  CheckSquare,
-  CircleNotch,
-  Code,
-  Copy,
-  DotsThree,
-  EnvelopeSimple,
-  Export,
-  EyeSlash,
-  Faders,
-  File,
-  FileAudio,
-  FileCsv,
-  FileDoc,
-  FilePdf,
-  FileText,
-  FileVideo,
-  FileXls,
-  FileZip,
-  Gear,
-  Hash,
-  ImageSquare,
-  LinkSimple,
-  MagnifyingGlass,
-  MicrosoftWordLogo,
-  MegaphoneSimple,
-  Moon,
-  Paperclip,
-  PencilSimpleLine,
-  Question,
-  Smiley,
-  Square,
-  Sun,
-  TextAa,
-  Trash,
-  Tray,
-  UserCirclePlus,
-  Users,
-  WarningCircle,
-  X,
+export const PHOSPHOR_ICONS = UNTYPED_PHOSPHOR_ICONS as {
+  [key in keyof typeof UNTYPED_PHOSPHOR_ICONS]: PhosphorIcon;
 };
 
 // Icon names must be unique across PHOSPHOR_ICONS and CORD_ICONS - e.g. can't
@@ -174,7 +64,7 @@ const CUSTOM_ICONS = {
   MailUnread,
 };
 
-const ALL_ICONS = { ...PHOSPHOR_ICONS, ...CUSTOM_ICONS };
+export const ALL_ICONS = { ...PHOSPHOR_ICONS, ...CUSTOM_ICONS };
 
 export type IconType = keyof typeof ALL_ICONS;
 

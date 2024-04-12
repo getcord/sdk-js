@@ -1,7 +1,6 @@
 import React, { forwardRef, useCallback } from 'react';
 import cx from 'classnames';
 import type { ClientMessageData } from '@cord-sdk/types';
-import { Trash } from 'phosphor-react';
 import { useCordTranslation } from '../../hooks/useCordTranslation.js';
 import { MODIFIERS } from '../../common/ui/modifiers.js';
 import { useUserData, useViewerData } from '../../hooks/user.js';
@@ -14,6 +13,7 @@ import {
 } from '../../common/util.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as classes from './Message.css.js';
+import { PHOSPHOR_ICONS } from '@cord-sdk/react/components/helpers/Icon.js';
 
 export type MessageTombstoneProps = {
   message: ClientMessageData;
@@ -38,7 +38,7 @@ export const MessageTombstone = withCord<
         data-cord-message-id={message.id}
         data-cord-thread-id={message.threadID}
       >
-        <Trash className={cx(iconLarge, classes.deletedIcon)} />
+        <PHOSPHOR_ICONS.Trash className={cx(iconLarge, classes.deletedIcon)} />
         <div className={cx(classes.deletedMessageText, fontSmall)}>
           {t('deleted_message', { user: author })}
           {canUndoDelete && (
