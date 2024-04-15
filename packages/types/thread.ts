@@ -311,24 +311,15 @@ export type ThreadSummaryUpdateCallback = (summary: ThreadSummary) => unknown;
  */
 export interface ThreadObserverOptions {
   /**
-   * Loading information for a thread ID which does not exist will create that
-   * thread. If that happens, this will be the name of the new thread.
-   *
-   * If unset, this will default to the current page's title.
+   * @deprecated This option has no effect
    */
   threadName?: string;
   /**
-   * Loading information for a thread ID which does not exist will create that
-   * thread. If that happens, this will be the
-   * [location](https://docs.cord.com/reference/location) of the new thread.
-   *
-   * If unset, this will default to the location provided to the
-   * [`useCordLocation`](https://docs.cord.com/js-apis-and-hooks/initialization#useCordLocation)
-   * hook if that was used. Otherwise, will default to the current page's URL.
+   * @deprecated This option has no effect
    */
   location?: Location;
   /**
-   * The [group](/rest-apis/groups) of a thread.
+   * @deprecated Use `filter.groupID` instead
    */
   groupID?: string;
 
