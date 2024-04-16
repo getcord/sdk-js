@@ -51,6 +51,7 @@ import type { ReactionsProps } from './Reactions.js';
 import type { ReactionPickButtonProps } from './ReactionPickButton.js';
 import type { ErrorFallbackProps } from './ErrorFallback.js';
 import type { MentionListProps } from './composer/MentionList.js';
+import type { ShareToEmailFormProps } from './menu/ShareToEmailForm.js';
 
 export type ReplaceConfig = ReplaceConfigBase & ReplaceWithin;
 
@@ -92,6 +93,7 @@ export type ReplaceConfigBase = Partial<{
   SendButton: React.ComponentType<SendButtonProps>;
   SendMessageError: React.ComponentType<SendMessageErrorProps>;
   Separator: React.ComponentType<SeparatorProps>;
+  ShareToEmailForm: React.ComponentType<ShareToEmailFormProps>;
   TextEditor: React.ComponentType<TextEditorProps>;
   Thread: React.ComponentType<ThreadProps>;
   ThreadHeader: React.ComponentType<ThreadHeaderProps>;

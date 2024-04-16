@@ -9,17 +9,20 @@ import { useViewerData } from '../../../hooks/user.js';
 import { setResolved, setSubscribed } from '../../../common/lib/thread.js';
 import type { MenuProps } from './Menu.js';
 import { MenuItem } from './MenuItem.js';
+import type { MenuTypes } from './OptionsMenu.js';
 
 export type ThreadActionsProps = {
   closeMenu: () => void;
   threadID: string;
   markThreadAsRead?: (threadID: string) => void;
+  setMenuToShow: (menu: MenuTypes) => void;
 };
 
 export const useThreadActions = ({
   closeMenu,
   threadID,
   markThreadAsRead,
+  setMenuToShow,
 }: ThreadActionsProps) => {
   const { t } = useCordTranslation('thread');
 
@@ -33,6 +36,22 @@ export const useThreadActions = ({
       return items;
     }
     const subscribed = thread.subscribers.includes(user.id);
+    items.push({
+      element: (
+        <MenuItem
+          canBeReplaced
+          menuItemAction={'share_via_email_action'}
+          label={t('share_via_email_action')}
+          leftItem={<Icon name={'EnvelopeSimple'} size="large" />}
+          onClick={(event) => {
+            event.stopPropagation();
+            setMenuToShow('shareToEmailForm');
+          }}
+        />
+      ),
+      name: 'share-via-email',
+    });
+
     if (markThreadAsRead) {
       items.push({
         element: (
@@ -99,6 +118,16 @@ export const useThreadActions = ({
         name: 'thread-resolve',
       });
     }
+
     return items;
-  }, [closeMenu, markThreadAsRead, showToastPopup, t, thread, threadID, user]);
+  }, [
+    closeMenu,
+    markThreadAsRead,
+    setMenuToShow,
+    showToastPopup,
+    t,
+    thread,
+    threadID,
+    user,
+  ]);
 };

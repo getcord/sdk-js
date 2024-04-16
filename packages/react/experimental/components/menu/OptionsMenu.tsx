@@ -10,14 +10,14 @@ import { useCordTranslation } from '../../../index.js';
 import { MenuButton } from './Menu.js';
 import type { MenuProps } from './Menu.js';
 import { useMessageActions } from './MessageActions.js';
-import { ShareToEmailMenu } from './ShareToEmailMenu.js';
+import { ShareToEmailFormWrapper } from './ShareToEmailForm.js';
 import { SlackChannelsMenu } from './SlackChannelsMenu.js';
 import { useThreadActions } from './ThreadActions.js';
 
-type MenuTypes =
+export type MenuTypes =
   | 'actionsMenu'
   | 'slackChannelSelectMenu'
-  | 'shareToEmailMenu'
+  | 'shareToEmailForm'
   | null;
 
 export type OptionsMenuProps = {
@@ -79,6 +79,7 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
       handleOnClose,
       message,
       setEditing,
+      setMenuToShow,
     });
 
     const menuItems = useMemo(() => {
@@ -101,7 +102,7 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
               ),
             },
           ];
-        case 'shareToEmailMenu':
+        case 'shareToEmailForm':
           return [
             {
               name: 'share-to-email-menu',
@@ -110,7 +111,7 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
                   key="share-to-email-menu"
                   className={classes.shareToEmailMenuContainer}
                 >
-                  <ShareToEmailMenu
+                  <ShareToEmailFormWrapper
                     threadID={threadID}
                     onBackButtonClick={() => setMenuToShow('actionsMenu')}
                     onClose={handleOnClose}
@@ -146,6 +147,7 @@ type UseOptionsMenuItems = {
   message?: ClientMessageData;
   setEditing: React.Dispatch<React.SetStateAction<boolean>>;
   handleOnClose: () => void;
+  setMenuToShow: (menu: MenuTypes) => void;
 };
 export function useOptionsMenuActionsItems({
   threadID,
@@ -155,11 +157,13 @@ export function useOptionsMenuActionsItems({
   showMessageOptions,
   showThreadOptions,
   handleOnClose,
+  setMenuToShow,
 }: UseOptionsMenuItems) {
   const threadActions = useThreadActions({
     closeMenu: handleOnClose,
     threadID,
     markThreadAsRead,
+    setMenuToShow,
   });
 
   const messageActions = useMessageActions({

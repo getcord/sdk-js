@@ -243,6 +243,7 @@ export interface ICordAnnotationSDK {
 
 export interface ICordSDK {
   init(options: CordSDKInitOptions): Promise<void>;
+  options: CordSDKInitOptions;
   updateOptions(options: CordSDKOptions): void;
   destroy(): void;
   addMonacoEditor(id: string, monacoEditor: unknown): void;
