@@ -32,6 +32,7 @@ export {
 export {
   ReactionPickButton,
   AddReactionToMessageButton,
+  useHandleMessageReactionPick,
   type ReactionPickButtonProps,
   type AddReactionToMessageButtonProps,
 } from './experimental/components/ReactionPickButton.js';
