@@ -191,7 +191,7 @@ export type AvatarTooltipProps = {
 
 export type AvatarFallbackProps = {
   userData: ClientUserData;
-};
+} & StyleProps;
 
 export type PresenceObserverReactComponentProps = React.PropsWithChildren<{
   /**
