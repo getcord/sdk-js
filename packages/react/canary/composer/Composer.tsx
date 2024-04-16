@@ -40,8 +40,6 @@ import { CloseComposerButton } from './CloseComposerButton.js';
 import classes from './Composer.css.js';
 import { SendMessageError } from './SendMessageError.js';
 
-const EMPTY_ATTACHMENTS: MessageAttachment[] = [];
-
 export function useEditComposer(props: EditComposerProps): ComposerProps {
   const onSubmit = useEditSubmit(props);
   const { thread: threadData } = ThreadSDK.useThread(props.threadId);
@@ -76,7 +74,7 @@ export const SendComposer = (props: SendComposerProps) => {
   }
 
   return (
-    <CordComposer
+    <Composer
       canBeReplaced
       {...cordComposerProps}
       placeholder={t('send_message_placeholder')}
@@ -105,7 +103,7 @@ export const EditComposer = (props: EditComposerProps) => {
   }
 
   return (
-    <CordComposer
+    <Composer
       canBeReplaced
       {...cordComposerProps}
       toolbarItems={[
@@ -127,7 +125,7 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
     onFailSubmit,
   } = props;
 
-  const base = useComposer({
+  const base = useBaseComposer({
     ...props,
     initialValue: props.initialValue?.content as MessageContent | undefined,
   });
@@ -249,7 +247,7 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
     onFailSubmit,
   };
 }
-export function useComposer(
+export function useBaseComposer(
   props: UseTextEditorProps,
 ): Omit<ComposerProps, 'onSubmit' | 'groupID'> {
   const simpleComposer = useTextEditor(props);
@@ -346,8 +344,8 @@ export function useComposer(
   };
 }
 
-export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
-  forwardRef(function CordComposer(
+export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
+  forwardRef(function Composer(
     props: ComposerProps,
     ref: React.ForwardedRef<HTMLElement>,
   ) {

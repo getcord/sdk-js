@@ -109,7 +109,7 @@ export { Separator } from './experimental/components/helpers/Separator.js';
 export {
   SendComposer,
   EditComposer,
-  CordComposer,
+  Composer,
 } from './canary/composer/Composer.js';
 
 export {
