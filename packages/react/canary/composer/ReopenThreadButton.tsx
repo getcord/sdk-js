@@ -33,7 +33,8 @@ export const ReopenThreadButton = withCord<
         canBeReplaced
         onClick={() => {
           onClick();
-          showToastPopup?.(threadT('resolve_action_success'));
+          const toastID = 'resolve_action_success';
+          showToastPopup?.(toastID, threadT(toastID), 'success');
         }}
         {...restProps}
         buttonAction="composer-reopen-thread"

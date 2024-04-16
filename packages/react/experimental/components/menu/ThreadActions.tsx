@@ -84,11 +84,15 @@ export const useThreadActions = ({
           onClick={(event) => {
             event.stopPropagation();
             showToastPopup?.(
+              subscribed
+                ? 'unsubscribe_action_success'
+                : 'subscribe_action_success',
               t(
                 subscribed
                   ? 'unsubscribe_action_success'
                   : 'subscribe_action_success',
               ),
+              'success',
             );
             void setSubscribed(threadID, !subscribed);
             closeMenu();
@@ -108,7 +112,8 @@ export const useThreadActions = ({
             leftItem={<Icon name="CheckCircle" size="large" />}
             onClick={(event) => {
               event.stopPropagation();
-              showToastPopup?.(t('resolve_action_success'));
+              const toastID = 'resolve_action_success';
+              showToastPopup?.(toastID, t(toastID), 'success');
               void setResolved(threadID, true);
               markThreadAsRead?.(threadID);
               closeMenu();

@@ -161,3 +161,5 @@ export {
   MentionList,
   type MentionListProps,
 } from './experimental/components/composer/MentionList.js';
+
+export { useToast } from './experimental/hooks/useToast.js';

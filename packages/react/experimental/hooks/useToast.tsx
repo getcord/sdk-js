@@ -1,8 +1,6 @@
-/**
- * [ONI]-TODO: implement useToast
- * I wonder if that should be passed as a prop instead of a hook.
- * Getting just the text is not enough for powerful replacement.
- */
+import { useContext } from 'react';
+import { ToastContext } from '../contexts/ToastContext.js';
+
 export function useToast() {
-  return { showToastPopup: (_text: string) => {} };
+  return useContext(ToastContext);
 }

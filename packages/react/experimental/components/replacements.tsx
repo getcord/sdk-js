@@ -26,6 +26,7 @@ import type { ResolvedThreadComposerProps } from '../../canary/composer/Resolved
 import type { CloseComposerButtonProps } from '../../canary/composer/CloseComposerButton.js';
 import type { ReopenThreadButtonProps } from '../../canary/composer/ReopenThreadButton.js';
 import type { ThreadSeenByProps } from '../../canary/thread/ThreadSeenBy.js';
+import type { ToastFunctionProviderProps } from '../contexts/ToastContext.js';
 import type { SendMessageErrorProps } from '../../canary/composer/SendMessageError.js';
 import type { OverlayProps } from './Overlay.js';
 import type { FacepileProps } from './Facepile.js';
@@ -99,6 +100,7 @@ export type ReplaceConfigBase = Partial<{
   ThreadHeader: React.ComponentType<ThreadHeaderProps>;
   ThreadSeenBy: React.ComponentType<ThreadSeenByProps>;
   Timestamp: React.ComponentType<TimestampProps>;
+  ToastFunctionProvider: React.ComponentType<ToastFunctionProviderProps>;
   ToolbarLayout: React.ComponentType<ToolbarLayoutProps>;
   Username: React.ComponentType<UsernameProps>;
   UsernameTooltip: React.ComponentType<UsernameTooltipProps>;

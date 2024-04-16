@@ -7,6 +7,7 @@ import withPortal from './withPortal.js';
 import withErrorBoundary from './withErrorBoundary.js';
 import withCordClassname from './withCordClassname.js';
 import withReplacement from './withReplacement.js';
+import withToast from './withToast.js';
 
 interface Props {
   children?: React.ReactNode;
@@ -18,7 +19,9 @@ export default function withCord<T extends Props = Props>(
   componentName: ComponentName,
 ) {
   const Component = withReplacement(
-    withPortal(withCordClassname(withErrorBoundary(memo(WrappedComponent)))),
+    withPortal(
+      withCordClassname(withErrorBoundary(withToast(memo(WrappedComponent)))),
+    ),
     componentName,
   );
   Component.displayName = componentName;
