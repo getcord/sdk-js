@@ -1,6 +1,6 @@
 import * as React from 'react';
 import isHotkey from 'is-hotkey';
-import { forwardRef, useCallback, useEffect, useMemo } from 'react';
+import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
 import { ReactEditor } from 'slate-react';
 import type {
   ClientMessageData,
@@ -38,6 +38,9 @@ import { useAddMentionToComposer } from './hooks/useMentionList.js';
 import { SendButton } from './SendButton.js';
 import { CloseComposerButton } from './CloseComposerButton.js';
 import classes from './Composer.css.js';
+import { SendMessageError } from './SendMessageError.js';
+
+const EMPTY_ATTACHMENTS: MessageAttachment[] = [];
 
 export function useEditComposer(props: EditComposerProps): ComposerProps {
   const onSubmit = useEditSubmit(props);
@@ -115,13 +118,20 @@ export const EditComposer = (props: EditComposerProps) => {
 };
 
 export function useCordComposer(props: CordComposerProps): ComposerProps {
-  const { onSubmit, initialValue, onAfterSubmit, onBeforeSubmit, groupID } =
-    props;
+  const {
+    onSubmit,
+    initialValue,
+    onAfterSubmit,
+    onBeforeSubmit,
+    groupID,
+    onFailSubmit,
+  } = props;
 
   const base = useComposer({
     ...props,
     initialValue: props.initialValue?.content as MessageContent | undefined,
   });
+
   const { editor, isEmpty } = base;
   const initialMessageFileAttachments = useMemo(
     () => initialValue?.attachments?.filter(isMessageFileAttachment) ?? [],
@@ -169,7 +179,7 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
       ...(attachmentsProps.extraChildren ?? []),
       ...(base.extraChildren ?? []),
     ],
-    [base.extraChildren, attachmentsProps.extraChildren],
+    [attachmentsProps.extraChildren, base.extraChildren],
   );
 
   const toolbarItems = useMemo(
@@ -196,7 +206,7 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
   const isValid = base.isValid || attachmentsProps.isValid;
 
   const onSubmitWithBeforeAndAfter = useCallback(
-    (args: { message: Partial<ClientMessageData> }) => {
+    async (args: { message: Partial<ClientMessageData> }) => {
       let message: null | Partial<ClientMessageData> = args.message;
       if (!isValid) {
         return;
@@ -207,10 +217,10 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
           return;
         }
       }
-      onSubmit({ message });
+      await onSubmit({ message });
       onAfterSubmit?.({ message });
     },
-    [onSubmit, onBeforeSubmit, onAfterSubmit, isValid],
+    [isValid, onBeforeSubmit, onSubmit, onAfterSubmit],
   );
 
   const onResetState = useCallback(() => {
@@ -236,6 +246,7 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
     initialValue,
     value,
     groupID,
+    onFailSubmit,
   };
 }
 export function useComposer(
@@ -325,6 +336,7 @@ export function useComposer(
       }) satisfies Partial<ClientMessageData>,
     [simpleComposer.initialValue],
   );
+
   return {
     ...simpleComposer,
     onKeyDown,
@@ -350,14 +362,39 @@ export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
       onKeyDown,
       toolbarItems,
       autofocus,
+      extraChildren,
+      onFailSubmit,
       ...rest
     } = props;
-
     const insertEmoji = useCallback(
       (emoji: string) => {
         EditorCommands.addEmoji(editor, editor.selection, emoji);
       },
       [editor],
+    );
+
+    const [onSubmitFailed, setOnSubmitFailed] = useState(false);
+
+    const handleOnResetState = useCallback(() => {
+      onResetState();
+      setOnSubmitFailed(false);
+    }, [onResetState]);
+
+    const failSubmitMessageExtraChildren = useMemo(() => {
+      return [
+        {
+          name: 'failSubmitMessage',
+          element: <SendMessageError canBeReplaced />,
+        },
+      ];
+    }, []);
+
+    const extraChildrenWithDefault = useMemo(
+      () => [
+        ...(extraChildren ?? []),
+        ...(onSubmitFailed ? failSubmitMessageExtraChildren : []),
+      ],
+      [failSubmitMessageExtraChildren, onSubmitFailed, extraChildren],
     );
 
     useEffect(() => {
@@ -390,8 +427,16 @@ export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
                     ...value,
                     content: editor.children,
                   },
-                });
-                onResetState();
+                }).then(
+                  () => {
+                    handleOnResetState();
+                    setOnSubmitFailed(false);
+                  },
+                  (err) => {
+                    setOnSubmitFailed(true);
+                    onFailSubmit?.(err);
+                  },
+                );
               }}
               canBeReplaced
               disabled={!isValid}
@@ -400,14 +445,15 @@ export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
         },
       ];
     }, [
-      editor.children,
-      onSubmit,
-      onResetState,
+      toolbarItems,
       insertEmoji,
       isValid,
-      toolbarItems,
+      onSubmit,
       initialValue,
       value,
+      editor.children,
+      handleOnResetState,
+      onFailSubmit,
     ]);
 
     const onKeyDownWithSubmitAndCancel = useCallback(
@@ -423,15 +469,23 @@ export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
             if (!isValid) {
               return true;
             }
+
             onSubmit({
               message: {
                 ...initialValue,
                 ...value,
                 content: editor.children,
               },
-            });
-            onResetState();
-            return true;
+            }).then(
+              () => {
+                handleOnResetState();
+                setOnSubmitFailed(false);
+              },
+              (_err) => {
+                setOnSubmitFailed(true);
+                onFailSubmit?.(_err);
+              },
+            );
           }
         }
         if (event.key === Keys.ESCAPE) {
@@ -440,14 +494,15 @@ export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
         return false;
       },
       [
+        onKeyDown,
         isValid,
         onSubmit,
-        onCancel,
-        onResetState,
-        editor.children,
-        onKeyDown,
         initialValue,
         value,
+        editor.children,
+        handleOnResetState,
+        onFailSubmit,
+        onCancel,
       ],
     );
 
@@ -456,6 +511,7 @@ export const CordComposer = withCord<React.PropsWithChildren<ComposerProps>>(
         ref={ref}
         {...rest}
         isValid={isValid}
+        extraChildren={extraChildrenWithDefault}
         editor={editor}
         onKeyDown={onKeyDownWithSubmitAndCancel}
         toolbarItems={toolbarItemsWithDefault}

@@ -75,6 +75,7 @@ export interface SendComposerProps extends StyleProps {
    */
   onCancel?: () => void;
   autofocus?: boolean;
+  onFailSubmit?: (error: unknown) => void;
 }
 
 export interface EditComposerProps extends StyleProps {
@@ -118,10 +119,11 @@ export interface EditComposerProps extends StyleProps {
    */
   onCancel?: () => void;
   autofocus?: boolean;
+  onFailSubmit?: (error: unknown) => void;
 }
 
 export interface ComposerProps extends StyleProps {
-  onSubmit: (arg: { message: Partial<ClientMessageData> }) => void;
+  onSubmit: (arg: { message: Partial<ClientMessageData> }) => Promise<void>;
   // TODO-ONI add cancel button
   // onCancel: () => void;
   onChange: (event: { content: MessageContent }) => void;
@@ -144,6 +146,7 @@ export interface ComposerProps extends StyleProps {
   popperOnShouldHide?: () => void;
   groupID: string | undefined;
   autofocus?: boolean;
+  onFailSubmit?: (error: unknown) => void;
 }
 
 export type CordComposerProps = {
@@ -152,10 +155,13 @@ export type CordComposerProps = {
   onBeforeSubmit?: (arg: {
     message: Partial<ClientMessageData>;
   }) => { message: Partial<ClientMessageData> } | null;
-  onSubmit: (arg: { message: Partial<ClientMessageData> }) => void;
+  onSubmit: (arg: {
+    message: Partial<ClientMessageData>;
+  }) => Promise<void> | void;
   onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
   onCancel?: () => void;
   groupID: string | undefined;
+  onFailSubmit?: (error: unknown) => void;
 };
 
 export type CommonMessageProps = StyleProps;

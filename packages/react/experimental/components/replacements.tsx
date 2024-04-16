@@ -26,6 +26,7 @@ import type { ResolvedThreadComposerProps } from '../../canary/composer/Resolved
 import type { CloseComposerButtonProps } from '../../canary/composer/CloseComposerButton.js';
 import type { ReopenThreadButtonProps } from '../../canary/composer/ReopenThreadButton.js';
 import type { ThreadSeenByProps } from '../../canary/thread/ThreadSeenBy.js';
+import type { SendMessageErrorProps } from '../../canary/composer/SendMessageError.js';
 import type { OverlayProps } from './Overlay.js';
 import type { FacepileProps } from './Facepile.js';
 import type { PresenceFacepileProps } from './PresenceFacepile.js';
@@ -89,6 +90,7 @@ export type ReplaceConfigBase = Partial<{
   Replace: React.ComponentType<object>;
   ResolvedThreadComposer: React.ComponentType<ResolvedThreadComposerProps>;
   SendButton: React.ComponentType<SendButtonProps>;
+  SendMessageError: React.ComponentType<SendMessageErrorProps>;
   Separator: React.ComponentType<SeparatorProps>;
   TextEditor: React.ComponentType<TextEditorProps>;
   Thread: React.ComponentType<ThreadProps>;

@@ -25,25 +25,40 @@ export const ComposerLayout = withCord<
       () => extraChildren?.find((item) => item.name === 'attachments')?.element,
       [extraChildren],
     );
+
+    const failedToSubmitMessage = useMemo(
+      () =>
+        extraChildren?.find((item) => item.name === 'failSubmitMessage')
+          ?.element,
+      [extraChildren],
+    );
+
     const extra = useMemo(
       () =>
         extraChildren
-          ?.filter((item) => item.name !== 'attachments')
+          ?.filter(
+            (item) =>
+              item.name !== 'attachments' && item.name !== 'failSubmitMessage',
+          )
           .map((item) => item.element),
       [extraChildren],
     );
-    return (
-      <div
-        ref={ref}
-        className={cx(classes.composerContainer, classes.expanded, className)}
-        style={style}
-      >
-        {props.textEditor}
-        {attachments}
 
-        <ToolbarLayout canBeReplaced items={toolbarItems} />
-        {extra}
-      </div>
+    return (
+      <>
+        {failedToSubmitMessage}
+        <div
+          ref={ref}
+          className={cx(classes.composerContainer, classes.expanded, className)}
+          style={style}
+        >
+          {props.textEditor}
+          {attachments}
+
+          <ToolbarLayout canBeReplaced items={toolbarItems} />
+          {extra}
+        </div>
+      </>
     );
   }),
   'ComposerLayout',

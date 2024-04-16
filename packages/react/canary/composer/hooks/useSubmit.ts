@@ -84,13 +84,14 @@ export function useCreateSubmit(args: UseCreateSubmit) {
   const { threadId, createThread } = args;
   const { sdk: cord } = useContext(CordContext);
   return useCallback(
-    ({ message }: { message: Partial<ClientMessageData> }) => {
+    async ({ message }: { message: Partial<ClientMessageData> }) => {
       const { reactions, content, attachments, ...restMessage } = message;
       const filesAttachments = (attachments ?? []).filter(
         isMessageFileAttachment,
       );
       const url = window.location.href;
-      void cord?.thread.sendMessage(threadId ?? uuid(), {
+
+      await cord?.thread.sendMessage(threadId ?? uuid(), {
         ...restMessage,
         content: content ?? [],
         addAttachments: filesAttachments.map((a) => ({
