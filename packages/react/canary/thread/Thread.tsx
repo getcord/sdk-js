@@ -4,18 +4,12 @@ import cx from 'classnames';
 
 import type { ClientThreadData } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
-import {
-  Button,
-  OptionsMenu,
-  Message,
-  SendComposer,
-} from '../../experimental.js';
+import { Message, SendComposer, ThreadHeader } from '../../experimental.js';
 import type {
   StyleProps,
   WithByIDComponent,
   ByID,
 } from '../../experimental.js';
-import * as buttonClasses from '../../components/helpers/Button.classnames.js';
 import { useThread } from '../../hooks/thread.js';
 import classes from './Thread.css.js';
 import { ThreadSeenByWrapper } from './ThreadSeenBy.js';
@@ -79,56 +73,6 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
     ),
     { ByID: ThreadByID },
   );
-
-export type ThreadHeaderProps = {
-  showContextMenu?: boolean;
-  threadID: string | undefined;
-} & React.HTMLAttributes<HTMLDivElement>;
-
-export const ThreadHeader = withCord<ThreadHeaderProps>(
-  forwardRef(function ThreadHeader(
-    {
-      threadID,
-      showContextMenu = true,
-      className,
-      ...restProps
-    }: ThreadHeaderProps,
-    ref: React.ForwardedRef<HTMLDivElement>,
-  ) {
-    return (
-      <div
-        {...restProps}
-        ref={ref}
-        className={cx(className, classes.threadHeader)}
-      >
-        {showContextMenu && threadID && (
-          <OptionsMenu
-            button={
-              <Button
-                canBeReplaced
-                buttonAction="show-thread-options"
-                icon="DotsThree"
-                className={buttonClasses.colorsSecondary}
-              ></Button>
-            }
-            threadID={threadID}
-            showThreadOptions={true}
-            showMessageOptions={false}
-            canBeReplaced
-            setEditing={() => {}}
-          />
-        )}
-        <Button
-          canBeReplaced
-          buttonAction="close-thread"
-          icon="X"
-          className={buttonClasses.colorsSecondary}
-        />
-      </div>
-    );
-  }),
-  'ThreadHeader',
-);
 
 function ThreadByID(props: ByID<ThreadByIDProps>) {
   const { threadID, ...restProps } = props;

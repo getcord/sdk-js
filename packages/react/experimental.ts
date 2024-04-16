@@ -73,12 +73,11 @@ export {
   Reactions,
   type ReactionsProps,
 } from './experimental/components/Reactions.js';
+export { Thread, type ThreadProps } from './canary/thread/Thread.js';
 export {
-  Thread,
   ThreadHeader,
-  type ThreadProps,
   type ThreadHeaderProps,
-} from './canary/thread/Thread.js';
+} from './canary/thread/ThreadHeader.js';
 export type { ThreadSeenByProps } from './canary/thread/ThreadSeenBy.js';
 export { ThreadSeenBy } from './canary/thread/ThreadSeenBy.js';
 export { Message } from './canary/message/Message.js';

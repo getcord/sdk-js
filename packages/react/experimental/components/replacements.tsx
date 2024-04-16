@@ -11,10 +11,8 @@ import type { TextEditorProps } from '../../canary/composer/TextEditor.js';
 import type { ComposerLayoutProps } from '../../canary/composer/ComposerLayout.js';
 import type { ToolbarLayoutProps } from '../../canary/composer/ToolbarLayout.js';
 import type { MessageLayoutProps } from '../../canary/message/MessageLayout.js';
-import type {
-  ThreadHeaderProps,
-  ThreadProps,
-} from '../../canary/thread/Thread.js';
+import type { ThreadHeaderProps } from '../../canary/thread/ThreadHeader.js';
+import type { ThreadProps } from '../../canary/thread/Thread.js';
 import type { SendButtonProps } from '../../canary/composer/SendButton.js';
 import type {
   UsernameProps,
