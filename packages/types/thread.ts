@@ -331,6 +331,16 @@ export interface ThreadObserverOptions {
    * or hook.
    */
   filter?: ClientThreadFilter;
+
+  /**
+   * The number of messages to initially fetch. Once these are returned you can
+   * use the `fetchMore` property to get additional messages.
+   *
+   * If not specified, the number of initial messages will be determined
+   * dynamically based on the state of the thread and which messages the user
+   * has read.
+   */
+  initialFetchCount?: number;
 }
 
 export type ObserveThreadSummaryOptions = ThreadObserverOptions;
@@ -461,8 +471,8 @@ export type ObserveThreadsOptions = ThreadSortOptions & {
    */
   filter?: ClientThreadFilter;
   /**
-   * The number of threads to fetch first. Once these are returned
-   * you can use the `fetchMore` property to get additional threads.
+   * The number of threads to initially fetch. Once these are returned you can
+   * use the `fetchMore` property to get additional threads.
    *
    * The default for this is 10, and has a limit of 1000.
    */
