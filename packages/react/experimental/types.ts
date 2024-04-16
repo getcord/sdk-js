@@ -32,7 +32,7 @@ export interface StyleProps {
   className?: React.HTMLAttributes<HTMLDivElement>['className'];
 }
 
-export interface SendComposerProps extends StyleProps {
+export interface SendComposerProps extends StyleProps, ReplacementProps {
   /**
    * The initial value of the composer.
    */
@@ -78,7 +78,7 @@ export interface SendComposerProps extends StyleProps {
   onFailSubmit?: (error: unknown) => void;
 }
 
-export interface EditComposerProps extends StyleProps {
+export interface EditComposerProps extends StyleProps, ReplacementProps {
   /**
    * The initial value of the composer.
    */
