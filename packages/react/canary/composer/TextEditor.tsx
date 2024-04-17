@@ -46,10 +46,10 @@ export const TextEditor = withCord<React.PropsWithChildren<TextEditorProps>>(
       placeholder,
       onKeyDown,
       onPaste,
-      style,
       onFocus,
       onBlur,
       onClick,
+      ...restProps
     }: TextEditorProps,
     // withCord needs a `ref` at the moment, but slate does not accept any
     _ref: ForwardedRef<HTMLElement>,
@@ -89,7 +89,6 @@ export const TextEditor = withCord<React.PropsWithChildren<TextEditorProps>>(
       >
         <Editable
           className={className}
-          style={style}
           placeholder={placeholder ?? t('send_message_placeholder')}
           renderElement={renderElement}
           renderLeaf={renderLeaf}
@@ -98,6 +97,7 @@ export const TextEditor = withCord<React.PropsWithChildren<TextEditorProps>>(
           onFocus={onSlateFocus}
           onBlur={onSlateBlur}
           onClick={onSlateClick}
+          {...restProps}
         />
         {/* [ONI]-TODO Add custom placeholder */}
       </Slate>

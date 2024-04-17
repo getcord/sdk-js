@@ -12,6 +12,8 @@ export type ComposerLayoutProps = {
   textEditor: JSX.Element;
   toolbarItems?: { name: string; element: JSX.Element | null }[];
   extraChildren?: { name: string; element: JSX.Element | null }[];
+  isEmpty: boolean;
+  isValid: boolean;
 } & StyleProps;
 export const ComposerLayout = withCord<
   React.PropsWithChildren<ComposerLayoutProps>
@@ -20,7 +22,15 @@ export const ComposerLayout = withCord<
     props: ComposerLayoutProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
-    const { toolbarItems, extraChildren, className, style } = props;
+    const {
+      toolbarItems,
+      extraChildren,
+      className,
+      isEmpty,
+      isValid,
+      textEditor: _,
+      ...restProps
+    } = props;
     const attachments = useMemo(
       () => extraChildren?.find((item) => item.name === 'attachments')?.element,
       [extraChildren],
@@ -49,8 +59,16 @@ export const ComposerLayout = withCord<
         {failedToSubmitMessage}
         <div
           ref={ref}
-          className={cx(classes.composerContainer, classes.expanded, className)}
-          style={style}
+          className={cx(
+            classes.composerContainer,
+            classes.expanded,
+            className,
+            {
+              [classes.empty]: isEmpty,
+              [classes.valid]: isValid,
+            },
+          )}
+          {...restProps}
         >
           {props.textEditor}
           {attachments}

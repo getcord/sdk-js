@@ -30,17 +30,16 @@ export type ReactionsProps = {
   messageId?: string;
   showAddReactionButton?: boolean;
   showReactionList?: boolean;
-  className?: string;
-};
+} & StyleProps;
 
 export const Reactions = withCord<React.PropsWithChildren<ReactionsProps>>(
   React.forwardRef(function Reactions(
     {
       threadId,
       messageId,
-      className,
       showAddReactionButton = true,
       showReactionList = true,
+      ...restProps
     }: ReactionsProps,
     ref?: React.ForwardedRef<HTMLDivElement>,
   ) {
@@ -56,6 +55,7 @@ export const Reactions = withCord<React.PropsWithChildren<ReactionsProps>>(
               threadID={threadId}
               messageID={messageId}
               disabled={true}
+              {...restProps}
             />
           )}
         </>
@@ -75,9 +75,9 @@ export const Reactions = withCord<React.PropsWithChildren<ReactionsProps>>(
         unseenReactionsUnicode={unseenReactionsUnicode}
         showAddReactionButton={showAddReactionButton}
         showReactionList={showReactionList}
-        className={className}
         thread={thread}
         message={message}
+        {...restProps}
       />
     );
   }),

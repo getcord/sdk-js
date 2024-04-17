@@ -9,6 +9,7 @@ import { RenderNode } from '../../experimental/components/message/MessageText.js
 import { iconLarge } from '../../common/ui/atomicClasses/icons.css.js';
 import { fontSmall } from '../../common/ui/atomicClasses/fonts.css.js';
 import { MODIFIERS } from '../../common/ui/modifiers.js';
+import { useViewerData } from '../../hooks/user.js';
 import * as classes from './ActionMessage.css.js';
 import * as messageClasses from './Message.css.js';
 
@@ -29,9 +30,21 @@ export const ActionMessage = withCord<
       message.content as MessageContent,
     );
 
+    const viewerData = useViewerData();
+
     return (
       <div
-        className={cx(className, messageClasses.message, MODIFIERS.action)}
+        className={cx(
+          className,
+          messageClasses.message,
+          MODIFIERS.action,
+          MODIFIERS.noReactions,
+          {
+            [MODIFIERS.deleted]: !!message.deletedTimestamp,
+            [MODIFIERS.unseen]: !message.seen,
+            [MODIFIERS.fromViewer]: viewerData?.id === message.authorID,
+          },
+        )}
         ref={ref}
         style={style}
         data-cord-message-id={message.id}

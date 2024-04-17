@@ -542,6 +542,8 @@ const BaseComposer = forwardRef(function BaseComposer(
     popperOnShouldHide,
     className,
     style,
+    isEmpty,
+    isValid,
   }: BaseComposerProps,
   ref: React.ForwardedRef<HTMLElement>,
 ) {
@@ -572,6 +574,8 @@ const BaseComposer = forwardRef(function BaseComposer(
         toolbarItems={toolbarItems}
         className={className}
         style={style}
+        isEmpty={isEmpty}
+        isValid={isValid}
       />
     </WithPopper>
   );

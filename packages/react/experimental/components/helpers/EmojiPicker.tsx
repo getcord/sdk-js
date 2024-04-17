@@ -4,6 +4,7 @@ import withCord from '../hoc/withCord.js';
 import { useComposedRefs } from '../../../common/lib/composeRefs.js';
 import { useCordTranslation } from '../../../index.js';
 import classes from '../../../components/helpers/EmojiPicker.css.js';
+import type { StyleProps } from '../../../experimental.js';
 import { WithPopper } from './WithPopper.js';
 
 type EmojiEvent = {
@@ -33,7 +34,7 @@ type EmojiButtonRef = {
 export type EmojiPickerProps = {
   onClose: () => void;
   onClickEmoji: (emoji: string) => void;
-};
+} & StyleProps;
 
 export const EmojiPicker = withCord<React.PropsWithChildren<EmojiPickerProps>>(
   forwardRef(function EmojiPicker(
@@ -89,9 +90,12 @@ export const EmojiPicker = withCord<React.PropsWithChildren<EmojiPickerProps>>(
       };
     }, [addEmoji, composedRefs, handleClick, i18n, props]);
 
+    const { className, ...restProps } = props;
+
     return React.createElement('emoji-picker', {
       ref: composedRefs,
-      class: `light ${classes.emojiPicker}`,
+      class: `light ${classes.emojiPicker} ${className}`,
+      ...restProps,
     });
   }),
   'EmojiPicker',

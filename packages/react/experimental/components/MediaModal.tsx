@@ -20,6 +20,7 @@ import {
   medium,
   colorsSecondary,
 } from '../../components/helpers/Button.classnames.js';
+import type { StyleProps } from '../../experimental.js';
 import { Button } from './helpers/Button.js';
 import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
 import { Overlay } from './Overlay.js';
@@ -40,7 +41,7 @@ export type MediaModalProps = {
   } | null;
   onUnsupportedVideoFormat?: (id: string) => unknown;
   closeModal: () => void;
-};
+} & StyleProps;
 
 export const MediaModal = withCord<React.PropsWithChildren<MediaModalProps>>(
   React.forwardRef(function MediaModal(
@@ -55,6 +56,7 @@ export const MediaModal = withCord<React.PropsWithChildren<MediaModalProps>>(
       medias,
       closeModal,
       onUnsupportedVideoFormat,
+      ...restProps
     } = props;
     const [copyButtonClicked, setCopyButtonClicked] = useState(false);
     const [mediaIndex, setMediaIndex] = useState(initialMediaIndex);
@@ -87,7 +89,7 @@ export const MediaModal = withCord<React.PropsWithChildren<MediaModalProps>>(
     }, [showNext, showPrev]);
 
     return (
-      <Overlay onClick={closeModal} ref={ref} canBeReplaced>
+      <Overlay onClick={closeModal} ref={ref} canBeReplaced {...restProps}>
         <div className={classes.topBanner} onClick={(e) => e.stopPropagation()}>
           {banner && (
             <>

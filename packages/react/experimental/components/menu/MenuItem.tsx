@@ -7,11 +7,10 @@ import * as classes from '../../../components/MenuItem.css.js';
 import withCord from '../hoc/withCord.js';
 import { Icon } from '../../../components/helpers/Icon.js';
 import type { IconType } from '../../../components/helpers/Icon.js';
-import type { ColorVar } from '../../../common/ui/cssVariables.js';
-import type { Font } from '../../../common/ui/atomicClasses/fonts.js';
 import { fontBody } from '../../../common/ui/atomicClasses/fonts.css.js';
 
 import { MODIFIERS } from '../../../common/ui/modifiers.js';
+import type { StyleProps } from '../../../experimental.js';
 
 type LeftItem = React.ReactElement<typeof Avatar | typeof Icon>;
 
@@ -21,13 +20,13 @@ export type MenuItemProps = {
   menuItemAction: string;
   label: string;
   iconAfterLabel?: IconType;
-  labelFontStyle?: Font;
-  labelColorOverride?: ColorVar;
   leftItem?: LeftItem;
   subtitle?: string;
-} & React.HTMLAttributes<HTMLLIElement>;
+  onClick: (e: React.MouseEvent<HTMLLIElement>) => void;
+} & StyleProps &
+  Pick<React.HTMLAttributes<HTMLLIElement>, 'onMouseOver'>;
 
-export const MenuItem = withCord<MenuItemProps>(
+export const MenuItem = withCord<React.PropsWithChildren<MenuItemProps>>(
   forwardRef(function MenuItem(
     props: MenuItemProps,
     ref: React.Ref<HTMLLIElement>,

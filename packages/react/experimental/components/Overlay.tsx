@@ -4,11 +4,12 @@ import { forwardRef } from 'react';
 import type { ForwardedRef } from 'react';
 import * as classes from '../../components/Overlay.css.js';
 import { imageModalOverlay } from '../../components/MediaModal.classnames.js';
+import type { StyleProps } from '../../experimental.js';
 import { Portal } from './Portal.js';
 import withCord from './hoc/withCord.js';
 
 export type OverlayProps = React.PropsWithChildren<
-  React.HTMLProps<HTMLDivElement>
+  { onClick: (e: React.MouseEvent<HTMLDivElement>) => void } & StyleProps
 >;
 
 export const Overlay = withCord(

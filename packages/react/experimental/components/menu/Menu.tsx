@@ -3,6 +3,7 @@ import { forwardRef, useCallback } from 'react';
 import cx from 'classnames';
 import withCord from '../hoc/withCord.js';
 import * as classes from '../../../components/Menu.css.js';
+import type { StyleProps } from '../../../experimental.js';
 
 // We need more than just the `element`, so we can manipulate items more easily
 // including filtering out items or adding more items
@@ -14,11 +15,12 @@ export type MenuItem = {
 export type MenuProps = {
   items: MenuItem[];
   closeMenu: () => void;
-} & React.HTMLAttributes<HTMLOListElement>;
+} & StyleProps &
+  Pick<React.HTMLAttributes<HTMLOListElement>, 'onClick'>;
 
 export const Menu = withCord<React.PropsWithChildren<MenuProps>>(
   forwardRef(function Menu(
-    { className, items, onClick, ...restProps }: MenuProps,
+    { className, items, onClick, closeMenu: _, ...restProps }: MenuProps,
     ref: React.ForwardedRef<HTMLOListElement>,
   ) {
     const onClickHandler = useCallback(

@@ -38,7 +38,7 @@ export const MessageText = withCord<React.PropsWithChildren<MessageTextProps>>(
       hideAnnotationAttachment,
       formatStyle,
       className,
-      style,
+      ...restProps
     }: MessageTextProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
@@ -48,7 +48,7 @@ export const MessageText = withCord<React.PropsWithChildren<MessageTextProps>>(
         dir="auto"
         className={cx(className, classes.messageText)}
         ref={ref}
-        style={style}
+        {...restProps}
       >
         {content && (
           <RenderedContent

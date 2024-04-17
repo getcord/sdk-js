@@ -50,7 +50,7 @@ export function useMessageActions({
       closeMenu();
     };
     const onDeleteButtonClicked = () => {
-      deleteMessage(threadID, message.id);
+      deleteMessage(message.id);
     };
 
     if (showSeparator) {
@@ -115,7 +115,7 @@ export function useMessageActions({
   ]);
 }
 
-function deleteMessage(threadID: string, messageID: string) {
+function deleteMessage(messageID: string) {
   void window?.CordSDK?.thread.updateMessage(messageID, {
     deleted: true,
   });
