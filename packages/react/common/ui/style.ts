@@ -6,7 +6,6 @@ import { cordifyClassname } from '../util.js';
 
 export type { CSSProperties };
 
-export const CORD_COMPONENT_BASE_CLASS = 'cord-component';
 export const CORD_V2 = cordifyClassname('v2'); // v2 to match the npm package version.
 export function globalStyle(selector: string, rule: GlobalStyleRule) {
   // We are wrapping `selector` in a `:where()`, and `:where(*::<pseudo-element>)`
@@ -19,6 +18,6 @@ export function globalStyle(selector: string, rule: GlobalStyleRule) {
     );
   }
   // We wrap `selector` in a `:where` to keep the specificity of our selectors to 0,1,0
-  const v4Selector = `.${CORD_COMPONENT_BASE_CLASS}:where(.${CORD_V2}) :where(${selector})`;
+  const v4Selector = `:is(.${CORD_V2}, .${CORD_V2} *):where(${selector})`;
   return defaultGlobalStyle(v4Selector, rule);
 }

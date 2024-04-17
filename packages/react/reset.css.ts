@@ -1,8 +1,7 @@
-import { CORD_V2, defaultGlobalStyle, globalStyle } from './common/ui/style.js';
+import { CORD_V2, globalStyle } from './common/ui/style.js';
 import { Sizes } from './common/const/Sizes.js';
 
-export const CORD_COMPONENT_BASE_CLASS = 'cord-component';
-function addPrefix(selectors: string[], prefix = CORD_COMPONENT_BASE_CLASS) {
+function addPrefix(selectors: string[], prefix = CORD_V2) {
   return (
     selectors
       // We use `:where(<selector>)` to not bump the specificity, allowing
@@ -15,10 +14,12 @@ function addPrefix(selectors: string[], prefix = CORD_COMPONENT_BASE_CLASS) {
   );
 }
 
+// Will target the topmost element, e.g. a Message, but not a Message inside a Thread.
+const topLevelComponentSelector = `.${CORD_V2}:not(.${CORD_V2} .${CORD_V2})`;
 /**
  * This reset is applied to our components.
  */
-defaultGlobalStyle(`.${CORD_COMPONENT_BASE_CLASS}:where(.${CORD_V2})`, {
+globalStyle(topLevelComponentSelector, {
   fontFamily: 'inherit',
   fontSize: Sizes.DEFAULT_TEXT_SIZE_PX + 'px',
   fontSmooth: 'auto',
