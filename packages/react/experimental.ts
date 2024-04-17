@@ -110,6 +110,7 @@ export {
   EditComposer,
   Composer,
 } from './canary/composer/Composer.js';
+export { EditorCommands } from './canary/composer/lib/commands.js';
 
 export {
   ComposerLayout,
