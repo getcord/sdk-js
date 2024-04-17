@@ -1,3 +1,8 @@
+// The CSS reset must be imported first, as we rely on CSS order rather
+// than specificity; because both reset and styles are 0,1,0 to make
+// developers' life easier.
+import './reset.css.js';
+
 import type {} from '@cord-sdk/jsx';
 
 export type { CordContextValue } from './contexts/CordContext.js';
