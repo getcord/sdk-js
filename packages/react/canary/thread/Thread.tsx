@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 import cx from 'classnames';
 
 import type { ClientThreadData } from '@cord-sdk/types';
@@ -11,6 +11,7 @@ import type {
   ByID,
 } from '../../experimental.js';
 import { useThread } from '../../hooks/thread.js';
+import { ScrollContainer } from '../ScrollContainer.js';
 import classes from './Thread.css.js';
 import { ThreadSeenByWrapper } from './ThreadSeenBy.js';
 
@@ -33,8 +34,11 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
         { showHeader = false, thread, className, ...restProps }: ThreadProps,
         ref: React.ForwardedRef<HTMLDivElement>,
       ) {
-        const threadData = thread?.thread;
-        const messages = thread?.messages ?? [];
+        const threadData = useMemo(() => thread?.thread, [thread?.thread]);
+        const messages = useMemo(
+          () => thread?.messages ?? [],
+          [thread?.messages],
+        );
 
         return (
           <div
@@ -50,15 +54,11 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
                 showContextMenu={messages.length > 0}
               />
             )}
-            <div>
-              {messages.length > 0 &&
-                threadData?.id &&
-                messages.map((message) => {
-                  return (
-                    <Message key={message.id} message={message} canBeReplaced />
-                  );
-                })}
-            </div>
+            <ScrollContainer>
+              {messages.map((message) => (
+                <Message key={message.id} message={message} canBeReplaced />
+              ))}
+            </ScrollContainer>
             {threadData && threadData.lastMessage && (
               <ThreadSeenByWrapper
                 participants={threadData.participants}
