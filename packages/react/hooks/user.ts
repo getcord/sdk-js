@@ -255,14 +255,13 @@ export type ReactSearchUsersOptions = SearchUsersOptions & {
 /**
  * This method allows searching for users with various options.
  * Using the `searchQuery` will filter users by what their name start with.
- * If no options are passed, a list of users will be returned.
  * @example Overview
  *
  * ```javascript
  * // Will return a list of users starting with 'al';
  * import { user } from '@cord-sdk/react';
  *
- * const searchResults = useSearchUsers({ searchQuery: 'al' });
+ * const searchResults = useSearchUsers({ searchQuery: 'al', groupID: 'my-group-id'});
  *
  * return (
  *   <div>
@@ -296,7 +295,7 @@ export function useSearchUsers(
   });
 
   if (!skip && !inputsMemo.groupID) {
-    throw new Error('groupID not provided');
+    throw new Error('groupID not provided or found from client auth token');
   }
 
   useEffect(() => {

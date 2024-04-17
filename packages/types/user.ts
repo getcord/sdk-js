@@ -194,6 +194,8 @@ export type SearchUsersOptions = {
   /**
    * The group to search within. The viewer must be a member of the
    * group in order to receive its data.
+   *
+   * If unset, tries to read one from the client auth token.
    */
   groupID?: string;
   /**
@@ -436,11 +438,10 @@ export interface ICordUserSDK {
   /**
    * This method allows searching for users with various options.
    * Using the `searchQuery` will filter users by what their name start with.
-   * If no options are passed, a list of users will be returned.
    * @example Overview
    * ```javascript
    * // Will return a list of users with names beginning with 'al'
-   * await window.CordSDK.user.searchUsers({ searchQuery: 'al', groupID: 'my-group-id'}));
+   * await window.CordSDK.user.searchUsers({ searchQuery: 'al', groupID: 'my-group-id'});
    * ```
    * @returns A promise that resolves to into an object with `users` which
    * is a list of users in the group. This is a one time return.
