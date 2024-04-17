@@ -234,7 +234,7 @@ export function CordProvider({
           : 'https://app.cord.com';
         const isNpmPackage = !isNaN(parseInt(CORD_REACT_PACKAGE_VERSION));
         const cssHref = isNpmPackage
-          ? `${origin}/sdk/css/${CORD_REACT_PACKAGE_VERSION}/react-${CORD_REACT_PACKAGE_VERSION}.css`
+          ? `https://app.cord.com/sdk/css/${CORD_REACT_PACKAGE_VERSION}/react-${CORD_REACT_PACKAGE_VERSION}.css`
           : `${origin}/sdk/css/cord-react.css`;
         stylesheetTag.href = cssHref;
       }
