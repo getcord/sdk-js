@@ -14,6 +14,7 @@ import { useThread } from '../../hooks/thread.js';
 import { ScrollContainer } from '../ScrollContainer.js';
 import classes from './Thread.css.js';
 import { ThreadSeenByWrapper } from './ThreadSeenBy.js';
+import { EmptyThreadPlaceholderWrapper } from './EmptyThreadPlaceholder.js';
 
 type CommonThreadProps = {
   showHeader?: boolean;
@@ -53,6 +54,10 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
                 threadID={threadData?.id}
                 showContextMenu={messages.length > 0}
               />
+            )}
+            {(threadData === null ||
+              (threadData !== undefined && !messages.length)) && (
+              <EmptyThreadPlaceholderWrapper groupID={threadData?.groupID} />
             )}
             <ScrollContainer>
               {messages.map((message) => (

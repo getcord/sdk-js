@@ -27,6 +27,7 @@ import type { ThreadSeenByProps } from '../../canary/thread/ThreadSeenBy.js';
 import type { ToastFunctionProviderProps } from '../contexts/ToastContext.js';
 import type { SendMessageErrorProps } from '../../canary/composer/SendMessageError.js';
 import type { ScrollContainerProps } from '../../canary/ScrollContainer.js';
+import type { EmptyThreadPlaceholderProps } from '../../canary/thread/EmptyThreadPlaceholder.js';
 import type { OverlayProps } from './Overlay.js';
 import type { FacepileProps } from './Facepile.js';
 import type { PresenceFacepileProps } from './PresenceFacepile.js';
@@ -105,6 +106,7 @@ export type ReplaceConfigBase = Partial<{
   Username: React.ComponentType<UsernameProps>;
   UsernameTooltip: React.ComponentType<UsernameTooltipProps>;
   ScrollContainer: React.ComponentType<ScrollContainerProps>;
+  EmptyThreadPlaceholder: React.ComponentType<EmptyThreadPlaceholderProps>;
 }>;
 
 type ReplaceWithin = Partial<{
