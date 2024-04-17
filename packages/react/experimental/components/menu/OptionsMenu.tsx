@@ -7,7 +7,7 @@ import withCord from '../hoc/withCord.js';
 import type { StyleProps } from '../../../experimental/types.js';
 import * as classes from '../../../components/OptionsMenu.css.js';
 import { useCordTranslation } from '../../../index.js';
-import { MenuButton } from './Menu.js';
+import { MenuButton } from './MenuButton.js';
 import type { MenuProps } from './Menu.js';
 import { useMessageActions } from './MessageActions.js';
 import { ShareToEmailFormWrapper } from './ShareToEmailForm.js';

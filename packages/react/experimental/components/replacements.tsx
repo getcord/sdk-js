@@ -36,7 +36,8 @@ import type {
   OptionsMenuProps,
   OptionsMenuTooltipProps,
 } from './menu/OptionsMenu.js';
-import type { MenuButtonProps, MenuProps } from './menu/Menu.js';
+import type { MenuProps } from './menu/Menu.js';
+import type { MenuButtonProps } from './menu/MenuButton.js';
 import type { MessageFilesAttachmentsProps } from './message/MessageFilesAttachments.js';
 import type { MediaModalProps } from './MediaModal.js';
 import type { MessageUserReferenceElementProps } from './message/MessageUserReferenceElement.js';
