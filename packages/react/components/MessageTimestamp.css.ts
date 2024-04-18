@@ -30,7 +30,7 @@ defaultGlobalStyle(
 );
 
 /** Styles when used inside other components */
-defaultGlobalStyle(`:where(.cord-component-message.${CORD_V2}) .${timestamp}`, {
+globalStyle(`.${message} .${timestamp}`, {
   gridArea: 'timestamp',
 });
 
@@ -56,7 +56,3 @@ defaultGlobalStyle(
     display: 'none', // Do not show unseen badge
   },
 );
-
-globalStyle(`.${message} .${timestamp}`, {
-  gridArea: 'timestamp',
-});
