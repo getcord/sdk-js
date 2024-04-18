@@ -2,13 +2,13 @@ import * as React from 'react';
 import { forwardRef, useMemo, useEffect } from 'react';
 import cx from 'classnames';
 
-import type { ClientCreateThread, ClientThreadData } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { Message, SendComposer, ThreadHeader } from '../../experimental.js';
 import type {
-  StyleProps,
   WithByIDComponent,
   ByID,
+  ThreadProps,
+  ThreadByIDProps,
 } from '../../experimental.js';
 import { useThread } from '../../hooks/thread.js';
 import { useCordContext } from '../../contexts/CordContext.js';
@@ -16,19 +16,6 @@ import { ScrollContainer } from '../ScrollContainer.js';
 import classes from './Thread.css.js';
 import { ThreadSeenByWrapper } from './ThreadSeenBy.js';
 import { EmptyThreadPlaceholderWrapper } from './EmptyThreadPlaceholder.js';
-
-type CommonThreadProps = {
-  showHeader?: boolean;
-} & StyleProps;
-
-export type ThreadByIDProps = {
-  threadID: string;
-  createThread?: ClientCreateThread;
-} & CommonThreadProps;
-
-export type ThreadProps = {
-  thread?: ClientThreadData;
-} & CommonThreadProps;
 
 export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
   Object.assign(

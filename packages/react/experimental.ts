@@ -68,7 +68,7 @@ export {
   Reactions,
   type ReactionsProps,
 } from './experimental/components/Reactions.js';
-export { Thread, type ThreadProps } from './canary/thread/Thread.js';
+export { Thread } from './canary/thread/Thread.js';
 export {
   ThreadHeader,
   type ThreadHeaderProps,

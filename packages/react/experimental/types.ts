@@ -5,6 +5,7 @@ import type {
   MessageContent,
   ViewerUserData,
   Location,
+  ClientThreadData,
 } from '@cord-sdk/types';
 import type { CustomEditor } from '../slateCustom.js';
 import type { ReplacementProps } from './components/hoc/withReplacement.js';
@@ -285,3 +286,16 @@ export type PresenceObserverReactComponentProps = React.PropsWithChildren<{
    */
   onChange?: (newValue: boolean) => unknown;
 }>;
+
+type CommonThreadProps = {
+  showHeader?: boolean;
+} & StyleProps;
+
+export type ThreadByIDProps = {
+  threadID: string;
+  createThread?: ClientCreateThread;
+} & CommonThreadProps;
+
+export interface ThreadProps extends CommonThreadProps {
+  thread?: ClientThreadData;
+}
