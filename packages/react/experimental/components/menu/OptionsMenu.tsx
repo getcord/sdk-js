@@ -128,6 +128,7 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
     const buttonLabel = t('message_options_tooltip');
     return (
       <MenuButton
+        canBeReplaced
         menuVisible={menuVisible}
         menuItems={menuItems}
         buttonTooltipLabel={buttonLabel}
