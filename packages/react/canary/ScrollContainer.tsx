@@ -61,11 +61,12 @@ export const ScrollContainer = withCord<
       }
 
       const maybeEdge = getScrollEdge(current);
-      edgeRef.current = maybeEdge;
-
-      if (maybeEdge !== 'none') {
+      const hasScrolledToNewEdge =
+        maybeEdge !== 'none' && maybeEdge !== edgeRef.current;
+      if (hasScrolledToNewEdge) {
         onScrollToEdge?.(maybeEdge);
       }
+      edgeRef.current = maybeEdge;
     }, [onScrollToEdge]);
     const debouncedHandleScroll = useMemo(
       () => debounce(50, handleScroll),
