@@ -5,6 +5,7 @@ import cx from 'classnames';
 import type { ClientMessageData } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as classes from '../../components/Message.classnames.js';
+import type { StyleProps } from '../../experimental.js';
 
 export type MessageLayoutProps = {
   message: ClientMessageData;
@@ -15,7 +16,7 @@ export type MessageLayoutProps = {
   optionsMenu: JSX.Element;
   reactions: JSX.Element;
   authorName: JSX.Element;
-} & React.HTMLAttributes<HTMLDivElement>;
+} & StyleProps;
 
 /**
  * Replacing MessageLayout enables rendering Message components
@@ -24,7 +25,9 @@ export type MessageLayoutProps = {
  *
  * Through the props you get all elements of the message, already rendered.
  */
-export const MessageLayout = withCord<MessageLayoutProps>(
+export const MessageLayout = withCord<
+  React.PropsWithChildren<MessageLayoutProps>
+>(
   forwardRef(function MessageLayout(
     props: MessageLayoutProps,
     ref: React.ForwardedRef<HTMLDivElement>,
