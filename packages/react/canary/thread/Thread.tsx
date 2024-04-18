@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, useMemo, useEffect } from 'react';
 import cx from 'classnames';
 
-import type { ClientThreadData } from '@cord-sdk/types';
+import type { ClientCreateThread, ClientThreadData } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { Message, SendComposer, ThreadHeader } from '../../experimental.js';
 import type {
@@ -11,6 +11,7 @@ import type {
   ByID,
 } from '../../experimental.js';
 import { useThread } from '../../hooks/thread.js';
+import { useCordContext } from '../../contexts/CordContext.js';
 import { ScrollContainer } from '../ScrollContainer.js';
 import classes from './Thread.css.js';
 import { ThreadSeenByWrapper } from './ThreadSeenBy.js';
@@ -22,6 +23,7 @@ type CommonThreadProps = {
 
 export type ThreadByIDProps = {
   threadID: string;
+  createThread?: ClientCreateThread;
 } & CommonThreadProps;
 
 export type ThreadProps = {
@@ -80,8 +82,24 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
   );
 
 function ThreadByID(props: ByID<ThreadByIDProps>) {
-  const { threadID, ...restProps } = props;
+  const { threadID, createThread, ...restProps } = props;
   const thread = useThread(threadID);
+  const { sdk: CordSDK } = useCordContext('Thread.ByID');
+
+  useEffect(() => {
+    if (thread.thread === null && !createThread) {
+      console.warn(`Thread with ID ${threadID} not found.`);
+    }
+    if (CordSDK && thread.thread === null && createThread) {
+      if (createThread.id && createThread.id !== threadID) {
+        console.warn(`threadID and createThread.ID should be the same.`);
+      } else {
+        void CordSDK.thread
+          .createThread({ ...createThread, id: threadID })
+          .catch(console.warn);
+      }
+    }
+  }, [thread, thread.thread, createThread, CordSDK, threadID]);
 
   if (!thread) {
     return null;
