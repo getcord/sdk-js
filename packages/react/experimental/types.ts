@@ -297,5 +297,5 @@ export type ThreadByIDProps = {
 } & CommonThreadProps;
 
 export interface ThreadProps extends CommonThreadProps {
-  thread?: ClientThreadData;
+  threadData?: ClientThreadData;
 }

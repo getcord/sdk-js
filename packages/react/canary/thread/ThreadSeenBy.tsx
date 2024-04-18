@@ -22,7 +22,7 @@ export function ThreadSeenByWrapper({
   message,
   participants,
 }: {
-  message: ClientMessageData;
+  message: ClientMessageData | null | undefined;
   participants: ThreadParticipant[];
 }) {
   const { t } = useCordTranslation('message');
