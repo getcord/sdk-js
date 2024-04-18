@@ -40,6 +40,7 @@ globalStyle(`.${message}`, {
 });
 
 globalStyle(getModifiedSelector('noReactions', `.${message}`), {
+  gridTemplateColumns: `20px auto auto auto 1fr auto`,
   gridTemplateRows: '24px auto',
   gridTemplateAreas: `
     "avatar authorName timestamp sentViaIcon . optionsMenu"
