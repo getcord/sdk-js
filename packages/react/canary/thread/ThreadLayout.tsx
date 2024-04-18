@@ -43,11 +43,12 @@ export const ThreadLayout = withCord<
         data-cord-thread-id={threadData?.thread?.id}
       >
         {header}
-        <ScrollContainer canBeReplaced>{messages}</ScrollContainer>
+        <ScrollContainer canBeReplaced>
+          {[...messages, threadSeenBy]}
+        </ScrollContainer>
         {(threadData === null ||
           (threadData !== undefined && !messages.length)) &&
           emptyThreadPlaceholder}
-        {threadSeenBy}
         {composer}
       </div>
     );
