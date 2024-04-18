@@ -11,6 +11,7 @@ import {
   canUndoMessageDelete,
   isUserAuthorOfMessage,
 } from '../../common/util.js';
+import type { StyleProps } from '../../experimental.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as classes from './Message.css.js';
 import { PHOSPHOR_ICONS } from '@cord-sdk/react/components/helpers/Icon.js';
@@ -19,13 +20,19 @@ export type MessageTombstoneProps = {
   message: ClientMessageData;
   canUndoDelete: boolean;
   undoDeleteMessage: () => void;
-};
+} & StyleProps;
 
 export const MessageTombstone = withCord<
   React.PropsWithChildren<MessageTombstoneProps>
 >(
   forwardRef(function MessageTombstone(
-    { message, canUndoDelete, undoDeleteMessage }: MessageTombstoneProps,
+    {
+      message,
+      canUndoDelete,
+      undoDeleteMessage,
+      className,
+      ...restProps
+    }: MessageTombstoneProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     const { t } = useCordTranslation('message');
@@ -33,10 +40,11 @@ export const MessageTombstone = withCord<
 
     return (
       <div
-        className={cx(classes.message, MODIFIERS.deleted)}
+        className={cx(className, classes.message, MODIFIERS.deleted)}
         ref={ref}
         data-cord-message-id={message.id}
         data-cord-thread-id={message.threadID}
+        {...restProps}
       >
         <PHOSPHOR_ICONS.Trash className={cx(iconLarge, classes.deletedIcon)} />
         <div className={cx(classes.deletedMessageText, fontSmall)}>
