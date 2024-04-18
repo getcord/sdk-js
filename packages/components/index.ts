@@ -107,7 +107,7 @@ export const componentAttributes = {
     'group-id': 'string',
   },
   SidebarLauncher: {
-    disabled: 'boolean',
+    disabled: 'flag',
     label: 'string',
     'icon-url': 'string',
     'inbox-badge-style': 'badge-style',
@@ -119,7 +119,7 @@ export const componentAttributes = {
     'thread-name': 'string',
     metadata: 'json',
     collapsed: 'boolean',
-    autofocus: 'boolean',
+    autofocus: 'flag',
     'show-header': 'boolean',
     'show-placeholder': 'boolean',
     'composer-expanded': 'boolean',
@@ -140,8 +140,8 @@ export const componentAttributes = {
     location: 'json',
     'thread-id': 'string',
     'thread-name': 'string',
-    autofocus: 'boolean',
-    disabled: 'boolean',
+    autofocus: 'flag',
+    disabled: 'flag',
     'show-expanded': 'boolean',
     'show-close-button': 'boolean',
     size: 'composer-size',
@@ -152,7 +152,7 @@ export const componentAttributes = {
   },
   InboxLauncher: {
     label: 'string',
-    disabled: 'boolean',
+    disabled: 'flag',
     'icon-url': 'string',
     'inbox-badge-style': 'badge-style',
     'show-inbox-on-click': 'boolean',
@@ -161,7 +161,7 @@ export const componentAttributes = {
   Inbox: { ...InboxSharedAttributes, ...InboxSpecificAttributes },
   FloatingThreads: {
     location: 'json',
-    disabled: 'boolean',
+    disabled: 'flag',
     'show-button': 'boolean',
     'button-label': 'string',
     'thread-name': 'string',
@@ -196,7 +196,7 @@ export const componentAttributes = {
     label: 'string',
     'icon-url': 'string',
     'badge-style': 'badge-style',
-    disabled: 'boolean',
+    disabled: 'flag',
     ...NotificationListAttributes,
   },
   Pin: {
@@ -233,7 +233,7 @@ export const componentAttributes = {
     'highlight-thread-id': 'string',
     'partial-match': 'boolean',
     'display-resolved': 'string',
-    autofocus: 'boolean',
+    autofocus: 'flag',
     'enable-facepile-tooltip': 'boolean',
     'thread-url': 'string',
     'thread-name': 'string',
@@ -246,6 +246,10 @@ export const componentAttributes = {
 export type PropertyTypes = {
   json: JsonValue;
   boolean: boolean;
+  // Flag differs from boolean in that a flag is omitted entirely if falsy, and
+  // being set to *any* value is considered truthy -- like an HTML boolean
+  // attribute.
+  flag: boolean;
   number: number;
   string: string;
   array: any[];
@@ -270,6 +274,10 @@ export const attributeToPropertyConverters: {
 } = {
   json: (value) => (value ? (JSON.parse(value) as JsonValue) : undefined),
   boolean: (value) => (value === null ? undefined : value === 'true'),
+  // For BC, treat the string "false" as false even though for HTML boolean
+  // attributes (which this is trying to emulate) that's still considered set to
+  // true.
+  flag: (value) => (value === null || value === 'false' ? false : true),
   number: (value) => (value ? parseInt(value) : undefined),
   string: (value) => value ?? undefined,
   array: (value) => value?.split(',').filter((x) => x.length > 0),
@@ -294,6 +302,9 @@ export const propertyToAttributeConverters: {
   json: (value): string | undefined =>
     value !== undefined ? JSON.stringify(value) : undefined,
   boolean: (value) => value?.toString(),
+  // Per spec, HTML boolean attributes should be set to '' (though being set to
+  // any value is truthy).
+  flag: (value) => (value === true ? '' : undefined),
   number: (value) => value?.toString(),
   string: (value) => (value === undefined ? undefined : value || ''),
   array: (value) => value?.join(','),
