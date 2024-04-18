@@ -27,6 +27,11 @@ export type ScrollContainerProps = {
    */
   autoScrollToNewest?: AutoScrollToNewest;
   onScrollToEdge?: (edge: Edge) => void;
+  /**
+   * Triggered when the children's height gets bigger
+   * than the scroll container height.
+   */
+  onOverflowChange?: (hasOverflow: boolean) => void;
   children: JSX.Element[];
 } & StyleProps;
 
@@ -40,6 +45,7 @@ export const ScrollContainer = withCord<
       autoScrollDirection = 'bottom',
       autoScrollToNewest = 'auto',
       onScrollToEdge,
+      onOverflowChange,
       ...rest
     }: ScrollContainerProps,
     ref?: React.ForwardedRef<HTMLDivElement>,
@@ -47,6 +53,7 @@ export const ScrollContainer = withCord<
     const containerRef = useRef<HTMLDivElement | null>(null);
     const combinedRefs = useComposedRefs<HTMLDivElement>(ref, containerRef);
     const edgeRef = useRef<Edge>(autoScrollDirection);
+    const canScrollRef = useRef(false);
 
     // On scroll, check if we're at an edge.
     const handleScroll = useCallback(() => {
@@ -72,6 +79,18 @@ export const ScrollContainer = withCord<
       () => debounce(50, handleScroll),
       [handleScroll],
     );
+
+    useEffect(() => {
+      if (!containerRef.current) {
+        return;
+      }
+      const canScroll = checkCanScroll(containerRef.current);
+      const overflowChanged = canScroll !== canScrollRef.current;
+      if (overflowChanged) {
+        onOverflowChange?.(canScroll);
+      }
+      canScrollRef.current = canScroll;
+    }, [children.length, onOverflowChange]);
 
     // When new children are added/removed, handle the auto scroll
     useEffect(() => {
