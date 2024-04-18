@@ -8,6 +8,8 @@ import {
   medium,
 } from '../../components/helpers/Button.classnames.js';
 import type { CustomEditor } from '../../slateCustom.js';
+import { useToast } from '../../experimental/hooks/useToast.js';
+import { useCordTranslation } from '../../hooks/useCordTranslation.js';
 import { useUploadFileToCord } from './hooks/useUploadFileToCord.js';
 
 export const AddAttachmentsButton = ({
@@ -18,12 +20,14 @@ export const AddAttachmentsButton = ({
   editor: CustomEditor;
 }) => {
   const attachFileInputRef = useRef<HTMLInputElement>(null);
+  const { t } = useCordTranslation('composer');
 
   const handleSelectAttachment = useCallback(() => {
     attachFileInputRef.current?.click();
   }, []);
 
   const attachFiles = useUploadFileToCord(editAttachment);
+  const { showToastPopup } = useToast();
 
   return (
     <>
@@ -57,6 +61,16 @@ export const AddAttachmentsButton = ({
           if (inputElement.files) {
             void attachFiles(inputElement.files).then(
               () => (inputElement.value = ''),
+              (error) => {
+                const toastID = 'attach_file_action_failure';
+                showToastPopup?.(
+                  toastID,
+                  t(toastID, {
+                    message: error.message,
+                  }),
+                  'error',
+                );
+              },
             );
           }
         }}

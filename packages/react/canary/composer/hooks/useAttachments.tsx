@@ -6,6 +6,8 @@ import { ComposerFileAttachments } from '../../../components/composer/ComposerFi
 import type { CustomEditor } from '../../../slateCustom.js';
 import { AddAttachmentsButton } from '../AddAttachments.js';
 import type { ComposerProps } from '../../../experimental/types.js';
+import { useToast } from '../../../experimental/hooks/useToast.js';
+import { useCordTranslation } from '../../../hooks/useCordTranslation.js';
 import { useUploadFileToCord } from './useUploadFileToCord.js';
 
 const EMPTY_ARRAY: MessageFileAttachment[] = [];
@@ -90,6 +92,8 @@ export function useAddAttachmentToComposer(attachmentsProps: {
 > & {
   attachments: MessageFileAttachment[];
 } {
+  const { t } = useCordTranslation('composer');
+  const { showToastPopup } = useToast();
   const { initialAttachments, editor } = attachmentsProps;
   const { attachments, upsertAttachment, removeAttachment, resetAttachments } =
     useAttachments(initialAttachments);
@@ -109,10 +113,19 @@ export function useAddAttachmentToComposer(attachmentsProps: {
         });
       if (allFilesAreImages) {
         event.stopPropagation();
-        attachFiles(files).catch(console.warn);
+        attachFiles(files).catch((error) => {
+          const toastID = 'attach_file_action_failure';
+          showToastPopup?.(
+            toastID,
+            t(toastID, {
+              message: error.message,
+            }),
+            'error',
+          );
+        });
       }
     },
-    [attachFiles],
+    [t, attachFiles, showToastPopup],
   );
 
   const attachmentsElement = useMemo(

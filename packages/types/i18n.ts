@@ -70,6 +70,7 @@ export const resources = {
       send_message_action_failure: 'Failed to send message. Please try again.',
       // The text shown when a user is dragging files over the composer
       drag_and_drop_files_tooltip: 'Drop Files',
+      attach_file_action_failure: 'Failed to upload file: {{message}}',
     },
     thread: {
       // The title of the placeholder shown in an empty thread
