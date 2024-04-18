@@ -13,7 +13,10 @@ import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext.js';
 import { useMemoObject } from './useMemoObject.js';
 
-function sameIDs(left: string | string[], right: string | string[]): boolean {
+export function sameIDs(
+  left: string | string[],
+  right: string | string[],
+): boolean {
   if (Array.isArray(left)) {
     if (!Array.isArray(right)) {
       return false;
@@ -28,6 +31,13 @@ function sameIDs(left: string | string[], right: string | string[]): boolean {
   }
   return left === right;
 }
+
+type ReactUserDataOptions = {
+  /**
+   * When set to true, prevents the execution of any operations within the hook.
+   */
+  skip?: boolean;
+};
 
 /**
  * This method allows you to observe data about a user, including live updates.
@@ -58,7 +68,10 @@ function sameIDs(left: string | string[], right: string | string[]): boolean {
  * above. The component will automatically re-render if any of the data changes,
  * i.e., this data is always "live".
  */
-export function useUserData(userID: string): ClientUserData | null | undefined;
+export function useUserData(
+  userID: string,
+  options?: ReactUserDataOptions,
+): ClientUserData | null | undefined;
 
 /**
  * This method allows you to observe data about multiple users, including live
@@ -99,9 +112,11 @@ export function useUserData(userID: string): ClientUserData | null | undefined;
  */
 export function useUserData(
   userIDs: string[],
+  options?: ReactUserDataOptions,
 ): Record<string, ClientUserData | null>;
 export function useUserData(
   userIDorIDs: string | string[],
+  options: ReactUserDataOptions = {},
 ): Record<string, ClientUserData | null> | ClientUserData | null | undefined {
   const { sdk } = useCordContext('user.useUserData');
   const userSDK = sdk?.user;
@@ -111,9 +126,10 @@ export function useUserData(
   >(Array.isArray(userIDorIDs) ? {} : undefined);
 
   const memoizedUserIDorIDs = useMemoObject(userIDorIDs, sameIDs);
+  const optionsMemo = useMemoObject(options);
 
   useEffect(() => {
-    if (!userSDK || !memoizedUserIDorIDs) {
+    if (!userSDK || !memoizedUserIDorIDs || optionsMemo.skip) {
       return;
     }
     // This very tortured call is to make the typechecker happy.  userIDorIDs
@@ -126,7 +142,7 @@ export function useUserData(
     return () => {
       userSDK.unobserveUserData(ref);
     };
-  }, [userSDK, memoizedUserIDorIDs]);
+  }, [userSDK, memoizedUserIDorIDs, optionsMemo]);
 
   return data;
 }
