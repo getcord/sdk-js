@@ -5,6 +5,7 @@ import {
 } from '../common/ui/style.js';
 import { cssVar } from '../common/ui/cssVariables.js';
 import { getModifiedSelector, MODIFIERS } from '../common/ui/modifiers.js';
+import { message } from './Message.classnames.js';
 import { timestamp } from './Timestamp.classnames.js';
 export { timestamp };
 import { notificationContainer } from './Notification.classnames.js';
@@ -55,3 +56,7 @@ defaultGlobalStyle(
     display: 'none', // Do not show unseen badge
   },
 );
+
+globalStyle(`.${message} .${timestamp}`, {
+  gridArea: 'timestamp',
+});

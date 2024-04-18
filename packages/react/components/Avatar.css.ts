@@ -12,6 +12,7 @@ import { pinContainer } from './Pin.classnames.js';
 import { threadFooterContainer } from './Thread.classnames.js';
 import { emptyStatePlaceholderContainer } from './helpers/EmptyStateWithFacepile.classnames.js';
 import { base as menuItemBase } from './MenuItem.classnames.js';
+import { message } from './Message.classnames.js';
 export default classes;
 
 const { avatarContainer, avatarFallback, avatarImage } = classes;
@@ -44,12 +45,7 @@ defaultGlobalStyle(
     width: cssVar('space-4xl'),
   },
 );
-// TODO: Remove :host when we get rid of shadowRoot forever
-globalStyle(`:host(cord-message) .${avatarContainer}`, {
-  gridArea: 'avatar',
-  marginTop: cssVar('space-3xs'),
-});
-defaultGlobalStyle(`cord-message:where(.${CORD_V2}) .${avatarContainer}`, {
+globalStyle(`.${message} .${avatarContainer}`, {
   gridArea: 'avatar',
   marginTop: cssVar('space-3xs'),
 });
