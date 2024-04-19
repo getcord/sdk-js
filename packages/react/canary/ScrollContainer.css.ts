@@ -6,5 +6,5 @@ globalStyle(`.${scrollContainer}`, {
   position: 'relative',
   overflow: 'auto',
   overscrollBehavior: 'contain',
-  maxHeight: '400px',
+  flexShrink: 1,
 });

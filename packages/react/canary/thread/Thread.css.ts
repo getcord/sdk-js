@@ -11,6 +11,8 @@ const { threadHeader, thread } = classes;
 
 defaultGlobalStyle(`:where(.${CORD_V2}).${thread}`, {
   backgroundColor: cssVar('color-base'),
+  display: 'flex',
+  flexDirection: 'column',
   overflow: 'hidden',
   minWidth: '250px',
   border: `1px solid ${cssVar('color-base-x-strong')}`,
