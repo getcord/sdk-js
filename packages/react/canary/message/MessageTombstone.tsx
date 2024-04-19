@@ -64,36 +64,44 @@ export const MessageTombstone = withCord<
   'MessageTombstone',
 );
 
-export function MessageTombstoneWrapper({
-  message,
-}: {
-  message: ClientMessageData;
-}) {
-  const viewer = useViewerData();
-  const time = useTime();
-  const userId = viewer?.id;
+export const MessageTombstoneWrapper = forwardRef(
+  function MessageTombstoneWrapper(
+    {
+      message,
+      ...rest
+    }: {
+      message: ClientMessageData;
+    } & StyleProps,
+    ref: React.ForwardedRef<HTMLDivElement>,
+  ) {
+    const viewer = useViewerData();
+    const time = useTime();
+    const userId = viewer?.id;
 
-  const undoDeleteMessage = useCallback(() => {
-    undeleteMessage(message.threadID, message.id);
-  }, [message.id, message.threadID]);
+    const undoDeleteMessage = useCallback(() => {
+      undeleteMessage(message.threadID, message.id);
+    }, [message.id, message.threadID]);
 
-  if (!message.deletedTimestamp) {
-    return <></>;
-  }
+    if (!message.deletedTimestamp) {
+      return <></>;
+    }
 
-  const canUndoDelete =
-    isUserAuthorOfMessage(message, userId) &&
-    canUndoMessageDelete(new Date(message.deletedTimestamp), time);
+    const canUndoDelete =
+      isUserAuthorOfMessage(message, userId) &&
+      canUndoMessageDelete(new Date(message.deletedTimestamp), time);
 
-  return (
-    <MessageTombstone
-      message={message}
-      canUndoDelete={canUndoDelete}
-      undoDeleteMessage={undoDeleteMessage}
-      canBeReplaced
-    />
-  );
-}
+    return (
+      <MessageTombstone
+        ref={ref}
+        message={message}
+        canUndoDelete={canUndoDelete}
+        undoDeleteMessage={undoDeleteMessage}
+        canBeReplaced
+        {...rest}
+      />
+    );
+  },
+);
 
 function undeleteMessage(threadID: string, messageID: string) {
   void window?.CordSDK?.thread.updateMessage(threadID, messageID, {

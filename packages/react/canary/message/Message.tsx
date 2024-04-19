@@ -64,6 +64,8 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
           return (
             <EditComposer
               messageId={message.id}
+              ref={composedRef}
+              className={cx(className, metaCordClasses)}
               threadId={message.threadID}
               initialValue={message}
               onAfterSubmit={() => {
@@ -75,12 +77,19 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
           );
         }
         if (message.deletedTimestamp) {
-          return <MessageTombstoneWrapper message={message} />;
+          return (
+            <MessageTombstoneWrapper
+              ref={composedRef}
+              className={cx(className, metaCordClasses)}
+              message={message}
+            />
+          );
         }
 
         if (message.type === 'action_message') {
           return (
             <ActionMessage
+              ref={composedRef}
               message={message}
               canBeReplaced
               className={cx(className, metaCordClasses)}

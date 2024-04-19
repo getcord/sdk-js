@@ -62,58 +62,66 @@ export function useSendComposer(props: SendComposerProps): ComposerProps {
   });
 }
 
-export const SendComposer = (props: SendComposerProps) => {
-  const threadData = ThreadSDK.useThread(props.threadId!);
-  const resolved = threadData.thread?.resolved;
-  const { t } = useCordTranslation('composer');
+export const SendComposer = forwardRef(
+  (props: SendComposerProps, ref: React.ForwardedRef<HTMLDivElement>) => {
+    const threadData = ThreadSDK.useThread(props.threadId!);
+    const resolved = threadData.thread?.resolved;
+    const { t } = useCordTranslation('composer');
 
-  const cordComposerProps = useSendComposer(props);
+    const cordComposerProps = useSendComposer(props);
 
-  if (resolved) {
-    return <ResolvedThreadComposer thread={threadData} canBeReplaced />;
-  }
+    if (resolved) {
+      return <ResolvedThreadComposer thread={threadData} canBeReplaced />;
+    }
 
-  return (
-    <Composer
-      canBeReplaced
-      {...cordComposerProps}
-      placeholder={t('send_message_placeholder')}
-    />
-  );
-};
+    return (
+      <Composer
+        ref={ref}
+        canBeReplaced
+        {...cordComposerProps}
+        placeholder={t('send_message_placeholder')}
+      />
+    );
+  },
+);
 
-export const EditComposer = (props: EditComposerProps) => {
-  const threadData = ThreadSDK.useThread(props.threadId);
-  const resolved = threadData.thread?.resolved;
-  const { t } = useCordTranslation('composer');
+export const EditComposer = forwardRef(
+  (props: EditComposerProps, ref: React.ForwardedRef<HTMLDivElement>) => {
+    const threadData = ThreadSDK.useThread(props.threadId);
+    const resolved = threadData.thread?.resolved;
+    const { t } = useCordTranslation('composer');
 
-  const closeComposerButtonToolbarItem = useMemo(() => {
-    return [
-      {
-        name: 'cancelButton',
-        element: <CloseComposerButton canBeReplaced onClick={props.onCancel} />,
-      },
-    ];
-  }, [props]);
+    const closeComposerButtonToolbarItem = useMemo(() => {
+      return [
+        {
+          name: 'cancelButton',
+          element: (
+            <CloseComposerButton canBeReplaced onClick={props.onCancel} />
+          ),
+        },
+      ];
+    }, [props]);
 
-  const cordComposerProps = useEditComposer(props);
+    const cordComposerProps = useEditComposer(props);
 
-  if (resolved) {
-    return <ResolvedThreadComposer thread={threadData} canBeReplaced />;
-  }
+    if (resolved) {
+      return <ResolvedThreadComposer thread={threadData} canBeReplaced />;
+    }
 
-  return (
-    <Composer
-      canBeReplaced
-      {...cordComposerProps}
-      toolbarItems={[
-        ...(cordComposerProps.toolbarItems ?? []),
-        ...closeComposerButtonToolbarItem,
-      ]}
-      placeholder={t('edit_message_placeholder')}
-    />
-  );
-};
+    return (
+      <Composer
+        ref={ref}
+        canBeReplaced
+        {...cordComposerProps}
+        toolbarItems={[
+          ...(cordComposerProps.toolbarItems ?? []),
+          ...closeComposerButtonToolbarItem,
+        ]}
+        placeholder={t('edit_message_placeholder')}
+      />
+    );
+  },
+);
 
 export function useCordComposer(props: CordComposerProps): ComposerProps {
   const {
