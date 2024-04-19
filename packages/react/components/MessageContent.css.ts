@@ -15,6 +15,8 @@ globalStyle(`.${messageContent}`, {
     "videoAttachments"
     "documentAttachments"
     "linkPreviews"`,
+  overflow: 'auto',
+  maxHeight: '100%',
 });
 
 globalStyle(`.${messageAttachment}`, {

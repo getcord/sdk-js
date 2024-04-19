@@ -30,7 +30,7 @@ globalStyle(`.${message}`, {
   )} ${cssVar('space-2xs')} `,
   display: 'grid',
   gridTemplateColumns: `20px auto auto auto 1fr auto`,
-  gridTemplateRows: `24px auto auto`,
+  gridTemplateRows: `24px 1fr auto`,
   gridGap: `${cssVar('space-3xs')} ${cssVar('space-2xs')}`,
   alignItems: 'center',
   gridTemplateAreas: `
@@ -41,7 +41,7 @@ globalStyle(`.${message}`, {
 
 globalStyle(getModifiedSelector('noReactions', `.${message}`), {
   gridTemplateColumns: `20px auto auto auto 1fr auto`,
-  gridTemplateRows: '24px auto',
+  gridTemplateRows: '24px 1fr',
   gridTemplateAreas: `
     "avatar authorName timestamp sentViaIcon . optionsMenu"
     ". messageContent messageContent messageContent messageContent optionsMenu"`,
