@@ -56,4 +56,6 @@ globalStyle(`.${composerContainer} .${editor}`, {
   paddingLeft: cssVar('space-s'),
   paddingBottom: cssVar('space-m'),
   outline: 'none',
+  flexGrow: 1,
+  overflow: 'hidden auto',
 });
