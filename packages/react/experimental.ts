@@ -126,6 +126,11 @@ export type { SendButtonProps } from './canary/composer/SendButton.js';
 export { SendButton } from './canary/composer/SendButton.js';
 
 export {
+  ScrollContainer,
+  type ScrollContainerProps,
+} from './canary/ScrollContainer.js';
+
+export {
   Overlay,
   type OverlayProps,
 } from './experimental/components/Overlay.js';
