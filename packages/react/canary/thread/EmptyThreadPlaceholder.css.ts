@@ -13,14 +13,15 @@ globalStyle(`.${emptyThreadPlaceholderContainer}`, {
   lineHeight: cssVar('line-height-body'),
   margin: 'auto 0',
   overflow: 'auto',
-  padding: cssVar('space-m'),
+  padding: cssVar('space-xs'),
+  paddingBottom: cssVar('space-m'),
 });
 
 globalStyle(
   `.${emptyThreadPlaceholderContainer} :where(.${emptyThreadPlaceholderTitle})`,
   {
     color: cssVar('color-content-emphasis'),
-    margin: `0 0 ${cssVar('space-2xs')} 0`,
+    margin: `${cssVar('space-m')} 0 ${cssVar('space-2xs')} 0`,
     fontWeight: cssVar('font-weight-bold'),
   },
 );

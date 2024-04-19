@@ -8,7 +8,7 @@ import type { StyleProps } from '../../experimental/types.js';
 import { Facepile } from '../../experimental.js';
 import { useCordTranslation } from '../../hooks/useCordTranslation.js';
 import { useSearchUsers } from '../../hooks/user.js';
-import * as classes from './EmptyThreadPlaceholder.classnames.js';
+import * as classes from './EmptyThreadPlaceholder.css.js';
 
 export type EmptyThreadPlaceholderProps = {
   users: ClientUserData[];
