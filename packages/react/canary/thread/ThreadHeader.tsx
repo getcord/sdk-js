@@ -38,7 +38,10 @@ export const ThreadHeader = withCord<
                 canBeReplaced
                 buttonAction="show-thread-options"
                 icon="DotsThree"
-                className={buttonClasses.colorsSecondary}
+                className={cx(
+                  buttonClasses.colorsSecondary,
+                  buttonClasses.small,
+                )}
               ></Button>
             }
             threadID={threadID}
@@ -52,7 +55,7 @@ export const ThreadHeader = withCord<
           canBeReplaced
           buttonAction="close-thread"
           icon="X"
-          className={buttonClasses.colorsSecondary}
+          className={cx(buttonClasses.colorsSecondary, buttonClasses.small)}
         />
       </div>
     );
