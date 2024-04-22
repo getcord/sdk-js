@@ -52,7 +52,7 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
                 message={thread?.lastMessage}
               />
             }
-            composer={<SendComposer threadId={thread?.id} />}
+            composer={<SendComposer threadID={thread?.id} />}
             {...restProps}
           />
         );

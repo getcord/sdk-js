@@ -15,12 +15,12 @@ const EMPTY_REACTIONS: Reaction[] = [];
 
 type UseEditSubmit = {
   initialValue?: Partial<ClientMessageData>;
-  messageId: string;
-  threadId: string;
+  messageID: string;
+  threadID: string;
 };
 
 export function useEditSubmit(args: UseEditSubmit) {
-  const { messageId, threadId, initialValue } = args;
+  const { messageID, threadID, initialValue } = args;
 
   const initialAttachments = initialValue?.attachments ?? EMPTY_ATTACHMENTS;
   const { sdk: cord } = useContext(CordContext);
@@ -45,7 +45,7 @@ export function useEditSubmit(args: UseEditSubmit) {
       const newReactions = new Set(
         (reactions ?? []).map((r) => r.reaction) ?? EMPTY_REACTIONS,
       );
-      void cord?.thread.updateMessage(threadId, messageId, {
+      void cord?.thread.updateMessage(threadID, messageID, {
         ...restMessage,
         addAttachments: filesAttachments
           .filter((a) => !oldAttachmentIDs.has(a.id))
@@ -66,8 +66,8 @@ export function useEditSubmit(args: UseEditSubmit) {
     },
     [
       cord?.thread,
-      messageId,
-      threadId,
+      messageID,
+      threadID,
       initialAttachments,
       initialValue?.reactions,
     ],
@@ -76,12 +76,12 @@ export function useEditSubmit(args: UseEditSubmit) {
 
 type UseCreateSubmit = {
   initialValue?: Partial<ClientMessageData>;
-  threadId?: string;
+  threadID?: string;
   createThread?: ClientCreateThread;
 };
 
 export function useCreateSubmit(args: UseCreateSubmit) {
-  const { threadId, createThread } = args;
+  const { threadID, createThread } = args;
   const { sdk: cord } = useContext(CordContext);
   return useCallback(
     async ({ message }: { message: Partial<ClientMessageData> }) => {
@@ -91,7 +91,7 @@ export function useCreateSubmit(args: UseCreateSubmit) {
       );
       const url = window.location.href;
 
-      await cord?.thread.sendMessage(threadId ?? uuid(), {
+      await cord?.thread.sendMessage(threadID ?? uuid(), {
         ...restMessage,
         content: content ?? [],
         addAttachments: filesAttachments.map((a) => ({
@@ -106,7 +106,7 @@ export function useCreateSubmit(args: UseCreateSubmit) {
         },
       });
     },
-    [cord?.thread, createThread, threadId],
+    [cord?.thread, createThread, threadID],
   );
 }
 

@@ -58,10 +58,10 @@ export const Facepile: WithByIDComponent<FacepileProps, FacepileByIDProps> =
 
 function FacepileByID(props: ByID<FacepileByIDProps>) {
   const { userIDs, ...restProps } = props;
-  const usersDataById = useUserData(userIDs);
+  const usersDataByID = useUserData(userIDs);
 
   const data = userIDs
-    .map((id) => usersDataById[id])
+    .map((id) => usersDataByID[id])
     .filter(Boolean) as ClientUserData[];
 
   return <Facepile users={data} {...restProps} canBeReplaced />;

@@ -42,7 +42,7 @@ import { SendMessageError } from './SendMessageError.js';
 
 export function useEditComposer(props: EditComposerProps): ComposerProps {
   const onSubmit = useEditSubmit(props);
-  const { thread: threadData } = ThreadSDK.useThread(props.threadId);
+  const { thread: threadData } = ThreadSDK.useThread(props.threadID);
 
   return useCordComposer({
     ...props,
@@ -53,7 +53,7 @@ export function useEditComposer(props: EditComposerProps): ComposerProps {
 
 export function useSendComposer(props: SendComposerProps): ComposerProps {
   const onSubmit = useCreateSubmit(props);
-  const { thread: threadData } = ThreadSDK.useThread(props.threadId!);
+  const { thread: threadData } = ThreadSDK.useThread(props.threadID!);
 
   return useCordComposer({
     ...props,
@@ -64,7 +64,7 @@ export function useSendComposer(props: SendComposerProps): ComposerProps {
 
 export const SendComposer = forwardRef(
   (props: SendComposerProps, ref: React.ForwardedRef<HTMLDivElement>) => {
-    const threadData = ThreadSDK.useThread(props.threadId!);
+    const threadData = ThreadSDK.useThread(props.threadID!);
     const resolved = threadData.thread?.resolved;
     const { t } = useCordTranslation('composer');
 
@@ -87,7 +87,7 @@ export const SendComposer = forwardRef(
 
 export const EditComposer = forwardRef(
   (props: EditComposerProps, ref: React.ForwardedRef<HTMLDivElement>) => {
-    const threadData = ThreadSDK.useThread(props.threadId);
+    const threadData = ThreadSDK.useThread(props.threadID);
     const resolved = threadData.thread?.resolved;
     const { t } = useCordTranslation('composer');
 

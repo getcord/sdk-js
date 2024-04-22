@@ -63,10 +63,10 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
         if (isEditing) {
           return (
             <EditComposer
-              messageId={message.id}
               ref={composedRef}
               className={cx(className, metaCordClasses)}
-              threadId={message.threadID}
+              messageID={message.id}
+              threadID={message.threadID}
               initialValue={message}
               onAfterSubmit={() => {
                 setIsEditing(false);
@@ -157,8 +157,8 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
             reactions={
               <Reactions
                 canBeReplaced
-                messageId={message.id}
-                threadId={message.threadID}
+                messageID={message.id}
+                threadID={message.threadID}
                 showReactionList
                 showAddReactionButton={message.reactions.length > 0}
               />

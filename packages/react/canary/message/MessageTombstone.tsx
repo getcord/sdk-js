@@ -76,7 +76,7 @@ export const MessageTombstoneWrapper = forwardRef(
   ) {
     const viewer = useViewerData();
     const time = useTime();
-    const userId = viewer?.id;
+    const userID = viewer?.id;
 
     const undoDeleteMessage = useCallback(() => {
       undeleteMessage(message.threadID, message.id);
@@ -87,7 +87,7 @@ export const MessageTombstoneWrapper = forwardRef(
     }
 
     const canUndoDelete =
-      isUserAuthorOfMessage(message, userId) &&
+      isUserAuthorOfMessage(message, userID) &&
       canUndoMessageDelete(new Date(message.deletedTimestamp), time);
 
     return (

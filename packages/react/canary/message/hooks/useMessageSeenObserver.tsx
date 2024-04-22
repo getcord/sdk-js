@@ -214,9 +214,9 @@ export function useMessageSeenObserver(message: ClientMessageData) {
 
 function isUserAuthorOfMessage(
   message: ClientMessageData,
-  externalUserId: string | null | undefined,
+  externalUserID: string | null | undefined,
 ) {
-  return !externalUserId || externalUserId === message.authorID;
+  return !externalUserID || externalUserID === message.authorID;
 }
 
 function getUnseenReactions(

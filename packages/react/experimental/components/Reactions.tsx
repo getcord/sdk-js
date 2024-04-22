@@ -26,8 +26,8 @@ import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
 import { ReactionPill } from './message/ReactionPill.js';
 
 export type ReactionsProps = {
-  threadId?: string;
-  messageId?: string;
+  threadID?: string;
+  messageID?: string;
   showAddReactionButton?: boolean;
   showReactionList?: boolean;
 } & StyleProps;
@@ -35,8 +35,8 @@ export type ReactionsProps = {
 export const Reactions = withCord<React.PropsWithChildren<ReactionsProps>>(
   React.forwardRef(function Reactions(
     {
-      threadId,
-      messageId,
+      threadID,
+      messageID,
       showAddReactionButton = true,
       showReactionList = true,
       ...restProps
@@ -44,16 +44,16 @@ export const Reactions = withCord<React.PropsWithChildren<ReactionsProps>>(
     ref?: React.ForwardedRef<HTMLDivElement>,
   ) {
     const viewerData = useViewerData();
-    const { thread } = useThread(threadId ?? '');
-    const message = useMessage(messageId ?? '');
+    const { thread } = useThread(threadID ?? '');
+    const message = useMessage(messageID ?? '');
 
     if (!thread || !message) {
       return (
         <>
           {showAddReactionButton && (
             <AddReactionToMessageButton
-              threadID={threadId}
-              messageID={messageId}
+              threadID={threadID}
+              messageID={messageID}
               disabled={true}
               {...restProps}
             />

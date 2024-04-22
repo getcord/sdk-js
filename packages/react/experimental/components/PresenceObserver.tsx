@@ -25,7 +25,7 @@ export function PresenceObserver({
   presentEvents = ['mouseenter', 'focusin'],
   absentEvents = ['mouseleave', 'focusout'],
   onChange,
-  groupId,
+  groupID: propsGroupID,
   children,
 }: PresenceObserverReactComponentProps) {
   const [present, setPresent] = useState<boolean | undefined>(observeDocument);
@@ -35,18 +35,18 @@ export function PresenceObserver({
   const viewer = useViewerData();
   const elementToObserveRef = useRef<HTMLElement>(null);
 
-  const groupID = groupId ?? viewer?.groupID;
+  const groupID = propsGroupID ?? viewer?.groupID;
   if (!groupID) {
-    throw new Error('Must specify a groupId');
+    throw new Error('Must specify a groupID');
   }
 
   // Only error if the two groups don't match: do allow matching groups for the
   // purposes of migrations
-  const mismatchingGroupId =
-    viewer?.groupID && groupId && viewer?.groupID !== groupId;
-  if (mismatchingGroupId) {
+  const mismatchingGroupID =
+    viewer?.groupID && groupID && viewer?.groupID !== groupID;
+  if (mismatchingGroupID) {
     throw new Error(
-      'Must not specify a groupId on the component if the user is signed in with an access token that contains a groupId - choose one or the other',
+      'Must not specify a groupID on the component if the user is signed in with an access token that contains a groupID - choose one or the other',
     );
   }
 

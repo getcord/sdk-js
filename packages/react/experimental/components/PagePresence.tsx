@@ -14,7 +14,7 @@ export type PagePresenceProps = {
   durable?: boolean;
   excludeViewer?: boolean;
   onlyPresentUsers?: boolean;
-  groupId?: string;
+  groupID?: string;
 } & StyleProps;
 
 export const PagePresence = withCord<
@@ -27,7 +27,7 @@ export const PagePresence = withCord<
       excludeViewer,
       numOfAvatars,
       onlyPresentUsers,
-      groupId,
+      groupID,
       ...restProps
     }: PagePresenceProps,
     ref?: React.ForwardedRef<HTMLDivElement>,
@@ -44,7 +44,7 @@ export const PagePresence = withCord<
           {...restProps}
         />
         <PresenceObserver
-          groupId={groupId}
+          groupId={groupID}
           location={location}
           durable={durable}
           observeDocument

@@ -49,7 +49,7 @@ export interface SendComposerProps extends StyleProps, ReplacementProps {
    * You can't use the same thread identifier in two separate
    * groups. This is an intentional limitation imposed by Cord.
    */
-  threadId?: string;
+  threadID?: string;
   /**
    * An object containing the data of the thread to be created. If a threadID
    * is passed, this object will be ignored.
@@ -94,11 +94,11 @@ export interface EditComposerProps extends StyleProps, ReplacementProps {
    * You can't use the same thread identifier in two separate
    * groups. This is an intentional limitation imposed by Cord.
    */
-  threadId: string;
+  threadID: string;
   /**
    * The id of the message to be edited.
    */
-  messageId: string;
+  messageID: string;
   /**
    * Text to be displayed as a placeholder in the composer.
    */
@@ -210,7 +210,7 @@ export type PresenceObserverReactComponentProps = React.PropsWithChildren<{
   /**
    * The [group](/rest-apis/groups) which should be able to see the user's presence.
    */
-  groupId?: string;
+  groupID?: string;
   /**
    * When `true`, presence will be determined by whether or not the current document
    * is visible, rather than based on the "present" and "absent" DOM events.
