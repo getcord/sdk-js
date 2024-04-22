@@ -6,11 +6,11 @@ import { WithTooltip } from '../WithTooltip.js';
 import { WithPopper } from '../helpers/WithPopper.js';
 import { MenuButtonTooltip } from './MenuButtonTooltip.js';
 import { Menu } from './Menu.js';
-import type { MenuItem } from './Menu.js';
+import type { MenuItemInfo } from './Menu.js';
 
 export type MenuButtonProps = {
   button: JSX.Element;
-  menuItems: MenuItem[];
+  menuItems: MenuItemInfo[];
   menuVisible: boolean;
   setMenuVisible: (visible: boolean) => void;
   buttonTooltipLabel: string;

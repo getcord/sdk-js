@@ -7,13 +7,13 @@ import type { StyleProps } from '../../../betaV2.js';
 
 // We need more than just the `element`, so we can manipulate items more easily
 // including filtering out items or adding more items
-export type MenuItem = {
+export type MenuItemInfo = {
   name: string;
   element: JSX.Element;
 };
 
 export type MenuProps = {
-  items: MenuItem[];
+  items: MenuItemInfo[];
   closeMenu: () => void;
 } & StyleProps &
   Pick<React.HTMLAttributes<HTMLOListElement>, 'onClick'>;
