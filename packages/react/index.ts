@@ -84,6 +84,7 @@ export * as thread from './hooks/thread.js';
 export * as user from './hooks/user.js';
 
 export * as experimental from './experimental.js';
+export * as betaV2 from './betaV2.js';
 
 // --- Exports kept for backwards-compat only:
 

@@ -10,7 +10,7 @@ import { getUsersAtLocation } from '../../common/lib/presence.js';
 import { useTime } from '../../common/effects/useTime.js';
 import { relativeTimestampString } from '../../common/util.js';
 import classes from '../../components/Facepile.css.js';
-import type { StyleProps } from '../../experimental.js';
+import type { StyleProps } from '../../betaV2.js';
 import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
 import { Avatar } from './avatar/Avatar.js';
 import withCord from './hoc/withCord.js';

@@ -16,7 +16,7 @@ import { useMessage, useThread } from '../../hooks/thread.js';
 import { useCordTranslation } from '../../index.js';
 import classes from '../../components/Reactions.css.js';
 import { useViewerData } from '../../hooks/user.js';
-import type { StyleProps } from '../../experimental.js';
+import type { StyleProps } from '../../betaV2.js';
 import {
   AddReactionToMessageButton,
   useAddRemoveReaction,

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { forwardRef } from 'react';
 import cx from 'classnames';
 import type { ClientMessageData, MessageContent } from '@cord-sdk/types';
-import type { StyleProps } from '../../experimental.js';
+import type { StyleProps } from '../../betaV2.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { useTranslatedMessageContent } from '../../hooks/useTranslatedMessageContent.js';
 import { RenderNode } from '../../experimental/components/message/MessageText.js';

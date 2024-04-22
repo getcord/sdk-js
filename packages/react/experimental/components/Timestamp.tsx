@@ -13,7 +13,7 @@ import {
   absoluteTimestampString,
   relativeTimestampString,
 } from '../../common/util.js';
-import type { StyleProps } from '../../experimental.js';
+import type { StyleProps } from '../../betaV2.js';
 import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
 import withCord from './hoc/withCord.js';
 

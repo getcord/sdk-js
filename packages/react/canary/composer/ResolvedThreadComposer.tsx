@@ -4,7 +4,7 @@ import { forwardRef, useCallback } from 'react';
 import type { ClientThreadData } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { useCordTranslation } from '../../index.js';
-import type { StyleProps } from '../../experimental.js';
+import type { StyleProps } from '../../betaV2.js';
 import { setResolved } from '../../common/lib/thread.js';
 import * as classes from './ResolvedThreadComposer.css.js';
 import { ReopenThreadButton } from './ReopenThreadButton.js';

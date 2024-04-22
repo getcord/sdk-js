@@ -5,7 +5,7 @@ import type { ClientUserData } from '@cord-sdk/types';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
 import type { StyleProps } from '../../experimental/types.js';
-import { Facepile } from '../../experimental.js';
+import { Facepile } from '../../betaV2.js';
 import { useCordTranslation } from '../../hooks/useCordTranslation.js';
 import { useSearchUsers } from '../../hooks/user.js';
 import * as classes from './EmptyThreadPlaceholder.css.js';

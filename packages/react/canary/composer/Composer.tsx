@@ -17,7 +17,7 @@ import type {
   EditComposerProps,
   SendComposerProps,
 } from '../../experimental/types.js';
-import { ReactionPickButton } from '../../experimental.js';
+import { ReactionPickButton } from '../../betaV2.js';
 import { WithPopper } from '../../experimental/components/helpers/WithPopper.js';
 import { thread as ThreadSDK, useCordTranslation } from '../../index.js';
 import { isMessageFileAttachment } from '../../common/lib/isMessageFileAttachment.js';

@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import cx from 'classnames';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
-import type { StyleProps } from '../../experimental.js';
+import type { StyleProps } from '../../betaV2.js';
 import { useCordTranslation } from '../../hooks/useCordTranslation.js';
 import * as classes from '../../components/Composer.classnames.js';
 

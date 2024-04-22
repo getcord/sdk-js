@@ -4,7 +4,7 @@ import withCord from '../hoc/withCord.js';
 import { useComposedRefs } from '../../../common/lib/composeRefs.js';
 import { useCordTranslation } from '../../../index.js';
 import classes from '../../../components/helpers/EmojiPicker.css.js';
-import type { StyleProps } from '../../../experimental.js';
+import type { StyleProps } from '../../../betaV2.js';
 import { WithPopper } from './WithPopper.js';
 
 type EmojiEvent = {

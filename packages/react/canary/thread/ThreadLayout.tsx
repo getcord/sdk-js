@@ -5,7 +5,7 @@ import cx from 'classnames';
 import type { ClientThreadData } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { ScrollContainer } from '../ScrollContainer.js';
-import type { StyleProps } from '../../experimental.js';
+import type { StyleProps } from '../../betaV2.js';
 import classes from './Thread.css.js';
 
 export type ThreadLayoutProps = {

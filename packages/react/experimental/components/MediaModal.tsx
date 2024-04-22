@@ -20,7 +20,7 @@ import {
   medium,
   colorsSecondary,
 } from '../../components/helpers/Button.classnames.js';
-import type { StyleProps } from '../../experimental.js';
+import type { StyleProps } from '../../betaV2.js';
 import { Button } from './helpers/Button.js';
 import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
 import { Overlay } from './Overlay.js';

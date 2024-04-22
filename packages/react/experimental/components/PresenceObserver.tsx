@@ -7,7 +7,7 @@ import { useDocumentVisibility } from '../../common/effects/useDocumentVisibilit
 import { useCordContext } from '../../contexts/CordContext.js';
 import { useViewerData } from '../../hooks/user.js';
 import { throttle } from '../../common/lib/throttle.js';
-import type { PresenceObserverReactComponentProps } from '../../experimental.js';
+import type { PresenceObserverReactComponentProps } from '../../betaV2.js';
 
 // Number of seconds that need to pass since a given page has lost
 // focus before we stop considering it the page the user is actively

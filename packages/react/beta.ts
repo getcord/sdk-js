@@ -1,5 +1,5 @@
 // This file is kept purely for backwards compatibility reasons.
-// Everything here should either be available directly or can be found under experimental.
+// Everything here should either be available directly or can be found under betaV2.
 export type {
   FloatingThreadsReactComponentProps,
   FloatingThreadsReactComponentProps as AnchoredThreadsReactComponentProps,

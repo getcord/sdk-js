@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as composerClasses from '../../components/Composer.classnames.js';
-import type { StyleProps } from '../../experimental.js';
+import type { StyleProps } from '../../betaV2.js';
 import { composerToolbar } from './ToolbarLayout.css.js';
 
 const PRIMARY = ['sendButton', 'cancelButton'];

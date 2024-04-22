@@ -2,8 +2,8 @@ import React, { forwardRef } from 'react';
 import cx from 'classnames';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
-import { Button } from '../../experimental.js';
-import type { StyleProps } from '../../experimental.js';
+import { Button } from '../../betaV2.js';
+import type { StyleProps } from '../../betaV2.js';
 import {
   colorsPrimary,
   sendButton,

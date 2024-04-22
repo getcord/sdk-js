@@ -5,11 +5,7 @@ import type { ClientUserData } from '@cord-sdk/types';
 import { isDefined } from '../../common/util.js';
 import { useUserData } from '../../hooks/user.js';
 import classes from '../../components/Facepile.css.js';
-import type {
-  ByID,
-  StyleProps,
-  WithByIDComponent,
-} from '../../experimental.js';
+import type { ByID, StyleProps, WithByIDComponent } from '../../betaV2.js';
 import withCord from './hoc/withCord.js';
 import { Avatar } from './avatar/Avatar.js';
 

@@ -7,7 +7,7 @@ import { MessageNodeType } from '@cord-sdk/types';
 import * as classes from '../../../components/composer/userReferences/UserReferenceElement.css.js';
 import { useUserData } from '../../../hooks/user.js';
 import withCord from '../hoc/withCord.js';
-import type { StyleProps } from '../../../experimental.js';
+import type { StyleProps } from '../../../betaV2.js';
 
 export type MessageUserReferenceElementProps = {
   userID: string;

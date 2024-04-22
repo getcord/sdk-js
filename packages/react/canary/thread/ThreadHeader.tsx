@@ -4,8 +4,8 @@ import cx from 'classnames';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as buttonClasses from '../../components/helpers/Button.classnames.js';
-import { Button, OptionsMenu } from '../../experimental.js';
-import type { StyleProps } from '../../experimental.js';
+import { Button, OptionsMenu } from '../../betaV2.js';
+import type { StyleProps } from '../../betaV2.js';
 import classes from './Thread.css.js';
 
 export type ThreadHeaderProps = {

@@ -5,7 +5,7 @@ import cx from 'classnames';
 import type { ClientMessageData } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as classes from '../../components/Message.classnames.js';
-import type { StyleProps } from '../../experimental.js';
+import type { StyleProps } from '../../betaV2.js';
 
 export type MessageLayoutProps = {
   message: ClientMessageData;

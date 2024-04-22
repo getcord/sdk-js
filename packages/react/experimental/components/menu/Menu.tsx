@@ -3,7 +3,7 @@ import { forwardRef, useCallback } from 'react';
 import cx from 'classnames';
 import withCord from '../hoc/withCord.js';
 import * as classes from '../../../components/Menu.css.js';
-import type { StyleProps } from '../../../experimental.js';
+import type { StyleProps } from '../../../betaV2.js';
 
 // We need more than just the `element`, so we can manipulate items more easily
 // including filtering out items or adding more items

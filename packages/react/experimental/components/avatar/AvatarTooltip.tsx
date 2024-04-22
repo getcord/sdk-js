@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 import withCord from '../hoc/withCord.js';
 import { useCordTranslation } from '../../../index.js';
 import { DefaultTooltip } from '../WithTooltip.js';
-import type { AvatarTooltipProps } from '../../../experimental.js';
+import type { AvatarTooltipProps } from '../../../betaV2.js';
 
 export const AvatarTooltip = withCord<
   React.PropsWithChildren<AvatarTooltipProps>

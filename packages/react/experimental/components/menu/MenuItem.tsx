@@ -10,7 +10,7 @@ import type { IconType } from '../../../components/helpers/Icon.js';
 import { fontBody } from '../../../common/ui/atomicClasses/fonts.css.js';
 
 import { MODIFIERS } from '../../../common/ui/modifiers.js';
-import type { StyleProps } from '../../../experimental.js';
+import type { StyleProps } from '../../../betaV2.js';
 
 type LeftItem = React.ReactElement<typeof Avatar | typeof Icon>;
 

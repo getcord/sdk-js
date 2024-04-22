@@ -6,7 +6,7 @@ import { Icon } from '../../../components/helpers/Icon.js';
 import type { IconType } from '../../../components/helpers/Icon.js';
 import withCord from '../hoc/withCord.js';
 import { MODIFIERS } from '../../../common/ui/modifiers.js';
-import type { StyleProps } from '../../../experimental.js';
+import type { StyleProps } from '../../../betaV2.js';
 import classes from './Button.css.js';
 
 export type CommonButtonProps = {

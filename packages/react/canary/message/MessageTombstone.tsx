@@ -11,7 +11,7 @@ import {
   canUndoMessageDelete,
   isUserAuthorOfMessage,
 } from '../../common/util.js';
-import type { StyleProps } from '../../experimental.js';
+import type { StyleProps } from '../../betaV2.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as classes from './Message.css.js';
 import { PHOSPHOR_ICONS } from '@cord-sdk/react/components/helpers/Icon.js';

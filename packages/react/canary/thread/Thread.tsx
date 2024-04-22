@@ -2,13 +2,13 @@ import * as React from 'react';
 import { forwardRef, useMemo, useEffect } from 'react';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
-import { Message, SendComposer, ThreadHeader } from '../../experimental.js';
+import { Message, SendComposer, ThreadHeader } from '../../betaV2.js';
 import type {
   WithByIDComponent,
   ByID,
   ThreadProps,
   ThreadByIDProps,
-} from '../../experimental.js';
+} from '../../betaV2.js';
 import { useThread } from '../../hooks/thread.js';
 import { useCordContext } from '../../contexts/CordContext.js';
 import { ThreadSeenByWrapper } from './ThreadSeenBy.js';

@@ -12,7 +12,7 @@ import type { MessageContent } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import type { CustomEditor } from '../../slateCustom.js';
 import { useCordTranslation } from '../../hooks/useCordTranslation.js';
-import type { StyleProps } from '../../experimental.js';
+import type { StyleProps } from '../../betaV2.js';
 import { withQuotes } from './plugins/quotes.js';
 import { withBullets } from './plugins/bullets.js';
 import { withHTMLPaste } from './plugins/paste.js';

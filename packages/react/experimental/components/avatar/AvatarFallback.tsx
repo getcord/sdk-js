@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import withCord from '../hoc/withCord.js';
 import classes from '../../../components/Avatar.css.js';
-import type { AvatarFallbackProps } from '../../../experimental.js';
+import type { AvatarFallbackProps } from '../../../betaV2.js';
 
 export const AvatarFallback = withCord<
   React.PropsWithChildren<AvatarFallbackProps>

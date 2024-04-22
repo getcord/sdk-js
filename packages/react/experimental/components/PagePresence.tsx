@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 import type { Location } from '@cord-sdk/types';
 
 import { PresenceObserver } from '../../components/PresenceObserver.js';
-import type { StyleProps } from '../../experimental.js';
+import type { StyleProps } from '../../betaV2.js';
 import withCord from './hoc/withCord.js';
 import { PresenceFacepile } from './PresenceFacepile.js';
 

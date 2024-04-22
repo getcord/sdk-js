@@ -13,7 +13,7 @@ import {
   Timestamp,
   Reactions,
   MessageLayout,
-} from '../../experimental.js';
+} from '../../betaV2.js';
 import { EditComposer } from '../composer/Composer.js';
 import { useUserData, useViewerData } from '../../hooks/user.js';
 import type {
@@ -21,7 +21,7 @@ import type {
   CommonMessageProps,
   MessageProps,
   WithByIDComponent,
-} from '../../experimental.js';
+} from '../../betaV2.js';
 import { AddReactionToMessageButton } from '../../experimental/components/ReactionPickButton.js';
 import { useComposedRefs } from '../../common/lib/composeRefs.js';
 import { useExtraClassnames } from '../../hooks/useExtraClassnames.js';

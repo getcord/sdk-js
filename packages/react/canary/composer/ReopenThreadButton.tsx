@@ -3,8 +3,8 @@ import cx from 'classnames';
 import { forwardRef } from 'react';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as buttonClasses from '../../components/helpers/Button.classnames.js';
-import type { GeneralButtonProps } from '../../experimental.js';
-import { Button } from '../../experimental.js';
+import type { GeneralButtonProps } from '../../betaV2.js';
+import { Button } from '../../betaV2.js';
 import { useCordTranslation } from '../../hooks/useCordTranslation.js';
 import { useToast } from '../../experimental/hooks/useToast.js';
 

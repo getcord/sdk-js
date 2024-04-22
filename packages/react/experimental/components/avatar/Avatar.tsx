@@ -12,13 +12,13 @@ import {
 } from '../../../common/util.js';
 import classes from '../../../components/Avatar.css.js';
 import { useViewerData, useUserData } from '../../../hooks/user.js';
-import { AvatarFallback, AvatarTooltip } from '../../../experimental.js';
+import { AvatarFallback, AvatarTooltip } from '../../../betaV2.js';
 import type {
   AvatarProps,
   ByID,
   CommonAvatarProps,
   WithByIDComponent,
-} from '../../../experimental.js';
+} from '../../../betaV2.js';
 import { WithTooltip } from '../WithTooltip.js';
 import withCord from '../hoc/withCord.js';
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { forwardRef } from 'react';
 import cx from 'classnames';
 import withCord from '../hoc/withCord.js';
-import type { StyleProps } from '../../../experimental.js';
+import type { StyleProps } from '../../../betaV2.js';
 import classes from './Separator.css.js';
 
 export type SeparatorProps = StyleProps;
