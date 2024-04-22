@@ -43,6 +43,7 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
       showMessageOptions,
       message,
       setEditing,
+      ...restProps
     } = props;
     const [menuToShow, setMenuToShow] = useState<MenuTypes>(null);
     const [menuVisible, setMenuVisible] = useState(false);
@@ -134,6 +135,7 @@ export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
         buttonTooltipLabel={buttonLabel}
         button={button}
         setMenuVisible={handleSetMenuVisible}
+        {...restProps}
       />
     );
   }),
