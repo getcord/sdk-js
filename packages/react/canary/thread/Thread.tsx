@@ -19,7 +19,7 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
   Object.assign(
     withCord<React.PropsWithChildren<ThreadProps>>(
       forwardRef(function Thread(
-        { showHeader: _ = false, threadData, ...restProps }: ThreadProps,
+        { showHeader = false, threadData, ...restProps }: ThreadProps,
         ref: React.ForwardedRef<HTMLDivElement>,
       ) {
         const thread = useMemo(() => threadData?.thread, [threadData?.thread]);
@@ -38,6 +38,7 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
                 canBeReplaced
                 threadID={thread?.id}
                 showContextMenu={messages.length > 0}
+                hide={!showHeader}
               />
             }
             messages={messages.map((message) => (

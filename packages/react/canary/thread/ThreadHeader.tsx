@@ -11,6 +11,7 @@ import classes from './Thread.css.js';
 export type ThreadHeaderProps = {
   showContextMenu?: boolean;
   threadID: string | undefined;
+  hide?: boolean;
 } & StyleProps;
 
 export const ThreadHeader = withCord<
@@ -20,11 +21,16 @@ export const ThreadHeader = withCord<
     {
       threadID,
       showContextMenu = true,
+      hide = true,
       className,
       ...restProps
     }: ThreadHeaderProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
+    if (hide) {
+      return null;
+    }
+
     return (
       <div
         {...restProps}

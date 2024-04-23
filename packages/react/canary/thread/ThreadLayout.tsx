@@ -10,7 +10,7 @@ import { ThreadScrollContainer } from './ThreadScrollContainer.js';
 
 export type ThreadLayoutProps = {
   threadData: ClientThreadData | undefined;
-  header: JSX.Element;
+  header: JSX.Element | null;
   messages: JSX.Element[];
   emptyThreadPlaceholder: JSX.Element;
   threadSeenBy: JSX.Element;
