@@ -7,25 +7,26 @@ const NUMBER_OF_MESSAGES_TO_FETCH = 10;
 export type ThreadScrollContainerProps = {
   fetchMore: FetchMoreCallback | undefined;
   threadLoading: boolean | undefined;
+  hasMore: boolean | undefined;
   children: JSX.Element[];
 };
 
 export const ThreadScrollContainer = (props: ThreadScrollContainerProps) => {
-  const { fetchMore, threadLoading, children } = props;
+  const { fetchMore, threadLoading, hasMore, children } = props;
 
   const [shouldFetch, setShouldFetch] = useState(true);
 
   useEffect(() => {
-    if (shouldFetch && !threadLoading) {
+    if (shouldFetch && !threadLoading && hasMore) {
       void fetchMore?.(NUMBER_OF_MESSAGES_TO_FETCH);
     }
-  }, [fetchMore, shouldFetch, threadLoading]);
+  }, [fetchMore, shouldFetch, threadLoading, hasMore]);
 
   return (
     <ScrollContainer
       canBeReplaced
       onScrollToEdge={(edge) => {
-        if (edge === 'top') {
+        if (edge === 'top' && hasMore) {
           void fetchMore?.(NUMBER_OF_MESSAGES_TO_FETCH);
         }
       }}

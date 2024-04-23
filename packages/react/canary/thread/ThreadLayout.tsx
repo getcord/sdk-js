@@ -46,6 +46,7 @@ export const ThreadLayout = withCord<
         <ThreadScrollContainer
           fetchMore={threadData?.fetchMore}
           threadLoading={!!threadData?.loading}
+          hasMore={threadData?.hasMore}
         >
           {[...messages, threadSeenBy]}
         </ThreadScrollContainer>
