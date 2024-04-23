@@ -68,6 +68,7 @@ export type ReplaceConfigBase = Partial<{
   Composer: React.ComponentType<ComposerProps>;
   ComposerLayout: React.ComponentType<ComposerLayoutProps>;
   EmojiPicker: React.ComponentType<EmojiPickerProps>;
+  EmptyThreadPlaceholder: React.ComponentType<EmptyThreadPlaceholderProps>;
   ErrorFallback: React.ComponentType<ErrorFallbackProps>;
   Facepile: React.ComponentType<FacepileProps>;
   MediaModal: React.ComponentType<MediaModalProps>;
@@ -93,22 +94,21 @@ export type ReplaceConfigBase = Partial<{
   ReopenThreadButton: React.ComponentType<ReopenThreadButtonProps>;
   Replace: React.ComponentType<object>;
   ResolvedThreadComposer: React.ComponentType<ResolvedThreadComposerProps>;
+  ScrollContainer: React.ComponentType<ScrollContainerProps>;
   SendButton: React.ComponentType<SendButtonProps>;
   SendMessageError: React.ComponentType<SendMessageErrorProps>;
   Separator: React.ComponentType<SeparatorProps>;
   ShareToEmailForm: React.ComponentType<ShareToEmailFormProps>;
   TextEditor: React.ComponentType<TextEditorProps>;
   Thread: React.ComponentType<ThreadProps>;
-  ThreadLayout: React.ComponentType<ThreadLayoutProps>;
   ThreadHeader: React.ComponentType<ThreadHeaderProps>;
+  ThreadLayout: React.ComponentType<ThreadLayoutProps>;
   ThreadSeenBy: React.ComponentType<ThreadSeenByProps>;
   Timestamp: React.ComponentType<TimestampProps>;
   ToastFunctionProvider: React.ComponentType<ToastFunctionProviderProps>;
   ToolbarLayout: React.ComponentType<ToolbarLayoutProps>;
   Username: React.ComponentType<UsernameProps>;
   UsernameTooltip: React.ComponentType<UsernameTooltipProps>;
-  ScrollContainer: React.ComponentType<ScrollContainerProps>;
-  EmptyThreadPlaceholder: React.ComponentType<EmptyThreadPlaceholderProps>;
 }>;
 
 type ReplaceWithin = Partial<{
