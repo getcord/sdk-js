@@ -428,6 +428,7 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
           name: 'addEmoji',
           element: (
             <ReactionPickButton
+              key="add-emoji-button"
               canBeReplaced
               className={buttonClasses.colorsTertiary}
               onReactionClick={insertEmoji}
@@ -438,6 +439,7 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
           name: 'sendButton',
           element: (
             <SendButton
+              key="send-button"
               onClick={() => {
                 onSubmit({
                   message: {

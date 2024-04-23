@@ -148,6 +148,7 @@ export function useAddAttachmentToComposer(attachmentsProps: {
         name: 'addAttachment',
         element: (
           <AddAttachmentsButton
+            key="add-attachment-button"
             editor={editor}
             editAttachment={upsertAttachment}
           />
