@@ -49,9 +49,7 @@ export const ThreadLayout = withCord<
         >
           {[...messages, threadSeenBy]}
         </ThreadScrollContainer>
-        {(threadData === null ||
-          (threadData !== undefined && !messages.length)) &&
-          emptyThreadPlaceholder}
+        {emptyThreadPlaceholder}
         {composer}
       </div>
     );

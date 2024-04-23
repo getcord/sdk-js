@@ -45,7 +45,10 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
               <Message key={message.id} message={message} canBeReplaced />
             ))}
             emptyThreadPlaceholder={
-              <EmptyThreadPlaceholderWrapper groupID={thread?.groupID} />
+              <EmptyThreadPlaceholderWrapper
+                groupID={thread?.groupID}
+                threadData={threadData}
+              />
             }
             threadSeenBy={
               <ThreadSeenByWrapper
