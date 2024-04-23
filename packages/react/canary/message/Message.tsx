@@ -66,7 +66,6 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
               ref={composedRef}
               className={cx(className, metaCordClasses)}
               messageID={message.id}
-              threadID={message.threadID}
               initialValue={message}
               onAfterSubmit={() => {
                 setIsEditing(false);

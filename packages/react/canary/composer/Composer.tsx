@@ -42,18 +42,25 @@ import { SendMessageError } from './SendMessageError.js';
 
 export function useEditComposer(props: EditComposerProps): ComposerProps {
   const onSubmit = useEditSubmit(props);
-  const { thread: threadData } = ThreadSDK.useThread(props.threadID);
+
+  const messageData = ThreadSDK.useMessage(props.messageID);
+  const threadData = ThreadSDK.useThread(messageData?.threadID, {
+    skip: !messageData?.threadID,
+  });
 
   return useCordComposer({
     ...props,
     onSubmit,
-    groupID: threadData?.groupID,
+    groupID: threadData.thread?.groupID,
   });
 }
 
 export function useSendComposer(props: SendComposerProps): ComposerProps {
   const onSubmit = useCreateSubmit(props);
-  const { thread: threadData } = ThreadSDK.useThread(props.threadID!);
+
+  const { thread: threadData } = ThreadSDK.useThread(props.threadID, {
+    skip: !props.threadID,
+  });
 
   return useCordComposer({
     ...props,
@@ -64,7 +71,9 @@ export function useSendComposer(props: SendComposerProps): ComposerProps {
 
 export const SendComposer = forwardRef(
   (props: SendComposerProps, ref: React.ForwardedRef<HTMLDivElement>) => {
-    const threadData = ThreadSDK.useThread(props.threadID!);
+    const threadData = ThreadSDK.useThread(props.threadID, {
+      skip: !props.threadID,
+    });
     const resolved = threadData.thread?.resolved;
     const { t } = useCordTranslation('composer');
 
@@ -87,8 +96,11 @@ export const SendComposer = forwardRef(
 
 export const EditComposer = forwardRef(
   (props: EditComposerProps, ref: React.ForwardedRef<HTMLDivElement>) => {
-    const threadData = ThreadSDK.useThread(props.threadID);
+    const message = ThreadSDK.useMessage(props.messageID);
+    const threadID = message?.threadID;
+    const threadData = ThreadSDK.useThread(threadID, { skip: !threadID });
     const resolved = threadData.thread?.resolved;
+
     const { t } = useCordTranslation('composer');
 
     const closeComposerButtonToolbarItem = useMemo(() => {

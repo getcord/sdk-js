@@ -9,6 +9,7 @@ import type {
   Reaction,
 } from '@cord-sdk/types';
 import { CordContext } from '../../../contexts/CordContext.js';
+import { thread as ThreadSDK } from '../../../index.js';
 
 const EMPTY_ATTACHMENTS: MessageAttachment[] = [];
 const EMPTY_REACTIONS: Reaction[] = [];
@@ -16,17 +17,26 @@ const EMPTY_REACTIONS: Reaction[] = [];
 type UseEditSubmit = {
   initialValue?: Partial<ClientMessageData>;
   messageID: string;
-  threadID: string;
 };
 
 export function useEditSubmit(args: UseEditSubmit) {
-  const { messageID, threadID, initialValue } = args;
+  const { messageID, initialValue } = args;
+
+  const messageData = ThreadSDK.useMessage(messageID);
+  const threadData = ThreadSDK.useThread(messageData?.threadID, {
+    skip: !messageData?.threadID,
+  });
 
   const initialAttachments = initialValue?.attachments ?? EMPTY_ATTACHMENTS;
   const { sdk: cord } = useContext(CordContext);
   return useCallback(
     ({ message }: { message: Partial<ClientMessageData> }) => {
       const { reactions, attachments, ...restMessage } = message;
+      const threadID = threadData.thread?.id;
+
+      if (!threadID) {
+        throw Error('Thread ID is required to edit a message.');
+      }
 
       const initialFileAttachments = initialAttachments.filter(
         isMessageFileAttachment,
@@ -67,9 +77,9 @@ export function useEditSubmit(args: UseEditSubmit) {
     [
       cord?.thread,
       messageID,
-      threadID,
       initialAttachments,
       initialValue?.reactions,
+      threadData,
     ],
   );
 }

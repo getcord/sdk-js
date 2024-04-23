@@ -85,17 +85,6 @@ export interface EditComposerProps extends StyleProps, ReplacementProps {
    */
   initialValue?: Partial<ClientMessageData>;
   /**
-   * An [arbitrary string](/reference/identifiers) that uniquely identifies a
-   * thread.
-   *
-   * *Warning!*
-   * An important restriction of working with thread identifiers
-   * is that they must be unique across your entire application.
-   * You can't use the same thread identifier in two separate
-   * groups. This is an intentional limitation imposed by Cord.
-   */
-  threadID: string;
-  /**
    * The id of the message to be edited.
    */
   messageID: string;
