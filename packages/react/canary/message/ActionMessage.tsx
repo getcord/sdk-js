@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { forwardRef } from 'react';
 import cx from 'classnames';
-import type { ClientMessageData, MessageContent } from '@cord-sdk/types';
+import type { ClientMessageData } from '@cord-sdk/types';
 import type { StyleProps } from '../../betaV2.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { useTranslatedMessageContent } from '../../hooks/useTranslatedMessageContent.js';
@@ -26,8 +26,7 @@ export const ActionMessage = withCord<
   ) {
     const content = useTranslatedMessageContent(
       message.translationKey,
-      // [ONI]-TODO revisit type casting
-      message.content as MessageContent,
+      message.content,
     );
 
     const viewerData = useViewerData();

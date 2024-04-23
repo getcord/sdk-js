@@ -12,6 +12,7 @@ import type {
   SortDirection,
 } from './thread.js';
 import type { UploadedFile } from './file.js';
+import type { MessageContent } from './messageNodes.js';
 
 export type Reaction = {
   /**
@@ -172,7 +173,7 @@ export interface CoreMessageData {
   /**
    * The content of the message.
    */
-  content: object[];
+  content: MessageContent;
   /**
    * A plaintext version of the structured message content.
    */

@@ -6,6 +6,7 @@ import type {
   CoreNotificationData,
   UUID,
   ClientUserData,
+  MessageContent,
 } from '@cord-sdk/types';
 
 // Typing of the payloads we send to clients
@@ -35,7 +36,7 @@ export interface ThreadMessageAddedWebhookPayload {
   applicationID: UUID; // exception: this one will be moved to higher level (see postEvent)
   projectID: UUID; // exception: this one will be moved to higher level (see postEvent)
   author: ClientUserData;
-  content: object[];
+  content: MessageContent;
   plaintext: string;
   url: string;
   messageType: 'action_message' | 'user_message';

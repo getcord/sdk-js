@@ -147,7 +147,7 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
 
   const base = useBaseComposer({
     ...props,
-    initialValue: props.initialValue?.content as MessageContent | undefined,
+    initialValue: props.initialValue?.content,
   });
 
   const { editor, isEmpty } = base;
@@ -350,7 +350,7 @@ export function useBaseComposer(
   const initialValue = useMemo(
     () =>
       ({
-        content: simpleComposer.initialValue as MessageContent,
+        content: simpleComposer.initialValue,
       }) satisfies Partial<ClientMessageData>,
     [simpleComposer.initialValue],
   );
@@ -586,7 +586,7 @@ const BaseComposer = forwardRef(function BaseComposer(
             className={classes.editor}
             placeholder={placeholder}
             editor={editor}
-            initialValue={initialValue?.content as MessageContent | undefined}
+            initialValue={initialValue?.content}
             onPaste={onPaste}
             onChange={onChange}
             onKeyDown={onKeyDown}

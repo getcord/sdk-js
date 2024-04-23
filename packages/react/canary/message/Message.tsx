@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { forwardRef, useCallback, useState } from 'react';
 import cx from 'classnames';
-import type { MessageContent as MessageContentType } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as buttonClasses from '../../components/helpers/Button.classnames.js';
 
@@ -115,7 +114,7 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
             avatar={<Avatar.ByID canBeReplaced userID={message.authorID} />}
             messageContent={
               <MessageContent
-                content={message.content as MessageContentType}
+                content={message.content}
                 createdAt={message.createdTimestamp}
                 userData={authorData}
                 attachments={message.attachments}
