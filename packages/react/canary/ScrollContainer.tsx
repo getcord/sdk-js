@@ -14,15 +14,19 @@ type AutoScrollToNewest = 'auto' | 'always' | 'never';
 type AutoScrollDirection = 'top' | 'bottom';
 export type ScrollContainerProps = {
   /**
-   * Children added to this scroll container are appended at the bottom.
-   * @default true
+   * The scroll container can auto scroll when new children are added.
+   * The auto scroll direction informs the scroll container where
+   * new children will be added.
+   * @default "bottom"
    */
   autoScrollDirection?: AutoScrollDirection;
   /**
-   * If `auto`, the scroll is preserved unless the user
-   * is at the edge where new child will appear.
+   * The scroll container can auto scroll when new children are added.
+   * If `autoScrollToNewest` is set to `auto`, the scroll container will
+   * scroll only if the user has scrolled to the edge, and the edge
+   * matches `autoScrollDirection`. If not at an edge, the scroll is preserved.
    * `always` and `never` either _always_ scroll to the newest
-   * child or never do.
+   * child or _never_ do.
    * @default "auto"
    */
   autoScrollToNewest?: AutoScrollToNewest;
