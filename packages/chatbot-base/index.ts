@@ -10,13 +10,13 @@ import { isAsyncIterable, stringToMessageContent } from './private/util.js';
 type MessageCreatedWebhookEvent =
   WebhookWrapperProperties<'thread-message-added'>;
 
-export type ChatBotRegistry = {
-  register: (botID: string, bot: ChatBot) => Promise<void>;
+export type ChatbotRegistry = {
+  register: (botID: string, bot: Chatbot) => Promise<void>;
   forceRespond: (botID: string, threadID: string) => Promise<void>;
   webhookReceived: (req: Request) => Promise<boolean>;
 };
 
-export type ChatBot = {
+export type Chatbot = {
   cordUser: ServerUpdateUser;
   shouldRespondToEvent: (
     event: MessageCreatedWebhookEvent,
@@ -49,20 +49,20 @@ export function messageIsFromBot(message: CoreMessageData): boolean {
 export function chatbots(
   project_id: string,
   project_secret: string,
-): ChatBotRegistry {
-  return new ChatBotRegistryImpl(project_id, project_secret);
+): ChatbotRegistry {
+  return new ChatbotRegistryImpl(project_id, project_secret);
 }
 
-class ChatBotRegistryImpl {
-  #bots: Map<string, ChatBot> = new Map();
+class ChatbotRegistryImpl {
+  #bots: Map<string, Chatbot> = new Map();
   #creds: { project_id: string; project_secret: string };
 
   constructor(project_id: string, project_secret: string) {
     this.#creds = { project_id, project_secret };
   }
 
-  async register(botID: string, bot: ChatBot): Promise<void> {
-    const cordUserWithMetadata: ChatBot['cordUser'] = {
+  async register(botID: string, bot: Chatbot): Promise<void> {
+    const cordUserWithMetadata: Chatbot['cordUser'] = {
       ...bot.cordUser,
       metadata: { [BOT_METADATA_KEY]: true, ...bot.cordUser.metadata },
     };

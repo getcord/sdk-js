@@ -1,6 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { messageIsFromBot } from '@cord-sdk/chatbot-base';
-import type { ChatBot } from '@cord-sdk/chatbot-base';
+import type { Chatbot } from '@cord-sdk/chatbot-base';
 import type { CoreMessageData } from '@cord-sdk/types';
 
 export function messageToAnthropicMessage(
@@ -20,13 +20,13 @@ type MessageCreateParams = Omit<
 export function anthropicCompletion(
   apiKey: string,
   getAnthropicMessages: (
-    ...p: Parameters<ChatBot['getResponse']>
+    ...p: Parameters<Chatbot['getResponse']>
   ) =>
     | Anthropic.MessageParam[]
     | Promise<Anthropic.MessageParam[]>
     | MessageCreateParams
     | Promise<MessageCreateParams>,
-): ChatBot['getResponse'] {
+): Chatbot['getResponse'] {
   const anthropic = new Anthropic({ apiKey });
 
   return async function* resopnse(messages, thread) {
@@ -58,7 +58,7 @@ export function anthropicCompletion(
 export function anthropicSimpleAssistant(
   apiKey: string,
   systemPrompt: string,
-): ChatBot['getResponse'] {
+): Chatbot['getResponse'] {
   return anthropicCompletion(apiKey, (messages, _thread) => ({
     model: 'claude-3-haiku-20240307',
     max_tokens: 1024,

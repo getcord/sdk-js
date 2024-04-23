@@ -1,6 +1,6 @@
 import { OpenAI } from 'openai';
 import { messageIsFromBot } from '@cord-sdk/chatbot-base';
-import type { ChatBot } from '@cord-sdk/chatbot-base';
+import type { Chatbot } from '@cord-sdk/chatbot-base';
 import type { CoreMessageData } from '@cord-sdk/types';
 
 export function messageToOpenaiMessage(
@@ -20,13 +20,13 @@ type CompletionParams = Omit<
 export function openaiCompletion(
   apiKey: string,
   getOpenaiMessages: (
-    ...p: Parameters<ChatBot['getResponse']>
+    ...p: Parameters<Chatbot['getResponse']>
   ) =>
     | OpenAI.ChatCompletionMessageParam[]
     | Promise<OpenAI.ChatCompletionMessageParam[]>
     | CompletionParams
     | Promise<CompletionParams>,
-): ChatBot['getResponse'] {
+): Chatbot['getResponse'] {
   const openai = new OpenAI({
     apiKey,
   });
@@ -61,7 +61,7 @@ export function openaiCompletion(
 export function openaiSimpleAssistant(
   apiKey: string,
   systemPrompt: string,
-): ChatBot['getResponse'] {
+): Chatbot['getResponse'] {
   return openaiCompletion(apiKey, (messages, _thread) => [
     { role: 'system', content: systemPrompt },
     ...messages.map(messageToOpenaiMessage),
