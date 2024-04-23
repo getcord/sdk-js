@@ -437,6 +437,13 @@ const STILL_LOADING_RETURN_VALUE = {
   fetchMore: async () => {},
 };
 
+type ReactThreadObserverOptions = ThreadObserverOptions & {
+  /**
+   * When set to true, prevents the execution of any operations within the hook.
+   */
+  skip?: boolean;
+};
+
 /**
  * This hook allows you to observe message and summary data about a thread,
  * including live updates.
@@ -472,8 +479,8 @@ const STILL_LOADING_RETURN_VALUE = {
  * re-render if any of the data changes, i.e., this data is always "live".
  */
 export function useThread(
-  threadID: string,
-  options?: ThreadObserverOptions,
+  threadID?: string,
+  options?: ReactThreadObserverOptions,
 ): ClientThreadData {
   const [value, setValue] = useState<ClientThreadData>();
 
@@ -483,8 +490,12 @@ export function useThread(
   const optionsMemo = useMemoObject(options);
 
   useEffect(() => {
-    if (!threadSDK) {
+    if (!threadSDK || optionsMemo?.skip) {
       return;
+    }
+
+    if (!threadID) {
+      throw new Error('threadID not provided to useThread');
     }
 
     const key = threadSDK.observeThread(threadID, setValue, optionsMemo);
