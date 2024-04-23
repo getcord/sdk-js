@@ -161,6 +161,11 @@ export type MessageProps = {
    * Contains the data of the message to be displayed.
    */
   message: ClientMessageData;
+  /**
+   * If set to true, the thread options will appear within the message options menu.
+   * Defaults to false.
+   */
+  showThreadOptions?: boolean;
 } & CommonMessageProps;
 
 export interface CommonAvatarProps extends StyleProps {

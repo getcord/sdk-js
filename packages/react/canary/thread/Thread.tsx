@@ -42,7 +42,14 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
               />
             }
             messages={messages.map((message) => (
-              <Message key={message.id} message={message} canBeReplaced />
+              <Message
+                key={message.id}
+                message={message}
+                showThreadOptions={
+                  !showHeader && thread?.firstMessage?.id === message.id
+                }
+                canBeReplaced
+              />
             ))}
             emptyThreadPlaceholder={
               <EmptyThreadPlaceholderWrapper

@@ -40,7 +40,12 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
   Object.assign(
     withCord<React.PropsWithChildren<MessageProps>>(
       forwardRef(function Message(
-        { message, className, ...restProps }: MessageProps,
+        {
+          message,
+          className,
+          showThreadOptions = false,
+          ...restProps
+        }: MessageProps,
         ref: React.ForwardedRef<HTMLElement>,
       ) {
         const [isEditing, setIsEditing] = useState(false);
@@ -142,7 +147,7 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
                     canBeReplaced
                   />
                 }
-                showThreadOptions
+                showThreadOptions={showThreadOptions}
                 showMessageOptions
                 setEditing={setIsEditing}
               />
