@@ -4,9 +4,9 @@ import cx from 'classnames';
 
 import type { ClientThreadData } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
-import { ScrollContainer } from '../ScrollContainer.js';
 import type { StyleProps } from '../../betaV2.js';
 import classes from './Thread.css.js';
+import { ThreadScrollContainer } from './ThreadScrollContainer.js';
 
 export type ThreadLayoutProps = {
   threadData: ClientThreadData | undefined;
@@ -43,9 +43,12 @@ export const ThreadLayout = withCord<
         data-cord-thread-id={threadData?.thread?.id}
       >
         {header}
-        <ScrollContainer canBeReplaced>
+        <ThreadScrollContainer
+          fetchMore={threadData?.fetchMore}
+          threadLoading={!!threadData?.loading}
+        >
           {[...messages, threadSeenBy]}
-        </ScrollContainer>
+        </ThreadScrollContainer>
         {(threadData === null ||
           (threadData !== undefined && !messages.length)) &&
           emptyThreadPlaceholder}
