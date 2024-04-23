@@ -149,6 +149,7 @@ export {
   type TextEditorProps,
 } from './canary/composer/TextEditor.js';
 export { Thread } from './canary/thread/Thread.js';
+export { type ThreadActionsProps } from './../react/experimental/components/menu/ThreadActions.js';
 export {
   ThreadHeader,
   type ThreadHeaderProps,
@@ -181,6 +182,8 @@ export {
   type UsernameProps,
   type UsernameTooltipProps,
 } from './canary/message/Username.js';
+export { useMessageActions } from './../react/experimental/components/menu/MessageActions.js';
+export { useThreadActions } from './../react/experimental/components/menu/ThreadActions.js';
 export { useToast } from './experimental/hooks/useToast.js';
 export {
   WithPopper,
