@@ -17,6 +17,7 @@ import { wrapTextNodeWithStyles } from '../editor/render.js';
 import * as classes from '../../../components/message/MessageText.css.js';
 import withCord from '../hoc/withCord.js';
 import type { StyleProps } from '../../types.js';
+import { useTranslatedMessageContent } from '../../../hooks/useTranslatedMessageContent.js';
 import { MessageUserReferenceElement } from './MessageUserReferenceElement.js';
 
 export type MessageTextProps = {
@@ -75,8 +76,11 @@ function RenderedContent(props: {
   hideAnnotationAttachment?: boolean;
   formatStyle?: FormatStyle;
 }) {
-  // [ONI]-TODO useTranslatedMessageContent
-  return messageContent({ ...props, nodes: props.nodes });
+  const translated = useTranslatedMessageContent(
+    props.message?.translationKey,
+    props.nodes,
+  );
+  return messageContent({ ...props, nodes: translated });
 }
 
 function messageContent({
