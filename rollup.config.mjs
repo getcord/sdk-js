@@ -131,6 +131,9 @@ async function rollupConfig() {
         },
       ],
     }),
+    packageBuildConfig('chatbot-base'),
+    packageBuildConfig('chatbot-anthropic'),
+    packageBuildConfig('chatbot-openai'),
   ]);
 
   return configs.flat();
