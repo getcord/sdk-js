@@ -36,6 +36,7 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
             header={
               <ThreadHeader
                 canBeReplaced
+                key={`thread-header-${thread?.id}`}
                 threadID={thread?.id}
                 showContextMenu={messages.length > 0}
                 hide={!showHeader}
@@ -53,17 +54,24 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
             ))}
             emptyThreadPlaceholder={
               <EmptyThreadPlaceholderWrapper
+                key={`placeholder-${thread?.id}`}
                 groupID={thread?.groupID}
                 threadData={threadData}
               />
             }
             threadSeenBy={
               <ThreadSeenByWrapper
+                key={`seen-by-${thread?.id}`}
                 participants={thread?.participants ?? []}
                 message={thread?.lastMessage}
               />
             }
-            composer={<SendComposer threadID={thread?.id} />}
+            composer={
+              <SendComposer
+                key={`composer-${thread?.id}`}
+                threadID={thread?.id}
+              />
+            }
             {...restProps}
           />
         );
