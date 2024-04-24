@@ -253,6 +253,9 @@ export function RenderNode({
     case MessageNodeType.TODO:
       // [ONI]-TODO maybe implement?
       return null;
+    case MessageNodeType.MARKDOWN:
+      // TODO: MARKDOWN_NODE fix presentation
+      return <React.Fragment key={index}>{node.text}</React.Fragment>;
     default: {
       // it's probably text
       if (node.text !== undefined) {

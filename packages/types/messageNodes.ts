@@ -10,6 +10,7 @@ export enum MessageNodeType {
   PARAGRAPH = 'p',
   QUOTE = 'quote',
   TODO = 'todo',
+  MARKDOWN = 'markdown',
 }
 
 export type MessageContent = MessageNode[];
@@ -24,7 +25,8 @@ type MessageAnyNode =
   | MessageParagraphNode
   | MessageQuoteNode
   | MessageTextNode
-  | MessageTodoNode;
+  | MessageTodoNode
+  | MessageMarkdownNode;
 
 export type MessageNode<N extends MessageNodeType | undefined | null = null> =
   N extends null
@@ -49,6 +51,8 @@ export type MessageNode<N extends MessageNodeType | undefined | null = null> =
     ? MessageQuoteNode
     : N extends MessageNodeType.TODO
     ? MessageTodoNode
+    : N extends MessageNodeType.MARKDOWN
+    ? MessageMarkdownNode
     : MessageAnyNode;
 
 export type MessageNodeBase = {
@@ -114,6 +118,11 @@ export type MessageTodoNode = MessageNodeWithChildren & {
   type: MessageNodeType.TODO;
   todoID: UUID;
   done: boolean;
+};
+
+export type MessageMarkdownNode = MessageNodeBase & {
+  type: MessageNodeType.MARKDOWN;
+  text: string;
 };
 
 export type MessageNodeProps<M extends MessageNodeType> = Omit<
