@@ -142,20 +142,18 @@ function ThreadedCommentsImpl({
   onSend,
 }: ThreadedCommentsReactComponentProps) {
   const filterWithGroup = { ..._filter, groupID: propGroupID };
-  const { thread: maybeThreadToHighlight } = useThread(
-    highlightThreadId ?? '',
-    {
-      filter: {
-        location: { value: location, partialMatch },
-        groupID: propGroupID,
-        metadata: filterWithGroup?.metadata,
-        // We always need to fetch the thread to highlight, regardless of
-        // the resolvedStatus. We then adjust the initial state of
-        // ThreadedComments based on the resolvedStatus of that thread.
-        resolvedStatus: 'any',
-      },
+  const { thread: maybeThreadToHighlight } = useThread(highlightThreadId, {
+    skip: !highlightThreadId,
+    filter: {
+      location: { value: location, partialMatch },
+      groupID: propGroupID,
+      metadata: filterWithGroup?.metadata,
+      // We always need to fetch the thread to highlight, regardless of
+      // the resolvedStatus. We then adjust the initial state of
+      // ThreadedComments based on the resolvedStatus of that thread.
+      resolvedStatus: 'any',
     },
-  );
+  });
   const [resolvedTabSelected, setResolvedTabSelected] = useState(
     !!maybeThreadToHighlight?.resolved || displayResolved === 'resolvedOnly',
   );
@@ -677,7 +675,7 @@ function CommentsThread({
   onComposerClose?: (...args: ComposerWebComponentEvents['close']) => unknown;
   onSend?: (...args: ComposerWebComponentEvents['send']) => unknown;
 }) {
-  const threadData = useThread(threadId, { filter });
+  const threadData = useThread(threadId, { filter, skip: !threadId });
   const viewerData = user.useViewerData();
   const allowReplies = showReplies !== 'alwaysCollapsed';
   const initiallyExpandedReplies = showReplies === 'initiallyExpanded';
