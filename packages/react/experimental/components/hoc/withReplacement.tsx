@@ -1,6 +1,7 @@
 // @ts-ignore TS wants us to `import type` this, but we need it for JSX
 import * as React from 'react';
 
+import { useMemo } from 'react';
 import { useAtomValue } from 'jotai';
 import type { WritableAtom } from 'jotai';
 import { ScopeProvider } from 'jotai-scope';
@@ -8,6 +9,7 @@ import { useHydrateAtoms } from 'jotai/react/utils';
 import { registerComponent, replaceRegistry } from '../replacements.js';
 import type {
   ComponentName,
+  MandatoryReplacableProps,
   ReplaceConfig,
   ReplaceConfigBase,
 } from '../replacements.js';
@@ -21,7 +23,7 @@ export type ReplacementProps = {
    * Allow the component to be replaced.
    **/
   canBeReplaced?: boolean;
-};
+} & MandatoryReplacableProps;
 
 function isValidReplaceKey(
   key: string,
@@ -54,7 +56,19 @@ export default function withReplacement<
 
   const ComponentWithWrapper = React.forwardRef(
     (props: T & ReplacementProps, ref: React.ForwardedRef<HTMLElement>) => {
-      const { replace, canBeReplaced, ...restProps } = props;
+      const {
+        replace,
+        canBeReplaced,
+        'data-cord-replace': origReplaceNames,
+        ...restProps
+      } = props;
+      const dataCordReplaceNames = useMemo(
+        () =>
+          [...(origReplaceNames ?? '').split(', '), name]
+            .filter(Boolean)
+            .join(', '),
+        [origReplaceNames],
+      );
 
       const configFromAboveAtom = replaceRegistry.get(name);
       if (!configFromAboveAtom) {
@@ -72,7 +86,11 @@ export default function withReplacement<
       return (
         <ReplacementConfigScope replace={{ ...replaceFromAbove, ...replace }}>
           {canBeReplaced ? (
-            <Component ref={ref} {...(restProps as T)} />
+            <Component
+              ref={ref}
+              data-cord-replace={dataCordReplaceNames}
+              {...(restProps as T)}
+            />
           ) : (
             // This is to avoid infinite loop where a Component is replace with the same Component wrapped
             // TODO change to the opposite, because the user should not have to pass `noReplace`, only us
