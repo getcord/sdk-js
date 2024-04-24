@@ -6,13 +6,15 @@ import withCord from '../../experimental/components/hoc/withCord.js';
 import * as buttonClasses from '../../components/helpers/Button.classnames.js';
 import { Button, OptionsMenu } from '../../betaV2.js';
 import type { StyleProps } from '../../betaV2.js';
+import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 import classes from './Thread.css.js';
 
 export type ThreadHeaderProps = {
   showContextMenu?: boolean;
   threadID: string | undefined;
   hide?: boolean;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const ThreadHeader = withCord<
   React.PropsWithChildren<ThreadHeaderProps>

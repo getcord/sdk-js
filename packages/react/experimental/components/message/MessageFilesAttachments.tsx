@@ -14,6 +14,7 @@ import {
 import { isNotNull } from '../../../common/util.js';
 import withCord from '../hoc/withCord.js';
 import { useMediaModal } from '../../hooks/useMediaModal.js';
+import type { MandatoryReplaceableProps } from '../replacements.js';
 import classes from './MessageFilesAttachments.css.js';
 import { MessageFileAttachment } from './MessageFileAttachment.js';
 import { MessageImageAttachment } from './MessageImageAttachment.js';
@@ -23,13 +24,18 @@ export type MessageFilesAttachmentsProps = {
   authorData: ClientUserData | null | undefined;
   createdAt: Date | undefined;
   attachments: MessageAttachment[];
-};
+} & MandatoryReplaceableProps;
 
 export const MessageFilesAttachments = withCord<
   React.PropsWithChildren<MessageFilesAttachmentsProps>
 >(
   forwardRef(function MessageFilesAttachments(
-    { attachments, authorData, createdAt }: MessageFilesAttachmentsProps,
+    {
+      attachments,
+      authorData,
+      createdAt,
+      ...restProps
+    }: MessageFilesAttachmentsProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     const [unsupportedVideoIDs, setUnsupportedVideoIDs] = useState<UUID[]>([]);
@@ -90,6 +96,7 @@ export const MessageFilesAttachments = withCord<
             classes.messageAttachment,
           )}
           ref={ref}
+          {...restProps}
         >
           {imageFiles.map((file, index) => (
             <MessageImageAttachment
@@ -106,6 +113,7 @@ export const MessageFilesAttachments = withCord<
             classes.messageVideoAttachments,
             classes.messageAttachment,
           )}
+          {...restProps}
         >
           {videoFiles.map((attachment) => (
             <MessageVideoAttachment
@@ -120,6 +128,7 @@ export const MessageFilesAttachments = withCord<
             classes.messageDocumentAttachments,
             classes.messageAttachment,
           )}
+          {...restProps}
         >
           {attachmentGroups.documentFileAttachments.map((attachment, index) => (
             <MessageFileAttachment key={index} file={attachment} />

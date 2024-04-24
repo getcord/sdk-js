@@ -2,6 +2,7 @@ import type { ClientUserData } from '@cord-sdk/types';
 import type { CSSProperties } from 'react';
 import * as React from 'react';
 import { useMemo, useState, useCallback, forwardRef } from 'react';
+import cx from 'classnames';
 import type { Editor } from 'slate';
 import { Range, Node, Text } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -19,6 +20,8 @@ import {
 import { Keys } from '../../../common/const/Keys.js';
 import { isUserReferenceNode } from '../../../canary/composer/lib/util.js';
 import withCord from '../hoc/withCord.js';
+import type { MandatoryReplaceableProps } from '../replacements.js';
+import type { StyleProps } from '../../types.js';
 
 const ROW_HEIGHT = 40;
 const MAX_ROWS_TO_SHOW = 5;
@@ -191,7 +194,8 @@ export type MentionListProps = {
   onSuggestionClicked: (index: number) => void;
   closeMenu: () => void;
   unshownUserCountLine?: React.ReactElement<typeof MenuItem> | null;
-};
+} & MandatoryReplaceableProps &
+  StyleProps;
 
 export const MentionList = withCord<React.PropsWithChildren<MentionListProps>>(
   forwardRef(function MentionList(
@@ -202,6 +206,9 @@ export const MentionList = withCord<React.PropsWithChildren<MentionListProps>>(
       closeMenu,
       setUserReferenceIndex,
       onSuggestionClicked,
+      className,
+      style,
+      ...rest
     }: MentionListProps,
     ref: React.ForwardedRef<HTMLElement>,
   ) {
@@ -219,7 +226,8 @@ export const MentionList = withCord<React.PropsWithChildren<MentionListProps>>(
       <Menu
         ref={ref}
         canBeReplaced
-        className={userReferenceSuggestionsMenu}
+        className={cx(userReferenceSuggestionsMenu, className)}
+        style={style}
         items={[
           {
             name: 'mention-list',
@@ -243,6 +251,7 @@ export const MentionList = withCord<React.PropsWithChildren<MentionListProps>>(
           },
         ]}
         closeMenu={closeMenu}
+        {...rest}
       >
         {unshownUserCountLine ?? null}
       </Menu>

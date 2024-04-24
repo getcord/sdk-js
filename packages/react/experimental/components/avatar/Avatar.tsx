@@ -21,6 +21,7 @@ import type {
 } from '../../../betaV2.js';
 import { WithTooltip } from '../WithTooltip.js';
 import withCord from '../hoc/withCord.js';
+import type { MandatoryReplaceableProps } from '../replacements.js';
 
 function useImageStatus(
   imageRef: React.RefObject<HTMLImageElement>,
@@ -132,7 +133,7 @@ export const Avatar: WithByIDComponent<AvatarProps, AvatarByIDProps> =
 export type AvatarInnerProps = {
   user: ClientUserData;
   isAbsent?: boolean;
-};
+} & MandatoryReplaceableProps;
 type AvatarPropsWithClassname = AvatarInnerProps & { className?: string };
 
 const AvatarInner = forwardRef(function AvatarImpl(
@@ -146,7 +147,6 @@ const AvatarInner = forwardRef(function AvatarImpl(
 
   return (
     <div
-      {...restProps}
       ref={ref}
       className={cx(classes.avatarContainer, className, {
         [MODIFIERS.present]: !isAbsent,
@@ -159,6 +159,7 @@ const AvatarInner = forwardRef(function AvatarImpl(
       data-cy="cord-avatar"
       data-cord-user-id={id}
       data-cord-user-name={name}
+      {...restProps}
     >
       <img
         ref={imageRef}

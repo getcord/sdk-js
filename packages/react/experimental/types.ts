@@ -9,6 +9,7 @@ import type {
 } from '@cord-sdk/types';
 import type { CustomEditor } from '../slateCustom.js';
 import type { ReplacementProps } from './components/hoc/withReplacement.js';
+import type { MandatoryReplaceableProps } from './components/replacements.js';
 
 export type ByID<T> = T & React.RefAttributes<HTMLElement> & ReplacementProps;
 
@@ -112,7 +113,7 @@ export interface EditComposerProps extends StyleProps, ReplacementProps {
   onFailSubmit?: (error: unknown) => void;
 }
 
-export interface ComposerProps extends StyleProps {
+export interface ComposerProps extends StyleProps, MandatoryReplaceableProps {
   onSubmit: (arg: { message: Partial<ClientMessageData> }) => Promise<void>;
   // TODO-ONI add cancel button
   // onCancel: () => void;
@@ -154,9 +155,11 @@ export type CordComposerProps = {
   onFailSubmit?: (error: unknown) => void;
 };
 
-export type CommonMessageProps = StyleProps;
+export interface CommonMessageProps
+  extends StyleProps,
+    MandatoryReplaceableProps {}
 
-export type MessageProps = {
+export interface MessageProps extends CommonMessageProps {
   /**
    * Contains the data of the message to be displayed.
    */
@@ -166,9 +169,11 @@ export type MessageProps = {
    * Defaults to false.
    */
   showThreadOptions?: boolean;
-} & CommonMessageProps;
+}
 
-export interface CommonAvatarProps extends StyleProps {
+export interface CommonAvatarProps
+  extends StyleProps,
+    MandatoryReplaceableProps {
   /**
    * Whether to enable tooltip on the avatar.
    */
@@ -188,11 +193,12 @@ export interface AvatarProps extends CommonAvatarProps {
 export type AvatarTooltipProps = {
   viewerData: ViewerUserData;
   userData: ClientUserData;
-};
+} & MandatoryReplaceableProps;
 
 export type AvatarFallbackProps = {
   userData: ClientUserData;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export type PresenceObserverReactComponentProps = React.PropsWithChildren<{
   /**
@@ -290,6 +296,8 @@ export type ThreadByIDProps = {
   createThread?: ClientCreateThread;
 } & CommonThreadProps;
 
-export interface ThreadProps extends CommonThreadProps {
+export interface ThreadProps
+  extends CommonThreadProps,
+    MandatoryReplaceableProps {
   threadData?: ClientThreadData;
 }

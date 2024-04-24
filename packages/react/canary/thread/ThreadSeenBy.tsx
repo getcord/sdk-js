@@ -12,6 +12,7 @@ import { useCordTranslation } from '../../hooks/useCordTranslation.js';
 import { fontSmallLight } from '../../common/ui/atomicClasses/fonts.css.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import type { StyleProps } from '../../betaV2.js';
+import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 import * as classes from './ThreadSeenBy.css.js';
 
 const DEFAULT_NUM_OF_NAMES_TO_SHOW = 3; // After which we'll show "and X others";
@@ -88,7 +89,8 @@ export type ThreadSeenByProps = {
     users: ThreadParticipant[],
     numOfNamesToShow?: number,
   ) => string | null;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const ThreadSeenBy = withCord<
   React.PropsWithChildren<ThreadSeenByProps>

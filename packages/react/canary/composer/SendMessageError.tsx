@@ -5,8 +5,9 @@ import withCord from '../../experimental/components/hoc/withCord.js';
 import type { StyleProps } from '../../betaV2.js';
 import { useCordTranslation } from '../../hooks/useCordTranslation.js';
 import * as classes from '../../components/Composer.classnames.js';
+import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 
-export type SendMessageErrorProps = StyleProps;
+export type SendMessageErrorProps = StyleProps & MandatoryReplaceableProps;
 
 export const SendMessageError = withCord<
   React.PropsWithChildren<SendMessageErrorProps>

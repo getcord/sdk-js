@@ -7,6 +7,7 @@ import { PresenceObserver } from '../../components/PresenceObserver.js';
 import type { StyleProps } from '../../betaV2.js';
 import withCord from './hoc/withCord.js';
 import { PresenceFacepile } from './PresenceFacepile.js';
+import type { MandatoryReplaceableProps } from './replacements.js';
 
 export type PagePresenceProps = {
   location: Location;
@@ -15,7 +16,8 @@ export type PagePresenceProps = {
   excludeViewer?: boolean;
   onlyPresentUsers?: boolean;
   groupID?: string;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const PagePresence = withCord<
   React.PropsWithChildren<PagePresenceProps>

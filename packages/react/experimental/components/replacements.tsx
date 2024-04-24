@@ -111,7 +111,7 @@ export type ReplaceConfigBase = Partial<{
   UsernameTooltip: React.ComponentType<UsernameTooltipProps>;
 }>;
 
-export type MandatoryReplacableProps = { 'data-cord-replace'?: string };
+export type MandatoryReplaceableProps = { 'data-cord-replace'?: string };
 
 type ReplaceWithin = Partial<{
   within: { [name in keyof ReplaceConfigBase]?: ReplaceConfigBase };

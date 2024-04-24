@@ -5,6 +5,7 @@ import cx from 'classnames';
 import type { ClientThreadData } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import type { StyleProps } from '../../betaV2.js';
+import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 import classes from './Thread.css.js';
 import { ThreadScrollContainer } from './ThreadScrollContainer.js';
 
@@ -15,7 +16,8 @@ export type ThreadLayoutProps = {
   emptyThreadPlaceholder: JSX.Element;
   threadSeenBy: JSX.Element;
   composer: JSX.Element;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const ThreadLayout = withCord<
   React.PropsWithChildren<ThreadLayoutProps>

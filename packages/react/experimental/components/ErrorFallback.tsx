@@ -2,11 +2,13 @@ import { forwardRef } from 'react';
 
 import type { StyleProps } from '../types.js';
 import withReplacement from './hoc/withReplacement.js';
+import type { MandatoryReplaceableProps } from './replacements.js';
 
 export type ErrorFallbackProps = {
   error?: Error;
   errorInfo?: React.ErrorInfo;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 // Because this is used in 'withCord', we only wrap it in 'withReplacement'
 // This avoids circular dependencies.

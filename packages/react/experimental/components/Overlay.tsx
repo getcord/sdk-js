@@ -7,9 +7,11 @@ import { imageModalOverlay } from '../../components/MediaModal.classnames.js';
 import type { StyleProps } from '../../betaV2.js';
 import { Portal } from './Portal.js';
 import withCord from './hoc/withCord.js';
+import type { MandatoryReplaceableProps } from './replacements.js';
 
 export type OverlayProps = React.PropsWithChildren<
-  { onClick: (e: React.MouseEvent<HTMLDivElement>) => void } & StyleProps
+  { onClick: (e: React.MouseEvent<HTMLDivElement>) => void } & StyleProps &
+    MandatoryReplaceableProps
 >;
 
 export const Overlay = withCord(

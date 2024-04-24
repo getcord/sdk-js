@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useCallback, useState, forwardRef, useRef, useEffect } from 'react';
 import withCord from '../hoc/withCord.js';
+import type { MandatoryReplaceableProps } from '../replacements.js';
 import { useComposedRefs } from '../../../common/lib/composeRefs.js';
 import { useCordTranslation } from '../../../index.js';
 import classes from '../../../components/helpers/EmojiPicker.css.js';
@@ -34,7 +35,8 @@ type EmojiButtonRef = {
 export type EmojiPickerProps = {
   onClose: () => void;
   onClickEmoji: (emoji: string) => void;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const EmojiPicker = withCord<React.PropsWithChildren<EmojiPickerProps>>(
   forwardRef(function EmojiPicker(

@@ -6,6 +6,7 @@ import type { ClientMessageData } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as classes from '../../components/Message.classnames.js';
 import type { StyleProps } from '../../betaV2.js';
+import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 
 export type MessageLayoutProps = {
   message: ClientMessageData;
@@ -16,7 +17,8 @@ export type MessageLayoutProps = {
   optionsMenu: JSX.Element;
   reactions: JSX.Element;
   authorName: JSX.Element;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 /**
  * Replacing MessageLayout enables rendering Message components

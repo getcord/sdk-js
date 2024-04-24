@@ -4,6 +4,7 @@ import { forwardRef, useCallback, useMemo, useState } from 'react';
 import type { ClientMessageData } from '@cord-sdk/types';
 import { DefaultTooltip } from '../WithTooltip.js';
 import withCord from '../hoc/withCord.js';
+import type { MandatoryReplaceableProps } from '../replacements.js';
 import type { StyleProps } from '../../../experimental/types.js';
 import * as classes from '../../../components/OptionsMenu.css.js';
 import { useCordTranslation } from '../../../index.js';
@@ -29,7 +30,8 @@ export type OptionsMenuProps = {
   showMessageOptions: boolean;
   message?: ClientMessageData;
   setEditing: React.Dispatch<React.SetStateAction<boolean>>;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const OptionsMenu = withCord<React.PropsWithChildren<OptionsMenuProps>>(
   forwardRef(function OptionsMenu(
@@ -195,14 +197,21 @@ export function useOptionsMenuActionsItems({
   ]);
 }
 
-export type OptionsMenuTooltipProps = object;
-export const OptionsMenuTooltip = withCord<OptionsMenuTooltipProps>(
+export type OptionsMenuTooltipProps = object & MandatoryReplaceableProps;
+export const OptionsMenuTooltip = withCord<
+  React.PropsWithChildren<OptionsMenuTooltipProps>
+>(
   forwardRef(function OptionsMenuTooltip(
-    _: OptionsMenuTooltipProps,
+    { 'data-cord-replace': dataCordReplace }: OptionsMenuTooltipProps,
     _ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     const { t } = useCordTranslation('message');
-    return <DefaultTooltip label={t('message_options_tooltip')} />;
+    return (
+      <DefaultTooltip
+        data-cord-replace={dataCordReplace}
+        label={t('message_options_tooltip')}
+      />
+    );
   }),
   'OptionsMenuTooltip',
 );

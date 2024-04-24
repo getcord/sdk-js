@@ -9,7 +9,7 @@ import { useHydrateAtoms } from 'jotai/react/utils';
 import { registerComponent, replaceRegistry } from '../replacements.js';
 import type {
   ComponentName,
-  MandatoryReplacableProps,
+  MandatoryReplaceableProps,
   ReplaceConfig,
   ReplaceConfigBase,
 } from '../replacements.js';
@@ -23,7 +23,7 @@ export type ReplacementProps = {
    * Allow the component to be replaced.
    **/
   canBeReplaced?: boolean;
-} & MandatoryReplacableProps;
+} & MandatoryReplaceableProps;
 
 function isValidReplaceKey(
   key: string,

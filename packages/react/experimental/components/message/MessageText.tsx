@@ -16,6 +16,7 @@ import { PARAGRAPH_STYLE } from '../../../common/lib/styles.js';
 import { wrapTextNodeWithStyles } from '../editor/render.js';
 import * as classes from '../../../components/message/MessageText.css.js';
 import withCord from '../hoc/withCord.js';
+import type { MandatoryReplaceableProps } from '../replacements.js';
 import type { StyleProps } from '../../types.js';
 import { useTranslatedMessageContent } from '../../../hooks/useTranslatedMessageContent.js';
 import { MessageUserReferenceElement } from './MessageUserReferenceElement.js';
@@ -27,7 +28,8 @@ export type MessageTextProps = {
   isMessageBeingEdited?: boolean;
   hideAnnotationAttachment: boolean;
   formatStyle?: FormatStyle;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const MessageText = withCord<React.PropsWithChildren<MessageTextProps>>(
   React.forwardRef(function MessageText(

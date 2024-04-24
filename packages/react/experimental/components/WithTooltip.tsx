@@ -10,6 +10,7 @@ import * as classes from '../../components/Tooltip.css.js';
 import { useComposedRefs } from '../../common/lib/composeRefs.js';
 import { fontSmallLight } from '../../common/ui/atomicClasses/fonts.css.js';
 import { Portal } from './Portal.js';
+import type { MandatoryReplaceableProps } from './replacements.js';
 
 const DEFAULT_POSITION: PopperPosition = 'top';
 const DEFAULT_OFFSET = 2;
@@ -17,7 +18,7 @@ const DEFAULT_OFFSET = 2;
 export type TooltipProps = {
   label: string | null;
   subtitle?: string;
-};
+} & MandatoryReplaceableProps;
 
 type WithTooltipProps = React.PropsWithChildren<{
   tooltip: JSX.Element | null;
@@ -94,11 +95,17 @@ export const WithTooltip = forwardRef(function WithTooltip(
   );
 });
 
-export function DefaultTooltip({ subtitle, label }: TooltipProps) {
+export function DefaultTooltip({ subtitle, label, ...rest }: TooltipProps) {
   return (
     <>
-      <p className={classes.tooltipLabel}>{label}</p>
-      {subtitle && <p className={classes.tooltipSubtitle}>{subtitle}</p>}
+      <p className={classes.tooltipLabel} {...rest}>
+        {label}
+      </p>
+      {subtitle && (
+        <p className={classes.tooltipSubtitle} {...rest}>
+          {subtitle}
+        </p>
+      )}
     </>
   );
 }

@@ -16,6 +16,7 @@ import {
   colorsPrimary,
   medium,
 } from '../../../components/helpers/Button.classnames.js';
+import type { MandatoryReplaceableProps } from '../replacements.js';
 
 export type ShareToEmailFormWrapperProps = {
   onBackButtonClick: () => void;
@@ -27,7 +28,8 @@ export type ShareToEmailFormProps = {
   onBackButtonClick: () => void;
   onClose: () => void;
   onShareViaEmail: (email: string) => Promise<true> | undefined;
-} & React.HTMLAttributes<HTMLFormElement>;
+} & React.HTMLAttributes<HTMLFormElement> &
+  MandatoryReplaceableProps;
 
 export const ShareToEmailFormWrapper = ({
   threadID,
@@ -61,7 +63,12 @@ export const ShareToEmailFormWrapper = ({
 
 export const ShareToEmailForm = withCord<ShareToEmailFormProps>(
   forwardRef(function ShareToEmailForm(
-    { onBackButtonClick, onClose, onShareViaEmail }: ShareToEmailFormProps,
+    {
+      onBackButtonClick,
+      onClose,
+      onShareViaEmail,
+      'data-cord-replace': dataCordReplace,
+    }: ShareToEmailFormProps,
     ref: React.Ref<HTMLFormElement>,
   ) {
     const { sdk: cordSDK } = useContext(CordContext);
@@ -95,7 +102,12 @@ export const ShareToEmailForm = withCord<ShareToEmailFormProps>(
     );
 
     return (
-      <form className={classes.emailForm} ref={ref} onSubmit={handleSubmit}>
+      <form
+        className={classes.emailForm}
+        ref={ref}
+        onSubmit={handleSubmit}
+        {...{ 'data-cord-replace': dataCordReplace }}
+      >
         <div
           data-cord-menu-item="email-form-go-back"
           className={classes.emailFormGoBack}

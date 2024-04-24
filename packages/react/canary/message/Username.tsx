@@ -11,17 +11,19 @@ import {
   WithTooltip,
 } from '../../experimental/components/WithTooltip.js';
 import type { StyleProps } from '../../experimental/types.js';
+import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 
 export type UsernameProps = {
   userData?: ClientUserData | null;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const Username = withCord<React.PropsWithChildren<UsernameProps>>(
   forwardRef(function Username(
     props: UsernameProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
-    const { userData, className } = props;
+    const { userData, className, ...restProps } = props;
 
     const [hasOverFlow, setHasOverflow] = useState(false);
 
@@ -48,6 +50,7 @@ export const Username = withCord<React.PropsWithChildren<UsernameProps>>(
         <div
           className={cx(className, fontBodyEmphasis, authorName)}
           ref={composedRefs}
+          {...restProps}
         >
           {userData.displayName}
         </div>
@@ -59,7 +62,7 @@ export const Username = withCord<React.PropsWithChildren<UsernameProps>>(
 
 export type UsernameTooltipProps = {
   label: string;
-};
+} & MandatoryReplaceableProps;
 
 export const UsernameTooltip = withCord<
   React.PropsWithChildren<UsernameTooltipProps>

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { forwardRef, useCallback, useMemo } from 'react';
 import withCord from '../hoc/withCord.js';
 import type { StyleProps } from '../../../experimental/types.js';
+import type { MandatoryReplaceableProps } from '../replacements.js';
 import { WithTooltip } from '../WithTooltip.js';
 import { WithPopper } from '../helpers/WithPopper.js';
 import { MenuButtonTooltip } from './MenuButtonTooltip.js';
@@ -15,7 +16,8 @@ export type MenuButtonProps = {
   setMenuVisible: (visible: boolean) => void;
   buttonTooltipLabel: string;
   disableButtonTooltip?: boolean;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const MenuButton = withCord<React.PropsWithChildren<MenuButtonProps>>(
   forwardRef<HTMLElement, MenuButtonProps>(function MenuButton(

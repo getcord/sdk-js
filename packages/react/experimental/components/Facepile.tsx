@@ -8,10 +8,12 @@ import type { ByID, StyleProps, WithByIDComponent } from '../../betaV2.js';
 import { useUserData } from '../../hooks/user.js';
 import withCord from './hoc/withCord.js';
 import { Avatar } from './avatar/Avatar.js';
+import type { MandatoryReplaceableProps } from './replacements.js';
 
 export type FacepileProps = {
   users: ClientUserData[];
-} & CommonFacepileProps;
+} & CommonFacepileProps &
+  MandatoryReplaceableProps;
 
 export type FacepileByIDProps = {
   userIDs: string[];
@@ -23,7 +25,7 @@ export const Facepile: WithByIDComponent<FacepileProps, FacepileByIDProps> =
   Object.assign(
     withCord<React.PropsWithChildren<FacepileProps>>(
       forwardRef(function Facepile(
-        { className, users, enableTooltip = true }: FacepileProps,
+        { className, users, enableTooltip = true, ...rest }: FacepileProps,
         ref?: React.ForwardedRef<HTMLDivElement>,
       ) {
         const usersData = useMemo(
@@ -35,7 +37,11 @@ export const Facepile: WithByIDComponent<FacepileProps, FacepileByIDProps> =
           return null;
         }
         return (
-          <div className={cx(classes.facepileContainer, className)} ref={ref}>
+          <div
+            className={cx(classes.facepileContainer, className)}
+            ref={ref}
+            {...rest}
+          >
             {usersData.map((user) => (
               <Avatar
                 key={user.id}

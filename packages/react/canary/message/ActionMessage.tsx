@@ -2,6 +2,7 @@ import * as React from 'react';
 import { forwardRef } from 'react';
 import cx from 'classnames';
 import type { ClientMessageData } from '@cord-sdk/types';
+import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 import type { StyleProps } from '../../betaV2.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { useTranslatedMessageContent } from '../../hooks/useTranslatedMessageContent.js';
@@ -15,13 +16,14 @@ import * as messageClasses from './Message.css.js';
 
 export type ActionMessageProps = {
   message: ClientMessageData;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const ActionMessage = withCord<
   React.PropsWithChildren<ActionMessageProps>
 >(
   forwardRef(function ActionMessage(
-    { message, className, style }: ActionMessageProps,
+    { message, className, style, ...rest }: ActionMessageProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     const content = useTranslatedMessageContent(
@@ -48,6 +50,7 @@ export const ActionMessage = withCord<
         style={style}
         data-cord-message-id={message.id}
         data-cord-thread-id={message.threadID}
+        {...rest}
       >
         {message.iconURL && (
           <img

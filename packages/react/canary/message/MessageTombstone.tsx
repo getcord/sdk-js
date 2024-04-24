@@ -13,6 +13,7 @@ import {
 } from '../../common/util.js';
 import type { StyleProps } from '../../betaV2.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
+import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 import { useComponentUserData } from '../../experimental/hooks/useComponentUserData.js';
 import * as classes from './Message.css.js';
 import { PHOSPHOR_ICONS } from '@cord-sdk/react/components/helpers/Icon.js';
@@ -21,7 +22,8 @@ export type MessageTombstoneProps = {
   message: ClientMessageData;
   canUndoDelete: boolean;
   undoDeleteMessage: () => void;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const MessageTombstone = withCord<
   React.PropsWithChildren<MessageTombstoneProps>

@@ -566,6 +566,7 @@ const BaseComposer = forwardRef(function BaseComposer(
     style,
     isEmpty,
     isValid,
+    'data-cord-replace': dataCordReplace,
   }: BaseComposerProps,
   ref: React.ForwardedRef<HTMLElement>,
 ) {
@@ -598,6 +599,7 @@ const BaseComposer = forwardRef(function BaseComposer(
         style={style}
         isEmpty={isEmpty}
         isValid={isValid}
+        data-cord-replace={dataCordReplace}
       />
     </WithPopper>
   );

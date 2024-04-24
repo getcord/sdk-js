@@ -11,6 +11,7 @@ import { fontBody } from '../../../common/ui/atomicClasses/fonts.css.js';
 
 import { MODIFIERS } from '../../../common/ui/modifiers.js';
 import type { StyleProps } from '../../../betaV2.js';
+import type { MandatoryReplaceableProps } from '../replacements.js';
 
 type LeftItem = React.ReactElement<typeof Avatar | typeof Icon>;
 
@@ -24,6 +25,7 @@ export type MenuItemProps = {
   subtitle?: string;
   onClick: (e: React.MouseEvent<HTMLLIElement>) => void;
 } & StyleProps &
+  MandatoryReplaceableProps &
   Pick<React.HTMLAttributes<HTMLLIElement>, 'onMouseOver'>;
 
 export const MenuItem = withCord<React.PropsWithChildren<MenuItemProps>>(

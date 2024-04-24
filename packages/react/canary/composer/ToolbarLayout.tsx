@@ -5,13 +5,15 @@ import cx from 'classnames';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as composerClasses from '../../components/Composer.classnames.js';
+import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 import type { StyleProps } from '../../betaV2.js';
 import { composerToolbar } from './ToolbarLayout.css.js';
 
 const PRIMARY = ['sendButton', 'cancelButton'];
 export type ToolbarLayoutProps = {
   items?: { name: string; element: JSX.Element | null }[];
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 export const ToolbarLayout = withCord<
   React.PropsWithChildren<ToolbarLayoutProps>
 >(
@@ -19,7 +21,7 @@ export const ToolbarLayout = withCord<
     props: ToolbarLayoutProps,
     ref: ForwardedRef<HTMLDivElement>,
   ) {
-    const { items = [], style, className } = props;
+    const { items = [], className, ...restProps } = props;
 
     const primaryButtons = useMemo(() => {
       return items
@@ -37,7 +39,7 @@ export const ToolbarLayout = withCord<
     }, [items]);
 
     return (
-      <div ref={ref} className={cx(className, composerToolbar)} style={style}>
+      <div ref={ref} className={cx(className, composerToolbar)} {...restProps}>
         <div className={composerClasses.secondaryButtonsGroup}>
           {secondaryButtons}
         </div>

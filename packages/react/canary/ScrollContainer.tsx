@@ -5,6 +5,7 @@ import withCord from '../experimental/components/hoc/withCord.js';
 import type { StyleProps } from '../betaV2.js';
 import { useComposedRefs } from '../common/lib/composeRefs.js';
 import { debounce } from '../common/lib/debounce.js';
+import type { MandatoryReplaceableProps } from '../experimental/components/replacements.js';
 import * as classes from './ScrollContainer.css.js';
 
 const SCROLL_THRESHOLD_PX = 16;
@@ -37,7 +38,8 @@ export type ScrollContainerProps = {
    */
   onOverflowChange?: (hasOverflow: boolean) => void;
   children: JSX.Element[];
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const ScrollContainer = withCord<
   React.PropsWithChildren<ScrollContainerProps>

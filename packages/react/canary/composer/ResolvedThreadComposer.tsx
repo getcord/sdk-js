@@ -6,13 +6,15 @@ import withCord from '../../experimental/components/hoc/withCord.js';
 import { useCordTranslation } from '../../index.js';
 import type { StyleProps } from '../../betaV2.js';
 import { setResolved } from '../../common/lib/thread.js';
+import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 import * as classes from './ResolvedThreadComposer.css.js';
 import { ReopenThreadButton } from './ReopenThreadButton.js';
 
 export type ResolvedThreadComposerProps = {
   thread: ClientThreadData;
   onReopenThread?: () => void;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const ResolvedThreadComposer = withCord<
   React.PropsWithChildren<ResolvedThreadComposerProps>

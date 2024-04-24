@@ -4,6 +4,7 @@ import cx from 'classnames';
 import type { ClientThreadData, ClientUserData } from '@cord-sdk/types';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
+import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 import type { StyleProps } from '../../experimental/types.js';
 import { Facepile } from '../../betaV2.js';
 import { useCordTranslation } from '../../hooks/useCordTranslation.js';
@@ -13,7 +14,8 @@ import * as classes from './EmptyThreadPlaceholder.css.js';
 export type EmptyThreadPlaceholderProps = {
   users: ClientUserData[];
   hide?: boolean;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const EmptyThreadPlaceholder = withCord<
   React.PropsWithChildren<EmptyThreadPlaceholderProps>

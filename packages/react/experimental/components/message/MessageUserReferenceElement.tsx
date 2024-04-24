@@ -5,6 +5,7 @@ import type { FormatStyle } from '@cord-sdk/types';
 import { MessageNodeType } from '@cord-sdk/types';
 import * as classes from '../../../components/composer/userReferences/UserReferenceElement.css.js';
 import withCord from '../hoc/withCord.js';
+import type { MandatoryReplaceableProps } from '../replacements.js';
 import type { StyleProps } from '../../../betaV2.js';
 import { useComponentUserData } from '../../hooks/useComponentUserData.js';
 
@@ -12,7 +13,8 @@ export type MessageUserReferenceElementProps = {
   userID: string;
   nodeType: MessageNodeType.ASSIGNEE | MessageNodeType.MENTION;
   formatStyle: FormatStyle;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const MessageUserReferenceElement = withCord<
   React.PropsWithChildren<MessageUserReferenceElementProps>

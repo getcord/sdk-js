@@ -3,6 +3,7 @@ import { forwardRef, useMemo } from 'react';
 import cx from 'classnames';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
+import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 import type { StyleProps } from '../../experimental/types.js';
 import classes from '../composer/Composer.css.js';
 
@@ -14,7 +15,8 @@ export type ComposerLayoutProps = {
   extraChildren?: { name: string; element: JSX.Element | null }[];
   isEmpty: boolean;
   isValid: boolean;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 export const ComposerLayout = withCord<
   React.PropsWithChildren<ComposerLayoutProps>
 >(

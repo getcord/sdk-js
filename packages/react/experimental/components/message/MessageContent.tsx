@@ -8,6 +8,7 @@ import type {
 import { useMemo } from 'react';
 import classes from '../../../components/MessageContent.css.js';
 import withCord from '../hoc/withCord.js';
+import type { MandatoryReplaceableProps } from '../replacements.js';
 import type { StyleProps } from '../../types.js';
 import { isMessageFileAttachment } from '../../../common/lib/isMessageFileAttachment.js';
 import { MessageFilesAttachments } from './MessageFilesAttachments.js';
@@ -19,7 +20,8 @@ export type MessageContentProps = {
   edited: boolean;
   createdAt?: Date;
   authorData: ClientUserData | null | undefined;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const MessageContent = withCord<
   React.PropsWithChildren<MessageContentProps>

@@ -7,6 +7,7 @@ import type { IconType } from '../../../components/helpers/Icon.js';
 import withCord from '../hoc/withCord.js';
 import { MODIFIERS } from '../../../common/ui/modifiers.js';
 import type { StyleProps } from '../../../betaV2.js';
+import type { MandatoryReplaceableProps } from '../replacements.js';
 import classes from './Button.css.js';
 
 export type CommonButtonProps = {
@@ -24,6 +25,7 @@ export type GeneralButtonProps = {
   buttonAction: string;
   icon?: IconType | URL;
 } & StyleProps &
+  MandatoryReplaceableProps &
   CommonButtonProps;
 
 export const Button = withCord<React.PropsWithChildren<GeneralButtonProps>>(

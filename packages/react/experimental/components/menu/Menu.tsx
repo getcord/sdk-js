@@ -4,6 +4,7 @@ import cx from 'classnames';
 import withCord from '../hoc/withCord.js';
 import * as classes from '../../../components/Menu.css.js';
 import type { StyleProps } from '../../../betaV2.js';
+import type { MandatoryReplaceableProps } from '../replacements.js';
 
 // We need more than just the `element`, so we can manipulate items more easily
 // including filtering out items or adding more items
@@ -16,6 +17,7 @@ export type MenuProps = {
   items: MenuItemInfo[];
   closeMenu: () => void;
 } & StyleProps &
+  MandatoryReplaceableProps &
   Pick<React.HTMLAttributes<HTMLOListElement>, 'onClick'>;
 
 export const Menu = withCord<React.PropsWithChildren<MenuProps>>(

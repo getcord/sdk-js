@@ -10,8 +10,12 @@ import {
   small,
 } from '../../components/helpers/Button.classnames.js';
 import type { CommonButtonProps } from '../../experimental/components/helpers/Button.js';
+import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 
-export interface SendButtonProps extends StyleProps, CommonButtonProps {}
+export interface SendButtonProps
+  extends StyleProps,
+    CommonButtonProps,
+    MandatoryReplaceableProps {}
 
 export const SendButton = withCord<React.PropsWithChildren<SendButtonProps>>(
   forwardRef(function SendButton(

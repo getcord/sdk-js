@@ -26,6 +26,7 @@ import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
 import { Overlay } from './Overlay.js';
 import { MessageVideoAttachment } from './message/MessageVideoAttachment.js';
 import withCord from './hoc/withCord.js';
+import type { MandatoryReplaceableProps } from './replacements.js';
 
 export type MediaModalProps = {
   medias: {
@@ -41,7 +42,8 @@ export type MediaModalProps = {
   } | null;
   onUnsupportedVideoFormat?: (id: string) => unknown;
   closeModal: () => void;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const MediaModal = withCord<React.PropsWithChildren<MediaModalProps>>(
   React.forwardRef(function MediaModal(

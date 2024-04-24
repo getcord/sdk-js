@@ -14,6 +14,7 @@ import type { StyleProps } from '../../betaV2.js';
 import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
 import { Avatar } from './avatar/Avatar.js';
 import withCord from './hoc/withCord.js';
+import type { MandatoryReplaceableProps } from './replacements.js';
 
 const DEFAULT_NUM_OF_AVATARS = 5;
 
@@ -24,7 +25,8 @@ export type PresenceFacepileProps = PresenceReducerOptions & {
    * at the end of the PresenceFacepile.
    */
   numOfAvatars?: number;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 /**
  * Display all users at a particular location.

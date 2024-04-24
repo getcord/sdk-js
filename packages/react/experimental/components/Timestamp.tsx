@@ -16,13 +16,15 @@ import {
 import type { StyleProps } from '../../betaV2.js';
 import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
 import withCord from './hoc/withCord.js';
+import type { MandatoryReplaceableProps } from './replacements.js';
 
 export type TimestampProps = {
   // the string value is a date string with the format YYYY-MM-DDTHH:mm:ss.sssZ
   value?: string | number | Date;
   relative?: boolean;
   type: 'message' | 'notifications';
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const Timestamp = withCord<React.PropsWithChildren<TimestampProps>>(
   forwardRef(function Timestamp(

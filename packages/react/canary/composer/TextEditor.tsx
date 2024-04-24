@@ -13,6 +13,7 @@ import withCord from '../../experimental/components/hoc/withCord.js';
 import type { CustomEditor } from '../../slateCustom.js';
 import { useCordTranslation } from '../../hooks/useCordTranslation.js';
 import type { StyleProps } from '../../betaV2.js';
+import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 import { withQuotes } from './plugins/quotes.js';
 import { withBullets } from './plugins/bullets.js';
 import { withHTMLPaste } from './plugins/paste.js';
@@ -35,7 +36,8 @@ export type TextEditorProps = {
   onBlur?: (arg: { event: React.FocusEvent }) => void;
   onClick?: (arg: { event: React.MouseEvent }) => void;
   placeholder?: string;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 export const TextEditor = withCord<React.PropsWithChildren<TextEditorProps>>(
   forwardRef(function TextEditor(
     {

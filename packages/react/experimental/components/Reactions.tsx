@@ -24,13 +24,15 @@ import {
 import withCord from './hoc/withCord.js';
 import { DefaultTooltip, WithTooltip } from './WithTooltip.js';
 import { ReactionPill } from './message/ReactionPill.js';
+import type { MandatoryReplaceableProps } from './replacements.js';
 
 export type ReactionsProps = {
   threadID?: string;
   messageID?: string;
   showAddReactionButton?: boolean;
   showReactionList?: boolean;
-} & StyleProps;
+} & StyleProps &
+  MandatoryReplaceableProps;
 
 export const Reactions = withCord<React.PropsWithChildren<ReactionsProps>>(
   React.forwardRef(function Reactions(

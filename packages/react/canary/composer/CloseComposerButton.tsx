@@ -6,9 +6,11 @@ import { Button } from '../../betaV2.js';
 import type { StyleProps } from '../../betaV2.js';
 import classes from '../../experimental/components/helpers/Button.css.js';
 import type { CommonButtonProps } from '../../experimental/components/helpers/Button.js';
+import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 
 export interface CloseComposerButtonProps
   extends StyleProps,
+    MandatoryReplaceableProps,
     CommonButtonProps {}
 
 export const CloseComposerButton = withCord<
