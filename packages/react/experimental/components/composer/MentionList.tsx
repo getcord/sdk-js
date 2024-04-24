@@ -73,7 +73,6 @@ export function useMentionList({
       );
       setUserReferenceRange(undefined);
       editor.insertText(' ');
-      console.log(editor);
       ReactEditor.focus(editor);
     }
   }, [users, selectedUserReferenceIndex, userReferenceRange, editor]);
