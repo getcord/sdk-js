@@ -66,6 +66,6 @@ export function onArrow(editor: Editor, event: React.KeyboardEvent) {
   } else if (isMessageNodeText(node) && node.code && !up) {
     event.preventDefault();
     Editor.removeMark(editor, 'code');
-    EditorCommands.addText(editor, null, ' ');
+    EditorCommands.addText(editor, selection, ' ');
   }
 }
