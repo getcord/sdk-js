@@ -3,7 +3,7 @@ import cx from 'classnames';
 import type { ClientMessageData } from '@cord-sdk/types';
 import { useCordTranslation } from '../../hooks/useCordTranslation.js';
 import { MODIFIERS } from '../../common/ui/modifiers.js';
-import { useUserData, useViewerData } from '../../hooks/user.js';
+import { useViewerData } from '../../hooks/user.js';
 import { fontSmall } from '../../common/ui/atomicClasses/fonts.css.js';
 import { useTime } from '../../common/effects/useTime.js';
 import { iconLarge } from '../../common/ui/atomicClasses/icons.css.js';
@@ -13,6 +13,7 @@ import {
 } from '../../common/util.js';
 import type { StyleProps } from '../../betaV2.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
+import { useComponentUserData } from '../../experimental/hooks/useComponentUserData.js';
 import * as classes from './Message.css.js';
 import { PHOSPHOR_ICONS } from '@cord-sdk/react/components/helpers/Icon.js';
 
@@ -36,7 +37,7 @@ export const MessageTombstone = withCord<
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     const { t } = useCordTranslation('message');
-    const author = useUserData(message.authorID);
+    const author = useComponentUserData(message.authorID);
 
     return (
       <div

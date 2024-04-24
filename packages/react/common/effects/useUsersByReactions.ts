@@ -1,5 +1,6 @@
 import type { ClientUserData, Reaction } from '@cord-sdk/types';
-import { useUserData, useViewerData } from '../../hooks/user.js';
+import { useViewerData } from '../../hooks/user.js';
+import { useComponentUserData } from '../../experimental/hooks/useComponentUserData.js';
 
 export function useUsersByReactions(reactions: Reaction[] | undefined): {
   [reaction: string]: ClientUserData[];
@@ -13,7 +14,7 @@ export function useUsersByReactions(reactions: Reaction[] | undefined): {
 
   const reactionUserIDsArray = [...reactionUserIDs];
 
-  const reactionUsers = useUserData(reactionUserIDsArray);
+  const reactionUsers = useComponentUserData(reactionUserIDsArray);
 
   const usersByReaction: { [reaction: string]: ClientUserData[] } = {};
 

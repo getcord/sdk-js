@@ -17,8 +17,8 @@ export type MessageContentProps = {
   content: MessageContentType;
   attachments: MessageAttachment[];
   edited: boolean;
-  userData?: ClientUserData | null;
   createdAt?: Date;
+  authorData: ClientUserData | null | undefined;
 } & StyleProps;
 
 export const MessageContent = withCord<
@@ -31,7 +31,7 @@ export const MessageContent = withCord<
       attachments,
       edited,
       className,
-      userData,
+      authorData,
       ...rest
     }: MessageContentProps,
     ref: React.ForwardedRef<HTMLDivElement>,
@@ -61,7 +61,7 @@ export const MessageContent = withCord<
         <MessageFilesAttachments
           attachments={filesAttachments}
           canBeReplaced
-          userData={userData}
+          authorData={authorData}
           createdAt={createdAt}
         />
       </div>

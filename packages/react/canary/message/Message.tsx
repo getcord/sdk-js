@@ -14,7 +14,7 @@ import {
   MessageLayout,
 } from '../../betaV2.js';
 import { EditComposer } from '../composer/Composer.js';
-import { useUserData, useViewerData } from '../../hooks/user.js';
+import { useViewerData } from '../../hooks/user.js';
 import type {
   ByID,
   CommonMessageProps,
@@ -26,6 +26,7 @@ import { useComposedRefs } from '../../common/lib/composeRefs.js';
 import { useExtraClassnames } from '../../hooks/useExtraClassnames.js';
 import { MODIFIERS } from '../../common/ui/modifiers.js';
 import { useMessage } from '../../hooks/thread.js';
+import { useComponentUserData } from '../../experimental/hooks/useComponentUserData.js';
 import { Username } from './Username.js';
 import { MessageTombstoneWrapper } from './MessageTombstone.js';
 import { ActionMessage } from './ActionMessage.js';
@@ -53,7 +54,7 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
           setIsEditing(false);
         }, []);
 
-        const authorData = useUserData(message.authorID);
+        const authorData = useComponentUserData(message.authorID);
         const metaCordClasses = useExtraClassnames(message.extraClassnames);
 
         const messageObserverRef = useMessageSeenObserver(message);
@@ -111,12 +112,12 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
               [MODIFIERS.fromViewer]: viewerData?.id === message.authorID,
             })}
             message={message}
-            avatar={<Avatar.ByID canBeReplaced userID={message.authorID} />}
+            avatar={<Avatar canBeReplaced user={authorData} />}
             messageContent={
               <MessageContent
                 content={message.content}
                 createdAt={message.createdTimestamp}
-                userData={authorData}
+                authorData={authorData}
                 attachments={message.attachments}
                 edited={!!message.updatedTimestamp}
                 canBeReplaced

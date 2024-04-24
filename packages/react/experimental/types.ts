@@ -182,7 +182,7 @@ export interface AvatarProps extends CommonAvatarProps {
   /**
    * Data of the user whose avatar is to be displayed.
    */
-  user: ClientUserData;
+  user: ClientUserData | null | undefined;
 }
 
 export type AvatarTooltipProps = {
