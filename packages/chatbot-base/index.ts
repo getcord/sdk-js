@@ -355,10 +355,10 @@ class ChatbotRegistryImpl {
     }
 
     if (bot.onResponseSent) {
-      const resopnseMessage = await this.#fetch<CoreMessageData>(
+      const responseMessage = await this.#fetch<CoreMessageData>(
         `v1/threads/${thread.id}/messages/${messageID}`,
       );
-      await bot.onResponseSent(resopnseMessage, messages, thread);
+      await bot.onResponseSent(responseMessage, messages, thread);
     }
   }
 
