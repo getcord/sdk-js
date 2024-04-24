@@ -78,11 +78,20 @@ export interface ProjectData {
    * Email settings for notifications.
    */
   emailSettings: EmailSettings;
+  /**
+   * The time at which the project was created
+   */
+  createdTimestamp: Date;
 }
 
 export interface ServerCreateProject
   extends Pick<ProjectData, 'name'>,
-    Partial<Omit<ProjectData, 'id' | 'secret' | 'name' | 'emailSettings'>> {
+    Partial<
+      Omit<
+        ProjectData,
+        'id' | 'secret' | 'name' | 'emailSettings' | 'createdTimestamp'
+      >
+    > {
   emailSettings?: Partial<EmailSettings>;
 }
 
