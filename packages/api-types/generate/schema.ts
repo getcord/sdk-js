@@ -562,6 +562,7 @@ export default {
           { $ref: '#/definitions/MessageQuoteNode' },
           { $ref: '#/definitions/MessageTextNode' },
           { $ref: '#/definitions/MessageTodoNode' },
+          { $ref: '#/definitions/MessageMarkdownNode' },
         ],
       },
       MessageAssigneeNode: {
@@ -676,6 +677,7 @@ export default {
               'bullet',
               'code',
               'link',
+              'markdown',
               'mention',
               'number_bullet',
               'p',
@@ -704,6 +706,16 @@ export default {
           done: { type: 'boolean' },
         },
         required: ['children', 'done', 'todoID', 'type'],
+      },
+      MessageMarkdownNode: {
+        additionalProperties: false,
+        type: 'object',
+        properties: {
+          type: { type: 'string', const: 'markdown' },
+          class: { type: 'string' },
+          text: { type: 'string' },
+        },
+        required: ['text', 'type'],
       },
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
@@ -915,6 +927,7 @@ export default {
           { $ref: '#/definitions/MessageQuoteNode' },
           { $ref: '#/definitions/MessageTextNode' },
           { $ref: '#/definitions/MessageTodoNode' },
+          { $ref: '#/definitions/MessageMarkdownNode' },
         ],
       },
       MessageAssigneeNode: {
@@ -1029,6 +1042,7 @@ export default {
               'bullet',
               'code',
               'link',
+              'markdown',
               'mention',
               'number_bullet',
               'p',
@@ -1057,6 +1071,16 @@ export default {
           done: { type: 'boolean' },
         },
         required: ['children', 'done', 'todoID', 'type'],
+      },
+      MessageMarkdownNode: {
+        additionalProperties: false,
+        type: 'object',
+        properties: {
+          type: { type: 'string', const: 'markdown' },
+          class: { type: 'string' },
+          text: { type: 'string' },
+        },
+        required: ['text', 'type'],
       },
       ServerAddReactions: {
         additionalProperties: false,
