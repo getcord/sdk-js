@@ -38,7 +38,7 @@ type MessageSeenInfo = {
 export function useMessageSeenObserver(message: ClientMessageData) {
   const messageElementRef = useRef(null);
   const threadID = message.threadID;
-  const { thread } = threadSDK.useThread(threadID);
+  const { thread } = threadSDK.useThread(threadID, { skip: !threadID });
 
   const userData = userSDK.useViewerData();
   const isAuthorOfMessage = isUserAuthorOfMessage(message, userData?.id);

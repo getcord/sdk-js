@@ -26,7 +26,7 @@ export const useThreadActions = ({
 }: ThreadActionsProps) => {
   const { t } = useCordTranslation('thread');
 
-  const { thread } = useThread(threadID);
+  const { thread } = useThread(threadID, { skip: !threadID });
   const user = useViewerData();
 
   const { showToastPopup } = useToast();

@@ -46,7 +46,7 @@ export const Reactions = withCord<React.PropsWithChildren<ReactionsProps>>(
     ref?: React.ForwardedRef<HTMLDivElement>,
   ) {
     const viewerData = useViewerData();
-    const { thread } = useThread(threadID ?? '');
+    const { thread } = useThread(threadID, { skip: !threadID });
     const message = useMessage(messageID ?? '');
 
     if (!thread || !message) {

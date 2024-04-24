@@ -32,7 +32,7 @@ export function useMessageActions({
   const { t } = useCordTranslation('message');
   const user = useViewerData();
 
-  const { thread } = useThread(threadID);
+  const { thread } = useThread(threadID, { skip: !threadID });
 
   return useMemo(() => {
     const items: MenuProps['items'] = [];

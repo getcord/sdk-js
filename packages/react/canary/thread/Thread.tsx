@@ -83,7 +83,7 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
 
 function ThreadByID(props: ByID<ThreadByIDProps>) {
   const { threadID, createThread, ...restProps } = props;
-  const threadData = useThread(threadID);
+  const threadData = useThread(threadID, { skip: !threadID });
   const { sdk: CordSDK } = useCordContext('Thread.ByID');
 
   useEffect(() => {
