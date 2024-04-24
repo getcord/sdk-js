@@ -1,7 +1,7 @@
 {
   "name": "@cord-sdk/chatbot-anthropic",
   "description": "Anthropic AI chatbot library for Cord",
-  "version": "1.42.1",
+  "version": "1.42.2",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
   "files": [
@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.20.3",
-    "@cord-sdk/chatbot-base": "1.42.1",
-    "@cord-sdk/types": "1.42.1"
+    "@cord-sdk/chatbot-base": "1.42.2",
+    "@cord-sdk/types": "1.42.2"
   },
   "devDependencies": {
     "typescript": "~5.1.6"
