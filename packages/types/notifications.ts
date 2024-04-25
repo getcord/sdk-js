@@ -61,6 +61,8 @@ type NotificationMessageAttachment = {
   message: CoreMessageData;
 };
 
+type NotificationHeaderNode = NotificationTextHeader | NotificationUserHeader;
+
 /**
  * A header node representing a basic string.
  */
@@ -135,7 +137,7 @@ export interface CoreNotificationData {
    * via the REST API, this will be based upon the `template` parameter, see
    * below.
    */
-  header: (NotificationTextHeader | NotificationUserHeader)[];
+  header: NotificationHeaderNode[];
 
   /**
    * A translation that can be used to translate the header of the notification.
