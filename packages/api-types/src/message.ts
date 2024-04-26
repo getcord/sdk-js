@@ -3,6 +3,7 @@ import type {
   ServerUpdateMessage,
   ServerListThreadMessageParameters,
   ServerListMessageParameters,
+  ServerAppendMessage,
 } from '@cord-sdk/types';
 
 /**
@@ -22,3 +23,5 @@ export interface ListThreadMessageParameters
  * https://docs.cord.com/rest-apis/messages/
  */
 export interface ListMessageParameters extends ServerListMessageParameters {}
+
+export interface AppendMessageVariables extends ServerAppendMessage {}

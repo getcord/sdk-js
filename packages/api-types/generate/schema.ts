@@ -1161,6 +1161,20 @@ export default {
     propertyOrder: ['limit', 'token', 'filter'],
     $schema: 'http://json-schema.org/draft-07/schema#',
   },
+  AppendMessageVariables: {
+    type: 'object',
+    properties: {
+      text: {
+        description:
+          'The text that will be appended to the markdown node in the message.',
+        type: 'string',
+      },
+    },
+    additionalProperties: false,
+    propertyOrder: ['text'],
+    required: ['text'],
+    $schema: 'http://json-schema.org/draft-07/schema#',
+  },
   CreateNotificationVariables: {
     description: 'https://docs.cord.com/rest-apis/notifications/',
     type: 'object',

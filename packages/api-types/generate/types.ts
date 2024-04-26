@@ -11,6 +11,7 @@ import type {
   UpdateMessageVariables,
   ListThreadMessageParameters,
   ListMessageParameters,
+  AppendMessageVariables,
   CreateNotificationVariables,
   UpdatePlatformOrganizationVariables,
   UpdatePlatformOrganizationMembersVariables,
@@ -46,6 +47,7 @@ export type Types = {
   UpdateMessageVariables: UpdateMessageVariables;
   ListThreadMessageParameters: ListThreadMessageParameters;
   ListMessageParameters: ListMessageParameters;
+  AppendMessageVariables: AppendMessageVariables;
   CreateNotificationVariables: CreateNotificationVariables;
   UpdatePlatformOrganizationVariables: UpdatePlatformOrganizationVariables;
   UpdatePlatformOrganizationMembersVariables: UpdatePlatformOrganizationMembersVariables;

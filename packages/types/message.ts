@@ -449,3 +449,10 @@ export interface ServerListMessages {
    */
   pagination: PaginationDetails;
 }
+
+export interface ServerAppendMessage {
+  /**
+   * The text that will be appended to the markdown node in the message.
+   */
+  text: string;
+}
