@@ -15,6 +15,7 @@ import { isNotNull } from '../../../common/util.js';
 import withCord from '../hoc/withCord.js';
 import { useMediaModal } from '../../hooks/useMediaModal.js';
 import type { MandatoryReplaceableProps } from '../replacements.js';
+import type { StyleProps } from '../../types.js';
 import classes from './MessageFilesAttachments.css.js';
 import { MessageFileAttachment } from './MessageFileAttachment.js';
 import { MessageImageAttachment } from './MessageImageAttachment.js';
@@ -24,7 +25,8 @@ export type MessageFilesAttachmentsProps = {
   authorData: ClientUserData | null | undefined;
   createdAt: Date | undefined;
   attachments: MessageAttachment[];
-} & MandatoryReplaceableProps;
+} & MandatoryReplaceableProps &
+  StyleProps;
 
 export const MessageFilesAttachments = withCord<
   React.PropsWithChildren<MessageFilesAttachmentsProps>
@@ -34,6 +36,7 @@ export const MessageFilesAttachments = withCord<
       attachments,
       authorData,
       createdAt,
+      className,
       ...restProps
     }: MessageFilesAttachmentsProps,
     ref: React.ForwardedRef<HTMLDivElement>,
@@ -94,6 +97,7 @@ export const MessageFilesAttachments = withCord<
           className={cx(
             classes.messageImageAttachments,
             classes.messageAttachment,
+            className,
           )}
           ref={ref}
           {...restProps}
@@ -112,6 +116,7 @@ export const MessageFilesAttachments = withCord<
           className={cx(
             classes.messageVideoAttachments,
             classes.messageAttachment,
+            className,
           )}
           {...restProps}
         >
@@ -127,6 +132,7 @@ export const MessageFilesAttachments = withCord<
           className={cx(
             classes.messageDocumentAttachments,
             classes.messageAttachment,
+            className,
           )}
           {...restProps}
         >
