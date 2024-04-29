@@ -1,5 +1,4 @@
 import type { ClientUserData } from '@cord-sdk/types';
-import type { CSSProperties } from 'react';
 import * as React from 'react';
 import { useMemo, useState, useCallback, forwardRef } from 'react';
 import cx from 'classnames';
@@ -23,7 +22,6 @@ import withCord from '../hoc/withCord.js';
 import type { MandatoryReplaceableProps } from '../replacements.js';
 import type { StyleProps } from '../../types.js';
 
-const ROW_HEIGHT = 40;
 const MAX_ROWS_TO_SHOW = 5;
 
 export function useMentionList({
@@ -242,7 +240,6 @@ export const MentionList = withCord<React.PropsWithChildren<MentionListProps>>(
                       key={user.id}
                       data={userMentionRowProps}
                       index={i}
-                      style={{ height: ROW_HEIGHT }}
                     />
                   );
                 })}
@@ -268,11 +265,9 @@ type UserMentionRowProps = Pick<
 const UserMentionRow = React.memo(function UserMentionRow({
   data: props,
   index,
-  style,
 }: {
   data: UserMentionRowProps;
   index: number;
-  style: CSSProperties;
 }) {
   const { t } = useCordTranslation('user');
   const viewer = useViewerData();
@@ -295,7 +290,6 @@ const UserMentionRow = React.memo(function UserMentionRow({
     <MenuItem
       canBeReplaced
       menuItemAction={`user-mention-${user.id}`}
-      style={style}
       leftItem={<Avatar canBeReplaced user={user} />}
       label={viewer?.id === user.id ? viewerDisplayName : otherDisplayName}
       subtitle={subtitle}
