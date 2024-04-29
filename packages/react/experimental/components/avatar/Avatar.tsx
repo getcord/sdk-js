@@ -173,7 +173,7 @@ const AvatarInner = forwardRef(function AvatarImpl(
   );
 });
 
-interface AvatarByIDProps extends CommonAvatarProps {
+export interface AvatarByIDProps extends CommonAvatarProps {
   userID: string;
 }
 
