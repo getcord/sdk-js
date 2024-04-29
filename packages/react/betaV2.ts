@@ -190,3 +190,7 @@ export {
   WithPopper,
   type WithPopperProps,
 } from './experimental/components/helpers/WithPopper.js';
+export {
+  WithTooltip,
+  type WithTooltipProps,
+} from './experimental/components/WithTooltip.js';

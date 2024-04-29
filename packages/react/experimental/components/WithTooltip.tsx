@@ -20,7 +20,7 @@ export type TooltipProps = {
   subtitle?: string;
 } & MandatoryReplaceableProps;
 
-type WithTooltipProps = React.PropsWithChildren<{
+export type WithTooltipProps = React.PropsWithChildren<{
   tooltip: JSX.Element | null;
   popperPosition?: PopperPosition;
   offset?: number | ((placement: Placement) => number);
