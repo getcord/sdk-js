@@ -17,7 +17,7 @@ import { EditComposer } from '../composer/Composer.js';
 import { useViewerData } from '../../hooks/user.js';
 import type {
   ByID,
-  CommonMessageProps,
+  MessageByIDProps,
   MessageProps,
   WithByIDComponent,
 } from '../../betaV2.js';
@@ -32,10 +32,6 @@ import { Username } from './Username.js';
 import { MessageTombstoneWrapper } from './MessageTombstone.js';
 import { ActionMessage } from './ActionMessage.js';
 import { useMessageSeenObserver } from './hooks/useMessageSeenObserver.js';
-
-export type MessageByIDProps = {
-  messageID: string;
-} & CommonMessageProps;
 
 export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
   Object.assign(

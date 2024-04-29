@@ -25,11 +25,11 @@ export interface WithByIDComponent<T, U>
 
 export interface StyleProps {
   /**
-   * Passes the style of the wrapper component.
+   * Passes the style of the component. It will be applied to the root element.
    */
   style?: React.HTMLAttributes<HTMLDivElement>['style'];
   /**
-   * Any classes to be added to the wrapper component.
+   * Any classes to be added to the component. It will be applied to the root element.
    */
   className?: React.HTMLAttributes<HTMLDivElement>['className'];
 }
@@ -52,8 +52,8 @@ export interface SendComposerProps extends StyleProps, ReplacementProps {
    */
   threadID?: string;
   /**
-   * An object containing the data of the thread to be created. If a threadID
-   * is passed, this object will be ignored.
+   * An object containing the data of the thread to be created. If the thread specified in
+   * threadID exists, the message will be added to that thread and this object will be ignored.
    */
   createThread?: ClientCreateThread;
   /**
@@ -170,6 +170,13 @@ export interface MessageProps extends CommonMessageProps {
    */
   showThreadOptions?: boolean;
 }
+
+export type MessageByIDProps = {
+  /**
+   * The ID of the message to be displayed.
+   */
+  messageID: string;
+} & CommonMessageProps;
 
 export interface CommonAvatarProps
   extends StyleProps,
@@ -288,16 +295,29 @@ export type PresenceObserverReactComponentProps = React.PropsWithChildren<{
 }>;
 
 type CommonThreadProps = {
+  /**
+   * If set to `true`, the header of the thread will be displayed. Defaults to `false`.
+   */
   showHeader?: boolean;
 } & StyleProps;
 
 export type ThreadByIDProps = {
+  /**
+   * The ID of the thread to be displayed.
+   */
   threadID: string;
+  /**
+   * An object containing the data of the thread to be created. If the
+   * thread already exists, this will be ignored.
+   */
   createThread?: ClientCreateThread;
 } & CommonThreadProps;
 
 export interface ThreadProps
   extends CommonThreadProps,
     MandatoryReplaceableProps {
+  /**
+   * The data of the thread to be displayed.
+   */
   threadData?: ClientThreadData;
 }
