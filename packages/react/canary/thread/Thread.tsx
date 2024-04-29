@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { forwardRef, useMemo, useEffect } from 'react';
+import cx from 'classnames';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { Message, SendComposer, ThreadHeader } from '../../betaV2.js';
@@ -11,6 +12,7 @@ import type {
 } from '../../betaV2.js';
 import { useThread } from '../../hooks/thread.js';
 import { useCordContext } from '../../contexts/CordContext.js';
+import classes from './Thread.css.js';
 import { ThreadSeenByWrapper } from './ThreadSeenBy.js';
 import { EmptyThreadPlaceholderWrapper } from './EmptyThreadPlaceholder.js';
 import { ThreadLayout } from './ThreadLayout.js';
@@ -19,7 +21,12 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
   Object.assign(
     withCord<React.PropsWithChildren<ThreadProps>>(
       forwardRef(function Thread(
-        { showHeader = false, threadData, ...restProps }: ThreadProps,
+        {
+          showHeader = false,
+          threadData,
+          className,
+          ...restProps
+        }: ThreadProps,
         ref: React.ForwardedRef<HTMLDivElement>,
       ) {
         const thread = useMemo(() => threadData?.thread, [threadData?.thread]);
@@ -30,6 +37,7 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
 
         return (
           <ThreadLayout
+            className={cx(className, classes.thread)}
             ref={ref}
             canBeReplaced
             threadData={threadData}

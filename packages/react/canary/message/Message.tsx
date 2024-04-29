@@ -26,6 +26,7 @@ import { useComposedRefs } from '../../common/lib/composeRefs.js';
 import { useExtraClassnames } from '../../hooks/useExtraClassnames.js';
 import { MODIFIERS } from '../../common/ui/modifiers.js';
 import { useMessage } from '../../hooks/thread.js';
+import * as classes from '../../components/Message.classnames.js';
 import { useComponentUserData } from '../../experimental/hooks/useComponentUserData.js';
 import { Username } from './Username.js';
 import { MessageTombstoneWrapper } from './MessageTombstone.js';
@@ -69,7 +70,7 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
           return (
             <EditComposer
               ref={composedRef}
-              className={cx(className, metaCordClasses)}
+              className={cx(className, classes.message, metaCordClasses)}
               messageID={message.id}
               initialValue={message}
               onAfterSubmit={() => {
@@ -84,7 +85,7 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
           return (
             <MessageTombstoneWrapper
               ref={composedRef}
-              className={cx(className, metaCordClasses)}
+              className={cx(className, classes.message, metaCordClasses)}
               message={message}
             />
           );
@@ -96,7 +97,7 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
               ref={composedRef}
               message={message}
               canBeReplaced
-              className={cx(className, metaCordClasses)}
+              className={cx(className, classes.message, metaCordClasses)}
               {...restProps}
             />
           );
@@ -106,7 +107,7 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
           <MessageLayout
             ref={composedRef}
             canBeReplaced
-            className={cx(className, metaCordClasses, {
+            className={cx(className, classes.message, metaCordClasses, {
               [MODIFIERS.noReactions]: message.reactions?.length === 0,
               [MODIFIERS.unseen]: !message.seen,
               [MODIFIERS.fromViewer]: viewerData?.id === message.authorID,

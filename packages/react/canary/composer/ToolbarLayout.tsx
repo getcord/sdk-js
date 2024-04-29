@@ -17,11 +17,11 @@ export type ToolbarLayoutProps = {
 export const ToolbarLayout = withCord<
   React.PropsWithChildren<ToolbarLayoutProps>
 >(
-  forwardRef(function ComposerLayout(
+  forwardRef(function ToolbarLayout(
     props: ToolbarLayoutProps,
     ref: ForwardedRef<HTMLDivElement>,
   ) {
-    const { items = [], className, ...restProps } = props;
+    const { items = [], ...restProps } = props;
 
     const primaryButtons = useMemo(() => {
       return items
@@ -39,7 +39,7 @@ export const ToolbarLayout = withCord<
     }, [items]);
 
     return (
-      <div ref={ref} className={cx(className, composerToolbar)} {...restProps}>
+      <div ref={ref} {...restProps}>
         <div className={composerClasses.secondaryButtonsGroup}>
           {secondaryButtons}
         </div>
@@ -50,4 +50,21 @@ export const ToolbarLayout = withCord<
     );
   }),
   'ToolbarLayout',
+);
+
+export const ToolbarLayoutWithClassName = forwardRef(
+  function ToolbarLayoutWithClassName(
+    props: ToolbarLayoutProps,
+    ref: ForwardedRef<HTMLDivElement>,
+  ) {
+    const { className, ...restProps } = props;
+    return (
+      <ToolbarLayout
+        canBeReplaced
+        ref={ref}
+        {...restProps}
+        className={cx(className, composerToolbar)}
+      />
+    );
+  },
 );

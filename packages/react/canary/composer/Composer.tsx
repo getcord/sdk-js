@@ -1,5 +1,6 @@
 import * as React from 'react';
 import isHotkey from 'is-hotkey';
+import cx from 'classnames';
 import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
 import { ReactEditor } from 'slate-react';
 import type {
@@ -39,6 +40,7 @@ import { SendButton } from './SendButton.js';
 import { CloseComposerButton } from './CloseComposerButton.js';
 import classes from './Composer.css.js';
 import { SendMessageError } from './SendMessageError.js';
+import { ToolbarLayoutWithClassName } from './ToolbarLayout.js';
 
 export function useEditComposer(props: EditComposerProps): ComposerProps {
   const onSubmit = useEditSubmit(props);
@@ -580,7 +582,12 @@ const BaseComposer = forwardRef(function BaseComposer(
     >
       <ComposerLayout
         ref={ref}
+        className={cx(classes.composerContainer, classes.expanded, className, {
+          [classes.empty]: isEmpty,
+          [classes.valid]: isValid,
+        })}
         canBeReplaced
+        ToolbarLayoutComp={ToolbarLayoutWithClassName}
         textEditor={
           <TextEditor
             canBeReplaced
@@ -595,7 +602,6 @@ const BaseComposer = forwardRef(function BaseComposer(
         }
         extraChildren={extraChildren}
         toolbarItems={toolbarItems}
-        className={className}
         style={style}
         isEmpty={isEmpty}
         isValid={isValid}

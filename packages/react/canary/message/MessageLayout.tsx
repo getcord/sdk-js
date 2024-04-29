@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { forwardRef } from 'react';
-import cx from 'classnames';
 
 import type { ClientMessageData } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
@@ -50,7 +49,7 @@ export const MessageLayout = withCord<
     return (
       <div
         {...restProps}
-        className={cx(className, classes.message)}
+        className={className}
         ref={ref}
         data-cord-message-id={message.id}
         data-cord-thread-id={message.threadID}

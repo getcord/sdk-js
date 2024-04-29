@@ -1,13 +1,10 @@
 import * as React from 'react';
 import { forwardRef, useMemo } from 'react';
-import cx from 'classnames';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
 import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 import type { StyleProps } from '../../experimental/types.js';
-import classes from '../composer/Composer.css.js';
-
-import { ToolbarLayout } from './ToolbarLayout.js';
+import type { ToolbarLayoutWithClassName } from './ToolbarLayout.js';
 
 export type ComposerLayoutProps = {
   textEditor: JSX.Element;
@@ -15,6 +12,7 @@ export type ComposerLayoutProps = {
   extraChildren?: { name: string; element: JSX.Element | null }[];
   isEmpty: boolean;
   isValid: boolean;
+  ToolbarLayoutComp: typeof ToolbarLayoutWithClassName;
 } & StyleProps &
   MandatoryReplaceableProps;
 export const ComposerLayout = withCord<
@@ -27,9 +25,7 @@ export const ComposerLayout = withCord<
     const {
       toolbarItems,
       extraChildren,
-      className,
-      isEmpty,
-      isValid,
+      ToolbarLayoutComp,
       textEditor: _,
       ...restProps
     } = props;
@@ -59,23 +55,11 @@ export const ComposerLayout = withCord<
     return (
       <>
         {failedToSubmitMessage}
-        <div
-          ref={ref}
-          className={cx(
-            classes.composerContainer,
-            classes.expanded,
-            className,
-            {
-              [classes.empty]: isEmpty,
-              [classes.valid]: isValid,
-            },
-          )}
-          {...restProps}
-        >
+        <div ref={ref} {...restProps}>
           {props.textEditor}
           {attachments}
 
-          <ToolbarLayout canBeReplaced items={toolbarItems} />
+          <ToolbarLayoutComp items={toolbarItems} />
           {extra}
         </div>
       </>
