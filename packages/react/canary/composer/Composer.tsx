@@ -166,6 +166,7 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
     onBeforeSubmit,
     groupID,
     onFailSubmit,
+    expanded = 'auto',
   } = props;
 
   const base = useBaseComposer({
@@ -272,6 +273,7 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
 
   return {
     ...base,
+    expanded,
     extraChildren,
     isValid,
     toolbarItems,
@@ -293,7 +295,7 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
 }
 export function useBaseComposer(
   props: UseTextEditorProps,
-): Omit<ComposerProps, 'onSubmit' | 'groupID'> {
+): Omit<ComposerProps, 'onSubmit' | 'groupID' | 'expanded'> {
   const simpleComposer = useTextEditor(props);
   const { editor } = simpleComposer;
   const onKeyDown = useCallback(
@@ -590,6 +592,7 @@ const BaseComposer = forwardRef(function BaseComposer(
     style,
     isEmpty,
     isValid,
+    expanded,
     'data-cord-replace': dataCordReplace,
   }: BaseComposerProps,
   ref: React.ForwardedRef<HTMLElement>,
@@ -604,7 +607,10 @@ const BaseComposer = forwardRef(function BaseComposer(
     >
       <ComposerLayout
         ref={ref}
-        className={cx(classes.composerContainer, classes.expanded, className, {
+        className={cx(className, classes.composerContainer, {
+          [classes.alwaysExpand]: expanded === 'always',
+          [classes.neverExpand]: expanded === 'never',
+          [classes.autoExpand]: expanded === 'auto',
           [classes.empty]: isEmpty,
           [classes.valid]: isValid,
         })}

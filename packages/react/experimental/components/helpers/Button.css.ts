@@ -10,8 +10,9 @@ import { notificationContainer } from '../../../components/Notification.classnam
 import { imageModalOverlay } from '../../../components/MediaModal.classnames.js';
 import { resolvedThreadHeader } from '../../../components/Thread.classnames.js';
 import {
+  alwaysExpand,
+  autoExpand,
   composerContainer,
-  expanded,
 } from '../../../components/Composer.classnames.js';
 
 export default classes;
@@ -194,7 +195,7 @@ globalStyle(`:where(.${composerContainer}) .${closeButton}`, {
   borderRadius: cssVar('border-radius-round'),
 });
 globalStyle(
-  `.${composerContainer}:where(.${expanded}) :where(.${sendButton}, .${closeButton})`,
+  `.${composerContainer}:where(.${alwaysExpand}, .${autoExpand}:focus-within) :where(.${sendButton}, .${closeButton})`,
   {
     padding: cssVar('space-2xs'),
     height: cssVar('space-2xl'),

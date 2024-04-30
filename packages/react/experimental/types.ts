@@ -34,7 +34,10 @@ export interface StyleProps {
   className?: React.HTMLAttributes<HTMLDivElement>['className'];
 }
 
-export interface SendComposerProps extends StyleProps, ReplacementProps {
+export interface SendComposerProps
+  extends StyleProps,
+    ReplacementProps,
+    Pick<ComposerProps, 'expanded'> {
   /**
    * The initial value of the composer.
    */
@@ -80,7 +83,10 @@ export interface SendComposerProps extends StyleProps, ReplacementProps {
   onFailSubmit?: (error: unknown) => void;
 }
 
-export interface EditComposerProps extends StyleProps, ReplacementProps {
+export interface EditComposerProps
+  extends StyleProps,
+    ReplacementProps,
+    Pick<ComposerProps, 'expanded'> {
   /**
    * The initial value of the composer.
    */
@@ -129,6 +135,10 @@ export interface ComposerProps extends StyleProps, MandatoryReplaceableProps {
   editor: CustomEditor;
   isEmpty: boolean;
   isValid: boolean;
+  /**
+   * When set to `auto`, the composer will auto-expand when focused.
+   */
+  expanded?: 'auto' | 'never' | 'always';
   placeholder?: string;
   toolbarItems?: { name: string; element: JSX.Element | null }[];
   extraChildren?: { name: string; element: JSX.Element | null }[];
@@ -154,7 +164,7 @@ export type CordComposerProps = {
   groupID: string | undefined;
   onFailSubmit?: (error: unknown) => void;
   onChange?: (event: { content: MessageContent }) => void;
-};
+} & Pick<ComposerProps, 'expanded'>;
 
 export interface CommonMessageProps
   extends StyleProps,
@@ -300,6 +310,7 @@ type CommonThreadProps = {
    * If set to `true`, the header of the thread will be displayed. Defaults to `false`.
    */
   showHeader?: boolean;
+  composerExpanded?: ComposerProps['expanded'];
 } & StyleProps;
 
 export type ThreadByIDProps = {

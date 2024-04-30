@@ -8,7 +8,9 @@ export const medium = cordifyClassname('medium');
 export const small = cordifyClassname('small');
 export const empty = cordifyClassname('empty');
 export const valid = cordifyClassname('valid');
-export const expanded = cordifyClassname('expanded');
+export const alwaysExpand = cordifyClassname('always-expand');
+export const neverExpand = cordifyClassname('never-expand');
+export const autoExpand = cordifyClassname('auto-expand');
 export const composerButtonsContainer = cordifyClassname('composer-menu');
 export const primaryButtonsGroup = cordifyClassname('composer-primary-buttons');
 export const secondaryButtonsGroup = cordifyClassname(
@@ -24,3 +26,5 @@ export const placeholder = cordifyClassname('placeholder');
 export const userReferenceSuggestionsMenu = cordifyClassname('mention-menu');
 
 export const attachmentsContainer = cordifyClassname('attachments');
+
+export const collapsedComposerSelector = `.${composerContainer}:is(.${neverExpand}, .${autoExpand}:not(:focus-within))`;

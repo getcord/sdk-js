@@ -23,6 +23,7 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
       forwardRef(function Thread(
         {
           showHeader = false,
+          composerExpanded = 'always',
           threadData,
           className,
           ...restProps
@@ -78,6 +79,7 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
               <SendComposer
                 key={`composer-${thread?.id}`}
                 threadID={thread?.id}
+                expanded={composerExpanded}
               />
             }
             {...restProps}
