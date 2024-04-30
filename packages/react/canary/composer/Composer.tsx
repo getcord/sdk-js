@@ -1,7 +1,14 @@
 import * as React from 'react';
 import isHotkey from 'is-hotkey';
 import cx from 'classnames';
-import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  forwardRef,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { ReactEditor } from 'slate-react';
 import type {
   ClientMessageData,
@@ -20,7 +27,11 @@ import type {
 } from '../../experimental/types.js';
 import { ReactionPickButton } from '../../betaV2.js';
 import { WithPopper } from '../../experimental/components/helpers/WithPopper.js';
-import { thread as ThreadSDK, useCordTranslation } from '../../index.js';
+import {
+  CordContext,
+  thread as ThreadSDK,
+  useCordTranslation,
+} from '../../index.js';
 import { isMessageFileAttachment } from '../../common/lib/isMessageFileAttachment.js';
 import { onDeleteOrBackspace } from './event-handlers/onDeleteOrBackspace.js';
 import { onSpace } from './event-handlers/onSpace.js';
@@ -63,10 +74,20 @@ export function useSendComposer(props: SendComposerProps): ComposerProps {
   const { thread: threadData } = ThreadSDK.useThread(props.threadID, {
     skip: !props.threadID,
   });
+  const { sdk: cord } = useContext(CordContext);
+  const onChange = useCallback(() => {
+    if (!cord || !props.threadID) {
+      return;
+    }
+    void cord?.thread.updateThread(props.threadID, {
+      typing: true,
+    });
+  }, [cord, props.threadID]);
 
   return useCordComposer({
     ...props,
     onSubmit,
+    onChange,
     groupID: threadData?.groupID ?? props.createThread?.groupID,
   });
 }
@@ -169,10 +190,11 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
 
   const onChange = useCallback(
     (args: { content: MessageContent }) => {
+      props.onChange?.(args);
       base.onChange(args);
-      mentionProps.onChange?.(args);
+      mentionProps.onChange(args);
     },
-    [base, mentionProps],
+    [base, mentionProps, props],
   );
 
   const onKeyDown = useCallback(

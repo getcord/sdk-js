@@ -153,6 +153,7 @@ export type CordComposerProps = {
   onCancel?: () => void;
   groupID: string | undefined;
   onFailSubmit?: (error: unknown) => void;
+  onChange?: (event: { content: MessageContent }) => void;
 };
 
 export interface CommonMessageProps
