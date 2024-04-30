@@ -26,7 +26,9 @@ export const ComposerLayout = withCord<
       toolbarItems,
       extraChildren,
       ToolbarLayoutComp,
-      textEditor: _,
+      textEditor: _textEditor,
+      isEmpty: _isEmpty,
+      isValid: _isValid,
       ...restProps
     } = props;
     const attachments = useMemo(
