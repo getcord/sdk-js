@@ -232,7 +232,8 @@ export interface CoreThreadData {
   /**
    * The users that are currently typing in this thread.  Typing status is
    * transient in nature, so the value is the set of users typing at a
-   * particular instant, but may change rapidly.
+   * particular instant, but may change rapidly.  In the context of a specific
+   * user (such as the JS API), it will exclude that user from the list.
    */
   typing: UserID[];
 
