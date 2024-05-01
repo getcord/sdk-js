@@ -63,9 +63,33 @@ export function useEditComposer(props: EditComposerProps): ComposerProps {
 
   return useCordComposer({
     ...props,
+    showCancelButton: props.showCancelButton ?? true,
     onSubmit,
     groupID: threadData.thread?.groupID,
   });
+}
+
+function useToolbarItems(
+  cordComposerProps: ComposerProps,
+  onCancel: ComposerProps['onCancel'],
+) {
+  return useMemo(() => {
+    if (!cordComposerProps.showCancelButton) {
+      return cordComposerProps.toolbarItems;
+    }
+
+    return [
+      ...(cordComposerProps.toolbarItems ?? []),
+      {
+        name: 'cancelButton',
+        element: <CloseComposerButton canBeReplaced onClick={onCancel} />,
+      },
+    ];
+  }, [
+    cordComposerProps.showCancelButton,
+    cordComposerProps.toolbarItems,
+    onCancel,
+  ]);
 }
 
 export function useSendComposer(props: SendComposerProps): ComposerProps {
@@ -86,6 +110,7 @@ export function useSendComposer(props: SendComposerProps): ComposerProps {
 
   return useCordComposer({
     ...props,
+    showCancelButton: props.showCancelButton ?? false,
     onSubmit,
     onChange,
     groupID: threadData?.groupID ?? props.createThread?.groupID,
@@ -102,6 +127,8 @@ export const SendComposer = forwardRef(
 
     const cordComposerProps = useSendComposer(props);
 
+    const toolbarItems = useToolbarItems(cordComposerProps, props.onCancel);
+
     if (resolved) {
       return <ResolvedThreadComposer thread={threadData} canBeReplaced />;
     }
@@ -111,6 +138,7 @@ export const SendComposer = forwardRef(
         ref={ref}
         canBeReplaced
         {...cordComposerProps}
+        toolbarItems={toolbarItems}
         placeholder={t('send_message_placeholder')}
       />
     );
@@ -126,18 +154,8 @@ export const EditComposer = forwardRef(
 
     const { t } = useCordTranslation('composer');
 
-    const closeComposerButtonToolbarItem = useMemo(() => {
-      return [
-        {
-          name: 'cancelButton',
-          element: (
-            <CloseComposerButton canBeReplaced onClick={props.onCancel} />
-          ),
-        },
-      ];
-    }, [props]);
-
     const cordComposerProps = useEditComposer(props);
+    const toolbarItems = useToolbarItems(cordComposerProps, props.onCancel);
 
     if (resolved) {
       return <ResolvedThreadComposer thread={threadData} canBeReplaced />;
@@ -148,10 +166,7 @@ export const EditComposer = forwardRef(
         ref={ref}
         canBeReplaced
         {...cordComposerProps}
-        toolbarItems={[
-          ...(cordComposerProps.toolbarItems ?? []),
-          ...closeComposerButtonToolbarItem,
-        ]}
+        toolbarItems={toolbarItems}
         placeholder={t('edit_message_placeholder')}
       />
     );

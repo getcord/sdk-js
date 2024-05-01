@@ -2,7 +2,10 @@ import { cssVar } from '../../common/ui/cssVariables.js';
 import { globalStyle } from '../../common/ui/style.js';
 import { cordifyClassname } from '../../common/util.js';
 import * as composerClasses from '../../components/Composer.classnames.js';
-import { sendButton } from '../../components/helpers/Button.classnames.js';
+import {
+  closeButton,
+  sendButton,
+} from '../../components/helpers/Button.classnames.js';
 
 const { editorContainer, primaryButtonsGroup, secondaryButtonsGroup } =
   composerClasses;
@@ -28,7 +31,7 @@ globalStyle(
 );
 
 globalStyle(
-  `${composerClasses.collapsedComposerSelector} .${composerToolbar} button:not(.${sendButton})`,
+  `${composerClasses.collapsedComposerSelector} .${composerToolbar} button:not(.${sendButton}, .${closeButton})`,
   {
     display: 'none',
   },

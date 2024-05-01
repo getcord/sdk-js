@@ -37,7 +37,7 @@ export interface StyleProps {
 export interface SendComposerProps
   extends StyleProps,
     ReplacementProps,
-    Pick<ComposerProps, 'expanded'> {
+    Pick<ComposerProps, 'expanded' | 'showCancelButton'> {
   /**
    * The initial value of the composer.
    */
@@ -86,7 +86,7 @@ export interface SendComposerProps
 export interface EditComposerProps
   extends StyleProps,
     ReplacementProps,
-    Pick<ComposerProps, 'expanded'> {
+    Pick<ComposerProps, 'expanded' | 'showCancelButton'> {
   /**
    * The initial value of the composer.
    */
@@ -139,6 +139,7 @@ export interface ComposerProps extends StyleProps, MandatoryReplaceableProps {
    * When set to `auto`, the composer will auto-expand when focused.
    */
   expanded?: 'auto' | 'never' | 'always';
+  showCancelButton?: boolean;
   placeholder?: string;
   toolbarItems?: { name: string; element: JSX.Element | null }[];
   extraChildren?: { name: string; element: JSX.Element | null }[];
@@ -164,7 +165,7 @@ export type CordComposerProps = {
   groupID: string | undefined;
   onFailSubmit?: (error: unknown) => void;
   onChange?: (event: { content: MessageContent }) => void;
-} & Pick<ComposerProps, 'expanded'>;
+} & Pick<ComposerProps, 'expanded' | 'showCancelButton'>;
 
 export interface CommonMessageProps
   extends StyleProps,
@@ -180,6 +181,10 @@ export interface MessageProps extends CommonMessageProps {
    * Defaults to false.
    */
   showThreadOptions?: boolean;
+  /**
+   * Whether to show to cancel button in the composer that appears when editing a message.
+   */
+  composerShowCancelButton?: boolean;
 }
 
 export type MessageByIDProps = {
@@ -311,6 +316,7 @@ type CommonThreadProps = {
    */
   showHeader?: boolean;
   composerExpanded?: ComposerProps['expanded'];
+  composerShowCancelButton?: SendComposerProps['showCancelButton'];
 } & StyleProps;
 
 export type ThreadByIDProps = {
