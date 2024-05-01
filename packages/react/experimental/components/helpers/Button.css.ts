@@ -13,6 +13,7 @@ import {
   alwaysExpand,
   autoExpand,
   composerContainer,
+  hasAttachments,
 } from '../../../components/Composer.classnames.js';
 
 export default classes;
@@ -195,7 +196,7 @@ globalStyle(`:where(.${composerContainer}) .${closeButton}`, {
   borderRadius: cssVar('border-radius-round'),
 });
 globalStyle(
-  `.${composerContainer}:where(.${alwaysExpand}, .${autoExpand}:focus-within) :where(.${sendButton}, .${closeButton})`,
+  `.${composerContainer}:where(.${alwaysExpand}, .${autoExpand}:focus-within, .${hasAttachments}) :where(.${sendButton}, .${closeButton})`,
   {
     padding: cssVar('space-2xs'),
     height: cssVar('space-2xl'),

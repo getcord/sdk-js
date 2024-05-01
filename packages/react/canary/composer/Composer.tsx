@@ -626,6 +626,9 @@ const BaseComposer = forwardRef(function BaseComposer(
           [classes.alwaysExpand]: expanded === 'always',
           [classes.neverExpand]: expanded === 'never',
           [classes.autoExpand]: expanded === 'auto',
+          [classes.hasAttachments]: !!extraChildren?.find(
+            (c) => c.name === 'attachments',
+          )?.element,
           [classes.empty]: isEmpty,
           [classes.valid]: isValid,
         })}

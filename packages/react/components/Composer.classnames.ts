@@ -26,5 +26,5 @@ export const placeholder = cordifyClassname('placeholder');
 export const userReferenceSuggestionsMenu = cordifyClassname('mention-menu');
 
 export const attachmentsContainer = cordifyClassname('attachments');
-
-export const collapsedComposerSelector = `.${composerContainer}:is(.${neverExpand}, .${autoExpand}:not(:focus-within))`;
+export const hasAttachments = cordifyClassname('has-attachments');
+export const collapsedComposerSelector = `.${composerContainer}:not(.${hasAttachments}):is(.${neverExpand}, .${autoExpand}:not(:focus-within))`;
