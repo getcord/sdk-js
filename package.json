@@ -1,6 +1,6 @@
 {
   "name": "cord-sdk",
-  "version": "1.42.4",
+  "version": "1.43.0",
   "private": true,
   "type": "module",
   "workspaces": [
