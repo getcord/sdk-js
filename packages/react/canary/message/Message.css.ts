@@ -13,7 +13,6 @@ const {
   deletedIcon,
   deletedMessageText,
   message,
-  optionsMenuTrigger,
   sentViaIcon,
   undoDeleteButton,
   messageOptionsButtons,
@@ -93,12 +92,6 @@ globalStyle(`.${sentViaIcon}`, {
   alignItems: 'center',
 });
 
-globalStyle(`.${optionsMenuTrigger}`, {
-  display: 'flex',
-  gridArea: 'optionsMenu',
-  alignSelf: 'flex-start',
-});
-
 globalStyle(`.${undoDeleteButton}`, {
   color: cssVar('color-content-emphasis'),
   cursor: 'pointer',
@@ -124,6 +117,8 @@ globalStyle(`.${deletedIcon}`, {
 
 globalStyle(`.${messageOptionsButtons}`, {
   display: 'flex',
+  gridArea: 'optionsMenu',
+  alignSelf: 'flex-start',
   gap: cssVar('space-3xs'),
   background: 'transparent',
   borderRadius: cssVar('space-3xs'),

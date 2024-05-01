@@ -57,11 +57,9 @@ export const MessageLayout = withCord<
         {avatar}
         {authorName}
         {timestamp}
-        <div className={classes.optionsMenuTrigger}>
-          <div className={classes.messageOptionsButtons}>
-            {optionsMenu}
-            {emojiPicker}
-          </div>
+        <div className={classes.messageOptionsButtons}>
+          {optionsMenu}
+          {emojiPicker}
         </div>
         {messageContent}
         {reactions}
