@@ -41,6 +41,8 @@ export const Reactions = withCord<React.PropsWithChildren<ReactionsProps>>(
       messageID,
       showAddReactionButton = true,
       showReactionList = true,
+      className,
+      style,
       ...restProps
     }: ReactionsProps,
     ref?: React.ForwardedRef<HTMLDivElement>,
@@ -53,12 +55,17 @@ export const Reactions = withCord<React.PropsWithChildren<ReactionsProps>>(
       return (
         <>
           {showAddReactionButton && (
-            <AddReactionToMessageButton
-              threadID={threadID}
-              messageID={messageID}
-              disabled={true}
-              {...restProps}
-            />
+            <div
+              style={style}
+              className={cx(classes.reactionsContainer, className)}
+            >
+              <AddReactionToMessageButton
+                threadID={threadID}
+                messageID={messageID}
+                disabled={true}
+                {...restProps}
+              />
+            </div>
           )}
         </>
       );
@@ -72,6 +79,8 @@ export const Reactions = withCord<React.PropsWithChildren<ReactionsProps>>(
 
     return (
       <ReactionsInner
+        className={className}
+        style={style}
         ref={ref}
         reactions={message.reactions}
         unseenReactionsUnicode={unseenReactionsUnicode}
