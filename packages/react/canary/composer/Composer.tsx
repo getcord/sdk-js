@@ -137,9 +137,9 @@ export const SendComposer = forwardRef(
       <Composer
         ref={ref}
         canBeReplaced
+        placeholder={t('send_message_placeholder')}
         {...cordComposerProps}
         toolbarItems={toolbarItems}
-        placeholder={t('send_message_placeholder')}
       />
     );
   },
@@ -165,9 +165,9 @@ export const EditComposer = forwardRef(
       <Composer
         ref={ref}
         canBeReplaced
+        placeholder={t('edit_message_placeholder')}
         {...cordComposerProps}
         toolbarItems={toolbarItems}
-        placeholder={t('edit_message_placeholder')}
       />
     );
   },
