@@ -56,17 +56,20 @@ import type { ErrorFallbackProps } from './ErrorFallback.js';
 import type { MentionListProps } from './composer/MentionList.js';
 import type { ShareToEmailFormProps } from './menu/ShareToEmailForm.js';
 
+interface PleaseWrapYourReplacementInForwardRef<T>
+  extends React.ForwardRefExoticComponent<T> {}
+
 export type ReplaceConfig = ReplaceConfigBase & ReplaceWithin;
 
 export type ReplaceConfigBase = Partial<{
   ActionMessage: React.ComponentType<ActionMessageProps>;
-  Avatar: React.ComponentType<AvatarProps>;
+  Avatar: PleaseWrapYourReplacementInForwardRef<AvatarProps>;
   AvatarFallback: React.ComponentType<AvatarFallbackProps>;
   AvatarTooltip: React.ComponentType<AvatarTooltipProps>;
-  Button: React.ComponentType<GeneralButtonProps>;
+  Button: PleaseWrapYourReplacementInForwardRef<GeneralButtonProps>;
   CloseComposerButton: React.ComponentType<CloseComposerButtonProps>;
   Composer: React.ComponentType<ComposerProps>;
-  ComposerLayout: React.ComponentType<ComposerLayoutProps>;
+  ComposerLayout: PleaseWrapYourReplacementInForwardRef<ComposerLayoutProps>;
   EmojiPicker: React.ComponentType<EmojiPickerProps>;
   EmptyThreadPlaceholder: React.ComponentType<EmptyThreadPlaceholderProps>;
   ErrorFallback: React.ComponentType<ErrorFallbackProps>;
