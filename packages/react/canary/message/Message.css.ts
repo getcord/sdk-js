@@ -5,6 +5,7 @@ import {
   defaultGlobalStyle,
   globalStyle,
 } from '../../common/ui/style.js';
+import { composerContainer } from '../../components/Composer.classnames.js';
 import * as classes from '../../components/Message.classnames.js';
 export * from '../../components/Message.classnames.js';
 
@@ -24,6 +25,9 @@ globalStyle(`.${message}`, {
   backgroundColor: cssVar('color-base'),
   borderRadius: cssVar('border-radius-medium'),
   position: 'relative',
+});
+
+globalStyle(`.${message}:not(.${composerContainer})`, {
   padding: `${cssVar('space-3xs')} ${cssVar('space-3xs')} ${cssVar(
     'space-2xs',
   )} ${cssVar('space-2xs')} `,
