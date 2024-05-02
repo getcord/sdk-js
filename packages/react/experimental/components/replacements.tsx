@@ -29,6 +29,7 @@ import type { SendMessageErrorProps } from '../../canary/composer/SendMessageErr
 import type { ScrollContainerProps } from '../../canary/ScrollContainer.js';
 import type { EmptyThreadPlaceholderProps } from '../../canary/thread/EmptyThreadPlaceholder.js';
 import type { ThreadLayoutProps } from '../../canary/thread/ThreadLayout.js';
+import type { ComposerAttachmentInputProps } from '../../canary/composer/ComposerAttachmentInput.js';
 import type { OverlayProps } from './Overlay.js';
 import type { FacepileProps } from './Facepile.js';
 import type { PresenceFacepileProps } from './PresenceFacepile.js';
@@ -72,6 +73,7 @@ export type ReplaceConfigBase = Partial<{
   CloseComposerButton: React.ComponentType<CloseComposerButtonProps>;
   Composer: React.ComponentType<ComposerProps>;
   ComposerLayout: PleaseWrapYourReplacementInForwardRef<ComposerLayoutProps>;
+  ComposerAttachmentInput: PleaseWrapYourReplacementInForwardRef<ComposerAttachmentInputProps>;
   EmojiPicker: React.ComponentType<EmojiPickerProps>;
   EmptyThreadPlaceholder: React.ComponentType<EmptyThreadPlaceholderProps>;
   ErrorFallback: React.ComponentType<ErrorFallbackProps>;

@@ -8,6 +8,7 @@ import { AddAttachmentsButton } from '../AddAttachments.js';
 import type { ComposerProps } from '../../../experimental/types.js';
 import { useToast } from '../../../experimental/hooks/useToast.js';
 import { useCordTranslation } from '../../../hooks/useCordTranslation.js';
+import { ComposerAttachmentInputWrapper } from '../ComposerAttachmentInput.js';
 import { useUploadFileToCord } from './useUploadFileToCord.js';
 
 const EMPTY_ARRAY: MessageFileAttachment[] = [];
@@ -88,7 +89,12 @@ export function useAddAttachmentToComposer(attachmentsProps: {
   editor: CustomEditor;
 }): Pick<
   ComposerProps,
-  'extraChildren' | 'onPaste' | 'onResetState' | 'isValid' | 'toolbarItems'
+  | 'extraChildren'
+  | 'onPaste'
+  | 'onResetState'
+  | 'isValid'
+  | 'toolbarItems'
+  | 'attachmentInputElement'
 > & {
   attachments: MessageFileAttachment[];
 } {
@@ -100,6 +106,12 @@ export function useAddAttachmentToComposer(attachmentsProps: {
 
   const isValid = attachments.length > 0;
   const attachFiles = useUploadFileToCord(upsertAttachment);
+
+  const attachFileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleSelectAttachment = useCallback(() => {
+    attachFileInputRef.current?.click();
+  }, []);
 
   const onPaste = useCallback(
     ({ event }: { event: React.ClipboardEvent }) => {
@@ -150,12 +162,22 @@ export function useAddAttachmentToComposer(attachmentsProps: {
           <AddAttachmentsButton
             key="add-attachment-button"
             editor={editor}
-            editAttachment={upsertAttachment}
+            handleSelectAttachment={handleSelectAttachment}
           />
         ),
       },
     ];
-  }, [editor, upsertAttachment]);
+  }, [editor, handleSelectAttachment]);
+
+  const attachmentInputElement = useMemo(() => {
+    return (
+      <ComposerAttachmentInputWrapper
+        attachFiles={attachFiles}
+        ref={attachFileInputRef}
+      />
+    );
+  }, [attachFiles]);
+
   return useMemo(
     () => ({
       toolbarItems,
@@ -164,14 +186,16 @@ export function useAddAttachmentToComposer(attachmentsProps: {
       onResetState: resetAttachments,
       isValid,
       onPaste,
+      attachmentInputElement,
     }),
     [
+      toolbarItems,
       attachments,
       extraChildren,
-      toolbarItems,
-      onPaste,
-      isValid,
       resetAttachments,
+      isValid,
+      onPaste,
+      attachmentInputElement,
     ],
   );
 }

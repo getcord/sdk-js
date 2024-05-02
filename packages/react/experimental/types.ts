@@ -149,6 +149,7 @@ export interface ComposerProps extends StyleProps, MandatoryReplaceableProps {
   groupID: string | undefined;
   autofocus?: boolean;
   onFailSubmit?: (error: unknown) => void;
+  attachmentInputElement: JSX.Element;
 }
 
 export type CordComposerProps = {

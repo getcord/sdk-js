@@ -306,11 +306,15 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
     value,
     groupID,
     onFailSubmit,
+    attachmentInputElement: attachmentsProps.attachmentInputElement,
   };
 }
 export function useBaseComposer(
   props: UseTextEditorProps,
-): Omit<ComposerProps, 'onSubmit' | 'groupID' | 'expanded'> {
+): Omit<
+  ComposerProps,
+  'onSubmit' | 'groupID' | 'expanded' | 'attachmentInputElement'
+> {
   const simpleComposer = useTextEditor(props);
   const { editor } = simpleComposer;
   const onKeyDown = useCallback(
@@ -609,50 +613,54 @@ const BaseComposer = forwardRef(function BaseComposer(
     isValid,
     expanded,
     'data-cord-replace': dataCordReplace,
+    attachmentInputElement,
   }: BaseComposerProps,
   ref: React.ForwardedRef<HTMLElement>,
 ) {
   return (
-    <WithPopper
-      popperElement={popperElement ?? null}
-      popperElementVisible={popperElementVisible ?? false}
-      popperPosition="top-start"
-      onShouldHide={popperOnShouldHide}
-      popperWidth="full"
-    >
-      <ComposerLayout
-        ref={ref}
-        className={cx(className, classes.composerContainer, {
-          [classes.alwaysExpand]: expanded === 'always',
-          [classes.neverExpand]: expanded === 'never',
-          [classes.autoExpand]: expanded === 'auto',
-          [classes.hasAttachments]: !!extraChildren?.find(
-            (c) => c.name === 'attachments',
-          )?.element,
-          [classes.empty]: isEmpty,
-          [classes.valid]: isValid,
-        })}
-        canBeReplaced
-        ToolbarLayoutComp={ToolbarLayoutWithClassName}
-        textEditor={
-          <TextEditor
-            canBeReplaced
-            className={classes.editor}
-            placeholder={placeholder}
-            editor={editor}
-            initialValue={initialValue?.content}
-            onPaste={onPaste}
-            onChange={onChange}
-            onKeyDown={onKeyDown}
-          />
-        }
-        extraChildren={extraChildren}
-        toolbarItems={toolbarItems}
-        style={style}
-        isEmpty={isEmpty}
-        isValid={isValid}
-        data-cord-replace={dataCordReplace}
-      />
-    </WithPopper>
+    <>
+      <WithPopper
+        popperElement={popperElement ?? null}
+        popperElementVisible={popperElementVisible ?? false}
+        popperPosition="top-start"
+        onShouldHide={popperOnShouldHide}
+        popperWidth="full"
+      >
+        <ComposerLayout
+          ref={ref}
+          className={cx(className, classes.composerContainer, {
+            [classes.alwaysExpand]: expanded === 'always',
+            [classes.neverExpand]: expanded === 'never',
+            [classes.autoExpand]: expanded === 'auto',
+            [classes.hasAttachments]: !!extraChildren?.find(
+              (c) => c.name === 'attachments',
+            )?.element,
+            [classes.empty]: isEmpty,
+            [classes.valid]: isValid,
+          })}
+          canBeReplaced
+          ToolbarLayoutComp={ToolbarLayoutWithClassName}
+          textEditor={
+            <TextEditor
+              canBeReplaced
+              className={classes.editor}
+              placeholder={placeholder}
+              editor={editor}
+              initialValue={initialValue?.content}
+              onPaste={onPaste}
+              onChange={onChange}
+              onKeyDown={onKeyDown}
+            />
+          }
+          extraChildren={extraChildren}
+          toolbarItems={toolbarItems}
+          style={style}
+          isEmpty={isEmpty}
+          isValid={isValid}
+          data-cord-replace={dataCordReplace}
+        />
+      </WithPopper>
+      {attachmentInputElement}
+    </>
   );
 });

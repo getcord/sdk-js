@@ -14,6 +14,10 @@ export {
   type GeneralButtonProps,
 } from './experimental/components/helpers/Button.js';
 export {
+  ComposerAttachmentInput,
+  type ComposerAttachmentInputProps,
+} from './canary/composer/ComposerAttachmentInput.js';
+export {
   CloseComposerButton,
   type CloseComposerButtonProps,
 } from './../react/canary/composer/CloseComposerButton.js';
