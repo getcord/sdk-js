@@ -58,7 +58,7 @@ export interface SendComposerProps
    * An object containing the data of the thread to be created. If the thread specified in
    * threadID exists, the message will be added to that thread and this object will be ignored.
    */
-  createThread?: ClientCreateThread;
+  createThread?: Partial<ClientCreateThread>;
   /**
    * Text to be displayed as a placeholder in the composer.
    */

@@ -2,7 +2,6 @@ import { useCallback, useContext } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import type {
-  ClientCreateThread,
   ClientMessageData,
   MessageAttachment,
   MessageFileAttachment,
@@ -10,6 +9,7 @@ import type {
 } from '@cord-sdk/types';
 import { CordContext } from '../../../contexts/CordContext.js';
 import { thread as ThreadSDK } from '../../../index.js';
+import type { SendComposerProps } from '../../../betaV2.js';
 
 const EMPTY_ATTACHMENTS: MessageAttachment[] = [];
 const EMPTY_REACTIONS: Reaction[] = [];
@@ -87,7 +87,7 @@ export function useEditSubmit(args: UseEditSubmit) {
 type UseCreateSubmit = {
   initialValue?: Partial<ClientMessageData>;
   threadID?: string;
-  createThread?: ClientCreateThread;
+  createThread?: SendComposerProps['createThread'];
 };
 
 export function useCreateSubmit(args: UseCreateSubmit) {
@@ -109,14 +109,16 @@ export function useCreateSubmit(args: UseCreateSubmit) {
           type: 'file',
         })),
         addReactions: (reactions ?? []).map((r) => r.reaction),
-        createThread: createThread ?? {
+        createThread: {
           location: { location: url },
           url,
           name: document.title,
+          ...createThread,
+          groupID: createThread?.groupID ?? cord.groupID,
         },
       });
     },
-    [cord?.thread, createThread, threadID],
+    [cord?.thread, cord?.groupID, threadID, createThread],
   );
 }
 
