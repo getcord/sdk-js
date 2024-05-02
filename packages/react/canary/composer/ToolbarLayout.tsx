@@ -11,6 +11,10 @@ import { composerToolbar } from './ToolbarLayout.css.js';
 
 const PRIMARY = ['sendButton', 'cancelButton'];
 export type ToolbarLayoutProps = {
+  /**
+   * An array of named elements.
+   * You can filter some out, or reorder, or add new custom buttons.
+   */
   items?: { name: string; element: JSX.Element | null }[];
 } & StyleProps &
   MandatoryReplaceableProps;

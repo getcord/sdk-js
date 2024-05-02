@@ -7,11 +7,35 @@ import type { StyleProps } from '../../experimental/types.js';
 import type { ToolbarLayoutWithClassName } from './ToolbarLayout.js';
 
 export type ComposerLayoutProps = {
+  /**
+   * Where your user inputs the text.
+   */
   textEditor: JSX.Element;
+  /**
+   * An array of named elements that would appear in the toolbar.
+   * You can filter some out, or reorder, or add new custom buttons.
+   *
+   * They are usually passed into `props.ToolbarLayoutComp`.
+   */
   toolbarItems?: { name: string; element: JSX.Element | null }[];
+  /**
+   * An array of named elements that would appear in the composer.
+   * By default it contains the file attachments.
+   */
   extraChildren?: { name: string; element: JSX.Element | null }[];
+  /**
+   * If the composer is empty.
+   * An empty composer will show a placeholder.
+   */
   isEmpty: boolean;
+  /**
+   * If the composer is valid, this will enable or disable the send button.
+   */
   isValid: boolean;
+  /**
+   * The toolbar layout component, we pass `toolbarItems` to it.
+   * It is here mostly for your convenience so you do not need to import it.
+   */
   ToolbarLayoutComp: typeof ToolbarLayoutWithClassName;
 } & StyleProps &
   MandatoryReplaceableProps;
