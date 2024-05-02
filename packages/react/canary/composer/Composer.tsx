@@ -270,7 +270,7 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
         return;
       }
       if (onBeforeSubmit) {
-        message = onBeforeSubmit({ message })?.message ?? null;
+        message = (await onBeforeSubmit({ message }))?.message ?? null;
         if (message === null) {
           return;
         }

@@ -68,13 +68,11 @@ export interface SendComposerProps
    * as an argument and should return the modified message data. If the callback
    * returns `null`, the message will not be sent.
    */
-  onBeforeSubmit?: (arg: {
-    message: Partial<ClientMessageData>;
-  }) => { message: Partial<ClientMessageData> } | null;
+  onBeforeSubmit?: CordComposerProps['onBeforeSubmit'];
   /**
    * Callback invoked after the message is sent.
    */
-  onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
+  onAfterSubmit?: CordComposerProps['onAfterSubmit'];
   /**
    * Callback invoked when the user clicks on the cancel button in the composer.
    */
@@ -104,13 +102,11 @@ export interface EditComposerProps
    * as an argument and should return the modified message data. If the callback
    * returns `null`, the message will not be sent.
    */
-  onBeforeSubmit?: (arg: {
-    message: Partial<ClientMessageData>;
-  }) => { message: Partial<ClientMessageData> } | null;
+  onBeforeSubmit?: CordComposerProps['onBeforeSubmit'];
   /**
    * Callback invoked after the message is sent.
    */
-  onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
+  onAfterSubmit?: CordComposerProps['onAfterSubmit'];
   /**
    * Callback invoked when the user clicks on the cancel button in the composer.
    */
@@ -157,7 +153,7 @@ export type CordComposerProps = {
   placeholder?: string;
   onBeforeSubmit?: (arg: {
     message: Partial<ClientMessageData>;
-  }) => { message: Partial<ClientMessageData> } | null;
+  }) => Promise<{ message: Partial<ClientMessageData> } | null>;
   onSubmit: (arg: {
     message: Partial<ClientMessageData>;
   }) => Promise<void> | void;
