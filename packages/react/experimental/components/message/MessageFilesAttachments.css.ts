@@ -6,16 +6,10 @@ const {
   messageImageAttachments,
   messageVideoAttachments,
   messageDocumentAttachments,
-  messageLinkPreviews,
 } = classes;
 
 globalStyle(`.${messageImageAttachments}`, { gridArea: 'imageAttachments' });
 globalStyle(`.${messageVideoAttachments}`, { gridArea: 'videoAttachments' });
 globalStyle(`.${messageDocumentAttachments}`, {
   gridArea: 'documentAttachments',
-});
-globalStyle(`.${messageLinkPreviews}`, {
-  gridArea: 'linkPreviews',
-  width: '100%',
-  overflowX: 'auto',
 });

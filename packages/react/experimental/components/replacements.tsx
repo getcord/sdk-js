@@ -55,6 +55,8 @@ import type { ReactionPickButtonProps } from './ReactionPickButton.js';
 import type { ErrorFallbackProps } from './ErrorFallback.js';
 import type { MentionListProps } from './composer/MentionList.js';
 import type { ShareToEmailFormProps } from './menu/ShareToEmailForm.js';
+import type { MessageLinkPreviewsProps } from './message/MessageLinkPreviews.js';
+import type { MessageLinkPreviewProps } from './message/MessageLinkPreview.js';
 
 interface PleaseWrapYourReplacementInForwardRef<T>
   extends React.ForwardRefExoticComponent<T> {}
@@ -84,6 +86,8 @@ export type ReplaceConfigBase = Partial<{
   MessageContent: React.ComponentType<MessageContentProps>;
   MessageFilesAttachments: React.ComponentType<MessageFilesAttachmentsProps>;
   MessageLayout: React.ComponentType<MessageLayoutProps>;
+  MessageLinkPreviews: React.ComponentType<MessageLinkPreviewsProps>;
+  MessageLinkPreview: React.ComponentType<MessageLinkPreviewProps>;
   MessageText: React.ComponentType<MessageTextProps>;
   MessageTombstone: React.ComponentType<MessageTombstoneProps>;
   MessageUserReferenceElement: React.ComponentType<MessageUserReferenceElementProps>;

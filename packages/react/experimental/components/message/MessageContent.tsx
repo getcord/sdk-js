@@ -11,10 +11,13 @@ import withCord from '../hoc/withCord.js';
 import type { MandatoryReplaceableProps } from '../replacements.js';
 import type { StyleProps } from '../../types.js';
 import { isMessageFileAttachment } from '../../../common/lib/isMessageFileAttachment.js';
+import { isLinkPreviewAttachment } from '../../../common/lib/isLinkPreviewAttachment.js';
 import { MessageFilesAttachments } from './MessageFilesAttachments.js';
 import { MessageText } from './MessageText.js';
+import { MessageLinkPreviews } from './MessageLinkPreviews.js';
 
 export type MessageContentProps = {
+  messageID: string;
   content: MessageContentType;
   attachments: MessageAttachment[];
   edited: boolean;
@@ -34,12 +37,18 @@ export const MessageContent = withCord<
       edited,
       className,
       authorData,
+      messageID,
       ...rest
     }: MessageContentProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     const filesAttachments = useMemo(
       () => attachments.filter(isMessageFileAttachment),
+      [attachments],
+    );
+
+    const linkPreviews = useMemo(
+      () => attachments.filter(isLinkPreviewAttachment),
       [attachments],
     );
 
@@ -65,6 +74,12 @@ export const MessageContent = withCord<
           canBeReplaced
           authorData={authorData}
           createdAt={createdAt}
+        />
+        <MessageLinkPreviews
+          linkPreviews={linkPreviews}
+          authorData={authorData}
+          canBeReplaced
+          messageID={messageID}
         />
       </div>
     );

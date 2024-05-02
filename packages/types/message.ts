@@ -130,6 +130,10 @@ export interface MessageLinkPreviewAttachment {
    */
   type: 'link_preview';
   /**
+   * The ID of the link preview attachment.
+   */
+  id: string;
+  /**
    * The url from which the preview was generated.
    */
   url: string;

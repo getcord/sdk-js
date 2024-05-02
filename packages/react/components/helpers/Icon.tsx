@@ -9,6 +9,7 @@ import { AddEmojiIcon as AddEmoji } from '../../common/icons/customIcons/AddEmoj
 import { AnnotationPinIcon as AnnotationPin } from '../../common/icons/customIcons/AnnotationPinIcon.js';
 import { AssignIcon as Assign } from '../../common/icons/customIcons/AssignIcon.js';
 import { ChatAddIcon as ChatAdd } from '../../common/icons/customIcons/ChatAddIcon.js';
+import { CrossIcon as Cross } from '../../common/icons/customIcons/CrossIcon.js';
 import { CursorIcon as Cursor } from '../../common/icons/customIcons/CursorIcon.js';
 import { SlackIcon as Slack } from '../../common/icons/customIcons/SlackIcon.js';
 // eslint-disable-next-line @cspell/spellchecker
@@ -43,6 +44,7 @@ const CUSTOM_ICONS = {
   AnnotationPin,
   Assign,
   ChatAdd,
+  Cross,
   ArrowRight,
   ArrowUp,
   Clipboard,

@@ -112,6 +112,7 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
             avatar={<Avatar canBeReplaced user={authorData} />}
             messageContent={
               <MessageContent
+                messageID={message.id}
                 content={message.content}
                 createdAt={message.createdTimestamp}
                 authorData={authorData}
