@@ -182,10 +182,6 @@ export interface MessageProps extends CommonMessageProps {
    * Defaults to false.
    */
   showThreadOptions?: boolean;
-  /**
-   * Whether to show to cancel button in the composer that appears when editing a message.
-   */
-  composerShowCancelButton?: boolean;
 }
 
 export type MessageByIDProps = {
@@ -317,7 +313,6 @@ type CommonThreadProps = {
    */
   showHeader?: boolean;
   composerExpanded?: ComposerProps['expanded'];
-  composerShowCancelButton?: SendComposerProps['showCancelButton'];
 } & StyleProps;
 
 export type ThreadByIDProps = {
