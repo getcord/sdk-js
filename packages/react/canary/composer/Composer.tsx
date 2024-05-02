@@ -181,7 +181,7 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
     onBeforeSubmit,
     groupID,
     onFailSubmit,
-    expanded = 'auto',
+    expanded = 'always',
   } = props;
 
   const base = useBaseComposer({
