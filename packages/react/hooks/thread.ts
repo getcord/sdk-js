@@ -8,7 +8,6 @@ import type {
   ThreadData,
   ObserveLocationDataOptions,
   LocationData,
-  FetchMoreCallback,
   ObserveThreadActivitySummaryOptions,
   SearchResultData,
   SearchOptionsType,
@@ -21,8 +20,9 @@ import type {
 } from '@cord-sdk/types';
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext.js';
-import { useMemoizedLocation } from './useMemoizedLocation.js';
 import { useMemoObject } from './useMemoObject.js';
+import { NO_SELECTOR, useObserveFunction } from './util.js';
+import type { SkipOption } from './util.js';
 
 /**
  * This method allows you to observe summary information about a
@@ -61,31 +61,13 @@ export function useLocationSummary(
   location: Location,
   options?: ObserveThreadActivitySummaryOptions,
 ): ThreadActivitySummary | undefined {
-  const { sdk } = useCordContext('thread.useLocationSummary');
-  const threadSDK = sdk?.thread;
-  const memoizedLocation = useMemoizedLocation(location);
-
-  const [summary, setSummary] = useState<ThreadActivitySummary>();
-
-  const optionsMemo = useMemoObject(options);
-
-  useEffect(() => {
-    if (!threadSDK) {
-      return;
-    }
-
-    const ref = threadSDK.observeLocationSummary(
-      memoizedLocation,
-      setSummary,
-      optionsMemo,
-    );
-
-    return () => {
-      threadSDK.unobserveLocationSummary(ref);
-    };
-  }, [threadSDK, memoizedLocation, optionsMemo]);
-
-  return summary;
+  return useObserveFunction(
+    'thread',
+    'observeLocationSummary',
+    location,
+    options,
+    undefined,
+  );
 }
 
 /**
@@ -127,26 +109,13 @@ export function useLocationSummary(
 export function useThreadCounts(
   options?: ObserveThreadCountsOptions,
 ): ThreadActivitySummary | undefined {
-  const { sdk } = useCordContext('thread.useThreadCounts');
-  const threadSDK = sdk?.thread;
-
-  const [summary, setSummary] = useState<ThreadActivitySummary>();
-
-  const optionsMemo = useMemoObject(options);
-
-  useEffect(() => {
-    if (!threadSDK) {
-      return;
-    }
-
-    const ref = threadSDK.observeThreadCounts(setSummary, optionsMemo);
-
-    return () => {
-      threadSDK.unobserveThreadCounts(ref);
-    };
-  }, [threadSDK, optionsMemo]);
-
-  return summary;
+  return useObserveFunction(
+    'thread',
+    'observeThreadCounts',
+    NO_SELECTOR,
+    options,
+    undefined,
+  );
 }
 
 /**
@@ -180,30 +149,21 @@ export function useThreadSummary(
   id: string,
   options?: ObserveThreadSummaryOptions,
 ): ThreadSummary | null {
-  const [summary, setSummary] = useState<ThreadSummary | null>(null);
-
-  const { sdk } = useCordContext('useCordThreadSummary');
-  const threadSDK = sdk?.thread;
-
-  const optionsMemo = useMemoObject(options);
-
-  useEffect(() => {
-    if (!threadSDK) {
-      return;
-    }
-
-    const key = threadSDK.observeThreadSummary(
-      id,
-      (newSummary) => setSummary(newSummary),
-      optionsMemo,
-    );
-    return () => {
-      threadSDK.unobserveThreadSummary(key);
-    };
-  }, [id, optionsMemo, threadSDK]);
-
-  return summary;
+  return useObserveFunction(
+    'thread',
+    'observeThreadSummary',
+    id,
+    options,
+    null,
+  );
 }
+
+const USE_LOCATION_DATA_LOADING_VALUE = {
+  threads: [],
+  loading: true,
+  hasMore: false,
+  fetchMore: async () => {},
+};
 
 /**
  * This method allows you to observe detailed data about
@@ -246,42 +206,22 @@ export function useLocationData(
   location: Location,
   options?: ObserveLocationDataOptions,
 ): LocationData {
-  const [threads, setThreads] = useState<ThreadSummary[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [hasMore, setHasMore] = useState<boolean>(false);
-  const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
-    () => async (_n: number) => {},
+  return useObserveFunction(
+    'thread',
+    'observeLocationData',
+    location,
+    options,
+    USE_LOCATION_DATA_LOADING_VALUE,
   );
-
-  const { sdk } = useCordContext('useLocationData');
-  const threadSDK = sdk?.thread;
-
-  const locationMemo = useMemoObject(location);
-  const optionsMemo = useMemoObject(options);
-
-  useEffect(() => {
-    if (!threadSDK) {
-      return;
-    }
-
-    const key = threadSDK.observeLocationData(
-      locationMemo,
-      // eslint-disable-next-line @typescript-eslint/no-shadow -- using to set shadowed vars.
-      ({ threads, loading, hasMore, fetchMore }) => {
-        setThreads(threads);
-        setLoading(loading);
-        setHasMore(hasMore);
-        setFetchMore((_: unknown) => fetchMore);
-      },
-      optionsMemo,
-    );
-    return () => {
-      threadSDK.unobserveLocationData(key);
-    };
-  }, [threadSDK, locationMemo, optionsMemo]);
-
-  return { threads, loading, hasMore, fetchMore };
 }
+
+const USE_THREADS_LOADING_VALUE = {
+  threads: [],
+  loading: true,
+  hasMore: false,
+  fetchMore: async (_n: number) => {},
+  counts: undefined,
+};
 
 /**
  * This method allows you to observe threads data including live updates.
@@ -326,31 +266,22 @@ export function useLocationData(
  * the data changes, i.e., this data is always "live".
  */
 export function useThreads(options?: ObserveThreadsOptions): ThreadsData {
-  const [threadDataResult, setThreadDataResult] = useState<ThreadsData>();
-
-  const { sdk } = useCordContext('useThreads');
-  const threadSDK = sdk?.thread;
-
-  const optionsMemo = useMemoObject(options);
-
-  useEffect(() => {
-    if (!threadSDK) {
-      return;
-    }
-    const key = threadSDK.observeThreads(setThreadDataResult, optionsMemo);
-    return () => {
-      threadSDK.unobserveThreads(key);
-    };
-  }, [threadSDK, optionsMemo]);
-
-  return {
-    threads: threadDataResult?.threads ?? [],
-    loading: threadDataResult?.loading ?? true,
-    hasMore: threadDataResult?.hasMore ?? false,
-    fetchMore: threadDataResult?.fetchMore ?? (async (_n: number) => {}),
-    counts: threadDataResult?.counts,
-  };
+  return useObserveFunction(
+    'thread',
+    'observeThreads',
+    NO_SELECTOR,
+    options,
+    USE_THREADS_LOADING_VALUE,
+  );
 }
+
+const USE_THREAD_DATA_LOADING_VALUE = {
+  messages: [],
+  firstMessage: null,
+  loading: true,
+  hasMore: false,
+  fetchMore: async (_n: number) => {},
+};
 
 /**
  * This method allows you to observe summary and detailed data about a thread, including
@@ -388,47 +319,16 @@ export function useThreadData(
   threadId: string,
   options?: ObserveThreadDataOptions,
 ): ThreadData {
-  const [messages, setMessages] = useState<ClientMessageData[]>([]);
-  const [firstMessage, setFirstMessage] = useState<ClientMessageData | null>(
-    null,
+  return useObserveFunction(
+    'thread',
+    'observeThreadData',
+    threadId,
+    options,
+    USE_THREAD_DATA_LOADING_VALUE,
   );
-  const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
-    () => async (_n: number) => {},
-  );
-  const [loading, setLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(false);
-
-  const { sdk } = useCordContext('useCordThreadData');
-  const threadSDK = sdk?.thread;
-
-  const optionsMemo = useMemoObject(options);
-
-  useEffect(() => {
-    if (!threadSDK) {
-      return;
-    }
-
-    const key = threadSDK.observeThreadData(
-      threadId,
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      ({ messages, firstMessage, fetchMore, loading, hasMore }) => {
-        setMessages(messages);
-        setFirstMessage(firstMessage);
-        setFetchMore(() => fetchMore);
-        setLoading(loading);
-        setHasMore(hasMore);
-      },
-      optionsMemo,
-    );
-    return () => {
-      threadSDK.unobserveThreadData(key);
-    };
-  }, [threadSDK, optionsMemo, threadId]);
-
-  return { messages, firstMessage, fetchMore, loading, hasMore };
 }
 
-const STILL_LOADING_RETURN_VALUE = {
+const USE_THREAD_LOADING_VALUE = {
   summary: undefined,
   thread: undefined,
   loading: true,
@@ -437,12 +337,7 @@ const STILL_LOADING_RETURN_VALUE = {
   fetchMore: async () => {},
 };
 
-type ReactThreadObserverOptions = ThreadObserverOptions & {
-  /**
-   * When set to true, prevents the execution of any operations within the hook.
-   */
-  skip?: boolean;
-};
+type ReactThreadObserverOptions = ThreadObserverOptions & SkipOption;
 
 /**
  * This hook allows you to observe message and summary data about a thread,
@@ -482,29 +377,13 @@ export function useThread(
   threadID?: string,
   options?: ReactThreadObserverOptions,
 ): ClientThreadData {
-  const [value, setValue] = useState<ClientThreadData>();
-
-  const { sdk } = useCordContext('useCordThread');
-  const threadSDK = sdk?.thread;
-
-  const optionsMemo = useMemoObject(options);
-
-  useEffect(() => {
-    if (!threadSDK || optionsMemo?.skip) {
-      return;
-    }
-
-    if (!threadID) {
-      throw new Error('threadID not provided to useThread');
-    }
-
-    const key = threadSDK.observeThread(threadID, setValue, optionsMemo);
-    return () => {
-      threadSDK.unobserveThread(key);
-    };
-  }, [threadSDK, optionsMemo, threadID]);
-
-  return value ?? STILL_LOADING_RETURN_VALUE;
+  return useObserveFunction(
+    'thread',
+    'observeThread',
+    threadID ?? '',
+    options,
+    USE_THREAD_LOADING_VALUE,
+  );
 }
 
 /**
@@ -605,24 +484,11 @@ export function useSearchMessages(
 export function useMessage(
   messageID: MessageID,
 ): ClientMessageData | null | undefined {
-  const [message, setMessage] = useState<
-    ClientMessageData | null | undefined
-  >();
-  const { sdk } = useCordContext('useMessage');
-  const threadSDK = sdk?.thread;
-
-  useEffect(() => {
-    if (!threadSDK) {
-      return;
-    }
-
-    const key = threadSDK.observeMessage(messageID, (messageData) =>
-      setMessage(messageData),
-    );
-
-    return () => {
-      threadSDK.unobserveMessage(key);
-    };
-  }, [threadSDK, messageID]);
-  return message;
+  return useObserveFunction(
+    'thread',
+    'observeMessage',
+    messageID,
+    undefined,
+    undefined,
+  );
 }

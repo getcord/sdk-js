@@ -4,10 +4,9 @@ import type {
   ObserveNotificationDataOptions,
   ObserveNotificationSummaryOptions,
 } from '@cord-sdk/types';
-import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext.js';
-import { useMemoObject } from './useMemoObject.js';
 import { useNotificationCountsInternal } from './useNotificationSummaryInternal.js';
+import { NO_SELECTOR, useObserveFunction } from './util.js';
 
 /**
  * This method allows you to observe the notification summary for the current
@@ -89,25 +88,13 @@ const emptyNotificationData: ClientNotificationData = {
 export function useNotifications(
   options?: ObserveNotificationDataOptions,
 ): ClientNotificationData {
-  const [data, setData] = useState<ClientNotificationData | null>(null);
-
-  const { sdk } = useCordContext('useNotifications');
-  const notificationSDK = sdk?.notification;
-  const optionsMemo = useMemoObject(options);
-
-  useEffect(() => {
-    if (!notificationSDK) {
-      return;
-    }
-
-    const key = notificationSDK.observeNotifications(setData, optionsMemo);
-
-    return () => {
-      notificationSDK.unobserveNotifications(key);
-    };
-  }, [notificationSDK, optionsMemo]);
-
-  return data ?? emptyNotificationData;
+  return useObserveFunction(
+    'notification',
+    'observeNotifications',
+    NO_SELECTOR,
+    options,
+    emptyNotificationData,
+  );
 }
 
 // Old names for backwards compatibility

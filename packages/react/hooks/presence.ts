@@ -3,9 +3,7 @@ import type {
   ObservePresenceOptions,
   UserLocationData,
 } from '@cord-sdk/types';
-import { useEffect, useState } from 'react';
-import { useCordContext } from '../contexts/CordContext.js';
-import { useMemoObject } from './useMemoObject.js';
+import { useObserveFunction } from './util.js';
 
 /**
  * This method allows you to observe users who are
@@ -38,32 +36,13 @@ export function usePresence(
   location: Location,
   options: ObservePresenceOptions = {},
 ): Array<UserLocationData> | undefined {
-  const { sdk } = useCordContext('presence.usePresence');
-  const presenceSDK = sdk?.presence;
-
-  const optionsMemo = useMemoObject(options);
-  const locationMemo = useMemoObject(location);
-
-  const [presenceData, setPresenceData] = useState<Array<UserLocationData>>();
-
-  useEffect(() => {
-    if (!presenceSDK) {
-      return;
-    }
-    const ref = presenceSDK.observePresence(
-      locationMemo,
-      (data) => {
-        setPresenceData(data);
-      },
-      optionsMemo,
-    );
-
-    return () => {
-      presenceSDK.unobservePresence(ref);
-    };
-  }, [presenceSDK, locationMemo, optionsMemo]);
-
-  return presenceData;
+  return useObserveFunction(
+    'presence',
+    'observePresence',
+    location,
+    options,
+    undefined,
+  );
 }
 
 export { usePresence as useLocationData };

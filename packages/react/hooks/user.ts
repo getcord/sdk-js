@@ -1,6 +1,5 @@
 import type {
   ClientUserData,
-  FetchMoreCallback,
   GroupMembersData,
   ObserveGroupMembersOptions,
   ObserveOrgMembersOptions,
@@ -12,6 +11,8 @@ import type {
 import { useEffect, useState } from 'react';
 import { useCordContext } from '../contexts/CordContext.js';
 import { useMemoObject } from './useMemoObject.js';
+import { useObserveFunction, NO_SELECTOR } from './util.js';
+import type { SkipOption } from './util.js';
 
 export function sameIDs(
   left: string | string[],
@@ -32,12 +33,7 @@ export function sameIDs(
   return left === right;
 }
 
-type ReactUserDataOptions = {
-  /**
-   * When set to true, prevents the execution of any operations within the hook.
-   */
-  skip?: boolean;
-};
+type ReactUserDataOptions = Record<string, unknown> & SkipOption;
 
 /**
  * This method allows you to observe data about a user, including live updates.
@@ -173,24 +169,21 @@ export function useUserData(
  * i.e., this data is always "live".
  */
 export function useViewerData(): ViewerUserData | undefined {
-  const { sdk } = useCordContext('user.useViewerData');
-  const userSDK = sdk?.user;
-
-  const [data, setData] = useState<ViewerUserData>();
-
-  useEffect(() => {
-    if (!userSDK) {
-      return;
-    }
-    const ref = userSDK.observeViewerData(setData);
-
-    return () => {
-      userSDK.unobserveViewerData(ref);
-    };
-  }, [userSDK]);
-
-  return data;
+  return useObserveFunction(
+    'user',
+    'observeViewerData',
+    NO_SELECTOR,
+    undefined,
+    undefined,
+  );
 }
+
+const USE_GROUP_MEMBERS_LOADING_VALUE = {
+  groupMembers: [],
+  loading: true,
+  hasMore: false,
+  fetchMore: async () => {},
+};
 
 /**
  * This method allows you to observe the members of a group the current user is
@@ -223,50 +216,19 @@ export function useViewerData(): ViewerUserData | undefined {
 export function useGroupMembers(
   options: ObserveGroupMembersOptions = {},
 ): GroupMembersData {
-  const { sdk } = useCordContext('user.useGroupMemberData');
-  const userSDK = sdk?.user;
-
-  const [groupMembers, setGroupMembers] = useState<ClientUserData[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [hasMore, setHasMore] = useState<boolean>(false);
-  const [fetchMore, setFetchMore] = useState<FetchMoreCallback>(
-    () => async (_n: number) => {},
+  return useObserveFunction(
+    'user',
+    'observeGroupMembers',
+    NO_SELECTOR,
+    options,
+    USE_GROUP_MEMBERS_LOADING_VALUE,
   );
-
-  const optionsMemo = useMemoObject(options);
-
-  useEffect(() => {
-    if (!userSDK) {
-      return;
-    }
-    const ref = userSDK.observeGroupMembers(
-      // eslint-disable-next-line @typescript-eslint/no-shadow -- using to set shadowed vars.
-      ({ groupMembers, loading, hasMore, fetchMore }) => {
-        setGroupMembers(groupMembers);
-        setLoading(loading);
-        setHasMore(hasMore);
-        setFetchMore((_previous: unknown) => fetchMore);
-      },
-      optionsMemo,
-    );
-
-    return () => {
-      userSDK.unobserveGroupMembers(ref);
-    };
-  }, [userSDK, optionsMemo]);
-
-  return { groupMembers, loading, hasMore, fetchMore };
 }
 
 /**
  * Options for the `searchUsers` function in React
  */
-export type ReactSearchUsersOptions = SearchUsersOptions & {
-  /**
-   * When set to true, prevents the execution of any operations within the hook.
-   */
-  skip?: boolean;
-};
+export type ReactSearchUsersOptions = SearchUsersOptions & SkipOption;
 
 /**
  * This method allows searching for users with various options.
