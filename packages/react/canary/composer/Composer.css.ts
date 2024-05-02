@@ -5,6 +5,7 @@ import { getModifiedSelector } from '../../common/ui/modifiers.js';
 
 import * as classes from '../../components/Composer.classnames.js';
 import { editorStyles } from '../../common/lib/editor/styles.js';
+import { thread } from '../../components/Thread.classnames.js';
 import { editableStyle } from './lib/util.js';
 export default classes;
 
@@ -67,4 +68,8 @@ globalStyle(collapsedComposerSelector, {
 globalStyle(`${collapsedComposerSelector} .${editor}`, {
   padding: 0,
   paddingInlineStart: cssVar('space-2xs'),
+});
+
+globalStyle(`.${thread} .${composerContainer}`, {
+  margin: cssVar('space-2xs'),
 });
