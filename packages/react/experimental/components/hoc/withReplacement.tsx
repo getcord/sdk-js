@@ -1,7 +1,7 @@
 // @ts-ignore TS wants us to `import type` this, but we need it for JSX
 import * as React from 'react';
+import { useEffect, useMemo } from 'react';
 
-import { useMemo } from 'react';
 import { useAtomValue } from 'jotai';
 import type { WritableAtom } from 'jotai';
 import { ScopeProvider } from 'jotai-scope';
@@ -13,6 +13,10 @@ import type {
   ReplaceConfig,
   ReplaceConfigBase,
 } from '../replacements.js';
+import {
+  logComponentReplacement,
+  logComponentUsage,
+} from '../../../common/util.js';
 
 export type ReplacementProps = {
   /**
@@ -82,6 +86,13 @@ export default function withReplacement<
         component: Component = WrappedComponent,
         replace: replaceFromAbove,
       } = useAtomValue(configFromAboveAtom);
+
+      useEffect(() => {
+        logComponentUsage(name);
+        if (Component !== WrappedComponent) {
+          logComponentReplacement(name);
+        }
+      }, [Component]);
 
       return (
         <ReplacementConfigScope replace={{ ...replaceFromAbove, ...replace }}>

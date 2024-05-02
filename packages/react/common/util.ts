@@ -50,6 +50,13 @@ export function logComponentInstantiation(name: string) {
   (window.CordSDK as any)?.__CORD_OPENSOURCE_COMPONENTS.add(name);
 }
 
+export function logComponentReplacement(name: string) {
+  (window.CordSDK as any)?.__logV2Component(name, 'replacement');
+}
+export function logComponentUsage(name: string) {
+  (window.CordSDK as any)?.__logV2Component(name, 'usage');
+}
+
 const TOTAL_NUM_OF_PALETTES = 8;
 export function getStableColorPalette(userId: string) {
   let simpleHash = 0;
