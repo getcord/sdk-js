@@ -7,7 +7,7 @@ import type { MandatoryReplaceableProps } from '../../experimental/components/re
 import * as classes from './ComposerAttachmentInput.css.js';
 
 export type ComposerAttachmentInputWrapperProps = {
-  attachFiles: (fileList: FileList) => Promise<void>;
+  attachFiles: (files: File[]) => Promise<void>;
 };
 
 export const ComposerAttachmentInputWrapper = forwardRef(
@@ -23,7 +23,8 @@ export const ComposerAttachmentInputWrapper = forwardRef(
         (e) => {
           const inputElement = e.target;
           if (inputElement.files) {
-            void props.attachFiles(inputElement.files).then(
+            const fileArr = [...inputElement.files];
+            void props.attachFiles(fileArr).then(
               () => (inputElement.value = ''),
               (error) => {
                 const toastID = 'attach_file_action_failure';

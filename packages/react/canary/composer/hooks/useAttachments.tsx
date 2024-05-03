@@ -95,6 +95,7 @@ export function useAddAttachmentToComposer(attachmentsProps: {
   | 'isValid'
   | 'toolbarItems'
   | 'attachmentInputElement'
+  | 'attachFilesToComposer'
 > & {
   attachments: MessageFileAttachment[];
 } {
@@ -125,7 +126,8 @@ export function useAddAttachmentToComposer(attachmentsProps: {
         });
       if (allFilesAreImages) {
         event.stopPropagation();
-        attachFiles(files).catch((error) => {
+        const filesArr = [...files];
+        attachFiles(filesArr).catch((error) => {
           const toastID = 'attach_file_action_failure';
           showToastPopup?.(
             toastID,
@@ -187,6 +189,7 @@ export function useAddAttachmentToComposer(attachmentsProps: {
       isValid,
       onPaste,
       attachmentInputElement,
+      attachFilesToComposer: attachFiles,
     }),
     [
       toolbarItems,
@@ -196,6 +199,7 @@ export function useAddAttachmentToComposer(attachmentsProps: {
       isValid,
       onPaste,
       attachmentInputElement,
+      attachFiles,
     ],
   );
 }

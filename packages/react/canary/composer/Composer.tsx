@@ -307,13 +307,18 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
     groupID,
     onFailSubmit,
     attachmentInputElement: attachmentsProps.attachmentInputElement,
+    attachFilesToComposer: attachmentsProps.attachFilesToComposer,
   };
 }
 export function useBaseComposer(
   props: UseTextEditorProps,
 ): Omit<
   ComposerProps,
-  'onSubmit' | 'groupID' | 'expanded' | 'attachmentInputElement'
+  | 'onSubmit'
+  | 'groupID'
+  | 'expanded'
+  | 'attachmentInputElement'
+  | 'attachFilesToComposer'
 > {
   const simpleComposer = useTextEditor(props);
   const { editor } = simpleComposer;
@@ -614,6 +619,7 @@ const BaseComposer = forwardRef(function BaseComposer(
     expanded,
     'data-cord-replace': dataCordReplace,
     attachmentInputElement,
+    attachFilesToComposer,
   }: BaseComposerProps,
   ref: React.ForwardedRef<HTMLElement>,
 ) {
@@ -658,6 +664,7 @@ const BaseComposer = forwardRef(function BaseComposer(
           isEmpty={isEmpty}
           isValid={isValid}
           data-cord-replace={dataCordReplace}
+          attachFilesToComposer={attachFilesToComposer}
         />
       </WithPopper>
       {attachmentInputElement}

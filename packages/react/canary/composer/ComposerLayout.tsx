@@ -37,6 +37,12 @@ export type ComposerLayoutProps = {
    * It is here mostly for your convenience so you do not need to import it.
    */
   ToolbarLayoutComp: typeof ToolbarLayoutWithClassName;
+  /**
+   * A function that can be used to upload, and attach files to the composer
+   * without using the add attachment button. This is useful, for example,
+   * if you wanted to create your own gif integration.
+   */
+  attachFilesToComposer: (files: File[]) => Promise<void>;
 } & StyleProps &
   MandatoryReplaceableProps;
 export const ComposerLayout = withCord<

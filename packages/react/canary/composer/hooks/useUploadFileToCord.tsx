@@ -11,7 +11,7 @@ export function useUploadFileToCord(
   const { sdk: cord } = useContext(CordContext);
 
   const attachFiles = useCallback(
-    async (files: FileList) => {
+    async (files: File[]) => {
       for (const file of files) {
         const { id, uploadPromise } = await cord!.file.uploadFile({
           name: file.name,

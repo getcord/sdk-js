@@ -146,6 +146,7 @@ export interface ComposerProps extends StyleProps, MandatoryReplaceableProps {
   autofocus?: boolean;
   onFailSubmit?: (error: unknown) => void;
   attachmentInputElement: JSX.Element;
+  attachFilesToComposer: (files: File[]) => Promise<void>;
 }
 
 export type CordComposerProps = {
