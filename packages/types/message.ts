@@ -370,10 +370,18 @@ export interface ServerCreateMessage
    * exists.
    */
   createThread?: Omit<ServerCreateThread, 'id'>;
+  /**
+   * Whether to subscribe the sender of the message to the thread, so that they
+   * get notified about replies.  If not specified, defaults to `true`.  If
+   * false, the user's subscription status will be left unchanged.
+   */
+  subscribeToThread?: boolean;
 }
 
 export interface ServerUpdateMessage
-  extends Partial<Omit<ServerCreateMessage, 'createThread'>> {
+  extends Partial<
+    Omit<ServerCreateMessage, 'createThread' | 'subscribeToThread'>
+  > {
   /**
    * Whether we want to mark this message as deleted. Setting this to `true` without
    * providing a value for `deletedTimestamp` is equivalent to setting `deletedTimestamp` to current

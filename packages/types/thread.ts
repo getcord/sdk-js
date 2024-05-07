@@ -643,6 +643,12 @@ export interface ClientCreateMessage
    */
   createThread?: Omit<ClientCreateThread, 'id'>;
   /**
+   * Whether to subscribe the sender of the message to the thread, so that they
+   * get notified about replies.  If not specified, defaults to `true`.  If
+   * false, the user's subscription status will be left unchanged.
+   */
+  subscribeToThread?: boolean;
+  /**
    * A list of unicode strings representing the reactions you want to add to this message.
    * Trying to create a reaction that already exists for a user does nothing.
    */
@@ -655,7 +661,9 @@ export interface ClientCreateMessage
 }
 
 export interface ClientUpdateMessage
-  extends Partial<Omit<ClientCreateMessage, 'id' | 'createThread'>> {
+  extends Partial<
+    Omit<ClientCreateMessage, 'id' | 'createThread' | 'subscribeToThread'>
+  > {
   /**
    * Whether to change the deleted status of this message.
    */

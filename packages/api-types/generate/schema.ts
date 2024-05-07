@@ -383,6 +383,11 @@ export default {
           "The parameters for creating a thread if the supplied thread doesn't exist\nyet.  If the thread doesn't exist but `createThread` isn't provided, the\ncall will generate an error.  This value is ignored if the thread already\nexists.",
         $ref: '#/definitions/Omit<ServerCreateThread,"id">',
       },
+      subscribeToThread: {
+        description:
+          "Whether to subscribe the sender of the message to the thread, so that they\nget notified about replies.  If not specified, defaults to `true`.  If\nfalse, the user's subscription status will be left unchanged.",
+        type: 'boolean',
+      },
       content: {
         $ref: '#/definitions/MessageContent',
         description: 'The content of the message.',
@@ -457,6 +462,7 @@ export default {
       'addReactions',
       'addAttachments',
       'createThread',
+      'subscribeToThread',
       'content',
       'authorID',
       'type',
