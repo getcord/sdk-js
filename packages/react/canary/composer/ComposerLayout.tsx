@@ -52,15 +52,7 @@ export const ComposerLayout = withCord<
     props: ComposerLayoutProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
-    const {
-      toolbarItems,
-      extraChildren,
-      ToolbarLayoutComp,
-      textEditor: _textEditor,
-      isEmpty: _isEmpty,
-      isValid: _isValid,
-      ...restProps
-    } = props;
+    const { toolbarItems, extraChildren, ToolbarLayoutComp } = props;
     const attachments = useMemo(
       () => extraChildren?.find((item) => item.name === 'attachments')?.element,
       [extraChildren],
@@ -87,7 +79,12 @@ export const ComposerLayout = withCord<
     return (
       <>
         {failedToSubmitMessage}
-        <div ref={ref} {...restProps}>
+        <div
+          ref={ref}
+          style={props.style}
+          className={props.className}
+          data-cord-replace={props['data-cord-replace']}
+        >
           {props.textEditor}
           {attachments}
 
