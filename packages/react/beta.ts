@@ -9,9 +9,6 @@ export {
   FloatingThreads as AnchoredThreads,
 } from './components/FloatingThreads.js';
 
-export type { SelectionCommentsReactComponentProps } from './components/SelectionComments.js';
-export { SelectionComments } from './components/SelectionComments.js';
-
 export type { NotificationListReactComponentProps } from './components/NotificationList.js';
 export { NotificationList } from './components/NotificationList.js';
 
