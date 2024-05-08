@@ -15,6 +15,10 @@ import {
   composerContainer,
   hasAttachments,
 } from '../../../components/Composer.classnames.js';
+import {
+  inlineReplyButton,
+  threads,
+} from '../../../canary/threads/Threads.classnames.js';
 
 export default classes;
 
@@ -259,3 +263,8 @@ globalStyle(
     right: 4,
   },
 );
+
+globalStyle(`.${threads} .${inlineReplyButton}`, {
+  justifyContent: 'flex-start',
+  margin: `0 ${cssVar('space-3xs')} 0 ${cssVar('space-2xs')}`,
+});

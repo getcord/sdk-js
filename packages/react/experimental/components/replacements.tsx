@@ -30,6 +30,11 @@ import type { ScrollContainerProps } from '../../canary/ScrollContainer.js';
 import type { EmptyThreadPlaceholderProps } from '../../canary/thread/EmptyThreadPlaceholder.js';
 import type { ThreadLayoutProps } from '../../canary/thread/ThreadLayout.js';
 import type { ComposerAttachmentInputProps } from '../../canary/composer/ComposerAttachmentInput.js';
+import type { ThreadsLayoutProps } from '../../canary/threads/ThreadsLayout.js';
+import type { ThreadsProps } from '../../canary/threads/Threads.js';
+import type { InlineThreadLayoutProps } from '../../canary/threads/InlineThreadLayout.js';
+import type { InlineThreadProps } from '../../canary/threads/InlineThread.js';
+import type { InlineComposerProps } from '../../canary/threads/InlineComposer.js';
 import type { OverlayProps } from './Overlay.js';
 import type { FacepileProps } from './Facepile.js';
 import type { PresenceFacepileProps } from './PresenceFacepile.js';
@@ -118,6 +123,11 @@ export type ReplaceConfigBase = Partial<{
   ToolbarLayout: React.ComponentType<ToolbarLayoutProps>;
   Username: React.ComponentType<UsernameProps>;
   UsernameTooltip: React.ComponentType<UsernameTooltipProps>;
+  Threads: React.ComponentType<ThreadsProps>;
+  ThreadsLayout: React.ComponentType<ThreadsLayoutProps>;
+  InlineThread: React.ComponentType<InlineThreadProps>;
+  InlineThreadLayout: React.ComponentType<InlineThreadLayoutProps>;
+  InlineComposer: React.ComponentType<InlineComposerProps>;
 }>;
 
 export type MandatoryReplaceableProps = { 'data-cord-replace'?: string };

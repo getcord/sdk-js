@@ -167,6 +167,20 @@ export const resources = {
       // showing to not showing
       hide_resolved_threads_action: 'Hide resolved threads',
     },
+    thread_preview: {
+      // The text of the link that reveals the replies to a thread when there
+      // are no unread messages in the thread
+      show_replies_action_read_one: '1 reply',
+      show_replies_action_read_other: '{{count}} replies',
+      // The text of the link that reveals the replies to a thread when there
+      // are unread messages in the thread
+      show_replies_action_unread_one: '1 new reply',
+      show_replies_action_unread_other: '{{count}} new replies',
+      // The text of the link that hides the replies to a thread
+      hide_replies_action: 'Hide replies',
+      // The text of the link that starts composing a reply to the thread
+      reply_action: 'Reply',
+    },
     threaded_comments: {
       // The title placeholder text shown when no threads are shown in the unresolved threads portion of a
       // threaded comments component

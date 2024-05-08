@@ -1,4 +1,4 @@
-import { cssVar } from '../../common/ui/cssVariables.js';
+import { addSpaceVars, cssVar } from '../../common/ui/cssVariables.js';
 import { MODIFIERS, getModifiedSelector } from '../../common/ui/modifiers.js';
 import {
   CORD_V2,
@@ -7,6 +7,7 @@ import {
 } from '../../common/ui/style.js';
 import { composerContainer } from '../../components/Composer.classnames.js';
 import * as classes from '../../components/Message.classnames.js';
+import { threads } from '../threads/Threads.classnames.js';
 export * from '../../components/Message.classnames.js';
 
 const {
@@ -142,4 +143,8 @@ globalStyle(`.${message}:hover .${messageOptionsButtons}`, {
 globalStyle(`.${message} .${messageOptionsButtons}.${MODIFIERS.open}`, {
   // Never hide the menu and its contents if the popper is open.
   visibility: 'visible',
+});
+
+globalStyle(`.${threads} .${message}:not(:first-of-type)`, {
+  marginLeft: addSpaceVars('l', '2xs'),
 });

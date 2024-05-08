@@ -1,6 +1,7 @@
 import { globalStyle } from '@vanilla-extract/css';
 import { cordifyClassname } from '../../common/util.js';
 import { cssVar } from '../../common/ui/cssVariables.js';
+import { threads } from '../threads/Threads.classnames.js';
 
 export const container = cordifyClassname('resolved-thread-composer');
 
@@ -20,4 +21,7 @@ export const resolvedComposerText = cordifyClassname(
 globalStyle(`.${container} :where(.${resolvedComposerText})`, {
   flexGrow: 1,
   color: cssVar('color-content-primary'),
+});
+globalStyle(`.${threads} .${container}`, {
+  flex: 1,
 });

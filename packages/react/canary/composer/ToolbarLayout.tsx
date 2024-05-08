@@ -6,7 +6,7 @@ import cx from 'classnames';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as composerClasses from '../../components/Composer.classnames.js';
 import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
-import type { StyleProps } from '../../betaV2.js';
+import type { NamedElements, StyleProps } from '../../betaV2.js';
 import { composerToolbar } from './ToolbarLayout.css.js';
 
 const PRIMARY = ['sendButton', 'cancelButton'];
@@ -15,7 +15,7 @@ export type ToolbarLayoutProps = {
    * An array of named elements.
    * You can filter some out, or reorder, or add new custom buttons.
    */
-  items?: { name: string; element: JSX.Element | null }[];
+  items?: NamedElements;
 } & StyleProps &
   MandatoryReplaceableProps;
 export const ToolbarLayout = withCord<

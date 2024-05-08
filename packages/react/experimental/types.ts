@@ -137,8 +137,8 @@ export interface ComposerProps extends StyleProps, MandatoryReplaceableProps {
   expanded?: 'auto' | 'never' | 'always';
   showCancelButton?: boolean;
   placeholder?: string;
-  toolbarItems?: { name: string; element: JSX.Element | null }[];
-  extraChildren?: { name: string; element: JSX.Element | null }[];
+  toolbarItems?: NamedElements;
+  extraChildren?: NamedElements;
   popperElement?: JSX.Element;
   popperElementVisible?: boolean;
   popperOnShouldHide?: () => void;
@@ -332,3 +332,5 @@ export interface ThreadProps
    */
   threadData?: ClientThreadData;
 }
+
+export type NamedElements = { name: string; element: JSX.Element | null }[];

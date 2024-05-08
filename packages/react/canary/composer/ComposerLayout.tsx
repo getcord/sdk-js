@@ -3,7 +3,7 @@ import { forwardRef, useMemo } from 'react';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
 import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
-import type { StyleProps } from '../../experimental/types.js';
+import type { NamedElements, StyleProps } from '../../experimental/types.js';
 import type { ToolbarLayoutWithClassName } from './ToolbarLayout.js';
 
 export type ComposerLayoutProps = {
@@ -17,12 +17,12 @@ export type ComposerLayoutProps = {
    *
    * They are usually passed into `props.ToolbarLayoutComp`.
    */
-  toolbarItems?: { name: string; element: JSX.Element | null }[];
+  toolbarItems?: NamedElements;
   /**
    * An array of named elements that would appear in the composer.
    * By default it contains the file attachments.
    */
-  extraChildren?: { name: string; element: JSX.Element | null }[];
+  extraChildren?: NamedElements;
   /**
    * If the composer is empty.
    * An empty composer will show a placeholder.

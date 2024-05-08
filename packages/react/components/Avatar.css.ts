@@ -6,6 +6,7 @@ import {
 import { cordifyClassname } from '../common/util.js';
 import { cssVar } from '../common/ui/cssVariables.js';
 import { getModifiedSelector } from '../common/ui/modifiers.js';
+import { inlineComposer } from '../canary/threads/Threads.classnames.js';
 import * as classes from './Avatar.classnames.js';
 import { facepileContainer } from './Facepile.classnames.js';
 import { pinContainer } from './Pin.classnames.js';
@@ -183,4 +184,9 @@ globalStyle(`:where(.${emptyStatePlaceholderContainer}) .${avatarContainer}`, {
 // the display names are long
 globalStyle(`:where(.${menuItemBase}) .${avatarContainer}`, {
   flexShrink: 0,
+});
+
+globalStyle(`.${inlineComposer} .${avatarContainer}`, {
+  position: 'relative',
+  top: '8px',
 });
