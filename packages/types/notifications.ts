@@ -8,6 +8,7 @@ import type {
 import type { ClientUserData } from './user.js';
 import type { CoreMessageData } from './message.js';
 import type { Translation } from './i18n.js';
+import type { CoreThreadData } from './thread.js';
 
 export type NotificationSummary = {
   /**
@@ -59,6 +60,21 @@ type NotificationMessageAttachment = {
    * The relevant message.
    */
   message: CoreMessageData;
+};
+
+/**
+ * An attachment representing a thread.
+ */
+type NotificationThreadAttachment = {
+  /**
+   * Indicator that this is a thread attachment.
+   */
+  type: 'thread';
+
+  /**
+   * The relevant thread.
+   */
+  thread: CoreThreadData;
 };
 
 type NotificationHeaderNode = NotificationTextHeader | NotificationUserHeader;
@@ -158,7 +174,11 @@ export interface CoreNotificationData {
    * A renderer will typically check the `type` field of the attachment and
    * render that attachment type below the `header`.
    */
-  attachment: NotificationURLAttachment | NotificationMessageAttachment | null;
+  attachment:
+    | NotificationURLAttachment
+    | NotificationMessageAttachment
+    | NotificationThreadAttachment
+    | null;
 
   /**
    * Whether this notification has been read by the recipient yet.
