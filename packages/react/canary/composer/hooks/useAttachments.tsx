@@ -17,7 +17,6 @@ export function useAttachments(initialAttachments?: MessageFileAttachment[]) {
   const [attachments, setAttachments] = useState<MessageFileAttachment[]>(
     initialAttachments ?? [],
   );
-  const cancelledAttachmentsIDs = useRef<string[]>([]);
 
   useEffect(() => {
     setAttachments(initialAttachments ?? EMPTY_ARRAY);
@@ -26,28 +25,27 @@ export function useAttachments(initialAttachments?: MessageFileAttachment[]) {
   const upsertAttachment = useCallback(
     (attachment: Partial<MessageFileAttachment>) => {
       setAttachments((prev) => {
-        const updatedAttachments = updateAttachment(prev, attachment);
+        const prevAttachments = [...prev];
+        // Allow sending files which are still uploading
+        if (attachment.uploadStatus === 'uploading') {
+          prevAttachments.push(attachment as MessageFileAttachment);
+        }
+
+        const updatedAttachments = updateAttachment(
+          prevAttachments,
+          attachment,
+        );
         if (updatedAttachments) {
           return updatedAttachments;
         }
 
-        if (
-          attachment.id &&
-          cancelledAttachmentsIDs.current.includes(attachment.id)
-        ) {
-          return prev;
-        }
-
-        // Optimistically show `attachment`, which hasn't finished
-        // uploading, and has not been cancelled.
-        return [...prev, attachment as MessageFileAttachment];
+        return prev;
       });
     },
     [],
   );
 
   const removeAttachment = useCallback((attachmentID: string) => {
-    cancelledAttachmentsIDs.current.push(attachmentID);
     setAttachments((prev) => prev.filter((a) => a.id !== attachmentID));
   }, []);
 
