@@ -13,14 +13,14 @@
     "test": "cd packages/types && npm run test"
   },
   "devDependencies": {
-    "@rollup/plugin-replace": "^4.0.0",
+    "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/node": "^20.2.3",
     "@vanilla-extract/css": "^1.10.0",
     "glob": "^7.2.3",
     "prettier": "^3.0.3",
-    "rollup": "^2.70.1",
-    "rollup-plugin-copy": "^3.4.0",
+    "rollup": "^4.17.2",
+    "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-re": "^1.0.7",
     "typescript": "~5.1.6",
     "yargs": "^17.4.0"
