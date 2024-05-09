@@ -40,7 +40,7 @@ export const ButtonWithUnderline = forwardRef(function ButtonWithUnderline(
       {...restProps}
     >
       {iconName && iconPosition === 'start' && <Icon name={iconName} />}
-      <p className={classes.buttonText}>{label}</p>
+      <span className={classes.buttonText}>{label}</span>
       {iconName && iconPosition === 'end' && <Icon name={iconName} />}
     </Button>
   );
