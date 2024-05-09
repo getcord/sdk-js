@@ -496,6 +496,12 @@ export const resources = {
         // A notification that a user created a new thread
         thread_create:
           '<user>{{senders.0.displayName}}</user> created a new thread named <bold>{{threadName}}</bold>',
+        // A notification that a user resolved a thread
+        thread_resolve:
+          '<user>{{senders.0.displayName}}</user> resolved the thread <bold>{{threadName}}</bold>',
+        // A notification that a user unresolved a thread
+        thread_unresolve:
+          '<user>{{senders.0.displayName}}</user> reopened the thread <bold>{{threadName}}</bold>',
       },
     },
     presence: {
