@@ -8,6 +8,7 @@ import replace from '@rollup/plugin-replace';
 import replaceRE from 'rollup-plugin-re';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
+import { cordPure } from './rollup-plugin-cord-pure.js';
 
 // Disable sourcemaps because we aren't including the source code in the NPM package,
 // so the source maps refer to files that don't exist, which causes errors with create-react-app.
@@ -38,6 +39,7 @@ async function packageBuildConfig(packageName, options = {}) {
         typescript({
           tsconfig: path.resolve(dirname, 'tsconfig.json'),
         }),
+        cordPure(['forwardRef', 'React.forwardRef', 'Object.assign']),
         copy({
           targets: [
             {

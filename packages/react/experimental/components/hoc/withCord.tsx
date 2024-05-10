@@ -14,6 +14,7 @@ interface Props {
 }
 
 // High Order Component (HOC) that adds what Cord needs.
+/* @__NO_SIDE_EFFECTS__ */
 export default function withCord<T extends Props = Props>(
   WrappedComponent: React.ComponentType<T>,
   componentName: ComponentName,
