@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import type { i18n } from 'i18next';
 // eslint-disable-next-line no-restricted-imports
 import { createInstance } from 'i18next';
-import { ALL_LOCALES } from './dayjs.js';
+import { ALL_LOCALES, loadLocale } from './dayjs.js';
 
 export function createI18n() {
   const i18n = createInstance();
@@ -23,7 +23,7 @@ export function createI18n() {
   return i18n;
 }
 
-function tryDayJsLocaleSwitch(locale: string) {
+async function tryDayJsLocaleSwitch(locale: string) {
   if (dayjs.locale() === locale) {
     // We're already using this locale, we don't need to do anything
     return true;
@@ -31,6 +31,7 @@ function tryDayJsLocaleSwitch(locale: string) {
   if (!ALL_LOCALES.includes(locale)) {
     return false;
   }
+  await loadLocale(locale);
   try {
     dayjs.locale(locale);
     return true;
@@ -39,7 +40,7 @@ function tryDayJsLocaleSwitch(locale: string) {
   }
 }
 
-function loadDayjsLocale(lang: string) {
+async function loadDayjsLocale(lang: string) {
   const segments = lang.toLowerCase().split('-');
   if (segments[0] === 'no') {
     // Norwegian has two written forms, Norwegian Bokmål and Norwegian Nynorsk,
@@ -51,11 +52,11 @@ function loadDayjsLocale(lang: string) {
   // dayjs supplies some region- or script-specific translations, so try to find
   // one of those if requested, and fall back to the base language if not
   if (segments.length > 1) {
-    if (tryDayJsLocaleSwitch(`${segments[0]}-${segments[1]}`)) {
+    if (await tryDayJsLocaleSwitch(`${segments[0]}-${segments[1]}`)) {
       return;
     }
   }
-  if (tryDayJsLocaleSwitch(segments[0])) {
+  if (await tryDayJsLocaleSwitch(segments[0])) {
     return;
   }
   // We couldn't load the requested language, so set dayjs to English as a
@@ -83,5 +84,5 @@ export function addTranslations(
   // i18next doesn't apply new resources until you call `changeLanguage`, so
   // always call it even if the language didn't change.
   void i18n.changeLanguage(language);
-  loadDayjsLocale(language);
+  void loadDayjsLocale(language);
 }
