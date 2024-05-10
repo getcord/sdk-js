@@ -43,6 +43,7 @@ export const EmojiPicker = withCord<React.PropsWithChildren<EmojiPickerProps>>(
     props: EmojiPickerProps,
     ref?: React.ForwardedRef<HTMLDivElement>,
   ) {
+    useEffect(() => void lazyLoadEmojiPickerElement(), []);
     const innerRef = useRef<EmojiButtonRef | null>(null);
     const { i18n } = useCordTranslation();
 
@@ -103,15 +104,30 @@ export const EmojiPicker = withCord<React.PropsWithChildren<EmojiPickerProps>>(
   'EmojiPicker',
 );
 
+let didLazyLoad = false;
+/**
+ * We do lazy loading here for a couple reasons:
+ *   - emoji-picker-element doesn't work when SSR, so avoid loading it there.
+ *   - fake-indexeddb is very large and we don't want to load it when we don't
+ *     need it. Every browser supports indexeddb, with the final straggler being
+ *     Firefox in private mode, not supported until version 115.
+ */
+async function lazyLoadEmojiPickerElement() {
+  if (didLazyLoad || !isClient()) {
+    return;
+  }
+
+  didLazyLoad = true;
+  await import('emoji-picker-element');
+
+  if (!(await hasIDB())) {
+    await polyfillIDB();
+  }
+}
+
 function isClient() {
   return typeof window !== 'undefined';
 }
-
-void (async () => {
-  if (isClient()) {
-    await import('emoji-picker-element');
-  }
-})();
 
 async function hasIDB() {
   if (typeof indexedDB === 'undefined') {
@@ -160,12 +176,6 @@ async function polyfillIDB() {
     IDBKeyRange[func] = fakeIDBKeyRange[func].bind(fakeIDBKeyRange);
   }
 }
-
-void (async () => {
-  if (isClient() && !(await hasIDB())) {
-    await polyfillIDB();
-  }
-})();
 
 /**
  * Create an EmojiButton which when clicked opens the emoji picker popper.
