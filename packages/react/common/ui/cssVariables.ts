@@ -509,6 +509,7 @@ export function getCordCSSVariableDefaultValueDeep(
   return newValue;
 }
 
+/* @__NO_SIDE_EFFECTS__ */
 export function cssVar(varName: CSSVariable): string {
   const cachedValue = varCache[varName];
   if (cachedValue) {
@@ -522,6 +523,7 @@ export function cssVar(varName: CSSVariable): string {
   return value;
 }
 
+/* @__NO_SIDE_EFFECTS__ */
 export function cssVarWithOverride(
   varName: CSSVariable | undefined,
   override: CSSVariable | undefined,
@@ -535,6 +537,7 @@ export function cssVarWithOverride(
   return undefined;
 }
 
+/* @__NO_SIDE_EFFECTS__ */
 export function cssValueWithOverride(
   value: string | undefined,
   override: CSSVariable | undefined,

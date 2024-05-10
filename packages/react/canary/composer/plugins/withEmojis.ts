@@ -3,7 +3,7 @@ import { Editor } from 'slate';
 import EmojiConverter from 'emoji-js';
 import { findLastIndex } from '../../../common/lib/findLast.js';
 
-const emoji = new EmojiConverter();
+const emoji = /* @__PURE__ */ new EmojiConverter();
 
 /** Automatically replaces colons emojis (e.g. :smile:) with
  * the actual emoji (e.g. 😄)

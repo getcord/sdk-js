@@ -48,6 +48,7 @@ function isValidReplaceKey(
  **/
 // TODO explain the above better if possible.
 // We are using jotai to avoid extra re-render and for convenience.
+/* @__NO_SIDE_EFFECTS__ */
 export default function withReplacement<
   T extends React.PropsWithChildren<ReplacementProps>,
 >(WrappedComponent: React.ComponentType<T>, name: ComponentName) {

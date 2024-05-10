@@ -172,7 +172,8 @@ export const editableStyle = {
 // Important not to use this value directly, as Slate gets confused two
 // editors have the same value by reference. This can lead to a bug where
 // onChange fires for multiple editors
-const COMPOSER_EMPTY_VALUE_FOR_COMPARING = createComposerEmptyValue();
+const COMPOSER_EMPTY_VALUE_FOR_COMPARING =
+  /* @__PURE__ */ createComposerEmptyValue();
 export function createComposerEmptyValue() {
   return [
     createMessageNode(MessageNodeType.PARAGRAPH, {

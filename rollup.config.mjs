@@ -39,7 +39,15 @@ async function packageBuildConfig(packageName, options = {}) {
         typescript({
           tsconfig: path.resolve(dirname, 'tsconfig.json'),
         }),
-        cordPure(['forwardRef', 'React.forwardRef', 'Object.assign']),
+        cordPure([
+          'createContext',
+          'forwardRef',
+          'memo',
+          'React.createContext',
+          'React.forwardRef',
+          'React.memo',
+          'Object.assign',
+        ]),
         copy({
           targets: [
             {
