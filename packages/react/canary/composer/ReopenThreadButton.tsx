@@ -33,7 +33,7 @@ export const ReopenThreadButton = withCord<
         canBeReplaced
         onClick={() => {
           onClick();
-          const toastID = 'resolve_action_success';
+          const toastID = 'unresolve_action_success';
           showToastPopup?.(toastID, threadT(toastID), 'success');
         }}
         {...restProps}
