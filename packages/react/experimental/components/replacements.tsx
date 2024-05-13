@@ -36,6 +36,7 @@ import type { InlineThreadLayoutProps } from '../../canary/threads/InlineThreadL
 import type { InlineThreadProps } from '../../canary/threads/InlineThread.js';
 import type { InlineComposerProps } from '../../canary/threads/InlineComposer.js';
 import type { DragAndDropProps } from '../../canary/composer/WithDragAndDrop.js';
+import type { InlineReplyButtonProps } from '../../canary/threads/InlineReplyButton.js';
 import type { OverlayProps } from './Overlay.js';
 import type { FacepileProps } from './Facepile.js';
 import type { PresenceFacepileProps } from './PresenceFacepile.js';
@@ -130,6 +131,7 @@ export type ReplaceConfigBase = Partial<{
   InlineThread: React.ComponentType<InlineThreadProps>;
   InlineThreadLayout: React.ComponentType<InlineThreadLayoutProps>;
   InlineComposer: React.ComponentType<InlineComposerProps>;
+  InlineReplyButton: PleaseWrapYourReplacementInForwardRef<InlineReplyButtonProps>;
 }>;
 
 export type MandatoryReplaceableProps = { 'data-cord-replace'?: string };

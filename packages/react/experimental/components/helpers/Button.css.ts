@@ -267,4 +267,9 @@ globalStyle(
 globalStyle(`.${threads} .${inlineReplyButton}`, {
   justifyContent: 'flex-start',
   margin: `0 ${cssVar('space-3xs')} 0 ${cssVar('space-2xs')}`,
+  color: cssVar('color-brand-primary'),
+});
+
+globalStyle(`.${inlineReplyButton} .${button}`, {
+  background: 'none',
 });

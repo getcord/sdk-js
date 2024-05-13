@@ -6,7 +6,10 @@ import {
 import { cordifyClassname } from '../common/util.js';
 import { cssVar } from '../common/ui/cssVariables.js';
 import { getModifiedSelector } from '../common/ui/modifiers.js';
-import { inlineComposer } from '../canary/threads/Threads.classnames.js';
+import {
+  inlineComposer,
+  inlineReplyButton,
+} from '../canary/threads/Threads.classnames.js';
 import * as classes from './Avatar.classnames.js';
 import { facepileContainer } from './Facepile.classnames.js';
 import { pinContainer } from './Pin.classnames.js';
@@ -189,4 +192,9 @@ globalStyle(`:where(.${menuItemBase}) .${avatarContainer}`, {
 globalStyle(`.${inlineComposer} .${avatarContainer}`, {
   position: 'relative',
   top: '8px',
+});
+
+globalStyle(`.${inlineReplyButton} .${avatarContainer}`, {
+  height: cssVar('space-m'),
+  width: cssVar('space-m'),
 });

@@ -13,6 +13,7 @@ import withCord from '../../experimental/components/hoc/withCord.js';
 import classes from './Threads.css.js';
 import { InlineThreadLayout } from './InlineThreadLayout.js';
 import { InlineComposer } from './InlineComposer.js';
+import { InlineReplyButton } from './InlineReplyButton.js';
 
 export type InlineThreadWrapperProps = {
   thread: ThreadSummary;
@@ -82,6 +83,13 @@ export const InlineThread = withCord<
 
       [thread.firstMessage?.deletedTimestamp, thread.userMessages],
     );
+    const allRepliersIDs = useMemo(
+      () =>
+        Array.from(
+          new Set([...thread.repliers, ...thread.actionMessageRepliers]),
+        ),
+      [thread.actionMessageRepliers, thread.repliers],
+    );
 
     const handleExpand = useCallback(() => {
       setShowComposer?.(true);
@@ -127,17 +135,13 @@ export const InlineThread = withCord<
           </Button>
         }
         showRepliesButton={
-          // TODO Add Facepile
-          <Button
-            buttonAction="expand-replies"
-            onClick={handleExpand}
-            className={cx(classes.inlineReplyButton, fontSmall)}
+          <InlineReplyButton
             canBeReplaced
-          >
-            {thread.unread > 0
-              ? t('show_replies_action_unread', { count: thread.unread })
-              : t('show_replies_action_read', { count: replyCount })}
-          </Button>
+            onClick={handleExpand}
+            unreadCount={thread.unread}
+            replyCount={replyCount}
+            allRepliersIDs={allRepliersIDs}
+          />
         }
         hideRepliesButton={
           <Button

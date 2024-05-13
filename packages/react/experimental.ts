@@ -8,3 +8,5 @@ export { InlineThread } from './canary/threads/InlineThread.js';
 export type { InlineThreadProps } from './canary/threads/InlineThread.js';
 export { InlineThreadLayout } from './canary/threads/InlineThreadLayout.js';
 export type { InlineThreadLayoutProps } from './canary/threads/InlineThreadLayout.js';
+export { InlineReplyButton } from './canary/threads/InlineReplyButton.js';
+export type { InlineReplyButtonProps } from './canary/threads/InlineReplyButton.js';
