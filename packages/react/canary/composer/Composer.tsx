@@ -319,6 +319,7 @@ export function useBaseComposer(
   | 'expanded'
   | 'attachmentInputElement'
   | 'attachFilesToComposer'
+  | 'enableDragDropAttachments'
 > {
   const simpleComposer = useTextEditor(props);
   const { editor } = simpleComposer;
@@ -573,6 +574,7 @@ const BaseComposer = forwardRef(function BaseComposer(
     'data-cord-replace': dataCordReplace,
     attachmentInputElement,
     attachFilesToComposer,
+    enableDragDropAttachments = true,
   }: BaseComposerProps,
   ref: React.ForwardedRef<HTMLElement>,
 ) {
@@ -618,6 +620,7 @@ const BaseComposer = forwardRef(function BaseComposer(
           isValid={isValid}
           data-cord-replace={dataCordReplace}
           attachFilesToComposer={attachFilesToComposer}
+          enableDragDropAttachments={enableDragDropAttachments}
         />
       </WithPopper>
       {attachmentInputElement}

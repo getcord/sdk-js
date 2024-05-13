@@ -79,6 +79,11 @@ export interface SendComposerProps
   onCancel?: () => void;
   autofocus?: boolean;
   onFailSubmit?: (error: unknown) => void;
+  /**
+   * Allows attachments to be added by dragging and dropping within the
+   * composer area. Defaults to true.
+   */
+  enableDragDropAttachments?: boolean;
 }
 
 export interface EditComposerProps
@@ -113,6 +118,11 @@ export interface EditComposerProps
   onCancel?: () => void;
   autofocus?: boolean;
   onFailSubmit?: (error: unknown) => void;
+  /**
+   * Allows attachments to be added by dragging and dropping within the
+   * composer area. Defaults to true.
+   */
+  enableDragDropAttachments?: boolean;
 }
 
 export interface ComposerProps extends StyleProps, MandatoryReplaceableProps {
@@ -147,6 +157,7 @@ export interface ComposerProps extends StyleProps, MandatoryReplaceableProps {
   onFailSubmit?: (error: unknown) => void;
   attachmentInputElement: JSX.Element;
   attachFilesToComposer: (files: File[]) => Promise<void>;
+  enableDragDropAttachments?: boolean;
 }
 
 export type CordComposerProps = {
@@ -163,7 +174,10 @@ export type CordComposerProps = {
   groupID: string | undefined;
   onFailSubmit?: (error: unknown) => void;
   onChange?: (event: { content: MessageContent }) => void;
-} & Pick<ComposerProps, 'expanded' | 'showCancelButton'>;
+} & Pick<
+  ComposerProps,
+  'expanded' | 'showCancelButton' | 'enableDragDropAttachments'
+>;
 
 export interface CommonMessageProps
   extends StyleProps,

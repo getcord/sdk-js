@@ -35,6 +35,7 @@ import type { ThreadsProps } from '../../canary/threads/Threads.js';
 import type { InlineThreadLayoutProps } from '../../canary/threads/InlineThreadLayout.js';
 import type { InlineThreadProps } from '../../canary/threads/InlineThread.js';
 import type { InlineComposerProps } from '../../canary/threads/InlineComposer.js';
+import type { DragAndDropProps } from '../../canary/composer/WithDragAndDrop.js';
 import type { OverlayProps } from './Overlay.js';
 import type { FacepileProps } from './Facepile.js';
 import type { PresenceFacepileProps } from './PresenceFacepile.js';
@@ -79,6 +80,7 @@ export type ReplaceConfigBase = Partial<{
   Composer: React.ComponentType<ComposerProps>;
   ComposerLayout: PleaseWrapYourReplacementInForwardRef<ComposerLayoutProps>;
   ComposerAttachmentInput: PleaseWrapYourReplacementInForwardRef<ComposerAttachmentInputProps>;
+  DragAndDrop: PleaseWrapYourReplacementInForwardRef<DragAndDropProps>;
   EmojiPicker: React.ComponentType<EmojiPickerProps>;
   EmptyThreadPlaceholder: React.ComponentType<EmptyThreadPlaceholderProps>;
   ErrorFallback: React.ComponentType<ErrorFallbackProps>;

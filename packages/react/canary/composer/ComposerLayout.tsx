@@ -5,6 +5,7 @@ import withCord from '../../experimental/components/hoc/withCord.js';
 import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 import type { NamedElements, StyleProps } from '../../experimental/types.js';
 import type { ToolbarLayoutWithClassName } from './ToolbarLayout.js';
+import { WithDragAndDrop } from './WithDragAndDrop.js';
 
 export type ComposerLayoutProps = {
   /**
@@ -43,6 +44,11 @@ export type ComposerLayoutProps = {
    * if you wanted to create your own gif integration.
    */
   attachFilesToComposer: (files: File[]) => Promise<void>;
+  /**
+   * Allows attachments to be added by dragging and dropping within the
+   * composer area. Defaults to true.
+   */
+  enableDragDropAttachments: boolean;
 } & StyleProps &
   MandatoryReplaceableProps;
 export const ComposerLayout = withCord<
@@ -52,7 +58,13 @@ export const ComposerLayout = withCord<
     props: ComposerLayoutProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
-    const { toolbarItems, extraChildren, ToolbarLayoutComp } = props;
+    const {
+      toolbarItems,
+      extraChildren,
+      ToolbarLayoutComp,
+      attachFilesToComposer,
+      enableDragDropAttachments = true,
+    } = props;
     const attachments = useMemo(
       () => extraChildren?.find((item) => item.name === 'attachments')?.element,
       [extraChildren],
@@ -79,18 +91,19 @@ export const ComposerLayout = withCord<
     return (
       <>
         {failedToSubmitMessage}
-        <div
+        <WithDragAndDrop
           ref={ref}
           style={props.style}
           className={props.className}
           data-cord-replace={props['data-cord-replace']}
+          attachFilesToComposer={attachFilesToComposer}
+          enableDragDropAttachments={enableDragDropAttachments}
         >
           {props.textEditor}
           {attachments}
-
           <ToolbarLayoutComp items={toolbarItems} />
           {extra}
-        </div>
+        </WithDragAndDrop>
       </>
     );
   }),

@@ -26,6 +26,10 @@ export {
   ComposerLayout,
   type ComposerLayoutProps,
 } from './canary/composer/ComposerLayout.js';
+export {
+  DragAndDrop,
+  type DragAndDropProps,
+} from './canary/composer/WithDragAndDrop.js';
 export { EditorCommands } from './canary/composer/lib/commands.js';
 export { EditComposer } from './canary/composer/Composer.js';
 export {
@@ -190,6 +194,10 @@ export { UserDataContext } from './experimental/hooks/useComponentUserData.js';
 export { useMessageActions } from './../react/experimental/components/menu/MessageActions.js';
 export { useThreadActions } from './../react/experimental/components/menu/ThreadActions.js';
 export { useToast } from './experimental/hooks/useToast.js';
+export {
+  WithDragAndDrop,
+  type WithDragAndDropProps,
+} from './canary/composer/WithDragAndDrop.js';
 export {
   WithPopper,
   type WithPopperProps,
