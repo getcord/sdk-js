@@ -15,9 +15,9 @@ const {
   deletedIcon,
   deletedMessageText,
   message,
-  sentViaIcon,
   undoDeleteButton,
   messageOptionsButtons,
+  messageClassnamesDocs: _,
 } = classes;
 
 const BULLET_CHARACTER = '\\2022';
@@ -38,7 +38,7 @@ globalStyle(`.${message}:not(.${composerContainer})`, {
   gridGap: `${cssVar('space-3xs')} ${cssVar('space-2xs')}`,
   alignItems: 'center',
   gridTemplateAreas: `
-    "avatar authorName timestamp sentViaIcon . optionsMenu"
+    "avatar authorName timestamp . . optionsMenu"
     ". messageContent messageContent messageContent messageContent optionsMenu"
     ". reactions reactions reactions reactions ."`,
 });
@@ -47,7 +47,7 @@ globalStyle(getModifiedSelector('noReactions', `.${message}`), {
   gridTemplateColumns: `20px auto auto auto 1fr auto`,
   gridTemplateRows: '24px 1fr',
   gridTemplateAreas: `
-    "avatar authorName timestamp sentViaIcon . optionsMenu"
+    "avatar authorName timestamp . . optionsMenu"
     ". messageContent messageContent messageContent messageContent optionsMenu"`,
 });
 
@@ -84,17 +84,6 @@ globalStyle(`.${authorName}`, {
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
-});
-
-globalStyle(`.${sentViaIcon}`, {
-  alignSelf: 'stretch',
-  marginLeft: `calc(-1 * ${cssVar('space-3xs')})`,
-  marginRight: `calc(-1 * ${cssVar('space-3xs')})`,
-  marginTop: cssVar('space-3xs'),
-  color: cssVar('color-content-secondary'),
-  gridArea: 'sentViaIcon',
-  display: 'flex',
-  alignItems: 'center',
 });
 
 globalStyle(`.${undoDeleteButton}`, {
