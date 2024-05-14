@@ -430,6 +430,14 @@ export function useBaseComposer(
   };
 }
 
+type ComposerContextType = Pick<ComposerProps, 'attachFilesToComposer'> & {
+  insertEmoji: (emoji: string) => void;
+};
+
+export const ComposerContext = React.createContext<ComposerContextType | null>(
+  null,
+);
+
 export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
   forwardRef(function Composer(
     props: ComposerProps,
@@ -545,17 +553,26 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
       [onKeyDown, isValid, onSubmitWithErrorHandling, onCancel],
     );
 
+    const contextValue: ComposerContextType = useMemo(() => {
+      return {
+        attachFilesToComposer: props.attachFilesToComposer,
+        insertEmoji,
+      };
+    }, [insertEmoji, props.attachFilesToComposer]);
+
     return (
-      <BaseComposer
-        ref={ref}
-        {...rest}
-        isValid={isValid}
-        extraChildren={extraChildrenWithDefault}
-        editor={editor}
-        onKeyDown={onKeyDownWithSubmitAndCancel}
-        toolbarItems={toolbarItemsWithDefault}
-        initialValue={initialValue}
-      />
+      <ComposerContext.Provider value={contextValue}>
+        <BaseComposer
+          ref={ref}
+          {...rest}
+          isValid={isValid}
+          extraChildren={extraChildrenWithDefault}
+          editor={editor}
+          onKeyDown={onKeyDownWithSubmitAndCancel}
+          toolbarItems={toolbarItemsWithDefault}
+          initialValue={initialValue}
+        />
+      </ComposerContext.Provider>
     );
   }),
   'Composer',

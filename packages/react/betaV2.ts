@@ -17,6 +17,7 @@ export {
   ComposerAttachmentInput,
   type ComposerAttachmentInputProps,
 } from './canary/composer/ComposerAttachmentInput.js';
+export { ComposerContext } from './canary/composer/Composer.js';
 export {
   CloseComposerButton,
   type CloseComposerButtonProps,
