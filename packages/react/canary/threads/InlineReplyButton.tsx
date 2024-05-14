@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import cx from 'classnames';
 import { Button, Facepile } from '../../betaV2.js';
 import type { StyleProps } from '../../betaV2.js';
@@ -30,6 +30,17 @@ export const InlineReplyButton = withCord<
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     const { t } = useCordTranslation('thread_preview');
+    const label = useMemo(() => {
+      if (replyCount === 0) {
+        return t('reply_action');
+      }
+
+      if (unreadCount > 0) {
+        return t('show_replies_action_unread', { count: unreadCount });
+      }
+
+      return t('show_replies_action_read', { count: replyCount });
+    }, [replyCount, t, unreadCount]);
 
     return (
       <div
@@ -39,13 +50,11 @@ export const InlineReplyButton = withCord<
       >
         <Facepile.ByID userIDs={allRepliersIDs} canBeReplaced />
         <Button
-          buttonAction="expand-replies"
+          buttonAction="expand-inline-thread"
           canBeReplaced
           className={fontSmall}
         >
-          {unreadCount > 0
-            ? t('show_replies_action_unread', { count: unreadCount })
-            : t('show_replies_action_read', { count: replyCount })}
+          {label}
         </Button>
       </div>
     );

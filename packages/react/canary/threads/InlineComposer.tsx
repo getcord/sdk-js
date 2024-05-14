@@ -10,7 +10,7 @@ import { inlineComposer } from './Threads.classnames.js';
 
 export type InlineComposerProps = {
   threadID: string;
-  onCancel: () => void;
+  hidden: boolean;
 } & StyleProps &
   MandatoryReplaceableProps;
 
@@ -18,21 +18,19 @@ export const InlineComposer = withCord<
   React.PropsWithChildren<InlineComposerProps>
 >(
   forwardRef(function InlineComposer(
-    { className, onCancel, threadID, ...restProps }: InlineComposerProps,
+    { className, hidden, threadID, ...restProps }: InlineComposerProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     const viewer = useViewerData();
 
+    if (hidden) {
+      return null;
+    }
+
     return (
       <div ref={ref} className={cx(inlineComposer, className)} {...restProps}>
         <Avatar user={viewer} canBeReplaced />
-        <SendComposer
-          canBeReplaced
-          threadID={threadID}
-          showCancelButton={!!onCancel}
-          onCancel={onCancel}
-          expanded="auto"
-        />
+        <SendComposer canBeReplaced threadID={threadID} expanded="auto" />
       </div>
     );
   }),

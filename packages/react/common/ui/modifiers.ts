@@ -20,6 +20,8 @@ export const MODIFIERS = {
   hidden: cordifyClassname('hidden'),
   resolved: cordifyClassname('resolved'),
   open: cordifyClassname('open'),
+  expanded: cordifyClassname('expanded'),
+  collapsed: cordifyClassname('collapsed'),
 
   extraLarge: cordifyClassname('extra-large'),
   large: cordifyClassname('large'),

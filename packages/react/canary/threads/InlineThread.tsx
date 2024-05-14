@@ -10,10 +10,12 @@ import { fontSmall } from '../../common/ui/atomicClasses/fonts.css.js';
 import { useCordTranslation } from '../../index.js';
 import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
+import { MODIFIERS } from '../../common/ui/modifiers.js';
 import classes from './Threads.css.js';
-import { InlineThreadLayout } from './InlineThreadLayout.js';
+import { InlineThreadExpandedLayout } from './InlineThreadExpandedLayout.js';
 import { InlineComposer } from './InlineComposer.js';
 import { InlineReplyButton } from './InlineReplyButton.js';
+import { InlineThreadCollapsedLayout } from './InlineThreadCollapsedLayout.js';
 
 export type InlineThreadWrapperProps = {
   thread: ThreadSummary;
@@ -21,13 +23,9 @@ export type InlineThreadWrapperProps = {
 
 export function InlineThreadWrapper({ thread }: InlineThreadWrapperProps) {
   const [expanded, setExpanded] = useState(false);
-  const [showComposer, setShowComposer] = useState(false);
 
   const handleSetExpanded = useCallback((newExpanded: boolean) => {
     setExpanded(newExpanded);
-  }, []);
-  const handleSetShowComposer = useCallback((show: boolean) => {
-    setShowComposer(show);
   }, []);
 
   return (
@@ -35,8 +33,6 @@ export function InlineThreadWrapper({ thread }: InlineThreadWrapperProps) {
       thread={thread}
       setExpanded={handleSetExpanded}
       isExpanded={expanded}
-      setShowComposer={handleSetShowComposer}
-      showComposer={showComposer}
       canBeReplaced
     />
   );
@@ -46,8 +42,6 @@ export type InlineThreadProps = {
   thread: ThreadSummary;
   setExpanded?: (expanded: boolean) => void;
   isExpanded: boolean;
-  setShowComposer?: (show: boolean) => void;
-  showComposer: boolean;
 } & StyleProps &
   MandatoryReplaceableProps;
 
@@ -58,9 +52,7 @@ export const InlineThread = withCord<
     {
       thread,
       isExpanded,
-      showComposer,
       setExpanded,
-      setShowComposer,
       className,
       ...restProps
     }: InlineThreadProps,
@@ -92,23 +84,51 @@ export const InlineThread = withCord<
     );
 
     const handleExpand = useCallback(() => {
-      setShowComposer?.(true);
       setExpanded?.(true);
       void threadData.fetchMore(100); // TODO improve fetching strategy.
-    }, [setExpanded, setShowComposer, threadData]);
-    const handleHideInlineComposer = useCallback(
-      () => setShowComposer?.(false),
-      [setShowComposer],
-    );
+    }, [setExpanded, threadData]);
+
+    if (isExpanded) {
+      return (
+        <InlineThreadExpandedLayout
+          className={cx(classes.inlineThread, MODIFIERS.expanded, className)}
+          ref={ref}
+          canBeReplaced
+          topLevelMessage={
+            thread.firstMessage && (
+              <Message message={thread.firstMessage} showThreadOptions />
+            )
+          }
+          otherMessages={threadData.messages.slice(1).map((m) => (
+            <Message key={m.id} message={m} canBeReplaced />
+          ))}
+          composer={
+            <InlineComposer
+              hidden={!isExpanded}
+              threadID={thread.id}
+              canBeReplaced
+            />
+          }
+          hideRepliesButton={
+            <Button
+              buttonAction="collapse-inline-thread"
+              onClick={() => setExpanded?.(false)}
+              className={cx(classes.inlineReplyButton, fontSmall)}
+              canBeReplaced
+            >
+              {t('hide_replies_action')}
+            </Button>
+          }
+          {...restProps}
+        />
+      );
+    }
 
     return (
-      <InlineThreadLayout
-        className={cx(classes.inlineThread, className)}
+      <InlineThreadCollapsedLayout
+        className={cx(classes.inlineThread, MODIFIERS.collapsed, className)}
         ref={ref}
-        replyCount={replyCount}
         canBeReplaced
-        isExpanded={isExpanded}
-        showComposer={showComposer}
         topLevelMessage={
           thread.firstMessage && (
             <Message
@@ -118,26 +138,6 @@ export const InlineThread = withCord<
             />
           )
         }
-        otherMessages={threadData.messages.slice(1).map((m) => (
-          <Message key={m.id} message={m} canBeReplaced />
-        ))}
-        composer={
-          <InlineComposer
-            threadID={thread.id}
-            onCancel={handleHideInlineComposer}
-            canBeReplaced
-          />
-        }
-        toggleComposerButton={
-          <Button
-            buttonAction="add-reply"
-            onClick={handleExpand}
-            className={cx(classes.inlineReplyButton, fontSmall)}
-            canBeReplaced
-          >
-            {t('reply_action')}
-          </Button>
-        }
         showRepliesButton={
           <InlineReplyButton
             canBeReplaced
@@ -146,16 +146,6 @@ export const InlineThread = withCord<
             replyCount={replyCount}
             allRepliersIDs={allRepliersIDs}
           />
-        }
-        hideRepliesButton={
-          <Button
-            buttonAction="hide-replies"
-            onClick={() => setExpanded?.(false)}
-            className={cx(classes.inlineReplyButton, fontSmall)}
-            canBeReplaced
-          >
-            {t('hide_replies_action')}
-          </Button>
         }
         {...restProps}
       />
