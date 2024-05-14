@@ -468,11 +468,6 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
     const [submitStatus, onSubmitWithErrorHandling] =
       useSubmitWithErrorHandling({
         onSubmit,
-        message: {
-          ...initialValue,
-          ...value,
-          content: editor.children,
-        },
         onResetState,
         onFailSubmit,
       });
@@ -519,14 +514,28 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
           element: (
             <SendButton
               key="send-button"
-              onClick={onSubmitWithErrorHandling}
+              onClick={() =>
+                onSubmitWithErrorHandling({
+                  ...initialValue,
+                  ...value,
+                  content: editor.children,
+                })
+              }
               canBeReplaced
               disabled={!isValid}
             />
           ),
         },
       ];
-    }, [toolbarItems, insertEmoji, onSubmitWithErrorHandling, isValid]);
+    }, [
+      toolbarItems,
+      insertEmoji,
+      isValid,
+      onSubmitWithErrorHandling,
+      initialValue,
+      value,
+      editor.children,
+    ]);
 
     const onKeyDownWithSubmitAndCancel = useCallback(
       (arg: { event: React.KeyboardEvent }) => {
@@ -542,7 +551,11 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
               return true;
             }
 
-            onSubmitWithErrorHandling();
+            onSubmitWithErrorHandling({
+              ...initialValue,
+              ...value,
+              content: editor.children,
+            });
           }
         }
         if (event.key === Keys.ESCAPE) {
@@ -550,7 +563,15 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
         }
         return false;
       },
-      [onKeyDown, isValid, onSubmitWithErrorHandling, onCancel],
+      [
+        onKeyDown,
+        isValid,
+        onSubmitWithErrorHandling,
+        initialValue,
+        value,
+        editor.children,
+        onCancel,
+      ],
     );
 
     const contextValue: ComposerContextType = useMemo(() => {
@@ -671,32 +692,35 @@ type SubmitStatus = 'error' | 'ready' | 'pending';
  */
 function useSubmitWithErrorHandling({
   onSubmit,
-  message,
   onResetState,
   onFailSubmit,
-}: Pick<ComposerProps, 'onSubmit' | 'onResetState' | 'onFailSubmit'> & {
-  message: Partial<ClientMessageData>;
-}): [SubmitStatus, () => void] {
+}: Pick<ComposerProps, 'onSubmit' | 'onResetState' | 'onFailSubmit'>): [
+  SubmitStatus,
+  (message: Partial<ClientMessageData>) => void,
+] {
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('ready');
 
-  const onSubmitWithErrorHandling = useCallback(() => {
-    if (submitStatus === 'pending') {
-      return;
-    }
-    setSubmitStatus('pending');
-    onSubmit({
-      message,
-    }).then(
-      () => {
-        onResetState();
-        setSubmitStatus('ready');
-      },
-      (err) => {
-        setSubmitStatus('error');
-        onFailSubmit?.(err);
-      },
-    );
-  }, [message, onFailSubmit, onResetState, onSubmit, submitStatus]);
+  const onSubmitWithErrorHandling = useCallback(
+    (message: Partial<ClientMessageData>) => {
+      if (submitStatus === 'pending') {
+        return;
+      }
+      setSubmitStatus('pending');
+      onSubmit({
+        message,
+      }).then(
+        () => {
+          onResetState();
+          setSubmitStatus('ready');
+        },
+        (err) => {
+          setSubmitStatus('error');
+          onFailSubmit?.(err);
+        },
+      );
+    },
+    [onFailSubmit, onResetState, onSubmit, submitStatus],
+  );
 
   return [submitStatus, onSubmitWithErrorHandling];
 }
