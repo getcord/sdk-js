@@ -8,7 +8,7 @@ import type { MandatoryReplaceableProps } from '../../experimental/components/re
 import { ThreadScrollContainer } from './ThreadScrollContainer.js';
 
 export type ThreadLayoutProps = {
-  threadData: ClientThreadData | undefined;
+  threadData: ClientThreadData;
   header: JSX.Element | null;
   messages: JSX.Element[];
   emptyThreadPlaceholder: JSX.Element;
@@ -42,9 +42,9 @@ export const ThreadLayout = withCord<
       >
         {header}
         <ThreadScrollContainer
-          fetchMore={threadData?.fetchMore}
-          threadLoading={!!threadData?.loading}
-          hasMore={threadData?.hasMore}
+          fetchMore={threadData.fetchMore}
+          threadLoading={!!threadData.loading}
+          hasMore={threadData.hasMore}
         >
           {[...messages, threadSeenBy]}
         </ThreadScrollContainer>

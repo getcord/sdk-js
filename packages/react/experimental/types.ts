@@ -354,7 +354,7 @@ export interface ThreadProps
   /**
    * The data of the thread to be displayed.
    */
-  threadData?: ClientThreadData;
+  threadData: ClientThreadData;
 }
 
 export type NamedElements = { name: string; element: JSX.Element | null }[];

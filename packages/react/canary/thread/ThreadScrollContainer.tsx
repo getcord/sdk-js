@@ -5,9 +5,9 @@ import { ScrollContainer } from '../ScrollContainer.js';
 const NUMBER_OF_MESSAGES_TO_FETCH = 10;
 
 export type ThreadScrollContainerProps = {
-  fetchMore: FetchMoreCallback | undefined;
-  threadLoading: boolean | undefined;
-  hasMore: boolean | undefined;
+  fetchMore: FetchMoreCallback;
+  threadLoading: boolean;
+  hasMore: boolean;
   children: JSX.Element[];
 };
 
