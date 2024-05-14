@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { forwardRef, useMemo } from 'react';
 
-import type { ObserveThreadsOptions, ThreadSummary } from '@cord-sdk/types';
+import type { ObserveThreadsOptions, ThreadsData } from '@cord-sdk/types';
 import cx from 'classnames';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { SendComposer } from '../../betaV2.js';
@@ -30,7 +30,7 @@ interface ThreadsByOptionsProps extends CommonThreadsProps {
 export interface ThreadsProps
   extends CommonThreadsProps,
     MandatoryReplaceableProps {
-  threads: ThreadSummary[];
+  threadsData: ThreadsData;
 }
 
 export const Threads: WithByOptionsComponent<
@@ -39,15 +39,15 @@ export const Threads: WithByOptionsComponent<
 > = Object.assign(
   withCord<React.PropsWithChildren<ThreadsProps>>(
     forwardRef(function Threads(
-      { threads, className, composerOptions, ...restProps }: ThreadsProps,
+      { threadsData, className, composerOptions, ...restProps }: ThreadsProps,
       ref: React.ForwardedRef<HTMLDivElement>,
     ) {
       const threadsToRender = useMemo(
         () =>
-          threads
+          threadsData.threads
             .filter((t) => !!t.firstMessage)
             .map((t) => <InlineThreadWrapper key={t.id} thread={t} />),
-        [threads],
+        [threadsData.threads],
       );
 
       const sendComposer: Partial<
@@ -95,7 +95,7 @@ export const Threads: WithByOptionsComponent<
 
 function ThreadsByOptions(props: ByOptions<ThreadsByOptionsProps>) {
   const { options, ...restProps } = props;
-  const { threads } = useThreads(options);
+  const threadsData = useThreads(options);
 
-  return <Threads threads={threads} {...restProps} canBeReplaced />;
+  return <Threads threadsData={threadsData} {...restProps} canBeReplaced />;
 }
