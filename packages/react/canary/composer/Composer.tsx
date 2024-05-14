@@ -33,6 +33,7 @@ import {
   useCordTranslation,
 } from '../../index.js';
 import { isMessageFileAttachment } from '../../common/lib/isMessageFileAttachment.js';
+import { throttle } from '../../common/lib/throttle.js';
 import { onDeleteOrBackspace } from './event-handlers/onDeleteOrBackspace.js';
 import { onSpace } from './event-handlers/onSpace.js';
 import { onInlineModifier } from './event-handlers/onInlineModifier.js';
@@ -52,6 +53,11 @@ import { CloseComposerButton } from './CloseComposerButton.js';
 import classes from './Composer.css.js';
 import { SendMessageError } from './SendMessageError.js';
 import { ToolbarLayoutWithClassName } from './ToolbarLayout.js';
+
+// Typing indicator will last 3 sec if not set again, so throttling with 1s interval is OK.
+// We could make it closer to 3sec, but this could cause the typing to be set to false, despite user still typing if network is slow.
+// 1sec already reduce the load a lot, and give 2sec grace period for the network.
+const SET_TYPING_THROTTLE_MS = 1000;
 
 export function useEditComposer(props: EditComposerProps): ComposerProps {
   const onSubmit = useEditSubmit(props);
@@ -95,18 +101,27 @@ function useToolbarItems(
 export function useSendComposer(props: SendComposerProps): ComposerProps {
   const onSubmit = useCreateSubmit(props);
 
-  const { thread: threadData } = ThreadSDK.useThread(props.threadID, {
-    skip: !props.threadID,
+  const { threadID } = props;
+  const { thread: threadData } = ThreadSDK.useThread(threadID, {
+    skip: !threadID,
   });
   const { sdk: cord } = useContext(CordContext);
+  // lint is not happy not knowing the dependency of the function return by throttle. So we use `useMemo` instead.
+  const throttledSetTyping = useMemo(
+    () =>
+      throttle({ interval: SET_TYPING_THROTTLE_MS }, () => {
+        if (!threadID || !cord) {
+          return;
+        }
+        void cord?.thread.updateThread(threadID, {
+          typing: true,
+        });
+      }),
+    [threadID, cord],
+  );
   const onChange = useCallback(() => {
-    if (!cord || !props.threadID) {
-      return;
-    }
-    void cord?.thread.updateThread(props.threadID, {
-      typing: true,
-    });
-  }, [cord, props.threadID]);
+    throttledSetTyping();
+  }, [throttledSetTyping]);
 
   return useCordComposer({
     ...props,
