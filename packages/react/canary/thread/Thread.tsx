@@ -48,7 +48,7 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
                 key={`thread-header-${thread?.id}`}
                 threadID={thread?.id}
                 showContextMenu={messages.length > 0}
-                hide={!showHeader}
+                hidden={!showHeader}
               />
             }
             messages={messages.map((message) => (

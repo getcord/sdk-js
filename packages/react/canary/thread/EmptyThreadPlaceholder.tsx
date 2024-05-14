@@ -13,7 +13,7 @@ import * as classes from './EmptyThreadPlaceholder.css.js';
 
 export type EmptyThreadPlaceholderProps = {
   users: ClientUserData[];
-  hide?: boolean;
+  hidden?: boolean;
 } & StyleProps &
   MandatoryReplaceableProps;
 
@@ -21,12 +21,12 @@ export const EmptyThreadPlaceholder = withCord<
   React.PropsWithChildren<EmptyThreadPlaceholderProps>
 >(
   forwardRef(function EmptyThreadPlaceholder(
-    { users, hide, className, ...restProps }: EmptyThreadPlaceholderProps,
+    { users, hidden, className, ...restProps }: EmptyThreadPlaceholderProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
     const { t } = useCordTranslation('thread');
 
-    if (hide) {
+    if (hidden) {
       return null;
     }
 
@@ -73,7 +73,7 @@ export function EmptyThreadPlaceholderWrapper({
   return (
     <EmptyThreadPlaceholder
       users={placeholderUsers?.users ?? []}
-      hide={hide}
+      hidden={hide}
       canBeReplaced
     />
   );
