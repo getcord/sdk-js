@@ -46,9 +46,16 @@ export function useNotificationCounts(
   return useNotificationCountsInternal(notificationSDK, false, options?.filter);
 }
 
-const emptyNotificationData: ClientNotificationData = {
+const NOTIFICATION_DATA_LOADING_VALUE: ClientNotificationData = {
   notifications: [],
   loading: true,
+  hasMore: false,
+  fetchMore: async (_: number) => {},
+};
+
+const NOTIFICATION_DATA_SKIP_VALUE: ClientNotificationData = {
+  notifications: [],
+  loading: false,
   hasMore: false,
   fetchMore: async (_: number) => {},
 };
@@ -93,7 +100,8 @@ export function useNotifications(
     'observeNotifications',
     NO_SELECTOR,
     options,
-    emptyNotificationData,
+    NOTIFICATION_DATA_LOADING_VALUE,
+    NOTIFICATION_DATA_SKIP_VALUE,
   );
 }
 

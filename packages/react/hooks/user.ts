@@ -185,6 +185,13 @@ const USE_GROUP_MEMBERS_LOADING_VALUE = {
   fetchMore: async () => {},
 };
 
+const USE_GROUP_MEMBERS_SKIP_VALUE = {
+  groupMembers: [],
+  loading: false,
+  hasMore: false,
+  fetchMore: async () => {},
+};
+
 /**
  * This method allows you to observe the members of a group the current user is
  * a member of - either the current group the viewer is logged into, or, if
@@ -222,6 +229,7 @@ export function useGroupMembers(
     NO_SELECTOR,
     options,
     USE_GROUP_MEMBERS_LOADING_VALUE,
+    USE_GROUP_MEMBERS_SKIP_VALUE,
   );
 }
 

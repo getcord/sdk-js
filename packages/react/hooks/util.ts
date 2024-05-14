@@ -65,6 +65,7 @@ export function useObserveFunction<
   selector: SelectorType<Func>,
   options: (OptionsType<Func> & SkipOption) | undefined,
   loadingValue: LoadingType,
+  skipValue: LoadingType = loadingValue,
 ): ValueType<Func> | LoadingType {
   const { sdk } = useCordContext(`${module}.${observeName}`);
   const moduleObject = sdk?.[module];
@@ -104,12 +105,19 @@ export function useObserveFunction<
     };
   }, [moduleObject, optionsMemo, selectorMemo, observeName]);
 
-  // Only return our data if we've received at least one callback and the
-  // selector and options haven't changed, otherwise return the loading value
-  return valueFor &&
+  // Only return our data if we aren't skipping and have received at least one
+  // callback and the selector and options haven't changed, otherwise return the
+  // loading value or skip value, as appropriate.
+  if (optionsMemo?.skip) {
+    return skipValue;
+  } else if (
+    valueFor &&
     value &&
     valueFor[0] === selectorMemo &&
     valueFor[1] === optionsMemo
-    ? value
-    : loadingValue;
+  ) {
+    return value;
+  } else {
+    return loadingValue;
+  }
 }

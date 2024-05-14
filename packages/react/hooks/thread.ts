@@ -165,6 +165,13 @@ const USE_LOCATION_DATA_LOADING_VALUE = {
   fetchMore: async () => {},
 };
 
+const USE_LOCATION_DATA_SKIP_VALUE = {
+  threads: [],
+  loading: false,
+  hasMore: false,
+  fetchMore: async () => {},
+};
+
 /**
  * This method allows you to observe detailed data about
  * a [location](https://docs.cord.com/reference/location),
@@ -212,6 +219,7 @@ export function useLocationData(
     location,
     options,
     USE_LOCATION_DATA_LOADING_VALUE,
+    USE_LOCATION_DATA_SKIP_VALUE,
   );
 }
 
@@ -220,6 +228,14 @@ const USE_THREADS_LOADING_VALUE = {
   loading: true,
   hasMore: false,
   fetchMore: async (_n: number) => {},
+  counts: undefined,
+};
+
+const USE_THREADS_SKIP_VALUE = {
+  threads: [],
+  loading: false,
+  hasMore: false,
+  fetchMore: async () => {},
   counts: undefined,
 };
 
@@ -272,6 +288,7 @@ export function useThreads(options?: ObserveThreadsOptions): ThreadsData {
     NO_SELECTOR,
     options,
     USE_THREADS_LOADING_VALUE,
+    USE_THREADS_SKIP_VALUE,
   );
 }
 
@@ -279,6 +296,14 @@ const USE_THREAD_DATA_LOADING_VALUE = {
   messages: [],
   firstMessage: null,
   loading: true,
+  hasMore: false,
+  fetchMore: async (_n: number) => {},
+};
+
+const USE_THREAD_DATA_SKIP_VALUE = {
+  messages: [],
+  firstMessage: null,
+  loading: false,
   hasMore: false,
   fetchMore: async (_n: number) => {},
 };
@@ -325,6 +350,7 @@ export function useThreadData(
     threadId,
     options,
     USE_THREAD_DATA_LOADING_VALUE,
+    USE_THREAD_DATA_SKIP_VALUE,
   );
 }
 
@@ -332,6 +358,15 @@ const USE_THREAD_LOADING_VALUE = {
   summary: undefined,
   thread: undefined,
   loading: true,
+  hasMore: false,
+  messages: [],
+  fetchMore: async () => {},
+};
+
+const USE_THREAD_SKIP_VALUE = {
+  summary: undefined,
+  thread: undefined,
+  loading: false,
   hasMore: false,
   messages: [],
   fetchMore: async () => {},
@@ -383,6 +418,7 @@ export function useThread(
     threadID ?? '',
     options,
     USE_THREAD_LOADING_VALUE,
+    USE_THREAD_SKIP_VALUE,
   );
 }
 
