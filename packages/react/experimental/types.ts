@@ -12,13 +12,23 @@ import type { ReplacementProps } from './components/hoc/withReplacement.js';
 import type { MandatoryReplaceableProps } from './components/replacements.js';
 
 export type ByID<T> = T & React.RefAttributes<HTMLElement> & ReplacementProps;
-
 export type WithByID<T> = {
   ByID: React.ComponentType<ByID<T>>;
 };
-
 export interface WithByIDComponent<T, U>
   extends WithByID<U>,
+    React.ForwardRefExoticComponent<
+      T & React.RefAttributes<HTMLElement> & ReplacementProps
+    > {}
+
+export type ByOptions<T> = T &
+  React.RefAttributes<HTMLElement> &
+  ReplacementProps;
+export type WithByOptions<T> = {
+  ByOptions: React.ComponentType<ByOptions<T>>;
+};
+export interface WithByOptionsComponent<T, U>
+  extends WithByOptions<U>,
     React.ForwardRefExoticComponent<
       T & React.RefAttributes<HTMLElement> & ReplacementProps
     > {}
