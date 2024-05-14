@@ -111,7 +111,11 @@ export const InlineThread = withCord<
         showComposer={showComposer}
         topLevelMessage={
           thread.firstMessage && (
-            <Message message={thread.firstMessage} showThreadOptions />
+            <Message
+              message={thread.firstMessage}
+              showThreadOptions
+              canBeReplaced
+            />
           )
         }
         otherMessages={threadData.messages.slice(1).map((m) => (
