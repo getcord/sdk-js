@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { forwardRef, useMemo } from 'react';
 
+import type { ThreadsData } from '@cord-sdk/types';
 import withCord from '../../experimental/components/hoc/withCord.js';
-import { ScrollContainer } from '../../betaV2.js';
 import type { NamedElements, StyleProps } from '../../betaV2.js';
 import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
+import { ThreadsScrollContainer } from './ThreadsScrollContainer.js';
 
 export type ThreadsLayoutProps = {
+  threadsData: ThreadsData;
   threads: JSX.Element[];
   /**
    * An array of named elements, added at the bottom of Threads, outside
@@ -28,7 +30,13 @@ export const ThreadsLayout = withCord<
     props: ThreadsLayoutProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
-    const { headerChildren, threads, footerChildren, ...restProps } = props;
+    const {
+      headerChildren,
+      threads,
+      threadsData,
+      footerChildren,
+      ...restProps
+    } = props;
     const header = useMemo(
       () =>
         headerChildren?.map(
@@ -47,9 +55,13 @@ export const ThreadsLayout = withCord<
     return (
       <div {...restProps} ref={ref}>
         {header}
-        <ScrollContainer autoScrollToNewest="never" canBeReplaced>
+        <ThreadsScrollContainer
+          fetchMore={threadsData.fetchMore}
+          hasMore={threadsData.hasMore}
+          loading={threadsData.loading}
+        >
           {threads}
-        </ScrollContainer>
+        </ThreadsScrollContainer>
         {footer}
       </div>
     );

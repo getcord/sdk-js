@@ -81,6 +81,7 @@ export const Threads: WithByOptionsComponent<
         <ThreadsLayout
           ref={ref}
           canBeReplaced
+          threadsData={threadsData}
           threads={threadsToRender}
           className={cx(classes.threads, className)}
           {...sendComposer}
