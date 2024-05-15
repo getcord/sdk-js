@@ -1,7 +1,7 @@
 {
   "name": "@cord-sdk/chatbot-openai",
   "description": "OpenAI chatbot library for Cord",
-  "version": "1.45.0",
+  "version": "1.45.1",
   "homepage": "https://docs.cord.com/",
   "license": "MIT",
   "files": [
@@ -19,8 +19,8 @@
     "directory": "packages/chatbot-openai"
   },
   "dependencies": {
-    "@cord-sdk/chatbot-base": "1.45.0",
-    "@cord-sdk/types": "1.45.0",
+    "@cord-sdk/chatbot-base": "1.45.1",
+    "@cord-sdk/types": "1.45.1",
     "openai": "^4.22.0"
   },
   "devDependencies": {
