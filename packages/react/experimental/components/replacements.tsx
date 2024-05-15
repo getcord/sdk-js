@@ -66,6 +66,7 @@ import type { MentionListProps } from './composer/MentionList.js';
 import type { ShareToEmailFormProps } from './menu/ShareToEmailForm.js';
 import type { MessageLinkPreviewsProps } from './message/MessageLinkPreviews.js';
 import type { MessageLinkPreviewProps } from './message/MessageLinkPreview.js';
+import type { VirtualizedMenuProps } from './menu/VirtualizedMenu.js';
 
 interface PleaseWrapYourReplacementInForwardRef<T>
   extends React.ForwardRefExoticComponent<T> {}
@@ -134,6 +135,7 @@ export type ReplaceConfigBase = Partial<{
   InlineThreadExpandedLayout: React.ComponentType<InlineThreadExpandedLayoutProps>;
   InlineComposer: React.ComponentType<InlineComposerProps>;
   InlineReplyButton: PleaseWrapYourReplacementInForwardRef<InlineReplyButtonProps>;
+  VirtualizedMenu: React.ComponentType<VirtualizedMenuProps>;
 }>;
 
 export type MandatoryReplaceableProps = { 'data-cord-replace'?: string };

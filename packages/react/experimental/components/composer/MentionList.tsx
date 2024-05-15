@@ -1,4 +1,5 @@
 import type { ClientUserData } from '@cord-sdk/types';
+
 import * as React from 'react';
 import { useMemo, useState, useCallback, forwardRef } from 'react';
 import cx from 'classnames';
@@ -8,7 +9,6 @@ import { ReactEditor } from 'slate-react';
 import { userReferenceSuggestionsMenu } from '../../../components/Composer.classnames.js';
 import { useCordTranslation } from '../../../index.js';
 import { Avatar } from '../avatar/Avatar.js';
-import { Menu } from '../menu/Menu.js';
 import { MenuItem } from '../menu/MenuItem.js';
 import { useSearchUsers, useViewerData } from '../../../hooks/user.js';
 import { EditorCommands } from '../../../canary/composer/lib/commands.js';
@@ -21,8 +21,7 @@ import { isUserReferenceNode } from '../../../canary/composer/lib/util.js';
 import withCord from '../hoc/withCord.js';
 import type { MandatoryReplaceableProps } from '../replacements.js';
 import type { StyleProps } from '../../types.js';
-
-const MAX_ROWS_TO_SHOW = 5;
+import { VirtualizedMenu } from '../menu/VirtualizedMenu.js';
 
 export function useMentionList({
   editor: originalEditor,
@@ -191,7 +190,6 @@ export type MentionListProps = {
   setUserReferenceIndex: (index: number) => void;
   onSuggestionClicked: (index: number) => void;
   closeMenu: () => void;
-  unshownUserCountLine?: React.ReactElement<typeof MenuItem> | null;
 } & MandatoryReplaceableProps &
   StyleProps;
 
@@ -200,7 +198,6 @@ export const MentionList = withCord<React.PropsWithChildren<MentionListProps>>(
     {
       users,
       selectedIndex,
-      unshownUserCountLine,
       closeMenu,
       setUserReferenceIndex,
       onSuggestionClicked,
@@ -221,37 +218,27 @@ export const MentionList = withCord<React.PropsWithChildren<MentionListProps>>(
     );
 
     return (
-      <Menu
+      <VirtualizedMenu
         ref={ref}
         canBeReplaced
         className={cx(userReferenceSuggestionsMenu, className)}
         style={style}
-        items={[
-          {
-            name: 'mention-list',
-            element: (
-              <div
-              // [ONI-TODO] Virtualize this list, and show all users.
-              // See #8484
-              >
-                {users.slice(0, MAX_ROWS_TO_SHOW).map((user, i) => {
-                  return (
-                    <UserMentionRow
-                      key={user.id}
-                      data={userMentionRowProps}
-                      index={i}
-                    />
-                  );
-                })}
-              </div>
-            ),
-          },
-        ]}
         closeMenu={closeMenu}
+        selectedIndex={selectedIndex}
+        items={users.map((user, i) => {
+          return {
+            name: `mention-list-${user.id}`,
+            element: (
+              <UserMentionRow
+                key={user.id}
+                data={userMentionRowProps}
+                index={i}
+              />
+            ),
+          };
+        })}
         {...rest}
-      >
-        {unshownUserCountLine ?? null}
-      </Menu>
+      />
     );
   }),
   'MentionList',

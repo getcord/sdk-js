@@ -25,5 +25,8 @@
     "rollup-plugin-re": "^1.0.7",
     "typescript": "~5.1.6",
     "yargs": "^17.4.0"
+  },
+  "dependencies": {
+    "@tanstack/react-virtual": "^3.5.0"
   }
 }
