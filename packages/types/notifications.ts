@@ -24,7 +24,7 @@ export type NotificationSummaryUpdateCallback = (
 /**
  * An attachment representing a URL.
  */
-type NotificationURLAttachment = {
+export type NotificationURLAttachment = {
   /**
    * Indicator that this is a URL attachment.
    */
@@ -40,7 +40,7 @@ type NotificationURLAttachment = {
 /**
  * An attachment representing a message.
  */
-type NotificationMessageAttachment = {
+export type NotificationMessageAttachment = {
   /**
    * Indicator that this is a message attachment.
    */
@@ -65,7 +65,7 @@ type NotificationMessageAttachment = {
 /**
  * An attachment representing a thread.
  */
-type NotificationThreadAttachment = {
+export type NotificationThreadAttachment = {
   /**
    * Indicator that this is a thread attachment.
    */
