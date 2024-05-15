@@ -94,6 +94,7 @@ export const InlineThread = withCord<
           className={cx(classes.inlineThread, MODIFIERS.expanded, className)}
           ref={ref}
           canBeReplaced
+          thread={thread}
           topLevelMessage={
             thread.firstMessage && (
               <Message message={thread.firstMessage} showThreadOptions />
@@ -129,6 +130,7 @@ export const InlineThread = withCord<
         className={cx(classes.inlineThread, MODIFIERS.collapsed, className)}
         ref={ref}
         canBeReplaced
+        thread={thread}
         topLevelMessage={
           thread.firstMessage && (
             <Message
