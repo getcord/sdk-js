@@ -173,6 +173,9 @@ export interface CoreNotificationData {
    *
    * A renderer will typically check the `type` field of the attachment and
    * render that attachment type below the `header`.
+   *
+   * We may include other types of attachments in the future and therefore
+   * recommend having a default case when handling the attachment types.
    */
   attachment:
     | NotificationURLAttachment
