@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { forwardRef, useMemo } from 'react';
 
-import type { ObserveThreadsOptions, ThreadsData } from '@cord-sdk/types';
+import type {
+  ClientCreateThread,
+  ObserveThreadsOptions,
+  ThreadsData,
+} from '@cord-sdk/types';
 import cx from 'classnames';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { SendComposer } from '../../betaV2.js';
@@ -22,7 +26,7 @@ interface CommonThreadsProps extends StyleProps {
   composerOptions?: {
     position: 'top' | 'bottom';
     groupID: string;
-  };
+  } & Partial<Omit<ClientCreateThread, 'threadID' | 'groupID'>>;
 }
 interface ThreadsByOptionsProps extends CommonThreadsProps {
   options: ObserveThreadsOptions;
@@ -58,19 +62,18 @@ export const Threads: WithByOptionsComponent<
           return;
         }
 
+        const { position, ...restComposerProps } = composerOptions;
+
         const composer = [
           {
             name: 'composer',
             element: (
-              <SendComposer
-                canBeReplaced
-                createThread={{ groupID: composerOptions.groupID }}
-              />
+              <SendComposer canBeReplaced createThread={restComposerProps} />
             ),
           },
         ];
 
-        if (composerOptions.position === 'top') {
+        if (position === 'top') {
           return { headerChildren: composer };
         } else {
           return { footerChildren: composer };
