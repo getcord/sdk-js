@@ -67,8 +67,9 @@ export function EmptyThreadPlaceholderWrapper({
     [threadData?.messages],
   );
 
-  const hide =
-    (threadData?.loading && messages.length === 0) || thread !== null;
+  // Hide placeholder when thread data is still loading (this prevents a flicker
+  // of the placeholder) when fetching for data or when a thread has messages.
+  const hide = threadData?.loading || (thread !== null && messages.length > 0);
 
   return (
     <EmptyThreadPlaceholder
