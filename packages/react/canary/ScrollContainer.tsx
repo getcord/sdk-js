@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import cx from 'classnames';
 
 import withCord from '../experimental/components/hoc/withCord.js';
@@ -6,6 +6,7 @@ import type { StyleProps } from '../betaV2.js';
 import { useComposedRefs } from '../common/lib/composeRefs.js';
 import { debounce } from '../common/lib/debounce.js';
 import type { MandatoryReplaceableProps } from '../experimental/components/replacements.js';
+import { useMutationObserver } from '../common/effects/useMutationObserver.js';
 import * as classes from './ScrollContainer.css.js';
 
 const SCROLL_THRESHOLD_PX = 16;
@@ -13,7 +14,7 @@ const SCROLL_THRESHOLD_PX = 16;
 type Edge = 'top' | 'bottom' | 'none';
 type AutoScrollToNewest = 'auto' | 'always' | 'never';
 type AutoScrollDirection = 'top' | 'bottom';
-export type ScrollContainerProps = {
+export type ScrollContainerProps = React.PropsWithChildren<{
   /**
    * The scroll container can auto scroll when new children are added.
    * The auto scroll direction informs the scroll container where
@@ -37,13 +38,11 @@ export type ScrollContainerProps = {
    * than the scroll container height.
    */
   onOverflowChange?: (hasOverflow: boolean) => void;
-  children: JSX.Element[];
-} & StyleProps &
+}> &
+  StyleProps &
   MandatoryReplaceableProps;
 
-export const ScrollContainer = withCord<
-  React.PropsWithChildren<ScrollContainerProps>
->(
+export const ScrollContainer = withCord<ScrollContainerProps>(
   React.forwardRef(function ScrollContainer(
     {
       className,
@@ -86,7 +85,7 @@ export const ScrollContainer = withCord<
       [handleScroll],
     );
 
-    useEffect(() => {
+    const handleOverflow = useCallback(() => {
       if (!containerRef.current) {
         return;
       }
@@ -96,10 +95,9 @@ export const ScrollContainer = withCord<
         onOverflowChange?.(canScroll);
       }
       canScrollRef.current = canScroll;
-    }, [children.length, onOverflowChange]);
+    }, [onOverflowChange]);
 
-    // When new children are added/removed, handle the auto scroll
-    useEffect(() => {
+    const handleAutoScroll = useCallback(() => {
       if (!containerRef.current || autoScrollToNewest === 'never') {
         return;
       }
@@ -115,7 +113,17 @@ export const ScrollContainer = withCord<
       } else if (autoScrollDirection === 'top') {
         current.scrollTop = 0;
       } // If not at an edge, browser will take care of scroll anchoring.
-    }, [autoScrollToNewest, children.length, autoScrollDirection]);
+    }, [autoScrollToNewest, autoScrollDirection]);
+
+    // When children are added/removed, handle both overflow changes and
+    // auto-scroll.
+    const handleChildListMutation = useCallback(() => {
+      handleOverflow();
+      handleAutoScroll();
+    }, [handleAutoScroll, handleOverflow]);
+    useMutationObserver(containerRef.current, handleChildListMutation, {
+      childList: true,
+    });
 
     return (
       <div

@@ -4,12 +4,11 @@ import { ScrollContainer } from '../ScrollContainer.js';
 
 const NUMBER_OF_MESSAGES_TO_FETCH = 10;
 
-export type ThreadScrollContainerProps = {
+export type ThreadScrollContainerProps = React.PropsWithChildren<{
   fetchMore: FetchMoreCallback;
   threadLoading: boolean;
   hasMore: boolean;
-  children: JSX.Element[];
-};
+}>;
 
 export const ThreadScrollContainer = (props: ThreadScrollContainerProps) => {
   const { fetchMore, threadLoading, hasMore, children } = props;
