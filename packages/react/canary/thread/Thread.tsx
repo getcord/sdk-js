@@ -6,6 +6,7 @@ import withCord from '../../experimental/components/hoc/withCord.js';
 import {
   LoadingIndicator,
   Message,
+  Replace,
   SendComposer,
   ThreadHeader,
 } from '../../betaV2.js';
@@ -112,7 +113,7 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
   );
 
 function ThreadByID(props: ByID<ThreadByIDProps>) {
-  const { threadID, createThread, ...restProps } = props;
+  const { threadID, createThread, replace, ...restProps } = props;
   const threadData = useThread(threadID, { skip: !threadID });
   const { sdk: CordSDK } = useCordContext('Thread.ByID');
 
@@ -131,5 +132,9 @@ function ThreadByID(props: ByID<ThreadByIDProps>) {
     }
   }, [createThread, CordSDK, threadID, threadData.thread]);
 
-  return <Thread threadData={threadData} {...restProps} canBeReplaced />;
+  return (
+    <Replace replace={replace}>
+      <Thread threadData={threadData} {...restProps} canBeReplaced />
+    </Replace>
+  );
 }

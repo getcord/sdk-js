@@ -12,6 +12,7 @@ import {
   Timestamp,
   Reactions,
   MessageLayout,
+  Replace,
 } from '../../betaV2.js';
 import { EditComposer } from '../composer/Composer.js';
 import { useViewerData } from '../../hooks/user.js';
@@ -174,12 +175,16 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
     { ByID: MessageByID },
   );
 function MessageByID(props: ByID<MessageByIDProps>) {
-  const { messageID, ...restProps } = props;
+  const { messageID, replace, ...restProps } = props;
   const message = useMessage(messageID);
 
   if (!message) {
     return null;
   }
 
-  return <Message message={message} {...restProps} canBeReplaced />;
+  return (
+    <Replace replace={replace}>
+      <Message message={message} {...restProps} canBeReplaced />
+    </Replace>
+  );
 }
