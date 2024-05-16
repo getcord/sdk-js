@@ -29,6 +29,7 @@ import type { SendMessageErrorProps } from '../../canary/composer/SendMessageErr
 import type { ScrollContainerProps } from '../../canary/ScrollContainer.js';
 import type { EmptyThreadPlaceholderProps } from '../../canary/thread/EmptyThreadPlaceholder.js';
 import type { ThreadLayoutProps } from '../../canary/thread/ThreadLayout.js';
+import type { TypingIndicatorProps } from '../../canary/thread/TypingIndicator.js';
 import type { ComposerAttachmentInputProps } from '../../canary/composer/ComposerAttachmentInput.js';
 import type { ThreadsLayoutProps } from '../../canary/threads/ThreadsLayout.js';
 import type { ThreadsProps } from '../../canary/threads/Threads.js';
@@ -127,6 +128,7 @@ export type ReplaceConfigBase = Partial<{
   Timestamp: React.ComponentType<TimestampProps>;
   ToastFunctionProvider: React.ComponentType<ToastFunctionProviderProps>;
   ToolbarLayout: React.ComponentType<ToolbarLayoutProps>;
+  TypingIndicator: React.ComponentType<TypingIndicatorProps>;
   Username: React.ComponentType<UsernameProps>;
   UsernameTooltip: React.ComponentType<UsernameTooltipProps>;
   Threads: React.ComponentType<ThreadsProps>;

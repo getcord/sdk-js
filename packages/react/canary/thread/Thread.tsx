@@ -22,6 +22,7 @@ import classes from './Thread.css.js';
 import { ThreadSeenByWrapper } from './ThreadSeenBy.js';
 import { EmptyThreadPlaceholderWrapper } from './EmptyThreadPlaceholder.js';
 import { ThreadLayout } from './ThreadLayout.js';
+import { TypingIndicatorWrapper } from './TypingIndicator.js';
 
 export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
   Object.assign(
@@ -93,6 +94,12 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
                 key={`composer-${thread?.id}`}
                 threadID={thread?.id}
                 expanded={composerExpanded}
+              />
+            }
+            typingIndicator={
+              <TypingIndicatorWrapper
+                key={`typing-indicator-${thread?.id}`}
+                usersID={thread?.typing}
               />
             }
             {...restProps}

@@ -15,6 +15,7 @@ export type ThreadLayoutProps = {
   loadingIndicator: JSX.Element;
   threadSeenBy: JSX.Element;
   composer: JSX.Element;
+  typingIndicator: JSX.Element;
 } & StyleProps &
   MandatoryReplaceableProps;
 
@@ -33,6 +34,7 @@ export const ThreadLayout = withCord<
       emptyThreadPlaceholder,
       loadingIndicator,
       threadSeenBy,
+      typingIndicator,
       ...restProps
     } = props;
 
@@ -51,6 +53,7 @@ export const ThreadLayout = withCord<
         >
           {messages}
           {threadSeenBy}
+          {typingIndicator}
         </ThreadScrollContainer>
         {emptyThreadPlaceholder}
         {composer}
