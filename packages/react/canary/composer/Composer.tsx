@@ -25,7 +25,7 @@ import type {
   EditComposerProps,
   SendComposerProps,
 } from '../../experimental/types.js';
-import { ReactionPickButton } from '../../betaV2.js';
+import { ReactionPickButton, Replace } from '../../betaV2.js';
 import { WithPopper } from '../../experimental/components/helpers/WithPopper.js';
 import {
   CordContext,
@@ -133,57 +133,75 @@ export function useSendComposer(props: SendComposerProps): ComposerProps {
 }
 
 export const SendComposer = forwardRef(
-  (props: SendComposerProps, ref: React.ForwardedRef<HTMLDivElement>) => {
-    const threadData = ThreadSDK.useThread(props.threadID, {
-      skip: !props.threadID,
+  (
+    { replace, ...restProps }: SendComposerProps,
+    ref: React.ForwardedRef<HTMLDivElement>,
+  ) => {
+    const threadData = ThreadSDK.useThread(restProps.threadID, {
+      skip: !restProps.threadID,
     });
     const resolved = threadData.thread?.resolved;
     const { t } = useCordTranslation('composer');
 
-    const cordComposerProps = useSendComposer(props);
+    const cordComposerProps = useSendComposer(restProps);
 
-    const toolbarItems = useToolbarItems(cordComposerProps, props.onCancel);
+    const toolbarItems = useToolbarItems(cordComposerProps, restProps.onCancel);
 
     if (resolved) {
-      return <ResolvedThreadComposer thread={threadData} canBeReplaced />;
+      return (
+        <Replace replace={replace}>
+          <ResolvedThreadComposer thread={threadData} canBeReplaced />;
+        </Replace>
+      );
     }
 
     return (
-      <Composer
-        ref={ref}
-        canBeReplaced
-        placeholder={t('send_message_placeholder')}
-        {...cordComposerProps}
-        toolbarItems={toolbarItems}
-      />
+      <Replace replace={replace}>
+        <Composer
+          ref={ref}
+          canBeReplaced
+          placeholder={t('send_message_placeholder')}
+          {...cordComposerProps}
+          toolbarItems={toolbarItems}
+        />
+      </Replace>
     );
   },
 );
 
 export const EditComposer = forwardRef(
-  (props: EditComposerProps, ref: React.ForwardedRef<HTMLDivElement>) => {
-    const message = ThreadSDK.useMessage(props.messageID);
+  (
+    { replace, ...restProps }: EditComposerProps,
+    ref: React.ForwardedRef<HTMLDivElement>,
+  ) => {
+    const message = ThreadSDK.useMessage(restProps.messageID);
     const threadID = message?.threadID;
     const threadData = ThreadSDK.useThread(threadID, { skip: !threadID });
     const resolved = threadData.thread?.resolved;
 
     const { t } = useCordTranslation('composer');
 
-    const cordComposerProps = useEditComposer(props);
-    const toolbarItems = useToolbarItems(cordComposerProps, props.onCancel);
+    const cordComposerProps = useEditComposer(restProps);
+    const toolbarItems = useToolbarItems(cordComposerProps, restProps.onCancel);
 
     if (resolved) {
-      return <ResolvedThreadComposer thread={threadData} canBeReplaced />;
+      return (
+        <Replace replace={replace}>
+          <ResolvedThreadComposer thread={threadData} canBeReplaced />
+        </Replace>
+      );
     }
 
     return (
-      <Composer
-        ref={ref}
-        canBeReplaced
-        placeholder={t('edit_message_placeholder')}
-        {...cordComposerProps}
-        toolbarItems={toolbarItems}
-      />
+      <Replace replace={replace}>
+        <Composer
+          ref={ref}
+          canBeReplaced
+          placeholder={t('edit_message_placeholder')}
+          {...cordComposerProps}
+          toolbarItems={toolbarItems}
+        />
+      </Replace>
     );
   },
 );
