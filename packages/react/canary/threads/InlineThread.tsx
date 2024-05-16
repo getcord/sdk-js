@@ -114,7 +114,7 @@ export const InlineThread = withCord<
             <Button
               buttonAction="collapse-inline-thread"
               onClick={() => setExpanded?.(false)}
-              className={cx(classes.inlineReplyButton, fontSmall)}
+              className={cx(classes.collapseInlineThreadButton, fontSmall)}
               canBeReplaced
             >
               {t('hide_replies_action')}

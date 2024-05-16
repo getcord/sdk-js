@@ -16,6 +16,7 @@ import {
   hasAttachments,
 } from '../../../components/Composer.classnames.js';
 import {
+  collapseInlineThreadButton,
   inlineReplyButton,
   threads,
 } from '../../../canary/threads/Threads.classnames.js';
@@ -264,11 +265,14 @@ globalStyle(
   },
 );
 
-globalStyle(`.${threads} .${inlineReplyButton}`, {
-  justifyContent: 'flex-start',
-  margin: `0 ${cssVar('space-3xs')} 0 ${cssVar('space-2xs')}`,
-  color: cssVar('color-brand-primary'),
-});
+globalStyle(
+  `.${threads} :is(.${inlineReplyButton}, .${collapseInlineThreadButton})`,
+  {
+    justifyContent: 'flex-start',
+    margin: `0 ${cssVar('space-3xs')} 0 ${cssVar('space-2xs')}`,
+    color: cssVar('color-brand-primary'),
+  },
+);
 
 globalStyle(`.${inlineReplyButton} .${button}`, {
   background: 'none',

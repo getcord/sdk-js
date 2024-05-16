@@ -3,7 +3,13 @@ import { globalStyle } from '../../common/ui/style.js';
 import * as classes from './Threads.classnames.js';
 export default classes;
 
-const { inlineReplyButton, threads, inlineThread, inlineComposer } = classes;
+const {
+  inlineReplyButton,
+  collapseInlineThreadButton,
+  threads,
+  inlineThread,
+  inlineComposer,
+} = classes;
 globalStyle(`.${threads}`, {
   position: 'relative',
   border: `1px solid ${cssVar('color-base-x-strong')}`,
@@ -19,7 +25,7 @@ globalStyle(`.${inlineThread}`, {
   flexDirection: 'column',
 });
 
-globalStyle(`.${inlineReplyButton}`, {
+globalStyle(`.${inlineReplyButton}, .${collapseInlineThreadButton}`, {
   padding: `${cssVar('space-2xs')} calc(${cssVar('space-l')} + ${cssVar(
     'space-2xs',
   )})`,
@@ -30,9 +36,12 @@ globalStyle(`.${inlineReplyButton}`, {
   borderRadius: cssVar('space-3xs'),
   display: 'flex',
 });
-globalStyle(`.${inlineReplyButton}:hover`, {
-  background: cssVar('color-base-strong'),
-});
+globalStyle(
+  `:is(.${inlineReplyButton}, .${collapseInlineThreadButton}):hover`,
+  {
+    background: cssVar('color-base-strong'),
+  },
+);
 
 globalStyle(`.${inlineComposer}`, {
   display: 'flex',
