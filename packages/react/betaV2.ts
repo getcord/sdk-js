@@ -207,3 +207,5 @@ export {
   WithTooltip,
   type WithTooltipProps,
 } from './experimental/components/WithTooltip.js';
+export { LoadingIndicator } from './components/LoadingIndicator.js';
+export type { LoadingIndicatorProps } from './components/LoadingIndicator.js';

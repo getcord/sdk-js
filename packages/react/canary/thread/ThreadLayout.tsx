@@ -12,6 +12,7 @@ export type ThreadLayoutProps = {
   header: JSX.Element | null;
   messages: JSX.Element[];
   emptyThreadPlaceholder: JSX.Element;
+  loadingIndicator: JSX.Element;
   threadSeenBy: JSX.Element;
   composer: JSX.Element;
 } & StyleProps &
@@ -30,6 +31,7 @@ export const ThreadLayout = withCord<
       messages,
       threadData,
       emptyThreadPlaceholder,
+      loadingIndicator,
       threadSeenBy,
       ...restProps
     } = props;
@@ -41,6 +43,7 @@ export const ThreadLayout = withCord<
         data-cord-thread-id={threadData?.thread?.id}
       >
         {header}
+        {loadingIndicator}
         <ThreadScrollContainer
           fetchMore={threadData.fetchMore}
           threadLoading={!!threadData.loading}

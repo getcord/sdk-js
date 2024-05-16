@@ -3,7 +3,12 @@ import { forwardRef, useMemo, useEffect } from 'react';
 import cx from 'classnames';
 
 import withCord from '../../experimental/components/hoc/withCord.js';
-import { Message, SendComposer, ThreadHeader } from '../../betaV2.js';
+import {
+  LoadingIndicator,
+  Message,
+  SendComposer,
+  ThreadHeader,
+} from '../../betaV2.js';
 import type {
   WithByIDComponent,
   ByID,
@@ -12,6 +17,7 @@ import type {
 } from '../../betaV2.js';
 import { useThread } from '../../hooks/thread.js';
 import { useCordContext } from '../../contexts/CordContext.js';
+import { SpinnerIcon } from '../../common/icons/customIcons/SpinnerIcon.js';
 import classes from './Thread.css.js';
 import { ThreadSeenByWrapper } from './ThreadSeenBy.js';
 import { EmptyThreadPlaceholderWrapper } from './EmptyThreadPlaceholder.js';
@@ -68,6 +74,13 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
                 threadData={threadData}
               />
             }
+            loadingIndicator={
+              <LoadingIndicator
+                id="thread-loading"
+                hidden={!threadData.loading}
+                icon={<SpinnerIcon />}
+              />
+            }
             threadSeenBy={
               <ThreadSeenByWrapper
                 key={`seen-by-${thread?.id}`}
@@ -110,10 +123,6 @@ function ThreadByID(props: ByID<ThreadByIDProps>) {
       }
     }
   }, [createThread, CordSDK, threadID, threadData.thread]);
-
-  if (!threadData) {
-    return null;
-  }
 
   return <Thread threadData={threadData} {...restProps} canBeReplaced />;
 }
