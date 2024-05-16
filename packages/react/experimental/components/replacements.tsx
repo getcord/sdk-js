@@ -7,6 +7,7 @@ import type {
   AvatarFallbackProps,
   AvatarTooltipProps,
   ThreadProps,
+  ThreadsProps,
 } from '../../experimental/types.js';
 import type { TextEditorProps } from '../../canary/composer/TextEditor.js';
 import type { ComposerLayoutProps } from '../../canary/composer/ComposerLayout.js';
@@ -32,7 +33,6 @@ import type { ThreadLayoutProps } from '../../canary/thread/ThreadLayout.js';
 import type { TypingIndicatorProps } from '../../canary/thread/TypingIndicator.js';
 import type { ComposerAttachmentInputProps } from '../../canary/composer/ComposerAttachmentInput.js';
 import type { ThreadsLayoutProps } from '../../canary/threads/ThreadsLayout.js';
-import type { ThreadsProps } from '../../canary/threads/Threads.js';
 import type { InlineThreadProps } from '../../canary/threads/InlineThread.js';
 import type { InlineComposerProps } from '../../canary/threads/InlineComposer.js';
 import type { DragAndDropProps } from '../../canary/composer/WithDragAndDrop.js';

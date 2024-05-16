@@ -1,41 +1,21 @@
 import * as React from 'react';
 import { forwardRef, useMemo } from 'react';
 
-import type {
-  ClientCreateThread,
-  ObserveThreadsOptions,
-  ThreadsData,
-} from '@cord-sdk/types';
 import cx from 'classnames';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import { SendComposer } from '../../betaV2.js';
 import type {
   ByOptions,
-  StyleProps,
+  ThreadsByOptionsProps,
+  ThreadsProps,
   WithByOptionsComponent,
 } from '../../betaV2.js';
 
-import type { MandatoryReplaceableProps } from '../../experimental/components/replacements.js';
 import { useThreads } from '../../hooks/thread.js';
 import classes from './Threads.css.js';
 import { ThreadsLayout } from './ThreadsLayout.js';
 import type { ThreadsLayoutProps } from './ThreadsLayout.js';
 import { InlineThreadWrapper } from './InlineThread.js';
-
-interface CommonThreadsProps extends StyleProps {
-  composerOptions?: {
-    position: 'top' | 'bottom';
-    groupID: string;
-  } & Partial<Omit<ClientCreateThread, 'threadID' | 'groupID'>>;
-}
-interface ThreadsByOptionsProps extends CommonThreadsProps {
-  options: ObserveThreadsOptions;
-}
-export interface ThreadsProps
-  extends CommonThreadsProps,
-    MandatoryReplaceableProps {
-  threadsData: ThreadsData;
-}
 
 export const Threads: WithByOptionsComponent<
   ThreadsProps,

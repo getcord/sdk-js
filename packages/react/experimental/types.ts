@@ -6,6 +6,8 @@ import type {
   ViewerUserData,
   Location,
   ClientThreadData,
+  ObserveThreadsOptions,
+  ThreadsData,
 } from '@cord-sdk/types';
 import type { CustomEditor } from '../slateCustom.js';
 import type { ReplacementProps } from './components/hoc/withReplacement.js';
@@ -358,3 +360,24 @@ export interface ThreadProps
 }
 
 export type NamedElements = { name: string; element: JSX.Element | null }[];
+
+export interface CommonThreadsProps extends StyleProps {
+  /**
+   * Adds a composer to allow users creating new threads.
+   */
+  composerOptions?: {
+    /** The position of the Composer: top (YouTube style), or bottom (Slack style)  */
+    position: 'top' | 'bottom';
+    /** The groupID the new thread will be added to. */
+    groupID: string;
+  } & Partial<Omit<ClientCreateThread, 'threadID' | 'groupID'>>;
+}
+export interface ThreadsByOptionsProps extends CommonThreadsProps {
+  /** The options that control which and how many threads are fetched. */
+  options: ObserveThreadsOptions;
+}
+export interface ThreadsProps
+  extends CommonThreadsProps,
+    MandatoryReplaceableProps {
+  threadsData: ThreadsData;
+}
