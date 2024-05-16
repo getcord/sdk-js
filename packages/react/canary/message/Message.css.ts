@@ -7,7 +7,10 @@ import {
 } from '../../common/ui/style.js';
 import { composerContainer } from '../../components/Composer.classnames.js';
 import * as classes from '../../components/Message.classnames.js';
-import { threads } from '../threads/Threads.classnames.js';
+import {
+  threads,
+  inlineThreadTopLevelMessage,
+} from '../threads/Threads.classnames.js';
 export * from '../../components/Message.classnames.js';
 
 const {
@@ -126,6 +129,6 @@ globalStyle(`.${message} .${messageOptionsButtons}.${MODIFIERS.open}`, {
   visibility: 'visible',
 });
 
-globalStyle(`.${threads} .${message}:not(:first-of-type)`, {
+globalStyle(`.${threads} .${message}:not(.${inlineThreadTopLevelMessage})`, {
   marginLeft: addSpaceVars('l', '2xs'),
 });

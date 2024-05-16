@@ -97,7 +97,11 @@ export const InlineThread = withCord<
           thread={thread}
           topLevelMessage={
             thread.firstMessage && (
-              <Message message={thread.firstMessage} showThreadOptions />
+              <Message
+                message={thread.firstMessage}
+                className={classes.inlineThreadTopLevelMessage}
+                showThreadOptions
+              />
             )
           }
           otherMessages={threadData.messages.slice(1).map((m) => (
@@ -135,6 +139,7 @@ export const InlineThread = withCord<
           thread.firstMessage && (
             <Message
               message={thread.firstMessage}
+              className={classes.inlineThreadTopLevelMessage}
               showThreadOptions
               canBeReplaced
             />

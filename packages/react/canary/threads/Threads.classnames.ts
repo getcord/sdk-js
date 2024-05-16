@@ -7,3 +7,6 @@ export const collapseInlineThreadButton = cordifyClassname(
   'collapse-inline-thread-button',
 );
 export const inlineComposer = cordifyClassname('inline-composer');
+export const inlineThreadTopLevelMessage = cordifyClassname(
+  'inline-thread-top-level-message',
+);
