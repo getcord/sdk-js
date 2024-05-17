@@ -45,12 +45,12 @@ export const ThreadLayout = withCord<
         data-cord-thread-id={threadData?.thread?.id}
       >
         {header}
-        {loadingIndicator}
         <ThreadScrollContainer
           fetchMore={threadData.fetchMore}
           threadLoading={!!threadData.loading}
           hasMore={threadData.hasMore}
         >
+          {loadingIndicator}
           {messages}
           {threadSeenBy}
           {typingIndicator}
