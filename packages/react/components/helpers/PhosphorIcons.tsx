@@ -12,6 +12,7 @@ import {
   ArrowCircleUpRight,
   ArrowSquareOut,
   ArrowsInSimple,
+  ArrowUDownLeft,
   At,
   Bell,
   BellSlash,
@@ -71,6 +72,7 @@ import {
 export const UNTYPED_PHOSPHOR_ICONS = {
   Archive,
   ArrowBendDownRight,
+  ArrowUDownLeft,
   ArrowCircleUpRight,
   ArrowSquareOut,
   ArrowsInSimple,

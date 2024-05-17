@@ -169,6 +169,7 @@ export function useOptionsMenuActionsItems({
     threadID,
     markThreadAsRead,
     setMenuToShow,
+    message,
   });
 
   const messageActions = useMessageActions({

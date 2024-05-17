@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useMemo } from 'react';
 
+import type { ClientMessageData } from '@cord-sdk/types';
 import { useThread } from '../../../hooks/thread.js';
 import { useCordTranslation } from '../../../hooks/useCordTranslation.js';
 import { Icon } from '../../../components/helpers/Icon.js';
@@ -16,6 +17,7 @@ export type ThreadActionsProps = {
   threadID: string;
   markThreadAsRead?: (threadID: string) => void;
   setMenuToShow: (menu: MenuTypes) => void;
+  message?: ClientMessageData;
 };
 
 export const useThreadActions = ({
@@ -23,6 +25,7 @@ export const useThreadActions = ({
   threadID,
   markThreadAsRead,
   setMenuToShow,
+  message,
 }: ThreadActionsProps) => {
   const { t } = useCordTranslation('thread');
 
@@ -122,12 +125,35 @@ export const useThreadActions = ({
         ),
         name: 'thread-resolve',
       });
+      // Show a reopen button if the thread is resolved, unless the user is the
+      // message author -- in that case the reopen button is in the message options.
+    } else if (thread.resolved && message?.authorID !== user.id) {
+      items.push({
+        element: (
+          <MenuItem
+            canBeReplaced
+            menuItemAction={'thread-unresolve'}
+            label={t('unresolve_action')}
+            leftItem={<Icon name="ArrowUDownLeft" size="large" />}
+            onClick={(event) => {
+              event.stopPropagation();
+              const toastID = 'unresolve_action_success';
+              showToastPopup?.(toastID, t(toastID), 'success');
+              void setResolved(threadID, false);
+              markThreadAsRead?.(threadID);
+              closeMenu();
+            }}
+          />
+        ),
+        name: 'thread-resolve',
+      });
     }
 
     return items;
   }, [
     closeMenu,
     markThreadAsRead,
+    message?.authorID,
     setMenuToShow,
     showToastPopup,
     t,
