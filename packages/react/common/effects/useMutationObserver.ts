@@ -1,27 +1,28 @@
 import { useEffect, useRef } from 'react';
-import { useUpdatingRef } from './useUpdatingRef.js';
+import { useMemoObject } from '../../hooks/useMemoObject.js';
+import { useReffedFn } from './useReffedFn.js';
 
 export function useMutationObserver(
   targetElement: HTMLElement | null,
   callback: MutationCallback,
   options?: MutationObserverInit,
 ) {
-  const callbackRef = useUpdatingRef(callback);
-
-  const observerRef = useRef(
-    new MutationObserver(
+  const optionsMemo = useMemoObject(options);
+  const callbackRef = useReffedFn(callback);
+  const observerRef = useRef<MutationObserver | null>(null);
+  if (observerRef.current === null && typeof MutationObserver !== 'undefined') {
+    observerRef.current = new MutationObserver(
       (mutation: MutationRecord[], observer: MutationObserver) =>
-        callbackRef.current(mutation, observer),
-    ),
-  );
-  const optionsRef = useRef({ ...options });
+        callbackRef(mutation, observer),
+    );
+  }
 
   useEffect(() => {
     const observer = observerRef.current;
-    if (targetElement) {
-      observer.observe(targetElement, optionsRef.current);
+    if (targetElement && observer) {
+      observer.observe(targetElement, optionsMemo);
     }
 
-    return () => observer.disconnect();
-  }, [targetElement]);
+    return () => observer?.disconnect();
+  }, [optionsMemo, targetElement]);
 }
