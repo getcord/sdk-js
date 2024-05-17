@@ -317,8 +317,14 @@ class ChatbotRegistryImpl {
         },
       ));
     } else if (isAsyncIterable(response)) {
-      [{ messageID }] = await Promise.all([
-        this.#fetch<{ messageID: string }>(
+      void this.#typing(thread.id, botID, true);
+      const typingInterval = setInterval(
+        () => void this.#typing(thread.id, botID, true),
+        1000,
+      );
+
+      try {
+        ({ messageID } = await this.#fetch<{ messageID: string }>(
           `v1/threads/${thread.id}/messages`,
           'POST',
           {
@@ -326,30 +332,33 @@ class ChatbotRegistryImpl {
             content: [],
             metadata: { [BOT_METADATA_KEY]: true },
           },
-        ),
-        this.#typing(thread.id, botID, true),
-      ]);
+        ));
 
-      // TODO: is this the right way to do this? Is it too "eager", do we have any
-      // backpressure issues?
-      // TODO: should we provide a way to cancel an ongoing answer if someone else
-      // adds a message to the thread, or some other cancellation mechanism?
-      let full = '';
-      for await (const chunk of response) {
-        if (chunk !== null && chunk !== undefined) {
-          full += chunk;
+        // TODO: is this the right way to do this? Is it too "eager", do we have
+        // any backpressure issues?
+        // TODO: should we provide a way to cancel an ongoing answer if someone
+        // else adds a message to the thread, or some other cancellation
+        // mechanism?
+        let full = '';
+        for await (const chunk of response) {
+          if (chunk !== null && chunk !== undefined) {
+            full += chunk;
+          }
+
+          await this.#fetch(
+            `v1/threads/${thread.id}/messages/${messageID}`,
+            'PUT',
+            {
+              content: stringToMessageContent(full),
+              updatedTimestamp: null,
+            },
+          );
         }
-
-        await Promise.all([
-          this.#typing(thread.id, botID, true),
-          this.#fetch(`v1/threads/${thread.id}/messages/${messageID}`, 'PUT', {
-            content: stringToMessageContent(full),
-            updatedTimestamp: null,
-          }),
-        ]);
+      } finally {
+        clearInterval(typingInterval);
       }
 
-      await this.#typing(thread.id, botID, false);
+      void this.#typing(thread.id, botID, false);
     } else {
       throw new Error('Unknown response type: ' + typeof response);
     }
