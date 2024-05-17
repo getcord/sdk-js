@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { forwardRef, useCallback, useEffect, useState } from 'react';
+import { forwardRef, useCallback, useState } from 'react';
 import type { ForwardedRef } from 'react';
 
 import { Slate, Editable, withReact } from 'slate-react';
@@ -150,14 +150,6 @@ export function useTextEditor(props: UseTextEditorProps) {
     },
     [editor],
   );
-  // This is the documented way of making Slate a controlled
-  // component, see https://github.com/ianstormtaylor/slate/issues/4612#issuecomment-1348310378
-  useEffect(() => {
-    if (initialValue) {
-      editor.children = initialValue;
-      editor.onChange();
-    }
-  }, [editor, initialValue]);
 
   const onChange = useCallback(
     ({ content: newValue }: { content: MessageContent }) => {
