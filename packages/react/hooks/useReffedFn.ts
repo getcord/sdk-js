@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useUpdatingRef } from './useUpdatingRef.js';
+import { useUpdatingRef } from '../common/effects/useUpdatingRef.js';
 
 /**
  * Returns an identity-stable function that will call the most recently-provided

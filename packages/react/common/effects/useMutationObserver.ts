@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useMemoObject } from '../../hooks/useMemoObject.js';
-import { useReffedFn } from './useReffedFn.js';
+import { useReffedFn } from '../../hooks/useReffedFn.js';
 
 export function useMutationObserver(
   targetElement: HTMLElement | null,
