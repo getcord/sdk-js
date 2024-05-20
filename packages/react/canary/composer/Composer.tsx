@@ -150,7 +150,7 @@ export const SendComposer = forwardRef(
     if (resolved) {
       return (
         <Replace replace={replace}>
-          <ResolvedThreadComposer thread={threadData} canBeReplaced />;
+          <ResolvedThreadComposer thread={threadData} canBeReplaced />
         </Replace>
       );
     }
