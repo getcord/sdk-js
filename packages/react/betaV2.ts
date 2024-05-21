@@ -209,3 +209,7 @@ export {
 } from './experimental/components/WithTooltip.js';
 export { LoadingIndicator } from './components/LoadingIndicator.js';
 export type { LoadingIndicatorProps } from './components/LoadingIndicator.js';
+export {
+  type VirtualizedMenuProps,
+  VirtualizedMenu,
+} from './../react/experimental/components/menu/VirtualizedMenu.js';
