@@ -1,14 +1,24 @@
 import * as React from 'react';
-import type { AnchorHTMLAttributes } from 'react';
 import { forwardRef } from 'react';
 import cx from 'classnames';
 import classes from '../../../components/helpers/Link.css.js';
+import type { StyleProps } from '../../../betaV2.js';
 
-export type LinkProps = React.PropsWithChildren<
-  AnchorHTMLAttributes<HTMLAnchorElement>
->;
+export type CommonLinkProps = {
+  children?: React.ReactNode;
+  href?: string;
+  hreflang?: string;
+  id?: string;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+  referrerPolicy?: React.HTMLAttributeReferrerPolicy;
+  rel?: string;
+  role?: React.AriaRole;
+  target?: React.HTMLAttributeAnchorTarget;
+  title?: string;
+} & StyleProps;
+
 export const Link = forwardRef(function Link(
-  { children, className, ...restProps }: LinkProps,
+  { children, className, ...restProps }: CommonLinkProps,
   ref: React.Ref<HTMLAnchorElement>,
 ) {
   return (
