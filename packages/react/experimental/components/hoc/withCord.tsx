@@ -19,11 +19,13 @@ export default function withCord<T extends Props = Props>(
   WrappedComponent: React.ComponentType<T>,
   componentName: ComponentName,
 ) {
-  const Component = withReplacement(
-    withPortal(
-      withCordClassname(withErrorBoundary(withToast(memo(WrappedComponent)))),
+  const Component = memo(
+    withReplacement(
+      withPortal(
+        withCordClassname(withErrorBoundary(withToast(WrappedComponent))),
+      ),
+      componentName,
     ),
-    componentName,
   );
   Component.displayName = componentName;
   return Component;
