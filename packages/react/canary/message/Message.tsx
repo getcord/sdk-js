@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { forwardRef, useCallback, useState } from 'react';
+import { forwardRef, useCallback, useMemo, useState } from 'react';
 import cx from 'classnames';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as buttonClasses from '../../components/helpers/Button.classnames.js';
@@ -62,6 +62,81 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
         );
 
         const viewerData = useViewerData();
+        const avatarElement = useMemo(() => {
+          return <Avatar canBeReplaced user={authorData} />;
+        }, [authorData]);
+        const messageContentElement = useMemo(() => {
+          return (
+            <MessageContent
+              messageID={message.id}
+              content={message.content}
+              createdAt={message.createdTimestamp}
+              authorData={authorData}
+              attachments={message.attachments}
+              edited={!!message.updatedTimestamp}
+              canBeReplaced
+            />
+          );
+        }, [message, authorData]);
+
+        const authorNameElement = useMemo(() => {
+          return <Username canBeReplaced userData={authorData} />;
+        }, [authorData]);
+
+        const timestampElement = useMemo(() => {
+          return (
+            <Timestamp
+              canBeReplaced
+              value={message.createdTimestamp}
+              type="message"
+            />
+          );
+        }, [message.createdTimestamp]);
+
+        const optionsMenuElement = useMemo(() => {
+          return (
+            <OptionsMenu
+              canBeReplaced
+              message={message}
+              threadID={message.threadID}
+              button={
+                <Button
+                  buttonAction="show-message-options"
+                  icon="DotsThree"
+                  className={cx(
+                    buttonClasses.small,
+                    buttonClasses.colorsSecondary,
+                  )}
+                  canBeReplaced
+                />
+              }
+              showThreadOptions={showThreadOptions}
+              showMessageOptions
+              setEditing={setIsEditing}
+            />
+          );
+        }, [message, showThreadOptions]);
+
+        const emojiPickerElement = useMemo(() => {
+          return (
+            <AddReactionToMessageButton
+              messageID={message.id}
+              threadID={message.threadID}
+            />
+          );
+        }, [message.id, message.threadID]);
+
+        const reactionsElement = useMemo(() => {
+          return (
+            <Reactions
+              canBeReplaced
+              messageID={message.id}
+              threadID={message.threadID}
+              showReactionList
+              showAddReactionButton={message.reactions.length > 0}
+            />
+          );
+        }, [message.id, message.threadID, message.reactions]);
 
         if (isEditing) {
           return (
@@ -110,62 +185,13 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
               [MODIFIERS.fromViewer]: viewerData?.id === message.authorID,
             })}
             message={message}
-            avatar={<Avatar canBeReplaced user={authorData} />}
-            messageContent={
-              <MessageContent
-                messageID={message.id}
-                content={message.content}
-                createdAt={message.createdTimestamp}
-                authorData={authorData}
-                attachments={message.attachments}
-                edited={!!message.updatedTimestamp}
-                canBeReplaced
-              />
-            }
-            authorName={<Username canBeReplaced userData={authorData} />}
-            timestamp={
-              <Timestamp
-                canBeReplaced
-                value={message.createdTimestamp}
-                type="message"
-              />
-            }
-            optionsMenu={
-              <OptionsMenu
-                canBeReplaced
-                message={message}
-                threadID={message.threadID}
-                button={
-                  <Button
-                    buttonAction="show-message-options"
-                    icon="DotsThree"
-                    className={cx(
-                      buttonClasses.small,
-                      buttonClasses.colorsSecondary,
-                    )}
-                    canBeReplaced
-                  />
-                }
-                showThreadOptions={showThreadOptions}
-                showMessageOptions
-                setEditing={setIsEditing}
-              />
-            }
-            emojiPicker={
-              <AddReactionToMessageButton
-                messageID={message.id}
-                threadID={message.threadID}
-              />
-            }
-            reactions={
-              <Reactions
-                canBeReplaced
-                messageID={message.id}
-                threadID={message.threadID}
-                showReactionList
-                showAddReactionButton={message.reactions.length > 0}
-              />
-            }
+            avatar={avatarElement}
+            messageContent={messageContentElement}
+            authorName={authorNameElement}
+            timestamp={timestampElement}
+            optionsMenu={optionsMenuElement}
+            emojiPicker={emojiPickerElement}
+            reactions={reactionsElement}
             {...restProps}
           />
         );
