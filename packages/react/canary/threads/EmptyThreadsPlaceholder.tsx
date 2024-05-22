@@ -22,6 +22,7 @@ export function EmptyThreadsPlaceholderWrapper({
 
   return (
     <EmptyPlaceholder
+      canBeReplaced
       type="threads-placeholder"
       users={placeholderUsers?.users ?? []}
       hidden={threadsData.loading || (threads && threads.length > 0)}

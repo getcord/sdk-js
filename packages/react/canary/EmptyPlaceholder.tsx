@@ -15,7 +15,7 @@ export type EmptyPlaceholderProps = {
   type: string;
   hidden?: boolean;
   title: string;
-  body: string;
+  body?: string;
 } & StyleProps &
   MandatoryReplaceableProps;
 
@@ -47,7 +47,7 @@ export const EmptyPlaceholder = withCord<
       >
         {users.length > 0 && <Facepile users={users?.slice(0, 4)} />}
         <p className={classes.emptyPlaceholderTitle}>{title}</p>
-        <p className={classes.emptyPlaceholderBody}>{body}</p>
+        {body && <p className={classes.emptyPlaceholderBody}>{body}</p>}
       </div>
     );
   }),
