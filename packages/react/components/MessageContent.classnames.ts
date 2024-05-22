@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../common/util.js';
+import { cordifyClassname } from '../common/cordifyClassname.js';
 
 export const messageContent = cordifyClassname('message-content');
 export const messageAttachment = cordifyClassname('message-attachment');

@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../common/util.js';
+import { cordifyClassname } from '../common/cordifyClassname.js';
 
 export const cursor = cordifyClassname('live-cursors-cursor');
 export const icon = cordifyClassname('live-cursors-icon');

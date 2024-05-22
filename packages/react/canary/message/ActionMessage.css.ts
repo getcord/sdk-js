@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../../common/util.js';
+import { cordifyClassname } from '../../common/cordifyClassname.js';
 import { MODIFIERS } from '../../common/ui/modifiers.js';
 import { cssVar } from '../../common/ui/cssVariables.js';
 import { message } from '../../components/Message.classnames.js';

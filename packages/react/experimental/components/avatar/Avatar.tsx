@@ -6,10 +6,8 @@ import cx from 'classnames';
 
 import type { ClientUserData } from '@cord-sdk/types';
 import { MODIFIERS } from '../../../common/ui/modifiers.js';
-import {
-  cordifyClassname,
-  getStableColorPalette,
-} from '../../../common/util.js';
+import { cordifyClassname } from '../../../common/cordifyClassname.js';
+import { getStableColorPalette } from '../../../common/util.js';
 import classes from '../../../components/Avatar.css.js';
 import { useViewerData, useUserData } from '../../../hooks/user.js';
 import { AvatarFallback, AvatarTooltip } from '../../../betaV2.js';

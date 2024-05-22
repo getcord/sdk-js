@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../common/util.js';
+import { cordifyClassname } from '../common/cordifyClassname.js';
 
 // To avoid circular dependencies between various composer css files we put the classes here.
 

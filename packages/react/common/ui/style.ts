@@ -2,7 +2,7 @@ import type { GlobalStyleRule, CSSProperties } from '@vanilla-extract/css';
 import { globalStyle as defaultGlobalStyle } from '@vanilla-extract/css';
 export { globalStyle as defaultGlobalStyle } from '@vanilla-extract/css';
 export { keyframes } from '@vanilla-extract/css';
-import { cordifyClassname } from '../util.js';
+import { cordifyClassname } from '../cordifyClassname.js';
 
 export type { CSSProperties };
 

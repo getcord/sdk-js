@@ -1,5 +1,5 @@
 import { MODIFIERS } from '../common/ui/modifiers.js';
-import { cordifyClassname } from '../common/util.js';
+import { cordifyClassname } from '../common/cordifyClassname.js';
 
 export const reactionsContainer = cordifyClassname('reactions-container');
 export const reactionList = cordifyClassname('reaction-list');

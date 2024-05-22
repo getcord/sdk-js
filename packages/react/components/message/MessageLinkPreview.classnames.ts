@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../../common/util.js';
+import { cordifyClassname } from '../../common/cordifyClassname.js';
 
 export const linkPreviewContainer = cordifyClassname('link-preview-container');
 export const linkPreviewHide = cordifyClassname('link-preview-hide');

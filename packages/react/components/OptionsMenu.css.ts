@@ -3,7 +3,7 @@ import {
   defaultGlobalStyle,
   globalStyle,
 } from '../common/ui/style.js';
-import { cordifyClassname } from '../common/util.js';
+import { cordifyClassname } from '../common/cordifyClassname.js';
 
 const SHARE_TO_EMAIL_MENU_WIDTH = 190;
 const SLACK_CHANNEL_SELECT_MENU_HEIGHT = 400;

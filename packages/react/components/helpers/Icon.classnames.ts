@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../../common/util.js';
+import { cordifyClassname } from '../../common/cordifyClassname.js';
 
 export const icon = cordifyClassname('icon');
 export const large = cordifyClassname('large');

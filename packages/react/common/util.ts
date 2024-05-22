@@ -11,14 +11,6 @@ import type {
 import { UNDO_DELETE_MESSAGE_TIMEOUT_SECONDS } from './const/Timing.js';
 
 /**
- * Prepend "cord-" to a classname. Useful mostly to grep all places
- * where we've added a stable classname.
- */
-export function cordifyClassname(className: string) {
-  return `cord-${className}`;
-}
-
-/**
  * Returns a work in singular or plural form depending on given number. This includes the count, e.g.:
  * - `pluralize(0, 'hour')` -> '0 hours'
  * - `pluralize(1, 'hour')` -> '1 hour'

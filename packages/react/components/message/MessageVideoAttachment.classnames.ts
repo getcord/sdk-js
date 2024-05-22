@@ -1,3 +1,3 @@
-import { cordifyClassname } from '../../common/util.js';
+import { cordifyClassname } from '../../common/cordifyClassname.js';
 
 export const videoAttachmentContainer = cordifyClassname('video-attachment');

@@ -1,5 +1,5 @@
 import { CORD_V2, defaultGlobalStyle } from '../common/ui/style.js';
-import { cordifyClassname } from '../common/util.js';
+import { cordifyClassname } from '../common/cordifyClassname.js';
 import { ZINDEX } from '../common/ui/zIndex.js';
 
 export const SCREENSHOT_TRANSITION_IN_MS = 200;

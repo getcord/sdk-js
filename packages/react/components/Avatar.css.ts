@@ -3,7 +3,7 @@ import {
   defaultGlobalStyle,
   globalStyle,
 } from '../common/ui/style.js';
-import { cordifyClassname } from '../common/util.js';
+import { cordifyClassname } from '../common/cordifyClassname.js';
 import { cssVar } from '../common/ui/cssVariables.js';
 import { getModifiedSelector } from '../common/ui/modifiers.js';
 import {

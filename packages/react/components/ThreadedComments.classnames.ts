@@ -1,4 +1,4 @@
-import { cordifyClassname } from '../common/util.js';
+import { cordifyClassname } from '../common/cordifyClassname.js';
 import * as emptyStateClasses from './helpers/EmptyStateWithFacepile.classnames.js';
 
 export const comments = cordifyClassname('threaded-comments');

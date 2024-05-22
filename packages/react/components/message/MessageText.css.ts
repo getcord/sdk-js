@@ -5,7 +5,7 @@ import {
   globalStyle,
 } from '../../common/ui/style.js';
 import { Sizes } from '../../common/const/Sizes.js';
-import { cordifyClassname } from '../../common/util.js';
+import { cordifyClassname } from '../../common/cordifyClassname.js';
 import { editorStyles } from '../../common/lib/editor/styles.js';
 
 export const messageText = cordifyClassname('message-text');

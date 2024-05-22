@@ -1,5 +1,5 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { cordifyClassname } from '../../common/util.js';
+import { cordifyClassname } from '../../common/cordifyClassname.js';
 
 import { ZINDEX } from '../../common/ui/zIndex.js';
 
