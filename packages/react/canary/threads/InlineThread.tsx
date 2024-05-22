@@ -159,4 +159,5 @@ export const InlineThread = withCord<
     );
   }),
   'InlineThread',
+  { thread: (props) => props.thread.id },
 );

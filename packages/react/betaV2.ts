@@ -195,6 +195,7 @@ export { UserDataContext } from './experimental/hooks/useComponentUserData.js';
 export { useMessageActions } from './../react/experimental/components/menu/MessageActions.js';
 export { useThreadActions } from './../react/experimental/components/menu/ThreadActions.js';
 export { useToast } from './experimental/hooks/useToast.js';
+export { useCordIDs } from './experimental/contexts/CordIDsContext.js';
 export {
   WithDragAndDrop,
   type WithDragAndDropProps,

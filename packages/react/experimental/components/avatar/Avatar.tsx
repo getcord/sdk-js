@@ -126,6 +126,7 @@ export const Avatar: WithByIDComponent<AvatarProps, AvatarByIDProps> =
         );
       }),
       'Avatar',
+      { user: (props) => props.user?.id },
     ),
     { ByID: AvatarByID },
   );

@@ -7,7 +7,11 @@ import withPortal from './withPortal.js';
 import withErrorBoundary from './withErrorBoundary.js';
 import withCordClassname from './withCordClassname.js';
 import withReplacement from './withReplacement.js';
+import withIDContext from './withIDContext.js';
+// ⚠️ :worm: This should be imported after because of some cyclic deps.
+// TODO fix
 import withToast from './withToast.js';
+import type { IDsGetterMap } from './withIDContext.js';
 
 interface Props {
   children?: React.ReactNode;
@@ -18,15 +22,19 @@ interface Props {
 export default function withCord<T extends Props = Props>(
   WrappedComponent: React.ComponentType<T>,
   componentName: ComponentName,
+  IDsGetter: IDsGetterMap<Omit<T, 'children'>> = {},
 ) {
+  const intermediateComponent = withPortal(
+    withCordClassname(withErrorBoundary(withToast(WrappedComponent))),
+  ) as React.ForwardRefExoticComponent<T>;
+
   const Component = memo(
     withReplacement(
-      withPortal(
-        withCordClassname(withErrorBoundary(withToast(WrappedComponent))),
-      ),
+      withIDContext<T>(intermediateComponent, IDsGetter),
       componentName,
     ),
   );
+
   Component.displayName = componentName;
   return Component;
 }

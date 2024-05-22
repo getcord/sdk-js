@@ -108,6 +108,9 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
         );
       }),
       'Thread',
+      {
+        thread: (props: ThreadProps) => props.threadData.thread?.id,
+      },
     ),
     { ByID: ThreadByID },
   );

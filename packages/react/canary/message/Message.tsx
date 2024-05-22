@@ -197,6 +197,11 @@ export const Message: WithByIDComponent<MessageProps, MessageByIDProps> =
         );
       }),
       'Message',
+      {
+        message: (props) => props.message.id,
+        thread: (props) => props.message.threadID,
+        user: (props) => props.message.authorID,
+      },
     ),
     { ByID: MessageByID },
   );
