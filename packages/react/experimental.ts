@@ -17,3 +17,5 @@ export { InlineThreadHeaderTitle } from './canary/threads/InlineThreadHeader.js'
 export type { InlineThreadHeaderTitleProps } from './canary/threads/InlineThreadHeader.js';
 export { InlineThreadHeaderButton } from './canary/threads/InlineThreadHeader.js';
 export type { InlineThreadHeaderButtonProps } from './canary/threads/InlineThreadHeader.js';
+export { TabbedThreads } from './canary/threads/TabbedThreads.js';
+export type { TabbedThreadsProps } from './canary/threads/TabbedThreads.js';

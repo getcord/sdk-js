@@ -45,6 +45,7 @@ import type {
   InlineThreadHeaderProps,
   InlineThreadHeaderTitleProps,
 } from '../../canary/threads/InlineThreadHeader.js';
+import type { TabbedThreadsProps } from '../../canary/threads/TabbedThreads.js';
 import type { OverlayProps } from './Overlay.js';
 import type { FacepileProps } from './Facepile.js';
 import type { PresenceFacepileProps } from './PresenceFacepile.js';
@@ -128,6 +129,7 @@ export type ReplaceConfigBase = Partial<{
   SendMessageError: React.ComponentType<SendMessageErrorProps>;
   Separator: React.ComponentType<SeparatorProps>;
   ShareToEmailForm: React.ComponentType<ShareToEmailFormProps>;
+  TabbedThreads: React.ComponentType<TabbedThreadsProps>;
   TextEditor: React.ComponentType<TextEditorProps>;
   Thread: React.ComponentType<ThreadProps>;
   ThreadHeader: React.ComponentType<ThreadHeaderProps>;
