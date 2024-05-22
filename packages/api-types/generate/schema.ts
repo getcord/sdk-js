@@ -719,9 +719,9 @@ export default {
         properties: {
           type: { type: 'string', const: 'markdown' },
           class: { type: 'string' },
-          text: { type: 'string' },
+          children: { $ref: '#/definitions/MessageContent' },
         },
-        required: ['text', 'type'],
+        required: ['children', 'type'],
       },
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
@@ -1084,9 +1084,9 @@ export default {
         properties: {
           type: { type: 'string', const: 'markdown' },
           class: { type: 'string' },
-          text: { type: 'string' },
+          children: { $ref: '#/definitions/MessageContent' },
         },
-        required: ['text', 'type'],
+        required: ['children', 'type'],
       },
       ServerAddReactions: {
         additionalProperties: false,

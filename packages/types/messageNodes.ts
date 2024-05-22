@@ -120,9 +120,12 @@ export type MessageTodoNode = MessageNodeWithChildren & {
   done: boolean;
 };
 
-export type MessageMarkdownNode = MessageNodeBase & {
+export type MessageMarkdownNode = MessageNodeWithChildren & {
   type: MessageNodeType.MARKDOWN;
-  text: string;
+  // NB: validateMessageContent is far more restrictive here, allowing only a
+  // single child, and requiring that child to be a text node. That's
+  // expressible here in TS, but it makes a lot of the content mapping functions
+  // super painful to work with, so we don't.
 };
 
 export type MessageNodeProps<M extends MessageNodeType> = Omit<

@@ -255,7 +255,11 @@ export function RenderNode({
       return null;
     case MessageNodeType.MARKDOWN:
       // TODO: MARKDOWN_NODE fix presentation
-      return <React.Fragment key={index}>{node.text}</React.Fragment>;
+      return (
+        <React.Fragment key={index}>
+          {messageContent({ nodes: node.children, message, formatStyle })}
+        </React.Fragment>
+      );
     default: {
       // it's probably text
       if (node.text !== undefined) {
