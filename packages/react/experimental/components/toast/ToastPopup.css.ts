@@ -3,7 +3,7 @@ import { getModifiedSelector } from '../../../common/ui/modifiers.js';
 import { globalStyle } from '../../../common/ui/style.js';
 import { ZINDEX } from '../../../common/ui/zIndex.js';
 import { cordifyClassname } from '../../../common/util.js';
-import { SUCCESS_POP_UP_TRANSITION_MS } from './ToastPopup.js';
+import { SUCCESS_POP_UP_TRANSITION_MS } from './const.js';
 
 export const popup = cordifyClassname('toast-popup');
 

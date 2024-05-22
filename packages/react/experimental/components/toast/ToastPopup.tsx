@@ -5,10 +5,11 @@ import cx from 'classnames';
 import { cssVar } from '../../../common/ui/cssVariables.js';
 import { MODIFIERS } from '../../../common/ui/modifiers.js';
 import { Toast } from './Toast.jsx';
+import {
+  SUCCESS_POP_UP_TRANSITION_MS,
+  SUCCESS_POP_UP_TIMEOUT_MS,
+} from './const.js';
 import * as classes from './ToastPopup.css.js';
-
-export const SUCCESS_POP_UP_TIMEOUT_MS = 3000;
-export const SUCCESS_POP_UP_TRANSITION_MS = 300;
 
 export type ToastSize = 's' | 'l';
 
