@@ -3,13 +3,14 @@ import { forwardRef, useMemo } from 'react';
 
 import cx from 'classnames';
 import withCord from '../../experimental/components/hoc/withCord.js';
-import { SendComposer } from '../../betaV2.js';
+import { LoadingIndicator, SendComposer } from '../../betaV2.js';
 import type {
   ByOptions,
   WithByOptionsComponent,
   ThreadsByOptionsProps,
   ThreadsProps,
 } from '../../betaV2.js';
+import { SpinnerIcon } from '../../common/icons/customIcons/SpinnerIcon.js';
 
 import { useThreads } from '../../hooks/thread.js';
 import classes from './Threads.css.js';
@@ -83,6 +84,14 @@ export const Threads: WithByOptionsComponent<
             <EmptyThreadsPlaceholderWrapper
               groupID={composerOptions?.groupID}
               threadsData={threadsData}
+            />
+          }
+          loadingIndicator={
+            <LoadingIndicator
+              id="threads-loading"
+              hidden={!threadsData.loading}
+              icon={<SpinnerIcon />}
+              canBeReplaced
             />
           }
           className={cx(classes.threads, className)}

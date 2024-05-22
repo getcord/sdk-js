@@ -24,6 +24,10 @@ export type ThreadsLayoutProps = {
    * A placeholder element shown when there are no threads.
    */
   emptyThreadsPlaceholder: JSX.Element;
+  /**
+   * A simple loading spinner displayed during the loading of threads.
+   */
+  loadingIndicator: JSX.Element;
 } & StyleProps &
   MandatoryReplaceableProps;
 
@@ -40,6 +44,7 @@ export const ThreadsLayout = withCord<
       threadsData,
       footerChildren,
       emptyThreadsPlaceholder,
+      loadingIndicator,
       ...restProps
     } = props;
     const header = useMemo(
@@ -65,6 +70,7 @@ export const ThreadsLayout = withCord<
           hasMore={threadsData.hasMore}
           loading={threadsData.loading}
         >
+          {loadingIndicator}
           {threads}
         </ThreadsScrollContainer>
         {emptyThreadsPlaceholder}

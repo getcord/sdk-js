@@ -8,7 +8,7 @@ export type ThreadsScrollContainerProps = {
   fetchMore: FetchMoreCallback;
   loading: boolean;
   hasMore: boolean;
-  children: JSX.Element[];
+  children?: React.ReactNode;
 };
 
 export const ThreadsScrollContainer = (props: ThreadsScrollContainerProps) => {
