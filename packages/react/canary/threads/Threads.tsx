@@ -6,9 +6,9 @@ import withCord from '../../experimental/components/hoc/withCord.js';
 import { SendComposer } from '../../betaV2.js';
 import type {
   ByOptions,
+  WithByOptionsComponent,
   ThreadsByOptionsProps,
   ThreadsProps,
-  WithByOptionsComponent,
 } from '../../betaV2.js';
 
 import { useThreads } from '../../hooks/thread.js';
@@ -23,15 +23,27 @@ export const Threads: WithByOptionsComponent<
 > = Object.assign(
   withCord<React.PropsWithChildren<ThreadsProps>>(
     forwardRef(function Threads(
-      { threadsData, className, composerOptions, ...restProps }: ThreadsProps,
+      {
+        threadsData,
+        className,
+        composerOptions,
+        showThreadsHeader = false,
+        ...restProps
+      }: ThreadsProps,
       ref: React.ForwardedRef<HTMLDivElement>,
     ) {
       const threadsToRender = useMemo(
         () =>
           threadsData.threads
             .filter((t) => !!t.firstMessage)
-            .map((t) => <InlineThreadWrapper key={t.id} thread={t} />),
-        [threadsData.threads],
+            .map((t) => (
+              <InlineThreadWrapper
+                showThreadHeader={showThreadsHeader}
+                key={t.id}
+                thread={t}
+              />
+            )),
+        [showThreadsHeader, threadsData.threads],
       );
 
       const sendComposer: Partial<

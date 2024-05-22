@@ -380,4 +380,5 @@ export interface ThreadsProps
   extends CommonThreadsProps,
     MandatoryReplaceableProps {
   threadsData: ThreadsData;
+  showThreadsHeader?: boolean;
 }

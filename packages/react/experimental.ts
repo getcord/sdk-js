@@ -11,3 +11,9 @@ export { InlineThreadCollapsedLayout } from './canary/threads/InlineThreadCollap
 export type { InlineThreadCollapsedLayoutProps } from './canary/threads/InlineThreadCollapsedLayout.js';
 export { InlineReplyButton } from './canary/threads/InlineReplyButton.js';
 export type { InlineReplyButtonProps } from './canary/threads/InlineReplyButton.js';
+export { InlineThreadHeader } from './canary/threads/InlineThreadHeader.js';
+export type { InlineThreadHeaderProps } from './canary/threads/InlineThreadHeader.js';
+export { InlineThreadHeaderTitle } from './canary/threads/InlineThreadHeader.js';
+export type { InlineThreadHeaderTitleProps } from './canary/threads/InlineThreadHeader.js';
+export { InlineThreadHeaderButton } from './canary/threads/InlineThreadHeader.js';
+export type { InlineThreadHeaderButtonProps } from './canary/threads/InlineThreadHeader.js';

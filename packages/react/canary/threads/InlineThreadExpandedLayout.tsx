@@ -10,6 +10,7 @@ export type InlineThreadExpandedLayoutProps = {
   hideRepliesButton: JSX.Element;
   composer: JSX.Element;
   thread: ThreadSummary;
+  header: JSX.Element;
 } & StyleProps &
   MandatoryReplaceableProps;
 
@@ -26,11 +27,13 @@ export const InlineThreadExpandedLayout = withCord<
       hideRepliesButton,
       composer,
       thread,
+      header,
       ...restProps
     } = props;
 
     return (
       <div ref={ref} data-cord-thread-id={thread.id} {...restProps}>
+        {header}
         {topLevelMessage}
         {hideRepliesButton}
         {otherMessages}

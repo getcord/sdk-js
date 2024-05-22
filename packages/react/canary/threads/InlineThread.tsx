@@ -16,12 +16,17 @@ import { InlineThreadExpandedLayout } from './InlineThreadExpandedLayout.js';
 import { InlineComposer } from './InlineComposer.js';
 import { InlineReplyButton } from './InlineReplyButton.js';
 import { InlineThreadCollapsedLayout } from './InlineThreadCollapsedLayout.js';
+import { InlineThreadHeader } from './InlineThreadHeader.js';
 
 export type InlineThreadWrapperProps = {
   thread: ThreadSummary;
+  showThreadHeader?: boolean;
 };
 
-export function InlineThreadWrapper({ thread }: InlineThreadWrapperProps) {
+export function InlineThreadWrapper({
+  thread,
+  showThreadHeader,
+}: InlineThreadWrapperProps) {
   const [expanded, setExpanded] = useState(false);
 
   const handleSetExpanded = useCallback((newExpanded: boolean) => {
@@ -33,6 +38,7 @@ export function InlineThreadWrapper({ thread }: InlineThreadWrapperProps) {
       thread={thread}
       setExpanded={handleSetExpanded}
       isExpanded={expanded}
+      showHeader={showThreadHeader}
       canBeReplaced
     />
   );
@@ -42,6 +48,7 @@ export type InlineThreadProps = {
   thread: ThreadSummary;
   setExpanded?: (expanded: boolean) => void;
   isExpanded: boolean;
+  showHeader?: boolean;
 } & StyleProps &
   MandatoryReplaceableProps;
 
@@ -54,6 +61,7 @@ export const InlineThread = withCord<
       isExpanded,
       setExpanded,
       className,
+      showHeader = false,
       ...restProps
     }: InlineThreadProps,
     ref: React.ForwardedRef<HTMLDivElement>,
@@ -95,6 +103,13 @@ export const InlineThread = withCord<
           ref={ref}
           canBeReplaced
           thread={thread}
+          header={
+            <InlineThreadHeader
+              canBeReplaced
+              thread={thread}
+              hidden={!showHeader}
+            />
+          }
           topLevelMessage={
             thread.firstMessage && (
               <Message
@@ -135,6 +150,13 @@ export const InlineThread = withCord<
         ref={ref}
         canBeReplaced
         thread={thread}
+        header={
+          <InlineThreadHeader
+            canBeReplaced
+            thread={thread}
+            hidden={!showHeader}
+          />
+        }
         topLevelMessage={
           thread.firstMessage && (
             <Message

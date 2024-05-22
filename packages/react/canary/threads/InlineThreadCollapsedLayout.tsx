@@ -8,6 +8,7 @@ export type InlineThreadCollapsedLayoutProps = {
   topLevelMessage: JSX.Element | null;
   showRepliesButton: JSX.Element;
   thread: ThreadSummary;
+  header: JSX.Element;
 } & StyleProps &
   MandatoryReplaceableProps;
 
@@ -18,10 +19,12 @@ export const InlineThreadCollapsedLayout = withCord<
     props: InlineThreadCollapsedLayoutProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) {
-    const { topLevelMessage, showRepliesButton, thread, ...restProps } = props;
+    const { topLevelMessage, showRepliesButton, thread, header, ...restProps } =
+      props;
 
     return (
       <div ref={ref} data-cord-thread-id={thread.id} {...restProps}>
+        {header}
         {topLevelMessage}
         {showRepliesButton}
       </div>

@@ -10,3 +10,10 @@ export const inlineComposer = cordifyClassname('inline-composer');
 export const inlineThreadTopLevelMessage = cordifyClassname(
   'inline-thread-top-level-message',
 );
+export const inlineThreadHeader = cordifyClassname('inline-thread-header');
+export const inlineThreadHeaderTitle = cordifyClassname(
+  'inline-thread-header-title',
+);
+export const inlineThreadHeaderButton = cordifyClassname(
+  'inline-thread-header-button',
+);

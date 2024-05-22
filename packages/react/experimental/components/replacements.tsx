@@ -40,6 +40,11 @@ import type { InlineThreadCollapsedLayoutProps } from '../../canary/threads/Inli
 import type { InlineThreadExpandedLayoutProps } from '../../canary/threads/InlineThreadExpandedLayout.js';
 import type { LoadingIndicatorProps } from '../../components/LoadingIndicator.js';
 import type { EmptyPlaceholderProps } from '../../canary/EmptyPlaceholder.js';
+import type {
+  InlineThreadHeaderButtonProps,
+  InlineThreadHeaderProps,
+  InlineThreadHeaderTitleProps,
+} from '../../canary/threads/InlineThreadHeader.js';
 import type { OverlayProps } from './Overlay.js';
 import type { FacepileProps } from './Facepile.js';
 import type { PresenceFacepileProps } from './PresenceFacepile.js';
@@ -90,6 +95,9 @@ export type ReplaceConfigBase = Partial<{
   EmptyPlaceholder: React.ComponentType<EmptyPlaceholderProps>;
   ErrorFallback: React.ComponentType<ErrorFallbackProps>;
   Facepile: React.ComponentType<FacepileProps>;
+  InlineThreadHeader: React.ComponentType<InlineThreadHeaderProps>;
+  InlineThreadHeaderTitle: React.ComponentType<InlineThreadHeaderTitleProps>;
+  InlineThreadHeaderButton: React.ComponentType<InlineThreadHeaderButtonProps>;
   MediaModal: React.ComponentType<MediaModalProps>;
   MentionList: React.ComponentType<MentionListProps>;
   Menu: React.ComponentType<MenuProps>;
