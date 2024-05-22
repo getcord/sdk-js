@@ -20,6 +20,10 @@ export type ThreadsLayoutProps = {
    * the scroll container.
    */
   headerChildren?: NamedElements;
+  /**
+   * A placeholder element shown when there are no threads.
+   */
+  emptyThreadsPlaceholder: JSX.Element;
 } & StyleProps &
   MandatoryReplaceableProps;
 
@@ -35,6 +39,7 @@ export const ThreadsLayout = withCord<
       threads,
       threadsData,
       footerChildren,
+      emptyThreadsPlaceholder,
       ...restProps
     } = props;
     const header = useMemo(
@@ -62,6 +67,7 @@ export const ThreadsLayout = withCord<
         >
           {threads}
         </ThreadsScrollContainer>
+        {emptyThreadsPlaceholder}
         {footer}
       </div>
     );

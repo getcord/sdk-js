@@ -152,6 +152,15 @@ export const resources = {
       // into a thread
       typing_users_status: 'Typing',
     },
+    threads: {
+      // The title placeholder text shown when no threads are shown in the
+      // threads component
+      placeholder_title: 'Be the first to add a comment',
+      // The body placeholder text shown when no threads are shown in a threaded
+      // comments component
+      placeholder_body:
+        "Ask a question, give feedback, or just say 'Hi'. Comments can be seen by anyone who can access this page.",
+    },
     thread_list: {
       // The title placeholder text shown when no threads are shown in a thread
       // list

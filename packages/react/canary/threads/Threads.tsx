@@ -16,6 +16,7 @@ import classes from './Threads.css.js';
 import { ThreadsLayout } from './ThreadsLayout.js';
 import type { ThreadsLayoutProps } from './ThreadsLayout.js';
 import { InlineThreadWrapper } from './InlineThread.js';
+import { EmptyThreadsPlaceholderWrapper } from './EmptyThreadsPlaceholder.js';
 
 export const Threads: WithByOptionsComponent<
   ThreadsProps,
@@ -78,6 +79,12 @@ export const Threads: WithByOptionsComponent<
           canBeReplaced
           threadsData={threadsData}
           threads={threadsToRender}
+          emptyThreadsPlaceholder={
+            <EmptyThreadsPlaceholderWrapper
+              groupID={composerOptions?.groupID}
+              threads={threadsToRender}
+            />
+          }
           className={cx(classes.threads, className)}
           {...sendComposer}
           {...restProps}
