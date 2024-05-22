@@ -734,7 +734,11 @@ function useSubmitWithErrorHandling({
         },
         (err) => {
           setSubmitStatus('error');
-          onFailSubmit?.(err);
+          if (onFailSubmit) {
+            onFailSubmit(err);
+          } else {
+            console.error('Failed to send message:', err);
+          }
         },
       );
     },
