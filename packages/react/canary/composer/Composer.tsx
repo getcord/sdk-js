@@ -20,6 +20,7 @@ import withCord from '../../experimental/components/hoc/withCord.js';
 import { Keys } from '../../common/const/Keys.js';
 
 import type {
+  ComposerMessageData,
   ComposerProps,
   CordComposerProps,
   EditComposerProps,
@@ -290,15 +291,15 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
     () =>
       ({
         attachments: attachmentsProps.attachments as MessageAttachment[],
-      }) satisfies Partial<ClientMessageData>,
+      }) satisfies ComposerMessageData,
     [attachmentsProps.attachments],
   );
 
   const isValid = base.isValid || attachmentsProps.isValid;
 
   const onSubmitWithBeforeAndAfter = useCallback(
-    async (args: { message: Partial<ClientMessageData> }) => {
-      let message: null | Partial<ClientMessageData> = args.message;
+    async (args: { message: ComposerMessageData }) => {
+      let message: null | ComposerMessageData = args.message;
       if (!isValid) {
         return;
       }
@@ -428,7 +429,7 @@ export function useBaseComposer(
   );
 
   const value = useMemo(
-    () => ({}) satisfies Partial<Omit<ClientMessageData, 'content'>>,
+    () => ({}) satisfies Omit<ComposerMessageData, 'content'>,
     [],
   );
   const initialValue = useMemo(

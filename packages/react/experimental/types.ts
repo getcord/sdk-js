@@ -137,8 +137,10 @@ export interface EditComposerProps
   enableDragDropAttachments?: boolean;
 }
 
+export type ComposerMessageData = Partial<Omit<ClientMessageData, 'plaintext'>>;
+
 export interface ComposerProps extends StyleProps, MandatoryReplaceableProps {
-  onSubmit: (arg: { message: Partial<ClientMessageData> }) => Promise<void>;
+  onSubmit: (arg: { message: ComposerMessageData }) => Promise<void>;
   // TODO-ONI add cancel button
   // onCancel: () => void;
   onChange: (event: { content: MessageContent }) => void;
@@ -177,10 +179,8 @@ export type CordComposerProps = {
   placeholder?: string;
   onBeforeSubmit?: (arg: {
     message: Partial<ClientMessageData>;
-  }) => Promise<{ message: Partial<ClientMessageData> } | null>;
-  onSubmit: (arg: {
-    message: Partial<ClientMessageData>;
-  }) => Promise<void> | void;
+  }) => Promise<{ message: ComposerMessageData } | null>;
+  onSubmit: (arg: { message: ComposerMessageData }) => Promise<void> | void;
   onAfterSubmit?: (arg: { message: Partial<ClientMessageData> }) => void;
   onCancel?: () => void;
   groupID: string | undefined;

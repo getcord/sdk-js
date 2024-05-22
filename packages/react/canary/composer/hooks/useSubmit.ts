@@ -2,20 +2,22 @@ import { useCallback, useContext } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import type {
-  ClientMessageData,
   MessageAttachment,
   MessageFileAttachment,
   Reaction,
 } from '@cord-sdk/types';
 import { CordContext } from '../../../contexts/CordContext.js';
 import { thread as ThreadSDK } from '../../../index.js';
-import type { SendComposerProps } from '../../../betaV2.js';
+import type {
+  ComposerMessageData,
+  SendComposerProps,
+} from '../../../betaV2.js';
 
 const EMPTY_ATTACHMENTS: MessageAttachment[] = [];
 const EMPTY_REACTIONS: Reaction[] = [];
 
 type UseEditSubmit = {
-  initialValue?: Partial<ClientMessageData>;
+  initialValue?: ComposerMessageData;
   messageID: string;
 };
 
@@ -30,7 +32,7 @@ export function useEditSubmit(args: UseEditSubmit) {
   const initialAttachments = initialValue?.attachments ?? EMPTY_ATTACHMENTS;
   const { sdk: cord } = useContext(CordContext);
   return useCallback(
-    ({ message }: { message: Partial<ClientMessageData> }) => {
+    ({ message }: { message: ComposerMessageData }) => {
       const { reactions, attachments, ...restMessage } = message;
       const threadID = threadData.thread?.id;
 
@@ -85,7 +87,7 @@ export function useEditSubmit(args: UseEditSubmit) {
 }
 
 type UseCreateSubmit = {
-  initialValue?: Partial<ClientMessageData>;
+  initialValue?: ComposerMessageData;
   threadID?: string;
   createThread?: SendComposerProps['createThread'];
 };
@@ -94,7 +96,7 @@ export function useCreateSubmit(args: UseCreateSubmit) {
   const { threadID, createThread } = args;
   const { sdk: cord } = useContext(CordContext);
   return useCallback(
-    async ({ message }: { message: Partial<ClientMessageData> }) => {
+    async ({ message }: { message: ComposerMessageData }) => {
       const { reactions, content, attachments, ...restMessage } = message;
       const filesAttachments = (attachments ?? []).filter(
         isMessageFileAttachment,
