@@ -2,13 +2,18 @@ import React, { forwardRef, useMemo } from 'react';
 import cx from 'classnames';
 import { experimental } from '../../index.js';
 import { Button } from '../../betaV2.js';
-import type { StyleProps, ThreadsByOptionsProps } from '../../betaV2.js';
+import type {
+  ReplaceConfig,
+  StyleProps,
+  ThreadsByOptionsProps,
+} from '../../betaV2.js';
 import withCord from '../../experimental/components/hoc/withCord.js';
 import * as classes from './TabbedThreads.css.js';
 
 export type TabbedThreadOptions = {
   name: string;
   threadsOptions: ThreadsByOptionsProps;
+  replace?: ReplaceConfig;
 };
 
 export type TabbedThreadsProps = {
@@ -49,7 +54,7 @@ export const TabbedThreads = withCord<
     }, [currentTab, onChangeTab, tabbedThreadsOptions]);
 
     const tabThreads = useMemo(() => {
-      return tabbedThreadsOptions.map(({ name, threadsOptions }) => {
+      return tabbedThreadsOptions.map(({ name, threadsOptions, replace }) => {
         return (
           <experimental.Threads.ByOptions
             key={name}
@@ -58,6 +63,7 @@ export const TabbedThreads = withCord<
             className={cx({
               [classes.threadsActiveTab]: name === currentTab,
             })}
+            replace={replace}
           />
         );
       });
