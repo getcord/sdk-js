@@ -82,7 +82,7 @@ export const Threads: WithByOptionsComponent<
           emptyThreadsPlaceholder={
             <EmptyThreadsPlaceholderWrapper
               groupID={composerOptions?.groupID}
-              threads={threadsToRender}
+              threadsData={threadsData}
             />
           }
           className={cx(classes.threads, className)}
