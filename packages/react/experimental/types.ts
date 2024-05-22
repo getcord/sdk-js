@@ -380,5 +380,11 @@ export interface ThreadsProps
   extends CommonThreadsProps,
     MandatoryReplaceableProps {
   threadsData: ThreadsData;
+  /**
+   * If set to `true`, the header for each inline thread will be displayed.
+   * This header contains a title and a button that both link to the thread url.
+   * The thread name is used as the title with the url as the fallback.
+   * The default is set to `false`.
+   */
   showThreadsHeader?: boolean;
 }
