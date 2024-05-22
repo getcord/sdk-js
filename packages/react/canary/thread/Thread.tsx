@@ -81,6 +81,7 @@ export const Thread: WithByIDComponent<ThreadProps, ThreadByIDProps> =
                 id="thread-loading"
                 hidden={!threadData.loading}
                 icon={<SpinnerIcon />}
+                canBeReplaced
               />
             }
             threadSeenBy={
