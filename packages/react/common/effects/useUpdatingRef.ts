@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 /**
  * Hook to persist any arbitrary value in a useRef and automatically update
@@ -7,9 +7,6 @@ import { useEffect, useRef } from 'react';
  */
 export const useUpdatingRef = <V>(value: V) => {
   const valueRef = useRef(value);
-  useEffect(() => {
-    valueRef.current = value;
-  }, [value]);
-
+  valueRef.current = value;
   return valueRef;
 };
