@@ -633,6 +633,7 @@ export interface ClientCreateMessage
         | 'createdTimestamp'
         | 'updatedTimestamp'
         | 'deletedTimestamp'
+        | 'type'
       >
     > {
   /**
