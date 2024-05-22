@@ -38,9 +38,9 @@ export {
   type EmojiPickerProps,
 } from './experimental/components/helpers/EmojiPicker.js';
 export {
-  EmptyThreadPlaceholder,
-  type EmptyThreadPlaceholderProps,
-} from './../react/canary/thread/EmptyThreadPlaceholder.js';
+  EmptyPlaceholder,
+  type EmptyPlaceholderProps,
+} from './../react/canary/EmptyPlaceholder.js';
 export {
   ErrorFallback,
   type ErrorFallbackProps,

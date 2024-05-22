@@ -28,7 +28,6 @@ import type { ThreadSeenByProps } from '../../canary/thread/ThreadSeenBy.js';
 import type { ToastFunctionProviderProps } from '../contexts/ToastContext.js';
 import type { SendMessageErrorProps } from '../../canary/composer/SendMessageError.js';
 import type { ScrollContainerProps } from '../../canary/ScrollContainer.js';
-import type { EmptyThreadPlaceholderProps } from '../../canary/thread/EmptyThreadPlaceholder.js';
 import type { ThreadLayoutProps } from '../../canary/thread/ThreadLayout.js';
 import type { TypingIndicatorProps } from '../../canary/thread/TypingIndicator.js';
 import type { ComposerAttachmentInputProps } from '../../canary/composer/ComposerAttachmentInput.js';
@@ -40,6 +39,7 @@ import type { InlineReplyButtonProps } from '../../canary/threads/InlineReplyBut
 import type { InlineThreadCollapsedLayoutProps } from '../../canary/threads/InlineThreadCollapsedLayout.js';
 import type { InlineThreadExpandedLayoutProps } from '../../canary/threads/InlineThreadExpandedLayout.js';
 import type { LoadingIndicatorProps } from '../../components/LoadingIndicator.js';
+import type { EmptyPlaceholderProps } from '../../canary/EmptyPlaceholder.js';
 import type { OverlayProps } from './Overlay.js';
 import type { FacepileProps } from './Facepile.js';
 import type { PresenceFacepileProps } from './PresenceFacepile.js';
@@ -87,7 +87,7 @@ export type ReplaceConfigBase = Partial<{
   ComposerAttachmentInput: PleaseWrapYourReplacementInForwardRef<ComposerAttachmentInputProps>;
   DragAndDrop: PleaseWrapYourReplacementInForwardRef<DragAndDropProps>;
   EmojiPicker: React.ComponentType<EmojiPickerProps>;
-  EmptyThreadPlaceholder: React.ComponentType<EmptyThreadPlaceholderProps>;
+  EmptyPlaceholder: React.ComponentType<EmptyPlaceholderProps>;
   ErrorFallback: React.ComponentType<ErrorFallbackProps>;
   Facepile: React.ComponentType<FacepileProps>;
   MediaModal: React.ComponentType<MediaModalProps>;
