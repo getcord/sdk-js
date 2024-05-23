@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import cx from 'classnames';
+import { Slot } from '@radix-ui/react-slot';
 
 import withCord from '../experimental/components/hoc/withCord.js';
 import type { StyleProps } from '../betaV2.js';
@@ -7,6 +8,8 @@ import { useComposedRefs } from '../common/lib/composeRefs.js';
 import { debounce } from '../common/lib/debounce.js';
 import type { MandatoryReplaceableProps } from '../experimental/components/replacements.js';
 import { useMutationObserver } from '../common/effects/useMutationObserver.js';
+import { useResizeObserver } from '../common/effects/useResizeObserver.js';
+import { useReffedFn } from '../hooks/useReffedFn.js';
 import * as classes from './ScrollContainer.css.js';
 
 const SCROLL_THRESHOLD_PX = 16;
@@ -125,6 +128,18 @@ export const ScrollContainer = withCord<ScrollContainerProps>(
       childList: true,
     });
 
+    const wrappedChildren = useMemo(
+      () =>
+        React.Children.map(children, (child, idx) => {
+          return (
+            <WrapScrollChild key={idx} onResize={handleChildListMutation}>
+              {child}
+            </WrapScrollChild>
+          );
+        }),
+      [children, handleChildListMutation],
+    );
+
     return (
       <div
         ref={combinedRefs}
@@ -132,7 +147,7 @@ export const ScrollContainer = withCord<ScrollContainerProps>(
         onScroll={debouncedHandleScroll}
         {...rest}
       >
-        {children}
+        {wrappedChildren}
       </div>
     );
   }),
@@ -151,4 +166,20 @@ function getScrollEdge(scrollContainer: HTMLDivElement): Edge {
 function checkCanScroll(scrollContainer: HTMLDivElement) {
   const { clientHeight, scrollHeight } = scrollContainer;
   return clientHeight < scrollHeight;
+}
+
+type WrapScrollChildProps = React.PropsWithChildren<{ onResize: () => void }>;
+
+function WrapScrollChild({ children, onResize }: WrapScrollChildProps) {
+  const ref = useRef<HTMLUnknownElement | null>(null);
+  const cb = useReffedFn(() => {
+    onResize();
+  });
+
+  useResizeObserver(ref.current, cb);
+  if (React.Children.count(children) > 1) {
+    console.warn('too many children', children);
+  }
+
+  return <Slot ref={ref}>{children}</Slot>;
 }
