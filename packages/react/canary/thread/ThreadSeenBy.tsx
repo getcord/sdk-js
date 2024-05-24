@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { forwardRef, useCallback } from 'react';
+import type { Ref } from 'react';
 
 import cx from 'classnames';
 import type { ClientMessageData, ThreadParticipant } from '@cord-sdk/types';
@@ -19,13 +20,16 @@ const DEFAULT_NUM_OF_NAMES_TO_SHOW = 3; // After which we'll show "and X others"
 
 const MAX_TOOLTIP_NAMES_TO_SHOW = 30;
 
-export function ThreadSeenByWrapper({
-  message,
-  participants,
-}: {
-  message: ClientMessageData | null | undefined;
-  participants: ThreadParticipant[];
-}) {
+export const ThreadSeenByWrapper = forwardRef(function ThreadSeenByWrapper(
+  {
+    message,
+    participants,
+  }: {
+    message: ClientMessageData | null | undefined;
+    participants: ThreadParticipant[];
+  },
+  ref: Ref<HTMLElement>,
+) {
   const { t } = useCordTranslation('message');
   const { t: userT } = useCordTranslation('user');
 
@@ -74,13 +78,14 @@ export function ThreadSeenByWrapper({
 
   return (
     <ThreadSeenBy
+      ref={ref}
       canBeReplaced
       viewers={allUsersWhoSawMessage}
       message={message}
       getSeenByDisplayLabel={getSeenByDisplayLabel}
     />
   );
-}
+});
 
 export type ThreadSeenByProps = {
   viewers: ThreadParticipant[];

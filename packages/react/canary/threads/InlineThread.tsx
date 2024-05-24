@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { forwardRef, useCallback, useMemo, useState } from 'react';
+import type { Ref } from 'react';
 
 import type { ThreadSummary } from '@cord-sdk/types';
 import cx from 'classnames';
@@ -23,10 +24,10 @@ export type InlineThreadWrapperProps = {
   showThreadHeader?: boolean;
 };
 
-export function InlineThreadWrapper({
-  thread,
-  showThreadHeader,
-}: InlineThreadWrapperProps) {
+export const InlineThreadWrapper = forwardRef(function InlineThreadWrapper(
+  { thread, showThreadHeader }: InlineThreadWrapperProps,
+  ref: Ref<HTMLElement>,
+) {
   const [expanded, setExpanded] = useState(false);
 
   const handleSetExpanded = useCallback((newExpanded: boolean) => {
@@ -35,6 +36,7 @@ export function InlineThreadWrapper({
 
   return (
     <InlineThread
+      ref={ref}
       thread={thread}
       setExpanded={handleSetExpanded}
       isExpanded={expanded}
@@ -42,7 +44,7 @@ export function InlineThreadWrapper({
       canBeReplaced
     />
   );
-}
+});
 
 export type InlineThreadProps = {
   thread: ThreadSummary;

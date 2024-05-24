@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { forwardRef, useMemo } from 'react';
+import type { Ref } from 'react';
 
 import cx from 'classnames';
 import type { ClientUserData } from '@cord-sdk/types';
@@ -12,24 +13,27 @@ import withCord from '../../experimental/components/hoc/withCord.js';
 import * as classes from './TypingIndicator.css.js';
 
 type TypingIndicatorWrapperProps = { usersID?: string[] };
-export function TypingIndicatorWrapper({
-  usersID,
-}: TypingIndicatorWrapperProps) {
-  const usersByID = useUserData(usersID ?? [], {
-    skip: !usersID || usersID.length === 0,
-  });
+export const TypingIndicatorWrapper = forwardRef(
+  function TypingIndicatorWrapper(
+    { usersID }: TypingIndicatorWrapperProps,
+    ref: Ref<HTMLElement>,
+  ) {
+    const usersByID = useUserData(usersID ?? [], {
+      skip: !usersID || usersID.length === 0,
+    });
 
-  const users = useMemo(() => {
-    // `useUserData` hook will return the previous data if skip becomes `true`
-    // TODO remove once the hook is fixed.
-    if (usersID?.length === 0) {
-      return [];
-    }
-    return Object.values(usersByID ?? {}).filter(Boolean) as ClientUserData[];
-  }, [usersByID, usersID]);
+    const users = useMemo(() => {
+      // `useUserData` hook will return the previous data if skip becomes `true`
+      // TODO remove once the hook is fixed.
+      if (usersID?.length === 0) {
+        return [];
+      }
+      return Object.values(usersByID ?? {}).filter(Boolean) as ClientUserData[];
+    }, [usersByID, usersID]);
 
-  return <TypingIndicator users={users} canBeReplaced />;
-}
+    return <TypingIndicator ref={ref} users={users} canBeReplaced />;
+  },
+);
 
 export type TypingIndicatorProps = { users: ClientUserData[] };
 export const TypingIndicator = withCord<

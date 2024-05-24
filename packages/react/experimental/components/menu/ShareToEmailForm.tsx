@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useCallback, forwardRef, useContext } from 'react';
+import type { Ref } from 'react';
 import cx from 'classnames';
 import { CordContext } from '../../../index.js';
 import { useCordTranslation } from '../../../hooks/useCordTranslation.js';
@@ -31,35 +32,37 @@ export type ShareToEmailFormProps = {
 } & React.HTMLAttributes<HTMLFormElement> &
   MandatoryReplaceableProps;
 
-export const ShareToEmailFormWrapper = ({
-  threadID,
-  onBackButtonClick,
-  onClose,
-}: ShareToEmailFormWrapperProps) => {
-  const onShareViaEmail = useCallback(
-    (email: string) => {
-      if (!window.CordSDK) {
-        console.error('CordSDK not found');
-        return;
-      }
+export const ShareToEmailFormWrapper = forwardRef(
+  function ShareToEmailFormWrapper(
+    { threadID, onBackButtonClick, onClose }: ShareToEmailFormWrapperProps,
+    ref: Ref<HTMLElement>,
+  ) {
+    const onShareViaEmail = useCallback(
+      (email: string) => {
+        if (!window.CordSDK) {
+          console.error('CordSDK not found');
+          return;
+        }
 
-      return window.CordSDK.thread.shareThread(threadID, {
-        method: 'email',
-        email,
-      });
-    },
-    [threadID],
-  );
+        return window.CordSDK.thread.shareThread(threadID, {
+          method: 'email',
+          email,
+        });
+      },
+      [threadID],
+    );
 
-  return (
-    <ShareToEmailForm
-      canBeReplaced
-      onClose={onClose}
-      onShareViaEmail={onShareViaEmail}
-      onBackButtonClick={onBackButtonClick}
-    />
-  );
-};
+    return (
+      <ShareToEmailForm
+        ref={ref}
+        canBeReplaced
+        onClose={onClose}
+        onShareViaEmail={onShareViaEmail}
+        onBackButtonClick={onBackButtonClick}
+      />
+    );
+  },
+);
 
 export const ShareToEmailForm = withCord<ShareToEmailFormProps>(
   forwardRef(function ShareToEmailForm(
