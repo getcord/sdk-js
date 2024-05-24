@@ -104,7 +104,7 @@ export type ReplaceConfigBase = Partial<{
   Menu: React.ComponentType<MenuProps>;
   MenuButton: React.ComponentType<MenuButtonProps>;
   MenuItem: React.ComponentType<MenuItemProps>;
-  Message: React.ComponentType<MessageProps>;
+  Message: PleaseWrapYourReplacementInForwardRef<MessageProps>;
   MessageActions: React.ComponentType<MessageActionsProps>;
   MessageContent: React.ComponentType<MessageContentProps>;
   MessageFilesAttachments: React.ComponentType<MessageFilesAttachmentsProps>;
@@ -134,7 +134,7 @@ export type ReplaceConfigBase = Partial<{
   Thread: React.ComponentType<ThreadProps>;
   ThreadHeader: React.ComponentType<ThreadHeaderProps>;
   ThreadLayout: React.ComponentType<ThreadLayoutProps>;
-  ThreadSeenBy: React.ComponentType<ThreadSeenByProps>;
+  ThreadSeenBy: PleaseWrapYourReplacementInForwardRef<ThreadSeenByProps>;
   Timestamp: React.ComponentType<TimestampProps>;
   ToastFunctionProvider: React.ComponentType<ToastFunctionProviderProps>;
   ToolbarLayout: React.ComponentType<ToolbarLayoutProps>;
@@ -143,13 +143,13 @@ export type ReplaceConfigBase = Partial<{
   UsernameTooltip: React.ComponentType<UsernameTooltipProps>;
   Threads: React.ComponentType<ThreadsProps>;
   ThreadsLayout: React.ComponentType<ThreadsLayoutProps>;
-  InlineThread: React.ComponentType<InlineThreadProps>;
+  InlineThread: PleaseWrapYourReplacementInForwardRef<InlineThreadProps>;
   InlineThreadCollapsedLayout: React.ComponentType<InlineThreadCollapsedLayoutProps>;
   InlineThreadExpandedLayout: React.ComponentType<InlineThreadExpandedLayoutProps>;
   InlineComposer: React.ComponentType<InlineComposerProps>;
   InlineReplyButton: PleaseWrapYourReplacementInForwardRef<InlineReplyButtonProps>;
   VirtualizedMenu: React.ComponentType<VirtualizedMenuProps>;
-  LoadingIndicator: React.ComponentType<LoadingIndicatorProps>;
+  LoadingIndicator: PleaseWrapYourReplacementInForwardRef<LoadingIndicatorProps>;
 }>;
 
 export type MandatoryReplaceableProps = { 'data-cord-replace'?: string };
