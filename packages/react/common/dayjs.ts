@@ -10,6 +10,9 @@ export async function loadLocale(l: string) {
     case 'am':
       await import('dayjs/locale/am.js');
       return;
+    case 'ar':
+      await import('dayjs/locale/ar.js');
+      return;
     case 'ar-dz':
       await import('dayjs/locale/ar-dz.js');
       return;
@@ -31,9 +34,6 @@ export async function loadLocale(l: string) {
     case 'ar-tn':
       await import('dayjs/locale/ar-tn.js');
       return;
-    case 'ar':
-      await import('dayjs/locale/ar.js');
-      return;
     case 'az':
       await import('dayjs/locale/az.js');
       return;
@@ -49,11 +49,11 @@ export async function loadLocale(l: string) {
     case 'bm':
       await import('dayjs/locale/bm.js');
       return;
-    case 'bn-bd':
-      await import('dayjs/locale/bn-bd.js');
-      return;
     case 'bn':
       await import('dayjs/locale/bn.js');
+      return;
+    case 'bn-bd':
+      await import('dayjs/locale/bn-bd.js');
       return;
     case 'bo':
       await import('dayjs/locale/bo.js');
@@ -79,20 +79,23 @@ export async function loadLocale(l: string) {
     case 'da':
       await import('dayjs/locale/da.js');
       return;
+    case 'de':
+      await import('dayjs/locale/de.js');
+      return;
     case 'de-at':
       await import('dayjs/locale/de-at.js');
       return;
     case 'de-ch':
       await import('dayjs/locale/de-ch.js');
       return;
-    case 'de':
-      await import('dayjs/locale/de.js');
-      return;
     case 'dv':
       await import('dayjs/locale/dv.js');
       return;
     case 'el':
       await import('dayjs/locale/el.js');
+      return;
+    case 'en':
+      await import('dayjs/locale/en.js');
       return;
     case 'en-au':
       await import('dayjs/locale/en-au.js');
@@ -121,11 +124,11 @@ export async function loadLocale(l: string) {
     case 'en-tt':
       await import('dayjs/locale/en-tt.js');
       return;
-    case 'en':
-      await import('dayjs/locale/en.js');
-      return;
     case 'eo':
       await import('dayjs/locale/eo.js');
+      return;
+    case 'es':
+      await import('dayjs/locale/es.js');
       return;
     case 'es-do':
       await import('dayjs/locale/es-do.js');
@@ -138,9 +141,6 @@ export async function loadLocale(l: string) {
       return;
     case 'es-us':
       await import('dayjs/locale/es-us.js');
-      return;
-    case 'es':
-      await import('dayjs/locale/es.js');
       return;
     case 'et':
       await import('dayjs/locale/et.js');
@@ -157,14 +157,14 @@ export async function loadLocale(l: string) {
     case 'fo':
       await import('dayjs/locale/fo.js');
       return;
+    case 'fr':
+      await import('dayjs/locale/fr.js');
+      return;
     case 'fr-ca':
       await import('dayjs/locale/fr-ca.js');
       return;
     case 'fr-ch':
       await import('dayjs/locale/fr-ch.js');
-      return;
-    case 'fr':
-      await import('dayjs/locale/fr.js');
       return;
     case 'fy':
       await import('dayjs/locale/fy.js');
@@ -208,11 +208,11 @@ export async function loadLocale(l: string) {
     case 'is':
       await import('dayjs/locale/is.js');
       return;
-    case 'it-ch':
-      await import('dayjs/locale/it-ch.js');
-      return;
     case 'it':
       await import('dayjs/locale/it.js');
+      return;
+    case 'it-ch':
+      await import('dayjs/locale/it-ch.js');
       return;
     case 'ja':
       await import('dayjs/locale/ja.js');
@@ -271,11 +271,11 @@ export async function loadLocale(l: string) {
     case 'mr':
       await import('dayjs/locale/mr.js');
       return;
-    case 'ms-my':
-      await import('dayjs/locale/ms-my.js');
-      return;
     case 'ms':
       await import('dayjs/locale/ms.js');
+      return;
+    case 'ms-my':
+      await import('dayjs/locale/ms-my.js');
       return;
     case 'mt':
       await import('dayjs/locale/mt.js');
@@ -289,11 +289,11 @@ export async function loadLocale(l: string) {
     case 'ne':
       await import('dayjs/locale/ne.js');
       return;
-    case 'nl-be':
-      await import('dayjs/locale/nl-be.js');
-      return;
     case 'nl':
       await import('dayjs/locale/nl.js');
+      return;
+    case 'nl-be':
+      await import('dayjs/locale/nl-be.js');
       return;
     case 'nn':
       await import('dayjs/locale/nn.js');
@@ -307,14 +307,23 @@ export async function loadLocale(l: string) {
     case 'pl':
       await import('dayjs/locale/pl.js');
       return;
-    case 'pt-br':
-      await import('dayjs/locale/pt-br.js');
-      return;
     case 'pt':
       await import('dayjs/locale/pt.js');
       return;
+    case 'pt-br':
+      await import('dayjs/locale/pt-br.js');
+      return;
     case 'rn':
       await import('dayjs/locale/rn.js');
+      return;
+    case 'ro':
+      await import('dayjs/locale/ro.js');
+      return;
+    case 'ru':
+      await import('dayjs/locale/ru.js');
+      return;
+    case 'rw':
+      await import('dayjs/locale/rw.js');
       return;
     case 'sd':
       await import('dayjs/locale/sd.js');
@@ -334,20 +343,20 @@ export async function loadLocale(l: string) {
     case 'sq':
       await import('dayjs/locale/sq.js');
       return;
-    case 'sr-cyrl':
-      await import('dayjs/locale/sr-cyrl.js');
-      return;
     case 'sr':
       await import('dayjs/locale/sr.js');
+      return;
+    case 'sr-cyrl':
+      await import('dayjs/locale/sr-cyrl.js');
       return;
     case 'ss':
       await import('dayjs/locale/ss.js');
       return;
-    case 'sv-fi':
-      await import('dayjs/locale/sv-fi.js');
-      return;
     case 'sv':
       await import('dayjs/locale/sv.js');
+      return;
+    case 'sv-fi':
+      await import('dayjs/locale/sv-fi.js');
       return;
     case 'sw':
       await import('dayjs/locale/sw.js');
@@ -382,11 +391,11 @@ export async function loadLocale(l: string) {
     case 'tzl':
       await import('dayjs/locale/tzl.js');
       return;
-    case 'tzm-latn':
-      await import('dayjs/locale/tzm-latn.js');
-      return;
     case 'tzm':
       await import('dayjs/locale/tzm.js');
+      return;
+    case 'tzm-latn':
+      await import('dayjs/locale/tzm-latn.js');
       return;
     case 'ug-cn':
       await import('dayjs/locale/ug-cn.js');
@@ -397,11 +406,11 @@ export async function loadLocale(l: string) {
     case 'ur':
       await import('dayjs/locale/ur.js');
       return;
-    case 'uz-latn':
-      await import('dayjs/locale/uz-latn.js');
-      return;
     case 'uz':
       await import('dayjs/locale/uz.js');
+      return;
+    case 'uz-latn':
+      await import('dayjs/locale/uz-latn.js');
       return;
     case 'vi':
       await import('dayjs/locale/vi.js');
@@ -412,6 +421,9 @@ export async function loadLocale(l: string) {
     case 'yo':
       await import('dayjs/locale/yo.js');
       return;
+    case 'zh':
+      await import('dayjs/locale/zh.js');
+      return;
     case 'zh-cn':
       await import('dayjs/locale/zh-cn.js');
       return;
@@ -421,23 +433,12 @@ export async function loadLocale(l: string) {
     case 'zh-tw':
       await import('dayjs/locale/zh-tw.js');
       return;
-    case 'zh':
-      await import('dayjs/locale/zh.js');
-      return;
-    case 'rw':
-      await import('dayjs/locale/rw.js');
-      return;
-    case 'ru':
-      await import('dayjs/locale/ru.js');
-      return;
-    case 'ro':
-      await import('dayjs/locale/ro.js');
-      return;
   }
 }
 export const ALL_LOCALES = [
   'af',
   'am',
+  'ar',
   'ar-dz',
   'ar-iq',
   'ar-kw',
@@ -445,14 +446,13 @@ export const ALL_LOCALES = [
   'ar-ma',
   'ar-sa',
   'ar-tn',
-  'ar',
   'az',
   'be',
   'bg',
   'bi',
   'bm',
-  'bn-bd',
   'bn',
+  'bn-bd',
   'bo',
   'br',
   'bs',
@@ -461,11 +461,12 @@ export const ALL_LOCALES = [
   'cv',
   'cy',
   'da',
+  'de',
   'de-at',
   'de-ch',
-  'de',
   'dv',
   'el',
+  'en',
   'en-au',
   'en-ca',
   'en-gb',
@@ -475,21 +476,20 @@ export const ALL_LOCALES = [
   'en-nz',
   'en-sg',
   'en-tt',
-  'en',
   'eo',
+  'es',
   'es-do',
   'es-mx',
   'es-pr',
   'es-us',
-  'es',
   'et',
   'eu',
   'fa',
   'fi',
   'fo',
+  'fr',
   'fr-ca',
   'fr-ch',
-  'fr',
   'fy',
   'ga',
   'gd',
@@ -504,8 +504,8 @@ export const ALL_LOCALES = [
   'hy-am',
   'id',
   'is',
-  'it-ch',
   'it',
+  'it-ch',
   'ja',
   'jv',
   'ka',
@@ -525,32 +525,35 @@ export const ALL_LOCALES = [
   'ml',
   'mn',
   'mr',
-  'ms-my',
   'ms',
+  'ms-my',
   'mt',
   'my',
   'nb',
   'ne',
-  'nl-be',
   'nl',
+  'nl-be',
   'nn',
   'oc-lnc',
   'pa-in',
   'pl',
-  'pt-br',
   'pt',
+  'pt-br',
   'rn',
+  'ro',
+  'ru',
+  'rw',
   'sd',
   'se',
   'si',
   'sk',
   'sl',
   'sq',
-  'sr-cyrl',
   'sr',
+  'sr-cyrl',
   'ss',
-  'sv-fi',
   'sv',
+  'sv-fi',
   'sw',
   'ta',
   'te',
@@ -562,22 +565,19 @@ export const ALL_LOCALES = [
   'tlh',
   'tr',
   'tzl',
-  'tzm-latn',
   'tzm',
+  'tzm-latn',
   'ug-cn',
   'uk',
   'ur',
-  'uz-latn',
   'uz',
+  'uz-latn',
   'vi',
   'x-pseudo',
   'yo',
+  'zh',
   'zh-cn',
   'zh-hk',
   'zh-tw',
-  'zh',
-  'rw',
-  'ru',
-  'ro',
 ];
 
