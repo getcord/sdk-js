@@ -50,12 +50,12 @@ export const ThreadLayout = withCord<
           threadLoading={!!threadData.loading}
           hasMore={threadData.hasMore}
         >
+          {emptyThreadPlaceholder}
           {loadingIndicator}
           {messages}
           {threadSeenBy}
           {typingIndicator}
         </ThreadScrollContainer>
-        {emptyThreadPlaceholder}
         {composer}
       </div>
     );

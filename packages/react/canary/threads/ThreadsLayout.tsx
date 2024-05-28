@@ -70,10 +70,10 @@ export const ThreadsLayout = withCord<
           hasMore={threadsData.hasMore}
           loading={threadsData.loading}
         >
+          {emptyThreadsPlaceholder}
           {loadingIndicator}
           {threads}
         </ThreadsScrollContainer>
-        {emptyThreadsPlaceholder}
         {footer}
       </div>
     );
