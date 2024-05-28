@@ -1,7 +1,6 @@
 import { cssVar } from '../../../common/ui/cssVariables.js';
 import { globalStyle } from '../../../common/ui/style.js';
 import { cordifyClassname } from '../../../common/cordifyClassname.js';
-import { button } from './../../../components/helpers/Button.classnames.js';
 
 export const toast = cordifyClassname('toast');
 globalStyle(`.${toast}`, {
@@ -25,9 +24,4 @@ globalStyle(`.${toast} .${label}`, {
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
-});
-
-globalStyle(`.${toast} .${button}`, {
-  backgroundColor: 'transparent',
-  color: cssVar('color-base'),
 });
