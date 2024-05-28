@@ -130,9 +130,9 @@ export const ScrollContainer = withCord<ScrollContainerProps>(
 
     const wrappedChildren = useMemo(
       () =>
-        React.Children.map(children, (child, idx) => {
+        React.Children.map(children, (child) => {
           return (
-            <WrapScrollChild key={idx} onResize={handleChildListMutation}>
+            <WrapScrollChild onResize={handleChildListMutation}>
               {child}
             </WrapScrollChild>
           );
