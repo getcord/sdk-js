@@ -18,4 +18,5 @@ globalStyle(`.${thread} .${scrollContainer}, .${threads} .${scrollContainer}`, {
   gap: cssVar('space-2xs'),
   padding: cssVar('space-3xs'),
   paddingBottom: cssVar('space-2xs'),
+  flex: 1,
 });
