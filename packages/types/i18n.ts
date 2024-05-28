@@ -67,7 +67,8 @@ export const resources = {
       // The text of the button that removes an annotation from a message
       remove_annotation_action: 'Remove',
       // The error text shown when a message failed to send
-      send_message_action_failure: 'Failed to send message. Please try again.',
+      send_message_action_failure:
+        'Failed to send message. <restore>Restore the message</restore>',
       // The text shown when a user is dragging files over the composer
       drag_and_drop_files_tooltip: 'Drop Files',
       attach_file_action_failure: 'Failed to upload file: {{message}}',

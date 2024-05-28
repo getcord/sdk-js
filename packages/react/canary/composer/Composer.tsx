@@ -315,10 +315,14 @@ export function useCordComposer(props: CordComposerProps): ComposerProps {
     [isValid, onBeforeSubmit, onSubmit, onAfterSubmit],
   );
 
-  const onResetState = useCallback(() => {
-    base.onResetState();
-    attachmentsProps.onResetState();
-  }, [base, attachmentsProps]);
+  const onResetState = useCallback(
+    (newValue?: MessageContent) => {
+      const previous = base.onResetState(newValue);
+      attachmentsProps.onResetState();
+      return previous;
+    },
+    [base, attachmentsProps],
+  );
 
   return {
     ...base,
@@ -484,7 +488,7 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
       [editor],
     );
 
-    const [submitStatus, onSubmitWithErrorHandling] =
+    const [restoreMessage, onSubmitWithErrorHandling] =
       useSubmitWithErrorHandling({
         onSubmit,
         onResetState,
@@ -492,20 +496,19 @@ export const Composer = withCord<React.PropsWithChildren<ComposerProps>>(
       });
 
     const failSubmitMessageExtraChildren = useMemo(() => {
-      return [
-        {
-          name: 'failSubmitMessage',
-          element: <SendMessageError canBeReplaced />,
-        },
-      ];
-    }, []);
+      return restoreMessage
+        ? [
+            {
+              name: 'failSubmitMessage',
+              element: <SendMessageError restoreMessage={restoreMessage} />,
+            },
+          ]
+        : [];
+    }, [restoreMessage]);
 
     const extraChildrenWithDefault = useMemo(
-      () => [
-        ...(extraChildren ?? []),
-        ...(submitStatus === 'error' ? failSubmitMessageExtraChildren : []),
-      ],
-      [extraChildren, submitStatus, failSubmitMessageExtraChildren],
+      () => [...(extraChildren ?? []), ...failSubmitMessageExtraChildren],
+      [extraChildren, failSubmitMessageExtraChildren],
     );
 
     useEffect(() => {
@@ -701,49 +704,38 @@ const BaseComposer = forwardRef(function BaseComposer(
 });
 
 /**
- * We're either _ready_ to send a message, _pending_ acknowledgement from the
- * server, or there has been an _error_.
- */
-type SubmitStatus = 'error' | 'ready' | 'pending';
-/**
- * Prevent sending messages if the last one is still _pending_,
- * and invoke the error callback if submitting failed.
+ * Clear the editor state and send the message, returning a message restoration
+ * function and calling the error handler if there's an error.
  */
 function useSubmitWithErrorHandling({
   onSubmit,
   onResetState,
   onFailSubmit,
 }: Pick<ComposerProps, 'onSubmit' | 'onResetState' | 'onFailSubmit'>): [
-  SubmitStatus,
+  (() => void) | undefined,
   (message: Partial<ClientMessageData>) => void,
 ] {
-  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('ready');
+  const [restoreMessage, setRestoreMessage] = useState<() => void>();
 
   const onSubmitWithErrorHandling = useCallback(
-    (message: Partial<ClientMessageData>) => {
-      if (submitStatus === 'pending') {
-        return;
+    async (message: Partial<ClientMessageData>) => {
+      const previous = onResetState();
+      try {
+        await onSubmit({ message });
+      } catch (err) {
+        setRestoreMessage(() => () => {
+          onResetState(previous);
+          setRestoreMessage(undefined);
+        });
+        if (onFailSubmit) {
+          onFailSubmit(err);
+        } else {
+          console.error('Failed to send message:', err);
+        }
       }
-      setSubmitStatus('pending');
-      onSubmit({
-        message,
-      }).then(
-        () => {
-          onResetState();
-          setSubmitStatus('ready');
-        },
-        (err) => {
-          setSubmitStatus('error');
-          if (onFailSubmit) {
-            onFailSubmit(err);
-          } else {
-            console.error('Failed to send message:', err);
-          }
-        },
-      );
     },
-    [onFailSubmit, onResetState, onSubmit, submitStatus],
+    [onFailSubmit, onResetState, onSubmit],
   );
 
-  return [submitStatus, onSubmitWithErrorHandling];
+  return [restoreMessage, onSubmitWithErrorHandling];
 }

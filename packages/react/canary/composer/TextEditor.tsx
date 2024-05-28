@@ -139,14 +139,16 @@ export function useTextEditor(props: UseTextEditorProps) {
   );
 
   const resetEditor = useCallback(
-    (newValue?: MessageContent) => {
+    (newValue?: MessageContent): MessageContent => {
       const point = { path: [0, 0], offset: 0 };
+      const previous = editor.children;
       editor.selection = { anchor: point, focus: point };
       editor.history = { redos: [], undos: [] };
       editor.children = newValue?.length
         ? newValue
         : createComposerEmptyValue();
       editor.onChange();
+      return previous;
     },
     [editor],
   );

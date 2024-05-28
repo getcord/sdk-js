@@ -51,6 +51,7 @@ export function useAttachments(initialAttachments?: MessageFileAttachment[]) {
 
   const resetAttachments = useCallback(() => {
     setAttachments(initialAttachments ?? []);
+    return undefined;
   }, [initialAttachments]);
 
   return {

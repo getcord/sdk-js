@@ -44,6 +44,11 @@ globalStyle(`.${composerErrorMessage}`, {
   fontSize: '12px',
 });
 
+globalStyle(`.${composerErrorMessage} a`, {
+  color: 'inherit',
+  textDecoration: 'underline',
+});
+
 globalStyle(`.${composerContainer}:focus-within`, {
   border: cssVar('composer-border--focus'),
   boxShadow: cssVar('shadow-focus'),

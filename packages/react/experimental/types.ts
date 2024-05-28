@@ -148,7 +148,7 @@ export interface ComposerProps extends StyleProps, MandatoryReplaceableProps {
     event: React.KeyboardEvent;
   }) => boolean | undefined | void;
   onCancel?: () => void;
-  onResetState: () => void;
+  onResetState: (newValue?: MessageContent) => MessageContent | undefined;
   onPaste: (e: { event: React.ClipboardEvent }) => void;
   initialValue?: Partial<ClientMessageData>;
   value: Partial<Omit<ClientMessageData, 'content'>>;
