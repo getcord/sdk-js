@@ -61,7 +61,6 @@ export const ThreadsLayout = withCord<
         ),
       [footerChildren],
     );
-
     return (
       <div {...restProps} ref={ref}>
         {header}
