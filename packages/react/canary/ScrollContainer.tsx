@@ -14,9 +14,20 @@ import * as classes from './ScrollContainer.css.js';
 
 const SCROLL_THRESHOLD_PX = 16;
 
-type Edge = 'top' | 'bottom' | 'none';
-type AutoScrollToNewest = 'auto' | 'always' | 'never';
-type AutoScrollDirection = 'top' | 'bottom';
+export type Edge = 'top' | 'bottom' | 'none';
+export type AutoScrollToNewest = 'auto' | 'always' | 'never';
+export type AutoScrollDirection = 'top' | 'bottom';
+
+/**
+ * Data provided to the onScroll callback.
+ */
+export interface ScrollPositionData {
+  /**
+   *  The edge of the scroll container when the scroll event was triggered.
+   */
+  edge: Edge;
+}
+
 export type ScrollContainerProps = React.PropsWithChildren<{
   /**
    * The scroll container can auto scroll when new children are added.
@@ -35,12 +46,25 @@ export type ScrollContainerProps = React.PropsWithChildren<{
    * @default "auto"
    */
   autoScrollToNewest?: AutoScrollToNewest;
-  onScrollToEdge?: (edge: Edge) => void;
   /**
    * Triggered when the children's height gets bigger
    * than the scroll container height.
    */
   onOverflowChange?: (hasOverflow: boolean) => void;
+  /**
+   * Callback triggered when the scroll container reaches an edge.
+   * @param edge The edge of the scroll container when the scroll event was triggered.
+   */
+  onScrollToEdge?: (edge: Edge) => void;
+  /**
+   * Callback triggered when the scroll container is scrolled.
+   * @param e The scroll event.
+   * @param scrollData Data about the scroll position.
+   */
+  onScroll?: (
+    e: React.UIEvent<HTMLElement>,
+    scrollData: ScrollPositionData,
+  ) => void;
 }> &
   StyleProps &
   MandatoryReplaceableProps;
@@ -52,6 +76,7 @@ export const ScrollContainer = withCord<ScrollContainerProps>(
       children,
       autoScrollDirection = 'bottom',
       autoScrollToNewest = 'auto',
+      onScroll,
       onScrollToEdge,
       onOverflowChange,
       ...rest
@@ -64,25 +89,34 @@ export const ScrollContainer = withCord<ScrollContainerProps>(
     const canScrollRef = useRef(false);
 
     // On scroll, check if we're at an edge.
-    const handleScroll = useCallback(() => {
-      if (!containerRef.current) {
-        return;
-      }
+    const handleScroll = useCallback(
+      (e: React.UIEvent<HTMLElement>) => {
+        if (!containerRef.current) {
+          return;
+        }
 
-      const { current } = containerRef;
-      const canScroll = checkCanScroll(current);
-      if (!canScroll) {
-        return;
-      }
+        const { current } = containerRef;
 
-      const maybeEdge = getScrollEdge(current);
-      const hasScrolledToNewEdge =
-        maybeEdge !== 'none' && maybeEdge !== edgeRef.current;
-      if (hasScrolledToNewEdge) {
-        onScrollToEdge?.(maybeEdge);
-      }
-      edgeRef.current = maybeEdge;
-    }, [onScrollToEdge]);
+        const maybeEdge = getScrollEdge(current);
+        onScroll?.(e, {
+          edge: maybeEdge,
+        });
+
+        const canScroll = checkCanScroll(current);
+        if (!canScroll) {
+          return;
+        }
+
+        const hasScrolledToNewEdge =
+          maybeEdge !== 'none' && maybeEdge !== edgeRef.current;
+        if (hasScrolledToNewEdge) {
+          onScrollToEdge?.(maybeEdge);
+        }
+        edgeRef.current = maybeEdge;
+      },
+      [onScroll, onScrollToEdge],
+    );
+
     const debouncedHandleScroll = useMemo(
       () => debounce(50, handleScroll),
       [handleScroll],
