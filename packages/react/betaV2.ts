@@ -138,6 +138,10 @@ export {
 export {
   ScrollContainer,
   type ScrollContainerProps,
+  type ScrollPositionData,
+  type Edge,
+  type AutoScrollToNewest,
+  type AutoScrollDirection,
 } from './canary/ScrollContainer.js';
 export {
   SendButton,
