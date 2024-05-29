@@ -67,7 +67,7 @@ async function packageBuildConfig(packageName, options = {}) {
         replaceRE({
           patterns: [
             {
-              test: /import.*vanilla.*;/,
+              test: /import.*vanilla.*;/g,
               replace: '// Removed css;',
             },
           ],
