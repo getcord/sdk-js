@@ -47,11 +47,6 @@ export type ScrollContainerProps = React.PropsWithChildren<{
    */
   autoScrollToNewest?: AutoScrollToNewest;
   /**
-   * Triggered when the children's height gets bigger
-   * than the scroll container height.
-   */
-  onOverflowChange?: (hasOverflow: boolean) => void;
-  /**
    * Callback triggered when the scroll container reaches an edge.
    * @param edge The edge of the scroll container when the scroll event was triggered.
    */
@@ -65,6 +60,13 @@ export type ScrollContainerProps = React.PropsWithChildren<{
     e: React.UIEvent<HTMLElement>,
     scrollData: ScrollPositionData,
   ) => void;
+  /**
+   * Callback triggered when the contents of the scroll container change in size.
+   * This can be because children were added/removed, or because a child changed in
+   * size (e.g. an image attachment has loaded).
+   * @param hasOverflow true when the content size exceeds the scroll container size.
+   */
+  onContentSizeChange?: (hasOverflow: boolean) => void;
 }> &
   StyleProps &
   MandatoryReplaceableProps;
@@ -78,7 +80,7 @@ export const ScrollContainer = withCord<ScrollContainerProps>(
       autoScrollToNewest = 'auto',
       onScroll,
       onScrollToEdge,
-      onOverflowChange,
+      onContentSizeChange,
       ...rest
     }: ScrollContainerProps,
     ref?: React.ForwardedRef<HTMLDivElement>,
@@ -86,7 +88,6 @@ export const ScrollContainer = withCord<ScrollContainerProps>(
     const containerRef = useRef<HTMLDivElement | null>(null);
     const combinedRefs = useComposedRefs<HTMLDivElement>(ref, containerRef);
     const edgeRef = useRef<Edge>(autoScrollDirection);
-    const canScrollRef = useRef(false);
 
     // On scroll, check if we're at an edge.
     const handleScroll = useCallback(
@@ -122,17 +123,12 @@ export const ScrollContainer = withCord<ScrollContainerProps>(
       [handleScroll],
     );
 
-    const handleOverflow = useCallback(() => {
+    const handleContentSizeChange = useCallback(() => {
       if (!containerRef.current) {
         return;
       }
-      const canScroll = checkCanScroll(containerRef.current);
-      const overflowChanged = canScroll !== canScrollRef.current;
-      if (overflowChanged) {
-        onOverflowChange?.(canScroll);
-      }
-      canScrollRef.current = canScroll;
-    }, [onOverflowChange]);
+      onContentSizeChange?.(checkCanScroll(containerRef.current));
+    }, [onContentSizeChange]);
 
     const handleAutoScroll = useCallback(() => {
       if (!containerRef.current || autoScrollToNewest === 'never') {
@@ -155,9 +151,9 @@ export const ScrollContainer = withCord<ScrollContainerProps>(
     // When children are added/removed, handle both overflow changes and
     // auto-scroll.
     const handleChildListMutation = useCallback(() => {
-      handleOverflow();
+      handleContentSizeChange();
       handleAutoScroll();
-    }, [handleAutoScroll, handleOverflow]);
+    }, [handleAutoScroll, handleContentSizeChange]);
     useMutationObserver(containerRef.current, handleChildListMutation, {
       childList: true,
     });

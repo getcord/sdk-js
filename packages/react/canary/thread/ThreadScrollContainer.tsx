@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import type { FetchMoreCallback } from '@cord-sdk/types';
 import { ScrollContainer } from '../ScrollContainer.js';
 
@@ -13,13 +13,15 @@ export type ThreadScrollContainerProps = React.PropsWithChildren<{
 export const ThreadScrollContainer = (props: ThreadScrollContainerProps) => {
   const { fetchMore, threadLoading, hasMore, children } = props;
 
-  const [shouldFetch, setShouldFetch] = useState(true);
-
-  useEffect(() => {
-    if (shouldFetch && !threadLoading && hasMore) {
-      void fetchMore?.(NUMBER_OF_MESSAGES_TO_FETCH);
-    }
-  }, [fetchMore, shouldFetch, threadLoading, hasMore]);
+  // Fill up the available space with threads. We'll load more on scroll.
+  const fetchUntilFilled = useCallback(
+    (hasOverflow: boolean) => {
+      if (!hasOverflow && !threadLoading && hasMore) {
+        void fetchMore?.(NUMBER_OF_MESSAGES_TO_FETCH);
+      }
+    },
+    [fetchMore, hasMore, threadLoading],
+  );
 
   return (
     <ScrollContainer
@@ -29,9 +31,7 @@ export const ThreadScrollContainer = (props: ThreadScrollContainerProps) => {
           void fetchMore?.(NUMBER_OF_MESSAGES_TO_FETCH);
         }
       }}
-      onOverflowChange={(hasOverflow) => {
-        setShouldFetch(!hasOverflow);
-      }}
+      onContentSizeChange={fetchUntilFilled}
     >
       {children}
     </ScrollContainer>
