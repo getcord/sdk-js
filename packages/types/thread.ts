@@ -659,11 +659,34 @@ export interface ClientCreateMessage
    * attached to the same message multiple times.
    */
   addAttachments?: CreateAttachment[];
+  /**
+   * Whether to capture and attach a screenshot to the message.  The screenshot
+   * will appear as a `MessageScreenshotAttachment` in the message's
+   * [`attachments`](https://docs.cord.com/js-apis-and-hooks/thread-api/observeMessage#attachments)
+   * and may be used in other situations, such as to provide context to
+   * notification emails.
+   *
+   * Whether the sent message includes a screenshot is determined entirely by
+   * this property, and is independent of the `capture_when` setting in the [SDK
+   * initialization
+   * settings](https://docs.cord.com/js-apis-and-hooks/initialization).
+   *
+   * Taking a screenshot is a potentially-slow process, depending on the
+   * contents of the page, so it's done asynchronously in the background after
+   * the message is sent.  If the user closes the page or navigates away after
+   * the message has been sent but before the screenshot is uploaded, the
+   * screenshot data may be lost.  In this case, the screenshot attachment will
+   * end up with a status of `cancelled`.
+   */
+  addScreenshot?: boolean;
 }
 
 export interface ClientUpdateMessage
   extends Partial<
-    Omit<ClientCreateMessage, 'id' | 'createThread' | 'subscribeToThread'>
+    Omit<
+      ClientCreateMessage,
+      'id' | 'createThread' | 'subscribeToThread' | 'addScreenshot'
+    >
   > {
   /**
    * Whether to change the deleted status of this message.

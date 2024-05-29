@@ -26,7 +26,8 @@ export interface UploadedFile {
    * The status of the file upload.  `uploading` means that the user has not yet
    * completed uploading the file, `uploaded` means the file is successfully
    * uploaded, `failed` means the upload encountered an error, and `cancelled`
-   * means the user cancelled the upload before it was finished.
+   * means the user cancelled the upload before it was finished or the upload
+   * timed out.
    */
   uploadStatus: 'uploading' | 'uploaded' | 'failed' | 'cancelled';
 }
